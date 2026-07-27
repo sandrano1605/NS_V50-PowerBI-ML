@@ -135,3 +135,4 @@ table ML_Auditoria_Target_Score
 	annotation PBI_NavigationStepName = Navegación
 
 	annotation PBI_ResultType = Table
+

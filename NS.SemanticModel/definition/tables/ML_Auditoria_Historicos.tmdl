@@ -76,3 +76,4 @@ table ML_Auditoria_Historicos
 	annotation PBI_NavigationStepName = Navegación
 
 	annotation PBI_ResultType = Table
+

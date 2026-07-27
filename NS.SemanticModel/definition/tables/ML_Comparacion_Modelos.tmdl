@@ -99,3 +99,4 @@ table ML_Comparacion_Modelos
 	annotation PBI_NavigationStepName = Navegación
 
 	annotation PBI_ResultType = Table
+

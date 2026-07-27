@@ -381,3 +381,4 @@ table ML_Pedidos_Pendientes_Priorizados
 	annotation PBI_NavigationStepName = Navegación
 
 	annotation PBI_ResultType = Table
+

@@ -55,3 +55,4 @@ table Config_Niveles_Intervencion
 	annotation PBI_NavigationStepName = Navegación
 
 	annotation PBI_ResultType = Table
+

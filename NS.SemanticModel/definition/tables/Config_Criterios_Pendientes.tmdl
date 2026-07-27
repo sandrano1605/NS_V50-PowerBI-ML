@@ -64,3 +64,4 @@ table Config_Criterios_Pendientes
 	annotation PBI_NavigationStepName = Navegación
 
 	annotation PBI_ResultType = Table
+

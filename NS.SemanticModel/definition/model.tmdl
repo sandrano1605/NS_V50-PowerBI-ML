@@ -21,6 +21,7 @@ ref table Dim_Hito
 ref table Dim_Fecha
 ref table Dim_Periodo_3M
 ref table Dim_Mes_Trend
+ref table Dim_Cliente
 ref table Dim_Canal
 ref table Dim_Responsable
 ref table Dim_Condicion_Expedicion
@@ -56,3 +57,4 @@ ref table Config_Tramos_Intervencion_Diaria
 ref table ML_Cola_Intervencion_Diaria
 
 ref cultureInfo es-ES
+

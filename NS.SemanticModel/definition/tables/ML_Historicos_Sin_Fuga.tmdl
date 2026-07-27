@@ -188,3 +188,4 @@ table ML_Historicos_Sin_Fuga
 	annotation PBI_NavigationStepName = Navegación
 
 	annotation PBI_ResultType = Table
+

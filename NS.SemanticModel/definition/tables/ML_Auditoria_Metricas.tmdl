@@ -180,3 +180,4 @@ table ML_Auditoria_Metricas
 	annotation PBI_NavigationStepName = Navegación
 
 	annotation PBI_ResultType = Table
+
