@@ -1,0 +1,429 @@
+/// Cola de intervención V2. Separa estado SLA de prioridad relativa para discriminar pedidos vencidos.
+table ML_Pedidos_Pendientes_Intervencion
+	lineageTag: dc25a984-0ce0-428e-bb3c-e150d55730da
+
+	measure 'Pendientes P1 Crítica' = CALCULATE(COUNTROWS(ML_Pedidos_Pendientes_Intervencion), ML_Pedidos_Pendientes_Intervencion[PRIORIDAD_INTERVENCION] = "P1 · CRÍTICA")
+		formatString: #,0
+		displayFolder: 05. Pedidos Pendientes V2\Prioridad
+		lineageTag: 125143b3-49ee-450c-ad6e-489c4a08cf44
+
+	measure 'Pendientes P2 Alta' = CALCULATE(COUNTROWS(ML_Pedidos_Pendientes_Intervencion), ML_Pedidos_Pendientes_Intervencion[PRIORIDAD_INTERVENCION] = "P2 · ALTA")
+		formatString: #,0
+		displayFolder: 05. Pedidos Pendientes V2\Prioridad
+		lineageTag: 174843e0-8e58-4c74-b3bb-67ab1b69aa0a
+
+	measure 'Pendientes P3 Media' = CALCULATE(COUNTROWS(ML_Pedidos_Pendientes_Intervencion), ML_Pedidos_Pendientes_Intervencion[PRIORIDAD_INTERVENCION] = "P3 · MEDIA")
+		formatString: #,0
+		displayFolder: 05. Pedidos Pendientes V2\Prioridad
+		lineageTag: c712d6a5-77b0-42cc-9726-6552d2130bcf
+
+	measure 'Pendientes P4 Baja' = CALCULATE(COUNTROWS(ML_Pedidos_Pendientes_Intervencion), ML_Pedidos_Pendientes_Intervencion[PRIORIDAD_INTERVENCION] = "P4 · BAJA")
+		formatString: #,0
+		displayFolder: 05. Pedidos Pendientes V2\Prioridad
+		lineageTag: d3d8644a-f9d6-49b3-b2af-54baf4d39753
+
+	measure 'Valor P1 y P2' = CALCULATE(SUM(ML_Pedidos_Pendientes_Intervencion[VALOR_NETO]), ML_Pedidos_Pendientes_Intervencion[PRIORIDAD_INTERVENCION] IN {"P1 · CRÍTICA", "P2 · ALTA"})
+		formatString: "CLP $" #,0;-"CLP $" #,0;"CLP $" 0
+		displayFolder: 05. Pedidos Pendientes V2\Impacto
+		lineageTag: f787ef29-7b60-42c5-95b5-5c30f8a26b15
+
+	measure 'Exceso SLA Promedio' = AVERAGE(ML_Pedidos_Pendientes_Intervencion[EXCESO_SLA_DH])
+		formatString: 0.0
+		displayFolder: 05. Pedidos Pendientes V2\SLA
+		lineageTag: e611ce85-fe06-4546-a667-9a8b4da4b5bf
+
+	measure 'Exceso SLA Máximo' = MAX(ML_Pedidos_Pendientes_Intervencion[EXCESO_SLA_DH])
+		formatString: 0.0
+		displayFolder: 05. Pedidos Pendientes V2\SLA
+		lineageTag: 67dce2d6-d771-4f0a-8fa7-abf8b9047888
+
+	measure 'Pendientes Top 10' = CALCULATE(COUNTROWS(ML_Pedidos_Pendientes_Intervencion), ML_Pedidos_Pendientes_Intervencion[TRAMO_RANKING] = "TOP 10")
+		formatString: #,0
+		displayFolder: 05. Pedidos Pendientes V2\Ranking
+		lineageTag: 80ea6858-13ed-4f17-a538-2b0b7713daee
+
+	measure 'Pendientes Vencido Severo' = CALCULATE(COUNTROWS(ML_Pedidos_Pendientes_Intervencion), ML_Pedidos_Pendientes_Intervencion[SEVERIDAD_SLA] IN {"VENCIDO EXTREMO", "VENCIDO SEVERO"})
+		formatString: #,0
+		displayFolder: 05. Pedidos Pendientes V2\SLA
+		lineageTag: 1d77789e-16c7-4c24-aea0-dd33c6b63b1f
+
+	column RANK_INTERVENCION
+		dataType: int64
+		formatString: 0
+		lineageTag: 69b1a75a-e3fe-4700-b716-9cf8231d2d20
+		summarizeBy: none
+		sourceColumn: RANK_INTERVENCION
+
+	column TRAMO_RANKING
+		dataType: string
+		lineageTag: 7b8f0a0d-5365-45cf-8601-af0420362c14
+		summarizeBy: none
+		sourceColumn: TRAMO_RANKING
+
+	column PRIORIDAD_INTERVENCION
+		dataType: string
+		lineageTag: 83dbef53-f90f-49da-888d-41d164043db0
+		summarizeBy: none
+		sourceColumn: PRIORIDAD_INTERVENCION
+
+	column ORDEN_INTERVENCION
+		dataType: int64
+		formatString: 0
+		lineageTag: 8baa3e33-4aee-45f2-9965-611878a6db3f
+		summarizeBy: none
+		sourceColumn: ORDEN_INTERVENCION
+
+	column ESTADO_ACCION_V2
+		dataType: string
+		lineageTag: e17ba944-2c6c-46a1-9c9c-5c6f0c3799dd
+		summarizeBy: none
+		sourceColumn: ESTADO_ACCION_V2
+
+	column ESTADO_SLA_OPERATIVO
+		dataType: string
+		lineageTag: a9f6150b-8e79-464a-986c-f3a5c0666359
+		summarizeBy: none
+		sourceColumn: ESTADO_SLA_OPERATIVO
+
+	column SEVERIDAD_SLA
+		dataType: string
+		lineageTag: 58ced60e-27c8-48d1-9c11-31e9cbe85aea
+		summarizeBy: none
+		sourceColumn: SEVERIDAD_SLA
+
+	column EXCESO_SLA_DH
+		dataType: double
+		formatString: 0.0
+		lineageTag: 7853ff1c-c3a3-42bc-86f0-428d969de997
+		summarizeBy: average
+		sourceColumn: EXCESO_SLA_DH
+
+	column SCORE_INTERVENCION
+		dataType: int64
+		formatString: 0
+		lineageTag: 1662e2e7-b4d2-43ac-aa23-69a3c8caf6df
+		summarizeBy: average
+		sourceColumn: SCORE_INTERVENCION
+
+	column PUNTOS_EXCESO_SLA
+		dataType: int64
+		formatString: 0
+		lineageTag: f7e1d5e8-a8d5-4730-b7a1-32d7f90e87f3
+		summarizeBy: sum
+		sourceColumn: PUNTOS_EXCESO_SLA
+
+	column MOTIVO_PRINCIPAL_INTERVENCION
+		dataType: string
+		lineageTag: c133d567-2126-4f98-8870-297168ecdcf1
+		summarizeBy: none
+		sourceColumn: MOTIVO_PRINCIPAL_INTERVENCION
+
+	column ACCION_INTERVENCION
+		dataType: string
+		lineageTag: 06bb82f6-e683-4cf6-9707-a971d053841c
+		summarizeBy: none
+		sourceColumn: ACCION_INTERVENCION
+
+	column PED_NUMERO_PEDIDO
+		dataType: string
+		lineageTag: 122e39de-e224-40e8-abed-6df0830048fe
+		summarizeBy: none
+		sourceColumn: PED_NUMERO_PEDIDO
+
+	column PED_FECHA
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: c75903c4-8fa1-4ab6-8953-2f72ddcaa5f3
+		summarizeBy: none
+		sourceColumn: PED_FECHA
+
+	column CLIENTE
+		dataType: string
+		lineageTag: f8a06701-0eb5-4c2e-bd53-f62cc41c66c5
+		summarizeBy: none
+		sourceColumn: CLIENTE
+
+	column VENDEDOR
+		dataType: string
+		lineageTag: 456d4aab-969d-4f6c-bcf0-b3bb5afc5f42
+		summarizeBy: none
+		sourceColumn: VENDEDOR
+
+	column PED_CANAL
+		dataType: string
+		lineageTag: 9740769d-fad5-4de2-906f-2d3f1e83f5f9
+		summarizeBy: none
+		sourceColumn: PED_CANAL
+
+	column PED_REGION
+		dataType: string
+		lineageTag: 804dce05-190c-4a54-8f25-412092c02250
+		summarizeBy: none
+		sourceColumn: PED_REGION
+
+	column ZONA
+		dataType: string
+		lineageTag: c8500aab-eb2f-4f09-ba8b-dca22cc794d1
+		summarizeBy: none
+		sourceColumn: ZONA
+
+	column VALOR_NETO
+		dataType: double
+		formatString: "CLP $" #,0;-"CLP $" #,0;"CLP $" 0
+		lineageTag: 15399d46-a1d2-44fd-a8e1-01255fbd51f7
+		summarizeBy: sum
+		sourceColumn: VALOR_NETO
+
+	column ESTADO_ACTUAL
+		dataType: string
+		lineageTag: 3e42ac58-337d-4eda-8a0b-eefa8dcd30a9
+		summarizeBy: none
+		sourceColumn: ESTADO_ACTUAL
+
+	column HITO_ACTUAL
+		dataType: string
+		lineageTag: a4f2c91e-18df-410d-a367-05ff8ccf1e0a
+		summarizeBy: none
+		sourceColumn: HITO_ACTUAL
+
+	column RESPONSABLE_AREA
+		dataType: string
+		lineageTag: b33a21b9-d884-41cf-aa37-151ffdfae3e3
+		summarizeBy: none
+		sourceColumn: RESPONSABLE_AREA
+
+	column DIAS_ACTUALES_DH
+		dataType: double
+		formatString: 0.0
+		lineageTag: 6b133903-a62f-42df-ba07-3cf8ebdda20b
+		summarizeBy: average
+		sourceColumn: DIAS_ACTUALES_DH
+
+	column DIAS_EN_ESTADO_DH
+		dataType: double
+		formatString: 0.0
+		lineageTag: c5309c45-3bd7-41e4-9709-096e68fc2cd2
+		summarizeBy: average
+		sourceColumn: DIAS_EN_ESTADO_DH
+
+	column PROB_ML_ATRASO_NORM
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 02f0b9ca-6137-46d6-b2d5-de9be3b2ce21
+		summarizeBy: average
+		sourceColumn: PROB_ML_ATRASO_NORM
+
+	column RIESGO_ML_ETIQUETA
+		dataType: string
+		lineageTag: 84ddb61d-4c64-43e1-b7ae-408784379635
+		summarizeBy: none
+		sourceColumn: RIESGO_ML_ETIQUETA
+
+	column HIST_CLIENTE_RIESGO
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 3c75c631-7e7c-47e4-8d5c-d219f8a9b368
+		summarizeBy: average
+		sourceColumn: HIST_CLIENTE_RIESGO
+
+	column HIST_VENDEDOR_RIESGO
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 1bd04869-df75-465a-9da0-8739b6a105a7
+		summarizeBy: average
+		sourceColumn: HIST_VENDEDOR_RIESGO
+
+	column HIST_CANAL_RIESGO
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 4ce2f116-a456-45b8-824f-af3eeee09997
+		summarizeBy: average
+		sourceColumn: HIST_CANAL_RIESGO
+
+	column RIESGO_HISTORICO_MAX
+		dataType: double
+		formatString: 0.0%
+		lineageTag: cdb1ba6f-700d-4d5e-b0fb-945dbf3f01ca
+		summarizeBy: average
+		sourceColumn: RIESGO_HISTORICO_MAX
+
+	column HIST_SOPORTE_MIN
+		dataType: int64
+		formatString: 0
+		lineageTag: ca9995bf-fb78-4340-a88c-0752c08d6837
+		summarizeBy: average
+		sourceColumn: HIST_SOPORTE_MIN
+
+	column SLA_CONSUMIDO_PCT
+		dataType: double
+		formatString: 0.0%
+		lineageTag: e93a19a9-bd51-4e33-8773-2359cf88aaa3
+		summarizeBy: average
+		sourceColumn: SLA_CONSUMIDO_PCT
+
+	column CRITERIOS_ACTIVOS
+		dataType: string
+		lineageTag: ac9dc7da-9d28-4db6-aeb1-17d5fd4904bb
+		summarizeBy: none
+		sourceColumn: CRITERIOS_ACTIVOS
+
+	column FOCO_INTERVENCION
+		dataType: string
+		lineageTag: 22ba1a84-f940-4516-ae07-a2e28b84af29
+		summarizeBy: none
+		sourceColumn: FOCO_INTERVENCION
+
+	column PUNTOS_RIESGO_ML
+		dataType: int64
+		formatString: 0
+		lineageTag: 26748a1c-f66b-4c67-b78c-1c4e7e16cd1b
+		summarizeBy: sum
+		sourceColumn: PUNTOS_RIESGO_ML
+
+	column PUNTOS_PERMANENCIA
+		dataType: int64
+		formatString: 0
+		lineageTag: 7849fbdb-788e-4373-9c9a-d0eaf9175e83
+		summarizeBy: sum
+		sourceColumn: PUNTOS_PERMANENCIA
+
+	column PUNTOS_VALOR
+		dataType: int64
+		formatString: 0
+		lineageTag: a40a5688-8ebd-40bb-847a-8ea660724be5
+		summarizeBy: sum
+		sourceColumn: PUNTOS_VALOR
+
+	column PUNTOS_HISTORICO
+		dataType: int64
+		formatString: 0
+		lineageTag: b80bd281-36f9-4331-a3e4-cf73e0577593
+		summarizeBy: sum
+		sourceColumn: PUNTOS_HISTORICO
+
+	column PUNTOS_FIN_MES
+		dataType: int64
+		formatString: 0
+		lineageTag: 7246a859-9380-4b32-ba05-105c38318882
+		summarizeBy: sum
+		sourceColumn: PUNTOS_FIN_MES
+
+	column USO_DH_PREDICHO
+		dataType: string
+		lineageTag: 2861a958-96d8-4568-ab63-0684933c378b
+		summarizeBy: none
+		sourceColumn: USO_DH_PREDICHO
+
+	partition ML_Pedidos_Pendientes_Intervencion = m
+		mode: import
+		source =
+				let
+				    CamposBase = {
+				        "PED_NUMERO_PEDIDO", "PED_FECHA", "CLIENTE", "VENDEDOR", "PED_CANAL", "PED_REGION", "ZONA",
+				        "VALOR_NETO", "ESTADO_ACTUAL", "HITO_ACTUAL", "RESPONSABLE_AREA", "DIAS_ACTUALES_DH",
+				        "DIAS_EN_ESTADO_DH", "PROB_ML_ATRASO_NORM", "RIESGO_ML_ETIQUETA",
+				        "HIST_CLIENTE_RIESGO", "HIST_VENDEDOR_RIESGO", "HIST_CANAL_RIESGO",
+				        "RIESGO_HISTORICO_MAX", "HIST_SOPORTE_MIN", "SLA_CONSUMIDO_PCT",
+				        "CRITERIOS_ACTIVOS", "FOCO_INTERVENCION", "PUNTOS_RIESGO_ML",
+				        "PUNTOS_PERMANENCIA", "PUNTOS_VALOR", "PUNTOS_HISTORICO", "PUNTOS_FIN_MES",
+				        "USO_DH_PREDICHO"
+				    },
+				    Base = Table.SelectColumns(ML_Pedidos_Pendientes_Priorizados, CamposBase, MissingField.UseNull),
+				    ConExceso = Table.AddColumn(Base, "EXCESO_SLA_DH", each if [DIAS_ACTUALES_DH] - 5 > 0 then [DIAS_ACTUALES_DH] - 5 else 0, type number),
+				    ConEstadoSLA = Table.AddColumn(ConExceso, "ESTADO_SLA_OPERATIVO", each
+				        if [EXCESO_SLA_DH] > 0 then "FUERA SLA"
+				        else if [DIAS_ACTUALES_DH] >= 4 then "PRÓXIMO A VENCER"
+				        else "EN SLA", type text),
+				    ConSeveridad = Table.AddColumn(ConEstadoSLA, "SEVERIDAD_SLA", each
+				        if [EXCESO_SLA_DH] >= 10 then "VENCIDO EXTREMO"
+				        else if [EXCESO_SLA_DH] >= 6 then "VENCIDO SEVERO"
+				        else if [EXCESO_SLA_DH] >= 3 then "VENCIDO ALTO"
+				        else if [EXCESO_SLA_DH] > 0 then "VENCIDO RECIENTE"
+				        else if [DIAS_ACTUALES_DH] >= 4 then "PRÓXIMO SLA"
+				        else "EN PLAZO", type text),
+				    ConPuntosExceso = Table.AddColumn(ConSeveridad, "PUNTOS_EXCESO_SLA", each
+				        if [EXCESO_SLA_DH] >= 10 then 40
+				        else if [EXCESO_SLA_DH] >= 6 then 32
+				        else if [EXCESO_SLA_DH] >= 3 then 25
+				        else if [EXCESO_SLA_DH] > 0 then 18
+				        else if [DIAS_ACTUALES_DH] >= 4 then 12
+				        else if [DIAS_ACTUALES_DH] >= 3 then 8
+				        else 0, Int64.Type),
+				    ConScore = Table.AddColumn(ConPuntosExceso, "SCORE_INTERVENCION", each
+				        let
+				            total = [PUNTOS_EXCESO_SLA] + [PUNTOS_RIESGO_ML] + [PUNTOS_PERMANENCIA] +
+				                [PUNTOS_VALOR] + [PUNTOS_HISTORICO] + [PUNTOS_FIN_MES]
+				        in
+				            Int64.From(if total > 100 then 100 else total), Int64.Type),
+				    ConPrioridad = Table.AddColumn(ConScore, "PRIORIDAD_INTERVENCION", each
+				        if [SCORE_INTERVENCION] >= 75 or [EXCESO_SLA_DH] >= 10 or [DIAS_EN_ESTADO_DH] >= 5 then "P1 · CRÍTICA"
+				        else if [SCORE_INTERVENCION] >= 55 or [EXCESO_SLA_DH] >= 6 or [DIAS_EN_ESTADO_DH] >= 3 then "P2 · ALTA"
+				        else if [SCORE_INTERVENCION] >= 35 or [EXCESO_SLA_DH] > 0 then "P3 · MEDIA"
+				        else "P4 · BAJA", type text),
+				    ConOrden = Table.AddColumn(ConPrioridad, "ORDEN_INTERVENCION", each
+				        if [PRIORIDAD_INTERVENCION] = "P1 · CRÍTICA" then 1
+				        else if [PRIORIDAD_INTERVENCION] = "P2 · ALTA" then 2
+				        else if [PRIORIDAD_INTERVENCION] = "P3 · MEDIA" then 3
+				        else 4, Int64.Type),
+				    ConMotivo = Table.AddColumn(ConOrden, "MOTIVO_PRINCIPAL_INTERVENCION", each
+				        if [EXCESO_SLA_DH] >= 10 then "Atraso extremo sobre SLA"
+				        else if [DIAS_EN_ESTADO_DH] >= 5 then "Hito detenido por 5 DH o más"
+				        else if [EXCESO_SLA_DH] >= 6 then "Atraso severo sobre SLA"
+				        else if [PROB_ML_ATRASO_NORM] <> null and [PROB_ML_ATRASO_NORM] >= 0.20 then "Riesgo ML alto"
+				        else if [VALOR_NETO] >= 5000000 then "Alta exposición económica"
+				        else if [RIESGO_HISTORICO_MAX] >= 0.20 and [HIST_SOPORTE_MIN] > 0 then "Patrón histórico alto"
+				        else if [EXCESO_SLA_DH] > 0 then "SLA vencido reciente"
+				        else if [DIAS_EN_ESTADO_DH] >= 2 then "Permanencia en hito"
+				        else "Seguimiento preventivo", type text),
+				    ConEstadoAccion = Table.AddColumn(ConMotivo, "ESTADO_ACCION_V2", each
+				        if [PRIORIDAD_INTERVENCION] = "P1 · CRÍTICA" then "INTERVENIR HOY"
+				        else if [PRIORIDAD_INTERVENCION] = "P2 · ALTA" then "REVISAR HOY"
+				        else if [PRIORIDAD_INTERVENCION] = "P3 · MEDIA" then "PLAN 24 HORAS"
+				        else "MONITOREAR", type text),
+				    ConAccion = Table.AddColumn(ConEstadoAccion, "ACCION_INTERVENCION", each
+				        let foco = if [FOCO_INTERVENCION] = null or Text.Trim([FOCO_INTERVENCION]) = "" then "área responsable" else [FOCO_INTERVENCION]
+				        in
+				            if [PRIORIDAD_INTERVENCION] = "P1 · CRÍTICA" then "Escalar hoy a " & foco & "; confirmar causa, responsable y hora de liberación"
+				            else if [PRIORIDAD_INTERVENCION] = "P2 · ALTA" then "Revisar hoy con " & foco & "; fijar compromiso y próxima actualización"
+				            else if [PRIORIDAD_INTERVENCION] = "P3 · MEDIA" then "Definir plan de salida en 24 horas con " & foco
+				            else "Monitorear avance y mantener responsable visible", type text),
+				    Ordenado = Table.Sort(ConAccion, {
+				        {"ORDEN_INTERVENCION", Order.Ascending},
+				        {"SCORE_INTERVENCION", Order.Descending},
+				        {"EXCESO_SLA_DH", Order.Descending},
+				        {"DIAS_EN_ESTADO_DH", Order.Descending},
+				        {"VALOR_NETO", Order.Descending},
+				        {"PED_NUMERO_PEDIDO", Order.Ascending}
+				    }),
+				    ConRank = Table.AddIndexColumn(Ordenado, "RANK_INTERVENCION", 1, 1, Int64.Type),
+				    ConTramo = Table.AddColumn(ConRank, "TRAMO_RANKING", each
+				        if [RANK_INTERVENCION] <= 5 then "TOP 5"
+				        else if [RANK_INTERVENCION] <= 10 then "TOP 10"
+				        else "RESTO", type text),
+				    Seleccion = Table.SelectColumns(ConTramo, {
+				        "RANK_INTERVENCION", "TRAMO_RANKING", "PRIORIDAD_INTERVENCION", "ORDEN_INTERVENCION",
+				        "ESTADO_ACCION_V2", "ESTADO_SLA_OPERATIVO", "SEVERIDAD_SLA", "EXCESO_SLA_DH",
+				        "SCORE_INTERVENCION", "PUNTOS_EXCESO_SLA", "MOTIVO_PRINCIPAL_INTERVENCION",
+				        "ACCION_INTERVENCION", "PED_NUMERO_PEDIDO", "PED_FECHA", "CLIENTE", "VENDEDOR",
+				        "PED_CANAL", "PED_REGION", "ZONA", "VALOR_NETO", "ESTADO_ACTUAL", "HITO_ACTUAL",
+				        "RESPONSABLE_AREA", "DIAS_ACTUALES_DH", "DIAS_EN_ESTADO_DH", "PROB_ML_ATRASO_NORM",
+				        "RIESGO_ML_ETIQUETA", "HIST_CLIENTE_RIESGO", "HIST_VENDEDOR_RIESGO",
+				        "HIST_CANAL_RIESGO", "RIESGO_HISTORICO_MAX", "HIST_SOPORTE_MIN",
+				        "SLA_CONSUMIDO_PCT", "CRITERIOS_ACTIVOS", "FOCO_INTERVENCION", "PUNTOS_RIESGO_ML",
+				        "PUNTOS_PERMANENCIA", "PUNTOS_VALOR", "PUNTOS_HISTORICO", "PUNTOS_FIN_MES",
+				        "USO_DH_PREDICHO"
+				    }),
+				    Tipos = Table.TransformColumnTypes(Seleccion, {
+				        {"RANK_INTERVENCION", Int64.Type}, {"TRAMO_RANKING", type text},
+				        {"PRIORIDAD_INTERVENCION", type text}, {"ORDEN_INTERVENCION", Int64.Type},
+				        {"ESTADO_ACCION_V2", type text}, {"ESTADO_SLA_OPERATIVO", type text},
+				        {"SEVERIDAD_SLA", type text}, {"EXCESO_SLA_DH", type number},
+				        {"SCORE_INTERVENCION", Int64.Type}, {"PUNTOS_EXCESO_SLA", Int64.Type},
+				        {"MOTIVO_PRINCIPAL_INTERVENCION", type text}, {"ACCION_INTERVENCION", type text}
+				    })
+				in
+				    Tipos
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
