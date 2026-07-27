@@ -1,0 +1,29 @@
+# ERRORES CICLO 2A — SHA 0c89715
+
+## Errores TMDL
+Ninguno.
+
+## Errores Python.Execute
+Ninguno.
+
+## Errores Power Query
+Ninguno.
+
+## Tablas cargadas
+36/36 ✅
+
+## Relaciones
+40/40 ✅
+
+## ML_Auditoria_Historicos
+Todos los 9 controles en OK con 0 incumplimientos ✅
+
+## ML_Historicos_Sin_Fuga
+- 1,636 filas (igual que Resultado) ✅
+- Sin duplicados por PED_NUMERO_PEDIDO ✅
+- Cohortes reconciliadas ✅
+- Probabilidades entre 0 y 1 ✅
+- Sin fuga temporal ✅
+
+## Veredicto
+**APROBADO** — Sin errores bloqueantes.

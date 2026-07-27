@@ -1,0 +1,29 @@
+{
+  "sha": "0c89715341a17a850e982c2312850b9e8055e024",
+  "branch": "work/codex-local",
+  "fecha": "2026-07-27T11:54:00-04:00",
+  "power_bi_version": "2.156.951.0",
+  "python_version": "3.13.4",
+  "tablas": 36,
+  "relaciones": 40,
+  "pedidos_resultado": 1636,
+  "ml_auditoria_historicos": [
+    {"control": "UNICIDAD_PEDIDO", "filas": 1636, "incumplimientos": 0, "estado": "OK"},
+    {"control": "SIN_FUGA_FECHA", "filas": 1636, "incumplimientos": 0, "estado": "OK"},
+    {"control": "RANGO_0_1", "filas": 1636, "incumplimientos": 0, "estado": "OK"},
+    {"control": "COBERTURA_RIESGOS", "filas": 1636, "incumplimientos": 0, "estado": "OK"},
+    {"control": "TEST_SOLO_TRAIN", "filas": 687, "incumplimientos": 0, "estado": "OK"},
+    {"control": "TEST_CLIENTE_CONGELADO", "filas": 687, "incumplimientos": 0, "estado": "OK"},
+    {"control": "TEST_VENDEDOR_CONGELADO", "filas": 687, "incumplimientos": 0, "estado": "OK"},
+    {"control": "TEST_CANAL_CONGELADO", "filas": 687, "incumplimientos": 0, "estado": "OK"},
+    {"control": "FECHA_PEDIDO_FALTANTE", "filas": 1636, "incumplimientos": 0, "estado": "OK"}
+  ],
+  "resumen_cohorte": {
+    "TRAIN": {"pedidos": 837, "prom_cliente": 0.12, "prom_vendedor": 0.13, "prom_canal": 0.14, "prom_global": 0.14},
+    "TEST": {"pedidos": 687, "prom_cliente": 0.12, "prom_vendedor": 0.13, "prom_canal": 0.14, "prom_global": 0.14},
+    "PENDIENTE": {"pedidos": 37, "prom_cliente": 0.12, "prom_vendedor": 0.13, "prom_canal": 0.14, "prom_global": 0.14},
+    "EXCLUIDO": {"pedidos": 75, "prom_cliente": 0.12, "prom_vendedor": 0.13, "prom_canal": 0.14, "prom_global": 0.14}
+  },
+  "errores": [],
+  "veredicto": "APROBADO"
+}
