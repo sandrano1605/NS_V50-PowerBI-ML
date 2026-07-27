@@ -1,0 +1,65 @@
+/// Tramos relativos de la cola diaria. Se usan para decidir qué pedidos trabajar primero aunque todos estén fuera del SLA.
+table Config_Tramos_Intervencion_Diaria
+	lineageTag: 2f12c5de-941f-4c8c-9405-a8f34bc33897
+
+	column ORDEN
+		dataType: int64
+		formatString: 0
+		lineageTag: 3326261e-e5b0-4456-a81f-bc26f5ca101b
+		summarizeBy: none
+		sourceColumn: ORDEN
+
+	column NIVEL_COLA
+		dataType: string
+		lineageTag: 234c9ca0-8ee1-47ec-aad7-9cf823b46df6
+		summarizeBy: none
+		sourceColumn: NIVEL_COLA
+
+	column RANK_DESDE
+		dataType: int64
+		formatString: 0
+		lineageTag: 7dc62475-445e-4e8e-b51e-414156a015de
+		summarizeBy: none
+		sourceColumn: RANK_DESDE
+
+	column RANK_HASTA
+		dataType: int64
+		formatString: 0
+		lineageTag: 627862fd-31f8-4e6c-bdf0-5f017f56e17a
+		summarizeBy: none
+		sourceColumn: RANK_HASTA
+
+	column PLAZO
+		dataType: string
+		lineageTag: 9cb9b7e9-0e27-42ff-bf2a-36c4cadfb18c
+		summarizeBy: none
+		sourceColumn: PLAZO
+
+	column LECTURA
+		dataType: string
+		lineageTag: 8dfeaf5c-5ed5-40d9-ad0a-a6443dd7387f
+		summarizeBy: none
+		sourceColumn: LECTURA
+
+	column COLOR_HEX
+		dataType: string
+		lineageTag: 30c53d1c-f92d-4e45-bd2b-f3036830c0f7
+		summarizeBy: none
+		sourceColumn: COLOR_HEX
+
+	partition Config_Tramos_Intervencion_Diaria = m
+		mode: import
+		source =
+				#table(
+				    type table [ORDEN = Int64.Type, NIVEL_COLA = text, RANK_DESDE = Int64.Type, RANK_HASTA = Int64.Type, PLAZO = text, LECTURA = text, COLOR_HEX = text],
+				    {
+				        {1, "P1 · INTERVENIR", 1, 5, "HOY · INMEDIATO", "Los cinco pedidos con mayor score, exceso, permanencia y valor", "#B71C1C"},
+				        {2, "P2 · REVISAR", 6, 10, "HOY", "Siguientes cinco pedidos de la cola priorizada", "#E65100"},
+				        {3, "P3 · PLAN 24H", 11, 20, "PRÓXIMAS 24 HORAS", "Pedidos que requieren un plan de salida y responsable", "#F9A825"},
+				        {4, "P4 · MONITOREAR", 21, 999999, "SEGUIMIENTO", "Resto de la cola con monitoreo visible", "#2E7D32"}
+				    }
+				)
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
