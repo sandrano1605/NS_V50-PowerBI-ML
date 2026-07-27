@@ -1,0 +1,108 @@
+/// Regla única V26. SLA interno 1–5 DH para toda la cartera Mayorista; regiones agregan 2 DH estimados de transporte. Sin POD.
+table Config_Promesa_Entrega
+	lineageTag: 15000000-0000-4000-8000-000000000001
+
+	column Zona
+		dataType: string
+		lineageTag: 15000000-0000-4000-8000-000000000002
+		summarizeBy: none
+		sourceColumn: ZONA
+
+		annotation SummarizationSetBy = User
+
+	column 'Preparación mínima DH'
+		dataType: int64
+		formatString: 0
+		lineageTag: 15000000-0000-4000-8000-000000000003
+		summarizeBy: none
+		sourceColumn: PREPARACION_MIN_DH
+
+		annotation SummarizationSetBy = User
+
+	column 'Preparación máxima DH'
+		dataType: int64
+		formatString: 0
+		lineageTag: 15000000-0000-4000-8000-000000000004
+		summarizeBy: none
+		sourceColumn: PREPARACION_MAX_DH
+
+		annotation SummarizationSetBy = User
+
+	column 'Tránsito mínimo DH'
+		dataType: int64
+		formatString: 0
+		lineageTag: 15000000-0000-4000-8000-000000000005
+		summarizeBy: none
+		sourceColumn: TRANSITO_MIN_DH
+
+		annotation SummarizationSetBy = User
+
+	column 'Tránsito máximo DH'
+		dataType: int64
+		formatString: 0
+		lineageTag: 15000000-0000-4000-8000-000000000006
+		summarizeBy: none
+		sourceColumn: TRANSITO_MAX_DH
+
+		annotation SummarizationSetBy = User
+
+	column 'Promesa mínima DH'
+		dataType: int64
+		formatString: 0
+		lineageTag: 15000000-0000-4000-8000-000000000007
+		summarizeBy: none
+		sourceColumn: PROMESA_MIN_DH
+
+		annotation SummarizationSetBy = User
+
+	column 'Promesa máxima DH'
+		dataType: int64
+		formatString: 0
+		lineageTag: 15000000-0000-4000-8000-000000000008
+		summarizeBy: none
+		sourceColumn: PROMESA_MAX_DH
+
+		annotation SummarizationSetBy = User
+
+	column 'Hora corte lunes a jueves'
+		dataType: string
+		lineageTag: 15000000-0000-4000-8000-000000000009
+		summarizeBy: none
+		sourceColumn: CORTE_LJ
+
+		annotation SummarizationSetBy = User
+
+	column 'Hora corte viernes'
+		dataType: string
+		lineageTag: 15000000-0000-4000-8000-000000000010
+		summarizeBy: none
+		sourceColumn: CORTE_VIERNES
+
+		annotation SummarizationSetBy = User
+
+	column Alcance
+		dataType: string
+		lineageTag: 15000000-0000-4000-8000-000000000011
+		summarizeBy: none
+		sourceColumn: ALCANCE
+
+		annotation SummarizationSetBy = User
+
+	partition Config_Promesa_Entrega = m
+		mode: import
+		source =
+				let
+				    Origen = #table(
+				        type table [ZONA=text, PREPARACION_MIN_DH=Int64.Type, PREPARACION_MAX_DH=Int64.Type, TRANSITO_MIN_DH=Int64.Type, TRANSITO_MAX_DH=Int64.Type, PROMESA_MIN_DH=Int64.Type, PROMESA_MAX_DH=Int64.Type, CORTE_LJ=text, CORTE_VIERNES=text, ALCANCE=text],
+				        {
+					            {"Santiago", 1, 5, 0, 0, 1, 5, "14:00", "12:00", "Universo Mayorista · SLA interno 1–5 DH hasta despacho · sin POD ni última milla"},
+					            {"Regiones", 1, 5, 2, 2, 3, 7, "14:00", "12:00", "Universo Mayorista · SLA interno 1–5 DH + 2 DH de tránsito estimado · sin POD ni última milla"}
+				        }
+				    )
+				in
+				    Origen
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Exception
+

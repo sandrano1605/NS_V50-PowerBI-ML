@@ -1,0 +1,255 @@
+table Dim_Fecha
+	lineageTag: a6fee08c-b686-4fa7-bcc6-016e4998d342
+
+	column Fecha
+		dataType: dateTime
+		isKey
+		formatString: Short Date
+		lineageTag: dc40e0de-4ce2-49db-bfa2-4e406600a581
+		summarizeBy: none
+		sourceColumn: Fecha
+
+		annotation SummarizationSetBy = User
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Anio
+		dataType: int64
+		formatString: 0
+		lineageTag: c84a5422-0e0a-4fb9-950d-43b19e44125e
+		summarizeBy: none
+		sourceColumn: Anio
+
+		annotation SummarizationSetBy = User
+
+	column Mes_Numero
+		dataType: int64
+		formatString: 0
+		lineageTag: 5fa20913-c552-4dc2-954b-1369b25b4c2a
+		summarizeBy: none
+		sourceColumn: Mes_Numero
+
+		annotation SummarizationSetBy = User
+
+	column Mes
+		dataType: string
+		lineageTag: b3ed0feb-4dad-45f0-90ce-91ea00af4fd6
+		summarizeBy: none
+		sourceColumn: Mes
+		sortByColumn: Mes_Numero
+
+		annotation SummarizationSetBy = User
+
+	column AnioMes
+		dataType: string
+		lineageTag: d6ad53f8-4626-4e4c-b999-e37749f15e58
+		summarizeBy: none
+		sourceColumn: AnioMes
+		sortByColumn: Orden_AnioMes
+
+		annotation SummarizationSetBy = User
+
+	column Orden_AnioMes
+		dataType: int64
+		formatString: 0
+		lineageTag: da3d5533-45cf-4fe7-9035-5a0543514516
+		summarizeBy: none
+		sourceColumn: Orden_AnioMes
+
+		annotation SummarizationSetBy = User
+
+	column Trimestre
+		dataType: string
+		lineageTag: 2c219770-a654-4fb1-986b-ad704180d6b7
+		summarizeBy: none
+		sourceColumn: Trimestre
+		sortByColumn: Trimestre_Numero
+
+		annotation SummarizationSetBy = User
+
+	column Trimestre_Numero
+		dataType: int64
+		formatString: 0
+		lineageTag: 9803e755-76b9-4e2a-beae-fe3b2b6896c8
+		summarizeBy: none
+		sourceColumn: Trimestre_Numero
+
+		annotation SummarizationSetBy = User
+
+	column Semana_Anio
+		dataType: int64
+		formatString: 0
+		lineageTag: a1a2e1fa-dc69-476d-af9f-e80b9746fc37
+		summarizeBy: none
+		sourceColumn: Semana_Anio
+
+		annotation SummarizationSetBy = User
+
+	column Dia_Mes
+		dataType: int64
+		formatString: 0
+		lineageTag: c0dd31e0-5aca-4cce-91d6-0d4d2b6b5972
+		summarizeBy: none
+		sourceColumn: Dia_Mes
+
+		annotation SummarizationSetBy = User
+
+	column Dia_Semana_Numero
+		dataType: int64
+		formatString: 0
+		lineageTag: 4380e7f1-f166-4f3f-8a7c-3040d22a0f57
+		summarizeBy: none
+		sourceColumn: Dia_Semana_Numero
+
+		annotation SummarizationSetBy = User
+
+	column Dia_Semana
+		dataType: string
+		lineageTag: 62d91f10-1fce-4c83-97de-9eac45e7d51e
+		summarizeBy: none
+		sourceColumn: Dia_Semana
+		sortByColumn: Dia_Semana_Numero
+
+		annotation SummarizationSetBy = User
+
+	column Es_Fin_Semana
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: c5672931-5738-44ac-8f97-2670d1363f0d
+		summarizeBy: none
+		sourceColumn: Es_Fin_Semana
+
+		annotation SummarizationSetBy = User
+
+	column Es_Dia_Habil
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 19e7ae20-4e0c-4598-babd-cae3bed4e06d
+		summarizeBy: none
+		sourceColumn: Es_Dia_Habil
+
+		annotation SummarizationSetBy = User
+
+	column Es_Feriado
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: c56ed721-1730-4e97-a73b-231819690001
+		summarizeBy: none
+		sourceColumn: Es_Feriado
+
+		annotation SummarizationSetBy = User
+
+	column Nombre_Feriado
+		dataType: string
+		lineageTag: 1a35a741-b28a-41d7-97e6-eef31ddf0002
+		summarizeBy: none
+		sourceColumn: Nombre_Feriado
+
+		annotation SummarizationSetBy = User
+
+	column Tipo_Dia
+		dataType: string
+		lineageTag: f1b6bb8c-3a74-4810-a70a-2c4a100c0003
+		summarizeBy: none
+		sourceColumn: Tipo_Dia
+
+		annotation SummarizationSetBy = User
+
+	column Semana_Mes
+		dataType: string
+		lineageTag: d310b2a1-2ae4-4ca0-bb45-65b55db99401
+		summarizeBy: none
+		sourceColumn: Semana_Mes
+		sortByColumn: Orden_Semana_Mes
+
+		annotation SummarizationSetBy = User
+
+	column Orden_Semana_Mes
+		dataType: int64
+		formatString: 0
+		lineageTag: eaf03fe9-ab70-48bd-ab40-ad158ed99402
+		summarizeBy: none
+		sourceColumn: Orden_Semana_Mes
+
+		annotation SummarizationSetBy = User
+
+	column DH_Acumulados_Mes
+		dataType: int64
+		formatString: 0
+		lineageTag: 87a8151b-333d-4ae6-bddb-eebf35d99403
+		summarizeBy: none
+		sourceColumn: DH_Acumulados_Mes
+
+		annotation SummarizationSetBy = User
+
+	column DH_Restantes_Mes
+		dataType: int64
+		formatString: 0
+		lineageTag: e3f34c0e-71dd-4cad-91cb-468f80d99404
+		summarizeBy: none
+		sourceColumn: DH_Restantes_Mes
+
+		annotation SummarizationSetBy = User
+
+	column Es_Primeros_7_DH
+		dataType: boolean
+		formatString: """Sí"";""Sí"";""No"""
+		lineageTag: 039c74f5-f89d-4e80-a552-21511ad99405
+		summarizeBy: none
+		sourceColumn: Es_Primeros_7_DH
+
+		annotation SummarizationSetBy = User
+
+	column Es_Ultimos_7_DH
+		dataType: boolean
+		formatString: """Sí"";""Sí"";""No"""
+		lineageTag: 88c50427-134c-4113-b07d-7ed9ab799406
+		summarizeBy: none
+		sourceColumn: Es_Ultimos_7_DH
+
+		annotation SummarizationSetBy = User
+
+	partition Dim_Fecha = m
+		mode: import
+		source =
+				let
+				    Origen = Fact_Pedidos,
+				    FechasValidas = List.RemoveNulls(Origen[PED_FECHA]),
+				    FechaMinima = Date.StartOfYear(List.Min(FechasValidas)),
+				    FechaMaxima = Date.EndOfYear(List.Max(FechasValidas)),
+				    CantidadDias = Duration.Days(FechaMaxima - FechaMinima) + 1,
+				    ListaFechas = List.Dates(FechaMinima, CantidadDias, #duration(1, 0, 0, 0)),
+				    TablaFechas = Table.FromList(ListaFechas, Splitter.SplitByNothing(), {"Fecha"}),
+				    TipoFecha = Table.TransformColumnTypes(TablaFechas, {{"Fecha", type date}}),
+				    Anio = Table.AddColumn(TipoFecha, "Anio", each Date.Year([Fecha]), Int64.Type),
+				    MesNumero = Table.AddColumn(Anio, "Mes_Numero", each Date.Month([Fecha]), Int64.Type),
+				    Mes = Table.AddColumn(MesNumero, "Mes", each Text.Proper(Date.MonthName([Fecha], "es-CL")), type text),
+				    AnioMes = Table.AddColumn(Mes, "AnioMes", each Date.ToText([Fecha], "yyyy-MM"), type text),
+				    OrdenAnioMes = Table.AddColumn(AnioMes, "Orden_AnioMes", each Date.Year([Fecha]) * 100 + Date.Month([Fecha]), Int64.Type),
+				    TrimestreNumero = Table.AddColumn(OrdenAnioMes, "Trimestre_Numero", each Date.QuarterOfYear([Fecha]), Int64.Type),
+				    Trimestre = Table.AddColumn(TrimestreNumero, "Trimestre", each "T" & Text.From([Trimestre_Numero]), type text),
+				    Semana = Table.AddColumn(Trimestre, "Semana_Anio", each Date.WeekOfYear([Fecha], Day.Monday), Int64.Type),
+				    DiaMes = Table.AddColumn(Semana, "Dia_Mes", each Date.Day([Fecha]), Int64.Type),
+				    DiaSemanaNumero = Table.AddColumn(DiaMes, "Dia_Semana_Numero", each Date.DayOfWeek([Fecha], Day.Monday) + 1, Int64.Type),
+				    DiaSemana = Table.AddColumn(DiaSemanaNumero, "Dia_Semana", each Text.Proper(Date.DayOfWeekName([Fecha], "es-CL")), type text),
+				    EsFinSemana = Table.AddColumn(DiaSemana, "Es_Fin_Semana", each [Dia_Semana_Numero] >= 6, type logical),
+				    CruceFeriados = Table.NestedJoin(EsFinSemana, {"Fecha"}, Dim_Feriados_Chile, {"Fecha"}, "FeriadoChile", JoinKind.LeftOuter),
+				    ExpandeFeriado = Table.ExpandTableColumn(CruceFeriados, "FeriadoChile", {"Feriado"}, {"Nombre_Feriado"}),
+				    EsFeriado = Table.AddColumn(ExpandeFeriado, "Es_Feriado", each [Nombre_Feriado] <> null, type logical),
+				    EsDiaHabil = Table.AddColumn(EsFeriado, "Es_Dia_Habil", each [Dia_Semana_Numero] <= 5 and [Es_Feriado] = false, type logical),
+				    TipoDia = Table.AddColumn(EsDiaHabil, "Tipo_Dia", each if [Es_Feriado] then "Feriado" else if [Es_Fin_Semana] then "Fin de semana" else "Día hábil", type text),
+				    SemanaOrden = Table.AddColumn(TipoDia, "Orden_Semana_Mes", each Number.RoundUp(Date.Day([Fecha]) / 7), Int64.Type),
+				    SemanaMes = Table.AddColumn(SemanaOrden, "Semana_Mes", each if [Orden_Semana_Mes] = 1 then "Días 1-7" else if [Orden_Semana_Mes] = 2 then "Días 8-14" else if [Orden_Semana_Mes] = 3 then "Días 15-21" else if [Orden_Semana_Mes] = 4 then "Días 22-28" else "Días 29-31", type text),
+				    FeriadosBuffer = List.Buffer(List.Transform(Dim_Feriados_Chile[Fecha], each Date.From(_))),
+				    FnEsHabil = (d as date) as logical => Date.DayOfWeek(d, Day.Monday) < 5 and not List.Contains(FeriadosBuffer, d),
+				    DHAcom = Table.AddColumn(SemanaMes, "DH_Acumulados_Mes", each List.Count(List.Select(List.Dates(Date.StartOfMonth([Fecha]), Duration.Days([Fecha] - Date.StartOfMonth([Fecha])) + 1, #duration(1,0,0,0)), each FnEsHabil(_))), Int64.Type),
+				    DHRest = Table.AddColumn(DHAcom, "DH_Restantes_Mes", each List.Count(List.Select(List.Dates([Fecha], Duration.Days(Date.EndOfMonth([Fecha]) - [Fecha]) + 1, #duration(1,0,0,0)), each FnEsHabil(_))), Int64.Type),
+				    Primeros7 = Table.AddColumn(DHRest, "Es_Primeros_7_DH", each [DH_Acumulados_Mes] <= 7, type logical),
+				    Ultimos7 = Table.AddColumn(Primeros7, "Es_Ultimos_7_DH", each [DH_Restantes_Mes] <= 7, type logical)
+				in
+				    Ultimos7
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

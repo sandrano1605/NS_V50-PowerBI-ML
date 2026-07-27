@@ -1,0 +1,15 @@
+﻿Métrica;Valor;Control
+Pedidos cohorte;1823;Normal + FES/FES+Saldo + Saldo puro
+Normal;1251;Clasificación exclusiva
+FES incl. FES+Saldo;571;Clasificación exclusiva
+Saldo puro;1;Clasificación exclusiva
+Santiago;797;399 + 285 + 113
+Regiones;1026;371 + 431 + 224
+0–2 DH;770;399 + 371
+3–5 DH;716;285 + 431
+Más de 5 DH;337;113 + 224
+En SLA 0–5 DH;1486;770 + 716
+Fuera SLA >5 DH;337;Misma cohorte
+NS interno;81,5%;1486 / 1823
+Promedio interno;3,9 DH;Visual actualizado
+P90 interno;8,0 DH;Visual actualizado

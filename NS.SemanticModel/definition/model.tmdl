@@ -1,0 +1,49 @@
+model Model
+	culture: es-ES
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-CL
+	dataAccessOptions
+		fastCombine
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["Fact_Pedidos_Auditoria","auditoria","Fact_Pedidos","Dim_Cliente","Nombre_Cliente","Cliente_Vendedor","Dim_Feriados_Chile","Config_SLA_Hitos","Config_Promesa_Entrega","Dim_Vista_Ejecutiva","Dim_Metrica_Auditoria","Dim_Indicador_Ejecutivo","Dim_Rango_Entrega","Fact_Tiempos_Hitos","Dim_Hito","Dim_Fecha","Dim_Periodo_3M","Dim_Mes_Trend","Dim_Canal","Dim_Responsable","Dim_Condicion_Expedicion","Fact_Hitos_Operacionales","Fact_Tracking","Dim_Pedido","Medidas","Doc_Metodologia","Fact_Analisis_Despacho","Doc_Conclusiones","Doc_Conclusiones (2)","Resultado","Consulta"]
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_ProTooling = ["DevMode","MCP-PBIModeling"]
+
+ref table Fact_Pedidos_Auditoria
+ref table auditoria
+ref table Fact_Pedidos
+ref table Fact_Tiempos_Hitos
+ref table Dim_Hito
+ref table Dim_Fecha
+ref table Dim_Periodo_3M
+ref table Dim_Mes_Trend
+ref table Dim_Cliente
+ref table Dim_Canal
+ref table Dim_Responsable
+ref table Dim_Condicion_Expedicion
+ref table Medidas
+ref table Doc_Metodologia
+ref table Fact_Analisis_Despacho
+ref table Doc_Conclusiones
+ref table Nombre_Cliente
+ref table Cliente_Vendedor
+ref table Dim_Feriados_Chile
+ref table Config_SLA_Hitos
+ref table Config_Promesa_Entrega
+ref table Fact_Hitos_Operacionales
+ref table Fact_Tracking
+ref table Dim_Pedido
+ref table Dim_Vista_Ejecutiva
+ref table Dim_Metrica_Auditoria
+ref table Dim_Indicador_Ejecutivo
+ref table Dim_Rango_Entrega
+ref table 'Doc_Conclusiones (2)'
+ref table Resultado
+ref table Consulta
+
+ref cultureInfo es-ES
+

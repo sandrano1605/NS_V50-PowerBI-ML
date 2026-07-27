@@ -1,0 +1,52 @@
+table Cliente_Vendedor
+	isHidden
+	lineageTag: aff9a8a2-01b2-4b83-b36e-480b4616b2bc
+
+	column VCLT_SUCURSAL
+		dataType: string
+		lineageTag: a9a7b1b9-0e90-432b-8189-bec014503594
+		summarizeBy: none
+		sourceColumn: VCLT_SUCURSAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column VEN_NOMBRE
+		dataType: string
+		lineageTag: 4d22e207-f10b-4556-9f18-12eefc6da0f3
+		summarizeBy: none
+		sourceColumn: VEN_NOMBRE
+
+		annotation SummarizationSetBy = Automatic
+
+	column Recuento
+		dataType: int64
+		formatString: 0
+		lineageTag: 7e41e0ea-031a-4329-b561-3fb502116e23
+		summarizeBy: sum
+		sourceColumn: Recuento
+
+		annotation SummarizationSetBy = Automatic
+
+	column SUCURSAL_NORMALIZADA
+		dataType: string
+		lineageTag: 5c34a666-aa63-449a-8698-ec7bb12f0d8d
+		summarizeBy: none
+		sourceColumn: SUCURSAL_NORMALIZADA
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Cliente_Vendedor = m
+		mode: import
+		source =
+				let
+				    Origen = Table.SelectColumns(Dim_Cliente, {"CLIENTE_CODIGO", "VENDEDOR_NOMBRE"}),
+				    Renombradas = Table.RenameColumns(Origen, {{"CLIENTE_CODIGO", "VCLT_SUCURSAL"}, {"VENDEDOR_NOMBRE", "VEN_NOMBRE"}}),
+				    Clave = Table.AddColumn(Renombradas, "SUCURSAL_NORMALIZADA", each let k = Text.TrimStart(Text.Trim([VCLT_SUCURSAL]), "0") in if k = "" then "0" else k, type text),
+				    Recuento = Table.AddColumn(Clave, "Recuento", each 1, Int64.Type)
+				in
+				    Recuento
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

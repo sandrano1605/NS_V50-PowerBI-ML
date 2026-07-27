@@ -1,0 +1,23 @@
+table Consulta
+	lineageTag: 72fec033-0301-4809-8be3-eb67383a9180
+
+	column Consulta
+		dataType: string
+		lineageTag: 0b0e3769-5af4-41ba-8d6e-a35ac917c46d
+		summarizeBy: none
+		sourceColumn: Consulta
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Consulta = m
+		mode: import
+		source =
+				let
+				  Origen = ""
+				in
+				  Origen
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Text
+

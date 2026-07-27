@@ -1,0 +1,17 @@
+{
+  "version": "NS_V39",
+  "json_validos": 147,
+  "ventana": "3 meses calendario incluyendo actual",
+  "selector_default": "PeriodoKey 0 = mes actual del último registro",
+  "fecha_actualizacion": "MAX PED_FECHA_HORA del universo completo",
+  "truck_removed": true,
+  "monthly_chart": "Administrativo + Operaciones; línea promedio total",
+  "querysort_invalidos": 0,
+  "lineage_duplicados": 0,
+  "status": "OK",
+  "route_measure_removed": true,
+  "medidas_activas": 158,
+  "visual_route_removed": true,
+  "legacy_csv_route_removed": true,
+  "visual_references_errors": 0
+}

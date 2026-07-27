@@ -1,0 +1,38 @@
+# Power BI
+*.pbix
+*.pbit
+*.pbip.user
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.eggs/
+*.egg
+dist/
+build/
+.eggs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Temp
+tmp/
+temp/
+*.tmp
+
+# Credentials
+*.env
+.env.local

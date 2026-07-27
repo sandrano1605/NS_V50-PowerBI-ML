@@ -1,0 +1,45 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "47a4fa002331b23249c5",
+  "position": {
+    "x": 16,
+    "y": 74,
+    "z": 8000,
+    "height": 64,
+    "width": 230,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "textFilter25A4896A83E0487089E2B90C9AE57C8A",
+    "query": {
+      "queryState": {
+        "field": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Pedido"
+                    }
+                  },
+                  "Property": "PED_NUMERO_PEDIDO"
+                }
+              },
+              "queryRef": "Dim_Pedido.PED_NUMERO_PEDIDO",
+              "nativeQueryRef": "PED_NUMERO_PEDIDO"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "general": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

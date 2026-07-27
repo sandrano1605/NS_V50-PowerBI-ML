@@ -1,0 +1,28 @@
+{
+  "version": "NS_V45",
+  "main_page_objects_expected": 33,
+  "tooltip_added": "TT Diagnóstico FES y Saldo",
+  "rules": {
+    "fes_total_equals_subgroups": true,
+    "no_double_count_with_saldo_puro": true,
+    "saldo_rule_calendar_positive_difference": true,
+    "invoice_gap_business_days_added": true
+  },
+  "checks": {
+    "json_valid": 194,
+    "main_page_visuals": 33,
+    "measure_count": 194,
+    "duplicate_measures": [],
+    "duplicate_measure_lineage_tags": [],
+    "fes_measures_present": true,
+    "business_day_saldo_column": true,
+    "tooltip_link": true,
+    "invalid_sort_queryRef": [],
+    "main_page_size": [
+      1600,
+      900
+    ],
+    "visual_field_references_missing": [],
+    "global_lineage_duplicates": []
+  }
+}

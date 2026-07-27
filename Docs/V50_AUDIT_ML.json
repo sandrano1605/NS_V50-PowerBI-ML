@@ -1,0 +1,41 @@
+{
+  "version": "NS_V50",
+  "base": "NS_V47 (2).zip",
+  "model_version": "ML_LOGIT_LINEAR_FLUJO_COMPLETO_V50_2026",
+  "training_rule": "Pedidos no pendientes, DH_ENTREGA_COMPLETA_100 entre 0 y 60, AUD_TOTAL_CRITICAS=0",
+  "classification_target": "DH_ENTREGA_COMPLETA_100 > 5 DH",
+  "regression_target": "DH_ENTREGA_COMPLETA_100",
+  "predictors_creation": [
+    "cliente historial previo",
+    "vendedor",
+    "canal",
+    "region",
+    "condicion expedicion",
+    "estado credito",
+    "tipo servicio",
+    "monto",
+    "semana/dia/hora",
+    "fin de mes"
+  ],
+  "excluded_initial_predictors": [
+    "ES_FES",
+    "ES_SALDO",
+    "tiempos finales por proceso",
+    "fechas posteriores"
+  ],
+  "test_evidence": {
+    "rows": 1636,
+    "training_final": 1540,
+    "train_validation": 659,
+    "test_validation": 694,
+    "test_month": "2026-06",
+    "auc": 0.7453063885267276,
+    "mae_days": 1.4911532858899847,
+    "rmse_days": 2.505447792736855,
+    "r2_days": 0.3579285234466517,
+    "pending_fallback_xlsx": 88,
+    "pending_high": 19,
+    "expected_delays": 12.216227075641683
+  },
+  "note": "Los pendientes reales en Power BI se determinan desde Fact_Tracking. La evidencia Excel usa ausencia de resultado como fallback."
+}

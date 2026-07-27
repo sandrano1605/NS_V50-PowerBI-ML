@@ -1,0 +1,83 @@
+/// Selector dinámico de los tres meses calendario disponibles. La clave 0 siempre representa el mes vigente del set.
+table Dim_Periodo_3M
+	lineageTag: 39000000-0000-4000-8000-000000000001
+
+	column PeriodoKey
+		dataType: int64
+		isKey
+		formatString: 0
+		lineageTag: 39000000-0000-4000-8000-000000000002
+		summarizeBy: none
+		sourceColumn: PeriodoKey
+
+		annotation SummarizationSetBy = User
+
+	column Etiqueta
+		dataType: string
+		lineageTag: 39000000-0000-4000-8000-000000000003
+		summarizeBy: none
+		sourceColumn: Etiqueta
+		sortByColumn: Orden
+
+		annotation SummarizationSetBy = User
+
+	column AnioMes
+		dataType: string
+		lineageTag: 39000000-0000-4000-8000-000000000004
+		summarizeBy: none
+		sourceColumn: AnioMes
+
+		annotation SummarizationSetBy = User
+
+	column Orden
+		dataType: int64
+		formatString: 0
+		lineageTag: 39000000-0000-4000-8000-000000000005
+		summarizeBy: none
+		sourceColumn: Orden
+
+		annotation SummarizationSetBy = User
+
+	column FechaInicio
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 39000000-0000-4000-8000-000000000006
+		summarizeBy: none
+		sourceColumn: FechaInicio
+
+		annotation SummarizationSetBy = User
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column FechaFin
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 39000000-0000-4000-8000-000000000007
+		summarizeBy: none
+		sourceColumn: FechaFin
+
+		annotation SummarizationSetBy = User
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition Dim_Periodo_3M = m
+		mode: import
+		source =
+				let
+				    FechaCorte = Date.From(DateTime.LocalNow()),
+				    MesCorte = Date.StartOfMonth(FechaCorte),
+				    Offsets = {0, 1, 2},
+				    Tabla = Table.FromList(Offsets, Splitter.SplitByNothing(), {"PeriodoKey"}),
+				    Tipo = Table.TransformColumnTypes(Tabla, {{"PeriodoKey", Int64.Type}}),
+				    Inicio = Table.AddColumn(Tipo, "FechaInicio", each Date.AddMonths(MesCorte, -[PeriodoKey]), type date),
+				    Fin = Table.AddColumn(Inicio, "FechaFin", each if [PeriodoKey] = 0 then FechaCorte else Date.EndOfMonth([FechaInicio]), type date),
+				    AnioMes = Table.AddColumn(Fin, "AnioMes", each Date.ToText([FechaInicio], "yyyy-MM"), type text),
+				    Etiqueta = Table.AddColumn(AnioMes, "Etiqueta", each Text.Proper(Date.MonthName([FechaInicio], "es-CL")) & " " & Date.ToText([FechaInicio], "yyyy"), type text),
+				    Orden = Table.AddColumn(Etiqueta, "Orden", each [PeriodoKey] + 1, Int64.Type)
+				in
+				    Orden
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

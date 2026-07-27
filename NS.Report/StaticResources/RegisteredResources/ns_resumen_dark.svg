@@ -1,0 +1,6 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='132' height='24' viewBox='0 0 132 24'>
+  <g transform='translate(1 0)' fill='none' stroke='#141414' color='#141414' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'>
+    <g transform='translate(0 0) scale(0.82)'><path d='M3 11.5 12 4l9 7.5'/><path d='M5.5 10.5V20h13v-9.5'/><path d='M9 20v-6h6v6'/></g>
+  </g>
+  <text x='27' y='16.5' font-family='Segoe UI, Arial, sans-serif' font-size='12' font-weight='600' fill='#141414'>Resumen</text>
+</svg>

@@ -1,0 +1,139 @@
+/// Registro vivo de metodología, reglas de negocio y decisiones del modelo.
+table Doc_Metodologia
+	lineageTag: 816f8a1c-aa9e-404f-83ff-c49f4c1a0ef3
+
+	column Orden
+		dataType: int64
+		formatString: 0
+		lineageTag: e4e48eda-3f4c-4264-a2a5-dcd039f23961
+		summarizeBy: none
+		sourceColumn: Orden
+
+		annotation SummarizationSetBy = User
+
+	column Seccion
+		dataType: string
+		lineageTag: 0b1b2078-af6a-4a6b-8982-3137544305b7
+		summarizeBy: none
+		sourceColumn: Seccion
+
+		annotation SummarizationSetBy = User
+
+	column Elemento
+		dataType: string
+		lineageTag: 85525570-75b0-4a45-95b0-5705ff1d365e
+		summarizeBy: none
+		sourceColumn: Elemento
+
+		annotation SummarizationSetBy = User
+
+	column Definicion
+		dataType: string
+		lineageTag: f44871b3-7fe6-4170-a398-df102038c591
+		summarizeBy: none
+		sourceColumn: Definicion
+
+		annotation SummarizationSetBy = User
+
+	column Regla_Aplicada
+		dataType: string
+		lineageTag: ee9da45c-8bab-411a-ace4-da7ebdbf16d2
+		summarizeBy: none
+		sourceColumn: Regla_Aplicada
+
+		annotation SummarizationSetBy = User
+
+	column Estado
+		dataType: string
+		lineageTag: 545eea39-7378-4637-8c5e-1a04eb58831f
+		summarizeBy: none
+		sourceColumn: Estado
+
+		annotation SummarizationSetBy = User
+
+	column Version
+		dataType: string
+		lineageTag: 4092e065-bc50-40a1-87ba-72ba50f8a1b9
+		summarizeBy: none
+		sourceColumn: Version
+
+		annotation SummarizationSetBy = User
+
+	partition Doc_Metodologia = m
+		mode: import
+		source =
+				let
+								    Origen = #table(
+								        type table [Orden = Int64.Type, Seccion = text, Elemento = text, Definicion = text, Regla_Aplicada = text, Estado = text, Version = text],
+								        {
+				                        {1, "Gobierno del modelo", "Propósito", "Construir una fuente única para medir el nivel de servicio por pedido original.", "La master de auditoría valida datos; Fact_Pedidos alimenta indicadores y visualizaciones.", "Vigente", "2.0"},
+				                        {2, "Fuente y granularidad", "Fuente principal", "Datos operacionales provenientes de ZART_TRACK_DATA_SAP y trazabilidad SAP relacionada.", "Una fila de Fact_Pedidos representa un pedido original.", "Vigente", "2.0"},
+				                        {3, "Fuente y granularidad", "Periodo de análisis", "El rango temporal se controla en la consulta SQL mediante parámetros de fecha.", "La dimensión fecha se genera a partir de la fecha mínima y máxima disponible.", "Vigente", "2.0"},
+				                        {4, "Tratamiento temporal", "Homologación de fechas y horas", "Las fechas y horas SAP se convierten a tipos homogéneos antes de calcular intervalos.", "Se admiten formatos SAP YYYYMMDD, DD/MM/YYYY y horas HHMMSS o HH:MM:SS.", "Vigente", "2.0"},
+					                        {5, "Tratamiento temporal", "Días hábiles", "Los tiempos operacionales se expresan exclusivamente en días hábiles.", "Se excluyen sábados, domingos y fechas de Dim_Feriados_Chile.", "Vigente", "3.0"},
+					                        {6, "Flujo normal", "Secuencia de referencia", "PDA, Creación, Comercial, Crédito, Entrega a Logística, Facturación y Despacho.", "El análisis operacional termina en el último despacho válido; cedible queda fuera.", "Vigente", "3.0"},
+					                        {7, "Promesa", "Configuración editable", "La regla oficial se mantiene en Config_Promesa_Entrega.", "SLA interno 1–5 DH desde la creación efectiva hasta el despacho; regiones agregan 2 DH estimados de transporte (3–7 DH).", "Vigente", "8.0"},
+				                        {8, "Clasificación FES", "Definición oficial", "Un pedido es FES cuando el pedido original aparece en VBFA con flujo de documento C a C.", "La trazabilidad continúa con pedido posterior, entrega posterior y manifiesto.", "Vigente", "2.0"},
+					                        {9, "Clasificación FES", "Cierre operacional", "El manifiesto es la salida oficial FES; la última fecha representa el cierre completo.", "Se reconstruye creación original, pedido posterior, entrega posterior y manifiesto.", "Vigente", "3.0"},
+				                        {10, "Clasificación saldo", "Definición", "Un pedido se clasifica como saldo cuando la primera y la última factura ocurren en fechas calendario distintas.", "Se analiza la brecha hasta el último despacho como percepción de entrega al 100 por ciento.", "Vigente", "2.0"},
+				                        {11, "Auditoría de calidad", "Estados generales", "La auditoría resume la calidad de cada pedido en OK, REVISAR o CRITICO.", "Las inconsistencias de fechas y secuencias pueden ser críticas; horas 00:00 se consideran advertencias.", "Vigente", "2.0"},
+				                        {12, "Auditoría de calidad", "Cobertura de hitos", "Se controla la presencia de hitos obligatorios y opcionales según el segmento.", "La cobertura se expresa como porcentaje de hitos presentes sobre hitos esperados.", "Vigente", "2.0"},
+				                        {13, "Fin de mes", "Últimos siete días hábiles", "Se identifica si el pedido fue creado en los últimos siete días hábiles de su mes.", "El indicador se utiliza para estudiar concentración operacional de cierre de mes.", "Vigente", "2.0"},
+					                        {14, "Modelo dimensional", "Modelo estrella", "Fact_Pedidos, Fact_Tiempos_Hitos y Fact_Hitos_Operacionales comparten dimensiones conformadas.", "Las relaciones son de dimensión uno a hecho muchos con filtro en una dirección.", "Vigente", "3.0"},
+				                        {15, "Medidas DAX", "Criterio de diseño", "Las medidas explícitas se concentran en una tabla exclusiva y se ordenan mediante carpetas funcionales.", "Se evita utilizar agregaciones implícitas para los principales indicadores de negocio.", "Vigente", "2.0"},
+				                        {16, "Estadística", "Promedio", "Media aritmética de los tiempos válidos dentro del contexto de filtros.", "Se utiliza para describir el nivel general, aunque puede ser sensible a extremos.", "Vigente", "2.0"},
+				                        {17, "Estadística", "Mediana", "Percentil 50 de la distribución de tiempos.", "La mitad de las observaciones queda en o bajo este valor; es robusta frente a extremos.", "Vigente", "2.0"},
+				                        {18, "Estadística", "P90", "Percentil 90 de la distribución de tiempos.", "El 90 por ciento de las observaciones queda en o bajo el P90; permite controlar la cola operacional.", "Vigente", "2.0"},
+				                        {19, "Estadística", "Desviación estándar", "Medida de dispersión de los tiempos respecto del promedio.", "Una desviación alta indica mayor variabilidad e inestabilidad operacional.", "Vigente", "2.0"},
+					                        {20, "Modelo temporal", "Fact_Hitos_Operacionales", "Tabla larga con una fila por pedido y tramo operacional aplicable.", "Contiene fechas, días hábiles, SLA, cumplimiento, exceso, fuente y trazabilidad.", "Vigente", "3.0"},
+					                        {21, "Modelo temporal", "Cobertura de tiempos", "Proporción de combinaciones pedido-métrica que tienen un tiempo calculable.", "Los valores nulos se conservan para medir faltantes y no sesgar la cobertura.", "Vigente", "3.0"},
+					                        {22, "Fechas efectivas", "Primera y última fecha", "Cada hito comienza usando su primera fecha.", "Se usa la última cuando es mayor o igual que la primera y no supera el inicio del hito siguiente.", "Vigente", "3.0"},
+					                        {23, "Fechas efectivas", "Solapamiento", "Si el siguiente hito comenzó antes de la última fecha, se conserva la primera.", "El pedido se marca como solapamiento o reproceso para revisión.", "Vigente", "3.0"},
+					                        {24, "Logística", "KPI interno", "El tiempo interno oficial comienza en la fecha efectiva de creación y termina en el último despacho válido.", "Meta oficial: máximo 5 días hábiles para NORMAL, FES, SALDO y FES + SALDO, usando la salida oficial correspondiente.", "Vigente", "8.0"},
+					                        {25, "Clientes", "Reincidencia", "Se analiza incumplimiento por cliente, hito y mes dentro de la ventana móvil.", "Dos o más meses con incumplimiento califican como recurrencia.", "Vigente", "3.0"},
+					                        {26, "Hallazgos", "Diagnóstico dinámico", "Los hallazgos se generan desde cumplimiento, P90, exceso, recurrencia y valor afectado.", "La narrativa y el plan de acción responden a filtros de hito, cliente, vendedor y segmento.", "Vigente", "3.0"},
+					                        {27, "Cuello de botella", "Score compuesto", "El cuello combina severidad P90, porcentaje fuera KPI y participación en días de exceso.", "Ponderaciones: 45, 35 y 20 por ciento respectivamente.", "Vigente", "3.0"},
+					                        {28, "Maestros", "Cliente y vendedor", "Dim_Cliente incluye nombre, etiqueta y vendedor asignado.", "Las claves se normalizan con y sin ceros iniciales sin crear relaciones ambiguas.", "Vigente", "3.0"},
+					                        {29, "Promesa oficial", "Inicio del cómputo", "La promesa comienza en la fecha efectiva de ingreso del pedido.", "La fecha efectiva se obtiene aplicando día hábil y hora de corte a la fecha y hora de creación.", "Vigente", "5.0"},
+					                        {30, "Promesa estimada", "Santiago RM", "La operación debe despachar dentro de 5 días hábiles desde la creación efectiva.", "Sin POD, Santiago se presenta como cobertura estimada de 1–5 DH hasta despacho.", "Vigente", "8.0"},
+					                        {31, "Promesa estimada", "Regiones", "La operación debe despachar dentro de 5 días hábiles y se agregan 2 días hábiles de tránsito.", "Sin POD, regiones se presentan como cobertura estimada de 3–7 DH: 1–5 internos + 2 de transporte.", "Vigente", "8.0"},
+					                        {32, "Corte de ingreso", "Lunes a jueves", "Los pedidos ingresados hasta las 14:00 horas inclusive comienzan el SLA ese mismo día hábil.", "Después de las 14:00 horas el inicio se desplaza al siguiente día hábil.", "Vigente", "5.0"},
+					                        {33, "Corte de ingreso", "Viernes", "Los pedidos ingresados hasta las 12:00 horas inclusive comienzan el SLA ese viernes hábil.", "Después de las 12:00 horas el inicio se desplaza al siguiente día hábil, normalmente el lunes.", "Vigente", "5.0"},
+					                        {34, "Calendario", "Siguiente día hábil", "Los desplazamientos por corte excluyen sábados, domingos y feriados chilenos.", "Dim_Feriados_Chile gobierna los feriados utilizados en todos los intervalos y promesas.", "Vigente", "5.0"},
+					                        {35, "Universo", "Nivel de servicio oficial", "Todos los pedidos de canales 42 a 47 comparten la misma base: Normal, FES, Saldo y FES + Saldo, abiertos y cerrados.", "El NS observado usa pedidos cerrados; los abiertos permanecen en tracking sin convertirse en cero días ni excluirse de la cartera.", "Vigente", "6.0"},
+					                        {36, "Fechas efectivas", "Hito sin fecha", "Cuando un hito está vacío se hereda la fecha efectiva del hito anterior.", "El tramo se mide en cero días hábiles y la omisión queda marcada para auditoría.", "Vigente", "5.0"},
+					                        {37, "Auditoría visual", "Semáforo por hito", "Cada tramo muestra fechas de inicio y fin, días reales, SLA, exceso y regla de fecha.", "Rojo identifica incumplimiento o secuencia inválida; amarillo requiere revisión; verde cumple.", "Vigente", "5.0"},
+					                        {38, "Auditoría visual", "Tooltip de página", "El detalle contextual aparece al pasar el cursor sobre un hito sin abandonar el análisis.", "Para interacción y revisión completa se utiliza la página Auditoría 360 por Pedido.", "Vigente", "5.0"},
+					                        {39, "Navegación", "Botones SVG", "Inicio, Procesos, Auditoría y Metodología forman la navegación principal.", "Los estados normal y hover usan recursos SVG registrados y texto alternativo accesible.", "Vigente", "5.0"},
+					                        {40, "Alcance de entrega", "Fecha real al cliente", "El modelo estima llegada al despacho para Santiago y suma 2 DH de tránsito para regiones.", "La entrega real sólo puede validarse al integrar la fecha POD o entregado del transportista.", "Vigente", "8.0"},
+					                        {41, "Experiencia ejecutiva", "Vista compacta", "La portada comienza con el resumen jerárquico contraído para facilitar la lectura gerencial.", "La matriz permite expandir niveles con el signo más y el botón EXPANDIR abre el detalle completo.", "Vigente", "6.0"},
+					                        {42, "Experiencia ejecutiva", "Tarjetas compuestas", "La portada resume pedidos, valor CLP, NS interno y promesa estimada.", "Cada tarjeta integra total, cumplimiento, incumplimiento, porcentaje y acceso a detalle.", "Vigente", "8.0"},
+					                        {43, "Formato", "Unidad compatible", "Las tarjetas, matrices y tooltips conservan la unidad de negocio al cambiar de indicador.", "El gráfico usa una escala numérica compatible con nivel 1550; pedidos y CLP se leen como valores, nivel de servicio como porcentaje de 0 a 100 y P90 como días hábiles.", "Vigente", "6.1"},
+					                        {44, "Formato", "SVG nativo", "Los indicadores y semáforos se generan como ImageUrl desde medidas DAX.", "No se requiere un visual HTML personalizado para dibujar el SVG.", "Vigente", "6.0"},
+					                        {45, "Navegación", "Menú oculto", "El menú y el detalle expandido permanecen ocultos en la navegación normal.", "Se abren mediante botones y VOLVER AL LIENZO regresa a la página de origen.", "Vigente", "6.0"},
+					                        {46, "Tooltips", "Alcance interactivo", "Los tooltips muestran contexto, fechas, SLA y semáforo sin abandonar el lienzo.", "La selección y el filtrado se realizan en Auditoría 360 porque el tooltip es informativo.", "Vigente", "6.0"},
+					                        {47, "Control de calidad", "Prueba estructural", "Antes de publicar se validan JSON, referencias DAX, destinos de navegación, recursos SVG y páginas ocultas.", "La actualización de consultas se valida en Power BI Desktop con acceso al origen SQL.", "Vigente", "6.0"},
+					                        {48, "Ruta dinámica", "Movimiento del camión", "El camión representa los días hábiles observados en el contexto activo.", "La posición cambia al seleccionar un pedido o pinchar un hito y se compara con el marcador de SLA aplicable.", "Prueba", "7.0"},
+						                        {49, "Ruta dinámica", "Lectura agregada", "Sin pedido, flujo o hito seleccionado la ruta muestra el promedio del tiempo interno del Flujo Normal.", "El marcador principal compara creación efectiva a despacho con la meta oficial de 5 DH.", "Vigente", "10.0"},
+					                        {50, "Ruta dinámica", "Universo oficial", "El nivel de servicio usa el universo único de canales 42 a 47: NORMAL, FES, SALDO y FES + SALDO.", "Cada clasificación se mide hasta su salida oficial y permanece identificable en filtros, tablas y tooltips.", "Prueba", "7.0"},
+					                        {51, "Ruta dinámica", "Proyección de llegada", "Santiago se estima entregado al despacho y regiones suman 2 DH de tránsito.", "No sustituye una fecha real de entrega; la validación definitiva requiere POD o estado entregado del transportista.", "Vigente", "8.0"},
+					                        {52, "Resumen ejecutivo", "Segmentación territorial", "Santiago y Regiones se abren en rangos hasta 2 DH, 3 a 5 DH y más de 5 DH.", "La matriz muestra cumplen, no cumplen, total, porcentaje on-time y semáforo contextual.", "Vigente", "8.0"},
+					                        {53, "Tooltip ejecutivo", "Top 10 demoras", "Al pasar el cursor por tarjetas, gráfico o matriz se muestran los diez pedidos con mayor tiempo interno.", "Incluye cliente, vendedor, zona, creación, ingreso a logística, factura, despacho y semáforo.", "Vigente", "8.0"},
+					                        {54, "Clasificación saldo", "Validación auditable", "Saldo exige primera y última factura no nulas y una brecha mayor que cero entre sus fechas calendario.", "La misma regla DATEDIFF DAY mayor que cero se expone por pedido; una última factura anterior se marca para revisión y no se acepta como Saldo coherente.", "Vigente", "9.0"},
+						                        {55, "Tooltip por hito", "Top 10 contextual", "Al pasar el cursor por un hito se abre un detalle compacto con la matriz de porcentajes y los diez pedidos más atrasados.", "Incluye tipo Normal, FES o Saldo, vendedor, cliente, días, SLA, exceso, semáforo, creación, inicio y fin del hito, primera y última factura, salida oficial y control de Saldo.", "Vigente", "9.0"},
+						                        {56, "Promesa oficial", "Separación SLA y tránsito", "El SLA interno es 5 DH para Santiago y regiones.", "Los 2 DH adicionales de regiones corresponden sólo a tránsito estimado y no amplían el tiempo interno permitido.", "Vigente", "10.0"},
+						                        {57, "Cumplimiento", "Regla configurable", "Los pedidos y valores on-time usan CUMPLE_PREPARACION calculado desde Config_Promesa_Entrega.", "La configuración vigente mantiene 5 DH de preparación en ambas zonas.", "Vigente", "10.0"},
+						                        {58, "Responsables", "Vendedor comercial", "El vendedor se obtiene desde Dim_Cliente[VENDEDOR_NOMBRE] por código de cliente.", "PED_RESPONSABLE se conserva como responsable interno y no sustituye al vendedor.", "Vigente", "10.0"},
+						                        {59, "Resumen ejecutivo", "Gráfico combinado", "El volumen se muestra como cantidad de pedidos y las líneas muestran NS y participación.", "El subtítulo dinámico informa las fechas mínima y máxima del universo evaluado.", "Vigente", "10.0"},
+						                        {60, "Ruta dinámica", "Contexto activo", "La portada usa el promedio sin selección y cambia al pedido, flujo o hito activo.", "La ruta detallada permanece disponible para auditoría del pedido.", "Vigente", "10.0"},
+						                        {61, "Cuello de botella", "Catálogo centralizado", "Dim_Hito[ES_ETAPA_CUELLO] identifica las etapas que participan del análisis.", "Promedio, mediana, P90, cobertura y ranking comparten la misma definición sin listas duplicadas.", "Vigente", "10.0"}
+								        }
+								    ),
+								    Ordenado = Table.Sort(Origen, {{"Orden", Order.Ascending}})
+								in
+								    Ordenado
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

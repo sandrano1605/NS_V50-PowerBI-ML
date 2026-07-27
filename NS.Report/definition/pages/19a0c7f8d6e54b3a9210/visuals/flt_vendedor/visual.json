@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "flt_vendedor",
+  "position": {
+    "x": 514,
+    "y": 74,
+    "z": 10000,
+    "height": 64,
+    "width": 240,
+    "tabOrder": 9000
+  },
+  "visual": {
+    "visualType": "textFilter25A4896A83E0487089E2B90C9AE57C8A",
+    "query": {
+      "queryState": {
+        "field": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Cliente"
+                    }
+                  },
+                  "Property": "VENDEDOR_NOMBRE"
+                }
+              },
+              "queryRef": "Dim_Cliente.VENDEDOR_NOMBRE",
+              "nativeQueryRef": "VENDEDOR_NOMBRE"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

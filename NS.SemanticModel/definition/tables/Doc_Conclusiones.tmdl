@@ -1,0 +1,52 @@
+/// Estructura de conclusiones ejecutivas y acciones dinámicas.
+table Doc_Conclusiones
+	lineageTag: c2a1580b-9d16-403a-8a66-3aa1c72f3d88
+
+	column Orden
+		dataType: int64
+		isKey
+		formatString: 0
+		lineageTag: 42221a89-5807-41e4-9acc-0890051627e6
+		summarizeBy: none
+		sourceColumn: Orden
+
+		annotation SummarizationSetBy = User
+
+	column Tema
+		dataType: string
+		lineageTag: fd04228f-1ca9-4aed-8a05-27c507e23220
+		summarizeBy: none
+		sourceColumn: Tema
+
+		annotation SummarizationSetBy = User
+
+	column Objetivo
+		dataType: string
+		lineageTag: e6aed40d-a64b-4b91-bc77-a59e1de550cb
+		summarizeBy: none
+		sourceColumn: Objetivo
+
+		annotation SummarizationSetBy = User
+
+	partition Doc_Conclusiones = m
+		mode: import
+		source =
+				let
+				    Origen = #table(
+				        type table [Orden = Int64.Type, Tema = text, Objetivo = text],
+				        {
+				            {1, "Concentración de clientes", "Medir dependencia comercial y concentración del valor."},
+				            {2, "Cierre de mes", "Detectar concentración de pedidos en los últimos días hábiles."},
+				            {3, "Nivel general de despacho", "Evaluar completitud, mediana, promedio y P90."},
+				            {4, "Cola operacional", "Identificar pedidos con tiempos superiores a veinte días hábiles."},
+				            {5, "Pendientes y parciales", "Cuantificar pedidos sin cierre operacional completo."},
+				            {6, "Calidad de datos", "Controlar pedidos críticos y trazabilidad insuficiente."}
+				        }
+				    )
+				in
+				    Origen
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

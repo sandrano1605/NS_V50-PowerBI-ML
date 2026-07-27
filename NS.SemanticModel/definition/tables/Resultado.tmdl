@@ -1,0 +1,576 @@
+table Resultado
+	lineageTag: 1f7fb967-bc11-4112-ba69-d838235f77fe
+
+	column PED_NUMERO_PEDIDO
+		dataType: string
+		lineageTag: e1014b19-3070-4acb-a840-e53508c532d6
+		summarizeBy: none
+		sourceColumn: PED_NUMERO_PEDIDO
+
+	column CLIENTE
+		dataType: string
+		lineageTag: cacd9816-0f62-435c-aed5-c0bc6e012b99
+		summarizeBy: none
+		sourceColumn: CLIENTE
+
+	column VENDEDOR
+		dataType: string
+		lineageTag: 17bd9964-dbd5-45e0-b589-1721054ba1f7
+		summarizeBy: none
+		sourceColumn: VENDEDOR
+
+	column CLASIFICACION
+		dataType: string
+		lineageTag: 9eb09fef-c507-4060-88f9-b059ead00afc
+		summarizeBy: none
+		sourceColumn: CLASIFICACION
+
+	column DH_TOTAL
+		dataType: double
+		formatString: 0.0
+		lineageTag: 657c2d3c-19a0-4ea7-8afe-5ac0688773d3
+		summarizeBy: average
+		sourceColumn: DH_TOTAL
+
+	column ESTADO_SLA
+		dataType: string
+		lineageTag: 757af70a-f5a5-470b-807c-dda25b62b233
+		summarizeBy: none
+		sourceColumn: ESTADO_SLA
+
+	column DH_CREDITO
+		dataType: double
+		formatString: 0.0
+		lineageTag: 6884d045-34b7-4495-b628-08315b3d58e3
+		summarizeBy: average
+		sourceColumn: DH_CREDITO
+
+	column DH_OPERACIONES
+		dataType: double
+		formatString: 0.0
+		lineageTag: d6c6bde6-0447-4580-9d04-199d04256660
+		summarizeBy: average
+		sourceColumn: DH_OPERACIONES
+
+	column DH_DESPACHO
+		dataType: double
+		formatString: 0.0
+		lineageTag: d8b586ed-261f-40b7-afbf-8348b19d5fb4
+		summarizeBy: average
+		sourceColumn: DH_DESPACHO
+
+	column DH_PICKING
+		dataType: double
+		formatString: 0.0
+		lineageTag: 8dbe5167-da63-46d9-8261-9e86a619cf69
+		summarizeBy: average
+		sourceColumn: DH_PICKING
+
+	column DH_FACTURACION
+		dataType: double
+		formatString: 0.0
+		lineageTag: 70d70e16-dafb-45d3-9058-4c56d98bbd1e
+		summarizeBy: average
+		sourceColumn: DH_FACTURACION
+
+	column FASE_MAS_LENTA
+		dataType: string
+		lineageTag: 3b482d71-4911-4364-a818-75397e7ff2aa
+		summarizeBy: none
+		sourceColumn: FASE_MAS_LENTA
+
+	column DH_FASE_LENTA
+		dataType: double
+		formatString: 0.0
+		lineageTag: dda454a8-0ab4-4a11-8473-ece82e1f5861
+		summarizeBy: average
+		sourceColumn: DH_FASE_LENTA
+
+	column FACTOR_PRINCIPAL
+		dataType: string
+		lineageTag: 9ec99e57-959c-42b7-82d2-51e2ebddec50
+		summarizeBy: none
+		sourceColumn: FACTOR_PRINCIPAL
+
+	column ACCION_RECOMENDADA
+		dataType: string
+		lineageTag: e329648f-9fb1-4d84-abaf-b3a3d6fc4141
+		summarizeBy: none
+		sourceColumn: ACCION_RECOMENDADA
+
+	column RIESGO_ATRASO
+		dataType: string
+		lineageTag: fe570bb7-a1ce-4603-b59c-745f59f07bd0
+		summarizeBy: none
+		sourceColumn: RIESGO_ATRASO
+
+	column PROB_ML_ATRASO
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 00aa006d-3d0d-45d1-a6ef-2b4c0ff30ca9
+		summarizeBy: average
+		sourceColumn: PROB_ML_ATRASO
+
+	column RESPONSABLE_AREA
+		dataType: string
+		lineageTag: 1b4baa21-e220-4f95-8ccc-35d8c7c1ea44
+		summarizeBy: none
+		sourceColumn: RESPONSABLE_AREA
+
+	column VALOR_NETO
+		dataType: double
+		formatString: "CLP $" #,0;-"CLP $" #,0;"CLP $" 0
+		lineageTag: ded5f290-6eb3-440c-8d26-c84ff7c17e0a
+		summarizeBy: sum
+		sourceColumn: VALOR_NETO
+
+	column ZONA
+		dataType: string
+		lineageTag: 4630b329-79cd-466a-80b1-113878e43795
+		summarizeBy: none
+		sourceColumn: ZONA
+
+	column DIA_MES
+		dataType: int64
+		formatString: 0
+		lineageTag: a3a629fa-d8b5-4d00-95ff-2516f2c323fe
+		summarizeBy: average
+		sourceColumn: DIA_MES
+
+	column ES_FIN_MES
+		dataType: string
+		lineageTag: 0ed59185-c052-4c9e-b713-a06b7ad162dd
+		summarizeBy: none
+		sourceColumn: ES_FIN_MES
+
+	column DH_PREDICHO_ML
+		dataType: double
+		formatString: 0.0
+		lineageTag: 29b04891-864d-43e2-bb4a-44cd211b3f1e
+		summarizeBy: average
+		sourceColumn: DH_PREDICHO_ML
+
+	column MODELO_ML
+		dataType: string
+		lineageTag: ee90b9f5-dcfd-48fe-8dce-b1a0b9cf0ceb
+		summarizeBy: none
+		sourceColumn: MODELO_ML
+
+	column FEATURE_TOP1
+		dataType: string
+		lineageTag: 3b48b2f4-e3d8-473c-8b7a-be0946d904f8
+		summarizeBy: none
+		sourceColumn: FEATURE_TOP1
+
+	column FEATURE_TOP2
+		dataType: string
+		lineageTag: c6288f20-9774-4070-9fb8-217adfe301ac
+		summarizeBy: none
+		sourceColumn: FEATURE_TOP2
+
+	column FEATURE_TOP3
+		dataType: string
+		lineageTag: 3e6e44cb-00d8-44ac-b481-bece5244eac9
+		summarizeBy: none
+		sourceColumn: FEATURE_TOP3
+
+	column PED_FECHA
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 134d9257-8cbc-4eb2-a738-ed825e8f32b3
+		summarizeBy: none
+		sourceColumn: PED_FECHA
+
+	column MES_CREACION
+		dataType: string
+		lineageTag: b74f2aae-48e1-4891-b4dc-de771a297408
+		summarizeBy: none
+		sourceColumn: MES_CREACION
+
+	column PED_CODIGO_CLIENTE
+		dataType: string
+		lineageTag: ea237788-4f73-4df4-acf0-563ce2d55e63
+		summarizeBy: none
+		sourceColumn: PED_CODIGO_CLIENTE
+
+	column PED_RESPONSABLE
+		dataType: string
+		lineageTag: 58414d94-aa5b-4af2-9d09-4ccd770dabf2
+		summarizeBy: none
+		sourceColumn: PED_RESPONSABLE
+
+	column PED_CANAL_CODIGO
+		dataType: string
+		lineageTag: cc99bfa6-e911-4d0a-990a-c36f3168c95b
+		summarizeBy: none
+		sourceColumn: PED_CANAL_CODIGO
+
+	column PED_CANAL
+		dataType: string
+		lineageTag: 813e02a5-1d8b-4045-a455-26a6317693a1
+		summarizeBy: none
+		sourceColumn: PED_CANAL
+
+	column PED_REGION
+		dataType: string
+		lineageTag: 979d1dde-ff0f-494b-b051-e6cb77ce6b88
+		summarizeBy: none
+		sourceColumn: PED_REGION
+
+	column PED_CONDICION_EXPEDICION_CODIGO
+		dataType: string
+		lineageTag: 2f9c2fca-d7ca-4f4d-93c4-73db0880d0a2
+		summarizeBy: none
+		sourceColumn: PED_CONDICION_EXPEDICION_CODIGO
+
+	column PED_CONDICION_EXPEDICION
+		dataType: string
+		lineageTag: 21ea15fe-58a3-4b57-af88-fccdcd04f33c
+		summarizeBy: none
+		sourceColumn: PED_CONDICION_EXPEDICION
+
+	column PED_ESTADO_CREDITO
+		dataType: string
+		lineageTag: 6c75a814-1c06-4dba-a332-c7eb2da8ac9e
+		summarizeBy: none
+		sourceColumn: PED_ESTADO_CREDITO
+
+	column SERV_TIPO_SERVICIO
+		dataType: string
+		lineageTag: e5293a5f-6e0f-493c-ad55-efbb21e8133e
+		summarizeBy: none
+		sourceColumn: SERV_TIPO_SERVICIO
+
+	column VALOR_MM
+		dataType: double
+		formatString: 0.00
+		lineageTag: 3d1e55a9-98bd-4334-a2f4-336383338444
+		summarizeBy: average
+		sourceColumn: VALOR_MM
+
+	column SEMANA_MES
+		dataType: string
+		lineageTag: b121d29a-a1e4-40bc-9ac6-a921df5a4d2d
+		summarizeBy: none
+		sourceColumn: SEMANA_MES
+
+	column ES_FES
+		dataType: boolean
+		lineageTag: ae2566fb-0a65-4690-b733-62f9f50d89d8
+		summarizeBy: none
+		sourceColumn: ES_FES
+
+	column ES_SALDO
+		dataType: boolean
+		lineageTag: e9e2ca9e-a225-4ca8-9747-375b35936f43
+		summarizeBy: none
+		sourceColumn: ES_SALDO
+
+	column ES_PENDIENTE
+		dataType: boolean
+		lineageTag: 617fd52e-4161-43d9-8aa8-6ee32067f28c
+		summarizeBy: none
+		sourceColumn: ES_PENDIENTE
+
+	column ES_CERRADO_TRACKING
+		dataType: boolean
+		lineageTag: 5784184b-fd7b-401e-8bbf-dbeb8ffbf498
+		summarizeBy: none
+		sourceColumn: ES_CERRADO_TRACKING
+
+	column ESTADO_ACTUAL
+		dataType: string
+		lineageTag: e1952748-cd03-4231-8fe9-b0635885b4c0
+		summarizeBy: none
+		sourceColumn: ESTADO_ACTUAL
+
+	column HITO_ACTUAL
+		dataType: string
+		lineageTag: 6b70f193-d3da-4765-a477-4d17b21568d7
+		summarizeBy: none
+		sourceColumn: HITO_ACTUAL
+
+	column FECHA_ACTUALIZACION
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 00e0be45-02fe-4bae-87f2-2ed8fa78daf6
+		summarizeBy: none
+		sourceColumn: FECHA_ACTUALIZACION
+
+	column DIAS_ACTUALES_DH
+		dataType: double
+		formatString: 0.0
+		lineageTag: 02032e0a-4c59-4e56-b397-b6506a8aec6e
+		summarizeBy: average
+		sourceColumn: DIAS_ACTUALES_DH
+
+	column DIAS_EN_ESTADO_DH
+		dataType: double
+		formatString: 0.0
+		lineageTag: 8f6ef812-24de-4c85-b147-884672a78279
+		summarizeBy: average
+		sourceColumn: DIAS_EN_ESTADO_DH
+
+	column PREDICCION_SLA
+		dataType: string
+		lineageTag: e1d38642-4f14-4410-b502-f52d5b555af3
+		summarizeBy: none
+		sourceColumn: PREDICCION_SLA
+
+	column DH_PREDICHO_BASE_ML
+		dataType: double
+		formatString: 0.0
+		lineageTag: b9bd8133-8772-4ff0-a9c0-64aaab9d3759
+		summarizeBy: average
+		sourceColumn: DH_PREDICHO_BASE_ML
+
+	column DIAS_RESTANTES_PREDICHOS
+		dataType: double
+		formatString: 0.0
+		lineageTag: 90808778-b93e-43de-ba6b-bb94d8fc3062
+		summarizeBy: average
+		sourceColumn: DIAS_RESTANTES_PREDICHOS
+
+	column BANDA_DIAS_PREDICHOS
+		dataType: string
+		lineageTag: 6d02de0c-0bd5-4179-bb79-d245e3174b0c
+		summarizeBy: none
+		sourceColumn: BANDA_DIAS_PREDICHOS
+
+	column SLA_CONSUMIDO_PCT
+		dataType: double
+		formatString: 0.0%
+		lineageTag: f7fe46eb-18fa-4990-a099-cee6d8eb4f48
+		summarizeBy: average
+		sourceColumn: SLA_CONSUMIDO_PCT
+
+	column PRIORIDAD_SCORE
+		dataType: double
+		formatString: 0.0
+		lineageTag: 91bbb2bf-9182-4b5a-bb69-fd16dd3a98c2
+		summarizeBy: average
+		sourceColumn: PRIORIDAD_SCORE
+
+	column FACTOR_HISTORICO
+		dataType: string
+		lineageTag: 21be5c75-d00a-4f09-b087-140379a4657e
+		summarizeBy: none
+		sourceColumn: FACTOR_HISTORICO
+
+	column FACTOR_DIAS_PRINCIPAL
+		dataType: string
+		lineageTag: d30aff2c-db28-4ce2-8e4c-47fed68a0055
+		summarizeBy: none
+		sourceColumn: FACTOR_DIAS_PRINCIPAL
+
+	column ES_FLUJO_COMPLETO_ML
+		dataType: boolean
+		lineageTag: bc43453f-d223-4adb-8b83-3eac70855273
+		summarizeBy: none
+		sourceColumn: ES_FLUJO_COMPLETO_ML
+
+	column ES_CALIDAD_VALIDA_ML
+		dataType: boolean
+		lineageTag: e35a6824-8001-417a-a036-9672f263923e
+		summarizeBy: none
+		sourceColumn: ES_CALIDAD_VALIDA_ML
+
+	column ES_ENTRENAMIENTO_FINAL
+		dataType: boolean
+		lineageTag: 49f08da1-91a3-4156-8949-61ff797dbd90
+		summarizeBy: none
+		sourceColumn: ES_ENTRENAMIENTO_FINAL
+
+	column ES_VALIDACION_TEST
+		dataType: boolean
+		lineageTag: 888550bf-4284-49f2-99c3-a8886cddc9ae
+		summarizeBy: none
+		sourceColumn: ES_VALIDACION_TEST
+
+	column MOTIVO_EXCLUSION_ML
+		dataType: string
+		lineageTag: 714df517-0932-44a1-9efa-c9ba3770bed3
+		summarizeBy: none
+		sourceColumn: MOTIVO_EXCLUSION_ML
+
+	column AUD_ESTADO_GENERAL
+		dataType: string
+		lineageTag: 2fad060a-37f5-406d-9e2b-6f5ddde02bf2
+		summarizeBy: none
+		sourceColumn: AUD_ESTADO_GENERAL
+
+	column AUD_TOTAL_CRITICAS
+		dataType: int64
+		formatString: 0
+		lineageTag: 940473b0-a85e-4188-81dd-2a57b527c4a7
+		summarizeBy: average
+		sourceColumn: AUD_TOTAL_CRITICAS
+
+	column AUD_PRINCIPAL_INCONGRUENCIA
+		dataType: string
+		lineageTag: 8afb3cd8-feff-40c9-82b6-9f215a61498d
+		summarizeBy: none
+		sourceColumn: AUD_PRINCIPAL_INCONGRUENCIA
+
+	column AUD_DUPLICADOS_ENTRADA
+		dataType: int64
+		formatString: 0
+		lineageTag: cbf6b2cf-7b7d-40f8-98c1-109b8108921a
+		summarizeBy: average
+		sourceColumn: AUD_DUPLICADOS_ENTRADA
+
+	column MODELO_VERSION
+		dataType: string
+		lineageTag: e0bb203c-f0e7-4d73-a35e-636ac5f92abc
+		summarizeBy: none
+		sourceColumn: MODELO_VERSION
+
+	column MODELO_FECHA
+		dataType: string
+		lineageTag: d3cc3ed7-ba4a-40a3-a462-8130f0457902
+		summarizeBy: none
+		sourceColumn: MODELO_FECHA
+
+	column MODELO_VALIDADO
+		dataType: boolean
+		lineageTag: 831285a1-3cf0-4b05-b7db-4a4cd8b419be
+		summarizeBy: none
+		sourceColumn: MODELO_VALIDADO
+
+	column MODELO_DEPENDENCIA
+		dataType: string
+		lineageTag: 1dae7f99-c5f0-4f74-b574-19917a74101c
+		summarizeBy: none
+		sourceColumn: MODELO_DEPENDENCIA
+
+	column MODELO_FUENTE_SCORE
+		dataType: string
+		lineageTag: e3802475-1fe3-4324-9e32-974441924e1e
+		summarizeBy: none
+		sourceColumn: MODELO_FUENTE_SCORE
+
+	column N_ENTRENAMIENTO_FINAL
+		dataType: int64
+		formatString: #,##0
+		lineageTag: 086f19b5-c060-4f01-804b-a0df56778631
+		summarizeBy: average
+		sourceColumn: N_ENTRENAMIENTO_FINAL
+
+	column N_TRAIN_VALIDACION
+		dataType: int64
+		formatString: #,##0
+		lineageTag: 1a3a3199-044c-4f5e-b1fc-9ee4c32ddf3c
+		summarizeBy: average
+		sourceColumn: N_TRAIN_VALIDACION
+
+	column N_TEST_VALIDACION
+		dataType: int64
+		formatString: #,##0
+		lineageTag: 1fb13bbe-fc09-40e2-bc41-1f314372e474
+		summarizeBy: average
+		sourceColumn: N_TEST_VALIDACION
+
+	column MESES_TRAIN_VALIDACION
+		dataType: string
+		lineageTag: b85b6d93-6a72-4ff5-832c-440308b3ba9d
+		summarizeBy: none
+		sourceColumn: MESES_TRAIN_VALIDACION
+
+	column MES_TEST_VALIDACION
+		dataType: string
+		lineageTag: 962887d5-1bd1-401a-a454-cf1d40c57bcf
+		summarizeBy: none
+		sourceColumn: MES_TEST_VALIDACION
+
+	column AUC_TEST
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 29e33811-cdfc-480e-b48e-70e13b533eb5
+		summarizeBy: average
+		sourceColumn: AUC_TEST
+
+	column AP_TEST
+		dataType: double
+		formatString: 0.0%
+		lineageTag: c64cde88-0c2a-48e3-aa47-7ee42faf804c
+		summarizeBy: average
+		sourceColumn: AP_TEST
+
+	column BRIER_TEST
+		dataType: double
+		formatString: 0.000
+		lineageTag: 4f0850da-68d8-4809-b3a8-e2b9f679b647
+		summarizeBy: average
+		sourceColumn: BRIER_TEST
+
+	column MAE_DIAS_TEST
+		dataType: double
+		formatString: 0.00
+		lineageTag: 2c211f39-d3ee-48c8-a015-e379cb4d7b30
+		summarizeBy: average
+		sourceColumn: MAE_DIAS_TEST
+
+	column RMSE_DIAS_TEST
+		dataType: double
+		formatString: 0.00
+		lineageTag: bdf69fb2-b370-4156-b262-9eddf673dd24
+		summarizeBy: average
+		sourceColumn: RMSE_DIAS_TEST
+
+	column R2_DIAS_TEST
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 49d995c1-d1a5-4ebf-a1f0-34d2674cd162
+		summarizeBy: average
+		sourceColumn: R2_DIAS_TEST
+
+	column TASA_ATRASO_ENTRENAMIENTO
+		dataType: double
+		formatString: 0.0%
+		lineageTag: d1a21407-8a71-4040-aed5-a14cc8f475bb
+		summarizeBy: average
+		sourceColumn: TASA_ATRASO_ENTRENAMIENTO
+
+	column PEDIDOS_PENDIENTES_MODELO
+		dataType: int64
+		formatString: #,##0
+		lineageTag: ee21e62f-8de1-4f77-9d13-2036d57f6349
+		summarizeBy: average
+		sourceColumn: PEDIDOS_PENDIENTES_MODELO
+
+	column PEDIDOS_PENDIENTES_ALTO
+		dataType: int64
+		formatString: #,##0
+		lineageTag: 9cb567f5-ebd9-4f59-a969-e920e5a04545
+		summarizeBy: average
+		sourceColumn: PEDIDOS_PENDIENTES_ALTO
+
+	column ATRASOS_ESPERADOS_PENDIENTES
+		dataType: double
+		formatString: 0.0
+		lineageTag: f4c254c9-e072-4811-aaa2-5af8909c0dd3
+		summarizeBy: sum
+		sourceColumn: ATRASOS_ESPERADOS_PENDIENTES
+
+	partition Resultado = m
+		mode: import
+		source =
+				let
+				    Pedidos = Fact_Pedidos_Auditoria,
+				    TrackingBase = Table.SelectColumns(Fact_Tracking, {"PED_NUMERO_PEDIDO", "ES_CERRADO", "ESTADO_ACTUAL", "HITO_ACTUAL", "DIAS_INTERNOS_DH", "DIAS_EN_ESTADO_DH", "DIAS_RESTANTES_DH", "FECHA_ACTUALIZACION"}),
+				    TrackingUnico = Table.Distinct(TrackingBase, {"PED_NUMERO_PEDIDO"}),
+				    JoinTracking = Table.NestedJoin(Pedidos, {"PED_NUMERO_PEDIDO"}, TrackingUnico, {"PED_NUMERO_PEDIDO"}, "Tracking", JoinKind.LeftOuter),
+				    ExpandTracking = Table.ExpandTableColumn(JoinTracking, "Tracking", {"ES_CERRADO", "ESTADO_ACTUAL", "HITO_ACTUAL", "DIAS_INTERNOS_DH", "DIAS_EN_ESTADO_DH", "DIAS_RESTANTES_DH", "FECHA_ACTUALIZACION"}, {"ES_CERRADO", "ESTADO_ACTUAL", "HITO_ACTUAL", "DIAS_INTERNOS_DH", "DIAS_EN_ESTADO_DH", "DIAS_RESTANTES_DH", "FECHA_ACTUALIZACION"}),
+				    ClienteBase = Table.SelectColumns(Dim_Cliente, {"CLIENTE_CODIGO", "CLIENTE_NOMBRE", "VENDEDOR_NOMBRE"}),
+				    JoinCliente = Table.NestedJoin(ExpandTracking, {"PED_CODIGO_CLIENTE"}, ClienteBase, {"CLIENTE_CODIGO"}, "Cliente", JoinKind.LeftOuter),
+				    Entrada = Table.ExpandTableColumn(JoinCliente, "Cliente", {"CLIENTE_NOMBRE", "VENDEDOR_NOMBRE"}, {"CLIENTE_NOMBRE", "VENDEDOR_NOMBRE"}),
+				    Python = Python.Execute("""""""#(lf)Motor auditado para Power BI / Python.Execute.#(lf)#(lf)Objetivos:#(lf)- Regresión logística: probabilidad de incumplir SLA interno de 5 DH.#(lf)- Regresión lineal regularizada: días hábiles totales esperados.#(lf)- Entrena únicamente con pedidos de flujo completo y calidad válida.#(lf)- Predice pedidos pendientes sin usar FES, Saldo ni duraciones futuras como predictores.#(lf)#(lf)Entrada Power BI: DataFrame `dataset`.#(lf)Salida Power BI: DataFrame `dataset` con una fila por pedido.#(lf)""""""#(lf)from __future__ import annotations#(lf)#(lf)import math#(lf)import warnings#(lf)from datetime import datetime#(lf)from typing import Dict, List, Tuple#(lf)#(lf)import numpy as np#(lf)import pandas as pd#(lf)#(lf)warnings.filterwarnings(""ignore"")#(lf)#(lf)try:#(lf)    from sklearn.linear_model import LogisticRegression, Ridge#(lf)    from sklearn.metrics import average_precision_score, brier_score_loss, mean_absolute_error, mean_squared_error, r2_score, roc_auc_score#(lf)    SKLEARN_OK = True#(lf)except Exception:#(lf)    SKLEARN_OK = False#(lf)#(lf)SLA_DH = 5.0#(lf)MAX_TARGET_DH = 60.0#(lf)RISK_HIGH = 0.20#(lf)RISK_MEDIUM = 0.10#(lf)SMOOTHING_K = 10.0#(lf)MODEL_VERSION = ""ML_LOGIT_LINEAR_FLUJO_COMPLETO_V50_2026""#(lf)MODEL_DATE = datetime.now().strftime(""%Y-%m-%d %H:%M"")#(lf)#(lf)REQUIRED = [#(lf)    ""PED_NUMERO_PEDIDO"", ""PED_CODIGO_CLIENTE"", ""PED_RESPONSABLE"",#(lf)    ""PED_CANAL_CODIGO"", ""PED_REGION"", ""PED_CONDICION_EXPEDICION_CODIGO"",#(lf)    ""PED_ESTADO_CREDITO"", ""SERV_TIPO_SERVICIO"", ""PED_VALOR_NETO"",#(lf)    ""PED_FECHA_HORA"", ""DH_ENTREGA_COMPLETA_100""#(lf)]#(lf)#(lf)OPTIONAL_DEFAULTS = {#(lf)    ""PED_CANAL"": ""SIN DATO"", ""PED_CONDICION_EXPEDICION"": ""SIN DATO"",#(lf)    ""SERV_TIPO_SERVICIO_PLANIFICADO"": ""SIN DATO"", ""PED_CIUDAD"": ""SIN DATO"",#(lf)    ""ES_FES"": False, ""ES_SALDO"": False, ""SEGMENTO_ANALISIS"": ""NORMAL"",#(lf)    ""ES_ULTIMOS_7_DIAS_HABILES_MES"": False, ""AUD_TOTAL_CRITICAS"": 0,#(lf)    ""AUD_ESTADO_GENERAL"": ""SIN AUDITORIA"", ""AUD_PRINCIPAL_INCONGRUENCIA"": """",#(lf)    ""DH_CREDITO_COBRANZAS"": np.nan, ""DH_OPERACION_INTERNA"": np.nan,#(lf)    ""DH_CREDITO_A_PRIMERA_ENTREGA"": np.nan,#(lf)    ""DH_PRIMERA_ENTREGA_A_PRIMER_PICKING"": np.nan,#(lf)    ""DH_PRIMER_PICKING_A_PRIMERA_FACTURA"": np.nan,#(lf)    ""DH_PRIMER_PACKING_A_PRIMERA_FACTURA"": np.nan,#(lf)    ""DH_DESPACHO"": np.nan, ""ES_CERRADO"": np.nan,#(lf)    ""ESTADO_ACTUAL"": ""SIN ESTADO"", ""HITO_ACTUAL"": ""SIN HITO"",#(lf)    ""DIAS_INTERNOS_DH"": np.nan, ""DIAS_EN_ESTADO_DH"": np.nan,#(lf)    ""DIAS_RESTANTES_DH"": np.nan, ""FECHA_ACTUALIZACION"": pd.NaT,#(lf)    ""CLIENTE_NOMBRE"": """", ""VENDEDOR_NOMBRE"": """"#(lf)}#(lf)#(lf)#(lf)def _safe_text(s: pd.Series, default: str = ""SIN DATO"") -> pd.Series:#(lf)    out = s.astype(""string"").fillna(default).str.strip()#(lf)    return out.mask(out.eq(""""), default)#(lf)#(lf)#(lf)def _bool(s: pd.Series) -> pd.Series:#(lf)    if pd.api.types.is_bool_dtype(s):#(lf)        return s.fillna(False)#(lf)    return s.astype(str).str.strip().str.lower().isin({""true"", ""1"", ""si"", ""sí"", ""yes""})#(lf)#(lf)#(lf)def _num(s: pd.Series) -> pd.Series:#(lf)    return pd.to_numeric(s, errors=""coerce"")#(lf)#(lf)#(lf)def _dt(s: pd.Series) -> pd.Series:#(lf)    if pd.api.types.is_datetime64_any_dtype(s):#(lf)        return pd.to_datetime(s, errors=""coerce"")#(lf)    n = pd.to_numeric(s, errors=""coerce"")#(lf)    if n.notna().mean() > 0.85:#(lf)        return pd.to_datetime(n, origin=""1899-12-30"", unit=""D"", errors=""coerce"")#(lf)    return pd.to_datetime(s, errors=""coerce"")#(lf)#(lf)#(lf)def _auc(y: np.ndarray, p: np.ndarray) -> float:#(lf)    y = np.asarray(y, dtype=int)#(lf)    p = np.asarray(p, dtype=float)#(lf)    pos = y == 1#(lf)    neg = y == 0#(lf)    if pos.sum() == 0 or neg.sum() == 0:#(lf)        return float(""nan"")#(lf)    order = np.argsort(p)#(lf)    ranks = np.empty_like(order, dtype=float)#(lf)    ranks[order] = np.arange(1, len(p) + 1)#(lf)    return float((ranks[pos].sum() - pos.sum() * (pos.sum() + 1) / 2) / (pos.sum() * neg.sum()))#(lf)#(lf)#(lf)def _ap(y: np.ndarray, p: np.ndarray) -> float:#(lf)    order = np.argsort(-p)#(lf)    yy = np.asarray(y, dtype=int)[order]#(lf)    positives = yy.sum()#(lf)    if positives == 0:#(lf)        return float(""nan"")#(lf)    precision = np.cumsum(yy) / (np.arange(len(yy)) + 1)#(lf)    return float((precision * yy).sum() / positives)#(lf)#(lf)#(lf)def _metrics_class(y: np.ndarray, p: np.ndarray) -> Dict[str, float]:#(lf)    if SKLEARN_OK:#(lf)        return {#(lf)            ""AUC"": float(roc_auc_score(y, p)),#(lf)            ""AP"": float(average_precision_score(y, p)),#(lf)            ""BRIER"": float(brier_score_loss(y, p)),#(lf)        }#(lf)    return {#(lf)        ""AUC"": _auc(y, p),#(lf)        ""AP"": _ap(y, p),#(lf)        ""BRIER"": float(np.mean((np.asarray(y) - np.asarray(p)) ** 2)),#(lf)    }#(lf)#(lf)#(lf)def _metrics_reg(y: np.ndarray, pred: np.ndarray) -> Dict[str, float]:#(lf)    y = np.asarray(y, dtype=float)#(lf)    pred = np.asarray(pred, dtype=float)#(lf)    if SKLEARN_OK:#(lf)        return {#(lf)            ""MAE"": float(mean_absolute_error(y, pred)),#(lf)            ""RMSE"": float(math.sqrt(mean_squared_error(y, pred))),#(lf)            ""R2"": float(r2_score(y, pred)),#(lf)        }#(lf)    mae = float(np.mean(np.abs(y - pred)))#(lf)    rmse = float(np.sqrt(np.mean((y - pred) ** 2)))#(lf)    denom = float(np.sum((y - y.mean()) ** 2))#(lf)    r2 = float(1 - np.sum((y - pred) ** 2) / denom) if denom > 0 else float(""nan"")#(lf)    return {""MAE"": mae, ""RMSE"": rmse, ""R2"": r2}#(lf)#(lf)#(lf)class FallbackLogit:#(lf)    def __init__(self, l2: float = 0.05, iterations: int = 1200, lr: float = 0.03):#(lf)        self.l2, self.iterations, self.lr = l2, iterations, lr#(lf)        self.coef_ = None#(lf)        self.intercept_ = None#(lf)#(lf)    def fit(self, x: np.ndarray, y: np.ndarray):#(lf)        n, k = x.shape#(lf)        w = np.zeros(k + 1)#(lf)        xx = np.column_stack([np.ones(n), x])#(lf)        y = y.astype(float)#(lf)        pos = max(y.sum(), 1.0)#(lf)        neg = max(n - y.sum(), 1.0)#(lf)        weights = np.where(y == 1, n / (2 * pos), n / (2 * neg))#(lf)        for _ in range(self.iterations):#(lf)            z = np.clip(xx @ w, -25, 25)#(lf)            p = 1 / (1 + np.exp(-z))#(lf)            grad = xx.T @ ((p - y) * weights) / n#(lf)            grad[1:] += self.l2 * w[1:]#(lf)            w -= self.lr * grad#(lf)        self.intercept_ = np.array([w[0]])#(lf)        self.coef_ = np.array([w[1:]])#(lf)        return self#(lf)#(lf)    def predict_proba(self, x: np.ndarray) -> np.ndarray:#(lf)        z = np.clip(x @ self.coef_[0] + self.intercept_[0], -25, 25)#(lf)        p = 1 / (1 + np.exp(-z))#(lf)        return np.column_stack([1 - p, p])#(lf)#(lf)#(lf)class FallbackRidge:#(lf)    def __init__(self, alpha: float = 2.0):#(lf)        self.alpha = alpha#(lf)        self.coef_ = None#(lf)        self.intercept_ = None#(lf)#(lf)    def fit(self, x: np.ndarray, y: np.ndarray):#(lf)        xm = x.mean(axis=0)#(lf)        ym = float(np.mean(y))#(lf)        xc = x - xm#(lf)        yc = y - ym#(lf)        eye = np.eye(x.shape[1])#(lf)        self.coef_ = np.linalg.pinv(xc.T @ xc + self.alpha * eye) @ xc.T @ yc#(lf)        self.intercept_ = ym - xm @ self.coef_#(lf)        return self#(lf)#(lf)    def predict(self, x: np.ndarray) -> np.ndarray:#(lf)        return x @ self.coef_ + self.intercept_#(lf)#(lf)#(lf)def prepare(source: pd.DataFrame) -> Tuple[pd.DataFrame, int]:#(lf)    missing = [c for c in REQUIRED if c not in source.columns]#(lf)    if missing:#(lf)        raise ValueError(""Faltan columnas obligatorias ML: "" + "", "".join(missing))#(lf)#(lf)    df = source.copy()#(lf)    for c, default in OPTIONAL_DEFAULTS.items():#(lf)        if c not in df.columns:#(lf)            df[c] = default#(lf)#(lf)    df[""PED_NUMERO_PEDIDO""] = _safe_text(df[""PED_NUMERO_PEDIDO""])#(lf)    df[""FECHA_ACTUALIZACION""] = _dt(df[""FECHA_ACTUALIZACION""])#(lf)    dup_count = int(df[""PED_NUMERO_PEDIDO""].duplicated(keep=False).sum())#(lf)    if dup_count:#(lf)        df = df.sort_values([""PED_NUMERO_PEDIDO"", ""FECHA_ACTUALIZACION""], na_position=""first"").drop_duplicates(""PED_NUMERO_PEDIDO"", keep=""last"")#(lf)#(lf)    text_cols = [#(lf)        ""PED_CODIGO_CLIENTE"", ""PED_RESPONSABLE"", ""PED_CANAL_CODIGO"", ""PED_CANAL"",#(lf)        ""PED_REGION"", ""PED_CONDICION_EXPEDICION_CODIGO"", ""PED_CONDICION_EXPEDICION"",#(lf)        ""PED_ESTADO_CREDITO"", ""SERV_TIPO_SERVICIO"", ""SERV_TIPO_SERVICIO_PLANIFICADO"",#(lf)        ""SEGMENTO_ANALISIS"", ""AUD_ESTADO_GENERAL"", ""AUD_PRINCIPAL_INCONGRUENCIA"",#(lf)        ""ESTADO_ACTUAL"", ""HITO_ACTUAL"", ""CLIENTE_NOMBRE"", ""VENDEDOR_NOMBRE""#(lf)    ]#(lf)    for c in text_cols:#(lf)        df[c] = _safe_text(df[c])#(lf)#(lf)    df[""PED_FECHA_HORA""] = _dt(df[""PED_FECHA_HORA""])#(lf)    for c in [#(lf)        ""PED_VALOR_NETO"", ""DH_ENTREGA_COMPLETA_100"", ""AUD_TOTAL_CRITICAS"",#(lf)        ""DH_CREDITO_COBRANZAS"", ""DH_OPERACION_INTERNA"", ""DH_CREDITO_A_PRIMERA_ENTREGA"",#(lf)        ""DH_PRIMERA_ENTREGA_A_PRIMER_PICKING"", ""DH_PRIMER_PICKING_A_PRIMERA_FACTURA"",#(lf)        ""DH_PRIMER_PACKING_A_PRIMERA_FACTURA"", ""DH_DESPACHO"", ""DIAS_INTERNOS_DH"",#(lf)        ""DIAS_EN_ESTADO_DH"", ""DIAS_RESTANTES_DH""#(lf)    ]:#(lf)        df[c] = _num(df[c])#(lf)#(lf)    df[""ES_FES""] = _bool(df[""ES_FES""])#(lf)    df[""ES_SALDO""] = _bool(df[""ES_SALDO""])#(lf)    df[""ES_FIN_MES""] = _bool(df[""ES_ULTIMOS_7_DIAS_HABILES_MES""])#(lf)#(lf)    # Tracking vivo cuando está disponible; fallback: sin resultado = pendiente.#(lf)    cerrado_raw = df[""ES_CERRADO""]#(lf)    has_tracking = cerrado_raw.notna().any()#(lf)    if has_tracking:#(lf)        df[""ES_CERRADO_TRACKING""] = _bool(cerrado_raw)#(lf)        df[""ES_PENDIENTE""] = ~df[""ES_CERRADO_TRACKING""]#(lf)    else:#(lf)        df[""ES_CERRADO_TRACKING""] = df[""DH_ENTREGA_COMPLETA_100""].notna()#(lf)        df[""ES_PENDIENTE""] = df[""DH_ENTREGA_COMPLETA_100""].isna()#(lf)#(lf)    df[""PED_FECHA""] = df[""PED_FECHA_HORA""].dt.normalize()#(lf)    df[""MES_CREACION""] = df[""PED_FECHA_HORA""].dt.strftime(""%Y-%m"")#(lf)    df[""DIA_MES""] = df[""PED_FECHA_HORA""].dt.day.fillna(0).astype(int)#(lf)    df[""HORA_CREACION""] = df[""PED_FECHA_HORA""].dt.hour.fillna(0).astype(int)#(lf)    df[""DIA_SEMANA""] = df[""PED_FECHA_HORA""].dt.dayofweek.fillna(0).astype(int).astype(str)#(lf)    df[""SEMANA_MES""] = pd.cut(df[""DIA_MES""], [0, 7, 14, 21, 31], labels=[""1-7"", ""8-14"", ""15-21"", ""22-FIN""], include_lowest=True).astype(""string"").fillna(""SIN DATO"")#(lf)    df[""VALOR_NETO""] = df[""PED_VALOR_NETO""].fillna(0.0)#(lf)    df[""VALOR_MM""] = df[""VALOR_NETO""] / 1_000_000.0#(lf)    df[""ZONA""] = np.where(df[""PED_REGION""].str.lstrip(""0"").eq(""13""), ""Santiago"", ""Regiones"")#(lf)    df[""CLASIFICACION""] = np.select(#(lf)        [df[""ES_FES""] & df[""ES_SALDO""], df[""ES_FES""], df[""ES_SALDO""]],#(lf)        [""FES + SALDO"", ""FES"", ""SALDO""], default=""NORMAL""#(lf)    )#(lf)    df[""DH_TOTAL""] = df[""DH_ENTREGA_COMPLETA_100""]#(lf)    df[""Y_ATRASO_5DH""] = np.where(df[""DH_TOTAL""].notna(), (df[""DH_TOTAL""] > SLA_DH).astype(float), np.nan)#(lf)#(lf)    df[""ES_CALIDAD_VALIDA_ML""] = (#(lf)        df[""DH_TOTAL""].notna()#(lf)        & df[""DH_TOTAL""].between(0, MAX_TARGET_DH, inclusive=""both"")#(lf)        & df[""AUD_TOTAL_CRITICAS""].fillna(0).eq(0)#(lf)        & ~df[""AUD_ESTADO_GENERAL""].str.upper().eq(""CRITICO"")#(lf)    )#(lf)    df[""ES_FLUJO_COMPLETO_ML""] = df[""ES_CALIDAD_VALIDA_ML""] & ~df[""ES_PENDIENTE""]#(lf)#(lf)    reasons = np.select(#(lf)        [#(lf)            df[""AUD_TOTAL_CRITICAS""].fillna(0).gt(0) | df[""AUD_ESTADO_GENERAL""].str.upper().eq(""CRITICO""),#(lf)            df[""DH_TOTAL""].isna(),#(lf)            ~df[""DH_TOTAL""].between(0, MAX_TARGET_DH, inclusive=""both"")#(lf)        ],#(lf)        [""AUDITORIA CRITICA"", ""FLUJO INCOMPLETO / PENDIENTE"", ""DIAS FUERA DE RANGO 0-60""],#(lf)        default=""INCLUIDO EN ENTRENAMIENTO""#(lf)    )#(lf)    df[""MOTIVO_EXCLUSION_ML""] = reasons#(lf)    df[""AUD_DUPLICADOS_ENTRADA""] = dup_count#(lf)    return df.sort_values([""PED_FECHA_HORA"", ""PED_NUMERO_PEDIDO""]).reset_index(drop=True), dup_count#(lf)#(lf)#(lf)def add_prior_history(df: pd.DataFrame) -> pd.DataFrame:#(lf)    out = df.sort_values([""MES_CREACION"", ""PED_FECHA_HORA"", ""PED_NUMERO_PEDIDO""]).copy()#(lf)    complete = out[out[""ES_FLUJO_COMPLETO_ML""]]#(lf)    base_rate = float(complete[""Y_ATRASO_5DH""].mean()) if len(complete) else 0.15#(lf)    levels = [(""CLIENTE"", ""PED_CODIGO_CLIENTE""), (""VENDEDOR"", ""PED_RESPONSABLE""), (""CANAL"", ""PED_CANAL_CODIGO"")]#(lf)    for label, _ in levels:#(lf)        out[f""HIST_{label}_N""] = 0.0#(lf)        out[f""HIST_{label}_RIESGO""] = base_rate#(lf)    history: Dict[str, Dict[str, Tuple[int, int]]] = {label: {} for label, _ in levels}#(lf)    for month in sorted(out[""MES_CREACION""].dropna().unique()):#(lf)        idx = out.index[out[""MES_CREACION""].eq(month)]#(lf)        for i in idx:#(lf)            for label, col in levels:#(lf)                key = str(out.at[i, col])#(lf)                n, delayed = history[label].get(key, (0, 0))#(lf)                out.at[i, f""HIST_{label}_N""] = n#(lf)                out.at[i, f""HIST_{label}_RIESGO""] = (delayed + SMOOTHING_K * base_rate) / (n + SMOOTHING_K)#(lf)        for i in idx:#(lf)            if not bool(out.at[i, ""ES_FLUJO_COMPLETO_ML""]):#(lf)                continue#(lf)            y = int(out.at[i, ""Y_ATRASO_5DH""])#(lf)            for label, col in levels:#(lf)                key = str(out.at[i, col])#(lf)                n, delayed = history[label].get(key, (0, 0))#(lf)                history[label][key] = (n + 1, delayed + y)#(lf)    return out#(lf)#(lf)#(lf)NUM_FEATURES = [#(lf)    ""LOG_VALOR"", ""VALOR_GE_2_6"", ""VALOR_GE_5"", ""DIA_MES_N"", ""HORA_N"", ""ES_FIN_MES_N"",#(lf)    ""HIST_CLIENTE_RIESGO"", ""HIST_CLIENTE_N_LOG"", ""HIST_VENDEDOR_RIESGO"",#(lf)    ""HIST_VENDEDOR_N_LOG"", ""HIST_CANAL_RIESGO"", ""HIST_CANAL_N_LOG""#(lf)]#(lf)CAT_FEATURES = [#(lf)    ""CAT_CANAL"", ""CAT_VENDEDOR"", ""CAT_REGION"", ""CAT_CONDICION"", ""CAT_CREDITO"",#(lf)    ""CAT_SERVICIO"", ""CAT_SERVICIO_PLAN"", ""CAT_SEMANA"", ""CAT_DIA_SEMANA""#(lf)]#(lf)#(lf)#(lf)def build_feature_frame(df: pd.DataFrame) -> pd.DataFrame:#(lf)    x = pd.DataFrame(index=df.index)#(lf)    x[""LOG_VALOR""] = np.log1p(df[""VALOR_MM""].clip(lower=0))#(lf)    x[""VALOR_GE_2_6""] = (df[""VALOR_MM""] >= 2.6).astype(float)#(lf)    x[""VALOR_GE_5""] = (df[""VALOR_MM""] >= 5).astype(float)#(lf)    x[""DIA_MES_N""] = df[""DIA_MES""].astype(float)#(lf)    x[""HORA_N""] = df[""HORA_CREACION""].astype(float)#(lf)    x[""ES_FIN_MES_N""] = df[""ES_FIN_MES""].astype(float)#(lf)    x[""HIST_CLIENTE_RIESGO""] = df[""HIST_CLIENTE_RIESGO""].astype(float)#(lf)    x[""HIST_CLIENTE_N_LOG""] = np.log1p(df[""HIST_CLIENTE_N""].astype(float))#(lf)    x[""HIST_VENDEDOR_RIESGO""] = df[""HIST_VENDEDOR_RIESGO""].astype(float)#(lf)    x[""HIST_VENDEDOR_N_LOG""] = np.log1p(df[""HIST_VENDEDOR_N""].astype(float))#(lf)    x[""HIST_CANAL_RIESGO""] = df[""HIST_CANAL_RIESGO""].astype(float)#(lf)    x[""HIST_CANAL_N_LOG""] = np.log1p(df[""HIST_CANAL_N""].astype(float))#(lf)    x[""CAT_CANAL""] = ""CANAL="" + df[""PED_CANAL_CODIGO""].astype(str)#(lf)    x[""CAT_VENDEDOR""] = ""VENDEDOR="" + df[""PED_RESPONSABLE""].astype(str)#(lf)    x[""CAT_REGION""] = ""REGION="" + df[""PED_REGION""].astype(str)#(lf)    x[""CAT_CONDICION""] = ""CONDICION="" + df[""PED_CONDICION_EXPEDICION_CODIGO""].astype(str)#(lf)    x[""CAT_CREDITO""] = ""CREDITO="" + df[""PED_ESTADO_CREDITO""].astype(str)#(lf)    x[""CAT_SERVICIO""] = ""SERVICIO="" + df[""SERV_TIPO_SERVICIO""].astype(str)#(lf)    x[""CAT_SERVICIO_PLAN""] = ""SERVICIO_PLAN="" + df[""SERV_TIPO_SERVICIO_PLANIFICADO""].astype(str)#(lf)    x[""CAT_SEMANA""] = ""SEMANA="" + df[""SEMANA_MES""].astype(str)#(lf)    x[""CAT_DIA_SEMANA""] = ""DIA_SEMANA="" + df[""DIA_SEMANA""].astype(str)#(lf)    return x#(lf)#(lf)#(lf)def encode_fit_transform(xraw: pd.DataFrame, train_idx: pd.Index):#(lf)    numeric = xraw[NUM_FEATURES].copy().fillna(0.0)#(lf)    cats = pd.get_dummies(xraw[CAT_FEATURES].astype(""string"").fillna(""SIN DATO""), prefix="""", prefix_sep="""", dtype=float)#(lf)    x = pd.concat([numeric, cats], axis=1).astype(float)#(lf)    means = x.loc[train_idx, NUM_FEATURES].mean()#(lf)    stds = x.loc[train_idx, NUM_FEATURES].std(ddof=0).replace(0, 1).fillna(1)#(lf)    x.loc[:, NUM_FEATURES] = (x[NUM_FEATURES] - means) / stds#(lf)    return x, means, stds#(lf)#(lf)#(lf)def fit_model_pair(x: np.ndarray, y_cls: np.ndarray, y_reg: np.ndarray):#(lf)    if SKLEARN_OK:#(lf)        clf = LogisticRegression(max_iter=3000, C=0.8, solver=""liblinear"", class_weight=None, random_state=42)#(lf)        reg = Ridge(alpha=2.0)#(lf)    else:#(lf)        clf = FallbackLogit()#(lf)        reg = FallbackRidge(alpha=2.0)#(lf)    clf.fit(x, y_cls)#(lf)    reg.fit(x, y_reg)#(lf)    return clf, reg#(lf)#(lf)#(lf)def business_name(feature: str) -> str:#(lf)    prefixes = {#(lf)        ""CANAL="": ""Canal"", ""VENDEDOR="": ""Vendedor"", ""REGION="": ""Región"",#(lf)        ""CONDICION="": ""Condición de expedición"", ""CREDITO="": ""Estado de crédito"",#(lf)        ""SERVICIO="": ""Tipo de servicio"", ""SERVICIO_PLAN="": ""Servicio planificado"",#(lf)        ""SEMANA="": ""Semana del mes"", ""DIA_SEMANA="": ""Día de semana""#(lf)    }#(lf)    for p, label in prefixes.items():#(lf)        if feature.startswith(p):#(lf)            return f""{label}: {feature[len(p):]}""#(lf)    mapping = {#(lf)        ""LOG_VALOR"": ""Monto del pedido"", ""VALOR_GE_2_6"": ""Monto >= 2,6 MM"",#(lf)        ""VALOR_GE_5"": ""Monto >= 5 MM"", ""DIA_MES_N"": ""Día del mes"",#(lf)        ""HORA_N"": ""Hora de creación"", ""ES_FIN_MES_N"": ""Fin de mes"",#(lf)        ""HIST_CLIENTE_RIESGO"": ""Historial previo del cliente"",#(lf)        ""HIST_CLIENTE_N_LOG"": ""Soporte histórico del cliente"",#(lf)        ""HIST_VENDEDOR_RIESGO"": ""Historial previo del vendedor"",#(lf)        ""HIST_VENDEDOR_N_LOG"": ""Soporte histórico del vendedor"",#(lf)        ""HIST_CANAL_RIESGO"": ""Historial previo del canal"",#(lf)        ""HIST_CANAL_N_LOG"": ""Soporte histórico del canal"",#(lf)    }#(lf)    return mapping.get(feature, feature)#(lf)#(lf)#(lf)def top_contributions(x: np.ndarray, feature_names: List[str], coef: np.ndarray, top_n: int = 3):#(lf)    results = []#(lf)    feature_names = np.asarray(feature_names)#(lf)    for row in x:#(lf)        vals = row * coef#(lf)        idx = np.argsort(-vals)#(lf)        positive = [j for j in idx if vals[j] > 0][:top_n]#(lf)        names = [business_name(feature_names[j]) for j in positive]#(lf)        while len(names) < top_n:#(lf)            names.append(""Riesgo base / combinación"")#(lf)        results.append(names)#(lf)    return results#(lf)#(lf)#(lf)def area_action(row) -> Tuple[str, str]:#(lf)    hito = str(row.get(""HITO_ACTUAL"", """")).upper()#(lf)    estado = str(row.get(""ESTADO_ACTUAL"", """")).upper()#(lf)    credit = str(row.get(""PED_ESTADO_CREDITO"", """")).upper()#(lf)    factor = str(row.get(""FACTOR_PRINCIPAL"", """"))#(lf)    high_value = float(row.get(""VALOR_MM"", 0) or 0) >= 5#(lf)    if ""CRED"" in hito or ""CRED"" in estado or credit == ""D"":#(lf)        return ""Crédito y Cobranzas"", ""Escalar liberación y bloqueo de crédito""#(lf)    if ""PICK"" in hito or ""LOG"" in hito or ""ENTREGA"" in hito:#(lf)        return ""Logística"", ""Priorizar ingreso, picking o continuidad operativa""#(lf)    if ""FACT"" in hito:#(lf)        return ""Facturación"", ""Priorizar emisión o cierre de factura""#(lf)    if ""DESP"" in hito or ""MANIF"" in hito or ""TRANSP"" in hito:#(lf)        return ""Despacho"", ""Priorizar despacho, transporte o manifiesto""#(lf)    if high_value:#(lf)        return ""Control de Gestión"", ""Priorizar pedido sobre CLP 5 MM y coordinar área responsable""#(lf)    if factor.startswith(""Historial previo del cliente""):#(lf)        return ""Comercial"", ""Seguimiento preventivo con cliente y vendedor""#(lf)    return ""Operaciones"", ""Revisar hito actual y remover restricción principal""#(lf)#(lf)#(lf)def run_pipeline(source: pd.DataFrame) -> pd.DataFrame:#(lf)    df, dup_count = prepare(source)#(lf)    df = add_prior_history(df)#(lf)    full = df[df[""ES_FLUJO_COMPLETO_ML""]].copy()#(lf)    if len(full) < 100 or full[""Y_ATRASO_5DH""].nunique() < 2:#(lf)        raise ValueError(""No hay suficientes pedidos completos y válidos para entrenar ambos resultados SLA."")#(lf)#(lf)    months = sorted(full[""MES_CREACION""].dropna().unique())#(lf)    max_month = df[""MES_CREACION""].dropna().max()#(lf)    mature_months = [m for m in months if m < max_month]#(lf)    if len(mature_months) >= 2:#(lf)        test_month = mature_months[-1]#(lf)        train_months = mature_months[:-1]#(lf)        train_mask = full[""MES_CREACION""].isin(train_months)#(lf)        test_mask = full[""MES_CREACION""].eq(test_month)#(lf)    else:#(lf)        full_sorted = full.sort_values(""PED_FECHA_HORA"")#(lf)        cut = max(1, int(len(full_sorted) * 0.80))#(lf)        train_ids = set(full_sorted.iloc[:cut][""PED_NUMERO_PEDIDO""])#(lf)        train_mask = full[""PED_NUMERO_PEDIDO""].isin(train_ids)#(lf)        test_mask = ~train_mask#(lf)        test_month = ""HOLDOUT CRONOLOGICO""#(lf)        train_months = [""PRIMER 80% TEMPORAL""]#(lf)#(lf)    xraw = build_feature_frame(df)#(lf)    full_idx = full.index#(lf)    xall, _, _ = encode_fit_transform(xraw, full_idx)#(lf)    feature_names = list(xall.columns)#(lf)#(lf)    train_idx = full.index[train_mask]#(lf)    test_idx = full.index[test_mask]#(lf)    x_train = xall.loc[train_idx].to_numpy(dtype=float)#(lf)    x_test = xall.loc[test_idx].to_numpy(dtype=float)#(lf)    y_train_cls = df.loc[train_idx, ""Y_ATRASO_5DH""].astype(int).to_numpy()#(lf)    y_test_cls = df.loc[test_idx, ""Y_ATRASO_5DH""].astype(int).to_numpy()#(lf)    y_train_reg = df.loc[train_idx, ""DH_TOTAL""].astype(float).to_numpy()#(lf)    y_test_reg = df.loc[test_idx, ""DH_TOTAL""].astype(float).to_numpy()#(lf)#(lf)    clf_val, reg_val = fit_model_pair(x_train, y_train_cls, y_train_reg)#(lf)    p_test = clf_val.predict_proba(x_test)[:, 1]#(lf)    d_test = np.clip(reg_val.predict(x_test), 0, MAX_TARGET_DH)#(lf)    mc = _metrics_class(y_test_cls, p_test)#(lf)    mr = _metrics_reg(y_test_reg, d_test)#(lf)#(lf)    # Entrenamiento final: todos los pedidos de flujo completo y calidad válida.#(lf)    x_final = xall.loc[full_idx].to_numpy(dtype=float)#(lf)    y_final_cls = df.loc[full_idx, ""Y_ATRASO_5DH""].astype(int).to_numpy()#(lf)    y_final_reg = df.loc[full_idx, ""DH_TOTAL""].astype(float).to_numpy()#(lf)    clf, reg = fit_model_pair(x_final, y_final_cls, y_final_reg)#(lf)#(lf)    x_score = xall.to_numpy(dtype=float)#(lf)    prob = np.clip(clf.predict_proba(x_score)[:, 1], 0.001, 0.999)#(lf)    pred_days_raw = np.clip(reg.predict(x_score), 0, MAX_TARGET_DH)#(lf)    current_days = df[""DIAS_INTERNOS_DH""].fillna(0).clip(lower=0).to_numpy(float)#(lf)    pred_days = np.maximum(pred_days_raw, current_days)#(lf)#(lf)    clf_coef = np.asarray(clf.coef_)[0]#(lf)    reg_coef = np.asarray(reg.coef_)#(lf)    top_risk = top_contributions(x_score, feature_names, clf_coef, 3)#(lf)    top_days = top_contributions(x_score, feature_names, reg_coef, 1)#(lf)#(lf)    df[""PROB_ML_ATRASO""] = prob#(lf)    df[""DH_PREDICHO_ML""] = np.round(pred_days, 1)#(lf)    df[""DH_PREDICHO_BASE_ML""] = np.round(pred_days_raw, 1)#(lf)    df[""DIAS_ACTUALES_DH""] = current_days#(lf)    df[""DIAS_RESTANTES_PREDICHOS""] = np.maximum(pred_days - current_days, 0).round(1)#(lf)    df[""SLA_CONSUMIDO_PCT""] = np.clip(current_days / SLA_DH, 0, 3)#(lf)    df[""FEATURE_TOP1""] = [r[0] for r in top_risk]#(lf)    df[""FEATURE_TOP2""] = [r[1] for r in top_risk]#(lf)    df[""FEATURE_TOP3""] = [r[2] for r in top_risk]#(lf)    df[""FACTOR_DIAS_PRINCIPAL""] = [r[0] for r in top_days]#(lf)    df[""FACTOR_PRINCIPAL""] = df[""FEATURE_TOP1""]#(lf)#(lf)    df[""RIESGO_ATRASO""] = np.select(#(lf)        [df[""ES_PENDIENTE""] & (df[""DIAS_ACTUALES_DH""] > SLA_DH), prob >= RISK_HIGH, prob >= RISK_MEDIUM],#(lf)        [""ATRASADO"", ""ALTO"", ""MEDIO""], default=""BAJO""#(lf)    )#(lf)    df[""PREDICCION_SLA""] = np.where((prob >= 0.50) | (pred_days > SLA_DH), ""PROBABLE INCUMPLIMIENTO"", ""PROBABLE CUMPLIMIENTO"")#(lf)    df[""BANDA_DIAS_PREDICHOS""] = pd.cut(#(lf)        df[""DH_PREDICHO_ML""], [-0.001, 5, 7, 10, np.inf],#(lf)        labels=[""0-5 DH"", ""6-7 DH"", ""8-10 DH"", "">10 DH""], include_lowest=True#(lf)    ).astype(str)#(lf)    value_pressure = np.clip(df[""VALOR_MM""].to_numpy(float) / 5.0, 0, 1)#(lf)    sla_pressure = np.clip(df[""SLA_CONSUMIDO_PCT""].to_numpy(float) / 1.5, 0, 1)#(lf)    df[""PRIORIDAD_SCORE""] = np.round(100 * (0.65 * prob + 0.25 * sla_pressure + 0.10 * value_pressure), 1)#(lf)#(lf)    df[""ESTADO_SLA""] = np.select(#(lf)        [df[""ES_PENDIENTE""] & (df[""DIAS_ACTUALES_DH""] > SLA_DH), df[""ES_PENDIENTE""], df[""DH_TOTAL""] > SLA_DH],#(lf)        [""FUERA_SLA_ACTUAL"", ""PENDIENTE"", ""FUERA_SLA""], default=""CUMPLE""#(lf)    )#(lf)    df[""DH_CREDITO""] = df[""DH_CREDITO_COBRANZAS""].fillna(0)#(lf)    df[""DH_OPERACIONES""] = df[""DH_OPERACION_INTERNA""].fillna(0)#(lf)    df[""DH_DESPACHO""] = df[""DH_DESPACHO""].fillna(0)#(lf)    df[""DH_PICKING""] = (df[""DH_PRIMERA_ENTREGA_A_PRIMER_PICKING""].fillna(0) + df[""DH_PRIMER_PICKING_A_PRIMERA_FACTURA""].fillna(0))#(lf)    df[""DH_FACTURACION""] = df[""DH_PRIMER_PACKING_A_PRIMERA_FACTURA""].fillna(0)#(lf)    comp = pd.DataFrame({""CREDITO"": df[""DH_CREDITO""], ""OPERACIONES"": df[""DH_OPERACIONES""], ""DESPACHO"": df[""DH_DESPACHO""], ""PICKING"": df[""DH_PICKING""]})#(lf)    df[""FASE_MAS_LENTA""] = comp.idxmax(axis=1)#(lf)    df[""DH_FASE_LENTA""] = comp.max(axis=1)#(lf)    df[""FACTOR_HISTORICO""] = np.select(#(lf)        [df[""ES_FES""] & df[""ES_SALDO""], df[""ES_FES""], df[""ES_SALDO""]],#(lf)        [""FES + SALDO"", ""FES"", ""SALDO""],#(lf)        default=df[""FASE_MAS_LENTA""]#(lf)    )#(lf)    # En pendientes predomina la explicación predictiva; en cerrados, la etapa histórica observada.#(lf)    df[""FACTOR_PRINCIPAL""] = np.where(df[""ES_PENDIENTE""], df[""FEATURE_TOP1""], df[""FACTOR_HISTORICO""])#(lf)#(lf)    areas, actions = [], []#(lf)    for _, row in df.iterrows():#(lf)        area, action = area_action(row)#(lf)        areas.append(area)#(lf)        actions.append(action)#(lf)    df[""RESPONSABLE_AREA""] = areas#(lf)    df[""ACCION_RECOMENDADA""] = actions#(lf)#(lf)    df[""CLIENTE""] = np.where(df[""CLIENTE_NOMBRE""].str.upper().eq(""SIN DATO""), df[""PED_CODIGO_CLIENTE""], df[""CLIENTE_NOMBRE""])#(lf)    df[""VENDEDOR""] = np.where(df[""VENDEDOR_NOMBRE""].str.upper().eq(""SIN DATO""), df[""PED_RESPONSABLE""], df[""VENDEDOR_NOMBRE""])#(lf)    df[""ES_FIN_MES""] = np.where(df[""ES_FIN_MES""], ""Si"", ""No"")#(lf)    df[""MODELO_ML""] = ""Regresión logística + regresión lineal regularizada""#(lf)    df[""MODELO_VERSION""] = MODEL_VERSION#(lf)    df[""MODELO_FECHA""] = MODEL_DATE#(lf)    df[""MODELO_VALIDADO""] = True#(lf)    df[""MODELO_DEPENDENCIA""] = ""scikit-learn"" if SKLEARN_OK else ""numpy fallback""#(lf)    df[""MODELO_FUENTE_SCORE""] = ""ML entrenado con flujo completo; sin FES/Saldo como predictores iniciales""#(lf)    df[""N_ENTRENAMIENTO_FINAL""] = len(full_idx)#(lf)    df[""N_TRAIN_VALIDACION""] = len(train_idx)#(lf)    df[""N_TEST_VALIDACION""] = len(test_idx)#(lf)    df[""MES_TEST_VALIDACION""] = str(test_month)#(lf)    df[""MESES_TRAIN_VALIDACION""] = "", "".join(map(str, train_months))#(lf)    df[""AUC_TEST""] = mc[""AUC""]#(lf)    df[""AP_TEST""] = mc[""AP""]#(lf)    df[""BRIER_TEST""] = mc[""BRIER""]#(lf)    df[""MAE_DIAS_TEST""] = mr[""MAE""]#(lf)    df[""RMSE_DIAS_TEST""] = mr[""RMSE""]#(lf)    df[""R2_DIAS_TEST""] = mr[""R2""]#(lf)    df[""TASA_ATRASO_ENTRENAMIENTO""] = float(full[""Y_ATRASO_5DH""].mean())#(lf)    df[""PEDIDOS_PENDIENTES_MODELO""] = int(df[""ES_PENDIENTE""].sum())#(lf)    df[""PEDIDOS_PENDIENTES_ALTO""] = int((df[""ES_PENDIENTE""] & df[""RIESGO_ATRASO""].isin([""ALTO"", ""ATRASADO""])).sum())#(lf)    df[""ATRASOS_ESPERADOS_PENDIENTES""] = float(df.loc[df[""ES_PENDIENTE""], ""PROB_ML_ATRASO""].sum())#(lf)#(lf)    df[""ES_ENTRENAMIENTO_FINAL""] = df[""ES_FLUJO_COMPLETO_ML""]#(lf)    df[""ES_VALIDACION_TEST""] = df.index.isin(test_idx)#(lf)#(lf)    output_cols = [#(lf)        ""PED_NUMERO_PEDIDO"", ""PED_FECHA"", ""MES_CREACION"", ""PED_CODIGO_CLIENTE"", ""CLIENTE"",#(lf)        ""PED_RESPONSABLE"", ""VENDEDOR"", ""PED_CANAL_CODIGO"", ""PED_CANAL"", ""PED_REGION"", ""ZONA"",#(lf)        ""PED_CONDICION_EXPEDICION_CODIGO"", ""PED_CONDICION_EXPEDICION"", ""PED_ESTADO_CREDITO"",#(lf)        ""SERV_TIPO_SERVICIO"", ""VALOR_NETO"", ""VALOR_MM"", ""DIA_MES"", ""SEMANA_MES"", ""ES_FIN_MES"",#(lf)        ""CLASIFICACION"", ""ES_FES"", ""ES_SALDO"", ""ES_PENDIENTE"", ""ES_CERRADO_TRACKING"",#(lf)        ""ESTADO_ACTUAL"", ""HITO_ACTUAL"", ""FECHA_ACTUALIZACION"", ""DIAS_ACTUALES_DH"", ""DIAS_EN_ESTADO_DH"",#(lf)        ""DH_TOTAL"", ""ESTADO_SLA"", ""PROB_ML_ATRASO"", ""RIESGO_ATRASO"", ""PREDICCION_SLA"",#(lf)        ""DH_PREDICHO_ML"", ""DH_PREDICHO_BASE_ML"", ""DIAS_RESTANTES_PREDICHOS"", ""BANDA_DIAS_PREDICHOS"",#(lf)        ""SLA_CONSUMIDO_PCT"", ""PRIORIDAD_SCORE"", ""FACTOR_PRINCIPAL"", ""FACTOR_HISTORICO"", ""FEATURE_TOP1"", ""FEATURE_TOP2"",#(lf)        ""FEATURE_TOP3"", ""FACTOR_DIAS_PRINCIPAL"", ""RESPONSABLE_AREA"", ""ACCION_RECOMENDADA"",#(lf)        ""DH_CREDITO"", ""DH_OPERACIONES"", ""DH_PICKING"", ""DH_FACTURACION"", ""DH_DESPACHO"",#(lf)        ""FASE_MAS_LENTA"", ""DH_FASE_LENTA"", ""ES_FLUJO_COMPLETO_ML"", ""ES_CALIDAD_VALIDA_ML"",#(lf)        ""ES_ENTRENAMIENTO_FINAL"", ""ES_VALIDACION_TEST"", ""MOTIVO_EXCLUSION_ML"", ""AUD_ESTADO_GENERAL"",#(lf)        ""AUD_TOTAL_CRITICAS"", ""AUD_PRINCIPAL_INCONGRUENCIA"", ""AUD_DUPLICADOS_ENTRADA"",#(lf)        ""MODELO_ML"", ""MODELO_VERSION"", ""MODELO_FECHA"", ""MODELO_VALIDADO"", ""MODELO_DEPENDENCIA"",#(lf)        ""MODELO_FUENTE_SCORE"", ""N_ENTRENAMIENTO_FINAL"", ""N_TRAIN_VALIDACION"", ""N_TEST_VALIDACION"",#(lf)        ""MESES_TRAIN_VALIDACION"", ""MES_TEST_VALIDACION"", ""AUC_TEST"", ""AP_TEST"", ""BRIER_TEST"",#(lf)        ""MAE_DIAS_TEST"", ""RMSE_DIAS_TEST"", ""R2_DIAS_TEST"", ""TASA_ATRASO_ENTRENAMIENTO"",#(lf)        ""PEDIDOS_PENDIENTES_MODELO"", ""PEDIDOS_PENDIENTES_ALTO"", ""ATRASOS_ESPERADOS_PENDIENTES""#(lf)    ]#(lf)    return df[output_cols].sort_values([""ES_PENDIENTE"", ""PRIORIDAD_SCORE"", ""PED_NUMERO_PEDIDO""], ascending=[False, False, True]).reset_index(drop=True)#(lf)#(lf)#(lf)# Power BI reconoce la salida por el nombre `dataset`.#(lf)dataset = run_pipeline(dataset)#(lf)", [dataset = Entrada]),
+				    Salida = Python{[Name="dataset"]}[Value],
+				    Tipos = Table.TransformColumnTypes(Salida, {{"PED_NUMERO_PEDIDO", type text}, {"PED_FECHA", type datetime}, {"MES_CREACION", type text}, {"PED_CODIGO_CLIENTE", type text}, {"CLIENTE", type text}, {"PED_RESPONSABLE", type text}, {"VENDEDOR", type text}, {"PED_CANAL_CODIGO", type text}, {"PED_CANAL", type text}, {"PED_REGION", type text}, {"ZONA", type text}, {"PED_CONDICION_EXPEDICION_CODIGO", type text}, {"PED_CONDICION_EXPEDICION", type text}, {"PED_ESTADO_CREDITO", type text}, {"SERV_TIPO_SERVICIO", type text}, {"VALOR_NETO", type number}, {"VALOR_MM", type number}, {"DIA_MES", Int64.Type}, {"SEMANA_MES", type text}, {"ES_FIN_MES", type text}, {"CLASIFICACION", type text}, {"ES_FES", type logical}, {"ES_SALDO", type logical}, {"ES_PENDIENTE", type logical}, {"ES_CERRADO_TRACKING", type logical}, {"ESTADO_ACTUAL", type text}, {"HITO_ACTUAL", type text}, {"FECHA_ACTUALIZACION", type datetime}, {"DIAS_ACTUALES_DH", type number}, {"DIAS_EN_ESTADO_DH", type number}, {"DH_TOTAL", type number}, {"ESTADO_SLA", type text}, {"PROB_ML_ATRASO", type number}, {"RIESGO_ATRASO", type text}, {"PREDICCION_SLA", type text}, {"DH_PREDICHO_ML", type number}, {"DH_PREDICHO_BASE_ML", type number}, {"DIAS_RESTANTES_PREDICHOS", type number}, {"BANDA_DIAS_PREDICHOS", type text}, {"SLA_CONSUMIDO_PCT", type number}, {"PRIORIDAD_SCORE", type number}, {"FACTOR_PRINCIPAL", type text}, {"FACTOR_HISTORICO", type text}, {"FEATURE_TOP1", type text}, {"FEATURE_TOP2", type text}, {"FEATURE_TOP3", type text}, {"FACTOR_DIAS_PRINCIPAL", type text}, {"RESPONSABLE_AREA", type text}, {"ACCION_RECOMENDADA", type text}, {"DH_CREDITO", type number}, {"DH_OPERACIONES", type number}, {"DH_PICKING", type number}, {"DH_FACTURACION", type number}, {"DH_DESPACHO", type number}, {"FASE_MAS_LENTA", type text}, {"DH_FASE_LENTA", type number}, {"ES_FLUJO_COMPLETO_ML", type logical}, {"ES_CALIDAD_VALIDA_ML", type logical}, {"ES_ENTRENAMIENTO_FINAL", type logical}, {"ES_VALIDACION_TEST", type logical}, {"MOTIVO_EXCLUSION_ML", type text}, {"AUD_ESTADO_GENERAL", type text}, {"AUD_TOTAL_CRITICAS", Int64.Type}, {"AUD_PRINCIPAL_INCONGRUENCIA", type text}, {"AUD_DUPLICADOS_ENTRADA", Int64.Type}, {"MODELO_ML", type text}, {"MODELO_VERSION", type text}, {"MODELO_FECHA", type text}, {"MODELO_VALIDADO", type logical}, {"MODELO_DEPENDENCIA", type text}, {"MODELO_FUENTE_SCORE", type text}, {"N_ENTRENAMIENTO_FINAL", Int64.Type}, {"N_TRAIN_VALIDACION", Int64.Type}, {"N_TEST_VALIDACION", Int64.Type}, {"MESES_TRAIN_VALIDACION", type text}, {"MES_TEST_VALIDACION", type text}, {"AUC_TEST", type number}, {"AP_TEST", type number}, {"BRIER_TEST", type number}, {"MAE_DIAS_TEST", type number}, {"RMSE_DIAS_TEST", type number}, {"R2_DIAS_TEST", type number}, {"TASA_ATRASO_ENTRENAMIENTO", type number}, {"PEDIDOS_PENDIENTES_MODELO", Int64.Type}, {"PEDIDOS_PENDIENTES_ALTO", Int64.Type}, {"ATRASOS_ESPERADOS_PENDIENTES", type number}})
+				in
+				    Tipos
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

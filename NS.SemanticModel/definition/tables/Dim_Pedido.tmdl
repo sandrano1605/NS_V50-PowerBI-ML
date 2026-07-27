@@ -1,0 +1,58 @@
+/// Dimensión común de pedido. Garantiza que pedido, clasificación, estado y semáforo filtren todos los hechos de forma coherente.
+table Dim_Pedido
+	lineageTag: 26000000-0000-4000-8000-000000004000
+
+	column PED_NUMERO_PEDIDO
+		dataType: string
+		isKey
+		lineageTag: 26000000-0000-4000-8000-000000004001
+		summarizeBy: none
+		sourceColumn: PED_NUMERO_PEDIDO
+
+	column CLASIFICACION
+		dataType: string
+		lineageTag: 26000000-0000-4000-8000-000000004002
+		summarizeBy: none
+		sourceColumn: CLASIFICACION
+
+	column ESTADO_ACTUAL
+		dataType: string
+		lineageTag: 26000000-0000-4000-8000-000000004003
+		summarizeBy: none
+		sourceColumn: ESTADO_ACTUAL
+
+	column SEMAFORO
+		dataType: string
+		lineageTag: 26000000-0000-4000-8000-000000004004
+		summarizeBy: none
+		sourceColumn: SEMAFORO
+
+	column HITO_ACTUAL
+		dataType: string
+		lineageTag: 26000000-0000-4000-8000-000000004005
+		summarizeBy: none
+		sourceColumn: HITO_ACTUAL
+
+	column ES_CERRADO
+		dataType: boolean
+		formatString: """Sí"";""Sí"";""No"""
+		lineageTag: 26000000-0000-4000-8000-000000004006
+		summarizeBy: none
+		sourceColumn: ES_CERRADO
+
+	partition Dim_Pedido = m
+		mode: import
+		source =
+				let
+				    Origen = Table.Buffer(Fact_Tracking),
+				    Columnas = Table.SelectColumns(Origen, {"PED_NUMERO_PEDIDO","CLASIFICACION","ESTADO_ACTUAL","SEMAFORO","HITO_ACTUAL","ES_CERRADO"}),
+				    Filtrados = Table.SelectRows(Columnas, each [PED_NUMERO_PEDIDO] <> null and Text.Trim([PED_NUMERO_PEDIDO]) <> ""),
+				    Ordenados = Table.Sort(Filtrados, {{"PED_NUMERO_PEDIDO", Order.Ascending}}),
+				    Resultado = Table.Distinct(Ordenados, {"PED_NUMERO_PEDIDO"})
+				in
+				    Resultado
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

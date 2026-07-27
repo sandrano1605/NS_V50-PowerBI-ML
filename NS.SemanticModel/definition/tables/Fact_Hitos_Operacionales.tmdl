@@ -1,0 +1,628 @@
+/// Una fila por pedido original y tramo operacional aplicable. Fuente oficial del diagnóstico por hitos.
+table Fact_Hitos_Operacionales
+	lineageTag: 64bfb264-94b6-4e61-9243-33ec73f6c100
+
+	column PED_NUMERO_PEDIDO
+		dataType: string
+		lineageTag: 1d53cb87-59ab-46f8-8b58-8e9a746ee101
+		summarizeBy: none
+		sourceColumn: PED_NUMERO_PEDIDO
+
+		annotation SummarizationSetBy = User
+
+	column PED_CODIGO_CLIENTE
+		dataType: string
+		lineageTag: 6ad95d82-7053-4302-99bf-a04c045f8102
+		summarizeBy: none
+		sourceColumn: PED_CODIGO_CLIENTE
+
+		annotation SummarizationSetBy = User
+
+	column PED_RESPONSABLE
+		dataType: string
+		lineageTag: fa242c54-9b4d-4ed2-91ae-2e103b601103
+		summarizeBy: none
+		sourceColumn: PED_RESPONSABLE
+
+		annotation SummarizationSetBy = User
+
+	column PED_CIUDAD
+		dataType: string
+		lineageTag: 14000000-0000-4000-8000-000000000001
+		summarizeBy: none
+		sourceColumn: PED_CIUDAD
+
+		annotation SummarizationSetBy = User
+
+	column PED_REGION
+		dataType: string
+		lineageTag: 14000000-0000-4000-8000-000000000002
+		summarizeBy: none
+		sourceColumn: PED_REGION
+
+		annotation SummarizationSetBy = User
+
+	column Zona
+		dataType: string
+		lineageTag: 14000000-0000-4000-8000-000000000003
+		summarizeBy: none
+		sourceColumn: ZONA_GEOGRAFICA
+		sortByColumn: ORDEN_ZONA_GEOGRAFICA
+
+		annotation SummarizationSetBy = User
+
+	column ORDEN_ZONA_GEOGRAFICA
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 14000000-0000-4000-8000-000000000004
+		summarizeBy: none
+		sourceColumn: ORDEN_ZONA_GEOGRAFICA
+
+		annotation SummarizationSetBy = User
+
+	column PED_CANAL_CODIGO
+		dataType: string
+		lineageTag: 73993f67-e42e-49db-acaf-123b117ce104
+		summarizeBy: none
+		sourceColumn: PED_CANAL_CODIGO
+
+		annotation SummarizationSetBy = User
+
+	column PED_CONDICION_EXPEDICION_CODIGO
+		dataType: string
+		lineageTag: 349093eb-9385-4ab8-8d69-f788776d7105
+		summarizeBy: none
+		sourceColumn: PED_CONDICION_EXPEDICION_CODIGO
+
+		annotation SummarizationSetBy = User
+
+	column PED_VALOR_NETO
+		dataType: double
+		formatString: "CLP $" #,0;-"CLP $" #,0;"CLP $" 0
+		lineageTag: 43c25710-cdf7-4689-ae19-e3e1201a2106
+		summarizeBy: sum
+		sourceColumn: PED_VALOR_NETO
+
+		annotation SummarizationSetBy = User
+
+	column PED_FECHA
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 499f60c0-48dc-457b-8fa6-d453fcf23107
+		summarizeBy: none
+		sourceColumn: PED_FECHA
+
+		annotation SummarizationSetBy = User
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column MES_CREACION
+		dataType: string
+		lineageTag: 7b984943-403b-4541-82ca-e6d2a6a12108
+		summarizeBy: none
+		sourceColumn: MES_CREACION
+
+		annotation SummarizationSetBy = User
+
+	column FECHA_INGRESO_SLA
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 16000000-0000-4000-8000-000000000001
+		summarizeBy: none
+		sourceColumn: FECHA_INGRESO_SLA
+
+		annotation SummarizationSetBy = User
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column PED_FECHA_HORA
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 16000000-0000-4000-8000-000000000011
+		summarizeBy: none
+		sourceColumn: PED_FECHA_HORA
+
+		annotation SummarizationSetBy = User
+
+	column REGLA_CORTE_INGRESO
+		dataType: string
+		lineageTag: 16000000-0000-4000-8000-000000000002
+		summarizeBy: none
+		sourceColumn: REGLA_CORTE_INGRESO
+
+		annotation SummarizationSetBy = User
+
+	column DIFERIDO_POR_CORTE
+		dataType: boolean
+		formatString: """Sí"";""Sí"";""No"""
+		lineageTag: 16000000-0000-4000-8000-000000000003
+		summarizeBy: none
+		sourceColumn: DIFERIDO_POR_CORTE
+
+		annotation SummarizationSetBy = User
+
+	column PREPARACION_SLA_DH
+		dataType: int64
+		formatString: 0
+		lineageTag: 16000000-0000-4000-8000-000000000004
+		summarizeBy: average
+		sourceColumn: PREPARACION_SLA_DH
+
+		annotation SummarizationSetBy = User
+
+	column PREPARACION_MAX_DH
+		dataType: int64
+		formatString: 0
+		lineageTag: 16000000-0000-4000-8000-000000000005
+		summarizeBy: none
+		sourceColumn: PREPARACION_MAX_DH
+
+		annotation SummarizationSetBy = User
+
+	column PROMESA_MIN_DH
+		dataType: int64
+		formatString: 0
+		lineageTag: 16000000-0000-4000-8000-000000000006
+		summarizeBy: none
+		sourceColumn: PROMESA_MIN_DH
+
+		annotation SummarizationSetBy = User
+
+	column PROMESA_MAX_DH
+		dataType: int64
+		formatString: 0
+		lineageTag: 16000000-0000-4000-8000-000000000007
+		summarizeBy: none
+		sourceColumn: PROMESA_MAX_DH
+
+		annotation SummarizationSetBy = User
+
+	column FECHA_PROMETIDA_MIN
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 16000000-0000-4000-8000-000000000008
+		summarizeBy: none
+		sourceColumn: FECHA_PROMETIDA_MIN
+
+		annotation SummarizationSetBy = User
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column FECHA_PROMETIDA_MAX
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 16000000-0000-4000-8000-000000000009
+		summarizeBy: none
+		sourceColumn: FECHA_PROMETIDA_MAX
+
+		annotation SummarizationSetBy = User
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column CUMPLE_PREPARACION
+		dataType: boolean
+		formatString: """Sí"";""Sí"";""No"""
+		lineageTag: 16000000-0000-4000-8000-000000000010
+		summarizeBy: none
+		sourceColumn: CUMPLE_PREPARACION
+
+		annotation SummarizationSetBy = User
+
+	column SEGMENTO_EXCLUSIVO
+		dataType: string
+		lineageTag: c8b7100c-8c5f-4f16-823a-f4627f792109
+		summarizeBy: none
+		sourceColumn: SEGMENTO_EXCLUSIVO
+
+		annotation SummarizationSetBy = User
+
+	column METRICA_CODIGO
+		dataType: string
+		lineageTag: 6d2517b8-67c8-487f-8671-59e2a14e410a
+		summarizeBy: none
+		sourceColumn: METRICA_CODIGO
+
+		annotation SummarizationSetBy = User
+
+	column FECHA_INICIO
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 2ccfd2f4-46d3-4075-a5f2-e7d9bbe0910b
+		summarizeBy: none
+		sourceColumn: FECHA_INICIO
+
+		annotation SummarizationSetBy = User
+
+	column FECHA_FIN
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 9737127b-276e-4cbe-8b6d-c38554fb910c
+		summarizeBy: none
+		sourceColumn: FECHA_FIN
+
+		annotation SummarizationSetBy = User
+
+	column REGLA_FECHA_FIN
+		dataType: string
+		lineageTag: ad9d1f35-0da7-45e9-b42f-bb470745510d
+		summarizeBy: none
+		sourceColumn: REGLA_FECHA_FIN
+
+		annotation SummarizationSetBy = User
+
+	column HITO_OMITIDO
+		dataType: boolean
+		formatString: """Sí"";""Sí"";""No"""
+		lineageTag: 19d414db-0b99-4ca1-b78d-6c5bd3b3a7a1
+		summarizeBy: none
+		sourceColumn: HITO_OMITIDO
+
+		annotation SummarizationSetBy = User
+
+	column FUENTE_FECHA
+		dataType: string
+		lineageTag: 52c4e4cf-fc73-476b-901d-0d6ae73b610e
+		summarizeBy: none
+		sourceColumn: FUENTE_FECHA
+
+		annotation SummarizationSetBy = User
+
+	column HITO
+		dataType: string
+		lineageTag: 73620959-0a22-46a5-b24a-8b17411a710f
+		summarizeBy: none
+		sourceColumn: HITO
+
+		annotation SummarizationSetBy = User
+
+	column MACROETAPA
+		dataType: string
+		lineageTag: 20f63d26-1772-4fa7-b35c-4776c62a7110
+		summarizeBy: none
+		sourceColumn: MACROETAPA
+
+		annotation SummarizationSetBy = User
+
+	column AREA_RESPONSABLE
+		dataType: string
+		lineageTag: b0741480-9723-4793-97ba-98ef52e0a111
+		summarizeBy: none
+		sourceColumn: AREA_RESPONSABLE
+
+		annotation SummarizationSetBy = User
+
+	column ORDEN_HITO
+		dataType: int64
+		formatString: 0
+		lineageTag: 355954e3-0c98-44f3-9b91-baeaaee38112
+		summarizeBy: none
+		sourceColumn: ORDEN_HITO
+
+		annotation SummarizationSetBy = User
+
+	column SLA_DH
+		dataType: int64
+		formatString: 0
+		lineageTag: 88032b0e-5dd3-4309-8d95-d8ec97621113
+		summarizeBy: none
+		sourceColumn: SLA_DH
+
+		annotation SummarizationSetBy = User
+
+	column TIPO_KPI
+		dataType: string
+		lineageTag: cb14862a-863a-41f3-a9c8-4e742a16c114
+		summarizeBy: none
+		sourceColumn: TIPO_KPI
+
+		annotation SummarizationSetBy = User
+
+	column ACTIVO_CUELLO
+		dataType: boolean
+		formatString: """Sí"";""Sí"";""No"""
+		lineageTag: 2afaf329-d430-408d-baa8-34d1f138d115
+		summarizeBy: none
+		sourceColumn: ACTIVO_CUELLO
+
+		annotation SummarizationSetBy = User
+
+	column DIAS_HABILES
+		dataType: int64
+		formatString: 0
+		lineageTag: 6979d94f-87f1-4295-b033-50ea438a0116
+		summarizeBy: average
+		sourceColumn: DIAS_HABILES
+
+		annotation SummarizationSetBy = User
+
+	column TIENE_DATO
+		dataType: boolean
+		formatString: """Sí"";""Sí"";""No"""
+		lineageTag: 25625580-176e-49c4-8aeb-3a33e85b9117
+		summarizeBy: none
+		sourceColumn: TIENE_DATO
+
+		annotation SummarizationSetBy = User
+
+	column CUMPLE_KPI
+		dataType: boolean
+		formatString: """Sí"";""Sí"";""No"""
+		lineageTag: 37e15494-e5bb-4b1e-a29b-090ec6ebd118
+		summarizeBy: none
+		sourceColumn: CUMPLE_KPI
+
+		annotation SummarizationSetBy = User
+
+	column ESTADO_KPI
+		dataType: string
+		lineageTag: a6c02b50-7672-4f25-bd94-62922af31119
+		summarizeBy: none
+		sourceColumn: ESTADO_KPI
+
+		annotation SummarizationSetBy = User
+
+	column EXCESO_DH
+		dataType: int64
+		formatString: 0
+		lineageTag: e4a70640-24e6-4ee4-9a31-28b558d6211a
+		summarizeBy: sum
+		sourceColumn: EXCESO_DH
+
+		annotation SummarizationSetBy = User
+
+	column ESTADO_TRAZABILIDAD
+		dataType: string
+		lineageTag: f4ce2b97-38b7-49ef-bacd-a5b34ea7f11b
+		summarizeBy: none
+		sourceColumn: ESTADO_TRAZABILIDAD
+
+		annotation SummarizationSetBy = User
+
+	column FECHA_EVALUACION
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 26000000-0000-4000-8000-000000000001
+		summarizeBy: none
+		sourceColumn: FECHA_EVALUACION
+
+		annotation SummarizationSetBy = User
+
+	column DIAS_TRANSCURRIDOS
+		dataType: int64
+		formatString: 0
+		lineageTag: 26000000-0000-4000-8000-000000000002
+		summarizeBy: none
+		sourceColumn: DIAS_TRANSCURRIDOS
+
+		annotation SummarizationSetBy = User
+
+	column ESTADO_OPERATIVO
+		dataType: string
+		lineageTag: 26000000-0000-4000-8000-000000000003
+		summarizeBy: none
+		sourceColumn: ESTADO_OPERATIVO
+
+		annotation SummarizationSetBy = User
+
+	column CUMPLE_ACTUAL
+		dataType: boolean
+		formatString: """Sí"";""Sí"";""No"""
+		lineageTag: 26000000-0000-4000-8000-000000000004
+		summarizeBy: none
+		sourceColumn: CUMPLE_ACTUAL
+
+		annotation SummarizationSetBy = User
+
+	column EXCESO_ACTUAL_DH
+		dataType: int64
+		formatString: 0
+		lineageTag: 26000000-0000-4000-8000-000000000005
+		summarizeBy: none
+		sourceColumn: EXCESO_ACTUAL_DH
+
+		annotation SummarizationSetBy = User
+
+	partition Fact_Hitos_Operacionales = m
+		mode: import
+		source =
+				let
+				    Origen = Fact_Pedidos_Auditoria,
+				    Feriados = List.Buffer(List.Transform(Dim_Feriados_Chile[Fecha], each Date.From(_))),
+				    FnEfectiva = (Primera as any, Ultima as any, Siguiente as any) as nullable datetime =>
+				        let
+				            P = try DateTime.From(Primera) otherwise null,
+				            U = try DateTime.From(Ultima) otherwise null,
+				            S = try DateTime.From(Siguiente) otherwise null
+				        in
+				            if P = null then null
+				            else if U <> null and U >= P and (S = null or S >= U) then U
+				            else P,
+				    FnRegla = (Primera as any, Ultima as any, Siguiente as any) as text =>
+				        let
+				            P = try DateTime.From(Primera) otherwise null,
+				            U = try DateTime.From(Ultima) otherwise null,
+				            S = try DateTime.From(Siguiente) otherwise null
+				        in
+				            if P = null then "SIN PRIMERA FECHA"
+				            else if U = null or U = P then "PRIMERA FECHA"
+				            else if U < P then "PRIMERA: ÚLTIMA INVÁLIDA"
+				            else if S <> null and S < U then "PRIMERA: SOLAPAMIENTO / REPROCESO"
+				            else "ÚLTIMA FECHA VALIDADA",
+				    FnDiasHabiles = (Inicio as any, Fin as any) as nullable number =>
+				        let
+				            I = try Date.From(Inicio) otherwise null,
+				            F = try Date.From(Fin) otherwise null,
+				            Diferencia = if I = null or F = null then null else Duration.Days(F - I),
+				            Fechas = if Diferencia = null or Diferencia <= 0 then {} else List.Dates(Date.AddDays(I, 1), Diferencia, #duration(1,0,0,0)),
+				            Habiles = List.Select(Fechas, each Date.DayOfWeek(_, Day.Monday) < 5 and not List.Contains(Feriados, _))
+				        in
+				            if Diferencia = null or Diferencia < 0 then null else List.Count(Habiles),
+				    FnEsHabil = (Fecha as date) as logical => Date.DayOfWeek(Fecha, Day.Monday) < 5 and not List.Contains(Feriados, Fecha),
+				    FnSiguienteHabil = (Fecha as date) as date =>
+				        let
+				            Candidatas = List.Dates(Date.AddDays(Fecha, 1), 30, #duration(1,0,0,0)),
+				            Habiles = List.Select(Candidatas, each FnEsHabil(_))
+				        in
+				            List.First(Habiles),
+				    FnAgregarHabiles = (Fecha as any, Dias as nullable number) as nullable date =>
+				        let
+				            F = try Date.From(Fecha) otherwise null,
+				            N = if Dias = null then null else Number.RoundDown(Dias),
+				            Candidatas = if F = null or N = null then {} else List.Dates(Date.AddDays(F, 1), 120, #duration(1,0,0,0)),
+				            Habiles = List.Select(Candidatas, each FnEsHabil(_))
+				        in
+				            if F = null or N = null then null else if N <= 0 then F else Habiles{N - 1},
+				    FnFechaIngresoSLA = (FechaHora as any, CorteLJ as any, CorteViernes as any) as nullable date =>
+				        let
+				            FH = try DateTime.From(FechaHora) otherwise null,
+				            F = if FH = null then null else Date.From(FH),
+				            H = if FH = null then null else Time.From(FH),
+				            Dia = if F = null then null else Date.DayOfWeek(F, Day.Monday),
+				            EsHabil = if F = null then false else FnEsHabil(F),
+				            HoraCorteLJ = try Time.From(CorteLJ) otherwise #time(14,0,0),
+				            HoraCorteViernes = try Time.From(CorteViernes) otherwise #time(12,0,0),
+				            Corte = if Dia = null then null else if Dia <= 3 then HoraCorteLJ else if Dia = 4 then HoraCorteViernes else #time(0,0,0),
+				            SeDifiere = FH <> null and (not EsHabil or H > Corte)
+				        in
+				            if F = null then null else if SeDifiere then FnSiguienteHabil(F) else F,
+				    FnReglaCorte = (FechaHora as any, CorteLJ as any, CorteViernes as any) as text =>
+				        let
+				            FH = try DateTime.From(FechaHora) otherwise null,
+				            F = if FH = null then null else Date.From(FH),
+				            H = if FH = null then null else Time.From(FH),
+				            Dia = if F = null then null else Date.DayOfWeek(F, Day.Monday),
+				            EsHabil = if F = null then false else FnEsHabil(F),
+				            HoraCorteLJ = try Time.From(CorteLJ) otherwise #time(14,0,0),
+				            HoraCorteViernes = try Time.From(CorteViernes) otherwise #time(12,0,0)
+				        in
+				            if FH = null then "SIN FECHA DE CREACIÓN"
+				            else if not EsHabil then "DIFERIDO: FIN DE SEMANA O FERIADO"
+				            else if Dia <= 3 and H > HoraCorteLJ then "DIFERIDO: DESPUÉS DEL CORTE LUNES A JUEVES"
+				            else if Dia = 4 and H > HoraCorteViernes then "DIFERIDO: DESPUÉS DEL CORTE DEL VIERNES"
+				            else "INGRESO VÁLIDO: DENTRO DEL CORTE",
+				    Columnas = Table.SelectColumns(
+				        Origen,
+				        {
+				            "PED_NUMERO_PEDIDO", "PED_CODIGO_CLIENTE", "PED_RESPONSABLE", "PED_CIUDAD", "PED_REGION", "PED_CANAL_CODIGO", "PED_CONDICION_EXPEDICION_CODIGO", "PED_VALOR_NETO",
+				            "ES_FES", "ES_SALDO", "PED_FECHA_HORA", "PDA_P_FECHA_HORA", "COM_P_FECHA_HORA", "COM_U_FECHA_HORA", "CRD_P_FECHA_HORA",
+				            "ENT_P_FECHA_HORA", "ENT_U_FECHA_HORA", "PIC_P_FECHA_HORA", "PIC_U_FECHA_HORA", "PAC_P_FECHA_HORA", "PAC_U_FECHA_HORA",
+				            "FAC_P_FECHA_HORA_REAL", "FAC_U_FECHA_HORA", "TRP_P_FECHA_HORA", "TRP_U_FECHA_HORA",
+				            "PRIMERA_FECHA_PEDIDO_POSTERIOR", "ULTIMA_FECHA_PEDIDO_POSTERIOR", "PRIMERA_FECHA_ENTREGA_POSTERIOR", "ULTIMA_FECHA_ENTREGA_POSTERIOR",
+				            "PRIMERA_FECHA_MANIFIESTO", "ULTIMA_FECHA_MANIFIESTO", "AUD_ESTADO_GENERAL"
+				        },
+				        MissingField.UseNull
+				    ),
+				    // Universo comparable del NS: canales 42 a 47.
+				    // Se excluyen 40 Supermercados y 41 Tiendas de Conveniencia por operar con agenda.
+				    CanalesAnalisis = Table.SelectRows(Columnas, each let c = Text.TrimStart(Text.Trim(Text.From([PED_CANAL_CODIGO])), "0") in List.Contains({"42", "43", "44", "45", "46", "47"}, c)),
+				    Segmento = Table.AddColumn(CanalesAnalisis, "SEGMENTO_EXCLUSIVO", each if [ES_FES] = true and [ES_SALDO] = true then "FES + SALDO" else if [ES_FES] = true then "FES" else if [ES_SALDO] = true then "SALDO" else "NORMAL", type text),
+				    ZonaGeografica = Table.AddColumn(Segmento, "ZONA_GEOGRAFICA", each if Text.TrimStart(Text.Trim(Text.From([PED_REGION])), "0") = "13" then "Santiago" else "Regiones", type text),
+				    OrdenZona = Table.AddColumn(ZonaGeografica, "ORDEN_ZONA_GEOGRAFICA", each if [ZONA_GEOGRAFICA] = "Santiago" then 1 else 2, Int64.Type),
+				    CrucePromesa = Table.NestedJoin(OrdenZona, {"ZONA_GEOGRAFICA"}, Config_Promesa_Entrega, {"ZONA"}, "Promesa", JoinKind.LeftOuter),
+				    ExpandePromesa = Table.ExpandTableColumn(CrucePromesa, "Promesa", {"PREPARACION_MAX_DH", "PROMESA_MIN_DH", "PROMESA_MAX_DH", "CORTE_LJ", "CORTE_VIERNES"}, {"PREPARACION_MAX_DH", "PROMESA_MIN_DH", "PROMESA_MAX_DH", "CORTE_LJ", "CORTE_VIERNES"}),
+				    FechaPedido = Table.AddColumn(ExpandePromesa, "PED_FECHA", each if [PED_FECHA_HORA] = null then null else Date.From([PED_FECHA_HORA]), type date),
+				    MesPedido = Table.AddColumn(FechaPedido, "MES_CREACION", each if [PED_FECHA] = null then null else Date.ToText([PED_FECHA], "yyyy-MM"), type text),
+				    // Cadena efectiva: un hito vacío hereda la fecha efectiva anterior y mide 0 DH.
+				    // La omisión se conserva explícitamente en REGLA_FECHA_FIN y HITO_OMITIDO.
+				    PdaE = Table.AddColumn(MesPedido, "PDA_E", each if [PDA_P_FECHA_HORA] = null then [PED_FECHA_HORA] else [PDA_P_FECHA_HORA], type nullable datetime),
+				    ComE = Table.AddColumn(PdaE, "COM_E", each if [COM_P_FECHA_HORA] = null then (if [CRD_P_FECHA_HORA] <> null or [ENT_P_FECHA_HORA] <> null or [FAC_P_FECHA_HORA_REAL] <> null or [TRP_P_FECHA_HORA] <> null then [PED_FECHA_HORA] else null) else FnEfectiva([COM_P_FECHA_HORA], [COM_U_FECHA_HORA], [CRD_P_FECHA_HORA]), type nullable datetime),
+				    CrdE = Table.AddColumn(ComE, "CRD_E", each if [CRD_P_FECHA_HORA] = null then (if [ENT_P_FECHA_HORA] <> null or [FAC_P_FECHA_HORA_REAL] <> null or [TRP_P_FECHA_HORA] <> null then [COM_E] else null) else [CRD_P_FECHA_HORA], type nullable datetime),
+				    EntE = Table.AddColumn(CrdE, "ENT_E", each if [ENT_P_FECHA_HORA] = null then (if [PIC_P_FECHA_HORA] <> null or [PAC_P_FECHA_HORA] <> null or [FAC_P_FECHA_HORA_REAL] <> null or [TRP_P_FECHA_HORA] <> null then [CRD_E] else null) else FnEfectiva([ENT_P_FECHA_HORA], [ENT_U_FECHA_HORA], [PIC_P_FECHA_HORA]), type nullable datetime),
+				    PicE = Table.AddColumn(EntE, "PIC_E", each FnEfectiva([PIC_P_FECHA_HORA], [PIC_U_FECHA_HORA], [PAC_P_FECHA_HORA]), type nullable datetime),
+				    PacE = Table.AddColumn(PicE, "PAC_E", each FnEfectiva([PAC_P_FECHA_HORA], [PAC_U_FECHA_HORA], [FAC_P_FECHA_HORA_REAL]), type nullable datetime),
+				    FacE = Table.AddColumn(PacE, "FAC_E", each if [FAC_P_FECHA_HORA_REAL] = null then (if [TRP_P_FECHA_HORA] <> null or [PRIMERA_FECHA_PEDIDO_POSTERIOR] <> null or [PRIMERA_FECHA_MANIFIESTO] <> null then [ENT_E] else null) else FnEfectiva([FAC_P_FECHA_HORA_REAL], [FAC_U_FECHA_HORA], [TRP_P_FECHA_HORA]), type nullable datetime),
+				    // Misma regla de cierre utilizada por Fact_Tracking. No crea un KPI adicional:
+				    // sólo completa el hito de salida de Santiago cuando la factura fue emitida hasta las 16:00.
+				    FacturaCierre = Table.AddColumn(FacE, "FACTURA_CIERRE_BASE", each if [ES_SALDO]=true and [FAC_U_FECHA_HORA]<>null then [FAC_U_FECHA_HORA] else [FAC_P_FECHA_HORA_REAL], type nullable datetime),
+				    TrpE = Table.AddColumn(FacturaCierre, "TRP_E", each
+				        let
+				            Real = if [TRP_P_FECHA_HORA] = null then null else FnEfectiva([TRP_P_FECHA_HORA], [TRP_U_FECHA_HORA], null),
+				            Factura = [FACTURA_CIERRE_BASE],
+				            AplicaSantiago = [ZONA_GEOGRAFICA]="Santiago" and Factura<>null and Time.From(Factura)<=#time(16,0,0)
+				        in
+				            if Real<>null then Real else if AplicaSantiago then Factura else null,
+				        type nullable datetime),
+				    FechaIngresoSLA = Table.AddColumn(TrpE, "FECHA_INGRESO_SLA", each FnFechaIngresoSLA([PED_FECHA_HORA], [CORTE_LJ], [CORTE_VIERNES]), type nullable date),
+				    ReglaCorteIngreso = Table.AddColumn(FechaIngresoSLA, "REGLA_CORTE_INGRESO", each FnReglaCorte([PED_FECHA_HORA], [CORTE_LJ], [CORTE_VIERNES]), type text),
+				    DiferidoPorCorte = Table.AddColumn(ReglaCorteIngreso, "DIFERIDO_POR_CORTE", each if [PED_FECHA_HORA] = null or [FECHA_INGRESO_SLA] = null then null else [FECHA_INGRESO_SLA] > Date.From([PED_FECHA_HORA]), type nullable logical),
+				    PreparacionSLA = Table.AddColumn(DiferidoPorCorte, "PREPARACION_SLA_DH", each if [PED_FECHA_HORA] = null or [TRP_E] = null or [TRP_E] < [PED_FECHA_HORA] then null else if Date.From([TRP_E]) < [FECHA_INGRESO_SLA] then 0 else FnDiasHabiles([FECHA_INGRESO_SLA], [TRP_E]), Int64.Type),
+				    FechaPrometidaMin = Table.AddColumn(PreparacionSLA, "FECHA_PROMETIDA_MIN", each FnAgregarHabiles([FECHA_INGRESO_SLA], [PROMESA_MIN_DH]), type nullable date),
+				    FechaPrometidaMax = Table.AddColumn(FechaPrometidaMin, "FECHA_PROMETIDA_MAX", each FnAgregarHabiles([FECHA_INGRESO_SLA], [PROMESA_MAX_DH]), type nullable date),
+				    CumplePreparacion = Table.AddColumn(FechaPrometidaMax, "CUMPLE_PREPARACION", each if [PREPARACION_SLA_DH] = null then null else [PREPARACION_SLA_DH] <= [PREPARACION_MAX_DH], type nullable logical),
+				    PedPostE = Table.AddColumn(CumplePreparacion, "PED_POST_E", each if [PRIMERA_FECHA_PEDIDO_POSTERIOR] = null then (if [PRIMERA_FECHA_ENTREGA_POSTERIOR] <> null or [PRIMERA_FECHA_MANIFIESTO] <> null then [FAC_E] else null) else FnEfectiva([PRIMERA_FECHA_PEDIDO_POSTERIOR], [ULTIMA_FECHA_PEDIDO_POSTERIOR], [PRIMERA_FECHA_ENTREGA_POSTERIOR]), type nullable datetime),
+				    EntPostE = Table.AddColumn(PedPostE, "ENT_POST_E", each if [PRIMERA_FECHA_ENTREGA_POSTERIOR] = null then (if [PRIMERA_FECHA_MANIFIESTO] <> null then [PED_POST_E] else null) else FnEfectiva([PRIMERA_FECHA_ENTREGA_POSTERIOR], [ULTIMA_FECHA_ENTREGA_POSTERIOR], [PRIMERA_FECHA_MANIFIESTO]), type nullable datetime),
+				    ManE = Table.AddColumn(EntPostE, "MAN_E", each
+				        let
+				            Real = if [PRIMERA_FECHA_MANIFIESTO] = null then null else FnEfectiva([PRIMERA_FECHA_MANIFIESTO], [ULTIMA_FECHA_MANIFIESTO], null),
+				            AplicaSantiago = [ZONA_GEOGRAFICA]="Santiago" and [TRP_E]<>null
+				        in
+				            if Real<>null then Real else if AplicaSantiago then [TRP_E] else null,
+				        type nullable datetime),
+				    Registros = Table.AddColumn(
+				        ManE,
+				        "REGISTROS_HITO",
+				        each
+				            if [ES_FES] = true then
+				                #table(
+				                    type table [METRICA_CODIGO=text, FECHA_INICIO=nullable datetime, FECHA_FIN=nullable datetime, REGLA_FECHA_FIN=text, FUENTE_FECHA=text],
+				                    {
+				                        {"PDA_CREACION", [PDA_E], [PED_FECHA_HORA], if [PDA_P_FECHA_HORA] = null then "HITO OMITIDO: PDA HEREDA FECHA CREACIÓN" else "PRIMERA FECHA", "Tracking SAP"},
+				                        {"CREACION_COMERCIAL", [PED_FECHA_HORA], [COM_E], if [COM_P_FECHA_HORA] = null then "HITO OMITIDO: COMERCIAL HEREDA CREACIÓN" else FnRegla([COM_P_FECHA_HORA], [COM_U_FECHA_HORA], [CRD_P_FECHA_HORA]), "Tracking SAP comercial"},
+				                        {"COMERCIAL_CREDITO", [COM_E], [CRD_E], if [CRD_P_FECHA_HORA] = null then "HITO OMITIDO: CRÉDITO HEREDA COMERCIAL" else "PRIMERA FECHA CRÉDITO", "Tracking SAP crédito"},
+				                        {"CREDITO_ENTREGA", [CRD_E], [ENT_E], if [ENT_P_FECHA_HORA] = null then "HITO OMITIDO: ENTREGA HEREDA CRÉDITO" else FnRegla([ENT_P_FECHA_HORA], [ENT_U_FECHA_HORA], [PIC_P_FECHA_HORA]), "Tracking SAP entrega"},
+				                        {"ADMIN_TOTAL", [PED_FECHA_HORA], [ENT_E], if [ENT_P_FECHA_HORA] = null then "CIERRE CON HITO OMITIDO: INGRESO A LOGÍSTICA HEREDADO" else FnRegla([ENT_P_FECHA_HORA], [ENT_U_FECHA_HORA], [PIC_P_FECHA_HORA]), "Creación + liberación administrativa"},
+				                        {"ENTREGA_FACTURACION", [ENT_E], [FAC_E], if [FAC_P_FECHA_HORA_REAL] = null then "HITO OMITIDO: FACTURACIÓN HEREDA ENTREGA" else FnRegla([FAC_P_FECHA_HORA_REAL], [FAC_U_FECHA_HORA], [PRIMERA_FECHA_PEDIDO_POSTERIOR]), "Tracking SAP logística"},
+				                        {"FES_CREACION_PED_POST", [PED_FECHA_HORA], [PED_POST_E], if [PRIMERA_FECHA_PEDIDO_POSTERIOR] = null then "HITO OMITIDO: PEDIDO POSTERIOR HEREDA FACTURACIÓN" else FnRegla([PRIMERA_FECHA_PEDIDO_POSTERIOR], [ULTIMA_FECHA_PEDIDO_POSTERIOR], [PRIMERA_FECHA_ENTREGA_POSTERIOR]), "VBFA C→C"},
+				                        {"FES_FACT_PED_POST", [FAC_E], [PED_POST_E], if [PRIMERA_FECHA_PEDIDO_POSTERIOR] = null then "HITO OMITIDO: PEDIDO POSTERIOR HEREDA FACTURACIÓN" else FnRegla([PRIMERA_FECHA_PEDIDO_POSTERIOR], [ULTIMA_FECHA_PEDIDO_POSTERIOR], [PRIMERA_FECHA_ENTREGA_POSTERIOR]), "Factura original + VBFA C→C"},
+				                        {"FES_PED_POST_ENT_POST", [PED_POST_E], [ENT_POST_E], if [PRIMERA_FECHA_ENTREGA_POSTERIOR] = null then "HITO OMITIDO: ENTREGA POSTERIOR HEREDA PEDIDO POSTERIOR" else FnRegla([PRIMERA_FECHA_ENTREGA_POSTERIOR], [ULTIMA_FECHA_ENTREGA_POSTERIOR], [PRIMERA_FECHA_MANIFIESTO]), "VBFA C→J"},
+				                        {"FES_ENT_POST_MANIFIESTO", [ENT_POST_E], [MAN_E], if [MAN_E] = null then "HITO OMITIDO: SIN SALIDA" else if [PRIMERA_FECHA_MANIFIESTO] = null then "CIERRE SANTIAGO POR FACTURA/DESPACHO HASTA 16:00" else FnRegla([PRIMERA_FECHA_MANIFIESTO], [ULTIMA_FECHA_MANIFIESTO], null), if [PRIMERA_FECHA_MANIFIESTO] = null and [MAN_E]<>null then "Regla operativa Santiago" else "VTTP manifiesto oficial"},
+				                        {"OPERACIONES_TOTAL", [ENT_E], [MAN_E], if [MAN_E] = null then "CIERRE PENDIENTE" else if [PRIMERA_FECHA_MANIFIESTO] = null then "CIERRE SANTIAGO POR FACTURA/DESPACHO HASTA 16:00" else FnRegla([PRIMERA_FECHA_MANIFIESTO], [ULTIMA_FECHA_MANIFIESTO], null), if [PRIMERA_FECHA_MANIFIESTO] = null and [MAN_E]<>null then "Regla operativa Santiago" else "Ingreso a Logística + VTTP"},
+				                        {"MAYORISTA_CIERRE_TOTAL", [PED_FECHA_HORA], [MAN_E], if [MAN_E] = null then "CIERRE PENDIENTE" else if [PRIMERA_FECHA_MANIFIESTO] = null then "CIERRE SANTIAGO POR FACTURA/DESPACHO HASTA 16:00" else FnRegla([PRIMERA_FECHA_MANIFIESTO], [ULTIMA_FECHA_MANIFIESTO], null), if [PRIMERA_FECHA_MANIFIESTO] = null and [MAN_E]<>null then "Regla operativa Santiago" else "Creación + salida oficial FES"},
+				                        {"FES_CIERRE_TOTAL", [PED_FECHA_HORA], [MAN_E], if [MAN_E] = null then "HITO OMITIDO: SIN SALIDA" else if [PRIMERA_FECHA_MANIFIESTO] = null then "CIERRE SANTIAGO POR FACTURA/DESPACHO HASTA 16:00" else FnRegla([PRIMERA_FECHA_MANIFIESTO], [ULTIMA_FECHA_MANIFIESTO], null), if [PRIMERA_FECHA_MANIFIESTO] = null and [MAN_E]<>null then "Regla operativa Santiago" else "Pedido original + VTTP"},
+				                        {"FES_BRECHA_SALIDA", if [PRIMERA_FECHA_MANIFIESTO] = null then [ENT_POST_E] else [PRIMERA_FECHA_MANIFIESTO], [MAN_E], if [MAN_E] = null then "HITO OMITIDO: SIN SALIDA" else if [PRIMERA_FECHA_MANIFIESTO] = null then "CIERRE SANTIAGO POR FACTURA/DESPACHO HASTA 16:00" else FnRegla([PRIMERA_FECHA_MANIFIESTO], [ULTIMA_FECHA_MANIFIESTO], null), if [PRIMERA_FECHA_MANIFIESTO] = null and [MAN_E]<>null then "Regla operativa Santiago" else "VTTP manifiestos"}
+				                    }
+				                )
+				            else
+				                #table(
+				                    type table [METRICA_CODIGO=text, FECHA_INICIO=nullable datetime, FECHA_FIN=nullable datetime, REGLA_FECHA_FIN=text, FUENTE_FECHA=text],
+				                    {
+				                        {"PDA_CREACION", [PDA_E], [PED_FECHA_HORA], if [PDA_P_FECHA_HORA] = null then "HITO OMITIDO: PDA HEREDA FECHA CREACIÓN" else "PRIMERA FECHA", "Tracking SAP"},
+				                        {"CREACION_COMERCIAL", [PED_FECHA_HORA], [COM_E], if [COM_P_FECHA_HORA] = null then "HITO OMITIDO: COMERCIAL HEREDA CREACIÓN" else FnRegla([COM_P_FECHA_HORA], [COM_U_FECHA_HORA], [CRD_P_FECHA_HORA]), "Tracking SAP comercial"},
+				                        {"COMERCIAL_CREDITO", [COM_E], [CRD_E], if [CRD_P_FECHA_HORA] = null then "HITO OMITIDO: CRÉDITO HEREDA COMERCIAL" else "PRIMERA FECHA CRÉDITO", "Tracking SAP crédito"},
+				                        {"CREDITO_ENTREGA", [CRD_E], [ENT_E], if [ENT_P_FECHA_HORA] = null then "HITO OMITIDO: ENTREGA HEREDA CRÉDITO" else FnRegla([ENT_P_FECHA_HORA], [ENT_U_FECHA_HORA], [PIC_P_FECHA_HORA]), "Tracking SAP entrega"},
+				                        {"ADMIN_TOTAL", [PED_FECHA_HORA], [ENT_E], if [ENT_P_FECHA_HORA] = null then "CIERRE CON HITO OMITIDO: INGRESO A LOGÍSTICA HEREDADO" else FnRegla([ENT_P_FECHA_HORA], [ENT_U_FECHA_HORA], [PIC_P_FECHA_HORA]), "Creación + liberación administrativa"},
+				                        {"ENTREGA_FACTURACION", [ENT_E], [FAC_E], if [FAC_P_FECHA_HORA_REAL] = null then "HITO OMITIDO: FACTURACIÓN HEREDA ENTREGA" else FnRegla([FAC_P_FECHA_HORA_REAL], [FAC_U_FECHA_HORA], [TRP_P_FECHA_HORA]), "Tracking SAP logística"},
+				                        {"FACTURACION_DESPACHO", [FAC_E], [TRP_E], if [TRP_E] = null then "HITO OMITIDO: SIN DESPACHO" else if [TRP_P_FECHA_HORA] = null then "CIERRE SANTIAGO POR FACTURA HASTA 16:00" else FnRegla([TRP_P_FECHA_HORA], [TRP_U_FECHA_HORA], null), if [TRP_P_FECHA_HORA] = null and [TRP_E]<>null then "Regla operativa Santiago" else "Tracking SAP transporte"},
+				                        {"OPERACIONES_TOTAL", [ENT_E], [TRP_E], if [TRP_E] = null then "CIERRE PENDIENTE" else if [TRP_P_FECHA_HORA] = null then "CIERRE SANTIAGO POR FACTURA HASTA 16:00" else FnRegla([TRP_P_FECHA_HORA], [TRP_U_FECHA_HORA], null), if [TRP_P_FECHA_HORA] = null and [TRP_E]<>null then "Regla operativa Santiago" else "Ingreso a Logística + transporte"},
+				                        {"MAYORISTA_CIERRE_TOTAL", [PED_FECHA_HORA], [TRP_E], if [TRP_E] = null then "CIERRE PENDIENTE" else if [TRP_P_FECHA_HORA] = null then "CIERRE SANTIAGO POR FACTURA HASTA 16:00" else FnRegla([TRP_P_FECHA_HORA], [TRP_U_FECHA_HORA], null), if [TRP_P_FECHA_HORA] = null and [TRP_E]<>null then "Regla operativa Santiago" else "Creación + salida oficial"},
+				                        {"LOGISTICA_TOTAL", [ENT_E], [TRP_E], if [TRP_E] = null then "CIERRE PENDIENTE" else if [TRP_P_FECHA_HORA] = null then "CIERRE SANTIAGO POR FACTURA HASTA 16:00" else FnRegla([TRP_P_FECHA_HORA], [TRP_U_FECHA_HORA], null), if [TRP_P_FECHA_HORA] = null and [TRP_E]<>null then "Regla operativa Santiago" else "Entrega + transporte"},
+				                        {"LEAD_CREACION_DESPACHO", [PED_FECHA_HORA], [TRP_E], if [TRP_E] = null then "CIERRE PENDIENTE" else if [TRP_P_FECHA_HORA] = null then "CIERRE SANTIAGO POR FACTURA HASTA 16:00" else FnRegla([TRP_P_FECHA_HORA], [TRP_U_FECHA_HORA], null), if [TRP_P_FECHA_HORA] = null and [TRP_E]<>null then "Regla operativa Santiago" else "Tracking SAP end-to-end"}
+				                    }
+				                ),
+				        type table [METRICA_CODIGO=text, FECHA_INICIO=nullable datetime, FECHA_FIN=nullable datetime, REGLA_FECHA_FIN=text, FUENTE_FECHA=text]
+				    ),
+				    Expandida = Table.ExpandTableColumn(Registros, "REGISTROS_HITO", {"METRICA_CODIGO", "FECHA_INICIO", "FECHA_FIN", "REGLA_FECHA_FIN", "FUENTE_FECHA"}, {"METRICA_CODIGO", "FECHA_INICIO", "FECHA_FIN", "REGLA_FECHA_FIN", "FUENTE_FECHA"}),
+				    MarcaOmitido = Table.AddColumn(Expandida, "HITO_OMITIDO", each Text.Contains([REGLA_FECHA_FIN], "HITO OMITIDO"), type logical),
+				    CruceSLA = Table.NestedJoin(MarcaOmitido, {"METRICA_CODIGO"}, Config_SLA_Hitos, {"METRICA_CODIGO"}, "Config", JoinKind.LeftOuter),
+				    ExpandeSLA = Table.ExpandTableColumn(CruceSLA, "Config", {"HITO", "MACROETAPA", "AREA_RESPONSABLE", "ORDEN_HITO", "SLA_DH", "TIPO_KPI", "ACTIVO_CUELLO"}, {"HITO", "MACROETAPA", "AREA_RESPONSABLE", "ORDEN_HITO", "SLA_DH", "TIPO_KPI", "ACTIVO_CUELLO"}),
+				    Dias = Table.AddColumn(ExpandeSLA, "DIAS_HABILES", each FnDiasHabiles([FECHA_INICIO], [FECHA_FIN]), Int64.Type),
+				    TieneDato = Table.AddColumn(Dias, "TIENE_DATO", each [DIAS_HABILES] <> null, type logical),
+				    Cumple = Table.AddColumn(TieneDato, "CUMPLE_KPI", each if [DIAS_HABILES] = null or [SLA_DH] = null then null else [DIAS_HABILES] <= [SLA_DH], type nullable logical),
+				    EstadoKPI = Table.AddColumn(Cumple, "ESTADO_KPI", each if [DIAS_HABILES] = null then "SIN DATO" else if [SLA_DH] = null then "SLA PENDIENTE" else if [DIAS_HABILES] <= [SLA_DH] then "CUMPLE" else "FUERA KPI", type text),
+				    Exceso = Table.AddColumn(EstadoKPI, "EXCESO_DH", each if [DIAS_HABILES] = null or [SLA_DH] = null then null else if [DIAS_HABILES] > [SLA_DH] then [DIAS_HABILES] - [SLA_DH] else 0, Int64.Type),
+				    EstadoTraza = Table.AddColumn(Exceso, "ESTADO_TRAZABILIDAD", each if [FECHA_INICIO] = null then "NO INICIADO" else if [FECHA_FIN] = null then "PENDIENTE" else if [FECHA_FIN] < [FECHA_INICIO] then "SECUENCIA INVÁLIDA" else if Text.Contains([REGLA_FECHA_FIN], "SOLAPAMIENTO") then "SOLAPAMIENTO / REPROCESO" else if [HITO_OMITIDO] then "VÁLIDA - HITO OMITIDO" else "VÁLIDA", type text),
+				    FechaActualizacion = DateTime.LocalNow(),
+				    FechaEvaluacion = Table.AddColumn(EstadoTraza, "FECHA_EVALUACION", each if [FECHA_FIN] = null then FechaActualizacion else [FECHA_FIN], type nullable datetime),
+				    DiasTranscurridos = Table.AddColumn(FechaEvaluacion, "DIAS_TRANSCURRIDOS", each if [FECHA_INICIO] = null then null else FnDiasHabiles([FECHA_INICIO], [FECHA_EVALUACION]), Int64.Type),
+				    EstadoOperativo = Table.AddColumn(DiasTranscurridos, "ESTADO_OPERATIVO", each if [FECHA_INICIO] = null then "NO INICIADO" else if [FECHA_FIN] = null then "PENDIENTE" else "CERRADO", type text),
+				    CumpleActual = Table.AddColumn(EstadoOperativo, "CUMPLE_ACTUAL", each if [DIAS_TRANSCURRIDOS] = null or [SLA_DH] = null then null else [DIAS_TRANSCURRIDOS] <= [SLA_DH], type nullable logical),
+				    ExcesoActual = Table.AddColumn(CumpleActual, "EXCESO_ACTUAL_DH", each if [DIAS_TRANSCURRIDOS] = null or [SLA_DH] = null then null else if [DIAS_TRANSCURRIDOS] > [SLA_DH] then [DIAS_TRANSCURRIDOS] - [SLA_DH] else 0, Int64.Type),
+				    Resultado = Table.SelectColumns(ExcesoActual, {"PED_NUMERO_PEDIDO", "PED_CODIGO_CLIENTE", "PED_RESPONSABLE", "PED_CIUDAD", "PED_REGION", "ZONA_GEOGRAFICA", "ORDEN_ZONA_GEOGRAFICA", "PED_CANAL_CODIGO", "PED_CONDICION_EXPEDICION_CODIGO", "PED_VALOR_NETO", "PED_FECHA", "PED_FECHA_HORA", "MES_CREACION", "FECHA_INGRESO_SLA", "REGLA_CORTE_INGRESO", "DIFERIDO_POR_CORTE", "PREPARACION_SLA_DH", "PREPARACION_MAX_DH", "PROMESA_MIN_DH", "PROMESA_MAX_DH", "FECHA_PROMETIDA_MIN", "FECHA_PROMETIDA_MAX", "CUMPLE_PREPARACION", "SEGMENTO_EXCLUSIVO", "METRICA_CODIGO", "FECHA_INICIO", "FECHA_FIN", "REGLA_FECHA_FIN", "HITO_OMITIDO", "FUENTE_FECHA", "HITO", "MACROETAPA", "AREA_RESPONSABLE", "ORDEN_HITO", "SLA_DH", "TIPO_KPI", "ACTIVO_CUELLO", "DIAS_HABILES", "TIENE_DATO", "CUMPLE_KPI", "ESTADO_KPI", "EXCESO_DH", "ESTADO_TRAZABILIDAD", "FECHA_EVALUACION", "DIAS_TRANSCURRIDOS", "ESTADO_OPERATIVO", "CUMPLE_ACTUAL", "EXCESO_ACTUAL_DH"})
+				in
+				    Resultado
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

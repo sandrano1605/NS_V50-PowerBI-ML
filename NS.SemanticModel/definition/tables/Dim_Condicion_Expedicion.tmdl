@@ -1,0 +1,43 @@
+table Dim_Condicion_Expedicion
+	lineageTag: f73cd343-0673-4f8a-b046-67fb71016363
+
+	column CONDICION_EXPEDICION_CODIGO
+		dataType: string
+		isKey
+		lineageTag: 0cea890d-af3b-4ae1-a633-0ada9d05325d
+		summarizeBy: none
+		sourceColumn: CONDICION_EXPEDICION_CODIGO
+
+		annotation SummarizationSetBy = User
+
+	column CONDICION_EXPEDICION
+		dataType: string
+		lineageTag: 71ecbe86-9f2a-4bab-a15a-1b3478fba87f
+		summarizeBy: none
+		sourceColumn: CONDICION_EXPEDICION
+
+		annotation SummarizationSetBy = User
+
+	partition Dim_Condicion_Expedicion = m
+		mode: import
+		source =
+				let
+				    Origen = Fact_Pedidos,
+				    Columnas = Table.SelectColumns(Origen, {"PED_CONDICION_EXPEDICION_CODIGO", "PED_CONDICION_EXPEDICION"}),
+				    Filtrados = Table.SelectRows(Columnas, each [PED_CONDICION_EXPEDICION_CODIGO] <> null and Text.Trim([PED_CONDICION_EXPEDICION_CODIGO]) <> ""),
+				    Agrupados = Table.Group(
+				        Filtrados,
+				        {"PED_CONDICION_EXPEDICION_CODIGO"},
+				        {{"PED_CONDICION_EXPEDICION", each try List.First(List.RemoveNulls([PED_CONDICION_EXPEDICION])) otherwise "No clasificado", type nullable text}}
+				    ),
+				    Renombradas = Table.RenameColumns(
+				        Agrupados,
+				        {{"PED_CONDICION_EXPEDICION_CODIGO", "CONDICION_EXPEDICION_CODIGO"}, {"PED_CONDICION_EXPEDICION", "CONDICION_EXPEDICION"}}
+				    )
+				in
+				    Renombradas
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

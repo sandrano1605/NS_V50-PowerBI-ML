@@ -1,0 +1,142 @@
+/// Catálogo oficial de métricas temporales e hitos del nivel de servicio.
+table Dim_Hito
+	lineageTag: 23279f65-ca72-41ef-8b9c-0f5a50d33ff4
+
+	column METRICA_CODIGO
+		dataType: string
+		isKey
+		lineageTag: f9412230-a170-480f-bbe0-4b0c0050daf3
+		summarizeBy: none
+		sourceColumn: METRICA_CODIGO
+
+		annotation SummarizationSetBy = User
+
+	column TIPO_FLUJO
+		dataType: string
+		lineageTag: e7e1dda5-d100-4fea-8b50-c662800576c7
+		summarizeBy: none
+		sourceColumn: TIPO_FLUJO
+
+		annotation SummarizationSetBy = User
+
+	column GRUPO_PROCESO
+		dataType: string
+		lineageTag: ecdd6105-77a5-49d8-8de5-a87446f69ea5
+		summarizeBy: none
+		sourceColumn: GRUPO_PROCESO
+
+		annotation SummarizationSetBy = User
+
+	column ORDEN_HITO
+		dataType: int64
+		formatString: 0
+		lineageTag: 5d1297c2-ee0b-4570-8954-481c31cb0454
+		summarizeBy: none
+		sourceColumn: ORDEN_HITO
+
+		annotation SummarizationSetBy = User
+
+	column HITO
+		dataType: string
+		lineageTag: 376585d8-c1ef-44b3-9d45-43e9936d658f
+		summarizeBy: none
+		sourceColumn: HITO
+		sortByColumn: ORDEN_HITO
+
+		annotation SummarizationSetBy = User
+
+	column DESCRIPCION
+		dataType: string
+		lineageTag: 02da57c3-8365-49c5-9e6b-8af12b1b8abe
+		summarizeBy: none
+		sourceColumn: DESCRIPCION
+
+		annotation SummarizationSetBy = User
+
+	column UNIDAD
+		dataType: string
+		lineageTag: c6da361f-77f0-45ba-a57d-c0d88db928f0
+		summarizeBy: none
+		sourceColumn: UNIDAD
+
+		annotation SummarizationSetBy = User
+
+	/// Bandera centralizada para las etapas incrementales utilizadas en el diagnóstico histórico de cuello de botella.
+	column ES_ETAPA_CUELLO
+		dataType: boolean
+		formatString: """Sí"";""Sí"";""No"""
+		lineageTag: 24000000-0000-4000-8000-000000000001
+		summarizeBy: none
+		sourceColumn: ES_ETAPA_CUELLO
+
+		annotation SummarizationSetBy = User
+
+	partition Dim_Hito = m
+		mode: import
+		source =
+				let
+								    Origen = #table(
+								        type table [
+								            METRICA_CODIGO = text,
+								            TIPO_FLUJO = text,
+								            GRUPO_PROCESO = text,
+								            ORDEN_HITO = Int64.Type,
+								            HITO = text,
+								            DESCRIPCION = text,
+								            UNIDAD = text
+								        ],
+								        {
+				                        {"DH_COMERCIAL_PDA_SAC", "COMERCIAL", "Comercial", 1, "PDA → Creación pedido", "Tiempo desde el registro PDA hasta la creación del pedido en SAC.", "Días hábiles"},
+				                        {"DH_CREDITO_COBRANZAS", "NORMAL", "Crédito", 10, "Pedido → Crédito", "Tiempo desde la creación del pedido hasta la liberación o gestión de crédito.", "Días hábiles"},
+				                        {"DH_CREDITO_A_PRIMERA_ENTREGA", "NORMAL", "Operación interna", 20, "Crédito → Entrega", "Tiempo desde crédito hasta la primera entrega creada.", "Días hábiles"},
+				                        {"DH_PRIMERA_ENTREGA_A_PRIMER_PICKING", "NORMAL", "Operación interna", 30, "Entrega → Picking", "Tiempo desde la primera entrega hasta el primer picking.", "Días hábiles"},
+				                        {"DH_PRIMER_PICKING_A_PRIMER_PACKING", "NORMAL", "Operación interna", 40, "Picking → Packing", "Tiempo desde el primer picking hasta el primer packing.", "Días hábiles"},
+				                        {"DH_PRIMER_PACKING_A_PRIMERA_FACTURA", "NORMAL", "Operación interna", 50, "Packing → Factura", "Tiempo desde el primer packing hasta la primera factura.", "Días hábiles"},
+				                        {"DH_PRIMER_PICKING_A_PRIMERA_FACTURA", "NORMAL", "Operación interna", 60, "Picking → Factura", "Tiempo desde el primer picking hasta la primera factura.", "Días hábiles"},
+				                        {"DH_OPERACION_INTERNA", "NORMAL", "Operación interna", 70, "Crédito → Factura", "Tiempo operacional completo desde crédito hasta primera factura.", "Días hábiles"},
+				                        {"DH_DESPACHO", "NORMAL", "Despacho", 80, "Factura → Despacho", "Tiempo desde la primera factura hasta el primer despacho.", "Días hábiles"},
+				                        {"DH_LEAD_NORMAL", "NORMAL", "Lead total", 90, "Pedido → Despacho (Lead)", "Lead principal del flujo normal desde creación hasta primer despacho.", "Días hábiles"},
+				                        {"DH_DESPACHO_A_CEDIBLE", "NORMAL", "Cedible", 100, "Despacho → Cedible", "Tiempo desde el primer despacho hasta el primer documento cedible.", "Días hábiles"},
+				                        {"DH_CREACION_A_CEDIBLE", "NORMAL", "Cedible", 110, "Pedido → Cedible", "Tiempo desde la creación del pedido hasta el primer documento cedible.", "Días hábiles"},
+				                        {"DH_FES_CREDITO_A_PRIMER_DESPACHO", "FES", "FES", 201, "Crédito → Primer despacho", "Tiempo FES desde crédito hasta primer despacho.", "Días hábiles"},
+				                        {"DH_FES_FACTURA_A_PRIMER_DESPACHO", "FES", "FES", 202, "Factura → Primer despacho", "Tiempo FES desde factura original hasta primer despacho.", "Días hábiles"},
+				                        {"DH_FES_FACTURA_A_PRIMER_PEDIDO_POSTERIOR", "FES", "FES", 203, "Factura → Pedido posterior", "Tiempo desde factura original hasta primer pedido posterior.", "Días hábiles"},
+				                        {"DH_FES_PRIMER_PEDIDO_A_PRIMERA_ENTREGA_POSTERIOR", "FES", "FES", 204, "Pedido posterior → Entrega posterior", "Tiempo desde primer pedido posterior hasta primera entrega posterior.", "Días hábiles"},
+				                        {"DH_FES_PRIMERA_ENTREGA_A_PRIMER_MANIFIESTO", "FES", "FES", 205, "Entrega posterior → Primer manifiesto", "Tiempo desde primera entrega posterior hasta primer manifiesto.", "Días hábiles"},
+				                        {"DH_FES_FACTURA_A_PRIMER_MANIFIESTO", "FES", "FES", 206, "Factura → Primer manifiesto", "Tiempo desde factura original hasta la primera salida operacional real.", "Días hábiles"},
+				                        {"DH_FES_FACTURA_A_ULTIMO_MANIFIESTO", "FES", "FES", 207, "Factura → Último manifiesto", "Tiempo desde factura original hasta cierre operacional FES completo.", "Días hábiles"},
+				                        {"DH_FES_BRECHA_PRIMER_ULTIMO_MANIFIESTO", "FES", "FES", 208, "Primer → Último manifiesto", "Brecha entre primera y última salida operacional FES.", "Días hábiles"},
+				                        {"DH_ENTREGA_COMPLETA_100", "SALDO", "Saldo", 301, "Pedido → Entrega completa 100%", "Tiempo desde creación del pedido hasta el último despacho.", "Días hábiles"},
+				                        {"DH_BRECHA_PRIMER_ULTIMO_DESPACHO", "SALDO", "Saldo", 302, "Primer → Último despacho", "Brecha entre el primer y el último despacho.", "Días hábiles"},
+				                        {"DH_PRIMERA_FACTURA_A_ULTIMO_DESPACHO", "SALDO", "Saldo", 303, "Primera factura → Último despacho", "Tiempo desde primera factura hasta cierre del despacho.", "Días hábiles"},
+				                        {"DH_ENT_PRIMERA_ULTIMA", "SALDO", "Saldo", 304, "Primera → Última entrega", "Brecha entre primera y última entrega.", "Días hábiles"},
+				                        {"DH_PIC_PRIMERO_ULTIMO", "SALDO", "Saldo", 305, "Primer → Último picking", "Brecha entre primer y último picking.", "Días hábiles"},
+				                        {"DH_PAC_PRIMERO_ULTIMO", "SALDO", "Saldo", 306, "Primer → Último packing", "Brecha entre primer y último packing.", "Días hábiles"},
+				                        {"DH_FAC_PRIMERA_ULTIMA", "SALDO", "Saldo", 307, "Primera → Última factura", "Brecha entre primera y última factura.", "Días hábiles"}
+								        }
+								    ),
+									    ConEtapaCuello = Table.AddColumn(
+									        Origen,
+									        "ES_ETAPA_CUELLO",
+									        each List.Contains(
+									            {
+									                "DH_CREDITO_COBRANZAS",
+									                "DH_CREDITO_A_PRIMERA_ENTREGA",
+									                "DH_PRIMERA_ENTREGA_A_PRIMER_PICKING",
+									                "DH_PRIMER_PICKING_A_PRIMER_PACKING",
+									                "DH_PRIMER_PACKING_A_PRIMERA_FACTURA",
+									                "DH_DESPACHO",
+									                "DH_DESPACHO_A_CEDIBLE"
+									            },
+									            [METRICA_CODIGO]
+									        ),
+									        type logical
+									    ),
+									    Ordenado = Table.Sort(ConEtapaCuello, {{"ORDEN_HITO", Order.Ascending}})
+								in
+								    Ordenado
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

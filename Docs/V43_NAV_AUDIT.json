@@ -1,0 +1,39 @@
+{
+  "version": "NS_V43",
+  "reference_style": {
+    "inactive_default": "#FFFFFF",
+    "active_default": "#1B365D",
+    "hover": "#202A44",
+    "default_text": "#141414",
+    "hover_text": "#FFFFFF",
+    "border_default": "#CED9E5",
+    "font_size": "8D",
+    "icon_size": "16D",
+    "radius": "6L"
+  },
+  "navigation_buttons": 16,
+  "active_buttons": 4,
+  "inactive_buttons": 12,
+  "back_buttons": 1,
+  "json_files_validated": 190,
+  "unique_icon_resources_referenced": [
+    "ns_back_dark.svg",
+    "ns_back_hover.svg",
+    "ns_cuellos_dark.svg",
+    "ns_cuellos_hover.svg",
+    "ns_cuellos_white.svg",
+    "ns_detalle_dark.svg",
+    "ns_detalle_hover.svg",
+    "ns_detalle_white.svg",
+    "ns_resumen_dark.svg",
+    "ns_resumen_hover.svg",
+    "ns_resumen_white.svg",
+    "ns_tracking_dark.svg",
+    "ns_tracking_hover.svg",
+    "ns_tracking_white.svg",
+    "reset_dark.svg",
+    "reset_hover.svg"
+  ],
+  "errors": [],
+  "status": "OK"
+}

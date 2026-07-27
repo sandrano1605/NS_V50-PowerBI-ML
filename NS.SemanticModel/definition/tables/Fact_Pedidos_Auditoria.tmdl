@@ -1,0 +1,1630 @@
+table Fact_Pedidos_Auditoria
+	lineageTag: 60de4c02-af37-476f-9d67-4dd35cd7406c
+
+	column PED_NUMERO_PEDIDO
+		dataType: string
+		lineageTag: 87df1d64-8070-4e16-96d0-375f023e007c
+		summarizeBy: none
+		sourceColumn: PED_NUMERO_PEDIDO
+
+		annotation SummarizationSetBy = Automatic
+
+	column PED_CODIGO_CLIENTE
+		dataType: string
+		lineageTag: fe299c65-0c8c-449b-8abc-91920050a88f
+		summarizeBy: none
+		sourceColumn: PED_CODIGO_CLIENTE
+
+		annotation SummarizationSetBy = Automatic
+
+	column PED_RESPONSABLE
+		dataType: string
+		lineageTag: ae85fa31-f68f-4c4f-acfb-26c6d30ecf69
+		summarizeBy: none
+		sourceColumn: PED_RESPONSABLE
+
+		annotation SummarizationSetBy = Automatic
+
+	column PED_CENTRO
+		dataType: string
+		lineageTag: d4fc354e-ed20-41d2-9814-24b3dae0117f
+		summarizeBy: none
+		sourceColumn: PED_CENTRO
+
+		annotation SummarizationSetBy = Automatic
+
+	column PED_CIUDAD
+		dataType: string
+		lineageTag: 50b89842-8dde-40ea-9aaa-9ce81cba9ee5
+		summarizeBy: none
+		sourceColumn: PED_CIUDAD
+
+		annotation SummarizationSetBy = Automatic
+
+	column PED_REGION
+		dataType: string
+		lineageTag: ac68d2b4-faa0-4f12-b195-242f9f84def3
+		summarizeBy: none
+		sourceColumn: PED_REGION
+
+		annotation SummarizationSetBy = Automatic
+
+	column PED_CONDICION_EXPEDICION_CODIGO
+		dataType: string
+		lineageTag: 490b7b4e-fa21-4a70-820d-343f3212263a
+		summarizeBy: none
+		sourceColumn: PED_CONDICION_EXPEDICION_CODIGO
+
+		annotation SummarizationSetBy = Automatic
+
+	column PED_CONDICION_EXPEDICION
+		dataType: string
+		lineageTag: 2040b468-22e2-4bcb-abd9-3b6ccac3ad89
+		summarizeBy: none
+		sourceColumn: PED_CONDICION_EXPEDICION
+
+		annotation SummarizationSetBy = Automatic
+
+	column PED_ORDEN_COMPRA_CLIENTE
+		dataType: string
+		lineageTag: 4482d800-3ff1-44c6-b7a3-219f0fd6f272
+		summarizeBy: none
+		sourceColumn: PED_ORDEN_COMPRA_CLIENTE
+
+		annotation SummarizationSetBy = Automatic
+
+	column PED_CANAL_CODIGO
+		dataType: string
+		lineageTag: 3f7e4186-dcd7-47f4-bf73-5c93a7dd0f3c
+		summarizeBy: none
+		sourceColumn: PED_CANAL_CODIGO
+
+		annotation SummarizationSetBy = Automatic
+
+	column PED_CANAL
+		dataType: string
+		lineageTag: d6024118-43b8-4074-b054-d68273b3dbda
+		summarizeBy: none
+		sourceColumn: PED_CANAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column PED_VALOR_NETO
+		dataType: double
+		lineageTag: b9810779-c7e7-4aee-b7c4-37f3b73fbaed
+		summarizeBy: sum
+		sourceColumn: PED_VALOR_NETO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PED_MONEDA
+		dataType: string
+		lineageTag: 373fa968-da8a-4932-a6fa-c583bd7dc58b
+		summarizeBy: none
+		sourceColumn: PED_MONEDA
+
+		annotation SummarizationSetBy = Automatic
+
+	column PED_BLOQUEO_ENTREGA
+		dataType: string
+		lineageTag: 9d7acd69-8e6b-419c-b534-7aee34f3fee8
+		summarizeBy: none
+		sourceColumn: PED_BLOQUEO_ENTREGA
+
+		annotation SummarizationSetBy = Automatic
+
+	column PED_ESTADO_CREDITO
+		dataType: string
+		lineageTag: ee9e7b14-e078-4650-b140-f9e2d857ba3b
+		summarizeBy: none
+		sourceColumn: PED_ESTADO_CREDITO
+
+		annotation SummarizationSetBy = Automatic
+
+	column SERV_TIPO_SERVICIO
+		dataType: string
+		lineageTag: 8a593753-e13b-44c1-a1cb-3f75065b0cd7
+		summarizeBy: none
+		sourceColumn: SERV_TIPO_SERVICIO
+
+		annotation SummarizationSetBy = Automatic
+
+	column SERV_TIPO_SERVICIO_PLANIFICADO
+		dataType: string
+		lineageTag: f6a84535-17f5-4927-a937-5cf26b90f9a0
+		summarizeBy: none
+		sourceColumn: SERV_TIPO_SERVICIO_PLANIFICADO
+
+		annotation SummarizationSetBy = Automatic
+
+	column OTIF_ESTADO_PEDIDO
+		dataType: string
+		lineageTag: d027be74-1933-4c8e-a08a-b245fc1b9316
+		summarizeBy: none
+		sourceColumn: OTIF_ESTADO_PEDIDO
+
+		annotation SummarizationSetBy = Automatic
+
+	column PED_TEXTO_ESTADO
+		dataType: string
+		lineageTag: 0119a0e2-d408-4794-be34-1bb6a0c4dac5
+		summarizeBy: none
+		sourceColumn: PED_TEXTO_ESTADO
+
+		annotation SummarizationSetBy = Automatic
+
+	column CED_CANTIDAD_COPIAS
+		dataType: string
+		lineageTag: ad494fe5-87cd-4a20-a64e-20225abe4154
+		summarizeBy: none
+		sourceColumn: CED_CANTIDAD_COPIAS
+
+		annotation SummarizationSetBy = Automatic
+
+	column ES_FES
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 5234835c-31f4-4ee2-ba23-a81ab1cea447
+		summarizeBy: none
+		sourceColumn: ES_FES
+
+		annotation SummarizationSetBy = Automatic
+
+	column ES_SALDO
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a2661916-f9db-4452-b8b6-d8c1de95cafc
+		summarizeBy: none
+		sourceColumn: ES_SALDO
+
+		annotation SummarizationSetBy = Automatic
+
+	column PRIMERA_FECHA_PEDIDO_POSTERIOR
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 985786a8-9a6c-4a36-bb6a-03c86415a7cd
+		summarizeBy: none
+		sourceColumn: PRIMERA_FECHA_PEDIDO_POSTERIOR
+
+		annotation SummarizationSetBy = Automatic
+
+	column ULTIMA_FECHA_PEDIDO_POSTERIOR
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 3b4e9a09-697a-43ac-9193-912bc996b789
+		summarizeBy: none
+		sourceColumn: ULTIMA_FECHA_PEDIDO_POSTERIOR
+
+		annotation SummarizationSetBy = Automatic
+
+	column PRIMERA_FECHA_ENTREGA_POSTERIOR
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: bb27dfd8-43cd-41e1-991e-a4bf6b75318c
+		summarizeBy: none
+		sourceColumn: PRIMERA_FECHA_ENTREGA_POSTERIOR
+
+		annotation SummarizationSetBy = Automatic
+
+	column ULTIMA_FECHA_ENTREGA_POSTERIOR
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 8bceb4f5-756e-4740-9ddc-5ca8c82b33e3
+		summarizeBy: none
+		sourceColumn: ULTIMA_FECHA_ENTREGA_POSTERIOR
+
+		annotation SummarizationSetBy = Automatic
+
+	column PRIMERA_FECHA_MANIFIESTO
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 2514413b-98e9-4c7f-8475-7fe712b19faf
+		summarizeBy: none
+		sourceColumn: PRIMERA_FECHA_MANIFIESTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column ULTIMA_FECHA_MANIFIESTO
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 6a64fa13-1193-482b-a584-fc1b923675ab
+		summarizeBy: none
+		sourceColumn: ULTIMA_FECHA_MANIFIESTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column REGLA_CLASIFICACION_FES
+		dataType: string
+		lineageTag: bdc3e811-19e2-4afd-abd7-068c55b473ef
+		summarizeBy: none
+		sourceColumn: REGLA_CLASIFICACION_FES
+
+		annotation SummarizationSetBy = Automatic
+
+	column REGLA_CLASIFICACION_SALDO
+		dataType: string
+		lineageTag: 383592c9-f5f0-4933-a85c-9e543f71eee2
+		summarizeBy: none
+		sourceColumn: REGLA_CLASIFICACION_SALDO
+
+		annotation SummarizationSetBy = Automatic
+
+	column SEGMENTO_ANALISIS
+		dataType: string
+		lineageTag: 19f5783c-e115-42a8-89dd-af41e444b4e1
+		summarizeBy: none
+		sourceColumn: SEGMENTO_ANALISIS
+
+		annotation SummarizationSetBy = Automatic
+
+	column INCLUIR_SLA_NORMAL
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 79ce6176-5b8c-42ac-8ec1-5125b2769096
+		summarizeBy: none
+		sourceColumn: INCLUIR_SLA_NORMAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column PDA_P_FECHA_HORA
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 3bcbbfc3-7016-4fdf-98d8-af91ed5c9c2d
+		summarizeBy: none
+		sourceColumn: PDA_P_FECHA_HORA
+
+		annotation SummarizationSetBy = Automatic
+
+	column PED_FECHA_HORA
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: baaff59d-49f1-4abb-8e5d-1d1b2f873fa1
+		summarizeBy: none
+		sourceColumn: PED_FECHA_HORA
+
+		annotation SummarizationSetBy = Automatic
+
+	column COM_P_FECHA_HORA
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 1275571c-101a-4f1d-86bf-18025c3a5178
+		summarizeBy: none
+		sourceColumn: COM_P_FECHA_HORA
+
+		annotation SummarizationSetBy = Automatic
+
+	column COM_U_FECHA_HORA
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 1ff0146d-c53f-43e9-8a4a-a4044ec03e3a
+		summarizeBy: none
+		sourceColumn: COM_U_FECHA_HORA
+
+		annotation SummarizationSetBy = Automatic
+
+	column CRD_P_FECHA_HORA
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 231637fa-3aa8-45d3-abd2-c9328935dbed
+		summarizeBy: none
+		sourceColumn: CRD_P_FECHA_HORA
+
+		annotation SummarizationSetBy = Automatic
+
+	column GER_P_FECHA_HORA
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: e8768d39-f376-44e9-8eb2-a557b591e46d
+		summarizeBy: none
+		sourceColumn: GER_P_FECHA_HORA
+
+		annotation SummarizationSetBy = Automatic
+
+	column ENT_P_FECHA_HORA
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 3bc9dd45-a2c4-4d67-a9df-76eb7ca101ad
+		summarizeBy: none
+		sourceColumn: ENT_P_FECHA_HORA
+
+		annotation SummarizationSetBy = Automatic
+
+	column ENT_U_FECHA_HORA
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: e00906f5-8a28-4366-b919-d4a7125a749f
+		summarizeBy: none
+		sourceColumn: ENT_U_FECHA_HORA
+
+		annotation SummarizationSetBy = Automatic
+
+	column PIC_P_FECHA_HORA
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: dca7344c-b46d-4345-87f3-534aa6b956c7
+		summarizeBy: none
+		sourceColumn: PIC_P_FECHA_HORA
+
+		annotation SummarizationSetBy = Automatic
+
+	column PIC_U_FECHA_HORA
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 432bf048-86a2-4232-95d9-495066192d18
+		summarizeBy: none
+		sourceColumn: PIC_U_FECHA_HORA
+
+		annotation SummarizationSetBy = Automatic
+
+	column PAC_P_FECHA_HORA
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 9d17f76c-9f96-4b58-8f29-cde021c11ced
+		summarizeBy: none
+		sourceColumn: PAC_P_FECHA_HORA
+
+		annotation SummarizationSetBy = Automatic
+
+	column PAC_U_FECHA_HORA
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: f6381bad-1412-4308-bc4c-b1271af041bd
+		summarizeBy: none
+		sourceColumn: PAC_U_FECHA_HORA
+
+		annotation SummarizationSetBy = Automatic
+
+	column FAC_P_FECHA_HORA_REAL
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 441d7f9d-da03-4480-8a1c-b8d91301590a
+		summarizeBy: none
+		sourceColumn: FAC_P_FECHA_HORA_REAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column FAC_U_FECHA_HORA
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 520e4fd4-da54-430b-b5e2-a5fab99f2532
+		summarizeBy: none
+		sourceColumn: FAC_U_FECHA_HORA
+
+		annotation SummarizationSetBy = Automatic
+
+	column TRP_P_FECHA_HORA
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 1b46c6b9-3263-4367-922e-00b4efbf61ec
+		summarizeBy: none
+		sourceColumn: TRP_P_FECHA_HORA
+
+		annotation SummarizationSetBy = Automatic
+
+	column TRP_U_FECHA_HORA
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 46425e87-289a-4244-bcbe-a2243f2a9858
+		summarizeBy: none
+		sourceColumn: TRP_U_FECHA_HORA
+
+		annotation SummarizationSetBy = Automatic
+
+	column TSTTO_P_FECHA_HORA
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: c0cdcc6a-4dd4-4088-b258-8e1613c9c504
+		summarizeBy: none
+		sourceColumn: TSTTO_P_FECHA_HORA
+
+		annotation SummarizationSetBy = Automatic
+
+	column TSTTO_U_FECHA_HORA
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 6d886005-bc1a-4959-b0f5-3d15fb7a5bcb
+		summarizeBy: none
+		sourceColumn: TSTTO_U_FECHA_HORA
+
+		annotation SummarizationSetBy = Automatic
+
+	column CED_P_FECHA_HORA
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 252ef454-1170-4552-ad1f-1e0445a06141
+		summarizeBy: none
+		sourceColumn: CED_P_FECHA_HORA
+
+		annotation SummarizationSetBy = Automatic
+
+	column CED_U_FECHA_HORA
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 272bb00b-e897-473a-aa70-759d2903ea17
+		summarizeBy: none
+		sourceColumn: CED_U_FECHA_HORA
+
+		annotation SummarizationSetBy = Automatic
+
+	column FAC_FECHA_OPERATIVA_AJUSTADA
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 029fa199-a57a-43ee-989f-e1b7d0cf0186
+		summarizeBy: none
+		sourceColumn: FAC_FECHA_OPERATIVA_AJUSTADA
+
+		annotation SummarizationSetBy = Automatic
+
+	column FES_FECHA_CIERRE_OPERATIVO_100
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 66be51d6-06c3-42e4-a37c-019d5aa8bfe3
+		summarizeBy: none
+		sourceColumn: FES_FECHA_CIERRE_OPERATIVO_100
+
+		annotation SummarizationSetBy = Automatic
+
+	column HRS_COMERCIAL_PDA_SAC
+		dataType: double
+		lineageTag: 54f7cca2-954d-4f89-bc1e-ea946599f6ba
+		summarizeBy: sum
+		sourceColumn: HRS_COMERCIAL_PDA_SAC
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DIAS_EQ_COMERCIAL_9_5H
+		dataType: double
+		lineageTag: 945bb523-7790-4cf2-8af1-bcc7d4a40e92
+		summarizeBy: sum
+		sourceColumn: DIAS_EQ_COMERCIAL_9_5H
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DH_COMERCIAL_PDA_SAC
+		dataType: int64
+		formatString: 0
+		lineageTag: b2ac951a-3672-4444-bda0-409999ad94d2
+		summarizeBy: sum
+		sourceColumn: DH_COMERCIAL_PDA_SAC
+
+		annotation SummarizationSetBy = Automatic
+
+	column DH_CREDITO_COBRANZAS
+		dataType: int64
+		formatString: 0
+		lineageTag: 350e0a59-fc30-4095-9115-b263b0f47208
+		summarizeBy: sum
+		sourceColumn: DH_CREDITO_COBRANZAS
+
+		annotation SummarizationSetBy = Automatic
+
+	column DH_OPERACION_INTERNA
+		dataType: int64
+		formatString: 0
+		lineageTag: aef1bc81-5c1e-483b-b1eb-8890b72e71aa
+		summarizeBy: sum
+		sourceColumn: DH_OPERACION_INTERNA
+
+		annotation SummarizationSetBy = Automatic
+
+	column DH_CREDITO_A_PRIMERA_ENTREGA
+		dataType: int64
+		formatString: 0
+		lineageTag: 4a166755-72c4-4a4e-aa60-d4fb93cddfb0
+		summarizeBy: sum
+		sourceColumn: DH_CREDITO_A_PRIMERA_ENTREGA
+
+		annotation SummarizationSetBy = Automatic
+
+	column DH_PRIMERA_ENTREGA_A_PRIMER_PICKING
+		dataType: int64
+		formatString: 0
+		lineageTag: 1cecbf67-f3c1-4b69-9fbf-40afc3c445c6
+		summarizeBy: sum
+		sourceColumn: DH_PRIMERA_ENTREGA_A_PRIMER_PICKING
+
+		annotation SummarizationSetBy = Automatic
+
+	column DH_PRIMER_PICKING_A_PRIMER_PACKING
+		dataType: int64
+		formatString: 0
+		lineageTag: a5e859ca-d070-45e7-a00d-b40e4731f912
+		summarizeBy: sum
+		sourceColumn: DH_PRIMER_PICKING_A_PRIMER_PACKING
+
+		annotation SummarizationSetBy = Automatic
+
+	column DH_PRIMER_PACKING_A_PRIMERA_FACTURA
+		dataType: int64
+		formatString: 0
+		lineageTag: 4a601350-0cce-4863-9fb2-7de9dd2f26aa
+		summarizeBy: sum
+		sourceColumn: DH_PRIMER_PACKING_A_PRIMERA_FACTURA
+
+		annotation SummarizationSetBy = Automatic
+
+	column DH_PRIMER_PICKING_A_PRIMERA_FACTURA
+		dataType: int64
+		formatString: 0
+		lineageTag: 297d4542-b44f-4df9-82dc-0cca859f9197
+		summarizeBy: sum
+		sourceColumn: DH_PRIMER_PICKING_A_PRIMERA_FACTURA
+
+		annotation SummarizationSetBy = Automatic
+
+	column DH_DESPACHO
+		dataType: int64
+		formatString: 0
+		lineageTag: 7e239870-d933-44b6-a734-dfb989e27805
+		summarizeBy: sum
+		sourceColumn: DH_DESPACHO
+
+		annotation SummarizationSetBy = Automatic
+
+	column DH_LEAD_NORMAL
+		dataType: int64
+		formatString: 0
+		lineageTag: 3424c792-69aa-453c-8afd-bff2ce568c3d
+		summarizeBy: sum
+		sourceColumn: DH_LEAD_NORMAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column ESTADO_SLA_NORMAL
+		dataType: string
+		lineageTag: df90df40-150d-41a0-9b46-51b77bc4c276
+		summarizeBy: none
+		sourceColumn: ESTADO_SLA_NORMAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column PROCESO_DOMINANTE_NORMAL
+		dataType: string
+		lineageTag: 580de198-94f5-4dc9-be18-05ef80417582
+		summarizeBy: none
+		sourceColumn: PROCESO_DOMINANTE_NORMAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column DH_FES_CREDITO_A_PRIMER_DESPACHO
+		dataType: int64
+		formatString: 0
+		lineageTag: 8355f48b-a0e8-49e3-9e03-b0ce18e879c6
+		summarizeBy: sum
+		sourceColumn: DH_FES_CREDITO_A_PRIMER_DESPACHO
+
+		annotation SummarizationSetBy = Automatic
+
+	column DH_FES_FACTURA_A_PRIMER_DESPACHO
+		dataType: int64
+		formatString: 0
+		lineageTag: f06b4f02-094e-4615-8e14-ff8f7a7970cb
+		summarizeBy: sum
+		sourceColumn: DH_FES_FACTURA_A_PRIMER_DESPACHO
+
+		annotation SummarizationSetBy = Automatic
+
+	column DH_FES_FACTURA_A_PRIMER_PEDIDO_POSTERIOR
+		dataType: int64
+		formatString: 0
+		lineageTag: 4e0f4cf7-21e2-4402-9604-e7bfb3aeefca
+		summarizeBy: sum
+		sourceColumn: DH_FES_FACTURA_A_PRIMER_PEDIDO_POSTERIOR
+
+		annotation SummarizationSetBy = Automatic
+
+	column DH_FES_PRIMER_PEDIDO_A_PRIMERA_ENTREGA_POSTERIOR
+		dataType: int64
+		formatString: 0
+		lineageTag: ed3c5a5e-9933-4fbd-80b4-46014c407f65
+		summarizeBy: sum
+		sourceColumn: DH_FES_PRIMER_PEDIDO_A_PRIMERA_ENTREGA_POSTERIOR
+
+		annotation SummarizationSetBy = Automatic
+
+	column DH_FES_PRIMERA_ENTREGA_A_PRIMER_MANIFIESTO
+		dataType: int64
+		formatString: 0
+		lineageTag: 6b394746-b30a-4ba8-8d36-a62d9eb039a7
+		summarizeBy: sum
+		sourceColumn: DH_FES_PRIMERA_ENTREGA_A_PRIMER_MANIFIESTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column DH_FES_FACTURA_A_PRIMER_MANIFIESTO
+		dataType: int64
+		formatString: 0
+		lineageTag: cf56fc13-5fa0-4702-8e85-b2c59a65a967
+		summarizeBy: sum
+		sourceColumn: DH_FES_FACTURA_A_PRIMER_MANIFIESTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column DH_FES_FACTURA_A_ULTIMO_MANIFIESTO
+		dataType: int64
+		formatString: 0
+		lineageTag: 16a3efbc-5986-4e1d-8cdb-a18ea79ad461
+		summarizeBy: sum
+		sourceColumn: DH_FES_FACTURA_A_ULTIMO_MANIFIESTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column DH_FES_BRECHA_PRIMER_ULTIMO_MANIFIESTO
+		dataType: int64
+		formatString: 0
+		lineageTag: 513c416b-68c5-487e-a67c-8b792caf169c
+		summarizeBy: sum
+		sourceColumn: DH_FES_BRECHA_PRIMER_ULTIMO_MANIFIESTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column DH_ENTREGA_COMPLETA_100
+		dataType: int64
+		formatString: 0
+		lineageTag: d86f9c3c-918b-4865-80e1-8060ba934fe7
+		summarizeBy: sum
+		sourceColumn: DH_ENTREGA_COMPLETA_100
+
+		annotation SummarizationSetBy = Automatic
+
+	column DH_BRECHA_PRIMER_ULTIMO_DESPACHO
+		dataType: int64
+		formatString: 0
+		lineageTag: 8804ae8a-27e9-435a-82f2-464d6847eb09
+		summarizeBy: sum
+		sourceColumn: DH_BRECHA_PRIMER_ULTIMO_DESPACHO
+
+		annotation SummarizationSetBy = Automatic
+
+	column DH_PRIMERA_FACTURA_A_ULTIMO_DESPACHO
+		dataType: int64
+		formatString: 0
+		lineageTag: 6ee873d9-cc1a-42b6-9491-b0d21b557ccb
+		summarizeBy: sum
+		sourceColumn: DH_PRIMERA_FACTURA_A_ULTIMO_DESPACHO
+
+		annotation SummarizationSetBy = Automatic
+
+	column DH_ENT_PRIMERA_ULTIMA
+		dataType: int64
+		formatString: 0
+		lineageTag: cc71c9f5-a3ef-4d35-a3c7-6defa47bd5e8
+		summarizeBy: sum
+		sourceColumn: DH_ENT_PRIMERA_ULTIMA
+
+		annotation SummarizationSetBy = Automatic
+
+	column DH_PIC_PRIMERO_ULTIMO
+		dataType: int64
+		formatString: 0
+		lineageTag: 8532866c-41d5-4275-9c40-145820d68101
+		summarizeBy: sum
+		sourceColumn: DH_PIC_PRIMERO_ULTIMO
+
+		annotation SummarizationSetBy = Automatic
+
+	column DH_PAC_PRIMERO_ULTIMO
+		dataType: int64
+		formatString: 0
+		lineageTag: b0b5881b-6839-48c6-83fc-9a07494a80fe
+		summarizeBy: sum
+		sourceColumn: DH_PAC_PRIMERO_ULTIMO
+
+		annotation SummarizationSetBy = Automatic
+
+	column DH_FAC_PRIMERA_ULTIMA
+		dataType: int64
+		formatString: 0
+		lineageTag: 89649825-2483-4cbf-8155-132cbaff624e
+		summarizeBy: sum
+		sourceColumn: DH_FAC_PRIMERA_ULTIMA
+
+		annotation SummarizationSetBy = Automatic
+
+	column DH_DESPACHO_A_CEDIBLE
+		dataType: int64
+		formatString: 0
+		lineageTag: 5f8d9518-2a19-44f1-913d-cc22536c74e5
+		summarizeBy: sum
+		sourceColumn: DH_DESPACHO_A_CEDIBLE
+
+		annotation SummarizationSetBy = Automatic
+
+	column DH_CREACION_A_CEDIBLE
+		dataType: int64
+		formatString: 0
+		lineageTag: 737cef82-0a9e-4cfd-a4c5-d6b680d52c40
+		summarizeBy: sum
+		sourceColumn: DH_CREACION_A_CEDIBLE
+
+		annotation SummarizationSetBy = Automatic
+
+	column MES_CREACION
+		dataType: string
+		lineageTag: 886880ef-8766-4bf1-8b26-766886cc1230
+		summarizeBy: none
+		sourceColumn: MES_CREACION
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIA_MES_CREACION
+		dataType: int64
+		formatString: 0
+		lineageTag: 8975bd0b-3583-4976-a1ad-63f0749ce219
+		summarizeBy: sum
+		sourceColumn: DIA_MES_CREACION
+
+		annotation SummarizationSetBy = Automatic
+
+	column TRAMO_MES_CALENDARIO
+		dataType: string
+		lineageTag: b620cb3a-170c-42fb-905a-b2d399e932be
+		summarizeBy: none
+		sourceColumn: TRAMO_MES_CALENDARIO
+
+		annotation SummarizationSetBy = Automatic
+
+	column ES_ULTIMOS_7_DIAS_HABILES_MES
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: e0b84ad9-1734-4ffe-8e8e-8e212e019263
+		summarizeBy: none
+		sourceColumn: ES_ULTIMOS_7_DIAS_HABILES_MES
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_TIENE_PDA
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 3818ba12-4b07-4a7c-9a12-6a748326b288
+		summarizeBy: none
+		sourceColumn: AUD_TIENE_PDA
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_TIENE_PED
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: b0524b8c-0333-46e6-be7a-f3d918a08c37
+		summarizeBy: none
+		sourceColumn: AUD_TIENE_PED
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_TIENE_COM_P
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 756a9cbc-daa2-473f-8d4b-9216ee6a532a
+		summarizeBy: none
+		sourceColumn: AUD_TIENE_COM_P
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_TIENE_CRD_P
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 35d8def2-2484-49f4-b938-91f18756139e
+		summarizeBy: none
+		sourceColumn: AUD_TIENE_CRD_P
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_TIENE_ENT_P
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: cc468339-c122-4aab-9168-b93463e62236
+		summarizeBy: none
+		sourceColumn: AUD_TIENE_ENT_P
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_TIENE_PIC_P
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: d46a40e4-4d9b-475c-8e7a-45808f886fa0
+		summarizeBy: none
+		sourceColumn: AUD_TIENE_PIC_P
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_TIENE_PAC_P
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 78063c69-51e9-408c-8bb5-04f61d012c39
+		summarizeBy: none
+		sourceColumn: AUD_TIENE_PAC_P
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_TIENE_FAC_P
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 9aa83c49-0377-4176-ab05-b82e9e94e67a
+		summarizeBy: none
+		sourceColumn: AUD_TIENE_FAC_P
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_TIENE_TRP_P
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: de13eb00-cf20-484c-afe6-38c0293c2be3
+		summarizeBy: none
+		sourceColumn: AUD_TIENE_TRP_P
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_TIENE_TSTTO_P
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 183cdf36-d200-4d37-9a74-1828785422ff
+		summarizeBy: none
+		sourceColumn: AUD_TIENE_TSTTO_P
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_TIENE_CED_P
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 81fc9946-45eb-4366-9a54-8c1bd8ff04e5
+		summarizeBy: none
+		sourceColumn: AUD_TIENE_CED_P
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_INC_PDA_DESPUES_PED
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 77b99974-348e-43ad-ae93-058156c7b512
+		summarizeBy: none
+		sourceColumn: AUD_INC_PDA_DESPUES_PED
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_INC_COM_ANTES_PED
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: db12d63d-bfaf-4610-87ef-39f5fce9c6bc
+		summarizeBy: none
+		sourceColumn: AUD_INC_COM_ANTES_PED
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_INC_CRD_ANTES_PED
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 80b2ca83-d950-438f-9925-c6e52378158c
+		summarizeBy: none
+		sourceColumn: AUD_INC_CRD_ANTES_PED
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_INC_ENT_ANTES_PED
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 31876293-4219-4f74-8622-ccc8f60d420e
+		summarizeBy: none
+		sourceColumn: AUD_INC_ENT_ANTES_PED
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_INC_PIC_ANTES_ENT
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: c77f8125-fb33-4550-be55-3ed23e45d5d1
+		summarizeBy: none
+		sourceColumn: AUD_INC_PIC_ANTES_ENT
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_INC_PAC_ANTES_PIC
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 8e24f01a-69c8-4596-b8ac-5a4603ce296b
+		summarizeBy: none
+		sourceColumn: AUD_INC_PAC_ANTES_PIC
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_INC_FAC_ANTES_PIC
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 78722f5b-989d-4b3e-8490-4243eb726411
+		summarizeBy: none
+		sourceColumn: AUD_INC_FAC_ANTES_PIC
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_INC_TRP_ANTES_FAC
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: e513ac6d-7a1c-4563-9c97-0ce85b78df56
+		summarizeBy: none
+		sourceColumn: AUD_INC_TRP_ANTES_FAC
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_INC_CED_ANTES_TRP
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 2d82b2a3-37df-416d-87a0-979cd7f8cd52
+		summarizeBy: none
+		sourceColumn: AUD_INC_CED_ANTES_TRP
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_INC_COM_U_ANTES_COM_P
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 57f7bc03-babe-457a-b4fb-844f48171c7f
+		summarizeBy: none
+		sourceColumn: AUD_INC_COM_U_ANTES_COM_P
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_INC_ENT_U_ANTES_ENT_P
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 4f8275fd-bd3d-4816-b183-60209c012168
+		summarizeBy: none
+		sourceColumn: AUD_INC_ENT_U_ANTES_ENT_P
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_INC_PIC_U_ANTES_PIC_P
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: b4b0b6e5-f878-4700-b66d-25a63c5185e6
+		summarizeBy: none
+		sourceColumn: AUD_INC_PIC_U_ANTES_PIC_P
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_INC_PAC_U_ANTES_PAC_P
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: f374e4e5-0642-44e4-b03b-d6c97f179079
+		summarizeBy: none
+		sourceColumn: AUD_INC_PAC_U_ANTES_PAC_P
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_INC_FAC_U_ANTES_FAC_P
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a3ffa32a-8170-421d-88cd-b4720d1a465b
+		summarizeBy: none
+		sourceColumn: AUD_INC_FAC_U_ANTES_FAC_P
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_INC_TRP_U_ANTES_TRP_P
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 54474b53-90a9-4a06-ac09-da14e26ee73d
+		summarizeBy: none
+		sourceColumn: AUD_INC_TRP_U_ANTES_TRP_P
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_INC_TSTTO_U_ANTES_TSTTO_P
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: d2511153-029b-44ce-80c1-378393542dc6
+		summarizeBy: none
+		sourceColumn: AUD_INC_TSTTO_U_ANTES_TSTTO_P
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_INC_CED_U_ANTES_CED_P
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: b060aa39-6939-42ee-a046-06106ccb7c4f
+		summarizeBy: none
+		sourceColumn: AUD_INC_CED_U_ANTES_CED_P
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_INC_FAC_MAS_30_DIAS_ANTES_PED
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a3eb0a78-a0aa-4304-a373-6aa0bd020b3c
+		summarizeBy: none
+		sourceColumn: AUD_INC_FAC_MAS_30_DIAS_ANTES_PED
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_INC_TRP_MAS_30_DIAS_ANTES_PED
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: e1e106b9-9594-4d79-801c-f15a7935de7c
+		summarizeBy: none
+		sourceColumn: AUD_INC_TRP_MAS_30_DIAS_ANTES_PED
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_INC_FAC_MAS_365_DIAS_DESPUES_PED
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 73ec104b-3b95-4c7e-8e3a-d804dc2ca4aa
+		summarizeBy: none
+		sourceColumn: AUD_INC_FAC_MAS_365_DIAS_DESPUES_PED
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_INC_TRP_MAS_365_DIAS_DESPUES_PED
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: c6ea0425-6aed-431a-a6ff-1662dcc6b11f
+		summarizeBy: none
+		sourceColumn: AUD_INC_TRP_MAS_365_DIAS_DESPUES_PED
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_INC_HITO_FECHA_FUTURA
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 55c09a7a-ef22-4bf9-9007-91d9ab913b34
+		summarizeBy: none
+		sourceColumn: AUD_INC_HITO_FECHA_FUTURA
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_HORA_00_PED
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 26d9d78b-4f12-49e4-8e64-4a2e28a1a3a9
+		summarizeBy: none
+		sourceColumn: AUD_HORA_00_PED
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_HORA_00_COM
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 0f19a0a4-1e08-4d1e-b064-132b0e3fa717
+		summarizeBy: none
+		sourceColumn: AUD_HORA_00_COM
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_HORA_00_CRD
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 47666b0b-d52a-4e56-93fe-d59676f6d803
+		summarizeBy: none
+		sourceColumn: AUD_HORA_00_CRD
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_HORA_00_ENT
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 48b5402b-0ae0-47a1-9ff0-9e373a348e76
+		summarizeBy: none
+		sourceColumn: AUD_HORA_00_ENT
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_HORA_00_PIC
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: b06e42a7-40da-4c4e-b696-4eae3228ee68
+		summarizeBy: none
+		sourceColumn: AUD_HORA_00_PIC
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_HORA_00_PAC
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: b9466c51-d821-441e-aa88-fd650c8cdba7
+		summarizeBy: none
+		sourceColumn: AUD_HORA_00_PAC
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_HORA_00_FAC
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 511b75c7-9689-413e-a9a8-bc5467a34aa0
+		summarizeBy: none
+		sourceColumn: AUD_HORA_00_FAC
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_HORA_00_TRP
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 78f80ff8-0f03-4921-92d3-4b4394e3c4e9
+		summarizeBy: none
+		sourceColumn: AUD_HORA_00_TRP
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_HORA_00_CED
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 086a5d28-ee40-4966-97ad-31437f25fe5c
+		summarizeBy: none
+		sourceColumn: AUD_HORA_00_CED
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_FES_SIN_FECHA_PEDIDO_POSTERIOR
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: b5b036c9-a848-4e01-bd46-82545228e135
+		summarizeBy: none
+		sourceColumn: AUD_FES_SIN_FECHA_PEDIDO_POSTERIOR
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_FES_SIN_ENTREGA_POSTERIOR
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 39e861e3-c227-49ea-a4ab-4dd689bb4bb6
+		summarizeBy: none
+		sourceColumn: AUD_FES_SIN_ENTREGA_POSTERIOR
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_FES_SIN_MANIFIESTO
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 04ac84ba-29c0-4af0-8d87-518d6d0f92dc
+		summarizeBy: none
+		sourceColumn: AUD_FES_SIN_MANIFIESTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_FES_PEDIDO_POST_ANTES_FACTURA
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 0470679b-b93e-48e7-812b-9ba4c9116be9
+		summarizeBy: none
+		sourceColumn: AUD_FES_PEDIDO_POST_ANTES_FACTURA
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_FES_ENTREGA_ANTES_PEDIDO_POST
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 9cd1fe15-1bd6-4c28-8a89-a27a5729bb74
+		summarizeBy: none
+		sourceColumn: AUD_FES_ENTREGA_ANTES_PEDIDO_POST
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_FES_MANIFIESTO_ANTES_ENTREGA
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 68029d38-7b9a-402e-8514-585197e7c608
+		summarizeBy: none
+		sourceColumn: AUD_FES_MANIFIESTO_ANTES_ENTREGA
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_FES_ULT_PEDIDO_ANTES_PRIMERO
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: d7737c49-ceb5-4615-95f4-3542a1fae73f
+		summarizeBy: none
+		sourceColumn: AUD_FES_ULT_PEDIDO_ANTES_PRIMERO
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_FES_ULT_ENTREGA_ANTES_PRIMERA
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 1f2c0b1e-bfb0-48e6-b6b5-573cdfbee84e
+		summarizeBy: none
+		sourceColumn: AUD_FES_ULT_ENTREGA_ANTES_PRIMERA
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_FES_ULT_MANIFIESTO_ANTES_PRIMERO
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 2ce3bf35-4c6d-48a2-bf39-299287d5fb02
+		summarizeBy: none
+		sourceColumn: AUD_FES_ULT_MANIFIESTO_ANTES_PRIMERO
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_FES_CICLO_MAYOR_60_DIAS
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 12588bb5-89dc-4c89-a367-fc0ad6d354a5
+		summarizeBy: none
+		sourceColumn: AUD_FES_CICLO_MAYOR_60_DIAS
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_NO_FES_CON_FECHAS_FES
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 5995a1e4-ba37-4bb5-bb57-5ef9f7d61872
+		summarizeBy: none
+		sourceColumn: AUD_NO_FES_CON_FECHAS_FES
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_NO_FES_CON_METRICAS_FES
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 0ade4024-31ce-4e89-aa50-0acdb4384b08
+		summarizeBy: none
+		sourceColumn: AUD_NO_FES_CON_METRICAS_FES
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_SALDO_SIN_FAC_P
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: dd2d1d7f-a452-40e4-9eb8-0966b348618c
+		summarizeBy: none
+		sourceColumn: AUD_SALDO_SIN_FAC_P
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_SALDO_SIN_FAC_U
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 5fddd02c-392f-4da7-b2c9-379881d73d83
+		summarizeBy: none
+		sourceColumn: AUD_SALDO_SIN_FAC_U
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_SALDO_SIN_TRP_U
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 6d2f1d76-6402-4f26-aaa1-904cac6c7c91
+		summarizeBy: none
+		sourceColumn: AUD_SALDO_SIN_TRP_U
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_SALDO_FAC_U_ANTES_FAC_P
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a2ed8038-3f2b-483f-b87f-be553662a197
+		summarizeBy: none
+		sourceColumn: AUD_SALDO_FAC_U_ANTES_FAC_P
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_SALDO_TRP_U_ANTES_TRP_P
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: e01599f6-5223-430b-85ae-abd9f7fc9bb1
+		summarizeBy: none
+		sourceColumn: AUD_SALDO_TRP_U_ANTES_TRP_P
+
+		annotation SummarizationSetBy = Automatic
+
+	column PARAM_FECHA_DESDE
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: f466836d-82cd-484a-b9de-ccd2bb4c8ba4
+		summarizeBy: none
+		sourceColumn: PARAM_FECHA_DESDE
+
+		annotation SummarizationSetBy = Automatic
+
+	column PARAM_FECHA_HASTA
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 1a5dbff1-a8b2-46cd-bd34-a183c751e712
+		summarizeBy: none
+		sourceColumn: PARAM_FECHA_HASTA
+
+		annotation SummarizationSetBy = Automatic
+
+	column FECHA_CARGA_MASTER
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: fc475349-99da-49bc-848a-f3f41d1ef5a7
+		summarizeBy: none
+		sourceColumn: FECHA_CARGA_MASTER
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_HITOS_OBLIGATORIOS_ESPERADOS
+		dataType: int64
+		formatString: 0
+		lineageTag: 77092f6f-903b-4da0-a9d0-c57a7ec62904
+		summarizeBy: sum
+		sourceColumn: AUD_HITOS_OBLIGATORIOS_ESPERADOS
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_CANTIDAD_HITOS_PRESENTES
+		dataType: int64
+		formatString: 0
+		lineageTag: 949d3570-79e0-4f62-90ed-109494c7c79d
+		summarizeBy: sum
+		sourceColumn: AUD_CANTIDAD_HITOS_PRESENTES
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_CANTIDAD_HITOS_FALTANTES
+		dataType: int64
+		formatString: 0
+		lineageTag: f961e736-a848-4e03-b647-dd0a4f20913a
+		summarizeBy: sum
+		sourceColumn: AUD_CANTIDAD_HITOS_FALTANTES
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_PCT_COBERTURA_HITOS
+		dataType: double
+		lineageTag: f740618d-4bac-41ba-bdab-7bcb28b3337f
+		summarizeBy: sum
+		sourceColumn: AUD_PCT_COBERTURA_HITOS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column AUD_HITOS_OPCIONALES_ESPERADOS
+		dataType: int64
+		formatString: 0
+		lineageTag: 62b47b19-5a61-482e-b66e-98967aa1f500
+		summarizeBy: sum
+		sourceColumn: AUD_HITOS_OPCIONALES_ESPERADOS
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_HITOS_OPCIONALES_PRESENTES
+		dataType: int64
+		formatString: 0
+		lineageTag: 73f2c0ea-ffe8-48a2-a735-a2f1ed9c646e
+		summarizeBy: sum
+		sourceColumn: AUD_HITOS_OPCIONALES_PRESENTES
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_HITOS_OPCIONALES_FALTANTES
+		dataType: int64
+		formatString: 0
+		lineageTag: f2214f13-1d5d-4b31-b5c7-e8120307ea58
+		summarizeBy: sum
+		sourceColumn: AUD_HITOS_OPCIONALES_FALTANTES
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_PCT_COBERTURA_OPCIONAL
+		dataType: double
+		lineageTag: 307a01aa-a093-4aa3-97c2-e150fca4387b
+		summarizeBy: sum
+		sourceColumn: AUD_PCT_COBERTURA_OPCIONAL
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column AUD_CRITICAS_FLUJO_NORMAL
+		dataType: int64
+		formatString: 0
+		lineageTag: c9d47777-45af-4b47-bccb-28472a7c3a5f
+		summarizeBy: sum
+		sourceColumn: AUD_CRITICAS_FLUJO_NORMAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_ADVERTENCIAS_FLUJO_NORMAL
+		dataType: int64
+		formatString: 0
+		lineageTag: edd3a2bd-7b4a-452f-8d84-759d6414d789
+		summarizeBy: sum
+		sourceColumn: AUD_ADVERTENCIAS_FLUJO_NORMAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_CRITICAS_PRIMERO_ULTIMO
+		dataType: int64
+		formatString: 0
+		lineageTag: 54e5381e-d464-46b4-9b79-c953aed4f2ce
+		summarizeBy: sum
+		sourceColumn: AUD_CRITICAS_PRIMERO_ULTIMO
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_ADVERTENCIAS_PRIMERO_ULTIMO
+		dataType: int64
+		formatString: 0
+		lineageTag: 0acffc7b-a907-47b5-84da-5c17f4890149
+		summarizeBy: sum
+		sourceColumn: AUD_ADVERTENCIAS_PRIMERO_ULTIMO
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_ALERTAS_FECHAS_ATIPICAS
+		dataType: int64
+		formatString: 0
+		lineageTag: c7403c8f-388e-4f44-84bf-56767634db8f
+		summarizeBy: sum
+		sourceColumn: AUD_ALERTAS_FECHAS_ATIPICAS
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_ALERTAS_HORA_00
+		dataType: int64
+		formatString: 0
+		lineageTag: 8c57cee7-142e-4ec4-a696-2d216d8f0c37
+		summarizeBy: sum
+		sourceColumn: AUD_ALERTAS_HORA_00
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_CRITICAS_FES
+		dataType: int64
+		formatString: 0
+		lineageTag: 24f386d2-6e4f-40b5-981e-0dbfffc7f6a0
+		summarizeBy: sum
+		sourceColumn: AUD_CRITICAS_FES
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_ADVERTENCIAS_FES
+		dataType: int64
+		formatString: 0
+		lineageTag: 9f4fbeea-0f2d-4444-9a8d-018ce855abb7
+		summarizeBy: sum
+		sourceColumn: AUD_ADVERTENCIAS_FES
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_FALTANTES_FES
+		dataType: int64
+		formatString: 0
+		lineageTag: 6d7b765f-970f-4dc1-8262-a684e48f718c
+		summarizeBy: sum
+		sourceColumn: AUD_FALTANTES_FES
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_CRITICAS_SALDO
+		dataType: int64
+		formatString: 0
+		lineageTag: 1a78a63a-bb3e-4119-8fb9-f211c7251713
+		summarizeBy: sum
+		sourceColumn: AUD_CRITICAS_SALDO
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_ADVERTENCIAS_SALDO
+		dataType: int64
+		formatString: 0
+		lineageTag: 61582d7e-ce25-4c8b-a4d2-07ceec8e96e0
+		summarizeBy: sum
+		sourceColumn: AUD_ADVERTENCIAS_SALDO
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_FALTANTES_SALDO
+		dataType: int64
+		formatString: 0
+		lineageTag: c7acd00d-fa93-4004-b1fe-2a63b01a4381
+		summarizeBy: sum
+		sourceColumn: AUD_FALTANTES_SALDO
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_OBS_PDA_DESPUES_PEDIDO
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 40ae552d-e978-45e3-916d-c0ae349787d6
+		summarizeBy: none
+		sourceColumn: AUD_OBS_PDA_DESPUES_PEDIDO
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_TOTAL_CRITICAS
+		dataType: int64
+		formatString: 0
+		lineageTag: 077a5fb2-406c-444c-ae17-ca97d6fd8100
+		summarizeBy: sum
+		sourceColumn: AUD_TOTAL_CRITICAS
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_TOTAL_ADVERTENCIAS
+		dataType: int64
+		formatString: 0
+		lineageTag: 91b87181-6cfb-49f8-a7fb-636933728096
+		summarizeBy: sum
+		sourceColumn: AUD_TOTAL_ADVERTENCIAS
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_TOTAL_INCONGRUENCIAS
+		dataType: int64
+		formatString: 0
+		lineageTag: ae421a99-b2a8-446b-9972-e6d3ff9d99b7
+		summarizeBy: sum
+		sourceColumn: AUD_TOTAL_INCONGRUENCIAS
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_REQUIERE_REVISION
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 5b38778b-924e-4b74-bcc3-faed80678db0
+		summarizeBy: none
+		sourceColumn: AUD_REQUIERE_REVISION
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_ESTADO_FLUJO_NORMAL
+		dataType: string
+		lineageTag: 00f87d94-97de-4249-a411-f0565d06ae6a
+		summarizeBy: none
+		sourceColumn: AUD_ESTADO_FLUJO_NORMAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_ESTADO_FLUJO_FES
+		dataType: string
+		lineageTag: c55e3b18-6e9b-4fa0-9e4b-a1fc027753af
+		summarizeBy: none
+		sourceColumn: AUD_ESTADO_FLUJO_FES
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_ESTADO_FLUJO_SALDO
+		dataType: string
+		lineageTag: 349d83a9-1937-42f0-8f6c-6876b8481bbd
+		summarizeBy: none
+		sourceColumn: AUD_ESTADO_FLUJO_SALDO
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_ESTADO_GENERAL
+		dataType: string
+		lineageTag: 971ce9de-73e1-4038-833d-686560fe31d0
+		summarizeBy: none
+		sourceColumn: AUD_ESTADO_GENERAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUD_PRINCIPAL_INCONGRUENCIA
+		dataType: string
+		lineageTag: f617e63c-496c-4fcd-81fb-3cf05ec60e4f
+		summarizeBy: none
+		sourceColumn: AUD_PRINCIPAL_INCONGRUENCIA
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_Pedidos_Auditoria = m
+		mode: import
+		source =
+				let
+				    Fact_Pedidos_Auditoria = let
+				    Origen = Sql.Database("128.1.3.21", "DMF_VTA_PRD", [Query="SET NOCOUNT ON;#(lf)SET XACT_ABORT ON;#(lf)#(lf)DECLARE @FechaHasta      DATE          = CAST(GETDATE() AS DATE);#(lf)DECLARE @FechaDesde      DATE          = DATEADD(MONTH, -2, DATEFROMPARTS(YEAR(@FechaHasta), MONTH(@FechaHasta), 1));#(lf)DECLARE @Pedido          VARCHAR(20)   = NULL;       -- Mantener NULL para construir la master completa#(lf)DECLARE @HorasJornada    DECIMAL(10,2) = 9.50;#(lf)DECLARE @SLA_Normal_Dias INT           = 5;#(lf)#(lf)IF @FechaDesde IS NULL#(lf)   OR @FechaHasta IS NULL#(lf)   OR @FechaDesde > @FechaHasta#(lf)BEGIN#(lf)    RAISERROR('El rango de fechas no es válido.', 16, 1);#(lf)    RETURN;#(lf)END;#(lf)#(lf)-- =====================================================================#(lf)-- CLASIFICACIÓN OFICIAL Y TRAZABILIDAD REAL DE PEDIDOS FES#(lf)-- Regla FES: el pedido original aparece en VBFA con flujo C -> C.#(lf)-- Se agregan las primeras y últimas fechas del pedido posterior,#(lf)-- entrega posterior y manifiesto asociado.#(lf)-- =====================================================================#(lf)IF OBJECT_ID('tempdb..#PedidosFES_AUD_V3') IS NOT NULL#(lf)    DROP TABLE #PedidosFES_AUD_V3;#(lf)#(lf)CREATE TABLE #PedidosFES_AUD_V3#(lf)(#(lf)    PEDIDO_ORIGINAL_NUM                  BIGINT NOT NULL,#(lf)    PRIMERA_FECHA_PEDIDO_POSTERIOR       DATE NULL,#(lf)    ULTIMA_FECHA_PEDIDO_POSTERIOR        DATE NULL,#(lf)    PRIMERA_FECHA_ENTREGA_POSTERIOR      DATE NULL,#(lf)    ULTIMA_FECHA_ENTREGA_POSTERIOR       DATE NULL,#(lf)    PRIMERA_FECHA_MANIFIESTO             DATE NULL,#(lf)    ULTIMA_FECHA_MANIFIESTO              DATE NULL#(lf));#(lf)#(lf);WITH PedidosPosteriores AS#(lf)(#(lf)    SELECT DISTINCT#(lf)        TRY_CONVERT(BIGINT, P1.VBELV) AS PEDIDO_ORIGINAL_NUM,#(lf)        CONVERT(VARCHAR(20), P1.VBELN) AS PEDIDO_POSTERIOR,#(lf)        COALESCE#(lf)        (#(lf)            TRY_CONVERT(DATE, CONVERT(VARCHAR(30), P1.ERDAT), 112),#(lf)            TRY_CONVERT(DATE, CONVERT(VARCHAR(30), P1.ERDAT), 105),#(lf)            TRY_CONVERT(DATE, CONVERT(VARCHAR(30), P1.ERDAT), 103),#(lf)            TRY_CONVERT(DATE, CONVERT(VARCHAR(30), P1.ERDAT))#(lf)        ) AS FECHA_PEDIDO_POSTERIOR#(lf)    FROM [DMF_VTA_PRD].[dbo].[VBFA_SAP] AS P1#(lf)    WHERE P1.VBTYP_V = 'C'#(lf)      AND P1.VBTYP_N = 'C'#(lf)      AND TRY_CONVERT(BIGINT, P1.VBELV) IS NOT NULL#(lf)),#(lf)ResumenPedidos AS#(lf)(#(lf)    SELECT#(lf)        PEDIDO_ORIGINAL_NUM,#(lf)        MIN(FECHA_PEDIDO_POSTERIOR) AS PRIMERA_FECHA_PEDIDO_POSTERIOR,#(lf)        MAX(FECHA_PEDIDO_POSTERIOR) AS ULTIMA_FECHA_PEDIDO_POSTERIOR#(lf)    FROM PedidosPosteriores#(lf)    GROUP BY PEDIDO_ORIGINAL_NUM#(lf)),#(lf)EntregasPosteriores AS#(lf)(#(lf)    SELECT DISTINCT#(lf)        PP.PEDIDO_ORIGINAL_NUM,#(lf)        PP.PEDIDO_POSTERIOR,#(lf)        CONVERT(VARCHAR(20), P2.VBELN) AS ENTREGA_POSTERIOR,#(lf)        COALESCE#(lf)        (#(lf)            TRY_CONVERT(DATE, CONVERT(VARCHAR(30), P2.ERDAT), 112),#(lf)            TRY_CONVERT(DATE, CONVERT(VARCHAR(30), P2.ERDAT), 105),#(lf)            TRY_CONVERT(DATE, CONVERT(VARCHAR(30), P2.ERDAT), 103),#(lf)            TRY_CONVERT(DATE, CONVERT(VARCHAR(30), P2.ERDAT))#(lf)        ) AS FECHA_ENTREGA_POSTERIOR#(lf)    FROM PedidosPosteriores AS PP#(lf)    INNER JOIN [DMF_VTA_PRD].[dbo].[VBFA_SAP] AS P2#(lf)        ON TRY_CONVERT(BIGINT, P2.VBELV)#(lf)         = TRY_CONVERT(BIGINT, PP.PEDIDO_POSTERIOR)#(lf)       AND P2.VBTYP_V = 'C'#(lf)       AND P2.VBTYP_N = 'J'#(lf)),#(lf)ResumenEntregas AS#(lf)(#(lf)    SELECT#(lf)        PEDIDO_ORIGINAL_NUM,#(lf)        MIN(FECHA_ENTREGA_POSTERIOR) AS PRIMERA_FECHA_ENTREGA_POSTERIOR,#(lf)        MAX(FECHA_ENTREGA_POSTERIOR) AS ULTIMA_FECHA_ENTREGA_POSTERIOR#(lf)    FROM EntregasPosteriores#(lf)    GROUP BY PEDIDO_ORIGINAL_NUM#(lf)),#(lf)Manifiestos AS#(lf)(#(lf)    SELECT DISTINCT#(lf)        EP.PEDIDO_ORIGINAL_NUM,#(lf)        EP.ENTREGA_POSTERIOR,#(lf)        COALESCE#(lf)        (#(lf)            TRY_CONVERT(DATE, CONVERT(VARCHAR(30), VTTP.ERDAT), 112),#(lf)            TRY_CONVERT(DATE, CONVERT(VARCHAR(30), VTTP.ERDAT), 105),#(lf)            TRY_CONVERT(DATE, CONVERT(VARCHAR(30), VTTP.ERDAT), 103),#(lf)            TRY_CONVERT(DATE, CONVERT(VARCHAR(30), VTTP.ERDAT))#(lf)        ) AS FECHA_MANIFIESTO#(lf)    FROM EntregasPosteriores AS EP#(lf)    INNER JOIN [DMF_VTA_PRD].[dbo].[VTTP_SAP] AS VTTP#(lf)        ON TRY_CONVERT(BIGINT, VTTP.VBELN)#(lf)         = TRY_CONVERT(BIGINT, EP.ENTREGA_POSTERIOR)#(lf)),#(lf)ResumenManifiestos AS#(lf)(#(lf)    SELECT#(lf)        PEDIDO_ORIGINAL_NUM,#(lf)        MIN(FECHA_MANIFIESTO) AS PRIMERA_FECHA_MANIFIESTO,#(lf)        MAX(FECHA_MANIFIESTO) AS ULTIMA_FECHA_MANIFIESTO#(lf)    FROM Manifiestos#(lf)    GROUP BY PEDIDO_ORIGINAL_NUM#(lf))#(lf)INSERT INTO #PedidosFES_AUD_V3#(lf)(#(lf)    PEDIDO_ORIGINAL_NUM,#(lf)    PRIMERA_FECHA_PEDIDO_POSTERIOR,#(lf)    ULTIMA_FECHA_PEDIDO_POSTERIOR,#(lf)    PRIMERA_FECHA_ENTREGA_POSTERIOR,#(lf)    ULTIMA_FECHA_ENTREGA_POSTERIOR,#(lf)    PRIMERA_FECHA_MANIFIESTO,#(lf)    ULTIMA_FECHA_MANIFIESTO#(lf))#(lf)SELECT#(lf)    RP.PEDIDO_ORIGINAL_NUM,#(lf)    RP.PRIMERA_FECHA_PEDIDO_POSTERIOR,#(lf)    RP.ULTIMA_FECHA_PEDIDO_POSTERIOR,#(lf)    RE.PRIMERA_FECHA_ENTREGA_POSTERIOR,#(lf)    RE.ULTIMA_FECHA_ENTREGA_POSTERIOR,#(lf)    RM.PRIMERA_FECHA_MANIFIESTO,#(lf)    RM.ULTIMA_FECHA_MANIFIESTO#(lf)FROM ResumenPedidos AS RP#(lf)LEFT JOIN ResumenEntregas AS RE#(lf)    ON RE.PEDIDO_ORIGINAL_NUM = RP.PEDIDO_ORIGINAL_NUM#(lf)LEFT JOIN ResumenManifiestos AS RM#(lf)    ON RM.PEDIDO_ORIGINAL_NUM = RP.PEDIDO_ORIGINAL_NUM;#(lf)#(lf)CREATE UNIQUE CLUSTERED INDEX IX_PedidosFES_AUD_V3_PedidoOriginal#(lf)    ON #PedidosFES_AUD_V3 (PEDIDO_ORIGINAL_NUM);#(lf)#(lf)-- La eliminación de #BaseAnalisis_AUD_V3 debe ejecutarse antes del CTE.#(lf)IF OBJECT_ID('tempdb..#BaseAnalisis_AUD_V3') IS NOT NULL#(lf)    DROP TABLE #BaseAnalisis_AUD_V3;#(lf)#(lf);WITH Base AS#(lf)(#(lf)    SELECT#(lf)        CONVERT(VARCHAR(20), ZVBELN_PED) AS ID_FILA,#(lf)#(lf)        -- =============================================================#(lf)        -- DATOS GENERALES DEL PEDIDO#(lf)        -- =============================================================#(lf)        ZVBELN_PED,#(lf)        ZVTGEW,#(lf)        ZWERKS,#(lf)        ZPERNR,#(lf)        ZCITYC,#(lf)        ZREGIO,#(lf)        ZVSBED,#(lf)        BSTKD_M,#(lf)        ZNETWR,#(lf)        ZLIFSK,#(lf)        ZCMGST,#(lf)        ZKUNNR,#(lf)        ZTPO_SERV,#(lf)        ZTPO_SERVP,#(lf)        Z_OTIF_OT,#(lf)        ZWAERS,#(lf)        [TEXT],#(lf)#(lf)        -- =============================================================#(lf)        -- CAMPOS ORIGINALES DE FECHA Y HORA#(lf)        -- =============================================================#(lf)        ZERDAT_PED,#(lf)        ZERZET_PED,#(lf)#(lf)        ZP_UDATE_PDA,#(lf)        ZP_UTIME_PDA,#(lf)#(lf)        ZP_ERDAT_COM,#(lf)        ZP_ERZET_COM,#(lf)        ZU_ERDAT_COM,#(lf)        ZU_ERZET_COM,#(lf)#(lf)        ZP_UDATE_CRD,#(lf)        ZP_UTIME_CRD,#(lf)#(lf)        ZP_UDATE_GER,#(lf)        ZP_UTIME_GER,#(lf)#(lf)        ZP_ERDAT_ENT,#(lf)        ZP_ERZET_ENT,#(lf)        ZU_ERDAT_ENT,#(lf)        ZU_ERZET_ENT,#(lf)#(lf)        ZP_ERDAT_PIC,#(lf)        ZP_ERZET_PIC,#(lf)        ZU_ERDAT_PIC,#(lf)        ZU_ERZET_PIC,#(lf)#(lf)        ZP_ERDAT_PAC,#(lf)        ZP_UZEIT_PAC,#(lf)        ZU_ERDAT_PAC,#(lf)        ZU_UZEIT_PAC,#(lf)#(lf)        ZP_ERDAT_FAC,#(lf)        ZP_UZEIT_FAC,#(lf)        ZU_ERDAT_FAC,#(lf)        ZU_UZEIT_FAC,#(lf)#(lf)        ZP_ERDAT_TRP,#(lf)        ZP_UZEIT_TRP,#(lf)        ZU_ERDAT_TRP,#(lf)        ZU_UZEIT_TRP,#(lf)#(lf)        ZP_ERDAT_TSTTO,#(lf)        ZP_UZEIT_TSTTO,#(lf)        ZU_ERDAT_TSTTO,#(lf)        ZU_UZEIT_TSTTO,#(lf)#(lf)        ZP_ERDAT_CED,#(lf)        ZP_ERZET_CED,#(lf)        ZU_ERDAT_CED,#(lf)        ZU_ERZET_CED,#(lf)#(lf)        Z_COPIAS_CED#(lf)#(lf)    FROM [DMF_VTA_PRD].[dbo].[ZART_TRACK_DATA_SAP]#(lf)#(lf)    WHERE#(lf)        (#(lf)            @Pedido IS NULL#(lf)            OR TRY_CONVERT(BIGINT, ZVBELN_PED)#(lf)               = TRY_CONVERT(BIGINT, @Pedido)#(lf)        )#(lf)        AND COALESCE#(lf)        (#(lf)            TRY_CONVERT#(lf)            (#(lf)                DATE,#(lf)                NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(30), ZERDAT_PED))), ''),#(lf)                112#(lf)            ),#(lf)            TRY_CONVERT#(lf)            (#(lf)                DATE,#(lf)                NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(30), ZERDAT_PED))), ''),#(lf)                103#(lf)            ),#(lf)            TRY_CONVERT#(lf)            (#(lf)                DATE,#(lf)                NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(30), ZERDAT_PED))), '')#(lf)            )#(lf)        ) >= @FechaDesde#(lf)        AND COALESCE#(lf)        (#(lf)            TRY_CONVERT#(lf)            (#(lf)                DATE,#(lf)                NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(30), ZERDAT_PED))), ''),#(lf)                112#(lf)            ),#(lf)            TRY_CONVERT#(lf)            (#(lf)                DATE,#(lf)                NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(30), ZERDAT_PED))), ''),#(lf)                103#(lf)            ),#(lf)            TRY_CONVERT#(lf)            (#(lf)                DATE,#(lf)                NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(30), ZERDAT_PED))), '')#(lf)            )#(lf)        ) < DATEADD(DAY, 1, @FechaHasta)#(lf)),#(lf)#(lf)-- =====================================================================#(lf)-- CONVIERTE LAS COLUMNAS DE FECHA Y HORA EN UNA ESTRUCTURA DE EVENTOS#(lf)-- =====================================================================#(lf)Eventos AS#(lf)(#(lf)    SELECT#(lf)        B.ID_FILA,#(lf)        E.CODIGO_EVENTO,#(lf)#(lf)        CASE#(lf)            WHEN P.FECHA_CONVERTIDA IS NULL THEN NULL#(lf)#(lf)            ELSE DATEADD#(lf)            (#(lf)                SECOND,#(lf)#(lf)                DATEDIFF#(lf)                (#(lf)                    SECOND,#(lf)                    CAST('00:00:00' AS TIME(0)),#(lf)                    COALESCE#(lf)                    (#(lf)                        P.HORA_CONVERTIDA,#(lf)                        CAST('00:00:00' AS TIME(0))#(lf)                    )#(lf)                ),#(lf)#(lf)                CAST(P.FECHA_CONVERTIDA AS DATETIME2(0))#(lf)            )#(lf)        END AS FECHA_HORA#(lf)#(lf)    FROM Base AS B#(lf)#(lf)    CROSS APPLY#(lf)    (#(lf)        VALUES#(lf)            -- Pedido#(lf)            (#(lf)                'PED',#(lf)                CONVERT(VARCHAR(30), B.ZERDAT_PED),#(lf)                CONVERT(VARCHAR(30), B.ZERZET_PED)#(lf)            ),#(lf)#(lf)            -- PDA: primer evento#(lf)            (#(lf)                'PDA_P',#(lf)                CONVERT(VARCHAR(30), B.ZP_UDATE_PDA),#(lf)                CONVERT(VARCHAR(30), B.ZP_UTIME_PDA)#(lf)            ),#(lf)#(lf)            -- Comercial#(lf)            (#(lf)                'COM_P',#(lf)                CONVERT(VARCHAR(30), B.ZP_ERDAT_COM),#(lf)                CONVERT(VARCHAR(30), B.ZP_ERZET_COM)#(lf)            ),#(lf)            (#(lf)                'COM_U',#(lf)                CONVERT(VARCHAR(30), B.ZU_ERDAT_COM),#(lf)                CONVERT(VARCHAR(30), B.ZU_ERZET_COM)#(lf)            ),#(lf)#(lf)            -- Crédito#(lf)            (#(lf)                'CRD_P',#(lf)                CONVERT(VARCHAR(30), B.ZP_UDATE_CRD),#(lf)                CONVERT(VARCHAR(30), B.ZP_UTIME_CRD)#(lf)            ),#(lf)#(lf)            -- Gerencia / gestión#(lf)            (#(lf)                'GER_P',#(lf)                CONVERT(VARCHAR(30), B.ZP_UDATE_GER),#(lf)                CONVERT(VARCHAR(30), B.ZP_UTIME_GER)#(lf)            ),#(lf)#(lf)            -- Entrega#(lf)            (#(lf)                'ENT_P',#(lf)                CONVERT(VARCHAR(30), B.ZP_ERDAT_ENT),#(lf)                CONVERT(VARCHAR(30), B.ZP_ERZET_ENT)#(lf)            ),#(lf)            (#(lf)                'ENT_U',#(lf)                CONVERT(VARCHAR(30), B.ZU_ERDAT_ENT),#(lf)                CONVERT(VARCHAR(30), B.ZU_ERZET_ENT)#(lf)            ),#(lf)#(lf)            -- Picking#(lf)            (#(lf)                'PIC_P',#(lf)                CONVERT(VARCHAR(30), B.ZP_ERDAT_PIC),#(lf)                CONVERT(VARCHAR(30), B.ZP_ERZET_PIC)#(lf)            ),#(lf)            (#(lf)                'PIC_U',#(lf)                CONVERT(VARCHAR(30), B.ZU_ERDAT_PIC),#(lf)                CONVERT(VARCHAR(30), B.ZU_ERZET_PIC)#(lf)            ),#(lf)#(lf)            -- Packing#(lf)            (#(lf)                'PAC_P',#(lf)                CONVERT(VARCHAR(30), B.ZP_ERDAT_PAC),#(lf)                CONVERT(VARCHAR(30), B.ZP_UZEIT_PAC)#(lf)            ),#(lf)            (#(lf)                'PAC_U',#(lf)                CONVERT(VARCHAR(30), B.ZU_ERDAT_PAC),#(lf)                CONVERT(VARCHAR(30), B.ZU_UZEIT_PAC)#(lf)            ),#(lf)#(lf)            -- Facturación#(lf)            (#(lf)                'FAC_P',#(lf)                CONVERT(VARCHAR(30), B.ZP_ERDAT_FAC),#(lf)                CONVERT(VARCHAR(30), B.ZP_UZEIT_FAC)#(lf)            ),#(lf)            (#(lf)                'FAC_U',#(lf)                CONVERT(VARCHAR(30), B.ZU_ERDAT_FAC),#(lf)                CONVERT(VARCHAR(30), B.ZU_UZEIT_FAC)#(lf)            ),#(lf)#(lf)            -- Transporte / despacho#(lf)            (#(lf)                'TRP_P',#(lf)                CONVERT(VARCHAR(30), B.ZP_ERDAT_TRP),#(lf)                CONVERT(VARCHAR(30), B.ZP_UZEIT_TRP)#(lf)            ),#(lf)            (#(lf)                'TRP_U',#(lf)                CONVERT(VARCHAR(30), B.ZU_ERDAT_TRP),#(lf)                CONVERT(VARCHAR(30), B.ZU_UZEIT_TRP)#(lf)            ),#(lf)#(lf)            -- Estado interno de transporte#(lf)            (#(lf)                'TSTTO_P',#(lf)                CONVERT(VARCHAR(30), B.ZP_ERDAT_TSTTO),#(lf)                CONVERT(VARCHAR(30), B.ZP_UZEIT_TSTTO)#(lf)            ),#(lf)            (#(lf)                'TSTTO_U',#(lf)                CONVERT(VARCHAR(30), B.ZU_ERDAT_TSTTO),#(lf)                CONVERT(VARCHAR(30), B.ZU_UZEIT_TSTTO)#(lf)            ),#(lf)#(lf)            -- Documento cedible#(lf)            (#(lf)                'CED_P',#(lf)                CONVERT(VARCHAR(30), B.ZP_ERDAT_CED),#(lf)                CONVERT(VARCHAR(30), B.ZP_ERZET_CED)#(lf)            ),#(lf)            (#(lf)                'CED_U',#(lf)                CONVERT(VARCHAR(30), B.ZU_ERDAT_CED),#(lf)                CONVERT(VARCHAR(30), B.ZU_ERZET_CED)#(lf)            )#(lf)#(lf)    ) AS E#(lf)    (#(lf)        CODIGO_EVENTO,#(lf)        FECHA_ORIGINAL,#(lf)        HORA_ORIGINAL#(lf)    )#(lf)#(lf)    OUTER APPLY#(lf)    (#(lf)        SELECT#(lf)            -- =========================================================#(lf)            -- HOMOLOGACIÓN DE FECHA#(lf)            -- =========================================================#(lf)            COALESCE#(lf)            (#(lf)                -- Formato SAP YYYYMMDD#(lf)                TRY_CONVERT#(lf)                (#(lf)                    DATE,#(lf)                    NULLIF(LTRIM(RTRIM(E.FECHA_ORIGINAL)), ''),#(lf)                    112#(lf)                ),#(lf)#(lf)                -- Formato DD/MM/YYYY#(lf)                TRY_CONVERT#(lf)                (#(lf)                    DATE,#(lf)                    NULLIF(LTRIM(RTRIM(E.FECHA_ORIGINAL)), ''),#(lf)                    103#(lf)                ),#(lf)#(lf)                -- Conversión estándar SQL Server#(lf)                TRY_CONVERT#(lf)                (#(lf)                    DATE,#(lf)                    NULLIF(LTRIM(RTRIM(E.FECHA_ORIGINAL)), '')#(lf)                )#(lf)            ) AS FECHA_CONVERTIDA,#(lf)#(lf)            -- =========================================================#(lf)            -- HOMOLOGACIÓN DE HORA#(lf)            -- =========================================================#(lf)            COALESCE#(lf)            (#(lf)                -- Hora ya almacenada como HH:MM:SS o tipo TIME#(lf)                TRY_CONVERT#(lf)                (#(lf)                    TIME(0),#(lf)                    NULLIF(LTRIM(RTRIM(E.HORA_ORIGINAL)), '')#(lf)                ),#(lf)#(lf)                -- Hora SAP almacenada como HHMMSS#(lf)                TRY_CONVERT#(lf)                (#(lf)                    TIME(0),#(lf)#(lf)                    STUFF#(lf)                    (#(lf)                        STUFF#(lf)                        (#(lf)                            RIGHT#(lf)                            (#(lf)                                '000000' +#(lf)                                REPLACE#(lf)                                (#(lf)                                    NULLIF#(lf)                                    (#(lf)                                        LTRIM(RTRIM(E.HORA_ORIGINAL)),#(lf)                                        ''#(lf)                                    ),#(lf)                                    ':',#(lf)                                    ''#(lf)                                ),#(lf)                                6#(lf)                            ),#(lf)                            3,#(lf)                            0,#(lf)                            ':'#(lf)                        ),#(lf)                        6,#(lf)                        0,#(lf)                        ':'#(lf)                    )#(lf)                )#(lf)            ) AS HORA_CONVERTIDA#(lf)#(lf)    ) AS P#(lf)),#(lf)#(lf)-- =====================================================================#(lf)-- TRANSFORMA LOS EVENTOS EN COLUMNAS DE FECHA Y HORA HOMOLOGADAS#(lf)-- =====================================================================#(lf)Hitos AS#(lf)(#(lf)    SELECT#(lf)        ID_FILA,#(lf)#(lf)        MAX(CASE WHEN CODIGO_EVENTO = 'PED'#(lf)                 THEN FECHA_HORA END) AS PED_FECHA_HORA,#(lf)#(lf)        MAX(CASE WHEN CODIGO_EVENTO = 'PDA_P'#(lf)                 THEN FECHA_HORA END) AS PDA_P_FECHA_HORA,#(lf)#(lf)        MAX(CASE WHEN CODIGO_EVENTO = 'COM_P'#(lf)                 THEN FECHA_HORA END) AS COM_P_FECHA_HORA,#(lf)#(lf)        MAX(CASE WHEN CODIGO_EVENTO = 'COM_U'#(lf)                 THEN FECHA_HORA END) AS COM_U_FECHA_HORA,#(lf)#(lf)        MAX(CASE WHEN CODIGO_EVENTO = 'CRD_P'#(lf)                 THEN FECHA_HORA END) AS CRD_P_FECHA_HORA,#(lf)#(lf)        MAX(CASE WHEN CODIGO_EVENTO = 'GER_P'#(lf)                 THEN FECHA_HORA END) AS GER_P_FECHA_HORA,#(lf)#(lf)        MAX(CASE WHEN CODIGO_EVENTO = 'ENT_P'#(lf)                 THEN FECHA_HORA END) AS ENT_P_FECHA_HORA,#(lf)#(lf)        MAX(CASE WHEN CODIGO_EVENTO = 'ENT_U'#(lf)                 THEN FECHA_HORA END) AS ENT_U_FECHA_HORA,#(lf)#(lf)        MAX(CASE WHEN CODIGO_EVENTO = 'PIC_P'#(lf)                 THEN FECHA_HORA END) AS PIC_P_FECHA_HORA,#(lf)#(lf)        MAX(CASE WHEN CODIGO_EVENTO = 'PIC_U'#(lf)                 THEN FECHA_HORA END) AS PIC_U_FECHA_HORA,#(lf)#(lf)        MAX(CASE WHEN CODIGO_EVENTO = 'PAC_P'#(lf)                 THEN FECHA_HORA END) AS PAC_P_FECHA_HORA,#(lf)#(lf)        MAX(CASE WHEN CODIGO_EVENTO = 'PAC_U'#(lf)                 THEN FECHA_HORA END) AS PAC_U_FECHA_HORA,#(lf)#(lf)        MAX(CASE WHEN CODIGO_EVENTO = 'FAC_P'#(lf)                 THEN FECHA_HORA END) AS FAC_P_FECHA_HORA,#(lf)#(lf)        MAX(CASE WHEN CODIGO_EVENTO = 'FAC_U'#(lf)                 THEN FECHA_HORA END) AS FAC_U_FECHA_HORA,#(lf)#(lf)        MAX(CASE WHEN CODIGO_EVENTO = 'TRP_P'#(lf)                 THEN FECHA_HORA END) AS TRP_P_FECHA_HORA,#(lf)#(lf)        MAX(CASE WHEN CODIGO_EVENTO = 'TRP_U'#(lf)                 THEN FECHA_HORA END) AS TRP_U_FECHA_HORA,#(lf)#(lf)        MAX(CASE WHEN CODIGO_EVENTO = 'TSTTO_P'#(lf)                 THEN FECHA_HORA END) AS TSTTO_P_FECHA_HORA,#(lf)#(lf)        MAX(CASE WHEN CODIGO_EVENTO = 'TSTTO_U'#(lf)                 THEN FECHA_HORA END) AS TSTTO_U_FECHA_HORA,#(lf)#(lf)        MAX(CASE WHEN CODIGO_EVENTO = 'CED_P'#(lf)                 THEN FECHA_HORA END) AS CED_P_FECHA_HORA,#(lf)#(lf)        MAX(CASE WHEN CODIGO_EVENTO = 'CED_U'#(lf)                 THEN FECHA_HORA END) AS CED_U_FECHA_HORA#(lf)#(lf)    FROM Eventos#(lf)#(lf)    GROUP BY#(lf)        ID_FILA#(lf)),#(lf)#(lf)-- =====================================================================#(lf)-- DEFINE LOS INTERVALOS QUE SE DEBEN MEDIR#(lf)-- =====================================================================#(lf)Intervalos AS#(lf)(#(lf)    SELECT#(lf)        H.ID_FILA,#(lf)        D.CODIGO_DURACION,#(lf)        D.FECHA_INICIO,#(lf)        D.FECHA_TERMINO#(lf)#(lf)    FROM Hitos AS H#(lf)#(lf)    INNER JOIN Base AS B#(lf)        ON B.ID_FILA = H.ID_FILA#(lf)#(lf)    LEFT JOIN #PedidosFES_AUD_V3 AS PF#(lf)        ON PF.PEDIDO_ORIGINAL_NUM = TRY_CONVERT(BIGINT, B.ZVBELN_PED)#(lf)#(lf)    CROSS APPLY#(lf)    (#(lf)        VALUES#(lf)            -- Tiempo comercial: PDA hasta creación del pedido en SAC.#(lf)            (#(lf)                'PDA_PED',#(lf)                H.PDA_P_FECHA_HORA,#(lf)                H.PED_FECHA_HORA#(lf)            ),#(lf)#(lf)            -- Tiempo desde creación del pedido hasta Comercial#(lf)            (#(lf)                'PED_COM',#(lf)                H.PED_FECHA_HORA,#(lf)                H.COM_P_FECHA_HORA#(lf)            ),#(lf)#(lf)            -- Tiempo desde creación hasta Crédito#(lf)            (#(lf)                'PED_CRD',#(lf)                H.PED_FECHA_HORA,#(lf)                H.CRD_P_FECHA_HORA#(lf)            ),#(lf)#(lf)            -- Tiempo Comercial hasta Crédito#(lf)            (#(lf)                'COM_CRD',#(lf)                H.COM_P_FECHA_HORA,#(lf)                H.CRD_P_FECHA_HORA#(lf)            ),#(lf)#(lf)            -- Crédito hasta creación de entrega#(lf)            (#(lf)                'CRD_ENT',#(lf)                H.CRD_P_FECHA_HORA,#(lf)                H.ENT_P_FECHA_HORA#(lf)            ),#(lf)#(lf)            -- Crédito hasta primera facturación:#(lf)            -- operación interna completa#(lf)            (#(lf)                'CRD_FAC',#(lf)                H.CRD_P_FECHA_HORA,#(lf)                H.FAC_P_FECHA_HORA#(lf)            ),#(lf)#(lf)            -- Entrega hasta picking#(lf)            (#(lf)                'ENT_PIC',#(lf)                H.ENT_P_FECHA_HORA,#(lf)                H.PIC_P_FECHA_HORA#(lf)            ),#(lf)#(lf)            -- Picking hasta packing#(lf)            (#(lf)                'PIC_PAC',#(lf)                H.PIC_P_FECHA_HORA,#(lf)                H.PAC_P_FECHA_HORA#(lf)            ),#(lf)#(lf)            -- Packing hasta facturación#(lf)            (#(lf)                'PAC_FAC',#(lf)                H.PAC_P_FECHA_HORA,#(lf)                H.FAC_P_FECHA_HORA#(lf)            ),#(lf)#(lf)            -- Primer picking hasta primera factura.#(lf)            (#(lf)                'PIC_FAC',#(lf)                H.PIC_P_FECHA_HORA,#(lf)                H.FAC_P_FECHA_HORA#(lf)            ),#(lf)#(lf)            -- Facturación hasta transporte/despacho#(lf)            (#(lf)                'FAC_TRP',#(lf)                H.FAC_P_FECHA_HORA,#(lf)                H.TRP_P_FECHA_HORA#(lf)            ),#(lf)#(lf)            -- Transporte hasta documento cedible#(lf)            (#(lf)                'TRP_CED',#(lf)                H.TRP_P_FECHA_HORA,#(lf)                H.CED_P_FECHA_HORA#(lf)            ),#(lf)#(lf)            -- Tiempo total creación del pedido hasta despacho#(lf)            (#(lf)                'PED_TRP',#(lf)                H.PED_FECHA_HORA,#(lf)                H.TRP_P_FECHA_HORA#(lf)            ),#(lf)#(lf)            -- FES: crédito hasta primer despacho.#(lf)            (#(lf)                'CRD_TRP',#(lf)                H.CRD_P_FECHA_HORA,#(lf)                H.TRP_P_FECHA_HORA#(lf)            ),#(lf)#(lf)            -- Saldo / percepción del cliente: creación hasta último despacho.#(lf)            (#(lf)                'PED_TRP_U',#(lf)                H.PED_FECHA_HORA,#(lf)                H.TRP_U_FECHA_HORA#(lf)            ),#(lf)#(lf)            -- Primera factura hasta último despacho.#(lf)            (#(lf)                'FAC_TRP_U',#(lf)                H.FAC_P_FECHA_HORA,#(lf)                H.TRP_U_FECHA_HORA#(lf)            ),#(lf)#(lf)            -- Tiempo total creación del pedido hasta cedible#(lf)            (#(lf)                'PED_CED',#(lf)                H.PED_FECHA_HORA,#(lf)                H.CED_P_FECHA_HORA#(lf)            ),#(lf)#(lf)            -- Duración entre primera y última entrega#(lf)            (#(lf)                'ENT_P_U',#(lf)                H.ENT_P_FECHA_HORA,#(lf)                H.ENT_U_FECHA_HORA#(lf)            ),#(lf)#(lf)            -- Duración entre primer y último picking#(lf)            (#(lf)                'PIC_P_U',#(lf)                H.PIC_P_FECHA_HORA,#(lf)                H.PIC_U_FECHA_HORA#(lf)            ),#(lf)#(lf)            -- Duración entre primer y último packing#(lf)            (#(lf)                'PAC_P_U',#(lf)                H.PAC_P_FECHA_HORA,#(lf)                H.PAC_U_FECHA_HORA#(lf)            ),#(lf)#(lf)            -- Duración entre primera y última factura#(lf)            (#(lf)                'FAC_P_U',#(lf)                H.FAC_P_FECHA_HORA,#(lf)                H.FAC_U_FECHA_HORA#(lf)            ),#(lf)#(lf)            -- Duración entre primer y último transporte#(lf)            (#(lf)                'TRP_P_U',#(lf)                H.TRP_P_FECHA_HORA,#(lf)                H.TRP_U_FECHA_HORA#(lf)            ),#(lf)#(lf)            -- =========================================================#(lf)            -- TRAZABILIDAD REAL FES#(lf)            -- =========================================================#(lf)            -- Factura original hasta creación del primer pedido posterior.#(lf)            (#(lf)                'FES_FAC_PED_POST_P',#(lf)                H.FAC_P_FECHA_HORA,#(lf)                CAST(PF.PRIMERA_FECHA_PEDIDO_POSTERIOR AS DATETIME2(0))#(lf)            ),#(lf)#(lf)            -- Primer pedido posterior hasta primera entrega posterior.#(lf)            (#(lf)                'FES_PED_POST_ENT_POST_P',#(lf)                CAST(PF.PRIMERA_FECHA_PEDIDO_POSTERIOR AS DATETIME2(0)),#(lf)                CAST(PF.PRIMERA_FECHA_ENTREGA_POSTERIOR AS DATETIME2(0))#(lf)            ),#(lf)#(lf)            -- Primera entrega posterior hasta primer manifiesto.#(lf)            (#(lf)                'FES_ENT_POST_MAN_P',#(lf)                CAST(PF.PRIMERA_FECHA_ENTREGA_POSTERIOR AS DATETIME2(0)),#(lf)                CAST(PF.PRIMERA_FECHA_MANIFIESTO AS DATETIME2(0))#(lf)            ),#(lf)#(lf)            -- Factura original hasta primer manifiesto: salida operativa real.#(lf)            (#(lf)                'FES_FAC_MAN_P',#(lf)                H.FAC_P_FECHA_HORA,#(lf)                CAST(PF.PRIMERA_FECHA_MANIFIESTO AS DATETIME2(0))#(lf)            ),#(lf)#(lf)            -- Factura original hasta último manifiesto: cierre FES completo.#(lf)            (#(lf)                'FES_FAC_MAN_U',#(lf)                H.FAC_P_FECHA_HORA,#(lf)                CAST(PF.ULTIMA_FECHA_MANIFIESTO AS DATETIME2(0))#(lf)            ),#(lf)#(lf)            -- Brecha entre primer y último manifiesto.#(lf)            (#(lf)                'FES_MAN_P_U',#(lf)                CAST(PF.PRIMERA_FECHA_MANIFIESTO AS DATETIME2(0)),#(lf)                CAST(PF.ULTIMA_FECHA_MANIFIESTO AS DATETIME2(0))#(lf)            )#(lf)#(lf)    ) AS D#(lf)    (#(lf)        CODIGO_DURACION,#(lf)        FECHA_INICIO,#(lf)        FECHA_TERMINO#(lf)    )#(lf)),#(lf)#(lf)-- =====================================================================#(lf)-- CALCULA LOS DÍAS HÁBILES#(lf)-- =====================================================================#(lf)CalculoDiasHabiles AS#(lf)(#(lf)    SELECT#(lf)        I.ID_FILA,#(lf)        I.CODIGO_DURACION,#(lf)        I.FECHA_INICIO,#(lf)        I.FECHA_TERMINO,#(lf)#(lf)        CASE#(lf)            -- No se puede calcular si falta algún hito#(lf)            WHEN I.FECHA_INICIO IS NULL#(lf)              OR I.FECHA_TERMINO IS NULL#(lf)                THEN NULL#(lf)#(lf)            -- Evita resultados negativos por inconsistencias de datos#(lf)            WHEN CAST(I.FECHA_TERMINO AS DATE)#(lf)               < CAST(I.FECHA_INICIO AS DATE)#(lf)                THEN NULL#(lf)#(lf)            ELSE#(lf)                -- Cinco días hábiles por cada semana completa#(lf)                (C.DIAS_CALENDARIO / 7) * 5#(lf)#(lf)                +#(lf)#(lf)                -- Días hábiles del tramo restante#(lf)                R.DIAS_HABILES_RESTANTES#(lf)        END AS DIAS_HABILES#(lf)#(lf)    FROM Intervalos AS I#(lf)#(lf)    OUTER APPLY#(lf)    (#(lf)        SELECT#(lf)            DATEDIFF#(lf)            (#(lf)                DAY,#(lf)                CAST(I.FECHA_INICIO AS DATE),#(lf)                CAST(I.FECHA_TERMINO AS DATE)#(lf)            ) AS DIAS_CALENDARIO,#(lf)#(lf)            (#(lf)                (#(lf)                    DATEDIFF#(lf)                    (#(lf)                        DAY,#(lf)                        CONVERT(DATE, '19000101', 112),#(lf)                        CAST(I.FECHA_INICIO AS DATE)#(lf)                    ) % 7#(lf)                ) + 7#(lf)            ) % 7 AS DIA_SEMANA_INICIO#(lf)#(lf)    ) AS C#(lf)#(lf)    OUTER APPLY#(lf)    (#(lf)        SELECT#(lf)            COUNT(*) AS DIAS_HABILES_RESTANTES#(lf)#(lf)        FROM#(lf)        (#(lf)            VALUES#(lf)                (1),#(lf)                (2),#(lf)                (3),#(lf)                (4),#(lf)                (5),#(lf)                (6)#(lf)        ) AS N(NUMERO_DIA)#(lf)#(lf)        WHERE N.NUMERO_DIA <= C.DIAS_CALENDARIO % 7#(lf)#(lf)          -- 0 = lunes#(lf)          -- 1 = martes#(lf)          -- 2 = miércoles#(lf)          -- 3 = jueves#(lf)          -- 4 = viernes#(lf)          -- 5 = sábado#(lf)          -- 6 = domingo#(lf)          AND (C.DIA_SEMANA_INICIO + N.NUMERO_DIA) % 7 < 5#(lf)#(lf)    ) AS R#(lf)),#(lf)#(lf)-- =====================================================================#(lf)-- TRANSFORMA LOS DÍAS HÁBILES EN COLUMNAS#(lf)-- =====================================================================#(lf)DiasHabiles AS#(lf)(#(lf)    SELECT#(lf)        ID_FILA,#(lf)#(lf)        MAX(CASE WHEN CODIGO_DURACION = 'PDA_PED'#(lf)                 THEN DIAS_HABILES END)#(lf)            AS DH_PDA_PED,#(lf)#(lf)        MAX(CASE WHEN CODIGO_DURACION = 'PED_COM'#(lf)                 THEN DIAS_HABILES END)#(lf)            AS DH_PED_COM,#(lf)#(lf)        MAX(CASE WHEN CODIGO_DURACION = 'PED_CRD'#(lf)                 THEN DIAS_HABILES END)#(lf)            AS DH_PED_CRD,#(lf)#(lf)        MAX(CASE WHEN CODIGO_DURACION = 'COM_CRD'#(lf)                 THEN DIAS_HABILES END)#(lf)            AS DH_COM_CRD,#(lf)#(lf)        MAX(CASE WHEN CODIGO_DURACION = 'CRD_ENT'#(lf)                 THEN DIAS_HABILES END)#(lf)            AS DH_CRD_ENT,#(lf)#(lf)        MAX(CASE WHEN CODIGO_DURACION = 'CRD_FAC'#(lf)                 THEN DIAS_HABILES END)#(lf)            AS DH_CRD_FAC,#(lf)#(lf)        MAX(CASE WHEN CODIGO_DURACION = 'ENT_PIC'#(lf)                 THEN DIAS_HABILES END)#(lf)            AS DH_ENT_PIC,#(lf)#(lf)        MAX(CASE WHEN CODIGO_DURACION = 'PIC_PAC'#(lf)                 THEN DIAS_HABILES END)#(lf)            AS DH_PIC_PAC,#(lf)#(lf)        MAX(CASE WHEN CODIGO_DURACION = 'PAC_FAC'#(lf)                 THEN DIAS_HABILES END)#(lf)            AS DH_PAC_FAC,#(lf)#(lf)        MAX(CASE WHEN CODIGO_DURACION = 'PIC_FAC'#(lf)                 THEN DIAS_HABILES END)#(lf)            AS DH_PIC_FAC,#(lf)#(lf)        MAX(CASE WHEN CODIGO_DURACION = 'FAC_TRP'#(lf)                 THEN DIAS_HABILES END)#(lf)            AS DH_FAC_TRP,#(lf)#(lf)        MAX(CASE WHEN CODIGO_DURACION = 'TRP_CED'#(lf)                 THEN DIAS_HABILES END)#(lf)            AS DH_TRP_CED,#(lf)#(lf)        MAX(CASE WHEN CODIGO_DURACION = 'PED_TRP'#(lf)                 THEN DIAS_HABILES END)#(lf)            AS DH_PED_TRP,#(lf)#(lf)        MAX(CASE WHEN CODIGO_DURACION = 'CRD_TRP'#(lf)                 THEN DIAS_HABILES END)#(lf)            AS DH_CRD_TRP,#(lf)#(lf)        MAX(CASE WHEN CODIGO_DURACION = 'PED_TRP_U'#(lf)                 THEN DIAS_HABILES END)#(lf)            AS DH_PED_TRP_U,#(lf)#(lf)        MAX(CASE WHEN CODIGO_DURACION = 'FAC_TRP_U'#(lf)                 THEN DIAS_HABILES END)#(lf)            AS DH_FAC_TRP_U,#(lf)#(lf)        MAX(CASE WHEN CODIGO_DURACION = 'PED_CED'#(lf)                 THEN DIAS_HABILES END)#(lf)            AS DH_PED_CED,#(lf)#(lf)        MAX(CASE WHEN CODIGO_DURACION = 'ENT_P_U'#(lf)                 THEN DIAS_HABILES END)#(lf)            AS DH_ENT_PRIMERA_ULTIMA,#(lf)#(lf)        MAX(CASE WHEN CODIGO_DURACION = 'PIC_P_U'#(lf)                 THEN DIAS_HABILES END)#(lf)            AS DH_PIC_PRIMERO_ULTIMO,#(lf)#(lf)        MAX(CASE WHEN CODIGO_DURACION = 'PAC_P_U'#(lf)                 THEN DIAS_HABILES END)#(lf)            AS DH_PAC_PRIMERO_ULTIMO,#(lf)#(lf)        MAX(CASE WHEN CODIGO_DURACION = 'FAC_P_U'#(lf)                 THEN DIAS_HABILES END)#(lf)            AS DH_FAC_PRIMERA_ULTIMA,#(lf)#(lf)        MAX(CASE WHEN CODIGO_DURACION = 'TRP_P_U'#(lf)                 THEN DIAS_HABILES END)#(lf)            AS DH_TRP_PRIMERO_ULTIMO,#(lf)#(lf)        MAX(CASE WHEN CODIGO_DURACION = 'FES_FAC_PED_POST_P'#(lf)                 THEN DIAS_HABILES END)#(lf)            AS DH_FES_FACTURA_A_PRIMER_PEDIDO_POSTERIOR,#(lf)#(lf)        MAX(CASE WHEN CODIGO_DURACION = 'FES_PED_POST_ENT_POST_P'#(lf)                 THEN DIAS_HABILES END)#(lf)            AS DH_FES_PRIMER_PEDIDO_A_PRIMERA_ENTREGA_POSTERIOR,#(lf)#(lf)        MAX(CASE WHEN CODIGO_DURACION = 'FES_ENT_POST_MAN_P'#(lf)                 THEN DIAS_HABILES END)#(lf)            AS DH_FES_PRIMERA_ENTREGA_A_PRIMER_MANIFIESTO,#(lf)#(lf)        MAX(CASE WHEN CODIGO_DURACION = 'FES_FAC_MAN_P'#(lf)                 THEN DIAS_HABILES END)#(lf)            AS DH_FES_FACTURA_A_PRIMER_MANIFIESTO,#(lf)#(lf)        MAX(CASE WHEN CODIGO_DURACION = 'FES_FAC_MAN_U'#(lf)                 THEN DIAS_HABILES END)#(lf)            AS DH_FES_FACTURA_A_ULTIMO_MANIFIESTO,#(lf)#(lf)        MAX(CASE WHEN CODIGO_DURACION = 'FES_MAN_P_U'#(lf)                 THEN DIAS_HABILES END)#(lf)            AS DH_FES_BRECHA_PRIMER_ULTIMO_MANIFIESTO#(lf)#(lf)    FROM CalculoDiasHabiles#(lf)#(lf)    GROUP BY#(lf)        ID_FILA#(lf))#(lf)#(lf)-- =====================================================================#(lf)-- RESULTADO FINAL CORREGIDO: BASE DE ANÁLISIS POR PEDIDO#(lf)-- IMPORTANTE: este SELECT debe ir inmediatamente después del CTE.#(lf)-- =====================================================================#(lf)SELECT#(lf)    -- =============================================================#(lf)    -- IDENTIFICACIÓN#(lf)    -- =============================================================#(lf)    CONVERT(VARCHAR(20), B.ZVBELN_PED) AS PED_NUMERO_PEDIDO,#(lf)    B.ZKUNNR                           AS PED_CODIGO_CLIENTE,#(lf)    B.ZPERNR                           AS PED_RESPONSABLE,#(lf)    B.ZWERKS                           AS PED_CENTRO,#(lf)    B.ZCITYC                           AS PED_CIUDAD,#(lf)    B.ZREGIO                           AS PED_REGION,#(lf)    -- =============================================================#(lf)    -- CONDICIÓN DE EXPEDICIÓN#(lf)    -- =============================================================#(lf)    RIGHT#(lf)    (#(lf)        '00' + LTRIM(RTRIM(CONVERT(VARCHAR(10), B.ZVSBED))),#(lf)        2#(lf)    ) AS PED_CONDICION_EXPEDICION_CODIGO,#(lf)#(lf)    CASE RIGHT#(lf)         (#(lf)             '00' + LTRIM(RTRIM(CONVERT(VARCHAR(10), B.ZVSBED))),#(lf)             2#(lf)         )#(lf)        WHEN '01' THEN 'Estándar'#(lf)        WHEN '02' THEN 'Retira Cliente'#(lf)        WHEN '03' THEN 'En espera'#(lf)        WHEN '04' THEN 'Urgente'#(lf)        WHEN '05' THEN 'Exportacion'#(lf)        WHEN '06' THEN 'Liquiart'#(lf)        WHEN '07' THEN 'Inventario'#(lf)        WHEN '08' THEN 'Traslado Locales'#(lf)        ELSE 'No clasificado'#(lf)    END AS PED_CONDICION_EXPEDICION,#(lf)#(lf)    B.BSTKD_M AS PED_ORDEN_COMPRA_CLIENTE,#(lf)#(lf)    -- =============================================================#(lf)    -- CANAL DE DISTRIBUCIÓN#(lf)    -- ZVTGEW corresponde al canal y no al peso total.#(lf)    -- =============================================================#(lf)    RIGHT#(lf)    (#(lf)        '00' + LTRIM(RTRIM(CONVERT(VARCHAR(10), B.ZVTGEW))),#(lf)        2#(lf)    ) AS PED_CANAL_CODIGO,#(lf)#(lf)    CASE RIGHT#(lf)         (#(lf)             '00' + LTRIM(RTRIM(CONVERT(VARCHAR(10), B.ZVTGEW))),#(lf)             2#(lf)         )#(lf)        WHEN '40' THEN 'Supermercados'#(lf)        WHEN '41' THEN 'Tiendas Conveniencia'#(lf)        WHEN '42' THEN 'Instituciones'#(lf)        WHEN '43' THEN 'Tradicional Detalle'#(lf)        WHEN '44' THEN 'Tiendas Departamento'#(lf)        WHEN '45' THEN 'Dist Mayoristas'#(lf)        WHEN '46' THEN 'Org. Gubernamentales'#(lf)        WHEN '47' THEN 'Otros'#(lf)        ELSE 'No clasificado'#(lf)    END AS PED_CANAL,#(lf)#(lf)    B.ZNETWR AS PED_VALOR_NETO,#(lf)    B.ZWAERS                           AS PED_MONEDA,#(lf)    B.ZLIFSK                           AS PED_BLOQUEO_ENTREGA,#(lf)    B.ZCMGST                           AS PED_ESTADO_CREDITO,#(lf)    B.ZTPO_SERV                        AS SERV_TIPO_SERVICIO,#(lf)    B.ZTPO_SERVP                       AS SERV_TIPO_SERVICIO_PLANIFICADO,#(lf)    B.Z_OTIF_OT                        AS OTIF_ESTADO_PEDIDO,#(lf)    B.[TEXT]                           AS PED_TEXTO_ESTADO,#(lf)    B.Z_COPIAS_CED                     AS CED_CANTIDAD_COPIAS,#(lf)#(lf)    -- =============================================================#(lf)    -- CLASIFICACIÓN DE NEGOCIO#(lf)    -- AJUSTAR las condiciones automáticas según el campo oficial.#(lf)    -- =============================================================#(lf)    CL.ES_FES,#(lf)    CL.ES_SALDO,#(lf)#(lf)    -- Fechas reales del proceso posterior FES.#(lf)    PF.PRIMERA_FECHA_PEDIDO_POSTERIOR,#(lf)    PF.ULTIMA_FECHA_PEDIDO_POSTERIOR,#(lf)    PF.PRIMERA_FECHA_ENTREGA_POSTERIOR,#(lf)    PF.ULTIMA_FECHA_ENTREGA_POSTERIOR,#(lf)    PF.PRIMERA_FECHA_MANIFIESTO,#(lf)    PF.ULTIMA_FECHA_MANIFIESTO,#(lf)#(lf)    CASE#(lf)        WHEN CL.ES_FES = 1 THEN 'PEDIDO C-C EN VBFA'#(lf)        ELSE 'SIN PEDIDO POSTERIOR C-C'#(lf)    END AS REGLA_CLASIFICACION_FES,#(lf)#(lf)    CASE#(lf)        WHEN CL.ES_SALDO = 1 THEN 'PRIMERA Y ULTIMA FACTURA EN FECHAS DISTINTAS'#(lf)        ELSE 'FACTURACION EN UNA MISMA FECHA'#(lf)    END AS REGLA_CLASIFICACION_SALDO,#(lf)#(lf)    CASE#(lf)        WHEN CL.ES_FES = 1 AND CL.ES_SALDO = 1 THEN 'FES + SALDO'#(lf)        WHEN CL.ES_SALDO = 1 THEN 'SALDO'#(lf)        WHEN CL.ES_FES = 1 THEN 'FES'#(lf)        ELSE 'FLUJO NORMAL'#(lf)    END AS SEGMENTO_ANALISIS,#(lf)#(lf)    CASE#(lf)        WHEN CL.ES_FES = 0 AND CL.ES_SALDO = 0 THEN CONVERT(BIT, 1)#(lf)        ELSE CONVERT(BIT, 0)#(lf)    END AS INCLUIR_SLA_NORMAL,#(lf)#(lf)    -- =============================================================#(lf)    -- PRIMEROS Y ÚLTIMOS HITOS#(lf)    -- =============================================================#(lf)    H.PDA_P_FECHA_HORA,#(lf)    H.PED_FECHA_HORA,#(lf)    H.COM_P_FECHA_HORA,#(lf)    H.COM_U_FECHA_HORA,#(lf)    H.CRD_P_FECHA_HORA,#(lf)    H.GER_P_FECHA_HORA,#(lf)    H.ENT_P_FECHA_HORA,#(lf)    H.ENT_U_FECHA_HORA,#(lf)    H.PIC_P_FECHA_HORA,#(lf)    H.PIC_U_FECHA_HORA,#(lf)    H.PAC_P_FECHA_HORA,#(lf)    H.PAC_U_FECHA_HORA,#(lf)    H.FAC_P_FECHA_HORA AS FAC_P_FECHA_HORA_REAL,#(lf)    H.FAC_U_FECHA_HORA,#(lf)    H.TRP_P_FECHA_HORA,#(lf)    H.TRP_U_FECHA_HORA,#(lf)    H.TSTTO_P_FECHA_HORA,#(lf)    H.TSTTO_U_FECHA_HORA,#(lf)    H.CED_P_FECHA_HORA,#(lf)    H.CED_U_FECHA_HORA,#(lf)#(lf)    -- FES: fecha de gestión; no reemplaza la fecha contable real.#(lf)    CASE#(lf)        WHEN CL.ES_FES = 1#(lf)            THEN COALESCE#(lf)                 (#(lf)                     CAST(PF.PRIMERA_FECHA_MANIFIESTO AS DATETIME2(0)),#(lf)                     H.TRP_P_FECHA_HORA#(lf)                 )#(lf)        ELSE H.FAC_P_FECHA_HORA#(lf)    END AS FAC_FECHA_OPERATIVA_AJUSTADA,#(lf)#(lf)    CASE#(lf)        WHEN CL.ES_FES = 1#(lf)            THEN CAST(PF.ULTIMA_FECHA_MANIFIESTO AS DATETIME2(0))#(lf)        ELSE NULL#(lf)    END AS FES_FECHA_CIERRE_OPERATIVO_100,#(lf)#(lf)    -- =============================================================#(lf)    -- TIEMPO COMERCIAL: PDA A CREACIÓN EN SAC#(lf)    -- =============================================================#(lf)    CASE#(lf)        WHEN H.PDA_P_FECHA_HORA IS NULL OR H.PED_FECHA_HORA IS NULL THEN NULL#(lf)        WHEN H.PED_FECHA_HORA < H.PDA_P_FECHA_HORA THEN NULL#(lf)        ELSE CONVERT#(lf)        (#(lf)            DECIMAL(18,4),#(lf)            DATEDIFF(SECOND, H.PDA_P_FECHA_HORA, H.PED_FECHA_HORA) / 3600.0#(lf)        )#(lf)    END AS HRS_COMERCIAL_PDA_SAC,#(lf)#(lf)    CASE#(lf)        WHEN H.PDA_P_FECHA_HORA IS NULL OR H.PED_FECHA_HORA IS NULL THEN NULL#(lf)        WHEN H.PED_FECHA_HORA < H.PDA_P_FECHA_HORA THEN NULL#(lf)        ELSE CONVERT#(lf)        (#(lf)            DECIMAL(18,4),#(lf)            DATEDIFF(SECOND, H.PDA_P_FECHA_HORA, H.PED_FECHA_HORA)#(lf)            / 3600.0 / NULLIF(@HorasJornada, 0)#(lf)        )#(lf)    END AS DIAS_EQ_COMERCIAL_9_5H,#(lf)#(lf)    DH.DH_PDA_PED AS DH_COMERCIAL_PDA_SAC,#(lf)#(lf)    -- =============================================================#(lf)    -- CRÉDITO Y COBRANZAS#(lf)    -- =============================================================#(lf)    DH.DH_PED_CRD AS DH_CREDITO_COBRANZAS,#(lf)#(lf)    -- =============================================================#(lf)    -- OPERACIÓN INTERNA: CRÉDITO A PRIMERA FACTURA#(lf)    -- =============================================================#(lf)    DH.DH_CRD_FAC AS DH_OPERACION_INTERNA,#(lf)    DH.DH_CRD_ENT AS DH_CREDITO_A_PRIMERA_ENTREGA,#(lf)    DH.DH_ENT_PIC AS DH_PRIMERA_ENTREGA_A_PRIMER_PICKING,#(lf)    DH.DH_PIC_PAC AS DH_PRIMER_PICKING_A_PRIMER_PACKING,#(lf)    DH.DH_PAC_FAC AS DH_PRIMER_PACKING_A_PRIMERA_FACTURA,#(lf)    DH.DH_PIC_FAC AS DH_PRIMER_PICKING_A_PRIMERA_FACTURA,#(lf)#(lf)    -- =============================================================#(lf)    -- DESPACHO: PRIMERA FACTURA A PRIMER DESPACHO#(lf)    -- =============================================================#(lf)    DH.DH_FAC_TRP AS DH_DESPACHO,#(lf)#(lf)    -- =============================================================#(lf)    -- LEAD PRINCIPAL NORMAL: CREACIÓN A PRIMER DESPACHO#(lf)    -- =============================================================#(lf)    DH.DH_PED_TRP AS DH_LEAD_NORMAL,#(lf)#(lf)    CASE#(lf)        WHEN CL.ES_FES = 1 OR CL.ES_SALDO = 1 THEN 'SEGMENTO SEPARADO'#(lf)        WHEN DH.DH_PED_TRP IS NULL THEN 'SIN DATO'#(lf)        WHEN DH.DH_PED_TRP > @SLA_Normal_Dias THEN 'FUERA SLA'#(lf)        ELSE 'DENTRO SLA'#(lf)    END AS ESTADO_SLA_NORMAL,#(lf)#(lf)    CASE#(lf)        WHEN CL.ES_FES = 1 OR CL.ES_SALDO = 1 THEN 'SEGMENTO SEPARADO'#(lf)        WHEN DH.DH_PED_TRP IS NULL THEN 'SIN DATO'#(lf)        WHEN COALESCE(DH.DH_CRD_FAC, -1) >= COALESCE(DH.DH_PED_CRD, -1)#(lf)         AND COALESCE(DH.DH_CRD_FAC, -1) >= COALESCE(DH.DH_FAC_TRP, -1)#(lf)            THEN 'OPERACION INTERNA'#(lf)        WHEN COALESCE(DH.DH_PED_CRD, -1) >= COALESCE(DH.DH_FAC_TRP, -1)#(lf)            THEN 'CREDITO Y COBRANZAS'#(lf)        ELSE 'DESPACHO'#(lf)    END AS PROCESO_DOMINANTE_NORMAL,#(lf)#(lf)    -- =============================================================#(lf)    -- FES: FACTURA REAL SEPARADA DEL CIERRE OPERACIONAL#(lf)    -- =============================================================#(lf)    DH.DH_CRD_TRP AS DH_FES_CREDITO_A_PRIMER_DESPACHO,#(lf)    DH.DH_FAC_TRP AS DH_FES_FACTURA_A_PRIMER_DESPACHO,#(lf)#(lf)    -- Medición real del proceso posterior FES.#(lf)    DH.DH_FES_FACTURA_A_PRIMER_PEDIDO_POSTERIOR,#(lf)    DH.DH_FES_PRIMER_PEDIDO_A_PRIMERA_ENTREGA_POSTERIOR,#(lf)    DH.DH_FES_PRIMERA_ENTREGA_A_PRIMER_MANIFIESTO,#(lf)    DH.DH_FES_FACTURA_A_PRIMER_MANIFIESTO,#(lf)    DH.DH_FES_FACTURA_A_ULTIMO_MANIFIESTO,#(lf)    DH.DH_FES_BRECHA_PRIMER_ULTIMO_MANIFIESTO,#(lf)#(lf)    -- =============================================================#(lf)    -- SALDOS: PERCEPCIÓN DE ENTREGA AL 100%#(lf)    -- =============================================================#(lf)    DH.DH_PED_TRP_U AS DH_ENTREGA_COMPLETA_100,#(lf)    DH.DH_TRP_PRIMERO_ULTIMO AS DH_BRECHA_PRIMER_ULTIMO_DESPACHO,#(lf)    DH.DH_FAC_TRP_U AS DH_PRIMERA_FACTURA_A_ULTIMO_DESPACHO,#(lf)    DH.DH_ENT_PRIMERA_ULTIMA,#(lf)    DH.DH_PIC_PRIMERO_ULTIMO,#(lf)    DH.DH_PAC_PRIMERO_ULTIMO,#(lf)    DH.DH_FAC_PRIMERA_ULTIMA,#(lf)#(lf)    -- =============================================================#(lf)    -- OTROS INDICADORES#(lf)    -- =============================================================#(lf)    DH.DH_TRP_CED AS DH_DESPACHO_A_CEDIBLE,#(lf)    DH.DH_PED_CED AS DH_CREACION_A_CEDIBLE,#(lf)#(lf)    CONVERT(CHAR(7), H.PED_FECHA_HORA, 120) AS MES_CREACION,#(lf)    DAY(H.PED_FECHA_HORA)                  AS DIA_MES_CREACION,#(lf)#(lf)    CASE#(lf)        WHEN DAY(H.PED_FECHA_HORA) BETWEEN 1 AND 7 THEN '01-07'#(lf)        WHEN DAY(H.PED_FECHA_HORA) BETWEEN 8 AND 14 THEN '08-14'#(lf)        WHEN DAY(H.PED_FECHA_HORA) BETWEEN 15 AND 21 THEN '15-21'#(lf)        ELSE '22-FIN'#(lf)    END AS TRAMO_MES_CALENDARIO,#(lf)#(lf)    CASE#(lf)        WHEN CAST(H.PED_FECHA_HORA AS DATE) >= U7.FECHA_INICIO_ULTIMOS_7#(lf)            THEN CONVERT(BIT, 1)#(lf)        ELSE CONVERT(BIT, 0)#(lf)    END AS ES_ULTIMOS_7_DIAS_HABILES_MES#(lf)#(lf)INTO #BaseAnalisis_AUD_V3#(lf)#(lf)FROM Base AS B#(lf)#(lf)INNER JOIN Hitos AS H#(lf)    ON H.ID_FILA = B.ID_FILA#(lf)#(lf)LEFT JOIN DiasHabiles AS DH#(lf)    ON DH.ID_FILA = B.ID_FILA#(lf)#(lf)LEFT JOIN #PedidosFES_AUD_V3 AS PF#(lf)    ON PF.PEDIDO_ORIGINAL_NUM = TRY_CONVERT(BIGINT, B.ZVBELN_PED)#(lf)#(lf)-- Clasificación oficial:#(lf)--   FES   = existe pedido posterior C->C en VBFA.#(lf)--   SALDO = primera y última factura están en fechas calendario distintas.#(lf)CROSS APPLY#(lf)(#(lf)    VALUES#(lf)    (#(lf)        CASE#(lf)            WHEN PF.PEDIDO_ORIGINAL_NUM IS NOT NULL#(lf)                THEN CONVERT(BIT, 1)#(lf)            ELSE CONVERT(BIT, 0)#(lf)        END,#(lf)#(lf)        CASE#(lf)            WHEN H.FAC_P_FECHA_HORA IS NOT NULL#(lf)             AND H.FAC_U_FECHA_HORA IS NOT NULL#(lf)             AND DATEDIFF#(lf)                 (#(lf)                     DAY,#(lf)                     CAST(H.FAC_P_FECHA_HORA AS DATE),#(lf)                     CAST(H.FAC_U_FECHA_HORA AS DATE)#(lf)                 ) > 0#(lf)                THEN CONVERT(BIT, 1)#(lf)            ELSE CONVERT(BIT, 0)#(lf)        END#(lf)    )#(lf)) AS CL#(lf)(#(lf)    ES_FES,#(lf)    ES_SALDO#(lf))#(lf)#(lf)OUTER APPLY#(lf)(#(lf)    SELECT#(lf)        MIN(CAL.FECHA) AS FECHA_INICIO_ULTIMOS_7#(lf)    FROM#(lf)    (#(lf)        SELECT TOP (7)#(lf)            X.FECHA#(lf)        FROM#(lf)        (#(lf)            SELECT DATEADD#(lf)            (#(lf)                DAY,#(lf)                N.N,#(lf)                DATEADD#(lf)                (#(lf)                    MONTH,#(lf)                    DATEDIFF(MONTH, 0, H.PED_FECHA_HORA),#(lf)                    0#(lf)                )#(lf)            ) AS FECHA#(lf)        FROM#(lf)        (#(lf)            SELECT TOP (31)#(lf)                ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) - 1 AS N#(lf)            FROM sys.all_objects#(lf)        ) AS N#(lf)        ) AS X#(lf)        WHERE MONTH(X.FECHA) = MONTH(H.PED_FECHA_HORA)#(lf)          AND YEAR(X.FECHA) = YEAR(H.PED_FECHA_HORA)#(lf)          AND#(lf)          (#(lf)              (#(lf)                  DATEDIFF(DAY, CONVERT(DATE, '19000101', 112), X.FECHA) % 7#(lf)                  + 7#(lf)              ) % 7#(lf)          ) < 5#(lf)        ORDER BY X.FECHA DESC#(lf)    ) AS CAL#(lf)) AS U7;#(lf)#(lf)CREATE CLUSTERED INDEX IX_BaseAnalisis_AUD_V3_Pedido#(lf)    ON #BaseAnalisis_AUD_V3 (PED_NUMERO_PEDIDO);#(lf)#(lf)CREATE NONCLUSTERED INDEX IX_BaseAnalisis_AUD_V3_SegmentoMes#(lf)    ON #BaseAnalisis_AUD_V3 (SEGMENTO_ANALISIS, MES_CREACION)#(lf)    INCLUDE (DH_LEAD_NORMAL, DH_OPERACION_INTERNA, DH_DESPACHO, PED_VALOR_NETO);#(lf)#(lf)-- =====================================================================#(lf)-- CREACIÓN DE TABLA MASTER TEMPORAL#(lf)-- No crea objetos físicos en la base de datos.#(lf)-- La tabla existe solamente durante la sesión actual.#(lf)-- =====================================================================#(lf)IF OBJECT_ID('tempdb..#FACT_NS_RAW_AUD_V3') IS NOT NULL#(lf)    DROP TABLE #FACT_NS_RAW_AUD_V3;#(lf)#(lf)-- =====================================================================#(lf)-- MASTER TEMPORAL CON COLUMNAS DE AUDITORÍA DE CALIDAD#(lf)-- =====================================================================#(lf)SELECT#(lf)    B.*,#(lf)#(lf)    -- -------------------------------------------------------------#(lf)    -- COBERTURA DE HITOS#(lf)    -- -------------------------------------------------------------#(lf)    CONVERT(BIT, CASE WHEN B.PDA_P_FECHA_HORA   IS NOT NULL THEN 1 ELSE 0 END) AS AUD_TIENE_PDA,#(lf)    CONVERT(BIT, CASE WHEN B.PED_FECHA_HORA     IS NOT NULL THEN 1 ELSE 0 END) AS AUD_TIENE_PED,#(lf)    CONVERT(BIT, CASE WHEN B.COM_P_FECHA_HORA   IS NOT NULL THEN 1 ELSE 0 END) AS AUD_TIENE_COM_P,#(lf)    CONVERT(BIT, CASE WHEN B.CRD_P_FECHA_HORA   IS NOT NULL THEN 1 ELSE 0 END) AS AUD_TIENE_CRD_P,#(lf)    CONVERT(BIT, CASE WHEN B.ENT_P_FECHA_HORA   IS NOT NULL THEN 1 ELSE 0 END) AS AUD_TIENE_ENT_P,#(lf)    CONVERT(BIT, CASE WHEN B.PIC_P_FECHA_HORA   IS NOT NULL THEN 1 ELSE 0 END) AS AUD_TIENE_PIC_P,#(lf)    CONVERT(BIT, CASE WHEN B.PAC_P_FECHA_HORA   IS NOT NULL THEN 1 ELSE 0 END) AS AUD_TIENE_PAC_P,#(lf)    CONVERT(BIT, CASE WHEN B.FAC_P_FECHA_HORA_REAL IS NOT NULL THEN 1 ELSE 0 END) AS AUD_TIENE_FAC_P,#(lf)    CONVERT(BIT, CASE WHEN B.TRP_P_FECHA_HORA   IS NOT NULL THEN 1 ELSE 0 END) AS AUD_TIENE_TRP_P,#(lf)    CONVERT(BIT, CASE WHEN B.TSTTO_P_FECHA_HORA IS NOT NULL THEN 1 ELSE 0 END) AS AUD_TIENE_TSTTO_P,#(lf)    CONVERT(BIT, CASE WHEN B.CED_P_FECHA_HORA   IS NOT NULL THEN 1 ELSE 0 END) AS AUD_TIENE_CED_P,#(lf)#(lf)    -- -------------------------------------------------------------#(lf)    -- SECUENCIA DEL FLUJO NORMAL#(lf)    -- 1 = existe incongruencia; 0 = no se detecta incongruencia.#(lf)    -- -------------------------------------------------------------#(lf)    CONVERT(BIT, CASE WHEN B.PDA_P_FECHA_HORA IS NOT NULL#(lf)                       AND B.PED_FECHA_HORA IS NOT NULL#(lf)                       AND B.PDA_P_FECHA_HORA > B.PED_FECHA_HORA#(lf)                      THEN 1 ELSE 0 END) AS AUD_INC_PDA_DESPUES_PED,#(lf)#(lf)    CONVERT(BIT, CASE WHEN B.COM_P_FECHA_HORA IS NOT NULL#(lf)                       AND B.PED_FECHA_HORA IS NOT NULL#(lf)                       AND B.COM_P_FECHA_HORA < B.PED_FECHA_HORA#(lf)                      THEN 1 ELSE 0 END) AS AUD_INC_COM_ANTES_PED,#(lf)#(lf)    CONVERT(BIT, CASE WHEN B.CRD_P_FECHA_HORA IS NOT NULL#(lf)                       AND B.PED_FECHA_HORA IS NOT NULL#(lf)                       AND B.CRD_P_FECHA_HORA < B.PED_FECHA_HORA#(lf)                      THEN 1 ELSE 0 END) AS AUD_INC_CRD_ANTES_PED,#(lf)#(lf)    CONVERT(BIT, CASE WHEN B.ENT_P_FECHA_HORA IS NOT NULL#(lf)                       AND B.PED_FECHA_HORA IS NOT NULL#(lf)                       AND B.ENT_P_FECHA_HORA < B.PED_FECHA_HORA#(lf)                      THEN 1 ELSE 0 END) AS AUD_INC_ENT_ANTES_PED,#(lf)#(lf)    CONVERT(BIT, CASE WHEN B.PIC_P_FECHA_HORA IS NOT NULL#(lf)                       AND B.ENT_P_FECHA_HORA IS NOT NULL#(lf)                       AND B.PIC_P_FECHA_HORA < B.ENT_P_FECHA_HORA#(lf)                      THEN 1 ELSE 0 END) AS AUD_INC_PIC_ANTES_ENT,#(lf)#(lf)    CONVERT(BIT, CASE WHEN B.PAC_P_FECHA_HORA IS NOT NULL#(lf)                       AND B.PIC_P_FECHA_HORA IS NOT NULL#(lf)                       AND B.PAC_P_FECHA_HORA < B.PIC_P_FECHA_HORA#(lf)                      THEN 1 ELSE 0 END) AS AUD_INC_PAC_ANTES_PIC,#(lf)#(lf)    CONVERT(BIT, CASE WHEN B.FAC_P_FECHA_HORA_REAL IS NOT NULL#(lf)                       AND B.PIC_P_FECHA_HORA IS NOT NULL#(lf)                       AND B.FAC_P_FECHA_HORA_REAL < B.PIC_P_FECHA_HORA#(lf)                      THEN 1 ELSE 0 END) AS AUD_INC_FAC_ANTES_PIC,#(lf)#(lf)    CONVERT(BIT, CASE WHEN B.TRP_P_FECHA_HORA IS NOT NULL#(lf)                       AND B.FAC_P_FECHA_HORA_REAL IS NOT NULL#(lf)                       AND B.TRP_P_FECHA_HORA < B.FAC_P_FECHA_HORA_REAL#(lf)                      THEN 1 ELSE 0 END) AS AUD_INC_TRP_ANTES_FAC,#(lf)#(lf)    CONVERT(BIT, CASE WHEN B.CED_P_FECHA_HORA IS NOT NULL#(lf)                       AND B.TRP_P_FECHA_HORA IS NOT NULL#(lf)                       AND B.CED_P_FECHA_HORA < B.TRP_P_FECHA_HORA#(lf)                      THEN 1 ELSE 0 END) AS AUD_INC_CED_ANTES_TRP,#(lf)#(lf)    -- -------------------------------------------------------------#(lf)    -- PRIMER HITO VERSUS ÚLTIMO HITO#(lf)    -- -------------------------------------------------------------#(lf)    CONVERT(BIT, CASE WHEN B.COM_P_FECHA_HORA IS NOT NULL AND B.COM_U_FECHA_HORA IS NOT NULL#(lf)                       AND B.COM_U_FECHA_HORA < B.COM_P_FECHA_HORA THEN 1 ELSE 0 END) AS AUD_INC_COM_U_ANTES_COM_P,#(lf)    CONVERT(BIT, CASE WHEN B.ENT_P_FECHA_HORA IS NOT NULL AND B.ENT_U_FECHA_HORA IS NOT NULL#(lf)                       AND B.ENT_U_FECHA_HORA < B.ENT_P_FECHA_HORA THEN 1 ELSE 0 END) AS AUD_INC_ENT_U_ANTES_ENT_P,#(lf)    CONVERT(BIT, CASE WHEN B.PIC_P_FECHA_HORA IS NOT NULL AND B.PIC_U_FECHA_HORA IS NOT NULL#(lf)                       AND B.PIC_U_FECHA_HORA < B.PIC_P_FECHA_HORA THEN 1 ELSE 0 END) AS AUD_INC_PIC_U_ANTES_PIC_P,#(lf)    CONVERT(BIT, CASE WHEN B.PAC_P_FECHA_HORA IS NOT NULL AND B.PAC_U_FECHA_HORA IS NOT NULL#(lf)                       AND B.PAC_U_FECHA_HORA < B.PAC_P_FECHA_HORA THEN 1 ELSE 0 END) AS AUD_INC_PAC_U_ANTES_PAC_P,#(lf)    CONVERT(BIT, CASE WHEN B.FAC_P_FECHA_HORA_REAL IS NOT NULL AND B.FAC_U_FECHA_HORA IS NOT NULL#(lf)                       AND B.FAC_U_FECHA_HORA < B.FAC_P_FECHA_HORA_REAL THEN 1 ELSE 0 END) AS AUD_INC_FAC_U_ANTES_FAC_P,#(lf)    CONVERT(BIT, CASE WHEN B.TRP_P_FECHA_HORA IS NOT NULL AND B.TRP_U_FECHA_HORA IS NOT NULL#(lf)                       AND B.TRP_U_FECHA_HORA < B.TRP_P_FECHA_HORA THEN 1 ELSE 0 END) AS AUD_INC_TRP_U_ANTES_TRP_P,#(lf)    CONVERT(BIT, CASE WHEN B.TSTTO_P_FECHA_HORA IS NOT NULL AND B.TSTTO_U_FECHA_HORA IS NOT NULL#(lf)                       AND B.TSTTO_U_FECHA_HORA < B.TSTTO_P_FECHA_HORA THEN 1 ELSE 0 END) AS AUD_INC_TSTTO_U_ANTES_TSTTO_P,#(lf)    CONVERT(BIT, CASE WHEN B.CED_P_FECHA_HORA IS NOT NULL AND B.CED_U_FECHA_HORA IS NOT NULL#(lf)                       AND B.CED_U_FECHA_HORA < B.CED_P_FECHA_HORA THEN 1 ELSE 0 END) AS AUD_INC_CED_U_ANTES_CED_P,#(lf)#(lf)    -- -------------------------------------------------------------#(lf)    -- FECHAS ATÍPICAS#(lf)    -- -------------------------------------------------------------#(lf)    CONVERT(BIT, CASE WHEN B.FAC_P_FECHA_HORA_REAL IS NOT NULL AND B.PED_FECHA_HORA IS NOT NULL#(lf)                       AND B.FAC_P_FECHA_HORA_REAL < DATEADD(DAY, -30, B.PED_FECHA_HORA)#(lf)                      THEN 1 ELSE 0 END) AS AUD_INC_FAC_MAS_30_DIAS_ANTES_PED,#(lf)    CONVERT(BIT, CASE WHEN B.TRP_P_FECHA_HORA IS NOT NULL AND B.PED_FECHA_HORA IS NOT NULL#(lf)                       AND B.TRP_P_FECHA_HORA < DATEADD(DAY, -30, B.PED_FECHA_HORA)#(lf)                      THEN 1 ELSE 0 END) AS AUD_INC_TRP_MAS_30_DIAS_ANTES_PED,#(lf)    CONVERT(BIT, CASE WHEN B.FAC_P_FECHA_HORA_REAL IS NOT NULL AND B.PED_FECHA_HORA IS NOT NULL#(lf)                       AND B.FAC_P_FECHA_HORA_REAL > DATEADD(DAY, 365, B.PED_FECHA_HORA)#(lf)                      THEN 1 ELSE 0 END) AS AUD_INC_FAC_MAS_365_DIAS_DESPUES_PED,#(lf)    CONVERT(BIT, CASE WHEN B.TRP_P_FECHA_HORA IS NOT NULL AND B.PED_FECHA_HORA IS NOT NULL#(lf)                       AND B.TRP_P_FECHA_HORA > DATEADD(DAY, 365, B.PED_FECHA_HORA)#(lf)                      THEN 1 ELSE 0 END) AS AUD_INC_TRP_MAS_365_DIAS_DESPUES_PED,#(lf)    CONVERT(BIT, CASE WHEN COALESCE(B.CED_U_FECHA_HORA, B.CED_P_FECHA_HORA,#(lf)                                    B.TRP_U_FECHA_HORA, B.TRP_P_FECHA_HORA,#(lf)                                    B.FAC_U_FECHA_HORA, B.FAC_P_FECHA_HORA_REAL) > DATEADD(DAY, 1, GETDATE())#(lf)                      THEN 1 ELSE 0 END) AS AUD_INC_HITO_FECHA_FUTURA,#(lf)#(lf)    -- -------------------------------------------------------------#(lf)    -- HORAS 00:00:00: alerta de posible hora faltante/imputada.#(lf)    -- No necesariamente es un error; requiere revisión.#(lf)    -- -------------------------------------------------------------#(lf)    CONVERT(BIT, CASE WHEN B.PED_FECHA_HORA IS NOT NULL AND CONVERT(TIME(0), B.PED_FECHA_HORA) = '00:00:00' THEN 1 ELSE 0 END) AS AUD_HORA_00_PED,#(lf)    CONVERT(BIT, CASE WHEN B.COM_P_FECHA_HORA IS NOT NULL AND CONVERT(TIME(0), B.COM_P_FECHA_HORA) = '00:00:00' THEN 1 ELSE 0 END) AS AUD_HORA_00_COM,#(lf)    CONVERT(BIT, CASE WHEN B.CRD_P_FECHA_HORA IS NOT NULL AND CONVERT(TIME(0), B.CRD_P_FECHA_HORA) = '00:00:00' THEN 1 ELSE 0 END) AS AUD_HORA_00_CRD,#(lf)    CONVERT(BIT, CASE WHEN B.ENT_P_FECHA_HORA IS NOT NULL AND CONVERT(TIME(0), B.ENT_P_FECHA_HORA) = '00:00:00' THEN 1 ELSE 0 END) AS AUD_HORA_00_ENT,#(lf)    CONVERT(BIT, CASE WHEN B.PIC_P_FECHA_HORA IS NOT NULL AND CONVERT(TIME(0), B.PIC_P_FECHA_HORA) = '00:00:00' THEN 1 ELSE 0 END) AS AUD_HORA_00_PIC,#(lf)    CONVERT(BIT, CASE WHEN B.PAC_P_FECHA_HORA IS NOT NULL AND CONVERT(TIME(0), B.PAC_P_FECHA_HORA) = '00:00:00' THEN 1 ELSE 0 END) AS AUD_HORA_00_PAC,#(lf)    CONVERT(BIT, CASE WHEN B.FAC_P_FECHA_HORA_REAL IS NOT NULL AND CONVERT(TIME(0), B.FAC_P_FECHA_HORA_REAL) = '00:00:00' THEN 1 ELSE 0 END) AS AUD_HORA_00_FAC,#(lf)    CONVERT(BIT, CASE WHEN B.TRP_P_FECHA_HORA IS NOT NULL AND CONVERT(TIME(0), B.TRP_P_FECHA_HORA) = '00:00:00' THEN 1 ELSE 0 END) AS AUD_HORA_00_TRP,#(lf)    CONVERT(BIT, CASE WHEN B.CED_P_FECHA_HORA IS NOT NULL AND CONVERT(TIME(0), B.CED_P_FECHA_HORA) = '00:00:00' THEN 1 ELSE 0 END) AS AUD_HORA_00_CED,#(lf)#(lf)    -- -------------------------------------------------------------#(lf)    -- AUDITORÍA DEL FLUJO FES#(lf)    -- Factura original -> pedido posterior -> entrega -> manifiesto.#(lf)    -- -------------------------------------------------------------#(lf)    CONVERT(BIT, CASE WHEN B.ES_FES = 1 AND B.PRIMERA_FECHA_PEDIDO_POSTERIOR IS NULL THEN 1 ELSE 0 END) AS AUD_FES_SIN_FECHA_PEDIDO_POSTERIOR,#(lf)    CONVERT(BIT, CASE WHEN B.ES_FES = 1 AND B.PRIMERA_FECHA_ENTREGA_POSTERIOR IS NULL THEN 1 ELSE 0 END) AS AUD_FES_SIN_ENTREGA_POSTERIOR,#(lf)    CONVERT(BIT, CASE WHEN B.ES_FES = 1 AND B.PRIMERA_FECHA_MANIFIESTO IS NULL THEN 1 ELSE 0 END) AS AUD_FES_SIN_MANIFIESTO,#(lf)#(lf)    CONVERT(BIT, CASE WHEN B.ES_FES = 1#(lf)                       AND B.FAC_P_FECHA_HORA_REAL IS NOT NULL#(lf)                       AND B.PRIMERA_FECHA_PEDIDO_POSTERIOR IS NOT NULL#(lf)                       AND B.PRIMERA_FECHA_PEDIDO_POSTERIOR < CAST(B.FAC_P_FECHA_HORA_REAL AS DATE)#(lf)                      THEN 1 ELSE 0 END) AS AUD_FES_PEDIDO_POST_ANTES_FACTURA,#(lf)#(lf)    CONVERT(BIT, CASE WHEN B.ES_FES = 1#(lf)                       AND B.PRIMERA_FECHA_PEDIDO_POSTERIOR IS NOT NULL#(lf)                       AND B.PRIMERA_FECHA_ENTREGA_POSTERIOR IS NOT NULL#(lf)                       AND B.PRIMERA_FECHA_ENTREGA_POSTERIOR < B.PRIMERA_FECHA_PEDIDO_POSTERIOR#(lf)                      THEN 1 ELSE 0 END) AS AUD_FES_ENTREGA_ANTES_PEDIDO_POST,#(lf)#(lf)    CONVERT(BIT, CASE WHEN B.ES_FES = 1#(lf)                       AND B.PRIMERA_FECHA_ENTREGA_POSTERIOR IS NOT NULL#(lf)                       AND B.PRIMERA_FECHA_MANIFIESTO IS NOT NULL#(lf)                       AND B.PRIMERA_FECHA_MANIFIESTO < B.PRIMERA_FECHA_ENTREGA_POSTERIOR#(lf)                      THEN 1 ELSE 0 END) AS AUD_FES_MANIFIESTO_ANTES_ENTREGA,#(lf)#(lf)    CONVERT(BIT, CASE WHEN B.ES_FES = 1#(lf)                       AND B.PRIMERA_FECHA_PEDIDO_POSTERIOR IS NOT NULL#(lf)                       AND B.ULTIMA_FECHA_PEDIDO_POSTERIOR IS NOT NULL#(lf)                       AND B.ULTIMA_FECHA_PEDIDO_POSTERIOR < B.PRIMERA_FECHA_PEDIDO_POSTERIOR#(lf)                      THEN 1 ELSE 0 END) AS AUD_FES_ULT_PEDIDO_ANTES_PRIMERO,#(lf)#(lf)    CONVERT(BIT, CASE WHEN B.ES_FES = 1#(lf)                       AND B.PRIMERA_FECHA_ENTREGA_POSTERIOR IS NOT NULL#(lf)                       AND B.ULTIMA_FECHA_ENTREGA_POSTERIOR IS NOT NULL#(lf)                       AND B.ULTIMA_FECHA_ENTREGA_POSTERIOR < B.PRIMERA_FECHA_ENTREGA_POSTERIOR#(lf)                      THEN 1 ELSE 0 END) AS AUD_FES_ULT_ENTREGA_ANTES_PRIMERA,#(lf)#(lf)    CONVERT(BIT, CASE WHEN B.ES_FES = 1#(lf)                       AND B.PRIMERA_FECHA_MANIFIESTO IS NOT NULL#(lf)                       AND B.ULTIMA_FECHA_MANIFIESTO IS NOT NULL#(lf)                       AND B.ULTIMA_FECHA_MANIFIESTO < B.PRIMERA_FECHA_MANIFIESTO#(lf)                      THEN 1 ELSE 0 END) AS AUD_FES_ULT_MANIFIESTO_ANTES_PRIMERO,#(lf)#(lf)    CONVERT(BIT, CASE WHEN B.ES_FES = 1#(lf)                       AND B.FAC_P_FECHA_HORA_REAL IS NOT NULL#(lf)                       AND B.PRIMERA_FECHA_MANIFIESTO IS NOT NULL#(lf)                       AND DATEDIFF(DAY, CAST(B.FAC_P_FECHA_HORA_REAL AS DATE), B.PRIMERA_FECHA_MANIFIESTO) > 60#(lf)                      THEN 1 ELSE 0 END) AS AUD_FES_CICLO_MAYOR_60_DIAS,#(lf)#(lf)    CONVERT(BIT, CASE WHEN B.ES_FES = 0#(lf)                       AND (B.PRIMERA_FECHA_PEDIDO_POSTERIOR IS NOT NULL#(lf)                         OR B.PRIMERA_FECHA_ENTREGA_POSTERIOR IS NOT NULL#(lf)                         OR B.PRIMERA_FECHA_MANIFIESTO IS NOT NULL)#(lf)                      THEN 1 ELSE 0 END) AS AUD_NO_FES_CON_FECHAS_FES,#(lf)#(lf)    CONVERT(BIT, CASE WHEN B.ES_FES = 0#(lf)                       AND (B.DH_FES_FACTURA_A_PRIMER_PEDIDO_POSTERIOR IS NOT NULL#(lf)                         OR B.DH_FES_PRIMER_PEDIDO_A_PRIMERA_ENTREGA_POSTERIOR IS NOT NULL#(lf)                         OR B.DH_FES_PRIMERA_ENTREGA_A_PRIMER_MANIFIESTO IS NOT NULL#(lf)                         OR B.DH_FES_FACTURA_A_PRIMER_MANIFIESTO IS NOT NULL#(lf)                         OR B.DH_FES_FACTURA_A_ULTIMO_MANIFIESTO IS NOT NULL)#(lf)                      THEN 1 ELSE 0 END) AS AUD_NO_FES_CON_METRICAS_FES,#(lf)#(lf)    -- -------------------------------------------------------------#(lf)    -- AUDITORÍA DE SALDOS#(lf)    -- -------------------------------------------------------------#(lf)    CONVERT(BIT, CASE WHEN B.ES_SALDO = 1 AND B.FAC_P_FECHA_HORA_REAL IS NULL THEN 1 ELSE 0 END) AS AUD_SALDO_SIN_FAC_P,#(lf)    CONVERT(BIT, CASE WHEN B.ES_SALDO = 1 AND B.FAC_U_FECHA_HORA IS NULL THEN 1 ELSE 0 END) AS AUD_SALDO_SIN_FAC_U,#(lf)    CONVERT(BIT, CASE WHEN B.ES_SALDO = 1 AND B.TRP_U_FECHA_HORA IS NULL THEN 1 ELSE 0 END) AS AUD_SALDO_SIN_TRP_U,#(lf)    CONVERT(BIT, CASE WHEN B.ES_SALDO = 1#(lf)                       AND B.FAC_P_FECHA_HORA_REAL IS NOT NULL#(lf)                       AND B.FAC_U_FECHA_HORA IS NOT NULL#(lf)                       AND B.FAC_U_FECHA_HORA < B.FAC_P_FECHA_HORA_REAL#(lf)                      THEN 1 ELSE 0 END) AS AUD_SALDO_FAC_U_ANTES_FAC_P,#(lf)    CONVERT(BIT, CASE WHEN B.ES_SALDO = 1#(lf)                       AND B.TRP_P_FECHA_HORA IS NOT NULL#(lf)                       AND B.TRP_U_FECHA_HORA IS NOT NULL#(lf)                       AND B.TRP_U_FECHA_HORA < B.TRP_P_FECHA_HORA#(lf)                      THEN 1 ELSE 0 END) AS AUD_SALDO_TRP_U_ANTES_TRP_P,#(lf)#(lf)    @FechaDesde AS PARAM_FECHA_DESDE,#(lf)    @FechaHasta AS PARAM_FECHA_HASTA,#(lf)    GETDATE()   AS FECHA_CARGA_MASTER#(lf)#(lf)INTO #FACT_NS_RAW_AUD_V3#(lf)FROM #BaseAnalisis_AUD_V3 AS B;#(lf)#(lf)-- =====================================================================#(lf)-- MASTER FINAL CON AUDITORÍA#(lf)-- Se construye en una sola operación compatible con SQL Server 2012.#(lf)-- =====================================================================#(lf)IF OBJECT_ID('tempdb..#FACT_NS_MASTER_AUD_V3') IS NOT NULL#(lf)    DROP TABLE #FACT_NS_MASTER_AUD_V3;#(lf)#(lf)SELECT#(lf)    M.*,#(lf)#(lf)    A.HITOS_ESPERADOS AS AUD_HITOS_OBLIGATORIOS_ESPERADOS,#(lf)#(lf)    A.HITOS_PRESENTES AS AUD_CANTIDAD_HITOS_PRESENTES,#(lf)#(lf)    A.HITOS_ESPERADOS - A.HITOS_PRESENTES AS AUD_CANTIDAD_HITOS_FALTANTES,#(lf)#(lf)    CONVERT#(lf)    (#(lf)        DECIMAL(9,2),#(lf)        A.HITOS_PRESENTES * 100.0 / NULLIF(A.HITOS_ESPERADOS, 0)#(lf)    ) AS AUD_PCT_COBERTURA_HITOS,#(lf)#(lf)    7 AS AUD_HITOS_OPCIONALES_ESPERADOS,#(lf)#(lf)    A.HITOS_OPCIONALES_PRESENTES AS AUD_HITOS_OPCIONALES_PRESENTES,#(lf)#(lf)    7 - A.HITOS_OPCIONALES_PRESENTES AS AUD_HITOS_OPCIONALES_FALTANTES,#(lf)#(lf)    CONVERT#(lf)    (#(lf)        DECIMAL(9,2),#(lf)        A.HITOS_OPCIONALES_PRESENTES * 100.0 / 7.0#(lf)    ) AS AUD_PCT_COBERTURA_OPCIONAL,#(lf)#(lf)    A.CRITICAS_NORMAL AS AUD_CRITICAS_FLUJO_NORMAL,#(lf)#(lf)    A.ADVERTENCIAS_NORMAL AS AUD_ADVERTENCIAS_FLUJO_NORMAL,#(lf)#(lf)    A.CRITICAS_PRIMERO_ULTIMO AS AUD_CRITICAS_PRIMERO_ULTIMO,#(lf)#(lf)    A.ADVERTENCIAS_PRIMERO_ULTIMO AS AUD_ADVERTENCIAS_PRIMERO_ULTIMO,#(lf)#(lf)    A.CRITICAS_ATIPICAS AS AUD_ALERTAS_FECHAS_ATIPICAS,#(lf)#(lf)    A.ALERTAS_HORA_00 AS AUD_ALERTAS_HORA_00,#(lf)#(lf)    A.CRITICAS_FES AS AUD_CRITICAS_FES,#(lf)#(lf)    A.ADVERTENCIAS_FES AS AUD_ADVERTENCIAS_FES,#(lf)#(lf)    A.FALTANTES_FES AS AUD_FALTANTES_FES,#(lf)#(lf)    A.CRITICAS_SALDO AS AUD_CRITICAS_SALDO,#(lf)#(lf)    A.ADVERTENCIAS_SALDO AS AUD_ADVERTENCIAS_SALDO,#(lf)#(lf)    A.FALTANTES_SALDO AS AUD_FALTANTES_SALDO,#(lf)#(lf)    CONVERT#(lf)    (#(lf)        BIT,#(lf)        CASE#(lf)            WHEN M.PDA_P_FECHA_HORA IS NOT NULL#(lf)             AND M.PED_FECHA_HORA IS NOT NULL#(lf)             AND M.PDA_P_FECHA_HORA > M.PED_FECHA_HORA#(lf)                THEN 1#(lf)            ELSE 0#(lf)        END#(lf)    ) AS AUD_OBS_PDA_DESPUES_PEDIDO,#(lf)#(lf)    A.CRITICAS_NORMAL#(lf)        + A.CRITICAS_PRIMERO_ULTIMO#(lf)        + A.CRITICAS_ATIPICAS#(lf)        + A.CRITICAS_FES#(lf)        + A.CRITICAS_SALDO AS AUD_TOTAL_CRITICAS,#(lf)#(lf)    A.ADVERTENCIAS_NORMAL#(lf)        + A.ADVERTENCIAS_PRIMERO_ULTIMO#(lf)        + A.ALERTAS_HORA_00#(lf)        + A.ADVERTENCIAS_FES#(lf)        + A.FALTANTES_FES#(lf)        + A.ADVERTENCIAS_SALDO#(lf)        + A.FALTANTES_SALDO#(lf)        + CASE#(lf)              WHEN M.INCLUIR_SLA_NORMAL = 1#(lf)                  THEN A.FALTANTES_NORMAL#(lf)              ELSE 0#(lf)          END AS AUD_TOTAL_ADVERTENCIAS,#(lf)#(lf)    A.CRITICAS_NORMAL#(lf)        + A.CRITICAS_PRIMERO_ULTIMO#(lf)        + A.CRITICAS_ATIPICAS#(lf)        + A.CRITICAS_FES#(lf)        + A.CRITICAS_SALDO#(lf)        + A.ADVERTENCIAS_NORMAL#(lf)        + A.ADVERTENCIAS_PRIMERO_ULTIMO#(lf)        + A.ALERTAS_HORA_00#(lf)        + A.ADVERTENCIAS_FES#(lf)        + A.FALTANTES_FES#(lf)        + A.ADVERTENCIAS_SALDO#(lf)        + A.FALTANTES_SALDO#(lf)        + CASE#(lf)              WHEN M.INCLUIR_SLA_NORMAL = 1#(lf)                  THEN A.FALTANTES_NORMAL#(lf)              ELSE 0#(lf)          END AS AUD_TOTAL_INCONGRUENCIAS,#(lf)#(lf)    CONVERT#(lf)    (#(lf)        BIT,#(lf)        CASE#(lf)            WHEN A.CRITICAS_NORMAL#(lf)               + A.CRITICAS_PRIMERO_ULTIMO#(lf)               + A.CRITICAS_ATIPICAS#(lf)               + A.CRITICAS_FES#(lf)               + A.CRITICAS_SALDO > 0#(lf)                THEN 1#(lf)#(lf)            WHEN A.ADVERTENCIAS_NORMAL#(lf)               + A.ADVERTENCIAS_PRIMERO_ULTIMO#(lf)               + A.ALERTAS_HORA_00#(lf)               + A.ADVERTENCIAS_FES#(lf)               + A.FALTANTES_FES#(lf)               + A.ADVERTENCIAS_SALDO#(lf)               + A.FALTANTES_SALDO#(lf)               + CASE#(lf)                     WHEN M.INCLUIR_SLA_NORMAL = 1#(lf)                         THEN A.FALTANTES_NORMAL#(lf)                     ELSE 0#(lf)                 END > 0#(lf)                THEN 1#(lf)#(lf)            ELSE 0#(lf)        END#(lf)    ) AS AUD_REQUIERE_REVISION,#(lf)#(lf)    CASE#(lf)        WHEN M.INCLUIR_SLA_NORMAL = 0#(lf)            THEN 'NO APLICA'#(lf)        WHEN A.CRITICAS_NORMAL + A.CRITICAS_PRIMERO_ULTIMO + A.CRITICAS_ATIPICAS > 0#(lf)            THEN 'CRITICO'#(lf)        WHEN A.FALTANTES_NORMAL > 0#(lf)            THEN 'INCOMPLETO'#(lf)        WHEN A.ADVERTENCIAS_NORMAL#(lf)           + A.ADVERTENCIAS_PRIMERO_ULTIMO#(lf)           + A.ALERTAS_HORA_00 > 0#(lf)            THEN 'ADVERTENCIA'#(lf)        ELSE 'OK'#(lf)    END AS AUD_ESTADO_FLUJO_NORMAL,#(lf)#(lf)    CASE#(lf)        WHEN M.ES_FES = 0#(lf)            THEN 'NO APLICA'#(lf)        WHEN A.CRITICAS_FES + A.CRITICAS_ATIPICAS > 0#(lf)            THEN 'CRITICO'#(lf)        WHEN A.FALTANTES_FES > 0#(lf)            THEN 'INCOMPLETO'#(lf)        WHEN A.ADVERTENCIAS_FES + A.ALERTAS_HORA_00 > 0#(lf)            THEN 'ADVERTENCIA'#(lf)        ELSE 'OK'#(lf)    END AS AUD_ESTADO_FLUJO_FES,#(lf)#(lf)    CASE#(lf)        WHEN M.ES_SALDO = 0#(lf)            THEN 'NO APLICA'#(lf)        WHEN A.CRITICAS_SALDO + A.CRITICAS_ATIPICAS > 0#(lf)            THEN 'CRITICO'#(lf)        WHEN A.FALTANTES_SALDO > 0#(lf)            THEN 'INCOMPLETO'#(lf)        WHEN A.ADVERTENCIAS_SALDO + A.ALERTAS_HORA_00 > 0#(lf)            THEN 'ADVERTENCIA'#(lf)        ELSE 'OK'#(lf)    END AS AUD_ESTADO_FLUJO_SALDO,#(lf)#(lf)    CASE#(lf)        WHEN A.CRITICAS_NORMAL#(lf)           + A.CRITICAS_PRIMERO_ULTIMO#(lf)           + A.CRITICAS_ATIPICAS#(lf)           + A.CRITICAS_FES#(lf)           + A.CRITICAS_SALDO > 0#(lf)            THEN 'CRITICO'#(lf)#(lf)        WHEN A.ADVERTENCIAS_NORMAL#(lf)           + A.ADVERTENCIAS_PRIMERO_ULTIMO#(lf)           + A.ALERTAS_HORA_00#(lf)           + A.ADVERTENCIAS_FES#(lf)           + A.FALTANTES_FES#(lf)           + A.ADVERTENCIAS_SALDO#(lf)           + A.FALTANTES_SALDO#(lf)           + CASE#(lf)                 WHEN M.INCLUIR_SLA_NORMAL = 1#(lf)                     THEN A.FALTANTES_NORMAL#(lf)                 ELSE 0#(lf)             END > 0#(lf)            THEN 'REVISAR'#(lf)#(lf)        ELSE 'OK'#(lf)    END AS AUD_ESTADO_GENERAL,#(lf)#(lf)    CASE#(lf)        -- Críticas de fechas atípicas#(lf)        WHEN M.AUD_INC_TRP_MAS_30_DIAS_ANTES_PED = 1#(lf)            THEN 'CRITICO: TRANSPORTE MAS DE 30 DIAS ANTES DEL PEDIDO'#(lf)        WHEN M.AUD_INC_FAC_MAS_30_DIAS_ANTES_PED = 1#(lf)            THEN 'CRITICO: FACTURA MAS DE 30 DIAS ANTES DEL PEDIDO'#(lf)        WHEN M.AUD_INC_HITO_FECHA_FUTURA = 1#(lf)            THEN 'CRITICO: HITO CON FECHA FUTURA'#(lf)        WHEN M.AUD_INC_TRP_MAS_365_DIAS_DESPUES_PED = 1#(lf)            THEN 'CRITICO: TRANSPORTE MAS DE 365 DIAS DESPUES DEL PEDIDO'#(lf)        WHEN M.AUD_INC_FAC_MAS_365_DIAS_DESPUES_PED = 1#(lf)            THEN 'CRITICO: FACTURA MAS DE 365 DIAS DESPUES DEL PEDIDO'#(lf)#(lf)        -- Críticas FES#(lf)        WHEN M.AUD_NO_FES_CON_METRICAS_FES = 1#(lf)            THEN 'CRITICO: PEDIDO NO FES CON METRICAS FES'#(lf)        WHEN M.AUD_NO_FES_CON_FECHAS_FES = 1#(lf)            THEN 'CRITICO: PEDIDO NO FES CON FECHAS FES'#(lf)        WHEN M.AUD_FES_PEDIDO_POST_ANTES_FACTURA = 1#(lf)            THEN 'CRITICO FES: PEDIDO POSTERIOR EN FECHA ANTERIOR A FACTURA'#(lf)        WHEN M.AUD_FES_ENTREGA_ANTES_PEDIDO_POST = 1#(lf)            THEN 'CRITICO FES: ENTREGA POSTERIOR ANTES DEL PEDIDO POSTERIOR'#(lf)        WHEN M.AUD_FES_MANIFIESTO_ANTES_ENTREGA = 1#(lf)            THEN 'CRITICO FES: MANIFIESTO ANTES DE ENTREGA POSTERIOR'#(lf)        WHEN M.AUD_FES_ULT_PEDIDO_ANTES_PRIMERO = 1#(lf)            THEN 'CRITICO FES: ULTIMO PEDIDO POSTERIOR ANTES DEL PRIMERO'#(lf)        WHEN M.AUD_FES_ULT_ENTREGA_ANTES_PRIMERA = 1#(lf)            THEN 'CRITICO FES: ULTIMA ENTREGA POSTERIOR ANTES DE LA PRIMERA'#(lf)        WHEN M.AUD_FES_ULT_MANIFIESTO_ANTES_PRIMERO = 1#(lf)            THEN 'CRITICO FES: ULTIMO MANIFIESTO ANTES DEL PRIMERO'#(lf)#(lf)        -- Críticas normales: sólo cuando cambia la fecha calendario#(lf)        WHEN M.INCLUIR_SLA_NORMAL = 1#(lf)         AND M.ENT_P_FECHA_HORA IS NOT NULL#(lf)         AND M.PED_FECHA_HORA IS NOT NULL#(lf)         AND CAST(M.ENT_P_FECHA_HORA AS DATE) < CAST(M.PED_FECHA_HORA AS DATE)#(lf)            THEN 'CRITICO: ENTREGA EN FECHA ANTERIOR AL PEDIDO'#(lf)#(lf)        WHEN M.INCLUIR_SLA_NORMAL = 1#(lf)         AND M.PIC_P_FECHA_HORA IS NOT NULL#(lf)         AND M.ENT_P_FECHA_HORA IS NOT NULL#(lf)         AND CAST(M.PIC_P_FECHA_HORA AS DATE) < CAST(M.ENT_P_FECHA_HORA AS DATE)#(lf)            THEN 'CRITICO: PICKING EN FECHA ANTERIOR A ENTREGA'#(lf)#(lf)        WHEN M.INCLUIR_SLA_NORMAL = 1#(lf)         AND M.FAC_P_FECHA_HORA_REAL IS NOT NULL#(lf)         AND M.PIC_P_FECHA_HORA IS NOT NULL#(lf)         AND CAST(M.FAC_P_FECHA_HORA_REAL AS DATE) < CAST(M.PIC_P_FECHA_HORA AS DATE)#(lf)            THEN 'CRITICO: FACTURA EN FECHA ANTERIOR A PICKING'#(lf)#(lf)        WHEN M.INCLUIR_SLA_NORMAL = 1#(lf)         AND M.TRP_P_FECHA_HORA IS NOT NULL#(lf)         AND M.FAC_P_FECHA_HORA_REAL IS NOT NULL#(lf)         AND CAST(M.TRP_P_FECHA_HORA AS DATE) < CAST(M.FAC_P_FECHA_HORA_REAL AS DATE)#(lf)            THEN 'CRITICO: TRANSPORTE EN FECHA ANTERIOR A FACTURA'#(lf)#(lf)        WHEN M.INCLUIR_SLA_NORMAL = 1#(lf)         AND M.TRP_U_FECHA_HORA IS NOT NULL#(lf)         AND M.TRP_P_FECHA_HORA IS NOT NULL#(lf)         AND CAST(M.TRP_U_FECHA_HORA AS DATE) < CAST(M.TRP_P_FECHA_HORA AS DATE)#(lf)            THEN 'CRITICO: ULTIMO TRANSPORTE EN FECHA ANTERIOR AL PRIMERO'#(lf)#(lf)        -- Críticas saldo#(lf)        WHEN M.ES_SALDO = 1#(lf)         AND M.FAC_U_FECHA_HORA IS NOT NULL#(lf)         AND M.FAC_P_FECHA_HORA_REAL IS NOT NULL#(lf)         AND CAST(M.FAC_U_FECHA_HORA AS DATE) < CAST(M.FAC_P_FECHA_HORA_REAL AS DATE)#(lf)            THEN 'CRITICO SALDO: ULTIMA FACTURA EN FECHA ANTERIOR A LA PRIMERA'#(lf)#(lf)        WHEN M.ES_SALDO = 1#(lf)         AND M.TRP_U_FECHA_HORA IS NOT NULL#(lf)         AND M.TRP_P_FECHA_HORA IS NOT NULL#(lf)         AND CAST(M.TRP_U_FECHA_HORA AS DATE) < CAST(M.TRP_P_FECHA_HORA AS DATE)#(lf)            THEN 'CRITICO SALDO: ULTIMO TRANSPORTE EN FECHA ANTERIOR AL PRIMERO'#(lf)#(lf)        -- Faltantes por segmento#(lf)        WHEN M.ES_FES = 1 AND M.FAC_P_FECHA_HORA_REAL IS NULL#(lf)            THEN 'INCOMPLETO FES: SIN FACTURA ORIGINAL'#(lf)        WHEN M.AUD_FES_SIN_FECHA_PEDIDO_POSTERIOR = 1#(lf)            THEN 'INCOMPLETO FES: SIN FECHA DE PEDIDO POSTERIOR'#(lf)        WHEN M.AUD_FES_SIN_ENTREGA_POSTERIOR = 1#(lf)            THEN 'INCOMPLETO FES: SIN ENTREGA POSTERIOR'#(lf)        WHEN M.AUD_FES_SIN_MANIFIESTO = 1#(lf)            THEN 'INCOMPLETO FES: SIN MANIFIESTO'#(lf)#(lf)        WHEN M.ES_SALDO = 1 AND M.AUD_SALDO_SIN_FAC_P = 1#(lf)            THEN 'INCOMPLETO SALDO: SIN PRIMERA FACTURA'#(lf)        WHEN M.ES_SALDO = 1 AND M.AUD_SALDO_SIN_FAC_U = 1#(lf)            THEN 'INCOMPLETO SALDO: SIN ULTIMA FACTURA'#(lf)        WHEN M.ES_SALDO = 1 AND M.TRP_P_FECHA_HORA IS NULL#(lf)            THEN 'INCOMPLETO SALDO: SIN PRIMER TRANSPORTE'#(lf)        WHEN M.ES_SALDO = 1 AND M.AUD_SALDO_SIN_TRP_U = 1#(lf)            THEN 'INCOMPLETO SALDO: SIN ULTIMO TRANSPORTE'#(lf)#(lf)        WHEN M.INCLUIR_SLA_NORMAL = 1 AND M.PED_FECHA_HORA IS NULL#(lf)            THEN 'INCOMPLETO NORMAL: SIN PEDIDO'#(lf)        WHEN M.INCLUIR_SLA_NORMAL = 1 AND M.ENT_P_FECHA_HORA IS NULL#(lf)            THEN 'INCOMPLETO NORMAL: SIN ENTREGA'#(lf)        WHEN M.INCLUIR_SLA_NORMAL = 1 AND M.PIC_P_FECHA_HORA IS NULL#(lf)            THEN 'INCOMPLETO NORMAL: SIN PICKING'#(lf)        WHEN M.INCLUIR_SLA_NORMAL = 1 AND M.FAC_P_FECHA_HORA_REAL IS NULL#(lf)            THEN 'INCOMPLETO NORMAL: SIN FACTURA'#(lf)        WHEN M.INCLUIR_SLA_NORMAL = 1 AND M.TRP_P_FECHA_HORA IS NULL#(lf)            THEN 'INCOMPLETO NORMAL: SIN TRANSPORTE'#(lf)#(lf)        -- Advertencias FES#(lf)        WHEN M.AUD_FES_CICLO_MAYOR_60_DIAS = 1#(lf)            THEN 'ADVERTENCIA FES: CICLO FACTURA A MANIFIESTO MAYOR A 60 DIAS'#(lf)#(lf)        -- Advertencias de secuencia dentro del mismo día#(lf)        WHEN M.INCLUIR_SLA_NORMAL = 1#(lf)         AND M.ENT_P_FECHA_HORA IS NOT NULL#(lf)         AND M.PED_FECHA_HORA IS NOT NULL#(lf)         AND CAST(M.ENT_P_FECHA_HORA AS DATE) = CAST(M.PED_FECHA_HORA AS DATE)#(lf)         AND M.ENT_P_FECHA_HORA < M.PED_FECHA_HORA#(lf)            THEN 'ADVERTENCIA: ENTREGA ANTES DEL PEDIDO EN EL MISMO DIA'#(lf)#(lf)        WHEN M.INCLUIR_SLA_NORMAL = 1#(lf)         AND M.PIC_P_FECHA_HORA IS NOT NULL#(lf)         AND M.ENT_P_FECHA_HORA IS NOT NULL#(lf)         AND CAST(M.PIC_P_FECHA_HORA AS DATE) = CAST(M.ENT_P_FECHA_HORA AS DATE)#(lf)         AND M.PIC_P_FECHA_HORA < M.ENT_P_FECHA_HORA#(lf)            THEN 'ADVERTENCIA: PICKING ANTES DE ENTREGA EN EL MISMO DIA'#(lf)#(lf)        WHEN M.INCLUIR_SLA_NORMAL = 1#(lf)         AND M.FAC_P_FECHA_HORA_REAL IS NOT NULL#(lf)         AND M.PIC_P_FECHA_HORA IS NOT NULL#(lf)         AND CAST(M.FAC_P_FECHA_HORA_REAL AS DATE) = CAST(M.PIC_P_FECHA_HORA AS DATE)#(lf)         AND M.FAC_P_FECHA_HORA_REAL < M.PIC_P_FECHA_HORA#(lf)            THEN 'ADVERTENCIA: FACTURA ANTES DE PICKING EN EL MISMO DIA'#(lf)#(lf)        WHEN M.INCLUIR_SLA_NORMAL = 1#(lf)         AND M.TRP_P_FECHA_HORA IS NOT NULL#(lf)         AND M.FAC_P_FECHA_HORA_REAL IS NOT NULL#(lf)         AND CAST(M.TRP_P_FECHA_HORA AS DATE) = CAST(M.FAC_P_FECHA_HORA_REAL AS DATE)#(lf)         AND M.TRP_P_FECHA_HORA < M.FAC_P_FECHA_HORA_REAL#(lf)            THEN 'ADVERTENCIA: TRANSPORTE ANTES DE FACTURA EN EL MISMO DIA'#(lf)#(lf)        WHEN M.TRP_U_FECHA_HORA IS NOT NULL#(lf)         AND M.TRP_P_FECHA_HORA IS NOT NULL#(lf)         AND CAST(M.TRP_U_FECHA_HORA AS DATE) = CAST(M.TRP_P_FECHA_HORA AS DATE)#(lf)         AND M.TRP_U_FECHA_HORA < M.TRP_P_FECHA_HORA#(lf)            THEN 'ADVERTENCIA: ULTIMO TRANSPORTE ANTES DEL PRIMERO EN EL MISMO DIA'#(lf)#(lf)        WHEN A.ALERTAS_HORA_00 > 0#(lf)            THEN 'ADVERTENCIA: HORA 00:00:00 EN UNO O MAS HITOS'#(lf)#(lf)        ELSE 'SIN INCONGRUENCIA'#(lf)    END AS AUD_PRINCIPAL_INCONGRUENCIA#(lf)#(lf)INTO #FACT_NS_MASTER_AUD_V3#(lf)FROM #FACT_NS_RAW_AUD_V3 AS M#(lf)CROSS APPLY#(lf)(#(lf)    SELECT#(lf)        -- =============================================================#(lf)        -- COBERTURA OBLIGATORIA SEGÚN SEGMENTO#(lf)        -- =============================================================#(lf)        CASE#(lf)            WHEN M.ES_FES = 1 AND M.ES_SALDO = 1 THEN 8#(lf)            WHEN M.ES_FES = 1 THEN 5#(lf)            WHEN M.ES_SALDO = 1 THEN 5#(lf)            ELSE 5#(lf)        END AS HITOS_ESPERADOS,#(lf)#(lf)        CASE#(lf)            WHEN M.ES_FES = 1 AND M.ES_SALDO = 1#(lf)                THEN#(lf)                    CASE WHEN M.PED_FECHA_HORA IS NOT NULL THEN 1 ELSE 0 END#(lf)                  + CASE WHEN M.FAC_P_FECHA_HORA_REAL IS NOT NULL THEN 1 ELSE 0 END#(lf)                  + CASE WHEN M.FAC_U_FECHA_HORA IS NOT NULL THEN 1 ELSE 0 END#(lf)                  + CASE WHEN M.TRP_P_FECHA_HORA IS NOT NULL THEN 1 ELSE 0 END#(lf)                  + CASE WHEN M.TRP_U_FECHA_HORA IS NOT NULL THEN 1 ELSE 0 END#(lf)                  + CASE WHEN M.PRIMERA_FECHA_PEDIDO_POSTERIOR IS NOT NULL THEN 1 ELSE 0 END#(lf)                  + CASE WHEN M.PRIMERA_FECHA_ENTREGA_POSTERIOR IS NOT NULL THEN 1 ELSE 0 END#(lf)                  + CASE WHEN M.PRIMERA_FECHA_MANIFIESTO IS NOT NULL THEN 1 ELSE 0 END#(lf)#(lf)            WHEN M.ES_FES = 1#(lf)                THEN#(lf)                    CASE WHEN M.PED_FECHA_HORA IS NOT NULL THEN 1 ELSE 0 END#(lf)                  + CASE WHEN M.FAC_P_FECHA_HORA_REAL IS NOT NULL THEN 1 ELSE 0 END#(lf)                  + CASE WHEN M.PRIMERA_FECHA_PEDIDO_POSTERIOR IS NOT NULL THEN 1 ELSE 0 END#(lf)                  + CASE WHEN M.PRIMERA_FECHA_ENTREGA_POSTERIOR IS NOT NULL THEN 1 ELSE 0 END#(lf)                  + CASE WHEN M.PRIMERA_FECHA_MANIFIESTO IS NOT NULL THEN 1 ELSE 0 END#(lf)#(lf)            WHEN M.ES_SALDO = 1#(lf)                THEN#(lf)                    CASE WHEN M.PED_FECHA_HORA IS NOT NULL THEN 1 ELSE 0 END#(lf)                  + CASE WHEN M.FAC_P_FECHA_HORA_REAL IS NOT NULL THEN 1 ELSE 0 END#(lf)                  + CASE WHEN M.FAC_U_FECHA_HORA IS NOT NULL THEN 1 ELSE 0 END#(lf)                  + CASE WHEN M.TRP_P_FECHA_HORA IS NOT NULL THEN 1 ELSE 0 END#(lf)                  + CASE WHEN M.TRP_U_FECHA_HORA IS NOT NULL THEN 1 ELSE 0 END#(lf)#(lf)            ELSE#(lf)                    CASE WHEN M.PED_FECHA_HORA IS NOT NULL THEN 1 ELSE 0 END#(lf)                  + CASE WHEN M.ENT_P_FECHA_HORA IS NOT NULL THEN 1 ELSE 0 END#(lf)                  + CASE WHEN M.PIC_P_FECHA_HORA IS NOT NULL THEN 1 ELSE 0 END#(lf)                  + CASE WHEN M.FAC_P_FECHA_HORA_REAL IS NOT NULL THEN 1 ELSE 0 END#(lf)                  + CASE WHEN M.TRP_P_FECHA_HORA IS NOT NULL THEN 1 ELSE 0 END#(lf)        END AS HITOS_PRESENTES,#(lf)#(lf)        -- PDA, Comercial, Crédito, Gerencia, Packing, Estado transporte, Cedible#(lf)          CASE WHEN M.PDA_P_FECHA_HORA IS NOT NULL THEN 1 ELSE 0 END#(lf)        + CASE WHEN M.COM_P_FECHA_HORA IS NOT NULL THEN 1 ELSE 0 END#(lf)        + CASE WHEN M.CRD_P_FECHA_HORA IS NOT NULL THEN 1 ELSE 0 END#(lf)        + CASE WHEN M.GER_P_FECHA_HORA IS NOT NULL THEN 1 ELSE 0 END#(lf)        + CASE WHEN M.PAC_P_FECHA_HORA IS NOT NULL THEN 1 ELSE 0 END#(lf)        + CASE WHEN M.TSTTO_P_FECHA_HORA IS NOT NULL THEN 1 ELSE 0 END#(lf)        + CASE WHEN M.CED_P_FECHA_HORA IS NOT NULL THEN 1 ELSE 0 END#(lf)            AS HITOS_OPCIONALES_PRESENTES,#(lf)#(lf)        -- =============================================================#(lf)        -- FALTANTES POR SEGMENTO#(lf)        -- =============================================================#(lf)        CASE#(lf)            WHEN M.INCLUIR_SLA_NORMAL = 1#(lf)                THEN#(lf)                    CASE WHEN M.PED_FECHA_HORA IS NULL THEN 1 ELSE 0 END#(lf)                  + CASE WHEN M.ENT_P_FECHA_HORA IS NULL THEN 1 ELSE 0 END#(lf)                  + CASE WHEN M.PIC_P_FECHA_HORA IS NULL THEN 1 ELSE 0 END#(lf)                  + CASE WHEN M.FAC_P_FECHA_HORA_REAL IS NULL THEN 1 ELSE 0 END#(lf)                  + CASE WHEN M.TRP_P_FECHA_HORA IS NULL THEN 1 ELSE 0 END#(lf)            ELSE 0#(lf)        END AS FALTANTES_NORMAL,#(lf)#(lf)        CASE#(lf)            WHEN M.ES_FES = 1#(lf)                THEN#(lf)                    CASE WHEN M.PED_FECHA_HORA IS NULL THEN 1 ELSE 0 END#(lf)                  + CASE WHEN M.FAC_P_FECHA_HORA_REAL IS NULL THEN 1 ELSE 0 END#(lf)                  + CASE WHEN M.PRIMERA_FECHA_PEDIDO_POSTERIOR IS NULL THEN 1 ELSE 0 END#(lf)                  + CASE WHEN M.PRIMERA_FECHA_ENTREGA_POSTERIOR IS NULL THEN 1 ELSE 0 END#(lf)                  + CASE WHEN M.PRIMERA_FECHA_MANIFIESTO IS NULL THEN 1 ELSE 0 END#(lf)            ELSE 0#(lf)        END AS FALTANTES_FES,#(lf)#(lf)        CASE#(lf)            WHEN M.ES_SALDO = 1#(lf)                THEN#(lf)                    CASE WHEN M.PED_FECHA_HORA IS NULL THEN 1 ELSE 0 END#(lf)                  + CASE WHEN M.FAC_P_FECHA_HORA_REAL IS NULL THEN 1 ELSE 0 END#(lf)                  + CASE WHEN M.FAC_U_FECHA_HORA IS NULL THEN 1 ELSE 0 END#(lf)                  + CASE WHEN M.TRP_P_FECHA_HORA IS NULL THEN 1 ELSE 0 END#(lf)                  + CASE WHEN M.TRP_U_FECHA_HORA IS NULL THEN 1 ELSE 0 END#(lf)            ELSE 0#(lf)        END AS FALTANTES_SALDO,#(lf)#(lf)        -- =============================================================#(lf)        -- CRÍTICAS NORMALES: inversión entre fechas distintas#(lf)        -- =============================================================#(lf)        CASE WHEN M.INCLUIR_SLA_NORMAL = 1#(lf)              AND M.ENT_P_FECHA_HORA IS NOT NULL#(lf)              AND M.PED_FECHA_HORA IS NOT NULL#(lf)              AND CAST(M.ENT_P_FECHA_HORA AS DATE) < CAST(M.PED_FECHA_HORA AS DATE)#(lf)             THEN 1 ELSE 0 END#(lf)#(lf)      + CASE WHEN M.INCLUIR_SLA_NORMAL = 1#(lf)              AND M.PIC_P_FECHA_HORA IS NOT NULL#(lf)              AND M.ENT_P_FECHA_HORA IS NOT NULL#(lf)              AND CAST(M.PIC_P_FECHA_HORA AS DATE) < CAST(M.ENT_P_FECHA_HORA AS DATE)#(lf)             THEN 1 ELSE 0 END#(lf)#(lf)      + CASE WHEN M.INCLUIR_SLA_NORMAL = 1#(lf)              AND M.FAC_P_FECHA_HORA_REAL IS NOT NULL#(lf)              AND M.PIC_P_FECHA_HORA IS NOT NULL#(lf)              AND CAST(M.FAC_P_FECHA_HORA_REAL AS DATE) < CAST(M.PIC_P_FECHA_HORA AS DATE)#(lf)             THEN 1 ELSE 0 END#(lf)#(lf)      + CASE WHEN M.INCLUIR_SLA_NORMAL = 1#(lf)              AND M.TRP_P_FECHA_HORA IS NOT NULL#(lf)              AND M.FAC_P_FECHA_HORA_REAL IS NOT NULL#(lf)              AND CAST(M.TRP_P_FECHA_HORA AS DATE) < CAST(M.FAC_P_FECHA_HORA_REAL AS DATE)#(lf)             THEN 1 ELSE 0 END#(lf)            AS CRITICAS_NORMAL,#(lf)#(lf)        -- Advertencias normales: orden invertido dentro de la misma fecha#(lf)        CASE WHEN M.INCLUIR_SLA_NORMAL = 1#(lf)              AND M.ENT_P_FECHA_HORA IS NOT NULL#(lf)              AND M.PED_FECHA_HORA IS NOT NULL#(lf)              AND CAST(M.ENT_P_FECHA_HORA AS DATE) = CAST(M.PED_FECHA_HORA AS DATE)#(lf)              AND M.ENT_P_FECHA_HORA < M.PED_FECHA_HORA#(lf)             THEN 1 ELSE 0 END#(lf)#(lf)      + CASE WHEN M.INCLUIR_SLA_NORMAL = 1#(lf)              AND M.PIC_P_FECHA_HORA IS NOT NULL#(lf)              AND M.ENT_P_FECHA_HORA IS NOT NULL#(lf)              AND CAST(M.PIC_P_FECHA_HORA AS DATE) = CAST(M.ENT_P_FECHA_HORA AS DATE)#(lf)              AND M.PIC_P_FECHA_HORA < M.ENT_P_FECHA_HORA#(lf)             THEN 1 ELSE 0 END#(lf)#(lf)      + CASE WHEN M.INCLUIR_SLA_NORMAL = 1#(lf)              AND M.FAC_P_FECHA_HORA_REAL IS NOT NULL#(lf)              AND M.PIC_P_FECHA_HORA IS NOT NULL#(lf)              AND CAST(M.FAC_P_FECHA_HORA_REAL AS DATE) = CAST(M.PIC_P_FECHA_HORA AS DATE)#(lf)              AND M.FAC_P_FECHA_HORA_REAL < M.PIC_P_FECHA_HORA#(lf)             THEN 1 ELSE 0 END#(lf)#(lf)      + CASE WHEN M.INCLUIR_SLA_NORMAL = 1#(lf)              AND M.TRP_P_FECHA_HORA IS NOT NULL#(lf)              AND M.FAC_P_FECHA_HORA_REAL IS NOT NULL#(lf)              AND CAST(M.TRP_P_FECHA_HORA AS DATE) = CAST(M.FAC_P_FECHA_HORA_REAL AS DATE)#(lf)              AND M.TRP_P_FECHA_HORA < M.FAC_P_FECHA_HORA_REAL#(lf)             THEN 1 ELSE 0 END#(lf)#(lf)      -- Comercial y crédito son opcionales: cualquier inversión queda como advertencia#(lf)      + CASE WHEN M.INCLUIR_SLA_NORMAL = 1#(lf)              AND M.COM_P_FECHA_HORA IS NOT NULL#(lf)              AND M.PED_FECHA_HORA IS NOT NULL#(lf)              AND M.COM_P_FECHA_HORA < M.PED_FECHA_HORA#(lf)             THEN 1 ELSE 0 END#(lf)#(lf)      + CASE WHEN M.INCLUIR_SLA_NORMAL = 1#(lf)              AND M.CRD_P_FECHA_HORA IS NOT NULL#(lf)              AND M.PED_FECHA_HORA IS NOT NULL#(lf)              AND M.CRD_P_FECHA_HORA < M.PED_FECHA_HORA#(lf)             THEN 1 ELSE 0 END#(lf)            AS ADVERTENCIAS_NORMAL,#(lf)#(lf)        -- =============================================================#(lf)        -- PRIMERO VERSUS ÚLTIMO#(lf)        -- =============================================================#(lf)        CASE WHEN M.INCLUIR_SLA_NORMAL = 1#(lf)              AND M.ENT_P_FECHA_HORA IS NOT NULL AND M.ENT_U_FECHA_HORA IS NOT NULL#(lf)              AND CAST(M.ENT_U_FECHA_HORA AS DATE) < CAST(M.ENT_P_FECHA_HORA AS DATE)#(lf)             THEN 1 ELSE 0 END#(lf)      + CASE WHEN M.INCLUIR_SLA_NORMAL = 1#(lf)              AND M.PIC_P_FECHA_HORA IS NOT NULL AND M.PIC_U_FECHA_HORA IS NOT NULL#(lf)              AND CAST(M.PIC_U_FECHA_HORA AS DATE) < CAST(M.PIC_P_FECHA_HORA AS DATE)#(lf)             THEN 1 ELSE 0 END#(lf)      + CASE WHEN M.INCLUIR_SLA_NORMAL = 1#(lf)              AND M.FAC_P_FECHA_HORA_REAL IS NOT NULL AND M.FAC_U_FECHA_HORA IS NOT NULL#(lf)              AND CAST(M.FAC_U_FECHA_HORA AS DATE) < CAST(M.FAC_P_FECHA_HORA_REAL AS DATE)#(lf)             THEN 1 ELSE 0 END#(lf)      + CASE WHEN M.INCLUIR_SLA_NORMAL = 1#(lf)              AND M.TRP_P_FECHA_HORA IS NOT NULL AND M.TRP_U_FECHA_HORA IS NOT NULL#(lf)              AND CAST(M.TRP_U_FECHA_HORA AS DATE) < CAST(M.TRP_P_FECHA_HORA AS DATE)#(lf)             THEN 1 ELSE 0 END#(lf)            AS CRITICAS_PRIMERO_ULTIMO,#(lf)#(lf)        CASE WHEN M.INCLUIR_SLA_NORMAL = 1#(lf)              AND M.ENT_P_FECHA_HORA IS NOT NULL AND M.ENT_U_FECHA_HORA IS NOT NULL#(lf)              AND CAST(M.ENT_U_FECHA_HORA AS DATE) = CAST(M.ENT_P_FECHA_HORA AS DATE)#(lf)              AND M.ENT_U_FECHA_HORA < M.ENT_P_FECHA_HORA#(lf)             THEN 1 ELSE 0 END#(lf)      + CASE WHEN M.INCLUIR_SLA_NORMAL = 1#(lf)              AND M.PIC_P_FECHA_HORA IS NOT NULL AND M.PIC_U_FECHA_HORA IS NOT NULL#(lf)              AND CAST(M.PIC_U_FECHA_HORA AS DATE) = CAST(M.PIC_P_FECHA_HORA AS DATE)#(lf)              AND M.PIC_U_FECHA_HORA < M.PIC_P_FECHA_HORA#(lf)             THEN 1 ELSE 0 END#(lf)      + CASE WHEN M.INCLUIR_SLA_NORMAL = 1#(lf)              AND M.FAC_P_FECHA_HORA_REAL IS NOT NULL AND M.FAC_U_FECHA_HORA IS NOT NULL#(lf)              AND CAST(M.FAC_U_FECHA_HORA AS DATE) = CAST(M.FAC_P_FECHA_HORA_REAL AS DATE)#(lf)              AND M.FAC_U_FECHA_HORA < M.FAC_P_FECHA_HORA_REAL#(lf)             THEN 1 ELSE 0 END#(lf)      + CASE WHEN M.INCLUIR_SLA_NORMAL = 1#(lf)              AND M.TRP_P_FECHA_HORA IS NOT NULL AND M.TRP_U_FECHA_HORA IS NOT NULL#(lf)              AND CAST(M.TRP_U_FECHA_HORA AS DATE) = CAST(M.TRP_P_FECHA_HORA AS DATE)#(lf)              AND M.TRP_U_FECHA_HORA < M.TRP_P_FECHA_HORA#(lf)             THEN 1 ELSE 0 END#(lf)            AS ADVERTENCIAS_PRIMERO_ULTIMO,#(lf)#(lf)        -- =============================================================#(lf)        -- FECHAS ATÍPICAS CRÍTICAS#(lf)        -- =============================================================#(lf)          CONVERT(INT, M.AUD_INC_FAC_MAS_30_DIAS_ANTES_PED)#(lf)        + CONVERT(INT, M.AUD_INC_TRP_MAS_30_DIAS_ANTES_PED)#(lf)        + CONVERT(INT, M.AUD_INC_FAC_MAS_365_DIAS_DESPUES_PED)#(lf)        + CONVERT(INT, M.AUD_INC_TRP_MAS_365_DIAS_DESPUES_PED)#(lf)        + CONVERT(INT, M.AUD_INC_HITO_FECHA_FUTURA)#(lf)            AS CRITICAS_ATIPICAS,#(lf)#(lf)        -- Hora 00 en hitos disponibles. Es advertencia, no crítica.#(lf)          CONVERT(INT, M.AUD_HORA_00_PED)#(lf)        + CONVERT(INT, M.AUD_HORA_00_COM)#(lf)        + CONVERT(INT, M.AUD_HORA_00_CRD)#(lf)        + CONVERT(INT, M.AUD_HORA_00_ENT)#(lf)        + CONVERT(INT, M.AUD_HORA_00_PIC)#(lf)        + CONVERT(INT, M.AUD_HORA_00_PAC)#(lf)        + CONVERT(INT, M.AUD_HORA_00_FAC)#(lf)        + CONVERT(INT, M.AUD_HORA_00_TRP)#(lf)        + CONVERT(INT, M.AUD_HORA_00_CED)#(lf)            AS ALERTAS_HORA_00,#(lf)#(lf)        -- =============================================================#(lf)        -- FES#(lf)        -- =============================================================#(lf)          CONVERT(INT, M.AUD_FES_PEDIDO_POST_ANTES_FACTURA)#(lf)        + CONVERT(INT, M.AUD_FES_ENTREGA_ANTES_PEDIDO_POST)#(lf)        + CONVERT(INT, M.AUD_FES_MANIFIESTO_ANTES_ENTREGA)#(lf)        + CONVERT(INT, M.AUD_FES_ULT_PEDIDO_ANTES_PRIMERO)#(lf)        + CONVERT(INT, M.AUD_FES_ULT_ENTREGA_ANTES_PRIMERA)#(lf)        + CONVERT(INT, M.AUD_FES_ULT_MANIFIESTO_ANTES_PRIMERO)#(lf)        + CONVERT(INT, M.AUD_NO_FES_CON_FECHAS_FES)#(lf)        + CONVERT(INT, M.AUD_NO_FES_CON_METRICAS_FES)#(lf)            AS CRITICAS_FES,#(lf)#(lf)        CONVERT(INT, M.AUD_FES_CICLO_MAYOR_60_DIAS)#(lf)            AS ADVERTENCIAS_FES,#(lf)#(lf)        -- =============================================================#(lf)        -- SALDO#(lf)        -- =============================================================#(lf)        CASE WHEN M.ES_SALDO = 1#(lf)              AND M.FAC_P_FECHA_HORA_REAL IS NOT NULL#(lf)              AND M.FAC_U_FECHA_HORA IS NOT NULL#(lf)              AND CAST(M.FAC_U_FECHA_HORA AS DATE) < CAST(M.FAC_P_FECHA_HORA_REAL AS DATE)#(lf)             THEN 1 ELSE 0 END#(lf)      + CASE WHEN M.ES_SALDO = 1#(lf)              AND M.TRP_P_FECHA_HORA IS NOT NULL#(lf)              AND M.TRP_U_FECHA_HORA IS NOT NULL#(lf)              AND CAST(M.TRP_U_FECHA_HORA AS DATE) < CAST(M.TRP_P_FECHA_HORA AS DATE)#(lf)             THEN 1 ELSE 0 END#(lf)            AS CRITICAS_SALDO,#(lf)#(lf)        CASE WHEN M.ES_SALDO = 1#(lf)              AND M.FAC_P_FECHA_HORA_REAL IS NOT NULL#(lf)              AND M.FAC_U_FECHA_HORA IS NOT NULL#(lf)              AND CAST(M.FAC_U_FECHA_HORA AS DATE) = CAST(M.FAC_P_FECHA_HORA_REAL AS DATE)#(lf)              AND M.FAC_U_FECHA_HORA < M.FAC_P_FECHA_HORA_REAL#(lf)             THEN 1 ELSE 0 END#(lf)      + CASE WHEN M.ES_SALDO = 1#(lf)              AND M.TRP_P_FECHA_HORA IS NOT NULL#(lf)              AND M.TRP_U_FECHA_HORA IS NOT NULL#(lf)              AND CAST(M.TRP_U_FECHA_HORA AS DATE) = CAST(M.TRP_P_FECHA_HORA AS DATE)#(lf)              AND M.TRP_U_FECHA_HORA < M.TRP_P_FECHA_HORA#(lf)             THEN 1 ELSE 0 END#(lf)            AS ADVERTENCIAS_SALDO#(lf)) AS A;#(lf)#(lf)DROP TABLE #FACT_NS_RAW_AUD_V3;#(lf)#(lf)-- =====================================================================#(lf)-- ÚNICA SALIDA: MASTER COMPLETA CON AUDITORÍA#(lf)-- =====================================================================#(lf)SELECT *#(lf)FROM #FACT_NS_MASTER_AUD_V3#(lf)ORDER BY#(lf)    TRY_CONVERT(BIGINT, PED_NUMERO_PEDIDO),#(lf)    PED_NUMERO_PEDIDO;"])
+				in
+				    // Universo único V26: cartera Mayorista canales 42 a 47, abierta y cerrada.
+				    // Incluye NORMAL, FES, SALDO y FES + SALDO. No exige factura.
+				    Table.SelectRows(
+				        Origen,
+				        each
+				            let
+				                Canal = Text.TrimStart(Text.Trim(Text.From([PED_CANAL_CODIGO])), "0")
+				            in
+				                List.Contains({"42", "43", "44", "45", "46", "47"}, Canal)
+				    )
+				in
+				    Fact_Pedidos_Auditoria
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

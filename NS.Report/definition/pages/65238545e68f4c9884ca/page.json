@@ -1,0 +1,10 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.0.0/schema.json",
+  "name": "65238545e68f4c9884ca",
+  "displayName": "TT Indicador Ejecutivo",
+  "displayOption": "ActualSize",
+  "height": 360,
+  "width": 700,
+  "visibility": "HiddenInViewMode",
+  "type": "Tooltip"
+}

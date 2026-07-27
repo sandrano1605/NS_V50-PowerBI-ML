@@ -1,0 +1,52 @@
+table Nombre_Cliente
+	isHidden
+	lineageTag: 2c7af1e4-d23b-4fb4-b12a-ae75e8196f0b
+
+	column KUNNR
+		dataType: string
+		lineageTag: e30a8983-9bae-441f-9b98-6d53274b76e4
+		summarizeBy: none
+		sourceColumn: KUNNR
+
+		annotation SummarizationSetBy = Automatic
+
+	column NAME1
+		dataType: string
+		lineageTag: cb1538d6-5cc9-4a9e-8826-0e16d4948563
+		summarizeBy: none
+		sourceColumn: NAME1
+
+		annotation SummarizationSetBy = Automatic
+
+	column Recuento
+		dataType: int64
+		formatString: 0
+		lineageTag: 1fd9fd11-2177-40e2-8013-63801b147462
+		summarizeBy: sum
+		sourceColumn: Recuento
+
+		annotation SummarizationSetBy = Automatic
+
+	column KUNNR_NORMALIZADO
+		dataType: string
+		lineageTag: c392b55b-a4b4-4f3b-b32c-6a29360c72ed
+		summarizeBy: none
+		sourceColumn: KUNNR_NORMALIZADO
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Nombre_Cliente = m
+		mode: import
+		source =
+				let
+				    Origen = Table.SelectColumns(Dim_Cliente, {"CLIENTE_CODIGO", "CLIENTE_NOMBRE"}),
+				    Renombradas = Table.RenameColumns(Origen, {{"CLIENTE_CODIGO", "KUNNR"}, {"CLIENTE_NOMBRE", "NAME1"}}),
+				    Clave = Table.AddColumn(Renombradas, "KUNNR_NORMALIZADO", each let k = Text.TrimStart(Text.Trim([KUNNR]), "0") in if k = "" then "0" else k, type text),
+				    Recuento = Table.AddColumn(Clave, "Recuento", each 1, Int64.Type)
+				in
+				    Recuento
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

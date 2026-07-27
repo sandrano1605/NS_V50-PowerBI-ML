@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="470" height="190" viewBox="0 0 470 190">
+<rect x="1" y="1" width="468" height="188" rx="10" fill="#FFFFFF" stroke="#CED9E5"/>
+<text x="16" y="22" font-family="Segoe UI" font-size="12" font-weight="700" fill="#1B365D">FLUJO OPERATIVO (REFERENCIA)</text>
+<!-- connectors -->
+<g stroke="#9AA5B1" stroke-width="1.5" fill="none">
+<path d="M53 54h19m-4-4 4 4-4 4"/><path d="M117 54h19m-4-4 4 4-4 4"/><path d="M181 54h19m-4-4 4 4-4 4"/>
+<path d="M245 54h19m-4-4 4 4-4 4"/><path d="M309 54h19m-4-4 4 4-4 4"/><path d="M373 54h19m-4-4 4 4-4 4"/>
+</g>
+<!-- circles -->
+<g>
+<circle cx="35" cy="54" r="18" fill="#43A047"/><circle cx="99" cy="54" r="18" fill="#1976D2"/><circle cx="163" cy="54" r="18" fill="#7B1FA2"/>
+<circle cx="227" cy="54" r="18" fill="#F0A500"/><circle cx="291" cy="54" r="18" fill="#16A394"/><circle cx="355" cy="54" r="18" fill="#8E2487"/><circle cx="419" cy="54" r="18" fill="#17365D"/>
+</g>
+<!-- phone -->
+<path d="M29 44c1 8 5 12 12 15l4-4-5-4-3 2c-2-1-4-3-5-5l2-3-5-4z" fill="none" stroke="#FFF" stroke-width="2" stroke-linejoin="round"/>
+<!-- creation document -->
+<path d="M93 42h10l4 4v18H93zM103 42v5h4M97 52h7M97 57h7" fill="none" stroke="#FFF" stroke-width="1.7" stroke-linejoin="round"/>
+<!-- SAC people -->
+<g fill="none" stroke="#FFF" stroke-width="1.6"><circle cx="157" cy="49" r="3"/><circle cx="168" cy="49" r="3"/><circle cx="163" cy="45" r="3"/><path d="M151 61c1-6 10-6 11 0M164 61c1-6 10-6 11 0M156 61c1-7 13-7 14 0"/></g>
+<!-- credit person -->
+<g fill="none" stroke="#FFF" stroke-width="1.8"><circle cx="227" cy="48" r="4"/><path d="M218 63c1-10 17-10 18 0"/></g>
+<!-- inbound document -->
+<g fill="none" stroke="#FFF" stroke-width="1.6"><rect x="283" y="42" width="14" height="22" rx="1"/><path d="M287 48h6M287 52h6M281 57h10m-3-3 3 3-3 3"/></g>
+<!-- invoice -->
+<g fill="none" stroke="#FFF" stroke-width="1.6"><path d="M348 42h10l4 4v18h-14zM358 42v5h4M352 52h6M352 56h6M352 60h5"/></g>
+<!-- truck -->
+<g fill="none" stroke="#FFF" stroke-width="1.7"><path d="M407 48h14v10h5l-3-6h-2M407 58v3h19v-3"/><circle cx="412" cy="62" r="2.5"/><circle cx="422" cy="62" r="2.5"/></g>
+<!-- labels -->
+<g font-family="Segoe UI" font-size="8.5" text-anchor="middle" fill="#1B365D">
+<text x="35" y="84"><tspan x="35">PDA</tspan><tspan x="35" dy="11">Pedido</tspan></text>
+<text x="99" y="84"><tspan x="99">Creación</tspan><tspan x="99" dy="11">Pedido</tspan></text>
+<text x="163" y="84"><tspan x="163">SAC</tspan><tspan x="163" dy="11">Comercial</tspan></text>
+<text x="227" y="84"><tspan x="227">Crédito</tspan><tspan x="227" dy="11">y Cobranzas</tspan></text>
+<text x="291" y="84"><tspan x="291">Ingreso a</tspan><tspan x="291" dy="11">Logística</tspan></text>
+<text x="355" y="84"><tspan x="355">Factura</tspan><tspan x="355" dy="11">Emisión</tspan></text>
+<text x="419" y="84"><tspan x="419">Despacho</tspan><tspan x="419" dy="11">Salida</tspan></text>
+</g>
+<rect x="20" y="127" width="205" height="33" rx="5" fill="#D7E9FA"/><rect x="235" y="127" width="215" height="33" rx="5" fill="#A9CDEA"/>
+<text x="122" y="147" text-anchor="middle" font-family="Segoe UI" font-size="10" font-weight="700" fill="#1B365D">ADMINISTRATIVO (1 DH)</text>
+<text x="342" y="147" text-anchor="middle" font-family="Segoe UI" font-size="10" font-weight="700" fill="#1B365D">OPERACIONES (4 DH)</text>
+<text x="235" y="180" text-anchor="middle" font-family="Segoe UI" font-size="12" font-weight="700" fill="#1B365D">TOTAL INTERNO: 5 DH</text>
+</svg>

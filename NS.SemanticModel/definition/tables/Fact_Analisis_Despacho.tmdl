@@ -1,0 +1,416 @@
+/// Fact analítica de despacho completo para análisis móvil de doce meses.
+table Fact_Analisis_Despacho
+	lineageTag: f7aa36fb-0e1a-4b4c-9ea5-1761fbbb71bd
+
+	column PED_NUMERO_PEDIDO
+		dataType: string
+		lineageTag: ee5d745c-7796-4232-8447-7d8512c9ebd9
+		summarizeBy: none
+		sourceColumn: PED_NUMERO_PEDIDO
+
+		annotation SummarizationSetBy = User
+
+	column PED_CODIGO_CLIENTE
+		dataType: string
+		lineageTag: 6141b0ea-8f7a-4a34-9352-aa533352b21b
+		summarizeBy: none
+		sourceColumn: PED_CODIGO_CLIENTE
+
+		annotation SummarizationSetBy = User
+
+	column PED_RESPONSABLE
+		dataType: string
+		lineageTag: db90cd2d-d37a-4f41-8e12-a7421a0d7a9e
+		summarizeBy: none
+		sourceColumn: PED_RESPONSABLE
+
+		annotation SummarizationSetBy = User
+
+	column PED_CENTRO
+		dataType: string
+		lineageTag: 29603cfe-40c8-4215-ab8f-33ecb370f399
+		summarizeBy: none
+		sourceColumn: PED_CENTRO
+
+		annotation SummarizationSetBy = User
+
+	column PED_CIUDAD
+		dataType: string
+		lineageTag: f31f31f6-39fb-4357-b016-6b167cfb0d6a
+		summarizeBy: none
+		sourceColumn: PED_CIUDAD
+
+		annotation SummarizationSetBy = User
+
+	column PED_REGION
+		dataType: string
+		lineageTag: 39d39afa-7af3-406f-84bb-ef2ad9edcea4
+		summarizeBy: none
+		sourceColumn: PED_REGION
+
+		annotation SummarizationSetBy = User
+
+	column PED_CANAL_CODIGO
+		dataType: string
+		lineageTag: 5fec13c5-f67d-4a25-8682-66c7a19b78ec
+		summarizeBy: none
+		sourceColumn: PED_CANAL_CODIGO
+
+		annotation SummarizationSetBy = User
+
+	column PED_CANAL
+		dataType: string
+		lineageTag: 5e498c6e-40cb-4483-8440-0205390edc62
+		summarizeBy: none
+		sourceColumn: PED_CANAL
+
+		annotation SummarizationSetBy = User
+
+	column PED_CONDICION_EXPEDICION_CODIGO
+		dataType: string
+		lineageTag: a43f9d38-468d-43d4-84b7-800f8fcda2b6
+		summarizeBy: none
+		sourceColumn: PED_CONDICION_EXPEDICION_CODIGO
+
+		annotation SummarizationSetBy = User
+
+	column PED_CONDICION_EXPEDICION
+		dataType: string
+		lineageTag: 6e4b7389-b66b-447b-a1e9-9acf23d76d7d
+		summarizeBy: none
+		sourceColumn: PED_CONDICION_EXPEDICION
+
+		annotation SummarizationSetBy = User
+
+	column PED_ORDEN_COMPRA_CLIENTE
+		dataType: string
+		lineageTag: fe6297f5-ef15-4436-beca-0a95e1a4b14c
+		summarizeBy: none
+		sourceColumn: PED_ORDEN_COMPRA_CLIENTE
+
+		annotation SummarizationSetBy = User
+
+	column PED_VALOR_NETO
+		dataType: double
+		formatString: "CLP $" #,0;-"CLP $" #,0;"CLP $" 0
+		lineageTag: c51f500d-d5b9-4bee-8034-f6cf0e69b318
+		summarizeBy: sum
+		sourceColumn: PED_VALOR_NETO
+
+		annotation SummarizationSetBy = User
+
+	column PED_MONEDA
+		dataType: string
+		lineageTag: bbee4103-b4e7-4d6e-82b6-3da1cd33dbd0
+		summarizeBy: none
+		sourceColumn: PED_MONEDA
+
+		annotation SummarizationSetBy = User
+
+	column ES_FES
+		dataType: boolean
+		formatString: """Sí"";""Sí"";""No"""
+		lineageTag: 3450ef3f-bd12-4a19-ad62-cc7e17285818
+		summarizeBy: none
+		sourceColumn: ES_FES
+
+		annotation SummarizationSetBy = User
+
+	column ES_SALDO
+		dataType: boolean
+		formatString: """Sí"";""Sí"";""No"""
+		lineageTag: d7cd091b-614a-4f4e-b0c6-5769d039da11
+		summarizeBy: none
+		sourceColumn: ES_SALDO
+
+		annotation SummarizationSetBy = User
+
+	column SEGMENTO_ANALISIS
+		dataType: string
+		lineageTag: 78bfb8dc-7c2a-4597-ba30-0ed559691e8e
+		summarizeBy: none
+		sourceColumn: SEGMENTO_ANALISIS
+
+		annotation SummarizationSetBy = User
+
+	column AUD_ESTADO_GENERAL
+		dataType: string
+		lineageTag: 0f292425-5d7b-4f7c-ae14-818a0d2c6b62
+		summarizeBy: none
+		sourceColumn: AUD_ESTADO_GENERAL
+
+		annotation SummarizationSetBy = User
+
+	column AUD_PRINCIPAL_INCONGRUENCIA
+		dataType: string
+		lineageTag: 30efdefd-8fcf-4f70-bf4d-9e0ad1b56f0f
+		summarizeBy: none
+		sourceColumn: AUD_PRINCIPAL_INCONGRUENCIA
+
+		annotation SummarizationSetBy = User
+
+	column PED_FECHA
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 948aaafd-62f5-4d5e-ad98-5471368e9775
+		summarizeBy: none
+		sourceColumn: PED_FECHA
+
+		annotation SummarizationSetBy = User
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column FECHA_CIERRE_OPERACIONAL
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: d256cfc9-6641-42b2-ad61-87c106f2263f
+		summarizeBy: none
+		sourceColumn: FECHA_CIERRE_OPERACIONAL
+
+		annotation SummarizationSetBy = User
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column MES_CREACION
+		dataType: string
+		lineageTag: b8aa050a-f529-4437-ac7f-a64d8496b5ae
+		summarizeBy: none
+		sourceColumn: MES_CREACION
+
+		annotation SummarizationSetBy = User
+
+	column MES_CIERRE
+		dataType: string
+		lineageTag: 3bb4f9e9-f265-49f2-a09d-66bf872c9471
+		summarizeBy: none
+		sourceColumn: MES_CIERRE
+
+		annotation SummarizationSetBy = User
+
+	column ESTADO_DESPACHO_COMPLETO
+		dataType: string
+		lineageTag: cf030b1a-5c2b-4d97-9832-aaaca6323323
+		summarizeBy: none
+		sourceColumn: ESTADO_DESPACHO_COMPLETO
+
+		annotation SummarizationSetBy = User
+
+	column DH_CIERRE_COMPLETO
+		dataType: int64
+		formatString: 0
+		lineageTag: 3bc7d13d-5ef7-437d-b29e-43085d8c8b8e
+		summarizeBy: average
+		sourceColumn: DH_CIERRE_COMPLETO
+
+		annotation SummarizationSetBy = User
+
+	column RANGO_DH_CIERRE
+		dataType: string
+		lineageTag: 1b51b8ce-fc2c-4799-afee-65a8242a6d79
+		summarizeBy: none
+		sourceColumn: RANGO_DH_CIERRE
+		sortByColumn: ORDEN_RANGO_DH
+
+		annotation SummarizationSetBy = User
+
+	column ORDEN_RANGO_DH
+		dataType: int64
+		formatString: 0
+		lineageTag: 29f320de-65d8-479a-a286-6ace39ea1b2d
+		summarizeBy: none
+		sourceColumn: ORDEN_RANGO_DH
+
+		annotation SummarizationSetBy = User
+
+	column ES_ULTIMOS_7_DIAS_HABILES_MES
+		dataType: boolean
+		formatString: """Sí"";""Sí"";""No"""
+		lineageTag: 096c8366-d326-462b-baa8-537ba646d90b
+		summarizeBy: none
+		sourceColumn: ES_ULTIMOS_7_DIAS_HABILES_MES
+
+		annotation SummarizationSetBy = User
+
+	column CIERRE_MES_POSTERIOR
+		dataType: boolean
+		formatString: """Sí"";""Sí"";""No"""
+		lineageTag: 186e468d-9b7d-4b7d-97e4-bb4b1ce676c3
+		summarizeBy: none
+		sourceColumn: CIERRE_MES_POSTERIOR
+
+		annotation SummarizationSetBy = User
+
+	column MESES_HASTA_CIERRE
+		dataType: int64
+		formatString: 0
+		lineageTag: 5e2d4241-f7eb-4b33-99bd-dbc50ad1820b
+		summarizeBy: average
+		sourceColumn: MESES_HASTA_CIERRE
+
+		annotation SummarizationSetBy = User
+
+	column ORIGEN_TEMPORAL
+		dataType: string
+		lineageTag: 5a1c91cb-95aa-45bb-bdc4-daf1452706b3
+		summarizeBy: none
+		sourceColumn: ORIGEN_TEMPORAL
+
+		annotation SummarizationSetBy = User
+
+	partition Fact_Analisis_Despacho = m
+		mode: import
+		source =
+				let
+				    Origen = Fact_Pedidos_Auditoria,
+				    Columnas = Table.SelectColumns(
+				        Origen,
+				        {
+				            "PED_NUMERO_PEDIDO",
+				            "PED_CODIGO_CLIENTE",
+				            "PED_RESPONSABLE",
+				            "PED_CENTRO",
+				            "PED_CIUDAD",
+				            "PED_REGION",
+				            "PED_CANAL_CODIGO",
+				            "PED_CANAL",
+				            "PED_CONDICION_EXPEDICION_CODIGO",
+				            "PED_CONDICION_EXPEDICION",
+				            "PED_ORDEN_COMPRA_CLIENTE",
+				            "PED_VALOR_NETO",
+				            "PED_MONEDA",
+				            "ES_FES",
+				            "ES_SALDO",
+				            "SEGMENTO_ANALISIS",
+				            "PED_FECHA_HORA",
+				            "TRP_P_FECHA_HORA",
+				            "TRP_U_FECHA_HORA",
+				            "ULTIMA_FECHA_MANIFIESTO",
+				            "ES_ULTIMOS_7_DIAS_HABILES_MES",
+				            "AUD_ESTADO_GENERAL",
+				            "AUD_PRINCIPAL_INCONGRUENCIA"
+				        },
+				        MissingField.UseNull
+				    ),
+				    PED_FECHA = Table.AddColumn(
+				        Columnas,
+				        "PED_FECHA",
+				        each if [PED_FECHA_HORA] = null then null else Date.From([PED_FECHA_HORA]),
+				        type date
+				    ),
+				    FECHA_CIERRE = Table.AddColumn(
+				        PED_FECHA,
+				        "FECHA_CIERRE_OPERACIONAL",
+				        each
+				            if [ES_FES] = true then
+				                if [ULTIMA_FECHA_MANIFIESTO] = null then null else Date.From([ULTIMA_FECHA_MANIFIESTO])
+				            else if [TRP_U_FECHA_HORA] <> null then
+				                Date.From([TRP_U_FECHA_HORA])
+				            else if [TRP_P_FECHA_HORA] <> null then
+				                Date.From([TRP_P_FECHA_HORA])
+				            else
+				                null,
+				        type date
+				    ),
+				    fxDiasHabiles = (FechaInicio as nullable date, FechaTermino as nullable date) as nullable number =>
+				        if FechaInicio = null or FechaTermino = null or FechaTermino < FechaInicio then
+				            null
+				        else
+				            let
+				                DiasCalendario = Duration.Days(FechaTermino - FechaInicio),
+				                Fechas =
+				                    if DiasCalendario = 0 then
+				                        {}
+				                    else
+				                        List.Dates(Date.AddDays(FechaInicio, 1), DiasCalendario, #duration(1, 0, 0, 0)),
+				                Habiles = List.Count(List.Select(Fechas, each Date.DayOfWeek(_, Day.Monday) < 5))
+				            in
+				                Habiles,
+				    DIAS = Table.AddColumn(
+				        FECHA_CIERRE,
+				        "DH_CIERRE_COMPLETO",
+				        each fxDiasHabiles([PED_FECHA], [FECHA_CIERRE_OPERACIONAL]),
+				        Int64.Type
+				    ),
+				    ESTADO = Table.AddColumn(
+				        DIAS,
+				        "ESTADO_DESPACHO_COMPLETO",
+				        each if [FECHA_CIERRE_OPERACIONAL] = null then "PENDIENTE O PARCIAL" else "COMPLETO",
+				        type text
+				    ),
+				    MES_CREACION = Table.AddColumn(
+				        ESTADO,
+				        "MES_CREACION",
+				        each if [PED_FECHA] = null then null else Date.ToText([PED_FECHA], "yyyy-MM"),
+				        type text
+				    ),
+				    MES_CIERRE = Table.AddColumn(
+				        MES_CREACION,
+				        "MES_CIERRE",
+				        each if [FECHA_CIERRE_OPERACIONAL] = null then null else Date.ToText([FECHA_CIERRE_OPERACIONAL], "yyyy-MM"),
+				        type text
+				    ),
+				    MESES_CIERRE = Table.AddColumn(
+				        MES_CIERRE,
+				        "MESES_HASTA_CIERRE",
+				        each
+				            if [PED_FECHA] = null or [FECHA_CIERRE_OPERACIONAL] = null then null
+				            else
+				                (Date.Year([FECHA_CIERRE_OPERACIONAL]) - Date.Year([PED_FECHA])) * 12
+				                + Date.Month([FECHA_CIERRE_OPERACIONAL]) - Date.Month([PED_FECHA]),
+				        Int64.Type
+				    ),
+				    CIERRE_POSTERIOR = Table.AddColumn(
+				        MESES_CIERRE,
+				        "CIERRE_MES_POSTERIOR",
+				        each [MESES_HASTA_CIERRE] <> null and [MESES_HASTA_CIERRE] > 0,
+				        type logical
+				    ),
+				    RANGO = Table.AddColumn(
+				        CIERRE_POSTERIOR,
+				        "RANGO_DH_CIERRE",
+				        each
+				            if [DH_CIERRE_COMPLETO] = null then "Sin dato"
+				            else if [DH_CIERRE_COMPLETO] = 0 then "0 días"
+				            else if [DH_CIERRE_COMPLETO] <= 5 then "1-5 días"
+				            else if [DH_CIERRE_COMPLETO] <= 10 then "6-10 días"
+				            else if [DH_CIERRE_COMPLETO] <= 15 then "11-15 días"
+				            else if [DH_CIERRE_COMPLETO] <= 20 then "16-20 días"
+				            else ">20 días",
+				        type text
+				    ),
+				    ORDEN_RANGO = Table.AddColumn(
+				        RANGO,
+				        "ORDEN_RANGO_DH",
+				        each
+				            if [RANGO_DH_CIERRE] = "0 días" then 0
+				            else if [RANGO_DH_CIERRE] = "1-5 días" then 1
+				            else if [RANGO_DH_CIERRE] = "6-10 días" then 2
+				            else if [RANGO_DH_CIERRE] = "11-15 días" then 3
+				            else if [RANGO_DH_CIERRE] = "16-20 días" then 4
+				            else if [RANGO_DH_CIERRE] = ">20 días" then 5
+				            else 99,
+				        Int64.Type
+				    ),
+				    ORIGEN_TEMPORAL = Table.AddColumn(
+				        ORDEN_RANGO,
+				        "ORIGEN_TEMPORAL",
+				        each
+				            if [PED_FECHA] = null then "Sin fecha de creación"
+				            else if [FECHA_CIERRE_OPERACIONAL] = null and [ES_ULTIMOS_7_DIAS_HABILES_MES] = true then "Pendiente creado en cierre de mes"
+				            else if [FECHA_CIERRE_OPERACIONAL] = null then "Pendiente creado temprano"
+				            else if [CIERRE_MES_POSTERIOR] = true then "Cierre en mes posterior"
+				            else if [ES_ULTIMOS_7_DIAS_HABILES_MES] = true then "Creado últimos 7 días hábiles"
+				            else "Creado temprano en el mes",
+				        type text
+				    ),
+				    Reducida = Table.RemoveColumns(
+				        ORIGEN_TEMPORAL,
+				        {"PED_FECHA_HORA", "TRP_P_FECHA_HORA", "TRP_U_FECHA_HORA", "ULTIMA_FECHA_MANIFIESTO"}
+				    )
+				in
+				    Reducida
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
