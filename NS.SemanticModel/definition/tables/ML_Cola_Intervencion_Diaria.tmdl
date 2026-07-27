@@ -1,0 +1,294 @@
+/// Cola diaria relativa. Garantiza un orden operativo Top 5 / siguientes 5 / plan 24 h / monitoreo.
+table ML_Cola_Intervencion_Diaria
+	lineageTag: 024d045d-7822-418e-9cdd-55074967ca63
+
+	measure 'Cola Diaria Total' = COUNTROWS(ML_Cola_Intervencion_Diaria)
+		formatString: #,0
+		displayFolder: 05. Cola Diaria\Volumen
+		lineageTag: 04c8a858-a74f-4720-b308-a8c673005636
+
+	measure 'Cola Intervenir Hoy' = CALCULATE(COUNTROWS(ML_Cola_Intervencion_Diaria), ML_Cola_Intervencion_Diaria[NIVEL_COLA] = "P1 · INTERVENIR")
+		formatString: #,0
+		displayFolder: 05. Cola Diaria\Prioridad
+		lineageTag: 74e57483-b65f-4fb9-a591-d0dacb479d39
+
+	measure 'Cola Revisar Hoy' = CALCULATE(COUNTROWS(ML_Cola_Intervencion_Diaria), ML_Cola_Intervencion_Diaria[NIVEL_COLA] = "P2 · REVISAR")
+		formatString: #,0
+		displayFolder: 05. Cola Diaria\Prioridad
+		lineageTag: 66f40db5-b357-4dc7-acf8-4ecf1d690992
+
+	measure 'Cola Plan 24H' = CALCULATE(COUNTROWS(ML_Cola_Intervencion_Diaria), ML_Cola_Intervencion_Diaria[NIVEL_COLA] = "P3 · PLAN 24H")
+		formatString: #,0
+		displayFolder: 05. Cola Diaria\Prioridad
+		lineageTag: 16636605-b358-4cb7-86c5-0e86548777ae
+
+	measure 'Cola Monitorear' = CALCULATE(COUNTROWS(ML_Cola_Intervencion_Diaria), ML_Cola_Intervencion_Diaria[NIVEL_COLA] = "P4 · MONITOREAR")
+		formatString: #,0
+		displayFolder: 05. Cola Diaria\Prioridad
+		lineageTag: 82c928bc-9694-48ad-83a2-0b2ff4176325
+
+	measure 'Valor Top 10' = CALCULATE(SUM(ML_Cola_Intervencion_Diaria[VALOR_NETO]), ML_Cola_Intervencion_Diaria[TRAMO_DIARIO] IN {"TOP 5", "TOP 10"})
+		formatString: "CLP $" #,0;-"CLP $" #,0;"CLP $" 0
+		displayFolder: 05. Cola Diaria\Impacto
+		lineageTag: 43ee3f65-da87-4b48-88d2-3b346d42485a
+
+	column RANK_DIARIO
+		dataType: int64
+		formatString: 0
+		lineageTag: 472a405a-4b32-449e-b704-d0f425af2a05
+		summarizeBy: none
+		sourceColumn: RANK_DIARIO
+
+	column TRAMO_DIARIO
+		dataType: string
+		lineageTag: 66e1d2d1-e33a-4e82-b424-4525fbb02c9c
+		summarizeBy: none
+		sourceColumn: TRAMO_DIARIO
+
+	column NIVEL_COLA
+		dataType: string
+		lineageTag: 2b9bcc1e-cb32-4d15-abee-0bd89b9c1857
+		summarizeBy: none
+		sourceColumn: NIVEL_COLA
+
+	column PLAZO_ACCION
+		dataType: string
+		lineageTag: 2c4f5d34-cce1-4d47-b9ef-ed3ade37aeb2
+		summarizeBy: none
+		sourceColumn: PLAZO_ACCION
+
+	column PRIORIDAD_ABSOLUTA
+		dataType: string
+		lineageTag: 6bf20ac7-ce8e-476e-aafa-8777129932ee
+		summarizeBy: none
+		sourceColumn: PRIORIDAD_ABSOLUTA
+
+	column SCORE_INTERVENCION
+		dataType: int64
+		formatString: 0
+		lineageTag: 07cb5358-c56f-4103-a499-1d3c265cd2a7
+		summarizeBy: average
+		sourceColumn: SCORE_INTERVENCION
+
+	column ESTADO_SLA_OPERATIVO
+		dataType: string
+		lineageTag: b77bba48-c10c-4b5e-8ca3-050b1798f572
+		summarizeBy: none
+		sourceColumn: ESTADO_SLA_OPERATIVO
+
+	column SEVERIDAD_SLA
+		dataType: string
+		lineageTag: 989e8dd3-3296-4847-94ec-9d7f41d423fb
+		summarizeBy: none
+		sourceColumn: SEVERIDAD_SLA
+
+	column EXCESO_SLA_DH
+		dataType: double
+		formatString: 0.0
+		lineageTag: 083681fa-b4ff-4940-9144-44f7f9f403f3
+		summarizeBy: average
+		sourceColumn: EXCESO_SLA_DH
+
+	column MOTIVO_PRINCIPAL_INTERVENCION
+		dataType: string
+		lineageTag: ba42f0ac-5ac5-4fef-9e65-cd36cdedfebd
+		summarizeBy: none
+		sourceColumn: MOTIVO_PRINCIPAL_INTERVENCION
+
+	column ACCION_DIARIA
+		dataType: string
+		lineageTag: 10c5a14e-1abe-49ba-8301-5d57e4436e2d
+		summarizeBy: none
+		sourceColumn: ACCION_DIARIA
+
+	column PED_NUMERO_PEDIDO
+		dataType: string
+		lineageTag: 55b80705-4a3e-47c9-ad89-a2bfc167f12b
+		summarizeBy: none
+		sourceColumn: PED_NUMERO_PEDIDO
+
+	column PED_FECHA
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: ccd2f577-82ac-43bc-ad59-c92d6e8e18c7
+		summarizeBy: none
+		sourceColumn: PED_FECHA
+
+	column CLIENTE
+		dataType: string
+		lineageTag: d3b9e602-ad63-4d73-8000-b1429a8cb7d3
+		summarizeBy: none
+		sourceColumn: CLIENTE
+
+	column VENDEDOR
+		dataType: string
+		lineageTag: b1092c01-ac61-4a65-9762-a83352a9b8e8
+		summarizeBy: none
+		sourceColumn: VENDEDOR
+
+	column PED_CANAL
+		dataType: string
+		lineageTag: 4462936a-a244-457e-974d-14c7cf84a6c2
+		summarizeBy: none
+		sourceColumn: PED_CANAL
+
+	column PED_REGION
+		dataType: string
+		lineageTag: 06170ceb-222e-4909-95e2-3ad546f87d44
+		summarizeBy: none
+		sourceColumn: PED_REGION
+
+	column VALOR_NETO
+		dataType: double
+		formatString: "CLP $" #,0;-"CLP $" #,0;"CLP $" 0
+		lineageTag: 447b95e8-c30b-4c41-86cf-7b15f5ad098c
+		summarizeBy: sum
+		sourceColumn: VALOR_NETO
+
+	column HITO_ACTUAL
+		dataType: string
+		lineageTag: dc85fd53-b7bf-492c-a782-f02d86ef1980
+		summarizeBy: none
+		sourceColumn: HITO_ACTUAL
+
+	column FOCO_INTERVENCION
+		dataType: string
+		lineageTag: 8d8a72cc-f456-4123-8383-5bc0e04dcdce
+		summarizeBy: none
+		sourceColumn: FOCO_INTERVENCION
+
+	column DIAS_ACTUALES_DH
+		dataType: double
+		formatString: 0.0
+		lineageTag: ac3173e3-a7c7-4849-a62b-d36810192549
+		summarizeBy: average
+		sourceColumn: DIAS_ACTUALES_DH
+
+	column DIAS_EN_ESTADO_DH
+		dataType: double
+		formatString: 0.0
+		lineageTag: 03b9d750-71c2-4274-aa40-31527146de76
+		summarizeBy: average
+		sourceColumn: DIAS_EN_ESTADO_DH
+
+	column PROB_ML_ATRASO_NORM
+		dataType: double
+		formatString: 0.0%
+		lineageTag: c3e9ab48-92fa-49da-a3b7-b9377a68160c
+		summarizeBy: average
+		sourceColumn: PROB_ML_ATRASO_NORM
+
+	column RIESGO_HISTORICO_MAX
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 82805926-c5e8-423d-82bf-726811a0f49d
+		summarizeBy: average
+		sourceColumn: RIESGO_HISTORICO_MAX
+
+	column HIST_SOPORTE_MIN
+		dataType: int64
+		formatString: 0
+		lineageTag: ed435aba-51e8-4875-8ed8-601a9d716dc2
+		summarizeBy: average
+		sourceColumn: HIST_SOPORTE_MIN
+
+	column CRITERIOS_ACTIVOS
+		dataType: string
+		lineageTag: c077807f-9770-4126-8540-5b39de2e7329
+		summarizeBy: none
+		sourceColumn: CRITERIOS_ACTIVOS
+
+	column PUNTOS_EXCESO_SLA
+		dataType: int64
+		formatString: 0
+		lineageTag: 73613001-94bb-40b8-af56-ec4051121328
+		summarizeBy: sum
+		sourceColumn: PUNTOS_EXCESO_SLA
+
+	column PUNTOS_RIESGO_ML
+		dataType: int64
+		formatString: 0
+		lineageTag: 516d3c4b-e311-4121-af15-e116173039c3
+		summarizeBy: sum
+		sourceColumn: PUNTOS_RIESGO_ML
+
+	column PUNTOS_PERMANENCIA
+		dataType: int64
+		formatString: 0
+		lineageTag: 21632bb1-0c37-44f7-a92b-1ee7644ab182
+		summarizeBy: sum
+		sourceColumn: PUNTOS_PERMANENCIA
+
+	column PUNTOS_VALOR
+		dataType: int64
+		formatString: 0
+		lineageTag: 2ccd7e1a-531d-42b9-8558-0df41fcb349b
+		summarizeBy: sum
+		sourceColumn: PUNTOS_VALOR
+
+	column PUNTOS_HISTORICO
+		dataType: int64
+		formatString: 0
+		lineageTag: 7c945c58-e83e-436a-9b87-f74ab88000b5
+		summarizeBy: sum
+		sourceColumn: PUNTOS_HISTORICO
+
+	column PUNTOS_FIN_MES
+		dataType: int64
+		formatString: 0
+		lineageTag: 5ed24a38-8cb9-4666-964b-6c33909cfa6a
+		summarizeBy: sum
+		sourceColumn: PUNTOS_FIN_MES
+
+	column USO_DH_PREDICHO
+		dataType: string
+		lineageTag: 0ae179f3-55f5-43ba-93c3-2d28234f7488
+		summarizeBy: none
+		sourceColumn: USO_DH_PREDICHO
+
+	partition ML_Cola_Intervencion_Diaria = m
+		mode: import
+		source =
+				let
+				    Base = ML_Pedidos_Pendientes_Intervencion,
+				    ConRankDiario = Table.AddColumn(Base, "RANK_DIARIO", each [RANK_INTERVENCION], Int64.Type),
+				    ConTramo = Table.AddColumn(ConRankDiario, "TRAMO_DIARIO", each
+				        if [RANK_DIARIO] <= 5 then "TOP 5"
+				        else if [RANK_DIARIO] <= 10 then "TOP 10"
+				        else if [RANK_DIARIO] <= 20 then "TOP 20"
+				        else "RESTO", type text),
+				    ConNivel = Table.AddColumn(ConTramo, "NIVEL_COLA", each
+				        if [RANK_DIARIO] <= 5 then "P1 · INTERVENIR"
+				        else if [RANK_DIARIO] <= 10 then "P2 · REVISAR"
+				        else if [RANK_DIARIO] <= 20 then "P3 · PLAN 24H"
+				        else "P4 · MONITOREAR", type text),
+				    ConPlazo = Table.AddColumn(ConNivel, "PLAZO_ACCION", each
+				        if [RANK_DIARIO] <= 5 then "HOY · INMEDIATO"
+				        else if [RANK_DIARIO] <= 10 then "HOY"
+				        else if [RANK_DIARIO] <= 20 then "PRÓXIMAS 24 HORAS"
+				        else "SEGUIMIENTO", type text),
+				    ConPrioridadAbsoluta = Table.AddColumn(ConPlazo, "PRIORIDAD_ABSOLUTA", each [PRIORIDAD_INTERVENCION], type text),
+				    ConAccion = Table.AddColumn(ConPrioridadAbsoluta, "ACCION_DIARIA", each
+				        let foco = if [FOCO_INTERVENCION] = null or Text.Trim([FOCO_INTERVENCION]) = "" then "área responsable" else [FOCO_INTERVENCION]
+				        in
+				            if [RANK_DIARIO] <= 5 then "Escalar ahora a " & foco & "; confirmar causa, responsable y hora de liberación"
+				            else if [RANK_DIARIO] <= 10 then "Revisar hoy con " & foco & "; registrar compromiso y próxima actualización"
+				            else if [RANK_DIARIO] <= 20 then "Definir plan de salida dentro de 24 horas con " & foco
+				            else "Monitorear avance y mantener responsable visible", type text),
+				    Seleccion = Table.SelectColumns(ConAccion, {
+				        "RANK_DIARIO", "TRAMO_DIARIO", "NIVEL_COLA", "PLAZO_ACCION", "PRIORIDAD_ABSOLUTA",
+				        "SCORE_INTERVENCION", "ESTADO_SLA_OPERATIVO", "SEVERIDAD_SLA", "EXCESO_SLA_DH",
+				        "MOTIVO_PRINCIPAL_INTERVENCION", "ACCION_DIARIA", "PED_NUMERO_PEDIDO", "PED_FECHA",
+				        "CLIENTE", "VENDEDOR", "PED_CANAL", "PED_REGION", "VALOR_NETO", "HITO_ACTUAL",
+				        "FOCO_INTERVENCION", "DIAS_ACTUALES_DH", "DIAS_EN_ESTADO_DH", "PROB_ML_ATRASO_NORM",
+				        "RIESGO_HISTORICO_MAX", "HIST_SOPORTE_MIN", "CRITERIOS_ACTIVOS", "PUNTOS_EXCESO_SLA",
+				        "PUNTOS_RIESGO_ML", "PUNTOS_PERMANENCIA", "PUNTOS_VALOR", "PUNTOS_HISTORICO",
+				        "PUNTOS_FIN_MES", "USO_DH_PREDICHO"
+				    }),
+				    Ordenado = Table.Sort(Seleccion, {{"RANK_DIARIO", Order.Ascending}})
+				in
+				    Ordenado
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
