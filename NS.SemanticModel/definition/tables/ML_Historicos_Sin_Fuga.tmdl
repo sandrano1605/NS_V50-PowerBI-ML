@@ -1,0 +1,190 @@
+table ML_Historicos_Sin_Fuga
+	lineageTag: 7da6218b-b988-4148-9536-0c7fffb5f833
+
+	column PED_NUMERO_PEDIDO
+		dataType: string
+		lineageTag: 49443132-c4d3-4d69-9f86-cf7c49fff383
+		summarizeBy: none
+		sourceColumn: PED_NUMERO_PEDIDO
+
+	column PED_FECHA
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: b68db935-956b-426c-9fa1-8c6f98d36e0e
+		summarizeBy: none
+		sourceColumn: PED_FECHA
+
+	column PED_CODIGO_CLIENTE
+		dataType: string
+		lineageTag: ad1c360d-6764-4df8-b0a7-a7aab7ce03cc
+		summarizeBy: none
+		sourceColumn: PED_CODIGO_CLIENTE
+
+	column PED_RESPONSABLE
+		dataType: string
+		lineageTag: 5e0fd233-886b-4d3e-8abe-5a25242bd6c1
+		summarizeBy: none
+		sourceColumn: PED_RESPONSABLE
+
+	column PED_CANAL_CODIGO
+		dataType: string
+		lineageTag: 2a03288c-aabe-4800-88b5-a708f9e0143e
+		summarizeBy: none
+		sourceColumn: PED_CANAL_CODIGO
+
+	column COHORTE_ML
+		dataType: string
+		lineageTag: 168b21c7-c743-4f9d-9c3b-9d3c93428a8b
+		summarizeBy: none
+		sourceColumn: COHORTE_ML
+
+	column TARGET_VALIDO
+		dataType: boolean
+		lineageTag: 8df12112-5386-4c78-865b-8b910e66a686
+		summarizeBy: none
+		sourceColumn: TARGET_VALIDO
+
+	column Y_ATRASO_SLA_5DH
+		dataType: int64
+		formatString: 0
+		lineageTag: 7eb375f5-8f3a-4aee-af7e-f76117126783
+		summarizeBy: sum
+		sourceColumn: Y_ATRASO_SLA_5DH
+
+	column HIST_CLIENTE_RIESGO
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 977a8048-e38f-4a4e-bba2-c55c1085a127
+		summarizeBy: average
+		sourceColumn: HIST_CLIENTE_RIESGO
+
+	column HIST_CLIENTE_N
+		dataType: int64
+		formatString: #,0
+		lineageTag: bb8c2e19-d0c6-4475-abaf-b2e9360f3c2e
+		summarizeBy: sum
+		sourceColumn: HIST_CLIENTE_N
+
+	column HIST_VENDEDOR_RIESGO
+		dataType: double
+		formatString: 0.0%
+		lineageTag: e279f10e-fdd8-4a93-8c38-fda1ed3d310e
+		summarizeBy: average
+		sourceColumn: HIST_VENDEDOR_RIESGO
+
+	column HIST_VENDEDOR_N
+		dataType: int64
+		formatString: #,0
+		lineageTag: 6b15ff42-b34c-4a9c-af64-92f38c106a1f
+		summarizeBy: sum
+		sourceColumn: HIST_VENDEDOR_N
+
+	column HIST_CANAL_RIESGO
+		dataType: double
+		formatString: 0.0%
+		lineageTag: b39b5802-fa0b-40dd-be37-3a98d9c17e6d
+		summarizeBy: average
+		sourceColumn: HIST_CANAL_RIESGO
+
+	column HIST_CANAL_N
+		dataType: int64
+		formatString: #,0
+		lineageTag: 26492859-963e-42a3-8247-0be48f208744
+		summarizeBy: sum
+		sourceColumn: HIST_CANAL_N
+
+	column HIST_GLOBAL_RIESGO
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 88be8fa5-d734-4f7c-89fd-06908951e9c9
+		summarizeBy: average
+		sourceColumn: HIST_GLOBAL_RIESGO
+
+	column HIST_GLOBAL_N
+		dataType: int64
+		formatString: #,0
+		lineageTag: ae27a64c-5514-4eff-87ca-55beb84939c6
+		summarizeBy: sum
+		sourceColumn: HIST_GLOBAL_N
+
+	column HIST_SOPORTE_MIN
+		dataType: int64
+		formatString: #,0
+		lineageTag: 165c72d3-9903-40f5-a766-0ce16a100666
+		summarizeBy: average
+		sourceColumn: HIST_SOPORTE_MIN
+
+	column HIST_SIN_ANTECEDENTES
+		dataType: int64
+		formatString: #,0
+		lineageTag: 3eedeb66-7bd1-488d-ac6d-25acf522a198
+		summarizeBy: sum
+		sourceColumn: HIST_SIN_ANTECEDENTES
+
+	column HIST_METODO
+		dataType: string
+		lineageTag: 3b003dce-974e-4f53-b9bf-2f765caa939b
+		summarizeBy: none
+		sourceColumn: HIST_METODO
+
+	column HIST_FECHA_MAX_USADA
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 5481987f-bd42-4757-a6a4-1944931ecb6c
+		summarizeBy: none
+		sourceColumn: HIST_FECHA_MAX_USADA
+
+	column HIST_K_SUAVIZADO
+		dataType: double
+		formatString: 0.0
+		lineageTag: b97b8be5-9bb4-41fd-906c-ba41bf87daba
+		summarizeBy: average
+		sourceColumn: HIST_K_SUAVIZADO
+
+	column HIST_VERSION
+		dataType: string
+		lineageTag: eb4d94db-eb93-43cf-811f-557e63a22f39
+		summarizeBy: none
+		sourceColumn: HIST_VERSION
+
+	column AUD_HIST_FUTURO
+		dataType: int64
+		formatString: #,0
+		lineageTag: a5e30131-2cac-46a3-983d-697740e2a85d
+		summarizeBy: sum
+		sourceColumn: AUD_HIST_FUTURO
+
+	column AUD_HIST_RANGO
+		dataType: int64
+		formatString: #,0
+		lineageTag: 85db2545-a940-4c8b-aaeb-37f109b5347f
+		summarizeBy: sum
+		sourceColumn: AUD_HIST_RANGO
+
+	column AUD_HIST_FECHA_FALTANTE
+		dataType: int64
+		formatString: #,0
+		lineageTag: 0441a458-2cdf-485f-8593-e81d38e1d994
+		summarizeBy: sum
+		sourceColumn: AUD_HIST_FECHA_FALTANTE
+
+	column AUD_HIST_ESTADO
+		dataType: string
+		lineageTag: 47e18097-bdc8-42dc-93dd-04475d5a62ab
+		summarizeBy: none
+		sourceColumn: AUD_HIST_ESTADO
+
+	partition ML_Historicos_Sin_Fuga = m
+		mode: import
+		source =
+				let
+				    Origen = Table.SelectColumns(Resultado, {"PED_NUMERO_PEDIDO", "PED_FECHA", "PED_CODIGO_CLIENTE", "PED_RESPONSABLE", "PED_CANAL_CODIGO", "DH_TOTAL", "ES_ENTRENAMIENTO_FINAL", "ES_VALIDACION_TEST", "ES_PENDIENTE"}, MissingField.UseNull),
+				    Python = Python.Execute("#(lf)import numpy as np#(lf)import pandas as pd#(lf)#(lf)SLA_DH = 5.0#(lf)MAX_DH = 60.0#(lf)SMOOTHING_K = 10.0#(lf)DEFAULT_PRIOR = 0.15#(lf)VERSION = ""HIST_V1_STRICT_DATE_TRAIN_FREEZE""#(lf)#(lf)def as_bool(s):#(lf)    if pd.api.types.is_bool_dtype(s):#(lf)        return s.fillna(False)#(lf)    return s.astype(str).str.strip().str.lower().isin({""true"", ""1"", ""si"", ""sí"", ""yes""})#(lf)#(lf)def safe_text(s, default=""SIN DATO""):#(lf)    out = s.astype(""string"").fillna(default).str.strip()#(lf)    return out.mask(out.eq(""""), default)#(lf)#(lf)def online_global(rows, hist):#(lf)    base = rows[[""_ROW_ID"", ""PED_FECHA""]].sort_values([""PED_FECHA"", ""_ROW_ID""]).copy()#(lf)    if hist.empty:#(lf)        base[""HIST_GLOBAL_N""] = 0#(lf)        base[""HIST_GLOBAL_SUM""] = 0.0#(lf)        base[""HIST_GLOBAL_FECHA_MAX""] = pd.NaT#(lf)    else:#(lf)        h = (#(lf)            hist.groupby(""PED_FECHA"")#(lf)            .agg(_CNT=(""Y_ATRASO_SLA_5DH"", ""size""), _SUM=(""Y_ATRASO_SLA_5DH"", ""sum""))#(lf)            .reset_index()#(lf)            .sort_values(""PED_FECHA"")#(lf)        )#(lf)        h[""HIST_GLOBAL_N""] = h[""_CNT""].cumsum()#(lf)        h[""HIST_GLOBAL_SUM""] = h[""_SUM""].cumsum()#(lf)        h[""HIST_GLOBAL_FECHA_MAX""] = h[""PED_FECHA""]#(lf)        base = pd.merge_asof(#(lf)            base,#(lf)            h[[""PED_FECHA"", ""HIST_GLOBAL_N"", ""HIST_GLOBAL_SUM"", ""HIST_GLOBAL_FECHA_MAX""]],#(lf)            on=""PED_FECHA"",#(lf)            direction=""backward"",#(lf)            allow_exact_matches=False,#(lf)        )#(lf)        base[""HIST_GLOBAL_N""] = base[""HIST_GLOBAL_N""].fillna(0).astype(""int64"")#(lf)        base[""HIST_GLOBAL_SUM""] = base[""HIST_GLOBAL_SUM""].fillna(0.0).astype(""float64"")#(lf)    return base[[""_ROW_ID"", ""HIST_GLOBAL_N"", ""HIST_GLOBAL_SUM"", ""HIST_GLOBAL_FECHA_MAX""]]#(lf)#(lf)def online_entity(rows, hist, entity, prefix):#(lf)    base = rows[[""_ROW_ID"", entity, ""PED_FECHA""]].sort_values([""PED_FECHA"", entity, ""_ROW_ID""]).copy()#(lf)    if hist.empty:#(lf)        base[f""{prefix}_N""] = 0#(lf)        base[f""{prefix}_SUM""] = 0.0#(lf)        base[f""{prefix}_FECHA_MAX""] = pd.NaT#(lf)    else:#(lf)        h = (#(lf)            hist.groupby([entity, ""PED_FECHA""], dropna=False)#(lf)            .agg(_CNT=(""Y_ATRASO_SLA_5DH"", ""size""), _SUM=(""Y_ATRASO_SLA_5DH"", ""sum""))#(lf)            .reset_index()#(lf)            .sort_values([entity, ""PED_FECHA""])#(lf)        )#(lf)        h[f""{prefix}_N""] = h.groupby(entity)[""_CNT""].cumsum()#(lf)        h[f""{prefix}_SUM""] = h.groupby(entity)[""_SUM""].cumsum()#(lf)        h[f""{prefix}_FECHA_MAX""] = h[""PED_FECHA""]#(lf)        base = pd.merge_asof(#(lf)            base.sort_values([""PED_FECHA"", entity]),#(lf)            h[[entity, ""PED_FECHA"", f""{prefix}_N"", f""{prefix}_SUM"", f""{prefix}_FECHA_MAX""]]#(lf)            .sort_values([""PED_FECHA"", entity]),#(lf)            by=entity,#(lf)            on=""PED_FECHA"",#(lf)            direction=""backward"",#(lf)            allow_exact_matches=False,#(lf)        )#(lf)        base[f""{prefix}_N""] = base[f""{prefix}_N""].fillna(0).astype(""int64"")#(lf)        base[f""{prefix}_SUM""] = base[f""{prefix}_SUM""].fillna(0.0).astype(""float64"")#(lf)    return base[[""_ROW_ID"", f""{prefix}_N"", f""{prefix}_SUM"", f""{prefix}_FECHA_MAX""]]#(lf)#(lf)def apply_online(rows, hist, entities, metodo):#(lf)    out = rows.copy()#(lf)    out = out.merge(online_global(rows, hist), on=""_ROW_ID"", how=""left"")#(lf)    out[""HIST_GLOBAL_RIESGO""] = np.where(#(lf)        out[""HIST_GLOBAL_N""] > 0,#(lf)        out[""HIST_GLOBAL_SUM""] / out[""HIST_GLOBAL_N""],#(lf)        DEFAULT_PRIOR,#(lf)    )#(lf)    fecha_cols = [""HIST_GLOBAL_FECHA_MAX""]#(lf)    for entity, prefix in entities:#(lf)        out = out.merge(online_entity(rows, hist, entity, prefix), on=""_ROW_ID"", how=""left"")#(lf)        out[f""{prefix}_RIESGO""] = (#(lf)            out[f""{prefix}_SUM""] + SMOOTHING_K * out[""HIST_GLOBAL_RIESGO""]#(lf)        ) / (out[f""{prefix}_N""] + SMOOTHING_K)#(lf)        fecha_cols.append(f""{prefix}_FECHA_MAX"")#(lf)    out[""HIST_FECHA_MAX_USADA""] = out[fecha_cols].max(axis=1)#(lf)    out[""HIST_METODO""] = metodo#(lf)    return out#(lf)#(lf)def apply_test_frozen(rows, train_hist, entities):#(lf)    out = rows.copy()#(lf)    n = len(train_hist)#(lf)    total_pos = float(train_hist[""Y_ATRASO_SLA_5DH""].sum()) if n else 0.0#(lf)    global_rate = total_pos / n if n else DEFAULT_PRIOR#(lf)    max_train_date = train_hist[""PED_FECHA""].max() if n else pd.NaT#(lf)    out[""HIST_GLOBAL_N""] = int(n)#(lf)    out[""HIST_GLOBAL_SUM""] = total_pos#(lf)    out[""HIST_GLOBAL_RIESGO""] = global_rate#(lf)    out[""HIST_GLOBAL_FECHA_MAX""] = max_train_date#(lf)    fecha_cols = [""HIST_GLOBAL_FECHA_MAX""]#(lf)    for entity, prefix in entities:#(lf)        if n:#(lf)            mapping = train_hist.groupby(entity)[""Y_ATRASO_SLA_5DH""].agg([""count"", ""sum""])#(lf)            out = out.join(mapping, on=entity)#(lf)            out[f""{prefix}_N""] = out.pop(""count"").fillna(0).astype(""int64"")#(lf)            out[f""{prefix}_SUM""] = out.pop(""sum"").fillna(0.0).astype(""float64"")#(lf)        else:#(lf)            out[f""{prefix}_N""] = 0#(lf)            out[f""{prefix}_SUM""] = 0.0#(lf)        out[f""{prefix}_RIESGO""] = (#(lf)            out[f""{prefix}_SUM""] + SMOOTHING_K * global_rate#(lf)        ) / (out[f""{prefix}_N""] + SMOOTHING_K)#(lf)        out[f""{prefix}_FECHA_MAX""] = max_train_date#(lf)        fecha_cols.append(f""{prefix}_FECHA_MAX"")#(lf)    out[""HIST_FECHA_MAX_USADA""] = out[fecha_cols].max(axis=1)#(lf)    out[""HIST_METODO""] = ""MAPA_TRAIN_CONGELADO""#(lf)    return out#(lf)#(lf)df = resultado.copy()#(lf)required = [#(lf)    ""PED_NUMERO_PEDIDO"", ""PED_FECHA"", ""PED_CODIGO_CLIENTE"", ""PED_RESPONSABLE"",#(lf)    ""PED_CANAL_CODIGO"", ""DH_TOTAL"", ""ES_ENTRENAMIENTO_FINAL"",#(lf)    ""ES_VALIDACION_TEST"", ""ES_PENDIENTE"",#(lf)]#(lf)for c in required:#(lf)    if c not in df.columns:#(lf)        df[c] = np.nan#(lf)#(lf)df[""PED_NUMERO_PEDIDO""] = safe_text(df[""PED_NUMERO_PEDIDO""], ""SIN PEDIDO"")#(lf)df[""PED_FECHA""] = pd.to_datetime(df[""PED_FECHA""], errors=""coerce"")#(lf)df[""PED_CODIGO_CLIENTE""] = safe_text(df[""PED_CODIGO_CLIENTE""])#(lf)df[""PED_RESPONSABLE""] = safe_text(df[""PED_RESPONSABLE""])#(lf)df[""PED_CANAL_CODIGO""] = safe_text(df[""PED_CANAL_CODIGO""])#(lf)df[""DH_TOTAL""] = pd.to_numeric(df[""DH_TOTAL""], errors=""coerce"")#(lf)for c in [""ES_ENTRENAMIENTO_FINAL"", ""ES_VALIDACION_TEST"", ""ES_PENDIENTE""]:#(lf)    df[c] = as_bool(df[c])#(lf)#(lf)df = (#(lf)    df.sort_values([""PED_FECHA"", ""PED_NUMERO_PEDIDO""], na_position=""last"")#(lf)      .drop_duplicates(""PED_NUMERO_PEDIDO"", keep=""last"")#(lf)      .reset_index(drop=True)#(lf))#(lf)df[""_ROW_ID""] = np.arange(len(df), dtype=""int64"")#(lf)df[""COHORTE_ML""] = np.select(#(lf)    [#(lf)        df[""ES_PENDIENTE""],#(lf)        df[""ES_ENTRENAMIENTO_FINAL""] & df[""ES_VALIDACION_TEST""],#(lf)        df[""ES_ENTRENAMIENTO_FINAL""],#(lf)    ],#(lf)    [""PENDIENTE"", ""TEST"", ""TRAIN""],#(lf)    default=""EXCLUIDO"",#(lf))#(lf)df[""TARGET_VALIDO""] = (#(lf)    df[""ES_ENTRENAMIENTO_FINAL""]#(lf)    & ~df[""ES_PENDIENTE""]#(lf)    & df[""DH_TOTAL""].between(0, MAX_DH, inclusive=""both"")#(lf))#(lf)df[""Y_ATRASO_SLA_5DH""] = np.where(#(lf)    df[""TARGET_VALIDO""],#(lf)    (df[""DH_TOTAL""] > SLA_DH).astype(""int64""),#(lf)    np.nan,#(lf))#(lf)#(lf)entities = [#(lf)    (""PED_CODIGO_CLIENTE"", ""HIST_CLIENTE""),#(lf)    (""PED_RESPONSABLE"", ""HIST_VENDEDOR""),#(lf)    (""PED_CANAL_CODIGO"", ""HIST_CANAL""),#(lf)]#(lf)dated = df[df[""PED_FECHA""].notna()].copy()#(lf)train_hist = dated[(dated[""COHORTE_ML""] == ""TRAIN"") & dated[""TARGET_VALIDO""]].copy()#(lf)all_closed_hist = dated[dated[""TARGET_VALIDO""]].copy()#(lf)#(lf)parts = []#(lf)train_rows = dated[dated[""COHORTE_ML""] == ""TRAIN""].copy()#(lf)if not train_rows.empty:#(lf)    parts.append(apply_online(train_rows, train_hist, entities, ""EXPANDING_SHIFT_TRAIN""))#(lf)test_rows = dated[dated[""COHORTE_ML""] == ""TEST""].copy()#(lf)if not test_rows.empty:#(lf)    parts.append(apply_test_frozen(test_rows, train_hist, entities))#(lf)other_rows = dated[~dated[""COHORTE_ML""].isin([""TRAIN"", ""TEST""])].copy()#(lf)if not other_rows.empty:#(lf)    parts.append(apply_online(other_rows, all_closed_hist, entities, ""CERRADOS_ANTERIORES""))#(lf)#(lf)missing = df[df[""PED_FECHA""].isna()].copy()#(lf)if not missing.empty:#(lf)    missing[""HIST_GLOBAL_N""] = 0#(lf)    missing[""HIST_GLOBAL_SUM""] = 0.0#(lf)    missing[""HIST_GLOBAL_RIESGO""] = DEFAULT_PRIOR#(lf)    missing[""HIST_GLOBAL_FECHA_MAX""] = pd.NaT#(lf)    for _, prefix in entities:#(lf)        missing[f""{prefix}_N""] = 0#(lf)        missing[f""{prefix}_SUM""] = 0.0#(lf)        missing[f""{prefix}_RIESGO""] = DEFAULT_PRIOR#(lf)        missing[f""{prefix}_FECHA_MAX""] = pd.NaT#(lf)    missing[""HIST_FECHA_MAX_USADA""] = pd.NaT#(lf)    missing[""HIST_METODO""] = ""SIN_FECHA_DEFAULT""#(lf)    parts.append(missing)#(lf)#(lf)out = pd.concat(parts, ignore_index=True, sort=False).sort_values(""_ROW_ID"").reset_index(drop=True)#(lf)out[""HIST_SOPORTE_MIN""] = out[[""HIST_CLIENTE_N"", ""HIST_VENDEDOR_N"", ""HIST_CANAL_N""]].min(axis=1).astype(""int64"")#(lf)out[""HIST_SIN_ANTECEDENTES""] = (#(lf)    (out[""HIST_CLIENTE_N""] == 0)#(lf)    & (out[""HIST_VENDEDOR_N""] == 0)#(lf)    & (out[""HIST_CANAL_N""] == 0)#(lf)).astype(""int64"")#(lf)out[""AUD_HIST_FUTURO""] = (#(lf)    out[""HIST_FECHA_MAX_USADA""].notna()#(lf)    & out[""PED_FECHA""].notna()#(lf)    & (out[""HIST_FECHA_MAX_USADA""] >= out[""PED_FECHA""])#(lf)).astype(""int64"")#(lf)risk_cols = [""HIST_CLIENTE_RIESGO"", ""HIST_VENDEDOR_RIESGO"", ""HIST_CANAL_RIESGO"", ""HIST_GLOBAL_RIESGO""]#(lf)out[""AUD_HIST_RANGO""] = (#(lf)    out[risk_cols].isna().any(axis=1)#(lf)    | (out[risk_cols] < 0).any(axis=1)#(lf)    | (out[risk_cols] > 1).any(axis=1)#(lf)).astype(""int64"")#(lf)out[""AUD_HIST_FECHA_FALTANTE""] = out[""PED_FECHA""].isna().astype(""int64"")#(lf)out[""AUD_HIST_ESTADO""] = np.select(#(lf)    [#(lf)        out[""AUD_HIST_FUTURO""] > 0,#(lf)        out[""AUD_HIST_RANGO""] > 0,#(lf)        out[""AUD_HIST_FECHA_FALTANTE""] > 0,#(lf)    ],#(lf)    [""ERROR_FUTURO"", ""ERROR_RANGO"", ""REVISAR_SIN_FECHA""],#(lf)    default=""OK"",#(lf))#(lf)out[""HIST_VERSION""] = VERSION#(lf)out[""HIST_K_SUAVIZADO""] = float(SMOOTHING_K)#(lf)#(lf)final_cols = [#(lf)    ""PED_NUMERO_PEDIDO"", ""PED_FECHA"", ""PED_CODIGO_CLIENTE"", ""PED_RESPONSABLE"",#(lf)    ""PED_CANAL_CODIGO"", ""COHORTE_ML"", ""TARGET_VALIDO"", ""Y_ATRASO_SLA_5DH"",#(lf)    ""HIST_CLIENTE_RIESGO"", ""HIST_CLIENTE_N"",#(lf)    ""HIST_VENDEDOR_RIESGO"", ""HIST_VENDEDOR_N"",#(lf)    ""HIST_CANAL_RIESGO"", ""HIST_CANAL_N"",#(lf)    ""HIST_GLOBAL_RIESGO"", ""HIST_GLOBAL_N"",#(lf)    ""HIST_SOPORTE_MIN"", ""HIST_SIN_ANTECEDENTES"", ""HIST_METODO"",#(lf)    ""HIST_FECHA_MAX_USADA"", ""HIST_K_SUAVIZADO"", ""HIST_VERSION"",#(lf)    ""AUD_HIST_FUTURO"", ""AUD_HIST_RANGO"", ""AUD_HIST_FECHA_FALTANTE"",#(lf)    ""AUD_HIST_ESTADO"",#(lf)]#(lf)dataset = out[final_cols].copy()#(lf)for c in [""HIST_CLIENTE_RIESGO"", ""HIST_VENDEDOR_RIESGO"", ""HIST_CANAL_RIESGO"", ""HIST_GLOBAL_RIESGO"", ""HIST_K_SUAVIZADO""]:#(lf)    dataset[c] = pd.to_numeric(dataset[c], errors=""coerce"").astype(""float64"")#(lf)for c in [""HIST_CLIENTE_N"", ""HIST_VENDEDOR_N"", ""HIST_CANAL_N"", ""HIST_GLOBAL_N"",#(lf)          ""HIST_SOPORTE_MIN"", ""HIST_SIN_ANTECEDENTES"", ""AUD_HIST_FUTURO"",#(lf)          ""AUD_HIST_RANGO"", ""AUD_HIST_FECHA_FALTANTE""]:#(lf)    dataset[c] = pd.to_numeric(dataset[c], errors=""coerce"").fillna(0).astype(""int64"")#(lf)", [resultado = Origen]),
+				    dataset = Python{[Name="dataset"]}[Value],
+				    Tipos = Table.TransformColumnTypes(dataset, {{"PED_NUMERO_PEDIDO", type text}, {"PED_FECHA", type datetime}, {"PED_CODIGO_CLIENTE", type text}, {"PED_RESPONSABLE", type text}, {"PED_CANAL_CODIGO", type text}, {"COHORTE_ML", type text}, {"TARGET_VALIDO", type logical}, {"Y_ATRASO_SLA_5DH", Int64.Type}, {"HIST_CLIENTE_RIESGO", type number}, {"HIST_CLIENTE_N", Int64.Type}, {"HIST_VENDEDOR_RIESGO", type number}, {"HIST_VENDEDOR_N", Int64.Type}, {"HIST_CANAL_RIESGO", type number}, {"HIST_CANAL_N", Int64.Type}, {"HIST_GLOBAL_RIESGO", type number}, {"HIST_GLOBAL_N", Int64.Type}, {"HIST_SOPORTE_MIN", Int64.Type}, {"HIST_SIN_ANTECEDENTES", Int64.Type}, {"HIST_METODO", type text}, {"HIST_FECHA_MAX_USADA", type datetime}, {"HIST_K_SUAVIZADO", type number}, {"HIST_VERSION", type text}, {"AUD_HIST_FUTURO", Int64.Type}, {"AUD_HIST_RANGO", Int64.Type}, {"AUD_HIST_FECHA_FALTANTE", Int64.Type}, {"AUD_HIST_ESTADO", type text}})
+				in
+				    Tipos
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
