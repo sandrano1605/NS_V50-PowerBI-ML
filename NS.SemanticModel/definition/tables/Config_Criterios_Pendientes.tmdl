@@ -1,0 +1,66 @@
+/// Catálogo visible de reglas utilizadas para priorizar pedidos pendientes.
+table Config_Criterios_Pendientes
+	lineageTag: 8ab2523f-575e-4ce0-92e1-c6f90450129b
+
+	column ORDEN
+		dataType: int64
+		formatString: 0
+		lineageTag: e98cf491-f43b-42e6-bfa7-9eab66f888f4
+		summarizeBy: none
+		sourceColumn: ORDEN
+
+	column CRITERIO
+		dataType: string
+		lineageTag: 3d105c0a-3f79-4644-8018-621c938fef8c
+		summarizeBy: none
+		sourceColumn: CRITERIO
+
+	column REGLA
+		dataType: string
+		lineageTag: 0aafdf11-8506-473c-94ed-d25a7bd6bc0f
+		summarizeBy: none
+		sourceColumn: REGLA
+
+	column PUNTOS_MAX
+		dataType: int64
+		formatString: 0
+		lineageTag: 26c949dc-68fd-4302-9ec5-66e9279e3563
+		summarizeBy: sum
+		sourceColumn: PUNTOS_MAX
+
+	column LECTURA_OPERATIVA
+		dataType: string
+		lineageTag: fc632d08-c381-4fed-b132-c3ee1adfa434
+		summarizeBy: none
+		sourceColumn: LECTURA_OPERATIVA
+
+	column ACCION_ESPERADA
+		dataType: string
+		lineageTag: 9f5b53c3-5998-43ca-8bae-13d4698ecd2e
+		summarizeBy: none
+		sourceColumn: ACCION_ESPERADA
+
+	column COLOR_HEX
+		dataType: string
+		lineageTag: 7e0d94ea-ecad-4f4c-83e6-35dceaebe110
+		summarizeBy: none
+		sourceColumn: COLOR_HEX
+
+	partition Config_Criterios_Pendientes = m
+		mode: import
+		source =
+				#table(
+				    type table [ORDEN = Int64.Type, CRITERIO = text, REGLA = text, PUNTOS_MAX = Int64.Type, LECTURA_OPERATIVA = text, ACCION_ESPERADA = text, COLOR_HEX = text],
+				    {
+				        {1, "SLA consumido", ">5 DH: 40 pts | 4-5 DH: 30 pts | 3-<4 DH: 20 pts | 2-<3 DH: 10 pts", 40, "Cuánto tiempo real ya consumió el pedido", "Escalar pedidos vencidos y próximos a vencer", "#D32F2F"},
+				        {2, "Riesgo ML", ">=20%: 25 pts | 10%-<20%: 15 pts | <10%: 5 pts", 25, "Probabilidad estimada de incumplir el SLA", "Revisar primero los pedidos con mayor riesgo", "#F57C00"},
+				        {3, "Permanencia en hito", ">=2 DH: 15 pts | 1-<2 DH: 8 pts", 15, "Tiempo sin avanzar en el estado actual", "Destrabar el hito y asignar responsable", "#7B1FA2"},
+				        {4, "Valor del pedido", ">=CLP 5 MM: 10 pts | >=CLP 2,6 MM: 6 pts", 10, "Impacto económico del pedido pendiente", "Proteger pedidos de mayor exposición", "#1976D2"},
+				        {5, "Riesgo histórico", ">=20%: 10 pts | 15%-<20%: 5 pts", 10, "Patrón histórico de cliente, vendedor o canal", "Anticipar recurrencia y revisar antecedentes", "#00897B"},
+				        {6, "Fin de mes", "Pedido creado en últimos 7 días hábiles: 5 pts", 5, "Presión de cierre y saturación operativa", "Asegurar capacidad y seguimiento diario", "#455A64"}
+				    }
+				)
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
