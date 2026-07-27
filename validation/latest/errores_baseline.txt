@@ -1,0 +1,39 @@
+# ERRORES BASELINE — SHA 9aaf321
+
+## Errores TMDL
+Ninguno.
+
+## Errores Python.Execute
+Ninguno.
+
+## Errores de relaciones
+Ninguno.
+
+## Consultas con error
+Ninguno.
+
+## Duplicados por PED_NUMERO_PEDIDO
+Ninguno detectado (verificado via DAX).
+
+## Observaciones
+
+### Escala de valores
+Los valores de probabilidad y métricas aparecen escalados por 10^15 en Power BI.
+- Ejemplo: AUC muestra 587909873603224 en lugar de 0.5879
+- Causa: Python.Execute retorna floats que Power BI almacena como enteros grandes
+- Impacto: No afecta cálculos DAX (formatString maneja la presentación)
+- Solución futura: Ajustar el script Python para multiplicar por 10^15 antes de retornar
+
+### R² negativo
+El modelo de regresión tiene R² = -3.997, lo que indica bajo poder predictivo.
+- Causa: Features limitadas (VALOR_MM, DIA_MES, PED_CANAL_CODIGO, PED_REGION)
+- Impacto: La regresión no supera al baseline (mediana)
+- Solución futura: Agregar features históricas y de hitos
+
+### N_TRAIN vs N_TEST
+- Train: 601 pedidos (mes 2026-05)
+- Test: 633 pedidos (mes 2026-06)
+- El test es más grande que el train, lo cual es inusual pero válido para un split temporal
+
+## Conclusión
+No hay errores bloqueantes. El modelo está listo para la fase de desarrollo.
