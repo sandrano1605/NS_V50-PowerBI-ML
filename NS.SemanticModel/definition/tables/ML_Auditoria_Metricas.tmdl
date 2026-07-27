@@ -111,14 +111,10 @@ table ML_Auditoria_Metricas
 				    Origen = Table.SelectColumns(Resultado, {"PED_NUMERO_PEDIDO", "DH_TOTAL", "PROB_ML_ATRASO", "ES_ENTRENAMIENTO_FINAL", "ES_VALIDACION_TEST", "ES_PENDIENTE"}, MissingField.UseNull),
 				    UnaFilaPedido = Table.Distinct(Origen, {"PED_NUMERO_PEDIDO"}),
 				    ConDH = Table.TransformColumns(UnaFilaPedido, {{"DH_TOTAL", each try Number.From(_) otherwise null, type nullable number}, {"PROB_ML_ATRASO", each try Number.From(_) otherwise null, type nullable number}}),
-				    ConProbNorm = Table.AddColumn(ConDH, "PROB_NORM", each
-				        let
-				            n = [PROB_ML_ATRASO],
-				            a = if n = null then null else Number.Abs(n),
-				            escala = if a = null or a <= 1 then 1 else Number.Power(10, Number.RoundUp(Number.Log10(a))),
-				            v = if n = null then null else n / escala
-				        in
-				            if v = null or v < 0 or v > 1 then null else v, type nullable number),
+				    ValoresRaw = List.RemoveNulls(ConDH[PROB_ML_ATRASO]),
+				    MaxAbsRaw = if List.Count(ValoresRaw) = 0 then null else List.Max(List.Transform(ValoresRaw, each Number.Abs(_))),
+				    EscalaGlobal = if MaxAbsRaw = null or MaxAbsRaw <= 1 then 1 else Number.Power(10, Number.RoundUp(Number.Log10(MaxAbsRaw))),
+				    ConProbNorm = Table.AddColumn(ConDH, "PROB_NORM", each let n = [PROB_ML_ATRASO], v = if n = null then null else n / EscalaGlobal in if v = null or v < 0 or v > 1 then null else v, type nullable number),
 				    Validos = Table.SelectRows(ConProbNorm, each [ES_ENTRENAMIENTO_FINAL] = true and [ES_PENDIENTE] <> true and [DH_TOTAL] <> null and [DH_TOTAL] >= 0 and [DH_TOTAL] <= 60),
 				    ConTarget = Table.AddColumn(Validos, "Y_ATRASO_SLA_5DH", each if [DH_TOTAL] > 5 then 1 else 0, Int64.Type),
 				    Train = Table.SelectRows(ConTarget, each [ES_VALIDACION_TEST] <> true),
@@ -141,7 +137,7 @@ table ML_Auditoria_Metricas
 				    DiferenciaML = if BrierMLDirecto = null or BrierMLReportado = null then null else Number.Abs(BrierMLDirecto - BrierMLReportado),
 				    Tolerancia = 0.000001,
 				    Estado = if NTrain = 0 or NTest = 0 then "ERROR_SPLIT" else if BrierBaseDirecto = null or BrierBaseFormula = null or BrierBaseReportado = null or BrierMLDirecto = null or BrierMLReportado = null then "ERROR_DATOS" else if Number.Abs(BrierBaseDirecto - BrierBaseFormula) > Tolerancia then "ERROR_FORMULA" else if DiferenciaBase > Tolerancia or DiferenciaML > Tolerancia then "ERROR_NO_RECONCILIA" else "OK",
-				    DetalleTexto = "TARGET=DH_TOTAL>5 | tolerancia=" & Number.ToText(Tolerancia, "0.000000") & " | el Brier base directo debe coincidir con la fórmula y con ML_Comparacion_Modelos",
+				    DetalleTexto = "TARGET=DH_TOTAL>5 | ESCALA_GLOBAL=" & Number.ToText(EscalaGlobal, "0") & " | tolerancia=" & Number.ToText(Tolerancia, "0.000000") & " | Brier directo=media((Y-P)^2)",
 				    Salida = #table(
 				        type table [
 				            N_Train = Int64.Type,
