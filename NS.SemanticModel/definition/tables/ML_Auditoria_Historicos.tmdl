@@ -1,0 +1,78 @@
+table ML_Auditoria_Historicos
+	lineageTag: b4f0ac82-a890-4d0f-a397-452c7d5d5241
+
+	column CONTROL
+		dataType: string
+		lineageTag: b70e55cc-2846-44f2-8af2-5e7c15587777
+		summarizeBy: none
+		sourceColumn: CONTROL
+
+	column FILAS_EVALUADAS
+		dataType: int64
+		formatString: #,0
+		lineageTag: cb1b76e2-ef95-4aa9-8210-a8538925f165
+		summarizeBy: sum
+		sourceColumn: FILAS_EVALUADAS
+
+	column INCUMPLIMIENTOS
+		dataType: int64
+		formatString: #,0
+		lineageTag: e0c1cc2a-23a4-4ca2-848c-4f8d0bc2fc6c
+		summarizeBy: sum
+		sourceColumn: INCUMPLIMIENTOS
+
+	column ESTADO
+		dataType: string
+		lineageTag: a96e6eb3-5b45-4bc5-a5b5-2b4617f4ee5b
+		summarizeBy: none
+		sourceColumn: ESTADO
+
+	column DETALLE
+		dataType: string
+		lineageTag: a22a7f7b-4ed6-444f-9b41-603c8862e04f
+		summarizeBy: none
+		sourceColumn: DETALLE
+
+	partition ML_Auditoria_Historicos = m
+		mode: import
+		source =
+				let
+				    Origen = ML_Historicos_Sin_Fuga,
+				    Filas = Table.RowCount(Origen),
+				    PedidosUnicos = List.Count(List.Distinct(List.RemoveNulls(Origen[PED_NUMERO_PEDIDO]))),
+				    DupPedidos = Filas - PedidosUnicos,
+				    Futuro = List.Sum(List.RemoveNulls(Origen[AUD_HIST_FUTURO])),
+				    FueraRango = List.Sum(List.RemoveNulls(Origen[AUD_HIST_RANGO])),
+				    FechaFaltante = List.Sum(List.RemoveNulls(Origen[AUD_HIST_FECHA_FALTANTE])),
+				    RiesgosNulos = Table.RowCount(Table.SelectRows(Origen, each [HIST_CLIENTE_RIESGO] = null or [HIST_VENDEDOR_RIESGO] = null or [HIST_CANAL_RIESGO] = null or [HIST_GLOBAL_RIESGO] = null)),
+				    Train = Table.SelectRows(Origen, each [COHORTE_ML] = "TRAIN"),
+				    Test = Table.SelectRows(Origen, each [COHORTE_ML] = "TEST"),
+				    MaxFechaTrain = if Table.RowCount(Train) = 0 then null else List.Max(List.RemoveNulls(Train[PED_FECHA])),
+				    TestFechaIncorrecta = if MaxFechaTrain = null then Table.RowCount(Test) else Table.RowCount(Table.SelectRows(Test, each [HIST_FECHA_MAX_USADA] = null or [HIST_FECHA_MAX_USADA] <> MaxFechaTrain or [HIST_FECHA_MAX_USADA] >= [PED_FECHA])),
+				    AgrCliente = Table.Group(Test, {"PED_CODIGO_CLIENTE"}, {{"N_DIST", each List.Count(List.Distinct(List.Transform(List.RemoveNulls([HIST_CLIENTE_RIESGO]), each Number.Round(_, 12)))), Int64.Type}}),
+				    AgrVendedor = Table.Group(Test, {"PED_RESPONSABLE"}, {{"N_DIST", each List.Count(List.Distinct(List.Transform(List.RemoveNulls([HIST_VENDEDOR_RIESGO]), each Number.Round(_, 12)))), Int64.Type}}),
+				    AgrCanal = Table.Group(Test, {"PED_CANAL_CODIGO"}, {{"N_DIST", each List.Count(List.Distinct(List.Transform(List.RemoveNulls([HIST_CANAL_RIESGO]), each Number.Round(_, 12)))), Int64.Type}}),
+				    ViolCliente = Table.RowCount(Table.SelectRows(AgrCliente, each [N_DIST] > 1)),
+				    ViolVendedor = Table.RowCount(Table.SelectRows(AgrVendedor, each [N_DIST] > 1)),
+				    ViolCanal = Table.RowCount(Table.SelectRows(AgrCanal, each [N_DIST] > 1)),
+				    Resultado = #table(
+				        type table [CONTROL = text, FILAS_EVALUADAS = Int64.Type, INCUMPLIMIENTOS = Int64.Type, ESTADO = text, DETALLE = text],
+				        {
+				            {"UNICIDAD_PEDIDO", Filas, DupPedidos, if DupPedidos = 0 then "OK" else "ERROR", "Una fila por PED_NUMERO_PEDIDO"},
+				            {"SIN_FUGA_FECHA", Filas, Futuro, if Futuro = 0 then "OK" else "ERROR", "HIST_FECHA_MAX_USADA debe ser estrictamente anterior a PED_FECHA"},
+				            {"RANGO_0_1", Filas, FueraRango, if FueraRango = 0 then "OK" else "ERROR", "Todos los riesgos históricos deben estar entre 0 y 1"},
+				            {"COBERTURA_RIESGOS", Filas, RiesgosNulos, if RiesgosNulos = 0 then "OK" else "ERROR", "Los cuatro riesgos históricos deben estar informados"},
+				            {"FECHA_PEDIDO_FALTANTE", Filas, FechaFaltante, if FechaFaltante = 0 then "OK" else "REVISAR", "Pedidos sin fecha usan prior neutral 0,15 y no deben entrar al modelo"},
+				            {"TEST_SOLO_TRAIN", Table.RowCount(Test), TestFechaIncorrecta, if TestFechaIncorrecta = 0 then "OK" else "ERROR", "Test debe usar el mapa congelado del train y una fecha máxima igual al cierre del train"},
+				            {"TEST_CLIENTE_CONGELADO", Table.RowCount(AgrCliente), ViolCliente, if ViolCliente = 0 then "OK" else "ERROR", "Un mismo cliente debe tener un único riesgo dentro del test"},
+				            {"TEST_VENDEDOR_CONGELADO", Table.RowCount(AgrVendedor), ViolVendedor, if ViolVendedor = 0 then "OK" else "ERROR", "Un mismo vendedor debe tener un único riesgo dentro del test"},
+				            {"TEST_CANAL_CONGELADO", Table.RowCount(AgrCanal), ViolCanal, if ViolCanal = 0 then "OK" else "ERROR", "Un mismo canal debe tener un único riesgo dentro del test"}
+				        }
+				    ),
+				    Tipos = Table.TransformColumnTypes(Resultado, {{"CONTROL", type text}, {"FILAS_EVALUADAS", Int64.Type}, {"INCUMPLIMIENTOS", Int64.Type}, {"ESTADO", type text}, {"DETALLE", type text}})
+				in
+				    Tipos
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
