@@ -7,7 +7,7 @@ model Model
 		legacyRedirects
 		returnErrorValuesAsNull
 
-annotation PBI_QueryOrder = ["Fact_Pedidos_Auditoria","auditoria","Fact_Pedidos","Dim_Cliente","Nombre_Cliente","Cliente_Vendedor","Dim_Feriados_Chile","Config_SLA_Hitos","Config_Promesa_Entrega","Dim_Vista_Ejecutiva","Dim_Metrica_Auditoria","Dim_Indicador_Ejecutivo","Dim_Rango_Entrega","Fact_Tiempos_Hitos","Dim_Hito","Dim_Fecha","Dim_Periodo_3M","Dim_Mes_Trend","Dim_Canal","Dim_Responsable","Dim_Condicion_Expedicion","Fact_Hitos_Operacionales","Fact_Tracking","Dim_Pedido","Medidas","Doc_Metodologia","Fact_Analisis_Despacho","Doc_Conclusiones","Doc_Conclusiones (2)","Resultado","ML_Comparacion_Modelos","ML_Auditoria_Target_Score","Consulta"]
+annotation PBI_QueryOrder = ["Fact_Pedidos_Auditoria","auditoria","Fact_Pedidos","Dim_Cliente","Nombre_Cliente","Cliente_Vendedor","Dim_Feriados_Chile","Config_SLA_Hitos","Config_Promesa_Entrega","Dim_Vista_Ejecutiva","Dim_Metrica_Auditoria","Dim_Indicador_Ejecutivo","Dim_Rango_Entrega","Fact_Tiempos_Hitos","Dim_Hito","Dim_Fecha","Dim_Periodo_3M","Dim_Mes_Trend","Dim_Canal","Dim_Responsable","Dim_Condicion_Expedicion","Fact_Hitos_Operacionales","Fact_Tracking","Dim_Pedido","Medidas","Doc_Metodologia","Fact_Analisis_Despacho","Doc_Conclusiones","Doc_Conclusiones (2)","Resultado","ML_Comparacion_Modelos","ML_Auditoria_Target_Score","ML_Auditoria_Metricas","Consulta"]
 
 annotation __PBI_TimeIntelligenceEnabled = 0
 
@@ -46,5 +46,6 @@ ref table Resultado
 ref table Consulta
 ref table ML_Comparacion_Modelos
 ref table ML_Auditoria_Target_Score
+ref table ML_Auditoria_Metricas
 
 ref cultureInfo es-ES
