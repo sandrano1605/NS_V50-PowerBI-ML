@@ -1,0 +1,96 @@
+table ML_Comparacion_Modelos
+	lineageTag: e5f6a7b8-c9d0-1234-efab-567890123456
+
+	column Modelo
+		dataType: string
+		lineageTag: f6a7b8c9-d0e1-2345-fabc-678901234567
+		summarizeBy: none
+		sourceColumn: Modelo
+
+	column Tipo
+		dataType: string
+		lineageTag: a7b8c9d0-e1f2-3456-abcd-789012345678
+		summarizeBy: none
+		sourceColumn: Tipo
+
+	column Metrica
+		dataType: string
+		lineageTag: b8c9d0e1-f2a3-4567-bcde-890123456789
+		summarizeBy: none
+		sourceColumn: Metrica
+
+	column Valor
+		dataType: double
+		formatString: 0.0000
+		lineageTag: c9d0e1f2-a3b4-5678-cdef-901234567890
+		summarizeBy: average
+		sourceColumn: Valor
+
+	column Valor_Formateado
+		dataType: string
+		lineageTag: d0e1f2a3-b4c5-6789-defa-012345678901
+		summarizeBy: none
+		sourceColumn: Valor_Formateado
+
+	column Diferencia_Absoluta
+		dataType: double
+		formatString: 0.0000
+		lineageTag: e1f2a3b4-c5d6-7890-efab-123456789012
+		summarizeBy: average
+		sourceColumn: Diferencia_Absoluta
+
+	column Diferencia_Porcentual
+		dataType: double
+		formatString: 0.0%
+		lineageTag: f2a3b4c5-d6e7-8901-fabc-234567890123
+		summarizeBy: average
+		sourceColumn: Diferencia_Porcentual
+
+	column Veredicto
+		dataType: string
+		lineageTag: a3b4c5d6-e7f8-9012-abcd-345678901234
+		summarizeBy: none
+		sourceColumn: Veredicto
+
+	column Split_Info
+		dataType: string
+		lineageTag: b4c5d6e7-f8a9-0123-bcde-456789012345
+		summarizeBy: none
+		sourceColumn: Split_Info
+
+	column N_Train
+		dataType: int64
+		formatString: #,0
+		lineageTag: c5d6e7f8-a9b0-1234-cdef-567890123456
+		summarizeBy: sum
+		sourceColumn: N_Train
+
+	column N_Test
+		dataType: int64
+		formatString: #,0
+		lineageTag: d6e7f8a9-b0c1-2345-defa-678901234567
+		summarizeBy: sum
+		sourceColumn: N_Test
+
+	column Auditoria_HIST
+		dataType: string
+		lineageTag: e7f8a9b0-c1d2-3456-efab-789012345678
+		summarizeBy: none
+		sourceColumn: Auditoria_HIST
+
+	partition ML_Comparacion_Modelos = m
+		mode: import
+		source =
+				let
+				    Origen = Fact_Pedidos,
+				    Tracking = Fact_Tracking,
+				    Clientes = Dim_Cliente,
+				    Python = Python.Execute("import pandas as pd#(lf)import numpy as np#(lf)import warnings#(lf)warnings.filterwarnings('ignore')#(lf)#(lf)try:#(lf)    from sklearn.linear_model import LogisticRegression, Ridge#(lf)    from sklearn.dummy import DummyClassifier, DummyRegressor#(lf)    from sklearn.metrics import roc_auc_score, brier_score_loss, mean_absolute_error, mean_squared_error, r2_score#(lf)    SKLEARN_OK = True#(lf)except Exception:#(lf)    SKLEARN_OK = False#(lf)#(lf)SLA_DH = 5.0#(lf)MAX_TARGET_DH = 60.0#(lf)SMOOTHING_K = 10.0#(lf)#(lf)# =====================================================#(lf)# FUNCIONES AUXILIARES#(lf)# =====================================================#(lf)def _safe_text(s, default='SIN DATO'):#(lf)    out = s.astype('string').fillna(default).str.strip()#(lf)    return out.mask(out.eq(''), default)#(lf)#(lf)def _num(s):#(lf)    return pd.to_numeric(s, errors='coerce')#(lf)#(lf)def _dt(s):#(lf)    if pd.api.types.is_datetime64_any_dtype(s):#(lf)        return pd.to_datetime(s, errors='coerce')#(lf)    n = pd.to_numeric(s, errors='coerce')#(lf)    if n.notna().mean() > 0.85:#(lf)        return pd.to_datetime(n, origin='1899-12-30', unit='D', errors='coerce')#(lf)    return pd.to_datetime(s, errors='coerce')#(lf)#(lf)def _bool(s):#(lf)    if pd.api.types.is_bool_dtype(s):#(lf)        return s.fillna(False)#(lf)    return s.astype(str).str.strip().str.lower().isin({'true', '1', 'si', 'sí', 'yes'})#(lf)#(lf)# =====================================================#(lf)# PREPARAR DATOS (misma lógica que Resultado)#(lf)# =====================================================#(lf)df = pedidos.copy()#(lf)df['PED_NUMERO_PEDIDO'] = _safe_text(df['PED_NUMERO_PEDIDO'])#(lf)df['PED_FECHA_HORA'] = _dt(df['PED_FECHA_HORA'])#(lf)df = df.sort_values(['PED_FECHA_HORA', 'PED_NUMERO_PEDIDO']).drop_duplicates('PED_NUMERO_PEDIDO', keep='last')#(lf)#(lf)for c in ['PED_CODIGO_CLIENTE', 'PED_RESPONSABLE', 'PED_CANAL_CODIGO', 'PED_REGION', 'PED_CONDICION_EXPEDICION_CODIGO', 'PED_ESTADO_CREDITO', 'SERV_TIPO_SERVICIO']:#(lf)    if c in df.columns:#(lf)        df[c] = _safe_text(df[c])#(lf)    else:#(lf)        df[c] = 'SIN DATO'#(lf)#(lf)df['PED_VALOR_NETO'] = _num(df.get('PED_VALOR_NETO', 0)).fillna(0)#(lf)df['DH_ENTREGA_COMPLETA_100'] = _num(df.get('DH_ENTREGA_COMPLETA_100', np.nan))#(lf)df['AUD_TOTAL_CRITICAS'] = _num(df.get('AUD_TOTAL_CRITICAS', 0)).fillna(0)#(lf)df['AUD_ESTADO_GENERAL'] = _safe_text(df.get('AUD_ESTADO_GENERAL', 'SIN AUDITORIA'))#(lf)df['ES_FES'] = _bool(df.get('ES_FES', False))#(lf)df['ES_SALDO'] = _bool(df.get('ES_SALDO', False))#(lf)#(lf)tracking_base = tracking[['PED_NUMERO_PEDIDO', 'ES_CERRADO']].copy()#(lf)tracking_base['PED_NUMERO_PEDIDO'] = _safe_text(tracking_base['PED_NUMERO_PEDIDO'])#(lf)tracking_base = tracking_base.drop_duplicates('PED_NUMERO_PEDIDO')#(lf)df = df.merge(tracking_base, on='PED_NUMERO_PEDIDO', how='left')#(lf)df['ES_CERRADO_TRACKING'] = _bool(df['ES_CERRADO'].fillna(False))#(lf)df['ES_PENDIENTE'] = ~df['ES_CERRADO_TRACKING']#(lf)#(lf)df['DH_TOTAL'] = df['DH_ENTREGA_COMPLETA_100']#(lf)df['ES_CALIDAD_VALIDA_ML'] = (#(lf)    df['DH_TOTAL'].notna()#(lf)    & df['DH_TOTAL'].between(0, MAX_TARGET_DH, inclusive='both')#(lf)    & df['AUD_TOTAL_CRITICAS'].fillna(0).eq(0)#(lf)    & ~df['AUD_ESTADO_GENERAL'].str.upper().eq('CRITICO')#(lf))#(lf)df['ES_FLUJO_COMPLETO_ML'] = df['ES_CALIDAD_VALIDA_ML'] & ~df['ES_PENDIENTE']#(lf)df['Y_ATRASO_5DH'] = np.where(df['DH_TOTAL'].notna(), (df['DH_TOTAL'] > SLA_DH).astype(float), np.nan)#(lf)df['MES_CREACION'] = df['PED_FECHA_HORA'].dt.strftime('%Y-%m')#(lf)df['VALOR_MM'] = df['PED_VALOR_NETO'] / 1_000_000.0#(lf)df['DIA_MES'] = df['PED_FECHA_HORA'].dt.day.fillna(0).astype(int)#(lf)df['HORA_CREACION'] = df['PED_FECHA_HORA'].dt.hour.fillna(0).astype(int)#(lf)df['ES_FIN_MES'] = (df['DIA_MES'] >= 24).astype(float)#(lf)#(lf)# =====================================================#(lf)# AUDITORÍA HIST_*_RIESGO: expanding shift(1)#(lf)# =====================================================#(lf)df = df.sort_values(['MES_CREACION', 'PED_FECHA_HORA', 'PED_NUMERO_PEDIDO']).copy()#(lf)base_rate = float(df.loc[df['ES_FLUJO_COMPLETO_ML'], 'Y_ATRASO_5DH'].mean()) if df['ES_FLUJO_COMPLETO_ML'].any() else 0.15#(lf)#(lf)audit_log = []#(lf)for label, col in [('CLIENTE', 'PED_CODIGO_CLIENTE'), ('VENDEDOR', 'PED_RESPONSABLE'), ('CANAL', 'PED_CANAL_CODIGO')]:#(lf)    df[f'HIST_{label}_N'] = 0.0#(lf)    df[f'HIST_{label}_RIESGO'] = base_rate#(lf)    history = {}#(lf)    for month in sorted(df['MES_CREACION'].dropna().unique()):#(lf)        idx = df.index[df['MES_CREACION'].eq(month)]#(lf)        # 1. Asignar historia ANTES de actualizar (shift(1) implícito)#(lf)        for i in idx:#(lf)            key = str(df.at[i, col])#(lf)            n, delayed = history.get(key, (0, 0))#(lf)            df.at[i, f'HIST_{label}_N'] = n#(lf)            df.at[i, f'HIST_{label}_RIESGO'] = (delayed + SMOOTHING_K * base_rate) / (n + SMOOTHING_K)#(lf)        # 2. Actualizar historia DESPUÉS de asignar (expanding)#(lf)        for i in idx:#(lf)            if not bool(df.at[i, 'ES_FLUJO_COMPLETO_ML']):#(lf)                continue#(lf)            y = int(df.at[i, 'Y_ATRASO_5DH'])#(lf)            key = str(df.at[i, col])#(lf)            n, delayed = history.get(key, (0, 0))#(lf)            history[key] = (n + 1, delayed + y)#(lf)    # Verificar: primer mes no debe tener historia previa#(lf)    first_month = sorted(df['MES_CREACION'].dropna().unique())[0]#(lf)    first_idx = df.index[df['MES_CREACION'].eq(first_month)]#(lf)    first_vals = df.loc[first_idx, f'HIST_{label}_RIESGO']#(lf)    all_base = (first_vals - base_rate).abs().lt(0.001).all()#(lf)    audit_log.append(f'HIST_{label}: primer_mes={first_month}, todos_base_rate={all_base}, base_rate={base_rate:.4f}')#(lf)#(lf)# =====================================================#(lf)# FEATURES (mismas que Resultado, sin fuga)#(lf)# =====================================================#(lf)def build_features(df):#(lf)    x = pd.DataFrame(index=df.index)#(lf)    x['LOG_VALOR'] = np.log1p(df['VALOR_MM'].clip(lower=0))#(lf)    x['VALOR_GE_2_6'] = (df['VALOR_MM'] >= 2.6).astype(float)#(lf)    x['VALOR_GE_5'] = (df['VALOR_MM'] >= 5).astype(float)#(lf)    x['DIA_MES_N'] = df['DIA_MES'].astype(float)#(lf)    x['HORA_N'] = df['HORA_CREACION'].astype(float)#(lf)    x['ES_FIN_MES_N'] = df['ES_FIN_MES'].astype(float)#(lf)    x['HIST_CLIENTE_RIESGO'] = df['HIST_CLIENTE_RIESGO'].astype(float)#(lf)    x['HIST_CLIENTE_N_LOG'] = np.log1p(df['HIST_CLIENTE_N'].astype(float))#(lf)    x['HIST_VENDEDOR_RIESGO'] = df['HIST_VENDEDOR_RIESGO'].astype(float)#(lf)    x['HIST_VENDEDOR_N_LOG'] = np.log1p(df['HIST_VENDEDOR_N'].astype(float))#(lf)    x['HIST_CANAL_RIESGO'] = df['HIST_CANAL_RIESGO'].astype(float)#(lf)    x['HIST_CANAL_N_LOG'] = np.log1p(df['HIST_CANAL_N'].astype(float))#(lf)    x['CAT_CANAL'] = 'CANAL=' + df['PED_CANAL_CODIGO'].astype(str)#(lf)    x['CAT_VENDEDOR'] = 'VENDEDOR=' + df['PED_RESPONSABLE'].astype(str)#(lf)    x['CAT_REGION'] = 'REGION=' + df['PED_REGION'].astype(str)#(lf)    x['CAT_CONDICION'] = 'CONDICION=' + df['PED_CONDICION_EXPEDICION_CODIGO'].astype(str)#(lf)    x['CAT_CREDITO'] = 'CREDITO=' + df['PED_ESTADO_CREDITO'].astype(str)#(lf)    x['CAT_SERVICIO'] = 'SERVICIO=' + df['SERV_TIPO_SERVICIO'].astype(str)#(lf)    x['CAT_SERVICIO_PLAN'] = 'SERVICIO_PLAN=SIN DATO'#(lf)    x['CAT_SEMANA'] = 'SEMANA=' + pd.cut(df['DIA_MES'], [0,7,14,21,31], labels=['1-7','8-14','15-21','22-FIN'], include_lowest=True).astype(str).fillna('SIN DATO')#(lf)    x['CAT_DIA_SEMANA'] = 'DIA_SEMANA=' + df['PED_FECHA_HORA'].dt.dayofweek.fillna(0).astype(int).astype(str)#(lf)    return x#(lf)#(lf)NUM_FEATURES = ['LOG_VALOR','VALOR_GE_2_6','VALOR_GE_5','DIA_MES_N','HORA_N','ES_FIN_MES_N','HIST_CLIENTE_RIESGO','HIST_CLIENTE_N_LOG','HIST_VENDEDOR_RIESGO','HIST_VENDEDOR_N_LOG','HIST_CANAL_RIESGO','HIST_CANAL_N_LOG']#(lf)CAT_FEATURES = ['CAT_CANAL','CAT_VENDEDOR','CAT_REGION','CAT_CONDICION','CAT_CREDITO','CAT_SERVICIO','CAT_SERVICIO_PLAN','CAT_SEMANA','CAT_DIA_SEMANA']#(lf)#(lf)def encode(xraw, train_idx):#(lf)    numeric = xraw[NUM_FEATURES].copy().fillna(0.0)#(lf)    cats = pd.get_dummies(xraw[CAT_FEATURES].astype('string').fillna('SIN DATO'), prefix='', prefix_sep='', dtype=float)#(lf)    x = pd.concat([numeric, cats], axis=1).astype(float)#(lf)    means = x.loc[train_idx, NUM_FEATURES].mean()#(lf)    stds = x.loc[train_idx, NUM_FEATURES].std(ddof=0).replace(0, 1).fillna(1)#(lf)    x.loc[:, NUM_FEATURES] = (x[NUM_FEATURES] - means) / stds#(lf)    return x#(lf)#(lf)# =====================================================#(lf)# SPLIT TEMPORAL (mismo que Resultado)#(lf)# =====================================================#(lf)full = df[df['ES_FLUJO_COMPLETO_ML']].copy()#(lf)months = sorted(full['MES_CREACION'].dropna().unique())#(lf)max_month = df['MES_CREACION'].dropna().max()#(lf)mature_months = [m for m in months if m < max_month]#(lf)if len(mature_months) >= 2:#(lf)    test_month = mature_months[-1]#(lf)    train_months = mature_months[:-1]#(lf)    train_mask = full['MES_CREACION'].isin(train_months)#(lf)    test_mask = full['MES_CREACION'].eq(test_month)#(lf)else:#(lf)    full_sorted = full.sort_values('PED_FECHA_HORA')#(lf)    cut = max(1, int(len(full_sorted) * 0.80))#(lf)    train_ids = set(full_sorted.iloc[:cut]['PED_NUMERO_PEDIDO'])#(lf)    train_mask = full['PED_NUMERO_PEDIDO'].isin(train_ids)#(lf)    test_mask = ~train_mask#(lf)    test_month = 'HOLDOUT CRONOLOGICO'#(lf)    train_months = ['PRIMER 80% TEMPORAL']#(lf)#(lf)train_idx = full.index[train_mask]#(lf)test_idx = full.index[test_mask]#(lf)xraw = build_features(df)#(lf)xall = encode(xraw, full.index)#(lf)feature_names = list(xall.columns)#(lf)#(lf)x_train = xall.loc[train_idx].to_numpy(dtype=float)#(lf)x_test = xall.loc[test_idx].to_numpy(dtype=float)#(lf)y_train_cls = df.loc[train_idx, 'Y_ATRASO_5DH'].astype(int).to_numpy()#(lf)y_test_cls = df.loc[test_idx, 'Y_ATRASO_5DH'].astype(int).to_numpy()#(lf)y_train_reg = df.loc[train_idx, 'DH_TOTAL'].astype(float).to_numpy()#(lf)y_test_reg = df.loc[test_idx, 'DH_TOTAL'].astype(float).to_numpy()#(lf)#(lf)# =====================================================#(lf)# MODELO ML (mismo que Resultado)#(lf)# =====================================================#(lf)clf_ml = LogisticRegression(max_iter=3000, C=0.8, solver='liblinear', random_state=42)#(lf)reg_ml = Ridge(alpha=2.0)#(lf)clf_ml.fit(x_train, y_train_cls)#(lf)reg_ml.fit(x_train, y_train_reg)#(lf)#(lf)p_ml = clf_ml.predict_proba(x_test)[:, 1]#(lf)d_ml = np.clip(reg_ml.predict(x_test), 0, MAX_TARGET_DH)#(lf)#(lf)# =====================================================#(lf)# MODELO BASE: DummyClassifier + DummyRegressor#(lf)# =====================================================#(lf)clf_base = DummyClassifier(strategy='prior', random_state=42)#(lf)reg_base = DummyRegressor(strategy='median')#(lf)clf_base.fit(x_train, y_train_cls)#(lf)reg_base.fit(x_train, y_train_reg)#(lf)#(lf)p_base = clf_base.predict_proba(x_test)[:, 1]#(lf)d_base = np.clip(reg_base.predict(x_test), 0, MAX_TARGET_DH)#(lf)#(lf)# =====================================================#(lf)# MÉTRICAS#(lf)# =====================================================#(lf)def calc_cls_metrics(y, p):#(lf)    return {#(lf)        'AUC': float(roc_auc_score(y, p)),#(lf)        'Brier': float(brier_score_loss(y, p)),#(lf)    }#(lf)#(lf)def calc_reg_metrics(y, d):#(lf)    return {#(lf)        'MAE': float(mean_absolute_error(y, d)),#(lf)        'RMSE': float(np.sqrt(mean_squared_error(y, d))),#(lf)        'R2': float(r2_score(y, d)),#(lf)    }#(lf)#(lf)mc_ml = calc_cls_metrics(y_test_cls, p_ml)#(lf)mr_ml = calc_reg_metrics(y_test_reg, d_ml)#(lf)mc_base = calc_cls_metrics(y_test_cls, p_base)#(lf)mr_base = calc_reg_metrics(y_test_reg, d_base)#(lf)#(lf)# =====================================================#(lf)# GENERAR TABLA DE COMPARACIÓN#(lf)# =====================================================#(lf)split_info = f'Train: {len(train_months)} meses ({train_months[0]}..{train_months[-1]}) | Test: {test_month}'#(lf)n_train = len(train_idx)#(lf)n_test = len(test_idx)#(lf)audit_text = ' | '.join(audit_log)#(lf)#(lf)rows = []#(lf)def add_row(modelo, tipo, metrica, valor_ml, valor_base, fmt_fn):#(lf)    diff_abs = valor_ml - valor_base#(lf)    diff_pct = diff_abs / abs(valor_base) if valor_base != 0 else float('inf')#(lf)    # Para métricas donde mayor es mejor (AUC, R2): ML > Base = positivo = bueno#(lf)    # Para métricas donde menor es mejor (Brier, MAE, RMSE): ML < Base = negativo diff = bueno#(lf)    if metrica in ['AUC', 'R2']:#(lf)        mejora = diff_abs > 0#(lf)    else:#(lf)        mejora = diff_abs < 0#(lf)    veredicto = 'ML SUPERIOR' if mejora else 'BASE SUPERIOR'#(lf)    rows.append({#(lf)        'Modelo': modelo, 'Tipo': tipo, 'Metrica': metrica,#(lf)        'Valor': valor_ml if modelo == 'ML' else valor_base,#(lf)        'Valor_Formateado': fmt_fn(valor_ml if modelo == 'ML' else valor_base),#(lf)        'Diferencia_Absoluta': diff_abs if modelo == 'ML' else 0,#(lf)        'Diferencia_Porcentual': diff_pct if modelo == 'ML' else 0,#(lf)        'Veredicto': veredicto if modelo == 'ML' else '',#(lf)        'Split_Info': split_info if modelo == 'ML' else '',#(lf)        'N_Train': n_train if modelo == 'ML' else 0,#(lf)        'N_Test': n_test if modelo == 'ML' else 0,#(lf)        'Auditoria_HIST': audit_text if modelo == 'ML' else ''#(lf)    })#(lf)#(lf)# Clasificación#(lf)for metrica in ['AUC', 'Brier']:#(lf)    add_row('ML', 'Clasificación', metrica, mc_ml[metrica], mc_base[metrica], lambda v: f'{v:.4f}')#(lf)    add_row('Base (DummyClassifier prior)', 'Clasificación', metrica, mc_ml[metrica], mc_base[metrica], lambda v: f'{v:.4f}')#(lf)#(lf)# Regresión#(lf)for metrica in ['MAE', 'RMSE', 'R2']:#(lf)    add_row('ML', 'Regresión', metrica, mr_ml[metrica], mr_base[metrica], lambda v: f'{v:.4f}')#(lf)    add_row('Base (DummyRegressor median)', 'Regresión', metrica, mr_ml[metrica], mr_base[metrica], lambda v: f'{v:.4f}')#(lf)#(lf)dataset = pd.DataFrame(rows)#(lf)print(f'Comparación completada: {len(dataset)} filas, {n_train} train, {n_test} test')", [pedidos = Origen, tracking = Tracking, clientes = Clientes]),
+				    dataset = Python{[Name="dataset"]}[Value],
+				    Tipos = Table.TransformColumnTypes(dataset, {{"Modelo", type text}, {"Tipo", type text}, {"Metrica", type text}, {"Valor", type number}, {"Valor_Formateado", type text}, {"Diferencia_Absoluta", type number}, {"Diferencia_Porcentual", type number}, {"Veredicto", type text}, {"Split_Info", type text}, {"N_Train", Int64.Type}, {"N_Test", Int64.Type}, {"Auditoria_HIST", type text}})
+				in
+				    Tipos
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
