@@ -1,0 +1,141 @@
+table ML_Auditoria_Target_Score
+	lineageTag: 66c23e36-32c8-45b8-a36d-f53156d218c7
+
+	column Cohorte
+		dataType: string
+		lineageTag: 5d501dce-0976-4eaa-96e7-101bd9702128
+		summarizeBy: none
+		sourceColumn: Cohorte
+
+	column Categoria_Riesgo
+		dataType: string
+		lineageTag: 127bd716-1584-4abb-9b88-6cd69e705a16
+		summarizeBy: none
+		sourceColumn: Categoria_Riesgo
+
+	column Pedidos
+		dataType: int64
+		formatString: #,0
+		lineageTag: f322e59e-d515-48ec-932f-f4696d1b7bdf
+		summarizeBy: sum
+		sourceColumn: Pedidos
+
+	column Positivos
+		dataType: int64
+		formatString: #,0
+		lineageTag: 892bbcf2-de3e-46cb-8c06-0cab6fdc005a
+		summarizeBy: sum
+		sourceColumn: Positivos
+
+	column Tasa_Atraso
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 8328928a-3684-47a4-8cbd-d7357b7d6c59
+		summarizeBy: average
+		sourceColumn: Tasa_Atraso
+
+	column Probabilidad_Promedio
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 9eb77312-fa56-488c-bfda-fe8923fef325
+		summarizeBy: average
+		sourceColumn: Probabilidad_Promedio
+
+	column Probabilidad_Min
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 9f929f7c-01f4-4136-8d9e-b4cc88adf8e7
+		summarizeBy: min
+		sourceColumn: Probabilidad_Min
+
+	column Probabilidad_Max
+		dataType: double
+		formatString: 0.0%
+		lineageTag: d43a2c25-7435-4582-9025-5d7acfd4d8c7
+		summarizeBy: max
+		sourceColumn: Probabilidad_Max
+
+	column Score_Reescalado
+		dataType: int64
+		formatString: #,0
+		lineageTag: 38dd21c5-fe89-4dad-ae38-e05e18e838cd
+		summarizeBy: sum
+		sourceColumn: Score_Reescalado
+
+	column Score_Fuera_Rango
+		dataType: int64
+		formatString: #,0
+		lineageTag: 54d5026d-5632-4d6d-b461-11d3ed501d79
+		summarizeBy: sum
+		sourceColumn: Score_Fuera_Rango
+
+	column Categoria_Incoherente
+		dataType: int64
+		formatString: #,0
+		lineageTag: 84ebb2d2-105b-48bb-b9d8-0f123b2ae5d9
+		summarizeBy: sum
+		sourceColumn: Categoria_Incoherente
+
+	column Target_Invalido
+		dataType: int64
+		formatString: #,0
+		lineageTag: 467d61ca-dcd0-444a-86ed-b28a67280d15
+		summarizeBy: sum
+		sourceColumn: Target_Invalido
+
+	column Estado_Auditoria
+		dataType: string
+		lineageTag: cd9472d9-fe81-48ab-ae0e-77d4df397e5c
+		summarizeBy: none
+		sourceColumn: Estado_Auditoria
+
+	column Detalle
+		dataType: string
+		lineageTag: 9ea51641-621c-4ad8-a96a-8118c1b39b73
+		summarizeBy: none
+		sourceColumn: Detalle
+
+	partition ML_Auditoria_Target_Score = m
+		mode: import
+		source =
+				let
+				    Origen = Table.SelectColumns(Resultado, {"PED_NUMERO_PEDIDO", "DH_TOTAL", "PROB_ML_ATRASO", "RIESGO_ATRASO", "ES_FLUJO_COMPLETO_ML", "ES_ENTRENAMIENTO_FINAL", "ES_VALIDACION_TEST", "ES_PENDIENTE", "DIAS_ACTUALES_DH"}, MissingField.UseNull),
+				    UnaFilaPedido = Table.Distinct(Origen, {"PED_NUMERO_PEDIDO"}),
+				    ConProbRaw = Table.AddColumn(UnaFilaPedido, "PROB_RAW", each try Number.From([PROB_ML_ATRASO]) otherwise null, type nullable number),
+				    ConProbNorm = Table.AddColumn(ConProbRaw, "PROB_NORM", each
+				        let
+				            n = [PROB_RAW],
+				            a = if n = null then null else Number.Abs(n),
+				            escala = if a = null or a <= 1 then 1 else Number.Power(10, Number.RoundUp(Number.Log10(a))),
+				            v = if n = null then null else n / escala
+				        in
+				            if v = null or v < 0 or v > 1 then null else v, type nullable number),
+				    ConReescalado = Table.AddColumn(ConProbNorm, "AUD_REESCALADO", each if [PROB_RAW] <> null and Number.Abs([PROB_RAW]) > 1 then 1 else 0, Int64.Type),
+				    ConScoreFueraRango = Table.AddColumn(ConReescalado, "AUD_SCORE_FUERA_RANGO", each if [PROB_RAW] <> null and [PROB_NORM] = null then 1 else 0, Int64.Type),
+				    ConTargetValido = Table.AddColumn(ConScoreFueraRango, "TARGET_VALIDO", each [ES_FLUJO_COMPLETO_ML] = true and [ES_PENDIENTE] <> true and [DH_TOTAL] <> null and [DH_TOTAL] >= 0 and [DH_TOTAL] <= 60, type logical),
+				    ConTarget = Table.AddColumn(ConTargetValido, "Y_ATRASO_SLA_5DH", each if [TARGET_VALIDO] then (if [DH_TOTAL] > 5 then 1 else 0) else null, Int64.Type),
+				    ConCohorte = Table.AddColumn(ConTarget, "Cohorte", each if [ES_PENDIENTE] = true then "PENDIENTE" else if [ES_ENTRENAMIENTO_FINAL] = true and [ES_VALIDACION_TEST] = true then "TEST" else if [ES_ENTRENAMIENTO_FINAL] = true then "TRAIN" else "EXCLUIDO", type text),
+				    ConCategoria = Table.AddColumn(ConCohorte, "Categoria_Riesgo", each if [ES_PENDIENTE] = true and [DIAS_ACTUALES_DH] <> null and [DIAS_ACTUALES_DH] > 5 then "ATRASADO" else if [PROB_NORM] = null then "SIN SCORE" else if [PROB_NORM] >= 0.20 then "ALTO" else if [PROB_NORM] >= 0.10 then "MEDIO" else "BAJO", type text),
+				    ConIncoherencia = Table.AddColumn(ConCategoria, "AUD_CATEGORIA_INCOHERENTE", each if [RIESGO_ATRASO] = null or Text.Trim(Text.Upper(Text.From([RIESGO_ATRASO]))) = "" then 0 else if Text.Trim(Text.Upper(Text.From([RIESGO_ATRASO]))) = [Categoria_Riesgo] then 0 else 1, Int64.Type),
+				    ConTargetInvalido = Table.AddColumn(ConIncoherencia, "AUD_TARGET_INVALIDO", each if [ES_PENDIENTE] <> true and [ES_ENTRENAMIENTO_FINAL] = true and not [TARGET_VALIDO] then 1 else 0, Int64.Type),
+				    Agrupado = Table.Group(ConTargetInvalido, {"Cohorte", "Categoria_Riesgo"}, {
+				        {"Pedidos", each Table.RowCount(_), Int64.Type},
+				        {"Positivos", each List.Sum(List.RemoveNulls([Y_ATRASO_SLA_5DH])), Int64.Type},
+				        {"Tasa_Atraso", each let v = List.RemoveNulls([Y_ATRASO_SLA_5DH]) in if List.Count(v) = 0 then null else List.Average(v), type nullable number},
+				        {"Probabilidad_Promedio", each let v = List.RemoveNulls([PROB_NORM]) in if List.Count(v) = 0 then null else List.Average(v), type nullable number},
+				        {"Probabilidad_Min", each let v = List.RemoveNulls([PROB_NORM]) in if List.Count(v) = 0 then null else List.Min(v), type nullable number},
+				        {"Probabilidad_Max", each let v = List.RemoveNulls([PROB_NORM]) in if List.Count(v) = 0 then null else List.Max(v), type nullable number},
+				        {"Score_Reescalado", each List.Sum([AUD_REESCALADO]), Int64.Type},
+				        {"Score_Fuera_Rango", each List.Sum([AUD_SCORE_FUERA_RANGO]), Int64.Type},
+				        {"Categoria_Incoherente", each List.Sum([AUD_CATEGORIA_INCOHERENTE]), Int64.Type},
+				        {"Target_Invalido", each List.Sum([AUD_TARGET_INVALIDO]), Int64.Type}
+				    }),
+				    ConEstado = Table.AddColumn(Agrupado, "Estado_Auditoria", each if [Score_Fuera_Rango] > 0 or [Target_Invalido] > 0 then "ERROR" else if [Categoria_Incoherente] > 0 or [Score_Reescalado] > 0 then "REVISAR" else "OK", type text),
+				    ConDetalle = Table.AddColumn(ConEstado, "Detalle", each "TARGET=DH_TOTAL>5 | SCORE normalizado 0..1 | Umbrales BAJO<10%, MEDIO 10%-<20%, ALTO>=20%", type text),
+				    Tipos = Table.TransformColumnTypes(ConDetalle, {{"Cohorte", type text}, {"Categoria_Riesgo", type text}, {"Pedidos", Int64.Type}, {"Positivos", Int64.Type}, {"Tasa_Atraso", type number}, {"Probabilidad_Promedio", type number}, {"Probabilidad_Min", type number}, {"Probabilidad_Max", type number}, {"Score_Reescalado", Int64.Type}, {"Score_Fuera_Rango", Int64.Type}, {"Categoria_Incoherente", Int64.Type}, {"Target_Invalido", Int64.Type}, {"Estado_Auditoria", type text}, {"Detalle", type text}})
+				in
+				    Tipos
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
