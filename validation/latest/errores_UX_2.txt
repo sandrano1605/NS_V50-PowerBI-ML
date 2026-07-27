@@ -1,0 +1,34 @@
+# ERRORES UX-2 — SHA 2f6d3c4
+
+## Errores TMDL
+Ninguno.
+
+## Errores Python.Execute
+Ninguno.
+
+## Errores Power Query
+Ninguno.
+
+## Tablas cargadas
+42/42 ✅
+
+## ML_Cola_Intervencion_Diaria
+- 37 filas (igual a Resultado[ES_PENDIENTE]) ✅
+- Sin duplicados por PED_NUMERO_PEDIDO ✅
+- RANK_DIARIO 1 a 37 sin repetidos ✅
+- Distribución P1=5, P2=5, P3=10, P4=17 ✅
+- SCORE_INTERVENCION entre 0 y 100 ✅
+- EXCESO_SLA_DH = max(DIAS_ACTUALES_DH-5, 0) ✅
+- NIVEL_COLA sin vacíos ✅
+- PLAZO_ACCION sin vacíos ✅
+- FOCO_INTERVENCION sin vacíos ✅
+- MOTIVO_PRINCIPAL_INTERVENCION sin vacíos ✅
+- ACCION_DIARIA sin vacíos ✅
+
+## Página PBIP
+- page.json creado ✅
+- pages.json actualizado ✅
+- 10 visuales definidos ✅
+
+## Veredicto
+**APROBADO** — Sin errores bloqueantes.

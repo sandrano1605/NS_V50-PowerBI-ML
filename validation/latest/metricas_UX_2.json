@@ -1,0 +1,23 @@
+{
+  "sha": "2f6d3c49f86f6fa329a8a120841c285dcd09819c",
+  "branch": "work/codex-local",
+  "fecha": "2026-07-27T14:24:00-04:00",
+  "tablas": 42,
+  "relaciones": 40,
+  "distribucion_nivel_cola": {
+    "P1_INTERVENIR": 5,
+    "P2_REVISAR": 5,
+    "P3_PLAN_24H": 10,
+    "P4_MONITOREAR": 17,
+    "total": 37
+  },
+  "valor_top10": 184252210,
+  "archivos_reporte_creados": [
+    "NS.Report/definition/pages/f1a2b3c4d5e6f7081920/page.json"
+  ],
+  "archivos_reporte_modificados": [
+    "NS.Report/definition/pages/pages.json"
+  ],
+  "errores": [],
+  "veredicto": "APROBADO"
+}
