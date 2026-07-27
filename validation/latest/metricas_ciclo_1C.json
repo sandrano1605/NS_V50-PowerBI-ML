@@ -1,0 +1,60 @@
+{
+  "sha_desarrollo": "d298419e7e20171b3035f0ab8d735aa9d2173bad",
+  "sha_head": "71428b2f763df864888261d8cc53e5f321b65eac",
+  "sha_validacion": "pending",
+  "branch": "work/codex-local",
+  "fecha": "2026-07-27T11:04:00-04:00",
+  "power_bi_version": "2.156.951.0",
+  "python_version": "3.13.4",
+  "tablas": 34,
+  "relaciones": 40,
+  "ml_auditoria_metricas": {
+    "n_train": 837,
+    "positivos_train": 120,
+    "tasa_train": 0.1434,
+    "n_test": 687,
+    "positivos_test": 100,
+    "tasa_test": 0.1456,
+    "brier_base_directo": 0.1244,
+    "brier_base_formula": 0.1244,
+    "brier_base_reportado": 0.1244,
+    "diferencia_brier_base": 0.0,
+    "brier_ml_directo": 0.1244,
+    "brier_ml_reportado": 0.1244,
+    "diferencia_brier_ml": 0.0,
+    "estado_auditoria": "OK",
+    "detalle": "Brier base y ML reconciliados dentro de tolerancia 0.000001"
+  },
+  "ml_comparacion_modelos": [
+    {"modelo": "ML", "tipo": "Clasificación", "metrica": "AUC", "valor": 0.5879, "veredicto": "ML SUPERIOR"},
+    {"modelo": "Base (prior)", "tipo": "Clasificación", "metrica": "AUC", "valor": 0.5000, "veredicto": ""},
+    {"modelo": "ML", "tipo": "Clasificación", "metrica": "Brier", "valor": 0.1244, "veredicto": "ML SUPERIOR"},
+    {"modelo": "Base (prior)", "tipo": "Clasificación", "metrica": "Brier", "valor": 0.1244, "veredicto": ""},
+    {"modelo": "ML", "tipo": "Regresión", "metrica": "MAE", "valor": 2.203, "veredicto": "BASE SUPERIOR"},
+    {"modelo": "Base (mediana)", "tipo": "Regresión", "metrica": "MAE", "valor": 1.924, "veredicto": ""},
+    {"modelo": "ML", "tipo": "Regresión", "metrica": "RMSE", "valor": 3.080, "veredicto": "BASE SUPERIOR"},
+    {"modelo": "Base (mediana)", "tipo": "Regresión", "metrica": "RMSE", "valor": 3.041, "veredicto": ""},
+    {"modelo": "ML", "tipo": "Regresión", "metrica": "R2", "valor": -3.997, "veredicto": "BASE SUPERIOR"},
+    {"modelo": "Base (mediana)", "tipo": "Regresión", "metrica": "R2", "valor": -1.373, "veredicto": ""}
+  ],
+  "reconciliacion_brier": {
+    "brier_base_directo": 0.1244,
+    "brier_base_formula": 0.1244,
+    "brier_base_reportado": 0.1244,
+    "diferencia_base": 0.0,
+    "tolerancia": 0.000001,
+    "base_ok": true,
+    "brier_ml_directo": 0.1244,
+    "brier_ml_reportado": 0.1244,
+    "diferencia_ml": 0.0,
+    "ml_ok": true
+  },
+  "umbrales_categoria": {
+    "bajo_max": 0.10,
+    "medio_min": 0.10,
+    "medio_max": 0.20,
+    "alto_min": 0.20
+  },
+  "errores": [],
+  "veredicto": "APROBADO"
+}

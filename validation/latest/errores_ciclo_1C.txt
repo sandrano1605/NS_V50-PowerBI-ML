@@ -1,0 +1,36 @@
+# ERRORES CICLO 1C — SHA d298419
+
+## Errores TMDL
+Ninguno.
+
+## Errores Python.Execute
+Ninguno.
+
+## Errores Power Query
+Ninguno.
+
+## Tablas cargadas
+34/34 ✅
+
+## Relaciones
+40/40 ✅
+
+## ML_Auditoria_Metricas
+- Estado_Auditoria: **OK** ✅
+- Diferencia Brier Base: 0.000000 (tolerancia: 0.000001) ✅
+- Diferencia Brier ML: 0.000000 (tolerancia: 0.000001) ✅
+
+## ML_Comparacion_Modelos
+- 10 filas ✅
+- Auditoria_HIST contiene TARGET=DH_TOTAL>5, ESCALA_GLOBAL, BRIER=MEDIA((Y-P)^2), FUENTE=Resultado ✅
+
+## ML_Auditoria_Target_Score
+- Probabilidades entre 0 y 1 ✅
+- BAJO max < 0.10 ✅
+- MEDIO min >= 0.10, max < 0.20 ✅
+- ALTO min >= 0.20 ✅
+- Score_Fuera_Rango = 0 ✅
+- Target_Invalido = 0 ✅
+
+## Conclusión
+Sin errores. El modelo está validado para el Ciclo 1C.
