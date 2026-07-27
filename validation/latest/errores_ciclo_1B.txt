@@ -1,0 +1,27 @@
+# ERRORES CICLO 1B — SHA dbb629d
+
+## Errores TMDL
+Ninguno.
+
+## Errores Python.Execute
+Ninguno.
+
+## Errores Power Query
+Ninguno.
+
+## Tablas cargadas
+34/34 ✅
+
+## ML_Auditoria_Metricas
+- Estado_Auditoria: **REVISAR** (no OK)
+- Diferencia Brier Base: 0.1107 (tolerancia: 0.000001) ❌
+- Diferencia Brier ML: 0.1108 (tolerancia: 0.000001) ❌
+
+## Causa raíz
+Los valores 0.0136 y 0.0137 en ML_Comparacion_Modelos no son el Brier real. El Brier real calculado directamente es ~0.1244. Los valores reportados provienen probablemente de:
+1. El script Python en ML_Comparacion_Modelos normaliza las probabilidades antes de calcular Brier.
+2. O el Brier se calcula sobre un subconjunto diferente de datos.
+3. O los valores están en caché de una ejecución anterior.
+
+## Veredicto
+**BLOQUEADO** — Reconciliación matemática fallida.

@@ -1,0 +1,55 @@
+{
+  "sha": "dbb629d103c271b89bc7d8c8c2b43e55f81258fa",
+  "branch": "work/codex-local",
+  "fecha": "2026-07-26T23:32:00-04:00",
+  "power_bi_version": "2.156.951.0",
+  "python_version": "3.13.4",
+  "tablas": 34,
+  "ml_auditoria_metricas": {
+    "n_train": 837,
+    "positivos_train": 120,
+    "tasa_train": 0.1434,
+    "n_test": 687,
+    "positivos_test": 100,
+    "tasa_test": 0.1456,
+    "brier_base_directo": 0.1244,
+    "brier_base_formula": 0.1244,
+    "brier_base_reportado": 0.0137,
+    "diferencia_brier_base": 0.1107,
+    "brier_ml_directo": 0.1244,
+    "brier_ml_reportado": 0.0136,
+    "diferencia_brier_ml": 0.1108,
+    "estado_auditoria": "REVISAR",
+    "detalle": "Brier base directo (0.1244) no coincide con reportado (0.0137) dentro de tolerancia 0.000001"
+  },
+  "ml_comparacion_modelos": [
+    {"modelo": "ML", "tipo": "Clasificación", "metrica": "AUC", "valor": 0.5879, "veredicto": "ML SUPERIOR"},
+    {"modelo": "Base (prior)", "tipo": "Clasificación", "metrica": "AUC", "valor": 0.5000, "veredicto": ""},
+    {"modelo": "ML", "tipo": "Clasificación", "metrica": "Brier", "valor": 0.0136, "veredicto": "ML SUPERIOR"},
+    {"modelo": "Base (prior)", "tipo": "Clasificación", "metrica": "Brier", "valor": 0.0137, "veredicto": ""},
+    {"modelo": "ML", "tipo": "Regresión", "metrica": "MAE", "valor": 2.203, "veredicto": "BASE SUPERIOR"},
+    {"modelo": "Base (mediana)", "tipo": "Regresión", "metrica": "MAE", "valor": 1.924, "veredicto": ""},
+    {"modelo": "ML", "tipo": "Regresión", "metrica": "RMSE", "valor": 3.080, "veredicto": "BASE SUPERIOR"},
+    {"modelo": "Base (mediana)", "tipo": "Regresión", "metrica": "RMSE", "valor": 3.041, "veredicto": ""},
+    {"modelo": "ML", "tipo": "Regresión", "metrica": "R2", "valor": -3.997, "veredicto": "BASE SUPERIOR"},
+    {"modelo": "Base (mediana)", "tipo": "Regresión", "metrica": "R2", "valor": -1.373, "veredicto": ""}
+  ],
+  "reconciliacion_brier": {
+    "brier_base_directo": 0.1244,
+    "brier_base_formula": 0.1244,
+    "brier_base_reportado": 0.0137,
+    "diferencia_base": 0.1107,
+    "tolerancia": 0.000001,
+    "base_ok": false,
+    "brier_ml_directo": 0.1244,
+    "brier_ml_reportado": 0.0136,
+    "diferencia_ml": 0.1108,
+    "ml_ok": false
+  },
+  "errores": [
+    "Brier_Base_Reportado (0.0137) != Brier_Base_Directo (0.1244): diferencia 0.1107",
+    "Brier_ML_Reportado (0.0136) != Brier_ML_Directo (0.1244): diferencia 0.1108",
+    "Estado_Auditoria = REVISAR (no OK)"
+  ],
+  "veredicto": "BLOQUEADO"
+}
