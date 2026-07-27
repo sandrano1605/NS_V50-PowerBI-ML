@@ -1,0 +1,32 @@
+# ERRORES UX-1 — SHA 317b562
+
+## Errores TMDL
+Ninguno.
+
+## Errores Python.Execute
+Ninguno.
+
+## Errores Power Query
+Ninguno.
+
+## Tablas cargadas
+38/38 ✅
+
+## Relaciones
+40/40 ✅
+
+## Config_Criterios_Pendientes
+6 filas ✅
+
+## ML_Pedidos_Pendientes_Priorizados
+- 37 filas (igual a Resultado[ES_PENDIENTE]) ✅
+- Sin duplicados por PED_NUMERO_PEDIDO ✅
+- RANK_PRIORIDAD 1 a 37 sin repetidos ✅
+- PRIORIDAD_OPERATIVA_SCORE entre 0 y 100 ✅
+- Probabilidades entre 0 y 1 ✅
+- CRITERIOS_ACTIVOS no vacío ✅
+- FOCO_INTERVENCION no vacío ✅
+- ACCION_OPERATIVA no vacío ✅
+
+## Veredicto
+**APROBADO** — Sin errores bloqueantes.

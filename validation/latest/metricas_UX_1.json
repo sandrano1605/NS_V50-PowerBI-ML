@@ -1,0 +1,26 @@
+{
+  "sha": "317b562ea3f9e85e0ceeab88006ccfde8d7e0881",
+  "branch": "work/codex-local",
+  "fecha": "2026-07-27T13:27:00-04:00",
+  "power_bi_version": "2.156.951.0",
+  "python_version": "3.13.4",
+  "tablas": 38,
+  "relaciones": 40,
+  "config_criterios_pendientes": 6,
+  "ml_pedidos_pendientes_priorizados": {
+    "filas": 37,
+    "distribucion_prioridad": {
+      "CRITICA": 37
+    },
+    "valor_critico": 494000000,
+    "controles": {
+      "unicidad": "OK",
+      "rango_score": "OK",
+      "probabilidades_0_1": "OK",
+      "campos_no_vacios": "OK",
+      "sla_critica": "OK"
+    }
+  },
+  "errores": [],
+  "veredicto": "APROBADO"
+}
