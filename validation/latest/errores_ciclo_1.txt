@@ -1,0 +1,33 @@
+# ERRORES CICLO 1 — SHA b6138a2
+
+## Errores TMDL
+Ninguno.
+
+## Errores Python.Execute
+Ninguno.
+
+## Errores de relaciones
+Ninguno.
+
+## Consultas con error
+Ninguno.
+
+## Duplicados por PED_NUMERO_PEDIDO
+Ninguno detectado.
+
+## Observaciones
+
+### Tablas ML_Comparacion_Modelos y ML_Auditoria_Target_Score
+Ambas tablas tienen `state: "NoData"` en el metadata de la partición, pero las consultas DAX retornan datos correctamente. Esto indica que Power BI cargó los datos pero el metadata de la partición no se actualizó. No es un error funcional.
+
+### Métricas idénticas al baseline
+Los cambios en ML_Comparacion_Modelos (ahora lee de Resultado en vez de reentrenar) y ML_Auditoria_Target_Score (nueva tabla de auditoría) no alteraron las métricas del modelo ML. Esto es esperado porque:
+- Resultado.tmdl no fue modificado
+- El modelo ML sigue siendo el mismo (LogisticRegression + Ridge)
+- Solo cambió la forma de comparar y auditar
+
+### Escala de valores
+Los valores de probabilidad siguen escalados por 10^15 en Power BI. ML_Comparacion_Modelos ahora normaliza esto internamente antes de calcular métricas.
+
+## Conclusión
+No hay errores bloqueantes. El modelo está validado para el ciclo 1.

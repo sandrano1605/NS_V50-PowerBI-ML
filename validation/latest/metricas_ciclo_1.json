@@ -1,0 +1,49 @@
+{
+  "sha": "b6138a22942bb20c3c002623753aafa5641f699a",
+  "branch": "work/codex-local",
+  "fecha": "2026-07-26T22:28:00-04:00",
+  "power_bi_version": "2.156.951.0",
+  "python_version": "3.13.4",
+  "sklearn_version": "1.9.0",
+  "tablas": 33,
+  "tablas_ml": ["ML_Comparacion_Modelos", "ML_Auditoria_Target_Score", "Resultado"],
+  "pedidos_totales": 1636,
+  "pedidos_train": 837,
+  "pedidos_test": 687,
+  "pedidos_pendientes": 37,
+  "pedidos_excluidos": 75,
+  "target": "DH_TOTAL > 5",
+  "positivos_train": 120,
+  "positivos_test": 100,
+  "tasa_atraso_train": 0.143,
+  "tasa_atraso_test": 0.146,
+  "umbrales": {
+    "bajo": "< 0.10",
+    "medio": "0.10 a < 0.20",
+    "alto": ">= 0.20"
+  },
+  "metricas_ml": {
+    "auc": 0.5879,
+    "brier": 0.0136,
+    "mae": 2.203,
+    "rmse": 3.080,
+    "r2": -3.997
+  },
+  "metricas_base": {
+    "auc": 0.5000,
+    "brier": 0.0137,
+    "mae": 1.924,
+    "rmse": 3.041,
+    "r2": -1.373
+  },
+  "comparacion_baseline_9aaf321": {
+    "auc_ml_cambio": 0.0,
+    "brier_ml_cambio": 0.0,
+    "mae_ml_cambio": 0.0,
+    "rmse_ml_cambio": 0.0,
+    "r2_ml_cambio": 0.0,
+    "conclusion": "Metricas identicas al baseline. Cambios en ML_Comparacion_Modelos y ML_Auditoria_Target_Score no alteraron el modelo ML."
+  },
+  "errores": [],
+  "veredicto": "APROBADO"
+}
