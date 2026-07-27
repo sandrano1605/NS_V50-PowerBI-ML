@@ -1,0 +1,383 @@
+/// Cola operacional de pedidos pendientes. Una fila por pedido, ordenada por prioridad de intervención.
+table ML_Pedidos_Pendientes_Priorizados
+	lineageTag: 6db52ee0-3866-4d9b-b18f-f2f2e7d000ea
+
+	measure 'Pendientes Total' = COUNTROWS(ML_Pedidos_Pendientes_Priorizados)
+		formatString: #,0
+		displayFolder: 05. Pedidos Pendientes\Volumen
+		lineageTag: 2b352339-7153-4517-a508-454ed5b584d6
+
+	measure 'Pendientes Críticos' = CALCULATE(COUNTROWS(ML_Pedidos_Pendientes_Priorizados), ML_Pedidos_Pendientes_Priorizados[PRIORIDAD_OPERATIVA] = "CRÍTICA")
+		formatString: #,0
+		displayFolder: 05. Pedidos Pendientes\Prioridad
+		lineageTag: d84c777a-6fdb-4b74-84d2-4ec7972918a8
+
+	measure 'Pendientes Alta Prioridad' = CALCULATE(COUNTROWS(ML_Pedidos_Pendientes_Priorizados), ML_Pedidos_Pendientes_Priorizados[PRIORIDAD_OPERATIVA] = "ALTA")
+		formatString: #,0
+		displayFolder: 05. Pedidos Pendientes\Prioridad
+		lineageTag: 821a9ebb-19ec-4642-918f-cad1c81d62b5
+
+	measure 'Pendientes Intervenir Hoy' = CALCULATE(COUNTROWS(ML_Pedidos_Pendientes_Priorizados), ML_Pedidos_Pendientes_Priorizados[ESTADO_ACCION] IN {"INTERVENIR HOY", "REVISAR HOY"})
+		formatString: #,0
+		displayFolder: 05. Pedidos Pendientes\Prioridad
+		lineageTag: c8ba6dec-8afd-4247-84be-1a176580fc0f
+
+	measure 'Pendientes Fuera SLA' = CALCULATE(COUNTROWS(ML_Pedidos_Pendientes_Priorizados), ML_Pedidos_Pendientes_Priorizados[DIAS_ACTUALES_DH] > 5)
+		formatString: #,0
+		displayFolder: 05. Pedidos Pendientes\SLA
+		lineageTag: 0b4aa273-5fe6-42b3-a666-6190b8ab380c
+
+	measure 'Valor Pendiente' = SUM(ML_Pedidos_Pendientes_Priorizados[VALOR_NETO])
+		formatString: "CLP $" #,0;-"CLP $" #,0;"CLP $" 0
+		displayFolder: 05. Pedidos Pendientes\Impacto
+		lineageTag: 0962bb02-f59f-48a4-9197-dd419fb51842
+
+	measure 'Valor Crítico y Alto' = CALCULATE(SUM(ML_Pedidos_Pendientes_Priorizados[VALOR_NETO]), ML_Pedidos_Pendientes_Priorizados[PRIORIDAD_OPERATIVA] IN {"CRÍTICA", "ALTA"})
+		formatString: "CLP $" #,0;-"CLP $" #,0;"CLP $" 0
+		displayFolder: 05. Pedidos Pendientes\Impacto
+		lineageTag: 047f4e95-4865-46d1-9c7b-a78dbf4000ee
+
+	measure 'Riesgo ML Promedio Pendientes' = AVERAGE(ML_Pedidos_Pendientes_Priorizados[PROB_ML_ATRASO_NORM])
+		formatString: 0.0%
+		displayFolder: 05. Pedidos Pendientes\Riesgo
+		lineageTag: 3034a659-09f0-4df0-b354-9a02bbcbd404
+
+	measure 'Días Actuales Promedio Pendientes' = AVERAGE(ML_Pedidos_Pendientes_Priorizados[DIAS_ACTUALES_DH])
+		formatString: 0.0
+		displayFolder: 05. Pedidos Pendientes\SLA
+		lineageTag: 393bbc7d-9a64-4a10-8afb-6666865a0ca4
+
+	measure 'Pendientes Sin Antecedentes' = CALCULATE(COUNTROWS(ML_Pedidos_Pendientes_Priorizados), ML_Pedidos_Pendientes_Priorizados[HIST_SOPORTE_MIN] = 0)
+		formatString: #,0
+		displayFolder: 05. Pedidos Pendientes\Calidad
+		lineageTag: e1cd17fe-32ea-4696-a893-4cb77a97fbb9
+
+	column RANK_PRIORIDAD
+		dataType: int64
+		formatString: 0
+		lineageTag: 538b3751-0af6-4307-bd36-4fc711b214fc
+		summarizeBy: none
+		sourceColumn: RANK_PRIORIDAD
+
+	column PED_NUMERO_PEDIDO
+		dataType: string
+		lineageTag: 8767ab7d-9016-45f7-9f76-585e7eb54092
+		summarizeBy: none
+		sourceColumn: PED_NUMERO_PEDIDO
+
+	column PED_FECHA
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 56e230bf-804a-49f3-8678-e840ca4cd1f4
+		summarizeBy: none
+		sourceColumn: PED_FECHA
+
+	column CLIENTE
+		dataType: string
+		lineageTag: 2ff42b4f-d677-4673-b59f-f7247a441da0
+		summarizeBy: none
+		sourceColumn: CLIENTE
+
+	column VENDEDOR
+		dataType: string
+		lineageTag: 31db5061-d804-438f-b7b3-99b26bb690f8
+		summarizeBy: none
+		sourceColumn: VENDEDOR
+
+	column PED_CANAL
+		dataType: string
+		lineageTag: 814b0d17-2498-4be2-a03e-0f866e8ab4b7
+		summarizeBy: none
+		sourceColumn: PED_CANAL
+
+	column PED_REGION
+		dataType: string
+		lineageTag: 6b41de6e-1a5f-4c7e-83a9-d596bbdbfcbb
+		summarizeBy: none
+		sourceColumn: PED_REGION
+
+	column ZONA
+		dataType: string
+		lineageTag: 726060c5-489e-4713-9487-6b04c8522824
+		summarizeBy: none
+		sourceColumn: ZONA
+
+	column VALOR_NETO
+		dataType: double
+		formatString: "CLP $" #,0;-"CLP $" #,0;"CLP $" 0
+		lineageTag: d87245ba-1181-45e6-8ccb-4952555eabf2
+		summarizeBy: sum
+		sourceColumn: VALOR_NETO
+
+	column ESTADO_ACTUAL
+		dataType: string
+		lineageTag: d921fc13-710e-4cba-a561-ede3f7815f1f
+		summarizeBy: none
+		sourceColumn: ESTADO_ACTUAL
+
+	column HITO_ACTUAL
+		dataType: string
+		lineageTag: f8286723-53e2-43e4-b3b5-a0ee314405c6
+		summarizeBy: none
+		sourceColumn: HITO_ACTUAL
+
+	column RESPONSABLE_AREA
+		dataType: string
+		lineageTag: 5be03470-04ab-42be-bb6d-1c721a5dd3c7
+		summarizeBy: none
+		sourceColumn: RESPONSABLE_AREA
+
+	column DIAS_ACTUALES_DH
+		dataType: double
+		formatString: 0.0
+		lineageTag: 421f7982-6dcd-4d6f-8c2e-075b62e53acc
+		summarizeBy: average
+		sourceColumn: DIAS_ACTUALES_DH
+
+	column DIAS_EN_ESTADO_DH
+		dataType: double
+		formatString: 0.0
+		lineageTag: daa84c24-148f-4b13-a73c-e306a575557c
+		summarizeBy: average
+		sourceColumn: DIAS_EN_ESTADO_DH
+
+	column PROB_ML_ATRASO_NORM
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 3bfcf881-fbcd-4b99-a349-01369aefd064
+		summarizeBy: average
+		sourceColumn: PROB_ML_ATRASO_NORM
+
+	column RIESGO_ML_ETIQUETA
+		dataType: string
+		lineageTag: d126e739-06d2-40ea-9694-f43ebf2e7dee
+		summarizeBy: none
+		sourceColumn: RIESGO_ML_ETIQUETA
+
+	column HIST_CLIENTE_RIESGO
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 65ca5365-96c3-4c74-b672-a77e0830c4e0
+		summarizeBy: average
+		sourceColumn: HIST_CLIENTE_RIESGO
+
+	column HIST_VENDEDOR_RIESGO
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 4293d576-6913-4b22-93ff-9de1c3f0e69c
+		summarizeBy: average
+		sourceColumn: HIST_VENDEDOR_RIESGO
+
+	column HIST_CANAL_RIESGO
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 27765502-1d0c-4c21-837f-c6f4358d9e57
+		summarizeBy: average
+		sourceColumn: HIST_CANAL_RIESGO
+
+	column RIESGO_HISTORICO_MAX
+		dataType: double
+		formatString: 0.0%
+		lineageTag: dc0ad10a-b25b-4bb1-af62-3b30df732372
+		summarizeBy: average
+		sourceColumn: RIESGO_HISTORICO_MAX
+
+	column HIST_SOPORTE_MIN
+		dataType: int64
+		formatString: 0
+		lineageTag: 7feb4f16-8d88-45af-afc9-3a1654ffe72b
+		summarizeBy: average
+		sourceColumn: HIST_SOPORTE_MIN
+
+	column SLA_CONSUMIDO_PCT
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 0d08548e-a32f-484c-a8d4-99747611a607
+		summarizeBy: average
+		sourceColumn: SLA_CONSUMIDO_PCT
+
+	column DH_PREDICHO_ML
+		dataType: double
+		formatString: 0.0
+		lineageTag: 49ee8fa1-1245-46e0-819a-3e81e65e2c04
+		summarizeBy: average
+		sourceColumn: DH_PREDICHO_ML
+
+	column DIAS_RESTANTES_PREDICHOS
+		dataType: double
+		formatString: 0.0
+		lineageTag: 502bb1c2-95ab-4744-b31f-d71a9fb6be86
+		summarizeBy: average
+		sourceColumn: DIAS_RESTANTES_PREDICHOS
+
+	column PREDICCION_SLA
+		dataType: string
+		lineageTag: 0720f42d-7c66-48d1-887c-ad5e400dbdda
+		summarizeBy: none
+		sourceColumn: PREDICCION_SLA
+
+	column FACTOR_PRINCIPAL
+		dataType: string
+		lineageTag: e25e6ccb-8cf9-4934-a64d-a43ea3f8ecdf
+		summarizeBy: none
+		sourceColumn: FACTOR_PRINCIPAL
+
+	column FACTOR_HISTORICO
+		dataType: string
+		lineageTag: ecbd6fbe-ec80-45c9-adcd-6e91a93023c6
+		summarizeBy: none
+		sourceColumn: FACTOR_HISTORICO
+
+	column PRIORIDAD_OPERATIVA_SCORE
+		dataType: int64
+		formatString: 0
+		lineageTag: 63feefd8-cb1e-415a-bb1c-10bfc30c83bd
+		summarizeBy: average
+		sourceColumn: PRIORIDAD_OPERATIVA_SCORE
+
+	column PRIORIDAD_OPERATIVA
+		dataType: string
+		lineageTag: 785dc730-4b38-4363-90e5-beeb8b970cf2
+		summarizeBy: none
+		sourceColumn: PRIORIDAD_OPERATIVA
+
+	column ORDEN_PRIORIDAD
+		dataType: int64
+		formatString: 0
+		lineageTag: 9dfb4ce2-6ff8-4898-84c8-056dda1ca622
+		summarizeBy: none
+		sourceColumn: ORDEN_PRIORIDAD
+
+	column CANT_CRITERIOS_ACTIVOS
+		dataType: int64
+		formatString: 0
+		lineageTag: 9949b066-b05c-4f6a-8725-f5573829171e
+		summarizeBy: sum
+		sourceColumn: CANT_CRITERIOS_ACTIVOS
+
+	column CRITERIOS_ACTIVOS
+		dataType: string
+		lineageTag: 6da57a1e-2428-4aed-a501-3ac3cdff4bc9
+		summarizeBy: none
+		sourceColumn: CRITERIOS_ACTIVOS
+
+	column FOCO_INTERVENCION
+		dataType: string
+		lineageTag: ae412d51-6234-4275-a303-2a2c9464fdf3
+		summarizeBy: none
+		sourceColumn: FOCO_INTERVENCION
+
+	column ACCION_OPERATIVA
+		dataType: string
+		lineageTag: 9837fcb5-2019-4536-a058-3621f6ff2493
+		summarizeBy: none
+		sourceColumn: ACCION_OPERATIVA
+
+	column ESTADO_ACCION
+		dataType: string
+		lineageTag: 0a5f1cd4-1141-4ae4-8d85-4a1e3f37fd42
+		summarizeBy: none
+		sourceColumn: ESTADO_ACCION
+
+	column PUNTOS_SLA
+		dataType: int64
+		formatString: 0
+		lineageTag: ad4aba2b-8728-4e58-bb7d-aba58626930c
+		summarizeBy: sum
+		sourceColumn: PUNTOS_SLA
+
+	column PUNTOS_RIESGO_ML
+		dataType: int64
+		formatString: 0
+		lineageTag: eaf34564-62f9-4f0d-ba6b-8e777fa93565
+		summarizeBy: sum
+		sourceColumn: PUNTOS_RIESGO_ML
+
+	column PUNTOS_PERMANENCIA
+		dataType: int64
+		formatString: 0
+		lineageTag: 30a517cb-dbcb-4372-bcba-ab0cf8e9ac6d
+		summarizeBy: sum
+		sourceColumn: PUNTOS_PERMANENCIA
+
+	column PUNTOS_VALOR
+		dataType: int64
+		formatString: 0
+		lineageTag: d07e0d09-9452-45a1-9776-f4c894491e9c
+		summarizeBy: sum
+		sourceColumn: PUNTOS_VALOR
+
+	column PUNTOS_HISTORICO
+		dataType: int64
+		formatString: 0
+		lineageTag: b94432ee-040a-419b-bd02-63c70cfc1ccc
+		summarizeBy: sum
+		sourceColumn: PUNTOS_HISTORICO
+
+	column PUNTOS_FIN_MES
+		dataType: int64
+		formatString: 0
+		lineageTag: 1aff05f9-af81-43e3-8b95-3dbef51ff013
+		summarizeBy: sum
+		sourceColumn: PUNTOS_FIN_MES
+
+	column USO_DH_PREDICHO
+		dataType: string
+		lineageTag: 290f35bb-dd64-4bb6-9496-c8b445d9fd84
+		summarizeBy: none
+		sourceColumn: USO_DH_PREDICHO
+
+	partition ML_Pedidos_Pendientes_Priorizados = m
+		mode: import
+		source =
+				let
+				    Campos = {"PED_NUMERO_PEDIDO", "PED_FECHA", "CLIENTE", "VENDEDOR", "PED_CANAL", "PED_REGION", "ZONA", "VALOR_NETO", "ESTADO_ACTUAL", "HITO_ACTUAL", "RESPONSABLE_AREA", "DIAS_ACTUALES_DH", "DIAS_EN_ESTADO_DH", "PROB_ML_ATRASO", "SLA_CONSUMIDO_PCT", "DH_PREDICHO_ML", "DIAS_RESTANTES_PREDICHOS", "PREDICCION_SLA", "FACTOR_PRINCIPAL", "FACTOR_HISTORICO", "ES_FIN_MES", "ES_PENDIENTE"},
+				    Base = Table.SelectRows(Table.SelectColumns(Resultado, Campos, MissingField.UseNull), each [ES_PENDIENTE] = true),
+				    HistBase = Table.SelectColumns(ML_Historicos_Sin_Fuga, {"PED_NUMERO_PEDIDO", "HIST_CLIENTE_RIESGO", "HIST_VENDEDOR_RIESGO", "HIST_CANAL_RIESGO", "HIST_SOPORTE_MIN"}, MissingField.UseNull),
+				    JoinHist = Table.NestedJoin(Base, {"PED_NUMERO_PEDIDO"}, HistBase, {"PED_NUMERO_PEDIDO"}, "Hist", JoinKind.LeftOuter),
+				    ExpandHist = Table.ExpandTableColumn(JoinHist, "Hist", {"HIST_CLIENTE_RIESGO", "HIST_VENDEDOR_RIESGO", "HIST_CANAL_RIESGO", "HIST_SOPORTE_MIN"}, {"HIST_CLIENTE_RIESGO", "HIST_VENDEDOR_RIESGO", "HIST_CANAL_RIESGO", "HIST_SOPORTE_MIN"}),
+				    Numeros = Table.TransformColumns(ExpandHist, {
+				        {"VALOR_NETO", each try Number.From(_) otherwise 0, type number},
+				        {"DIAS_ACTUALES_DH", each try Number.From(_) otherwise 0, type number},
+				        {"DIAS_EN_ESTADO_DH", each try Number.From(_) otherwise 0, type number},
+				        {"PROB_ML_ATRASO", each try Number.From(_) otherwise null, type nullable number},
+				        {"SLA_CONSUMIDO_PCT", each try Number.From(_) otherwise null, type nullable number},
+				        {"DH_PREDICHO_ML", each try Number.From(_) otherwise null, type nullable number},
+				        {"DIAS_RESTANTES_PREDICHOS", each try Number.From(_) otherwise null, type nullable number},
+				        {"HIST_CLIENTE_RIESGO", each try Number.From(_) otherwise 0.15, type number},
+				        {"HIST_VENDEDOR_RIESGO", each try Number.From(_) otherwise 0.15, type number},
+				        {"HIST_CANAL_RIESGO", each try Number.From(_) otherwise 0.15, type number},
+				        {"HIST_SOPORTE_MIN", each try Int64.From(_) otherwise 0, Int64.Type}
+				    }),
+				    ValoresRaw = List.RemoveNulls(List.Transform(Resultado[PROB_ML_ATRASO], each try Number.From(_) otherwise null)),
+				    MaxAbsRaw = if List.Count(ValoresRaw) = 0 then null else List.Max(List.Transform(ValoresRaw, each Number.Abs(_))),
+				    EscalaGlobal = if MaxAbsRaw = null or MaxAbsRaw <= 1 then 1 else Number.Power(10, Number.RoundUp(Number.Log10(MaxAbsRaw))),
+				    ConProb = Table.AddColumn(Numeros, "PROB_ML_ATRASO_NORM", each let p = [PROB_ML_ATRASO], v = if p = null then null else p / EscalaGlobal in if v = null or v < 0 or v > 1 then null else v, type nullable number),
+				    ConEtiqueta = Table.AddColumn(ConProb, "RIESGO_ML_ETIQUETA", each if [DIAS_ACTUALES_DH] > 5 then "ATRASADO" else if [PROB_ML_ATRASO_NORM] = null then "SIN SCORE" else if [PROB_ML_ATRASO_NORM] >= 0.20 then "ALTO" else if [PROB_ML_ATRASO_NORM] >= 0.10 then "MEDIO" else "BAJO", type text),
+				    ConHistMax = Table.AddColumn(ConEtiqueta, "RIESGO_HISTORICO_MAX", each let v = List.RemoveNulls({[HIST_CLIENTE_RIESGO], [HIST_VENDEDOR_RIESGO], [HIST_CANAL_RIESGO]}) in if List.Count(v) = 0 then 0.15 else List.Max(v), type number),
+				    ConPSLA = Table.AddColumn(ConHistMax, "PUNTOS_SLA", each if [DIAS_ACTUALES_DH] > 5 then 40 else if [DIAS_ACTUALES_DH] >= 4 then 30 else if [DIAS_ACTUALES_DH] >= 3 then 20 else if [DIAS_ACTUALES_DH] >= 2 then 10 else 0, Int64.Type),
+				    ConPML = Table.AddColumn(ConPSLA, "PUNTOS_RIESGO_ML", each if [PROB_ML_ATRASO_NORM] = null then 0 else if [PROB_ML_ATRASO_NORM] >= 0.20 then 25 else if [PROB_ML_ATRASO_NORM] >= 0.10 then 15 else 5, Int64.Type),
+				    ConPPerm = Table.AddColumn(ConPML, "PUNTOS_PERMANENCIA", each if [DIAS_EN_ESTADO_DH] >= 2 then 15 else if [DIAS_EN_ESTADO_DH] >= 1 then 8 else 0, Int64.Type),
+				    ConPValor = Table.AddColumn(ConPPerm, "PUNTOS_VALOR", each if [VALOR_NETO] >= 5000000 then 10 else if [VALOR_NETO] >= 2600000 then 6 else 0, Int64.Type),
+				    ConPHist = Table.AddColumn(ConPValor, "PUNTOS_HISTORICO", each if [RIESGO_HISTORICO_MAX] >= 0.20 then 10 else if [RIESGO_HISTORICO_MAX] >= 0.15 then 5 else 0, Int64.Type),
+				    ConPFinMes = Table.AddColumn(ConPHist, "PUNTOS_FIN_MES", each let t = Text.Upper(Text.Trim(if [ES_FIN_MES] = null then "" else Text.From([ES_FIN_MES]))) in if List.Contains({"TRUE", "1", "SI", "SÍ", "YES", "ULTIMOS 7 DH", "ÚLTIMOS 7 DH"}, t) then 5 else 0, Int64.Type),
+				    ConScore = Table.AddColumn(ConPFinMes, "PRIORIDAD_OPERATIVA_SCORE", each Int64.From(Number.Min(100, [PUNTOS_SLA] + [PUNTOS_RIESGO_ML] + [PUNTOS_PERMANENCIA] + [PUNTOS_VALOR] + [PUNTOS_HISTORICO] + [PUNTOS_FIN_MES])), Int64.Type),
+				    ConPrioridad = Table.AddColumn(ConScore, "PRIORIDAD_OPERATIVA", each if [DIAS_ACTUALES_DH] > 5 or [PRIORIDAD_OPERATIVA_SCORE] >= 70 then "CRÍTICA" else if [PRIORIDAD_OPERATIVA_SCORE] >= 50 then "ALTA" else if [PRIORIDAD_OPERATIVA_SCORE] >= 30 then "MEDIA" else "BAJA", type text),
+				    ConOrden = Table.AddColumn(ConPrioridad, "ORDEN_PRIORIDAD", each if [PRIORIDAD_OPERATIVA] = "CRÍTICA" then 1 else if [PRIORIDAD_OPERATIVA] = "ALTA" then 2 else if [PRIORIDAD_OPERATIVA] = "MEDIA" then 3 else 4, Int64.Type),
+				    ConListaCriterios = Table.AddColumn(ConOrden, "_LISTA_CRITERIOS", each List.RemoveNulls({if [PUNTOS_SLA] >= 40 then "SLA vencido" else if [PUNTOS_SLA] > 0 then "SLA próximo" else null, if [PUNTOS_RIESGO_ML] >= 25 then "Riesgo ML alto" else if [PUNTOS_RIESGO_ML] >= 15 then "Riesgo ML medio" else null, if [PUNTOS_PERMANENCIA] > 0 then "Permanencia en hito" else null, if [PUNTOS_VALOR] > 0 then "Valor relevante" else null, if [PUNTOS_HISTORICO] > 0 then "Patrón histórico" else null, if [PUNTOS_FIN_MES] > 0 then "Fin de mes" else null})),
+				    ConCantCriterios = Table.AddColumn(ConListaCriterios, "CANT_CRITERIOS_ACTIVOS", each List.Count([_LISTA_CRITERIOS]), Int64.Type),
+				    ConCriterios = Table.AddColumn(ConCantCriterios, "CRITERIOS_ACTIVOS", each if List.Count([_LISTA_CRITERIOS]) = 0 then "Sin criterio crítico" else Text.Combine([_LISTA_CRITERIOS], " · "), type text),
+				    ConFoco = Table.AddColumn(ConCriterios, "FOCO_INTERVENCION", each let h = Text.Upper(Text.Trim(if [HITO_ACTUAL] = null then "" else Text.From([HITO_ACTUAL]))), r = Text.Trim(if [RESPONSABLE_AREA] = null then "" else Text.From([RESPONSABLE_AREA])) in if Text.Contains(h, "CRED") then "CRÉDITO Y COBRANZAS" else if Text.Contains(h, "VEND") or Text.Contains(h, "COMERCIAL") or Text.Contains(h, "SAC") then "COMERCIAL / SAC" else if Text.Contains(h, "PICK") or Text.Contains(h, "OPER") or Text.Contains(h, "ENTREGA") then "OPERACIÓN INTERNA" else if Text.Contains(h, "FACT") or Text.Contains(h, "DESP") or Text.Contains(h, "MANIF") then "FACTURA / DESPACHO" else if r <> "" then Text.Upper(r) else "CONTROL DE GESTIÓN", type text),
+				    ConAccion = Table.AddColumn(ConFoco, "ACCION_OPERATIVA", each if [DIAS_ACTUALES_DH] > 5 then "Escalar hoy, confirmar bloqueo y fecha de liberación" else if [DIAS_EN_ESTADO_DH] >= 2 then "Destrabar hito actual y asignar responsable" else if [PROB_ML_ATRASO_NORM] <> null and [PROB_ML_ATRASO_NORM] >= 0.20 then "Revisar causa probable antes de consumir SLA" else if [RIESGO_HISTORICO_MAX] >= 0.20 then "Revisar recurrencia de cliente, vendedor y canal" else if [VALOR_NETO] >= 5000000 then "Seguimiento preventivo por exposición económica" else "Monitorear avance y próxima actualización", type text),
+				    ConEstadoAccion = Table.AddColumn(ConAccion, "ESTADO_ACCION", each if [PRIORIDAD_OPERATIVA] = "CRÍTICA" then "INTERVENIR HOY" else if [PRIORIDAD_OPERATIVA] = "ALTA" then "REVISAR HOY" else if [PRIORIDAD_OPERATIVA] = "MEDIA" then "SEGUIMIENTO" else "MONITOREAR", type text),
+				    ConUsoDias = Table.AddColumn(ConEstadoAccion, "USO_DH_PREDICHO", each "REFERENCIAL: no participa en la prioridad hasta superar el baseline", type text),
+				    SinAuxiliares = Table.RemoveColumns(ConUsoDias, {"_LISTA_CRITERIOS", "PROB_ML_ATRASO", "ES_FIN_MES", "ES_PENDIENTE"}),
+				    Ordenado = Table.Sort(SinAuxiliares, {{"ORDEN_PRIORIDAD", Order.Ascending}, {"PRIORIDAD_OPERATIVA_SCORE", Order.Descending}, {"DIAS_ACTUALES_DH", Order.Descending}, {"VALOR_NETO", Order.Descending}}),
+				    ConRank = Table.AddIndexColumn(Ordenado, "RANK_PRIORIDAD", 1, 1, Int64.Type),
+				    Tipos = Table.TransformColumnTypes(ConRank, {{"PED_NUMERO_PEDIDO", type text}, {"PED_FECHA", type datetime}, {"CLIENTE", type text}, {"VENDEDOR", type text}, {"PED_CANAL", type text}, {"PED_REGION", type text}, {"ZONA", type text}, {"ESTADO_ACTUAL", type text}, {"HITO_ACTUAL", type text}, {"RESPONSABLE_AREA", type text}, {"RIESGO_ML_ETIQUETA", type text}, {"PREDICCION_SLA", type text}, {"FACTOR_PRINCIPAL", type text}, {"FACTOR_HISTORICO", type text}, {"PRIORIDAD_OPERATIVA", type text}, {"CRITERIOS_ACTIVOS", type text}, {"FOCO_INTERVENCION", type text}, {"ACCION_OPERATIVA", type text}, {"ESTADO_ACCION", type text}, {"USO_DH_PREDICHO", type text}})
+				in
+				    Tipos
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
