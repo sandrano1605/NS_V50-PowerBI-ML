@@ -102,15 +102,11 @@ table ML_Auditoria_Target_Score
 				    Origen = Table.SelectColumns(Resultado, {"PED_NUMERO_PEDIDO", "DH_TOTAL", "PROB_ML_ATRASO", "RIESGO_ATRASO", "ES_FLUJO_COMPLETO_ML", "ES_ENTRENAMIENTO_FINAL", "ES_VALIDACION_TEST", "ES_PENDIENTE", "DIAS_ACTUALES_DH"}, MissingField.UseNull),
 				    UnaFilaPedido = Table.Distinct(Origen, {"PED_NUMERO_PEDIDO"}),
 				    ConProbRaw = Table.AddColumn(UnaFilaPedido, "PROB_RAW", each try Number.From([PROB_ML_ATRASO]) otherwise null, type nullable number),
-				    ConProbNorm = Table.AddColumn(ConProbRaw, "PROB_NORM", each
-				        let
-				            n = [PROB_RAW],
-				            a = if n = null then null else Number.Abs(n),
-				            escala = if a = null or a <= 1 then 1 else Number.Power(10, Number.RoundUp(Number.Log10(a))),
-				            v = if n = null then null else n / escala
-				        in
-				            if v = null or v < 0 or v > 1 then null else v, type nullable number),
-				    ConReescalado = Table.AddColumn(ConProbNorm, "AUD_REESCALADO", each if [PROB_RAW] <> null and Number.Abs([PROB_RAW]) > 1 then 1 else 0, Int64.Type),
+				    ValoresRaw = List.RemoveNulls(ConProbRaw[PROB_RAW]),
+				    MaxAbsRaw = if List.Count(ValoresRaw) = 0 then null else List.Max(List.Transform(ValoresRaw, each Number.Abs(_))),
+				    EscalaGlobal = if MaxAbsRaw = null or MaxAbsRaw <= 1 then 1 else Number.Power(10, Number.RoundUp(Number.Log10(MaxAbsRaw))),
+				    ConProbNorm = Table.AddColumn(ConProbRaw, "PROB_NORM", each let n = [PROB_RAW], v = if n = null then null else n / EscalaGlobal in if v = null or v < 0 or v > 1 then null else v, type nullable number),
+				    ConReescalado = Table.AddColumn(ConProbNorm, "AUD_REESCALADO", each if [PROB_RAW] <> null and EscalaGlobal > 1 then 1 else 0, Int64.Type),
 				    ConScoreFueraRango = Table.AddColumn(ConReescalado, "AUD_SCORE_FUERA_RANGO", each if [PROB_RAW] <> null and [PROB_NORM] = null then 1 else 0, Int64.Type),
 				    ConTargetValido = Table.AddColumn(ConScoreFueraRango, "TARGET_VALIDO", each [ES_FLUJO_COMPLETO_ML] = true and [ES_PENDIENTE] <> true and [DH_TOTAL] <> null and [DH_TOTAL] >= 0 and [DH_TOTAL] <= 60, type logical),
 				    ConTarget = Table.AddColumn(ConTargetValido, "Y_ATRASO_SLA_5DH", each if [TARGET_VALIDO] then (if [DH_TOTAL] > 5 then 1 else 0) else null, Int64.Type),
@@ -130,8 +126,8 @@ table ML_Auditoria_Target_Score
 				        {"Categoria_Incoherente", each List.Sum([AUD_CATEGORIA_INCOHERENTE]), Int64.Type},
 				        {"Target_Invalido", each List.Sum([AUD_TARGET_INVALIDO]), Int64.Type}
 				    }),
-				    ConEstado = Table.AddColumn(Agrupado, "Estado_Auditoria", each if [Score_Fuera_Rango] > 0 or [Target_Invalido] > 0 then "ERROR" else if [Categoria_Incoherente] > 0 or [Score_Reescalado] > 0 then "REVISAR" else "OK", type text),
-				    ConDetalle = Table.AddColumn(ConEstado, "Detalle", each "TARGET=DH_TOTAL>5 | SCORE normalizado 0..1 | Umbrales BAJO<10%, MEDIO 10%-<20%, ALTO>=20%", type text),
+				    ConEstado = Table.AddColumn(Agrupado, "Estado_Auditoria", each if [Score_Fuera_Rango] > 0 or [Target_Invalido] > 0 then "ERROR" else if [Categoria_Incoherente] > 0 then "REVISAR" else "OK", type text),
+				    ConDetalle = Table.AddColumn(ConEstado, "Detalle", each "TARGET=DH_TOTAL>5 | ESCALA_GLOBAL=" & Number.ToText(EscalaGlobal, "0") & " | SCORE 0..1 | BAJO<10%, MEDIO 10%-<20%, ALTO>=20%", type text),
 				    Tipos = Table.TransformColumnTypes(ConDetalle, {{"Cohorte", type text}, {"Categoria_Riesgo", type text}, {"Pedidos", Int64.Type}, {"Positivos", Int64.Type}, {"Tasa_Atraso", type number}, {"Probabilidad_Promedio", type number}, {"Probabilidad_Min", type number}, {"Probabilidad_Max", type number}, {"Score_Reescalado", Int64.Type}, {"Score_Fuera_Rango", Int64.Type}, {"Categoria_Incoherente", Int64.Type}, {"Target_Invalido", Int64.Type}, {"Estado_Auditoria", type text}, {"Detalle", type text}})
 				in
 				    Tipos
