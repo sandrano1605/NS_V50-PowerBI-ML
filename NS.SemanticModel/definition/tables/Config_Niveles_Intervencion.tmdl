@@ -1,0 +1,57 @@
+/// Catálogo de niveles de intervención V2 para diferenciar pedidos vencidos por severidad y score.
+table Config_Niveles_Intervencion
+	lineageTag: eb2feedb-e2eb-4dde-907d-dc73e7fe3853
+
+	column ORDEN
+		dataType: int64
+		formatString: 0
+		lineageTag: 6b6c0f41-f9cd-4cae-a35e-563680f18017
+		summarizeBy: none
+		sourceColumn: ORDEN
+
+	column NIVEL
+		dataType: string
+		lineageTag: 66a3c434-e28a-432a-a997-3f06f868e34b
+		summarizeBy: none
+		sourceColumn: NIVEL
+
+	column REGLA
+		dataType: string
+		lineageTag: b875c33a-0431-4c78-9e7f-cbb0a2824bab
+		summarizeBy: none
+		sourceColumn: REGLA
+
+	column PLAZO
+		dataType: string
+		lineageTag: f491ce56-553b-4af5-96e3-417c58ed1021
+		summarizeBy: none
+		sourceColumn: PLAZO
+
+	column LECTURA
+		dataType: string
+		lineageTag: b24db463-dd08-471f-a1b0-8b5241f33159
+		summarizeBy: none
+		sourceColumn: LECTURA
+
+	column COLOR_HEX
+		dataType: string
+		lineageTag: a3881cfb-bca7-4317-8b84-dd1257a70cff
+		summarizeBy: none
+		sourceColumn: COLOR_HEX
+
+	partition Config_Niveles_Intervencion = m
+		mode: import
+		source =
+				#table(
+				    type table [ORDEN = Int64.Type, NIVEL = text, REGLA = text, PLAZO = text, LECTURA = text, COLOR_HEX = text],
+				    {
+				        {1, "P1 · CRÍTICA", "Score >=75 o exceso SLA >=10 DH o permanencia >=5 DH", "Intervenir hoy", "Máxima severidad o bloqueo prolongado", "#B71C1C"},
+				        {2, "P2 · ALTA", "Score >=55 o exceso SLA >=6 DH o permanencia >=3 DH", "Revisar hoy", "Atraso severo que requiere compromiso inmediato", "#E65100"},
+				        {3, "P3 · MEDIA", "Score >=35 o pedido fuera SLA", "Plan en 24 horas", "Pedido vencido reciente o riesgo acumulado", "#F9A825"},
+				        {4, "P4 · BAJA", "Score <35 y pedido dentro de SLA", "Monitorear", "Seguimiento preventivo", "#2E7D32"}
+				    }
+				)
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
