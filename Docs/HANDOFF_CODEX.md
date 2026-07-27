@@ -1,125 +1,135 @@
-# HANDOFF CODEX — Ciclo UX-1: mesa operativa de pedidos pendientes
+# HANDOFF CODEX — Ciclo UX-2: cola diaria realmente operativa
 
-## Objetivo
-Validar las nuevas tablas de priorización y evolucionar el lienzo de Power BI hacia una mesa de control diaria de pedidos pendientes.
+## Motivo
+UX-1 validó correctamente las tablas, pero no construyó el lienzo en el PBIP y los 37 pedidos quedaron en una única categoría crítica. El commit de validación solo agregó archivos bajo `validation/`; no modificó `NS.Report`.
 
-Este ciclo no modifica el modelo predictivo de `Resultado`. Utiliza el score existente, los históricos sin fuga y datos operacionales actuales para construir una prioridad transparente.
+UX-2 separa:
+- gravedad absoluta del pedido;
+- orden relativo de intervención diaria.
 
-## Cambios semánticos
-- Nueva tabla `Config_Criterios_Pendientes` con seis criterios visibles y su puntaje.
-- Nueva tabla `ML_Pedidos_Pendientes_Priorizados`, una fila por pedido pendiente.
-- Nuevas medidas:
-  - `Pendientes Total`.
-  - `Pendientes Críticos`.
-  - `Pendientes Alta Prioridad`.
-  - `Pendientes Intervenir Hoy`.
-  - `Pendientes Fuera SLA`.
-  - `Valor Pendiente`.
-  - `Valor Crítico y Alto`.
-  - `Riesgo ML Promedio Pendientes`.
-  - `Días Actuales Promedio Pendientes`.
-  - `Pendientes Sin Antecedentes`.
+## Nuevas tablas
+- `Config_Niveles_Intervencion`: reglas de severidad absoluta.
+- `ML_Pedidos_Pendientes_Intervencion`: score, exceso SLA, severidad y motivo principal.
+- `Config_Tramos_Intervencion_Diaria`: Top 5, siguientes 5, siguientes 10 y resto.
+- `ML_Cola_Intervencion_Diaria`: fuente definitiva del lienzo operativo.
 
-## Regla de prioridad
-El score utiliza:
-- SLA consumido: máximo 40 puntos.
-- Riesgo ML: máximo 25 puntos.
-- Permanencia en el hito: máximo 15 puntos.
-- Valor del pedido: máximo 10 puntos.
-- Riesgo histórico: máximo 10 puntos.
-- Fin de mes: máximo 5 puntos.
+## Regla diaria
+La cola se ordena por:
+1. score de intervención descendente;
+2. exceso SLA descendente;
+3. días en el hito descendente;
+4. valor del pedido descendente;
+5. número de pedido.
 
-El score se limita a 100.
+Después se asignan tramos:
+- Rank 1–5: `P1 · INTERVENIR`.
+- Rank 6–10: `P2 · REVISAR`.
+- Rank 11–20: `P3 · PLAN 24H`.
+- Rank 21 en adelante: `P4 · MONITOREAR`.
 
-Categorías:
-- `CRÍTICA`: pedido vencido o score >= 70.
-- `ALTA`: score >= 50.
-- `MEDIA`: score >= 30.
-- `BAJA`: score < 30.
+La severidad absoluta se conserva por separado en `PRIORIDAD_ABSOLUTA`, `SEVERIDAD_SLA` y `ESTADO_SLA_OPERATIVO`.
 
-La predicción de días es solo referencial porque la regresión todavía no supera al baseline. No participa en el score.
-
-## Validación semántica obligatoria
+## Validación semántica
 1. Abrir `NS.pbip` y ejecutar Actualizar todo.
 2. Confirmar:
-   - TMDL sin errores.
-   - Power Query sin errores.
-   - Python.Execute sin errores.
-   - 38 tablas cargadas.
+   - TMDL sin errores;
+   - Power Query sin errores;
+   - Python.Execute sin errores;
+   - 42 tablas cargadas;
    - 40 relaciones activas.
-3. `Config_Criterios_Pendientes` debe tener exactamente 6 filas.
-4. `ML_Pedidos_Pendientes_Priorizados` debe tener exactamente la misma cantidad de pedidos que `Resultado` con `ES_PENDIENTE = TRUE()`.
-5. Confirmar una fila única por `PED_NUMERO_PEDIDO`.
-6. Confirmar que `RANK_PRIORIDAD` vaya de 1 a N sin duplicados.
-7. Confirmar que `PROB_ML_ATRASO_NORM`, `HIST_CLIENTE_RIESGO`, `HIST_VENDEDOR_RIESGO`, `HIST_CANAL_RIESGO` y `RIESGO_HISTORICO_MAX` estén entre 0 y 1.
-8. Confirmar que `PRIORIDAD_OPERATIVA_SCORE` esté entre 0 y 100.
-9. Recalcular manualmente al menos 10 pedidos y comprobar que el score sea la suma de:
-   - `PUNTOS_SLA`.
-   - `PUNTOS_RIESGO_ML`.
-   - `PUNTOS_PERMANENCIA`.
-   - `PUNTOS_VALOR`.
-   - `PUNTOS_HISTORICO`.
-   - `PUNTOS_FIN_MES`.
-10. Confirmar que todo pedido con `DIAS_ACTUALES_DH > 5` quede `CRÍTICA` y `INTERVENIR HOY`.
-11. Confirmar que `CRITERIOS_ACTIVOS`, `FOCO_INTERVENCION` y `ACCION_OPERATIVA` no estén vacíos.
-12. Confirmar que `USO_DH_PREDICHO` indique que la regresión es referencial.
+3. `ML_Cola_Intervencion_Diaria` debe tener la misma cantidad de filas que `Resultado[ES_PENDIENTE]=TRUE()`.
+4. Una fila por `PED_NUMERO_PEDIDO`.
+5. `RANK_DIARIO` continuo de 1 a N, sin duplicados.
+6. Para N=37 la distribución esperada es exactamente:
+   - P1 = 5;
+   - P2 = 5;
+   - P3 = 10;
+   - P4 = 17.
+7. Para otro N usar:
+   - P1 = mínimo entre 5 y N;
+   - P2 = máximo entre mínimo(N,10)-5 y 0;
+   - P3 = máximo entre mínimo(N,20)-10 y 0;
+   - P4 = máximo entre N-20 y 0.
+8. `SCORE_INTERVENCION` debe estar entre 0 y 100.
+9. `EXCESO_SLA_DH` debe ser igual a `max(DIAS_ACTUALES_DH-5,0)`.
+10. No deben existir valores vacíos en nivel, plazo, foco, motivo ni acción.
+11. Recalcular manualmente los primeros 10 pedidos.
 
-## Evolución del lienzo
-Leer `Docs/LIENZO_PEDIDOS_PENDIENTES.md` y aplicar el diseño en Power BI Desktop.
+## Construcción obligatoria del reporte
+Leer `Docs/LIENZO_COLA_INTERVENCION_V2.md`.
 
-Crear una nueva página o transformar la página ML actual con el nombre:
+Crear o reemplazar la página:
 
-`05 Pedidos pendientes · Priorización`
+`05 Cola diaria · Intervención`
 
-La página debe incluir:
-- Logo oficial ARTEL arriba a la derecha.
-- Título y subtítulo definidos en la documentación.
-- Cinco tarjetas principales.
-- Segmentadores de prioridad, foco, hito, vendedor, región y canal.
-- Tabla principal ordenada por `RANK_PRIORIDAD`.
-- Panel o tabla de criterios.
-- Barras por foco de intervención.
-- Barras apiladas por hito y prioridad.
-- Tooltip con desglose de puntos.
+Usar `ML_Cola_Intervencion_Diaria` como fuente principal.
 
-## Tabla principal
-Usar exclusivamente `ML_Pedidos_Pendientes_Priorizados` y respetar el orden de columnas descrito en `Docs/LIENZO_PEDIDOS_PENDIENTES.md`.
+### Evidencia obligatoria
+No marcar APROBADO salvo que se cumplan todos estos puntos:
 
-Aplicar formato condicional:
-- CRÍTICA: rojo.
-- ALTA: naranja.
-- MEDIA: amarillo.
-- BAJA: verde.
+1. El commit final debe modificar archivos reales bajo:
+   - `NS.Report/definition/pages/`;
+   - al menos un `page.json`;
+   - al menos un archivo `visual.json`.
+2. Ejecutar y guardar:
+   - `git diff --name-only <SHA_DESARROLLO>..HEAD`.
+3. El listado debe mostrar al menos un archivo de `NS.Report/definition/pages/`.
+4. Guardar una captura real y no vacía:
+   - `validation/latest/capturas/cola_intervencion_v2.png`.
+5. La captura debe mostrar:
+   - logo ARTEL;
+   - cinco tarjetas;
+   - segmentadores;
+   - tabla con pedidos reales;
+   - barras por foco y severidad.
+6. El Top 10 del informe debe contener los diez números de pedido reales. No se aceptan guiones, valores ficticios ni filas vacías.
+7. Validar que al seleccionar una fila o filtro cambien las tarjetas y gráficos relacionados.
+
+## Diseño
+- Logo: `Assets/logo_artel.svg`.
+- Fuente principal: `ML_Cola_Intervencion_Diaria`.
+- Colores y orden según `Docs/LIENZO_COLA_INTERVENCION_V2.md`.
+- Mostrar simultáneamente:
+  - `NIVEL_COLA` como turno diario;
+  - `PRIORIDAD_ABSOLUTA` como gravedad.
 
 ## Restricciones
 - No modificar `Resultado`.
 - No reentrenar modelos.
 - No cambiar relaciones existentes.
-- No alterar otras páginas salvo navegación necesaria.
 - No hacer merge a `main`.
+- No afirmar que la página fue creada si no existen cambios en `NS.Report`.
 
 ## Entrega
-Guardar:
-- `validation/latest/RESULTADOS_UX_1.md`.
-- `validation/latest/metricas_UX_1.json`.
-- `validation/latest/errores_UX_1.txt`.
-- Captura completa de la nueva página en `validation/latest/capturas/`.
+Crear:
+- `validation/latest/RESULTADOS_UX_2.md`.
+- `validation/latest/metricas_UX_2.json`.
+- `validation/latest/errores_UX_2.txt`.
+- `validation/latest/capturas/cola_intervencion_v2.png`.
+- `validation/latest/diff_reporte_UX_2.txt`.
 
 El informe debe incluir:
-- Filas de pedidos pendientes.
-- Distribución por prioridad.
-- Distribución por foco.
-- Total y valor de pedidos críticos y altos.
-- Diez primeros pedidos del ranking.
-- Resultado de los controles de score.
-- Estado de todos los visuales.
+- SHA validado;
+- tablas y relaciones;
+- total de pendientes;
+- distribución P1/P2/P3/P4;
+- distribución de severidad absoluta;
+- distribución por foco;
+- valor Top 10;
+- primeros 10 pedidos con todos sus campos operativos;
+- recálculo manual del score;
+- archivos reales del reporte modificados;
+- estado de cada visual;
+- errores;
+- veredicto.
 
 ## Criterio de aprobación
-- 38 tablas cargadas.
-- Una fila por pedido pendiente.
-- Cero scores fuera de rango.
-- Cero campos operativos vacíos en pedidos pendientes.
-- Página creada y funcional.
-- Tabla ordenada correctamente.
-- Filtros y formato condicional funcionando.
-- Sin errores en Actualizar todo.
+- 42 tablas cargadas.
+- Cola discriminante y reconciliada.
+- Página PBIP realmente modificada.
+- Captura real disponible.
+- Top 10 completo.
+- Filtros funcionando.
+- Sin errores de actualización.
+
+Cualquier ausencia de cambios en `NS.Report`, captura o Top 10 real obliga a marcar `BLOQUEADO`.
