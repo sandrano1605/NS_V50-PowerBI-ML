@@ -1,0 +1,186 @@
+table ML_Auditoria_Metricas
+	lineageTag: fbc3cdd8-b804-4d09-a604-804fdcfb559e
+
+	column N_Train
+		dataType: int64
+		formatString: #,0
+		lineageTag: fb7ab5b9-2a79-4d91-9023-08ac1cf46d54
+		summarizeBy: sum
+		sourceColumn: N_Train
+
+	column Positivos_Train
+		dataType: int64
+		formatString: #,0
+		lineageTag: 8b9776d4-1343-4145-969a-b7aaf8e1bdea
+		summarizeBy: sum
+		sourceColumn: Positivos_Train
+
+	column Tasa_Train
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 55f71798-7c37-4447-9e61-71a05f294d49
+		summarizeBy: average
+		sourceColumn: Tasa_Train
+
+	column N_Test
+		dataType: int64
+		formatString: #,0
+		lineageTag: bdddf3fd-a12d-41da-86d5-b7689cc79d32
+		summarizeBy: sum
+		sourceColumn: N_Test
+
+	column Positivos_Test
+		dataType: int64
+		formatString: #,0
+		lineageTag: d3d10e23-a0c7-4565-a5b9-a96cb88f9ab1
+		summarizeBy: sum
+		sourceColumn: Positivos_Test
+
+	column Tasa_Test
+		dataType: double
+		formatString: 0.0%
+		lineageTag: c1ec32f4-c606-4d4f-95e4-985f43de47ec
+		summarizeBy: average
+		sourceColumn: Tasa_Test
+
+	column Brier_Base_Directo
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 6f0dc299-f402-452a-aea5-724497c9fcea
+		summarizeBy: average
+		sourceColumn: Brier_Base_Directo
+
+	column Brier_Base_Formula
+		dataType: double
+		formatString: 0.0000
+		lineageTag: f74bdf1f-b14e-4eb9-ba22-ef7715d549ed
+		summarizeBy: average
+		sourceColumn: Brier_Base_Formula
+
+	column Brier_Base_Reportado
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 9b7475b5-9cb5-4ccc-8635-f58617d7e4d2
+		summarizeBy: average
+		sourceColumn: Brier_Base_Reportado
+
+	column Diferencia_Brier_Base
+		dataType: double
+		formatString: 0.000000
+		lineageTag: 36b7b59f-85d9-410e-a7a8-09f7c9e06832
+		summarizeBy: average
+		sourceColumn: Diferencia_Brier_Base
+
+	column Brier_ML_Directo
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 2bacdb82-418a-4847-b88c-9ffcf5078a62
+		summarizeBy: average
+		sourceColumn: Brier_ML_Directo
+
+	column Brier_ML_Reportado
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 1931c830-a253-48b9-a0db-035374be0ccb
+		summarizeBy: average
+		sourceColumn: Brier_ML_Reportado
+
+	column Diferencia_Brier_ML
+		dataType: double
+		formatString: 0.000000
+		lineageTag: 65cb63a5-7888-42d7-8910-78b917213411
+		summarizeBy: average
+		sourceColumn: Diferencia_Brier_ML
+
+	column Estado_Auditoria
+		dataType: string
+		lineageTag: 6d936e54-0e36-4a3c-895f-fad70c0807a4
+		summarizeBy: none
+		sourceColumn: Estado_Auditoria
+
+	column Detalle
+		dataType: string
+		lineageTag: 74df151f-aa79-4f9a-bdc0-bf93d0f06ef9
+		summarizeBy: none
+		sourceColumn: Detalle
+
+	partition ML_Auditoria_Metricas = m
+		mode: import
+		source =
+				let
+				    Origen = Table.SelectColumns(Resultado, {"PED_NUMERO_PEDIDO", "DH_TOTAL", "PROB_ML_ATRASO", "ES_ENTRENAMIENTO_FINAL", "ES_VALIDACION_TEST", "ES_PENDIENTE"}, MissingField.UseNull),
+				    UnaFilaPedido = Table.Distinct(Origen, {"PED_NUMERO_PEDIDO"}),
+				    ConDH = Table.TransformColumns(UnaFilaPedido, {{"DH_TOTAL", each try Number.From(_) otherwise null, type nullable number}, {"PROB_ML_ATRASO", each try Number.From(_) otherwise null, type nullable number}}),
+				    ConProbNorm = Table.AddColumn(ConDH, "PROB_NORM", each
+				        let
+				            n = [PROB_ML_ATRASO],
+				            a = if n = null then null else Number.Abs(n),
+				            escala = if a = null or a <= 1 then 1 else Number.Power(10, Number.RoundUp(Number.Log10(a))),
+				            v = if n = null then null else n / escala
+				        in
+				            if v = null or v < 0 or v > 1 then null else v, type nullable number),
+				    Validos = Table.SelectRows(ConProbNorm, each [ES_ENTRENAMIENTO_FINAL] = true and [ES_PENDIENTE] <> true and [DH_TOTAL] <> null and [DH_TOTAL] >= 0 and [DH_TOTAL] <= 60),
+				    ConTarget = Table.AddColumn(Validos, "Y_ATRASO_SLA_5DH", each if [DH_TOTAL] > 5 then 1 else 0, Int64.Type),
+				    Train = Table.SelectRows(ConTarget, each [ES_VALIDACION_TEST] <> true),
+				    Test = Table.SelectRows(ConTarget, each [ES_VALIDACION_TEST] = true),
+				    NTrain = Table.RowCount(Train),
+				    NTest = Table.RowCount(Test),
+				    PosTrain = if NTrain = 0 then 0 else List.Sum(Train[Y_ATRASO_SLA_5DH]),
+				    PosTest = if NTest = 0 then 0 else List.Sum(Test[Y_ATRASO_SLA_5DH]),
+				    TasaTrain = if NTrain = 0 then null else Number.From(PosTrain) / Number.From(NTrain),
+				    TasaTest = if NTest = 0 then null else Number.From(PosTest) / Number.From(NTest),
+				    BrierBaseDirecto = if NTest = 0 or TasaTrain = null then null else List.Average(List.Transform(Test[Y_ATRASO_SLA_5DH], each Number.Power(Number.From(_) - TasaTrain, 2))),
+				    BrierBaseFormula = if TasaTrain = null or TasaTest = null then null else TasaTest * Number.Power(1 - TasaTrain, 2) + (1 - TasaTest) * Number.Power(TasaTrain, 2),
+				    TestConScore = Table.SelectRows(Test, each [PROB_NORM] <> null),
+				    BrierMLDirecto = if Table.RowCount(TestConScore) = 0 then null else List.Average(List.Transform(Table.ToRecords(TestConScore), each Number.Power(Number.From([Y_ATRASO_SLA_5DH]) - Number.From([PROB_NORM]), 2))),
+				    FilaBrierBase = Table.SelectRows(ML_Comparacion_Modelos, each Text.Upper(Text.Trim([Metrica])) = "BRIER" and Text.StartsWith(Text.Upper(Text.Trim([Modelo])), "BASE")),
+				    FilaBrierML = Table.SelectRows(ML_Comparacion_Modelos, each Text.Upper(Text.Trim([Metrica])) = "BRIER" and Text.Upper(Text.Trim([Modelo])) = "ML"),
+				    BrierBaseReportado = if Table.RowCount(FilaBrierBase) = 0 then null else try Number.From(FilaBrierBase{0}[Valor]) otherwise null,
+				    BrierMLReportado = if Table.RowCount(FilaBrierML) = 0 then null else try Number.From(FilaBrierML{0}[Valor]) otherwise null,
+				    DiferenciaBase = if BrierBaseDirecto = null or BrierBaseReportado = null then null else Number.Abs(BrierBaseDirecto - BrierBaseReportado),
+				    DiferenciaML = if BrierMLDirecto = null or BrierMLReportado = null then null else Number.Abs(BrierMLDirecto - BrierMLReportado),
+				    Tolerancia = 0.000001,
+				    Estado = if NTrain = 0 or NTest = 0 then "ERROR_SPLIT" else if BrierBaseDirecto = null or BrierBaseFormula = null or BrierBaseReportado = null or BrierMLDirecto = null or BrierMLReportado = null then "ERROR_DATOS" else if Number.Abs(BrierBaseDirecto - BrierBaseFormula) > Tolerancia then "ERROR_FORMULA" else if DiferenciaBase > Tolerancia or DiferenciaML > Tolerancia then "ERROR_NO_RECONCILIA" else "OK",
+				    DetalleTexto = "TARGET=DH_TOTAL>5 | tolerancia=" & Number.ToText(Tolerancia, "0.000000") & " | el Brier base directo debe coincidir con la fórmula y con ML_Comparacion_Modelos",
+				    Salida = #table(
+				        type table [
+				            N_Train = Int64.Type,
+				            Positivos_Train = Int64.Type,
+				            Tasa_Train = nullable number,
+				            N_Test = Int64.Type,
+				            Positivos_Test = Int64.Type,
+				            Tasa_Test = nullable number,
+				            Brier_Base_Directo = nullable number,
+				            Brier_Base_Formula = nullable number,
+				            Brier_Base_Reportado = nullable number,
+				            Diferencia_Brier_Base = nullable number,
+				            Brier_ML_Directo = nullable number,
+				            Brier_ML_Reportado = nullable number,
+				            Diferencia_Brier_ML = nullable number,
+				            Estado_Auditoria = text,
+				            Detalle = text
+				        ],
+				        {{
+				            NTrain,
+				            PosTrain,
+				            TasaTrain,
+				            NTest,
+				            PosTest,
+				            TasaTest,
+				            BrierBaseDirecto,
+				            BrierBaseFormula,
+				            BrierBaseReportado,
+				            DiferenciaBase,
+				            BrierMLDirecto,
+				            BrierMLReportado,
+				            DiferenciaML,
+				            Estado,
+				            DetalleTexto
+				        }}
+				    )
+				in
+				    Salida
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
