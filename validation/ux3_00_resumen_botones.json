@@ -1,0 +1,49 @@
+{
+  "target_page": "00 Resumen Ejecutivo Mayorista",
+  "page_id": "71af1998e2cb472d9799",
+  "mode": "apply",
+  "expected_labels": [
+    "RESUMEN EJECUTIVO",
+    "TRACKING OPERATIVO",
+    "CUELLOS DE BOTELLA",
+    "COLA DIARIA"
+  ],
+  "changes": [
+    {
+      "path": "NS.Report\\definition\\pages\\71af1998e2cb472d9799\\visuals\\nav_resumen_v34\\visual.json",
+      "visual_id": "nav_resumen_v34",
+      "label": "RESUMEN EJECUTIVO",
+      "x": 480.0,
+      "text_color": "#FFFFFF",
+      "previous_text": "Resumen"
+    },
+    {
+      "path": "NS.Report\\definition\\pages\\71af1998e2cb472d9799\\visuals\\nav_tracking_v34\\visual.json",
+      "visual_id": "nav_tracking_v34",
+      "label": "TRACKING OPERATIVO",
+      "x": 655.0,
+      "text_color": "#1B365D",
+      "previous_text": "Tracking"
+    },
+    {
+      "path": "NS.Report\\definition\\pages\\71af1998e2cb472d9799\\visuals\\nav_cuellos_v34\\visual.json",
+      "visual_id": "nav_cuellos_v34",
+      "label": "CUELLOS DE BOTELLA",
+      "x": 830.0,
+      "text_color": "#1B365D",
+      "previous_text": "Cuellos"
+    },
+    {
+      "path": "NS.Report\\definition\\pages\\71af1998e2cb472d9799\\visuals\\nav_detalle_v34\\visual.json",
+      "visual_id": "nav_detalle_v34",
+      "label": "COLA DIARIA",
+      "x": 1005.0,
+      "text_color": "#1B365D",
+      "previous_text": "Detalle 360"
+    }
+  ],
+  "validation": {
+    "files_validated": 33,
+    "errors": 0
+  }
+}

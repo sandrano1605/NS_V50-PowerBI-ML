@@ -324,14 +324,14 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
             },
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Resumen'"
+                  "Value": "'RESUMEN EJECUTIVO'"
                 }
               }
             },
@@ -398,14 +398,14 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
             },
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Resumen'"
+                  "Value": "'RESUMEN EJECUTIVO'"
                 }
               }
             },
@@ -472,14 +472,14 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
             },
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Resumen'"
+                  "Value": "'RESUMEN EJECUTIVO'"
                 }
               }
             },
@@ -546,14 +546,14 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
             },
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Resumen'"
+                  "Value": "'RESUMEN EJECUTIVO'"
                 }
               }
             },
@@ -562,7 +562,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#77838E'"
+                      "Value": "'#FFFFFF'"
                     }
                   }
                 }
@@ -613,6 +613,52 @@
           },
           "selector": {
             "id": "disabled"
+          }
+        },
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'RESUMEN EJECUTIVO'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Segoe UI Semibold'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "selected"
           }
         }
       ],

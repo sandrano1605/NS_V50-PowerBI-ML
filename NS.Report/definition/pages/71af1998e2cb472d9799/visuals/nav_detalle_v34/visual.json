@@ -324,14 +324,14 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
             },
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Detalle 360'"
+                  "Value": "'COLA DIARIA'"
                 }
               }
             },
@@ -340,7 +340,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#141414'"
+                      "Value": "'#1B365D'"
                     }
                   }
                 }
@@ -398,14 +398,14 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
             },
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Detalle 360'"
+                  "Value": "'COLA DIARIA'"
                 }
               }
             },
@@ -414,7 +414,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#FFFFFF'"
+                      "Value": "'#1B365D'"
                     }
                   }
                 }
@@ -472,14 +472,14 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
             },
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Detalle 360'"
+                  "Value": "'COLA DIARIA'"
                 }
               }
             },
@@ -488,7 +488,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#FFFFFF'"
+                      "Value": "'#1B365D'"
                     }
                   }
                 }
@@ -546,14 +546,14 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
             },
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Detalle 360'"
+                  "Value": "'COLA DIARIA'"
                 }
               }
             },
@@ -562,7 +562,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#77838E'"
+                      "Value": "'#1B365D'"
                     }
                   }
                 }
@@ -613,6 +613,52 @@
           },
           "selector": {
             "id": "disabled"
+          }
+        },
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'COLA DIARIA'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#1B365D'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Segoe UI Semibold'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "selected"
           }
         }
       ],
