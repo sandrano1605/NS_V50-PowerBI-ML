@@ -1,979 +1,525 @@
-﻿{
-    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
-    "name":  "nav_resumen_v34",
-    "position":  {
-                     "x":  480,
-                     "y":  20,
-                     "z":  31000,
-                     "height":  42,
-                     "width":  160,
-                     "tabOrder":  29000
-                 },
-    "visual":  {
-                   "visualType":  "actionButton",
-                   "objects":  {
-                                   "icon":  [
-                                                {
-                                                    "selector":  {
-                                                                     "id":  "default"
-                                                                 },
-                                                    "properties":  {
-                                                                       "horizontalAlignment":  {
-                                                                                                   "expr":  {
-                                                                                                                "Literal":  {
-                                                                                                                                "Value":  "\u0027center\u0027"
-                                                                                                                            }
-                                                                                                            }
-                                                                                               },
-                                                                       "shapeType":  {
-                                                                                         "expr":  {
-                                                                                                      "Literal":  {
-                                                                                                                      "Value":  "\u0027custom\u0027"
-                                                                                                                  }
-                                                                                                  }
-                                                                                     },
-                                                                       "verticalAlignment":  {
-                                                                                                 "expr":  {
-                                                                                                              "Literal":  {
-                                                                                                                              "Value":  "\u0027middle\u0027"
-                                                                                                                          }
-                                                                                                          }
-                                                                                             },
-                                                                       "show":  {
-                                                                                    "expr":  {
-                                                                                                 "Literal":  {
-                                                                                                                 "Value":  "true"
-                                                                                                             }
-                                                                                             }
-                                                                                },
-                                                                       "image":  {
-                                                                                     "image":  {
-                                                                                                   "scaling":  {
-                                                                                                                   "expr":  {
-                                                                                                                                "Literal":  {
-                                                                                                                                                "Value":  "\u0027Normal\u0027"
-                                                                                                                                            }
-                                                                                                                            }
-                                                                                                               },
-                                                                                                   "url":  {
-                                                                                                               "expr":  {
-                                                                                                                            "ResourcePackageItem":  {
-                                                                                                                                                        "ItemName":  "ns_resumen_white.svg",
-                                                                                                                                                        "PackageType":  1,
-                                                                                                                                                        "PackageName":  "RegisteredResources"
-                                                                                                                                                    }
-                                                                                                                        }
-                                                                                                           },
-                                                                                                   "name":  {
-                                                                                                                "expr":  {
-                                                                                                                             "Literal":  {
-                                                                                                                                             "Value":  "\u0027ns_resumen_white.svg\u0027"
-                                                                                                                                         }
-                                                                                                                         }
-                                                                                                            }
-                                                                                               }
-                                                                                 },
-                                                                       "iconSize":  {
-                                                                                        "expr":  {
-                                                                                                     "Literal":  {
-                                                                                                                     "Value":  "100D"
-                                                                                                                 }
-                                                                                                 }
-                                                                                    },
-                                                                       "leftMargin":  {
-                                                                                          "expr":  {
-                                                                                                       "Literal":  {
-                                                                                                                       "Value":  "0L"
-                                                                                                                   }
-                                                                                                   }
-                                                                                      }
-                                                                   }
-                                                },
-                                                {
-                                                    "selector":  {
-                                                                     "id":  "hover"
-                                                                 },
-                                                    "properties":  {
-                                                                       "horizontalAlignment":  {
-                                                                                                   "expr":  {
-                                                                                                                "Literal":  {
-                                                                                                                                "Value":  "\u0027center\u0027"
-                                                                                                                            }
-                                                                                                            }
-                                                                                               },
-                                                                       "shapeType":  {
-                                                                                         "expr":  {
-                                                                                                      "Literal":  {
-                                                                                                                      "Value":  "\u0027custom\u0027"
-                                                                                                                  }
-                                                                                                  }
-                                                                                     },
-                                                                       "verticalAlignment":  {
-                                                                                                 "expr":  {
-                                                                                                              "Literal":  {
-                                                                                                                              "Value":  "\u0027middle\u0027"
-                                                                                                                          }
-                                                                                                          }
-                                                                                             },
-                                                                       "show":  {
-                                                                                    "expr":  {
-                                                                                                 "Literal":  {
-                                                                                                                 "Value":  "true"
-                                                                                                             }
-                                                                                             }
-                                                                                },
-                                                                       "image":  {
-                                                                                     "image":  {
-                                                                                                   "scaling":  {
-                                                                                                                   "expr":  {
-                                                                                                                                "Literal":  {
-                                                                                                                                                "Value":  "\u0027Normal\u0027"
-                                                                                                                                            }
-                                                                                                                            }
-                                                                                                               },
-                                                                                                   "url":  {
-                                                                                                               "expr":  {
-                                                                                                                            "ResourcePackageItem":  {
-                                                                                                                                                        "ItemName":  "ns_resumen_white.svg",
-                                                                                                                                                        "PackageType":  1,
-                                                                                                                                                        "PackageName":  "RegisteredResources"
-                                                                                                                                                    }
-                                                                                                                        }
-                                                                                                           },
-                                                                                                   "name":  {
-                                                                                                                "expr":  {
-                                                                                                                             "Literal":  {
-                                                                                                                                             "Value":  "\u0027ns_resumen_white.svg\u0027"
-                                                                                                                                         }
-                                                                                                                         }
-                                                                                                            }
-                                                                                               }
-                                                                                 },
-                                                                       "iconSize":  {
-                                                                                        "expr":  {
-                                                                                                     "Literal":  {
-                                                                                                                     "Value":  "100D"
-                                                                                                                 }
-                                                                                                 }
-                                                                                    },
-                                                                       "leftMargin":  {
-                                                                                          "expr":  {
-                                                                                                       "Literal":  {
-                                                                                                                       "Value":  "0L"
-                                                                                                                   }
-                                                                                                   }
-                                                                                      }
-                                                                   }
-                                                },
-                                                {
-                                                    "selector":  {
-                                                                     "id":  "active"
-                                                                 },
-                                                    "properties":  {
-                                                                       "horizontalAlignment":  {
-                                                                                                   "expr":  {
-                                                                                                                "Literal":  {
-                                                                                                                                "Value":  "\u0027center\u0027"
-                                                                                                                            }
-                                                                                                            }
-                                                                                               },
-                                                                       "shapeType":  {
-                                                                                         "expr":  {
-                                                                                                      "Literal":  {
-                                                                                                                      "Value":  "\u0027custom\u0027"
-                                                                                                                  }
-                                                                                                  }
-                                                                                     },
-                                                                       "verticalAlignment":  {
-                                                                                                 "expr":  {
-                                                                                                              "Literal":  {
-                                                                                                                              "Value":  "\u0027middle\u0027"
-                                                                                                                          }
-                                                                                                          }
-                                                                                             },
-                                                                       "show":  {
-                                                                                    "expr":  {
-                                                                                                 "Literal":  {
-                                                                                                                 "Value":  "true"
-                                                                                                             }
-                                                                                             }
-                                                                                },
-                                                                       "image":  {
-                                                                                     "image":  {
-                                                                                                   "scaling":  {
-                                                                                                                   "expr":  {
-                                                                                                                                "Literal":  {
-                                                                                                                                                "Value":  "\u0027Normal\u0027"
-                                                                                                                                            }
-                                                                                                                            }
-                                                                                                               },
-                                                                                                   "url":  {
-                                                                                                               "expr":  {
-                                                                                                                            "ResourcePackageItem":  {
-                                                                                                                                                        "ItemName":  "ns_resumen_white.svg",
-                                                                                                                                                        "PackageType":  1,
-                                                                                                                                                        "PackageName":  "RegisteredResources"
-                                                                                                                                                    }
-                                                                                                                        }
-                                                                                                           },
-                                                                                                   "name":  {
-                                                                                                                "expr":  {
-                                                                                                                             "Literal":  {
-                                                                                                                                             "Value":  "\u0027ns_resumen_white.svg\u0027"
-                                                                                                                                         }
-                                                                                                                         }
-                                                                                                            }
-                                                                                               }
-                                                                                 },
-                                                                       "iconSize":  {
-                                                                                        "expr":  {
-                                                                                                     "Literal":  {
-                                                                                                                     "Value":  "100D"
-                                                                                                                 }
-                                                                                                 }
-                                                                                    },
-                                                                       "leftMargin":  {
-                                                                                          "expr":  {
-                                                                                                       "Literal":  {
-                                                                                                                       "Value":  "0L"
-                                                                                                                   }
-                                                                                                   }
-                                                                                      }
-                                                                   }
-                                                },
-                                                {
-                                                    "selector":  {
-                                                                     "id":  "disabled"
-                                                                 },
-                                                    "properties":  {
-                                                                       "horizontalAlignment":  {
-                                                                                                   "expr":  {
-                                                                                                                "Literal":  {
-                                                                                                                                "Value":  "\u0027center\u0027"
-                                                                                                                            }
-                                                                                                            }
-                                                                                               },
-                                                                       "shapeType":  {
-                                                                                         "expr":  {
-                                                                                                      "Literal":  {
-                                                                                                                      "Value":  "\u0027custom\u0027"
-                                                                                                                  }
-                                                                                                  }
-                                                                                     },
-                                                                       "verticalAlignment":  {
-                                                                                                 "expr":  {
-                                                                                                              "Literal":  {
-                                                                                                                              "Value":  "\u0027middle\u0027"
-                                                                                                                          }
-                                                                                                          }
-                                                                                             },
-                                                                       "show":  {
-                                                                                    "expr":  {
-                                                                                                 "Literal":  {
-                                                                                                                 "Value":  "true"
-                                                                                                             }
-                                                                                             }
-                                                                                },
-                                                                       "image":  {
-                                                                                     "image":  {
-                                                                                                   "scaling":  {
-                                                                                                                   "expr":  {
-                                                                                                                                "Literal":  {
-                                                                                                                                                "Value":  "\u0027Normal\u0027"
-                                                                                                                                            }
-                                                                                                                            }
-                                                                                                               },
-                                                                                                   "url":  {
-                                                                                                               "expr":  {
-                                                                                                                            "ResourcePackageItem":  {
-                                                                                                                                                        "ItemName":  "ns_resumen_dark.svg",
-                                                                                                                                                        "PackageType":  1,
-                                                                                                                                                        "PackageName":  "RegisteredResources"
-                                                                                                                                                    }
-                                                                                                                        }
-                                                                                                           },
-                                                                                                   "name":  {
-                                                                                                                "expr":  {
-                                                                                                                             "Literal":  {
-                                                                                                                                             "Value":  "\u0027ns_resumen_dark.svg\u0027"
-                                                                                                                                         }
-                                                                                                                         }
-                                                                                                            }
-                                                                                               }
-                                                                                 },
-                                                                       "iconSize":  {
-                                                                                        "expr":  {
-                                                                                                     "Literal":  {
-                                                                                                                     "Value":  "100D"
-                                                                                                                 }
-                                                                                                 }
-                                                                                    },
-                                                                       "leftMargin":  {
-                                                                                          "expr":  {
-                                                                                                       "Literal":  {
-                                                                                                                       "Value":  "0L"
-                                                                                                                   }
-                                                                                                   }
-                                                                                      }
-                                                                   }
-                                                }
-                                            ],
-                                   "text":  [
-                                                {
-                                                    "selector":  {
-                                                                     "id":  "default"
-                                                                 },
-                                                    "properties":  {
-                                                                       "show":  {
-                                                                                    "expr":  {
-                                                                                                 "Literal":  {
-                                                                                                                 "Value":  "true"
-                                                                                                             }
-                                                                                             }
-                                                                                },
-                                                                       "fontSize":  {
-                                                                                        "expr":  {
-                                                                                                     "Literal":  {
-                                                                                                                     "Value":  "9D"
-                                                                                                                 }
-                                                                                                 }
-                                                                                    },
-                                                                       "leftMargin":  {
-                                                                                          "expr":  {
-                                                                                                       "Literal":  {
-                                                                                                                       "Value":  "12L"
-                                                                                                                   }
-                                                                                                   }
-                                                                                      },
-                                                                       "text":  {
-                                                                                    "expr":  {
-                                                                                                 "Literal":  {
-                                                                                                                 "Value":  "\u0027RESUMEN EJECUTIVO\u0027"
-                                                                                                             }
-                                                                                             }
-                                                                                },
-                                                                       "fontColor":  {
-                                                                                         "solid":  {
-                                                                                                       "color":  {
-                                                                                                                     "expr":  {
-                                                                                                                                  "Literal":  {
-                                                                                                                                                  "Value":  "\u0027#FFFFFF\u0027"
-                                                                                                                                              }
-                                                                                                                              }
-                                                                                                                 }
-                                                                                                   }
-                                                                                     },
-                                                                       "rightMargin":  {
-                                                                                           "expr":  {
-                                                                                                        "Literal":  {
-                                                                                                                        "Value":  "8L"
-                                                                                                                    }
-                                                                                                    }
-                                                                                       },
-                                                                       "horizontalAlignment":  {
-                                                                                                   "expr":  {
-                                                                                                                "Literal":  {
-                                                                                                                                "Value":  "\u0027center\u0027"
-                                                                                                                            }
-                                                                                                            }
-                                                                                               },
-                                                                       "fontFamily":  {
-                                                                                          "expr":  {
-                                                                                                       "Literal":  {
-                                                                                                                       "Value":  "\u0027Segoe UI Semibold\u0027"
-                                                                                                                   }
-                                                                                                   }
-                                                                                      },
-                                                                       "bold":  {
-                                                                                    "expr":  {
-                                                                                                 "Literal":  {
-                                                                                                                 "Value":  "false"
-                                                                                                             }
-                                                                                             }
-                                                                                }
-                                                                   }
-                                                },
-                                                {
-                                                    "selector":  {
-                                                                     "id":  "hover"
-                                                                 },
-                                                    "properties":  {
-                                                                       "show":  {
-                                                                                    "expr":  {
-                                                                                                 "Literal":  {
-                                                                                                                 "Value":  "true"
-                                                                                                             }
-                                                                                             }
-                                                                                },
-                                                                       "fontSize":  {
-                                                                                        "expr":  {
-                                                                                                     "Literal":  {
-                                                                                                                     "Value":  "9D"
-                                                                                                                 }
-                                                                                                 }
-                                                                                    },
-                                                                       "leftMargin":  {
-                                                                                          "expr":  {
-                                                                                                       "Literal":  {
-                                                                                                                       "Value":  "12L"
-                                                                                                                   }
-                                                                                                   }
-                                                                                      },
-                                                                       "text":  {
-                                                                                    "expr":  {
-                                                                                                 "Literal":  {
-                                                                                                                 "Value":  "\u0027RESUMEN EJECUTIVO\u0027"
-                                                                                                             }
-                                                                                             }
-                                                                                },
-                                                                       "fontColor":  {
-                                                                                         "solid":  {
-                                                                                                       "color":  {
-                                                                                                                     "expr":  {
-                                                                                                                                  "Literal":  {
-                                                                                                                                                  "Value":  "\u0027#FFFFFF\u0027"
-                                                                                                                                              }
-                                                                                                                              }
-                                                                                                                 }
-                                                                                                   }
-                                                                                     },
-                                                                       "rightMargin":  {
-                                                                                           "expr":  {
-                                                                                                        "Literal":  {
-                                                                                                                        "Value":  "8L"
-                                                                                                                    }
-                                                                                                    }
-                                                                                       },
-                                                                       "horizontalAlignment":  {
-                                                                                                   "expr":  {
-                                                                                                                "Literal":  {
-                                                                                                                                "Value":  "\u0027center\u0027"
-                                                                                                                            }
-                                                                                                            }
-                                                                                               },
-                                                                       "fontFamily":  {
-                                                                                          "expr":  {
-                                                                                                       "Literal":  {
-                                                                                                                       "Value":  "\u0027Segoe UI Semibold\u0027"
-                                                                                                                   }
-                                                                                                   }
-                                                                                      },
-                                                                       "bold":  {
-                                                                                    "expr":  {
-                                                                                                 "Literal":  {
-                                                                                                                 "Value":  "true"
-                                                                                                             }
-                                                                                             }
-                                                                                }
-                                                                   }
-                                                },
-                                                {
-                                                    "selector":  {
-                                                                     "id":  "active"
-                                                                 },
-                                                    "properties":  {
-                                                                       "show":  {
-                                                                                    "expr":  {
-                                                                                                 "Literal":  {
-                                                                                                                 "Value":  "true"
-                                                                                                             }
-                                                                                             }
-                                                                                },
-                                                                       "fontSize":  {
-                                                                                        "expr":  {
-                                                                                                     "Literal":  {
-                                                                                                                     "Value":  "9D"
-                                                                                                                 }
-                                                                                                 }
-                                                                                    },
-                                                                       "leftMargin":  {
-                                                                                          "expr":  {
-                                                                                                       "Literal":  {
-                                                                                                                       "Value":  "12L"
-                                                                                                                   }
-                                                                                                   }
-                                                                                      },
-                                                                       "text":  {
-                                                                                    "expr":  {
-                                                                                                 "Literal":  {
-                                                                                                                 "Value":  "\u0027RESUMEN EJECUTIVO\u0027"
-                                                                                                             }
-                                                                                             }
-                                                                                },
-                                                                       "fontColor":  {
-                                                                                         "solid":  {
-                                                                                                       "color":  {
-                                                                                                                     "expr":  {
-                                                                                                                                  "Literal":  {
-                                                                                                                                                  "Value":  "\u0027#5CE1E6\u0027"
-                                                                                                                                              }
-                                                                                                                              }
-                                                                                                                 }
-                                                                                                   }
-                                                                                     },
-                                                                       "rightMargin":  {
-                                                                                           "expr":  {
-                                                                                                        "Literal":  {
-                                                                                                                        "Value":  "8L"
-                                                                                                                    }
-                                                                                                    }
-                                                                                       },
-                                                                       "horizontalAlignment":  {
-                                                                                                   "expr":  {
-                                                                                                                "Literal":  {
-                                                                                                                                "Value":  "\u0027center\u0027"
-                                                                                                                            }
-                                                                                                            }
-                                                                                               },
-                                                                       "fontFamily":  {
-                                                                                          "expr":  {
-                                                                                                       "Literal":  {
-                                                                                                                       "Value":  "\u0027Segoe UI Semibold\u0027"
-                                                                                                                   }
-                                                                                                   }
-                                                                                      },
-                                                                       "bold":  {
-                                                                                    "expr":  {
-                                                                                                 "Literal":  {
-                                                                                                                 "Value":  "true"
-                                                                                                             }
-                                                                                             }
-                                                                                }
-                                                                   }
-                                                },
-                                                {
-                                                    "selector":  {
-                                                                     "id":  "disabled"
-                                                                 },
-                                                    "properties":  {
-                                                                       "show":  {
-                                                                                    "expr":  {
-                                                                                                 "Literal":  {
-                                                                                                                 "Value":  "true"
-                                                                                                             }
-                                                                                             }
-                                                                                },
-                                                                       "fontSize":  {
-                                                                                        "expr":  {
-                                                                                                     "Literal":  {
-                                                                                                                     "Value":  "9D"
-                                                                                                                 }
-                                                                                                 }
-                                                                                    },
-                                                                       "leftMargin":  {
-                                                                                          "expr":  {
-                                                                                                       "Literal":  {
-                                                                                                                       "Value":  "12L"
-                                                                                                                   }
-                                                                                                   }
-                                                                                      },
-                                                                       "text":  {
-                                                                                    "expr":  {
-                                                                                                 "Literal":  {
-                                                                                                                 "Value":  "\u0027RESUMEN EJECUTIVO\u0027"
-                                                                                                             }
-                                                                                             }
-                                                                                },
-                                                                       "fontColor":  {
-                                                                                         "solid":  {
-                                                                                                       "color":  {
-                                                                                                                     "expr":  {
-                                                                                                                                  "Literal":  {
-                                                                                                                                                  "Value":  "\u0027#7A8BA0\u0027"
-                                                                                                                                              }
-                                                                                                                              }
-                                                                                                                 }
-                                                                                                   }
-                                                                                     },
-                                                                       "rightMargin":  {
-                                                                                           "expr":  {
-                                                                                                        "Literal":  {
-                                                                                                                        "Value":  "8L"
-                                                                                                                    }
-                                                                                                    }
-                                                                                       },
-                                                                       "horizontalAlignment":  {
-                                                                                                   "expr":  {
-                                                                                                                "Literal":  {
-                                                                                                                                "Value":  "\u0027center\u0027"
-                                                                                                                            }
-                                                                                                            }
-                                                                                               },
-                                                                       "fontFamily":  {
-                                                                                          "expr":  {
-                                                                                                       "Literal":  {
-                                                                                                                       "Value":  "\u0027Segoe UI Semibold\u0027"
-                                                                                                                   }
-                                                                                                   }
-                                                                                      },
-                                                                       "bold":  {
-                                                                                    "expr":  {
-                                                                                                 "Literal":  {
-                                                                                                                 "Value":  "false"
-                                                                                                             }
-                                                                                             }
-                                                                                }
-                                                                   }
-                                                },
-                                                {
-                                                    "selector":  {
-                                                                     "id":  "selected"
-                                                                 },
-                                                    "properties":  {
-                                                                       "show":  {
-                                                                                    "expr":  {
-                                                                                                 "Literal":  {
-                                                                                                                 "Value":  "true"
-                                                                                                             }
-                                                                                             }
-                                                                                },
-                                                                       "fontSize":  {
-                                                                                        "expr":  {
-                                                                                                     "Literal":  {
-                                                                                                                     "Value":  "10D"
-                                                                                                                 }
-                                                                                                 }
-                                                                                    },
-                                                                       "leftMargin":  {
-                                                                                          "expr":  {
-                                                                                                       "Literal":  {
-                                                                                                                       "Value":  "12L"
-                                                                                                                   }
-                                                                                                   }
-                                                                                      },
-                                                                       "text":  {
-                                                                                    "expr":  {
-                                                                                                 "Literal":  {
-                                                                                                                 "Value":  "\u0027RESUMEN EJECUTIVO\u0027"
-                                                                                                             }
-                                                                                             }
-                                                                                },
-                                                                       "fontColor":  {
-                                                                                         "solid":  {
-                                                                                                       "color":  {
-                                                                                                                     "expr":  {
-                                                                                                                                  "Literal":  {
-                                                                                                                                                  "Value":  "\u0027#FFFFFF\u0027"
-                                                                                                                                              }
-                                                                                                                              }
-                                                                                                                 }
-                                                                                                   }
-                                                                                     },
-                                                                       "rightMargin":  {
-                                                                                           "expr":  {
-                                                                                                        "Literal":  {
-                                                                                                                        "Value":  "8L"
-                                                                                                                    }
-                                                                                                    }
-                                                                                       },
-                                                                       "horizontalAlignment":  {
-                                                                                                   "expr":  {
-                                                                                                                "Literal":  {
-                                                                                                                                "Value":  "\u0027center\u0027"
-                                                                                                                            }
-                                                                                                            }
-                                                                                               },
-                                                                       "fontFamily":  {
-                                                                                          "expr":  {
-                                                                                                       "Literal":  {
-                                                                                                                       "Value":  "\u0027Segoe UI Semibold\u0027"
-                                                                                                                   }
-                                                                                                   }
-                                                                                      },
-                                                                       "bold":  {
-                                                                                    "expr":  {
-                                                                                                 "Literal":  {
-                                                                                                                 "Value":  "true"
-                                                                                                             }
-                                                                                             }
-                                                                                }
-                                                                   }
-                                                }
-                                            ],
-                                   "shape":  [
-                                                 {
-                                                     "selector":  {
-                                                                      "id":  "default"
-                                                                  },
-                                                     "properties":  {
-                                                                        "roundEdge":  {
-                                                                                          "expr":  {
-                                                                                                       "Literal":  {
-                                                                                                                       "Value":  "4L"
-                                                                                                                   }
-                                                                                                   }
-                                                                                      }
-                                                                    }
-                                                 },
-                                                 {
-                                                     "selector":  {
-                                                                      "id":  "hover"
-                                                                  },
-                                                     "properties":  {
-                                                                        "roundEdge":  {
-                                                                                          "expr":  {
-                                                                                                       "Literal":  {
-                                                                                                                       "Value":  "4L"
-                                                                                                                   }
-                                                                                                   }
-                                                                                      }
-                                                                    }
-                                                 },
-                                                 {
-                                                     "selector":  {
-                                                                      "id":  "active"
-                                                                  },
-                                                     "properties":  {
-                                                                        "roundEdge":  {
-                                                                                          "expr":  {
-                                                                                                       "Literal":  {
-                                                                                                                       "Value":  "4L"
-                                                                                                                   }
-                                                                                                   }
-                                                                                      }
-                                                                    }
-                                                 },
-                                                 {
-                                                     "selector":  {
-                                                                      "id":  "disabled"
-                                                                  },
-                                                     "properties":  {
-                                                                        "roundEdge":  {
-                                                                                          "expr":  {
-                                                                                                       "Literal":  {
-                                                                                                                       "Value":  "4L"
-                                                                                                                   }
-                                                                                                   }
-                                                                                      }
-                                                                    }
-                                                 }
-                                             ],
-                                   "fill":  [
-                                                {
-                                                    "selector":  {
-                                                                     "id":  "default"
-                                                                 },
-                                                    "properties":  {
-                                                                       "show":  {
-                                                                                    "expr":  {
-                                                                                                 "Literal":  {
-                                                                                                                 "Value":  "false"
-                                                                                                             }
-                                                                                             }
-                                                                                }
-                                                                   }
-                                                },
-                                                {
-                                                    "selector":  {
-                                                                     "id":  "hover"
-                                                                 },
-                                                    "properties":  {
-                                                                       "show":  {
-                                                                                    "expr":  {
-                                                                                                 "Literal":  {
-                                                                                                                 "Value":  "false"
-                                                                                                             }
-                                                                                             }
-                                                                                }
-                                                                   }
-                                                },
-                                                {
-                                                    "selector":  {
-                                                                     "id":  "active"
-                                                                 },
-                                                    "properties":  {
-                                                                       "show":  {
-                                                                                    "expr":  {
-                                                                                                 "Literal":  {
-                                                                                                                 "Value":  "false"
-                                                                                                             }
-                                                                                             }
-                                                                                }
-                                                                   }
-                                                },
-                                                {
-                                                    "selector":  {
-                                                                     "id":  "disabled"
-                                                                 },
-                                                    "properties":  {
-                                                                       "show":  {
-                                                                                    "expr":  {
-                                                                                                 "Literal":  {
-                                                                                                                 "Value":  "false"
-                                                                                                             }
-                                                                                             }
-                                                                                }
-                                                                   }
-                                                }
-                                            ],
-                                   "outline":  [
-                                                   {
-                                                       "selector":  {
-                                                                        "id":  "default"
-                                                                    },
-                                                       "properties":  {
-                                                                          "show":  {
-                                                                                       "expr":  {
-                                                                                                    "Literal":  {
-                                                                                                                    "Value":  "false"
-                                                                                                                }
-                                                                                                }
-                                                                                   }
-                                                                      }
-                                                   },
-                                                   {
-                                                       "selector":  {
-                                                                        "id":  "hover"
-                                                                    },
-                                                       "properties":  {
-                                                                          "show":  {
-                                                                                       "expr":  {
-                                                                                                    "Literal":  {
-                                                                                                                    "Value":  "false"
-                                                                                                                }
-                                                                                                }
-                                                                                   }
-                                                                      }
-                                                   },
-                                                   {
-                                                       "selector":  {
-                                                                        "id":  "active"
-                                                                    },
-                                                       "properties":  {
-                                                                          "show":  {
-                                                                                       "expr":  {
-                                                                                                    "Literal":  {
-                                                                                                                    "Value":  "false"
-                                                                                                                }
-                                                                                                }
-                                                                                   }
-                                                                      }
-                                                   },
-                                                   {
-                                                       "selector":  {
-                                                                        "id":  "disabled"
-                                                                    },
-                                                       "properties":  {
-                                                                          "show":  {
-                                                                                       "expr":  {
-                                                                                                    "Literal":  {
-                                                                                                                    "Value":  "false"
-                                                                                                                }
-                                                                                                }
-                                                                                   }
-                                                                      }
-                                                   }
-                                               ]
-                               },
-                   "visualContainerObjects":  {
-                                                  "visualLink":  [
-                                                                     {
-                                                                         "properties":  {
-                                                                                            "show":  {
-                                                                                                         "expr":  {
-                                                                                                                      "Literal":  {
-                                                                                                                                      "Value":  "true"
-                                                                                                                                  }
-                                                                                                                  }
-                                                                                                     },
-                                                                                            "type":  {
-                                                                                                         "expr":  {
-                                                                                                                      "Literal":  {
-                                                                                                                                      "Value":  "\u0027PageNavigation\u0027"
-                                                                                                                                  }
-                                                                                                                  }
-                                                                                                     },
-                                                                                            "navigationSection":  {
-                                                                                                                      "expr":  {
-                                                                                                                                   "Literal":  {
-                                                                                                                                                   "Value":  "\u002771af1998e2cb472d9799\u0027"
-                                                                                                                                               }
-                                                                                                                               }
-                                                                                                                  },
-                                                                                            "tooltip":  {
-                                                                                                            "expr":  {
-                                                                                                                         "Literal":  {
-                                                                                                                                         "Value":  "\u0027Ir a Resumen\u0027"
-                                                                                                                                     }
-                                                                                                                     }
-                                                                                                        },
-                                                                                            "showDefaultTooltip":  {
-                                                                                                                       "expr":  {
-                                                                                                                                    "Literal":  {
-                                                                                                                                                    "Value":  "false"
-                                                                                                                                                }
-                                                                                                                                }
-                                                                                                                   }
-                                                                                        }
-                                                                     }
-                                                                 ],
-                                                  "title":  [
-                                                                {
-                                                                    "properties":  {
-                                                                                       "show":  {
-                                                                                                    "expr":  {
-                                                                                                                 "Literal":  {
-                                                                                                                                 "Value":  "false"
-                                                                                                                             }
-                                                                                                             }
-                                                                                                }
-                                                                                   }
-                                                                }
-                                                            ],
-                                                  "border":  [
-                                                                 {
-                                                                     "properties":  {
-                                                                                        "show":  {
-                                                                                                     "expr":  {
-                                                                                                                  "Literal":  {
-                                                                                                                                  "Value":  "false"
-                                                                                                                              }
-                                                                                                              }
-                                                                                                 }
-                                                                                    }
-                                                                 }
-                                                             ],
-                                                  "background":  [
-                                                                     {
-                                                                         "properties":  {
-                                                                                            "show":  {
-                                                                                                         "expr":  {
-                                                                                                                      "Literal":  {
-                                                                                                                                      "Value":  "false"
-                                                                                                                                  }
-                                                                                                                  }
-                                                                                                     }
-                                                                                        }
-                                                                     }
-                                                                 ],
-                                                  "visualHeader":  [
-                                                                       {
-                                                                           "properties":  {
-                                                                                              "show":  {
-                                                                                                           "expr":  {
-                                                                                                                        "Literal":  {
-                                                                                                                                        "Value":  "false"
-                                                                                                                                    }
-                                                                                                                    }
-                                                                                                       }
-                                                                                          }
-                                                                       }
-                                                                   ],
-                                                  "general":  [
-                                                                  {
-                                                                      "properties":  {
-                                                                                         "altText":  {
-                                                                                                         "expr":  {
-                                                                                                                      "Literal":  {
-                                                                                                                                      "Value":  "\u0027Ir a Resumen\u0027"
-                                                                                                                                  }
-                                                                                                                  }
-                                                                                                     }
-                                                                                     }
-                                                                  }
-                                                              ]
-                                              },
-                   "drillFilterOtherVisuals":  true
-               },
-    "howCreated":  "InsertVisualButton"
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "nav_resumen_v34",
+  "position": {
+    "x": 480,
+    "y": 20,
+    "z": 31000,
+    "height": 42,
+    "width": 160,
+    "tabOrder": 29000
+  },
+  "visual": {
+    "visualType": "actionButton",
+    "objects": {
+      "icon": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "shapeType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'custom'"
+                }
+              }
+            },
+            "iconSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "19D"
+                }
+              }
+            },
+            "horizontalAlignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'left'"
+                }
+              }
+            },
+            "verticalAlignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'middle'"
+                }
+              }
+            },
+            "leftMargin": {
+              "expr": {
+                "Literal": {
+                  "Value": "12L"
+                }
+              }
+            },
+            "image": {
+              "image": {
+                "name": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'ns_resumen_white.svg'"
+                    }
+                  }
+                },
+                "url": {
+                  "ResourcePackageItem": {
+                    "PackageName": "RegisteredResources",
+                    "PackageType": 1,
+                    "ItemName": "ns_resumen_white.svg"
+                  }
+                },
+                "scaling": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'Normal'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        },
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "shapeType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'custom'"
+                }
+              }
+            },
+            "iconSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "19D"
+                }
+              }
+            },
+            "horizontalAlignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'left'"
+                }
+              }
+            },
+            "verticalAlignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'middle'"
+                }
+              }
+            },
+            "leftMargin": {
+              "expr": {
+                "Literal": {
+                  "Value": "12L"
+                }
+              }
+            },
+            "image": {
+              "image": {
+                "name": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'ns_resumen_white.svg'"
+                    }
+                  }
+                },
+                "url": {
+                  "ResourcePackageItem": {
+                    "PackageName": "RegisteredResources",
+                    "PackageType": 1,
+                    "ItemName": "ns_resumen_white.svg"
+                  }
+                },
+                "scaling": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'Normal'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "hover"
+          }
+        }
+      ],
+      "text": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Resumen'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "9D"
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Segoe UI Semibold'"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "horizontalAlignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'center'"
+                }
+              }
+            },
+            "leftMargin": {
+              "expr": {
+                "Literal": {
+                  "Value": "24L"
+                }
+              }
+            },
+            "rightMargin": {
+              "expr": {
+                "Literal": {
+                  "Value": "8L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        },
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "hover"
+          }
+        }
+      ],
+      "shape": [
+        {
+          "properties": {
+            "roundEdge": {
+              "expr": {
+                "Literal": {
+                  "Value": "4L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        },
+        {
+          "properties": {
+            "roundEdge": {
+              "expr": {
+                "Literal": {
+                  "Value": "4L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "hover"
+          }
+        }
+      ],
+      "fill": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "fillColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#1B365D'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        },
+        {
+          "properties": {
+            "fillColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#254B7A'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "hover"
+          }
+        }
+      ],
+      "outline": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "lineColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#254B7A'"
+                    }
+                  }
+                }
+              }
+            },
+            "weight": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        },
+        {
+          "properties": {
+            "lineColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#5CE1E6'"
+                    }
+                  }
+                }
+              }
+            },
+            "weight": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "hover"
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "visualLink": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "type": {
+              "expr": {
+                "Literal": {
+                  "Value": "'PageNavigation'"
+                }
+              }
+            },
+            "navigationSection": {
+              "expr": {
+                "Literal": {
+                  "Value": "'71af1998e2cb472d9799'"
+                }
+              }
+            },
+            "tooltip": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Ir a Resumen'"
+                }
+              }
+            },
+            "showDefaultTooltip": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "howCreated": "InsertVisualButton"
 }
