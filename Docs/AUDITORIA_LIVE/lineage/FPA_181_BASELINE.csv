@@ -1,0 +1,182 @@
+column,preliminary_classification,approved_for_removal,note
+PED_NUMERO_PEDIDO,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+PED_CODIGO_CLIENTE,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+PED_RESPONSABLE,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+PED_CANAL_CODIGO,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+PED_CANAL,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+PED_CONDICION_EXPEDICION_CODIGO,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+PED_CONDICION_EXPEDICION,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+PED_VALOR_NETO,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+PED_MONEDA,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+PED_CENTRO,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+PED_CIUDAD,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+PED_REGION,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+PED_BLOQUEO_ENTREGA,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+PED_ORDEN_COMPRA_CLIENTE,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+PED_ESTADO_CREDITO,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+PED_TEXTO_ESTADO,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+PED_FECHA_HORA,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+SERV_TIPO_SERVICIO,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+SERV_TIPO_SERVICIO_PLANIFICADO,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+ES_FES,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+ES_SALDO,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+OTIF_ESTADO_PEDIDO,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+SEGMENTO_ANALISIS,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+INCLUIR_SLA_NORMAL,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+MES_CREACION,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+DIA_MES_CREACION,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+TRAMO_MES_CALENDARIO,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+ES_ULTIMOS_7_DIAS_HABILES_MES,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+ESTADO_SLA_NORMAL,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+PROCESO_DOMINANTE_NORMAL,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+PDA_P_FECHA_HORA,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+COM_P_FECHA_HORA,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+COM_U_FECHA_HORA,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+CRD_P_FECHA_HORA,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+ENT_P_FECHA_HORA,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+ENT_U_FECHA_HORA,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+PIC_P_FECHA_HORA,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+PIC_U_FECHA_HORA,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+PAC_P_FECHA_HORA,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+PAC_U_FECHA_HORA,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+FAC_P_FECHA_HORA_REAL,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+FAC_U_FECHA_HORA,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+TRP_P_FECHA_HORA,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+TRP_U_FECHA_HORA,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+PRIMERA_FECHA_PEDIDO_POSTERIOR,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+ULTIMA_FECHA_PEDIDO_POSTERIOR,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+PRIMERA_FECHA_ENTREGA_POSTERIOR,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+ULTIMA_FECHA_ENTREGA_POSTERIOR,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+PRIMERA_FECHA_MANIFIESTO,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+ULTIMA_FECHA_MANIFIESTO,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+DH_COMERCIAL_PDA_SAC,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+DH_CREDITO_COBRANZAS,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+DH_OPERACION_INTERNA,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+DH_CREDITO_A_PRIMERA_ENTREGA,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+DH_PRIMERA_ENTREGA_A_PRIMER_PICKING,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+DH_PRIMER_PICKING_A_PRIMER_PACKING,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+DH_PRIMER_PACKING_A_PRIMERA_FACTURA,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+DH_PRIMER_PICKING_A_PRIMERA_FACTURA,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+DH_DESPACHO,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+DH_LEAD_NORMAL,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+DH_DESPACHO_A_CEDIBLE,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+DH_CREACION_A_CEDIBLE,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+DH_FES_CREDITO_A_PRIMER_DESPACHO,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+DH_FES_FACTURA_A_PRIMER_DESPACHO,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+DH_FES_FACTURA_A_PRIMER_PEDIDO_POSTERIOR,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+DH_FES_PRIMER_PEDIDO_A_PRIMERA_ENTREGA_POSTERIOR,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+DH_FES_PRIMERA_ENTREGA_A_PRIMER_MANIFIESTO,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+DH_FES_FACTURA_A_PRIMER_MANIFIESTO,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+DH_FES_FACTURA_A_ULTIMO_MANIFIESTO,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+DH_FES_BRECHA_PRIMER_ULTIMO_MANIFIESTO,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+DH_ENTREGA_COMPLETA_100,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+DH_BRECHA_PRIMER_ULTIMO_DESPACHO,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+DH_PRIMERA_FACTURA_A_ULTIMO_DESPACHO,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+DH_ENT_PRIMERA_ULTIMA,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+DH_PIC_PRIMERO_ULTIMO,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+DH_PAC_PRIMERO_ULTIMO,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+DH_FAC_PRIMERA_ULTIMA,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+AUD_ESTADO_GENERAL,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+AUD_ESTADO_FLUJO_NORMAL,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+AUD_ESTADO_FLUJO_FES,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+AUD_ESTADO_FLUJO_SALDO,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+AUD_PRINCIPAL_INCONGRUENCIA,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+AUD_REQUIERE_REVISION,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+AUD_TOTAL_CRITICAS,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+AUD_TOTAL_ADVERTENCIAS,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+AUD_TOTAL_INCONGRUENCIAS,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+AUD_PCT_COBERTURA_HITOS,KEEP_HYPOTHESIS,NO,Listado preliminar informado; validar por trazabilidad
+AUD_TIENE_PDA,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_TIENE_PED,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_TIENE_COM_P,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_TIENE_CRD_P,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_TIENE_ENT_P,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_TIENE_PIC_P,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_TIENE_PAC_P,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_TIENE_FAC_P,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_TIENE_TRP_P,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_TIENE_TSTTO_P,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_TIENE_CED_P,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_HITOS_OBLIGATORIOS_ESPERADOS,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_CANTIDAD_HITOS_PRESENTES,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_CANTIDAD_HITOS_FALTANTES,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_HITOS_OPCIONALES_ESPERADOS,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_HITOS_OPCIONALES_PRESENTES,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_HITOS_OPCIONALES_FALTANTES,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_PCT_COBERTURA_OPCIONAL,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_CRITICAS_FLUJO_NORMAL,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_ADVERTENCIAS_FLUJO_NORMAL,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_ALERTAS_HORA_00,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_INC_PDA_DESPUES_PED,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_INC_COM_ANTES_PED,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_INC_CRD_ANTES_PED,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_INC_ENT_ANTES_PED,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_INC_PIC_ANTES_ENT,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_INC_PAC_ANTES_PIC,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_INC_FAC_ANTES_PIC,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_INC_TRP_ANTES_FAC,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_INC_CED_ANTES_TRP,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_INC_COM_U_ANTES_COM_P,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_INC_ENT_U_ANTES_ENT_P,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_INC_PIC_U_ANTES_PIC_P,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_INC_PAC_U_ANTES_PAC_P,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_INC_FAC_U_ANTES_FAC_P,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_INC_TRP_U_ANTES_TRP_P,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_INC_TSTTO_U_ANTES_TSTTO_P,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_INC_CED_U_ANTES_CED_P,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_INC_FAC_MAS_30_DIAS_ANTES_PED,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_INC_TRP_MAS_30_DIAS_ANTES_PED,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_INC_FAC_MAS_365_DIAS_DESPUES_PED,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_INC_TRP_MAS_365_DIAS_DESPUES_PED,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_INC_HITO_FECHA_FUTURA,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_HORA_00_PED,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_HORA_00_COM,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_HORA_00_CRD,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_HORA_00_ENT,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_HORA_00_PIC,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_HORA_00_PAC,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_HORA_00_FAC,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_HORA_00_TRP,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_HORA_00_CED,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_FES_SIN_FECHA_PEDIDO_POSTERIOR,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_FES_SIN_ENTREGA_POSTERIOR,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_FES_SIN_MANIFIESTO,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_FES_PEDIDO_POST_ANTES_FACTURA,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_FES_ENTREGA_ANTES_PEDIDO_POST,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_FES_MANIFIESTO_ANTES_ENTREGA,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_FES_ULT_PEDIDO_ANTES_PRIMERO,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_FES_ULT_ENTREGA_ANTES_PRIMERA,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_FES_ULT_MANIFIESTO_ANTES_PRIMERO,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_FES_CICLO_MAYOR_60_DIAS,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_NO_FES_CON_FECHAS_FES,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_NO_FES_CON_METRICAS_FES,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_SALDO_SIN_FAC_P,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_SALDO_SIN_FAC_U,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_SALDO_SIN_TRP_U,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_SALDO_FAC_U_ANTES_FAC_P,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_SALDO_TRP_U_ANTES_TRP_P,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_CRITICAS_PRIMERO_ULTIMO,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_ADVERTENCIAS_PRIMERO_ULTIMO,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_ALERTAS_FECHAS_ATIPICAS,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_CRITICAS_FES,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_ADVERTENCIAS_FES,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_FALTANTES_FES,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_CRITICAS_SALDO,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_ADVERTENCIAS_SALDO,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_FALTANTES_SALDO,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+AUD_OBS_PDA_DESPUES_PEDIDO,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+GER_P_FECHA_HORA,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+TSTTO_P_FECHA_HORA,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+TSTTO_U_FECHA_HORA,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+CED_P_FECHA_HORA,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+CED_U_FECHA_HORA,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+FAC_FECHA_OPERATIVA_AJUSTADA,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+FES_FECHA_CIERRE_OPERATIVO_100,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+CED_CANTIDAD_COPIAS,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+REGLA_CLASIFICACION_FES,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+REGLA_CLASIFICACION_SALDO,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+HRS_COMERCIAL_PDA_SAC,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+DIAS_EQ_COMERCIAL_9_5H,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+PARAM_FECHA_DESDE,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+PARAM_FECHA_HASTA,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
+FECHA_CARGA_MASTER,REMOVE_HYPOTHESIS,NO,No borrar hasta prueba de contrato Python/M/SQL y refresh A/B
