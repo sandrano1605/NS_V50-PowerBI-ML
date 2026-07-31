@@ -1,49 +1,41 @@
-# REQ-006 · Migración inicial del lienzo 00 a visuales nativos
+# REQ-006 · Migración de visuales SVG analíticos a visuales nativos
 
-## Base
+## Estado estructural
 
-- Rama: `work/ns-live-audit`
-- Commit base: `8be7824fb7895f7553fa068c58df697769115d9f`
+### Migrados en `00 Resumen Ejecutivo Mayorista`
 
-## Problema confirmado
+- Pedidos evaluados → `cardVisual` con `[RE Pedidos contexto]`.
+- Nivel de servicio → `cardVisual` con `[RE NS contexto]`.
+- Promesa cliente → `textbox` nativo con regla Santiago 5 DH / Regiones 7 DH.
+- Distribución por flujo → `donutChart` con `Fact_Tracking[CLASIFICACION]` y `[RE Pedidos contexto]`.
+- Evolución 3 meses → `lineStackedColumnComboChart` con medidas M3 administrativas, operacionales y totales.
+- Resumen del período → `cardVisual` múltiple con 7 indicadores.
+- Pedidos críticos → `tableEx` sin la medida `RE TT Estado SVG`.
 
-Power BI Desktop muestra el valor crudo `data:image/svg+xml` al hacer hover sobre visuales `tableEx` que proyectan medidas SVG/ImageUrl. La eliminación de `visualTooltip` no corrige el comportamiento.
+### Migrado en `01 Análisis Fuera SLA`
 
-## Corrección aplicada por ChatGPT
+- Tabla de pedidos críticos → `tableEx` sin la medida `RE TT Estado SVG`.
 
-Se reemplazaron en `00 Resumen Ejecutivo Mayorista`:
+## Corrección de pregunta de negocio
 
-1. `f07bd2d60e407e2ddd01`: SVG de pedidos → `cardVisual` nativo con `[RE Pedidos contexto]`.
-2. `sla_panel`: SVG de SLA → `cardVisual` nativo con `[RE NS contexto]`.
-3. `kpi_promesa`: SVG estático → `textbox` nativo con promesas Santiago 5 DH y Regiones 7 DH.
-4. `donut_flujo`: SVG → `donutChart` nativo con `Fact_Tracking[CLASIFICACION]` y `[RE Pedidos contexto]`.
-5. Pregunta general del lienzo y matriz de trazabilidad actualizadas.
-
-## Corrección de coherencia de negocio
-
-El SVG anterior mostraba la distribución de los 566 pedidos evaluados por flujo, pero la pregunta decía “qué flujo concentra más pedidos fuera SLA”. La pregunta correcta para ese visual es:
+El antiguo SVG de distribución contaba todos los pedidos evaluados por clasificación. Por eso la pregunta correcta es:
 
 > ¿Cómo se distribuyen los pedidos evaluados entre NORMAL, FES, FES + SALDO y SALDO?
 
-## No modificado
+No corresponde afirmar que ese visual identifica por sí solo el flujo con más pedidos fuera SLA.
 
-- DAX del modelo.
-- SLA 4/5 DH.
-- Promesa cliente 5/7 DH.
-- Cierre FES.
-- Power Query y Python.
-- Cohorte cerrada y evaluable.
-- Medidas aprobadas.
+## Sin cambios en el modelo
 
-## Validación que debe ejecutar el LLM local
+- No se modificó DAX.
+- No se modificó Power Query ni Python.
+- No se modificó el cierre FES.
+- No se modificó SLA 4/5 ni promesa 5/7.
+- No se modificó la cohorte.
 
-El LLM no debe editar archivos. Solo debe hacer `pull`, abrir `NS.pbip`, ejecutar Actualizar todo y validar:
+## Validación pendiente
 
-- Los cuatro visuales renderizan.
-- No aparece código SVG en hover.
-- Pedidos evaluados = 566 en junio bajo el contexto mostrado en la captura, o el valor correcto según filtros actuales.
-- Modelo global: 1.616 evaluables, 360 fuera SLA, NS 77,72%, 251 clientes fuera SLA.
-- La suma del donut coincide con `[RE Pedidos contexto]`.
-- Las categorías del donut son NORMAL, FES, FES + SALDO y SALDO.
+Los objetos están estructuralmente reemplazados en PBIR, pero deben abrirse en Power BI Desktop. El LLM local solo debe ejecutar `pull`, `Actualizar todo`, validar el render y generar evidencia. No puede corregir medidas ni rediseñar objetos.
 
-Si Power BI normaliza propiedades visuales, solo debe documentarlo; no debe rediseñar ni modificar medidas.
+## Inventario restante
+
+`Docs/AUDITORIA_LIVE/latest/svg_inventory.csv` contiene exclusivamente las medidas SVG dinámicas todavía pendientes en Tracking, tooltips y Auditoría por Pedido. Los logos, flujos e iconos registrados como recursos estáticos no se consideran medidas DAX SVG.
