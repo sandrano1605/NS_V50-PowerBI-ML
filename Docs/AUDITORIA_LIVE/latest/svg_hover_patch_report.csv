@@ -1,0 +1,44 @@
+﻿page_id,visual_id,path,svg_fields,tooltip_before,tooltip_after,changed,status
+1770ed4eda3cc316ddd7,277b9d0e888312643c62,NS.Report/definition/pages/1770ed4eda3cc316ddd7/visuals/277b9d0e888312643c62/visual.json,ns_detalle_dark.svg | ns_detalle_hover.svg | ns_detalle_white.svg,AUSENTE/DEFAULT,false,True,OK
+19a0c7f8d6e54b3a9210,309a51a96bc9d090ab43,NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/309a51a96bc9d090ab43/visual.json,Medidas.RE KPI Valor SVG | RE KPI Valor SVG,true,false,True,OK
+19a0c7f8d6e54b3a9210,40ac169dd89e96270ac9,NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/40ac169dd89e96270ac9/visual.json,Medidas.RE KPI Pedidos SVG | RE KPI Pedidos SVG,true,false,True,OK
+19a0c7f8d6e54b3a9210,84343c674ecddeb910c5,NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/84343c674ecddeb910c5/visual.json,Medidas.RE KPI NS SVG | RE KPI NS SVG,true,false,True,OK
+19a0c7f8d6e54b3a9210,card_cdce0b90a20e69,NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/card_cdce0b90a20e69/visual.json,Medidas.TR NS ruta SVG | TR NS ruta SVG,AUSENTE/DEFAULT,false,True,OK
+19a0c7f8d6e54b3a9210,chart_clasificacion,NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/chart_clasificacion/visual.json,Medidas.TR Clasificación SVG | TR Clasificación SVG,AUSENTE/DEFAULT,false,True,OK
+19a0c7f8d6e54b3a9210,dd60148c4db229925749,NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/dd60148c4db229925749/visual.json,Medidas.RE Pedido Seleccionado SVG | RE Pedido Seleccionado SVG,AUSENTE/DEFAULT,false,True,OK
+19a0c7f8d6e54b3a9210,nav_cuellos_v34,NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/nav_cuellos_v34/visual.json,ns_cuellos_dark.svg | ns_cuellos_hover.svg | ns_cuellos_white.svg,AUSENTE/DEFAULT,false,True,OK
+19a0c7f8d6e54b3a9210,nav_detalle_v34,NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/nav_detalle_v34/visual.json,ns_detalle_dark.svg | ns_detalle_hover.svg | ns_detalle_white.svg,AUSENTE/DEFAULT,false,True,OK
+19a0c7f8d6e54b3a9210,nav_resumen_v34,NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/nav_resumen_v34/visual.json,ns_resumen_dark.svg | ns_resumen_hover.svg | ns_resumen_white.svg,AUSENTE/DEFAULT,false,True,OK
+19a0c7f8d6e54b3a9210,nav_tracking_v34,NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/nav_tracking_v34/visual.json,ns_tracking_dark.svg | ns_tracking_hover.svg | ns_tracking_white.svg,AUSENTE/DEFAULT,false,True,OK
+19a0c7f8d6e54b3a9210,route_40435689d94f81,NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/route_40435689d94f81/visual.json,Medidas.TR Ruta camión SVG | TR Ruta camión SVG,false,false,True,OK
+19a0c7f8d6e54b3a9210,table_15b8b83ff48292,NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/table_15b8b83ff48292/visual.json,AUD Semáforo SVG | Medidas.AUD Semáforo SVG,true,false,True,OK
+45f3e8a9c0124b67d89a,fes_diag_card,NS.Report/definition/pages/45f3e8a9c0124b67d89a/visuals/fes_diag_card/visual.json,Medidas.RE FES Diagnóstico SVG | RE FES Diagnóstico SVG,AUSENTE/DEFAULT,false,True,OK
+65238545e68f4c9884ca,tt_status,NS.Report/definition/pages/65238545e68f4c9884ca/visuals/tt_status/visual.json,Medidas.UI Indicador ejecutivo SVG | UI Indicador ejecutivo SVG,AUSENTE/DEFAULT,false,True,OK
+71af1998e2cb472d9799,btn_reset_resumen,NS.Report/definition/pages/71af1998e2cb472d9799/visuals/btn_reset_resumen/visual.json,reset_dark.svg | reset_hover.svg,AUSENTE/DEFAULT,false,True,OK
+71af1998e2cb472d9799,chart_mensual_3m_v39,NS.Report/definition/pages/71af1998e2cb472d9799/visuals/chart_mensual_3m_v39/visual.json,Medidas.RE Evolución 3M SVG | RE Evolución 3M SVG,false,false,False,OK
+71af1998e2cb472d9799,critical_table,NS.Report/definition/pages/71af1998e2cb472d9799/visuals/critical_table/visual.json,Medidas.RE TT Estado SVG | RE TT Estado SVG,true,false,True,OK
+71af1998e2cb472d9799,donut_flujo,NS.Report/definition/pages/71af1998e2cb472d9799/visuals/donut_flujo/visual.json,Medidas.RE Distribución Flujo SVG | RE Distribución Flujo SVG,true,false,True,OK
+71af1998e2cb472d9799,f07bd2d60e407e2ddd01,NS.Report/definition/pages/71af1998e2cb472d9799/visuals/f07bd2d60e407e2ddd01/visual.json,Medidas.RE KPI Pedidos SVG | RE KPI Pedidos SVG,true,false,True,OK
+71af1998e2cb472d9799,flow_operativo,NS.Report/definition/pages/71af1998e2cb472d9799/visuals/flow_operativo/visual.json,flow_operativo.svg,AUSENTE/DEFAULT,false,True,OK
+71af1998e2cb472d9799,kpi_promesa,NS.Report/definition/pages/71af1998e2cb472d9799/visuals/kpi_promesa/visual.json,Medidas.RE KPI Promesa SVG | RE KPI Promesa SVG,true,false,True,OK
+71af1998e2cb472d9799,logo_artel,NS.Report/definition/pages/71af1998e2cb472d9799/visuals/logo_artel/visual.json,artel_logo.svg,AUSENTE/DEFAULT,false,True,OK
+71af1998e2cb472d9799,nav_tracking_v34,NS.Report/definition/pages/71af1998e2cb472d9799/visuals/nav_tracking_v34/visual.json,ns_tracking_hover.svg | ns_tracking_white.svg,AUSENTE/DEFAULT,false,True,OK
+71af1998e2cb472d9799,sla_panel,NS.Report/definition/pages/71af1998e2cb472d9799/visuals/sla_panel/visual.json,Medidas.RE SLA Panel SVG | RE SLA Panel SVG,true,false,True,OK
+71af1998e2cb472d9799,summary_month,NS.Report/definition/pages/71af1998e2cb472d9799/visuals/summary_month/visual.json,Medidas.RE Resumen Mes SVG | RE Resumen Mes SVG,false,false,False,OK
+a1b2c3d4e5f6071829,404f2d93ca5a3787d85b,NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/404f2d93ca5a3787d85b/visual.json,artel_logo.svg,AUSENTE/DEFAULT,false,True,OK
+a1b2c3d4e5f6071829,critical_table,NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/critical_table/visual.json,Medidas.RE TT Estado SVG | RE TT Estado SVG,true,false,True,OK
+a1b2c3d4e5f6071829,fa_btn_auditar_seleccion,NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/fa_btn_auditar_seleccion/visual.json,ns_detalle_hover.svg | ns_detalle_white.svg,AUSENTE/DEFAULT,false,True,OK
+a1b2c3d4e5f6071829,logo_artel,NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/logo_artel/visual.json,artel_logo.svg,AUSENTE/DEFAULT,false,True,OK
+a1b2c3d4e5f6071829,nav_resumen_v34,NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/nav_resumen_v34/visual.json,ns_resumen_hover.svg | ns_resumen_white.svg,AUSENTE/DEFAULT,false,True,OK
+cb613066ebaf4e749a13,tt_status,NS.Report/definition/pages/cb613066ebaf4e749a13/visuals/tt_status/visual.json,AUD Semáforo SVG | Medidas.AUD Semáforo SVG,AUSENTE/DEFAULT,false,True,OK
+df1cb253a6314642a469,nav_cuellos_v34,NS.Report/definition/pages/df1cb253a6314642a469/visuals/nav_cuellos_v34/visual.json,ns_cuellos_dark.svg | ns_cuellos_hover.svg | ns_cuellos_white.svg,AUSENTE/DEFAULT,false,True,OK
+df1cb253a6314642a469,nav_detalle_v34,NS.Report/definition/pages/df1cb253a6314642a469/visuals/nav_detalle_v34/visual.json,ns_detalle_dark.svg | ns_detalle_hover.svg | ns_detalle_white.svg,AUSENTE/DEFAULT,false,True,OK
+df1cb253a6314642a469,nav_resumen_v34,NS.Report/definition/pages/df1cb253a6314642a469/visuals/nav_resumen_v34/visual.json,ns_resumen_dark.svg | ns_resumen_hover.svg | ns_resumen_white.svg,AUSENTE/DEFAULT,false,True,OK
+df1cb253a6314642a469,nav_tracking_v34,NS.Report/definition/pages/df1cb253a6314642a469/visuals/nav_tracking_v34/visual.json,ns_tracking_dark.svg | ns_tracking_hover.svg | ns_tracking_white.svg,AUSENTE/DEFAULT,false,True,OK
+ed2a2fead6d24153bee1,back_v34,NS.Report/definition/pages/ed2a2fead6d24153bee1/visuals/back_v34/visual.json,ns_back_dark.svg | ns_back_hover.svg,AUSENTE/DEFAULT,false,True,OK
+ed2a2fead6d24153bee1,card_4e4fe7d672d840,NS.Report/definition/pages/ed2a2fead6d24153bee1/visuals/card_4e4fe7d672d840/visual.json,AUD Semáforo general SVG | Medidas.AUD Semáforo general SVG,false,false,False,OK
+ed2a2fead6d24153bee1,nav_cuellos_v34,NS.Report/definition/pages/ed2a2fead6d24153bee1/visuals/nav_cuellos_v34/visual.json,ns_cuellos_dark.svg | ns_cuellos_hover.svg | ns_cuellos_white.svg,AUSENTE/DEFAULT,false,True,OK
+ed2a2fead6d24153bee1,nav_detalle_v34,NS.Report/definition/pages/ed2a2fead6d24153bee1/visuals/nav_detalle_v34/visual.json,ns_detalle_dark.svg | ns_detalle_hover.svg | ns_detalle_white.svg,AUSENTE/DEFAULT,false,True,OK
+ed2a2fead6d24153bee1,nav_resumen_v34,NS.Report/definition/pages/ed2a2fead6d24153bee1/visuals/nav_resumen_v34/visual.json,ns_resumen_dark.svg | ns_resumen_hover.svg | ns_resumen_white.svg,AUSENTE/DEFAULT,false,True,OK
+ed2a2fead6d24153bee1,nav_tracking_v34,NS.Report/definition/pages/ed2a2fead6d24153bee1/visuals/nav_tracking_v34/visual.json,ns_tracking_dark.svg | ns_tracking_hover.svg | ns_tracking_white.svg,AUSENTE/DEFAULT,false,True,OK
+ed2a2fead6d24153bee1,table_c57572c4abbe4d,NS.Report/definition/pages/ed2a2fead6d24153bee1/visuals/table_c57572c4abbe4d/visual.json,AUD Semáforo SVG | Medidas.AUD Semáforo SVG,false,false,False,OK

@@ -1,0 +1,6 @@
+﻿CHECK,RESULTADO,ESTADO
+JSON validos,0 errores en 43+ visuales,OK
+Duplicados visualTooltip,0,OK
+Visuales SVG con tooltip != false,0 de 43,OK
+git diff --check,limpio,OK
+Modificacion limitada a visualTooltip,verificado en diffs,OK
