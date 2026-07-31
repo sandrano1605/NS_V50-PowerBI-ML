@@ -1,0 +1,1 @@
+La evidencia visual del usuario mostró código SVG en donut_flujo. Se adopta la regla final: todo visual con Image URL SVG debe tener tooltip desactivado; las preguntas permanecen visibles en el lienzo.
