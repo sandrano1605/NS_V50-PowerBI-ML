@@ -1,121 +1,87 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
-  "name": "flow_operativo",
-  "position": {
-    "x": 224,
-    "y": 80,
-    "z": 23000,
-    "height": 144,
-    "width": 383.99999999999994,
-    "tabOrder": 23000
+ "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+ "name": "flow_operativo",
+ "position": {
+  "x": 224,
+  "y": 80,
+  "z": 23000,
+  "height": 144,
+  "width": 383.99999999999994,
+  "tabOrder": 23000
+ },
+ "visual": {
+  "visualType": "image",
+  "objects": {
+   "general": [
+    {
+     "properties": {
+      "imageUrl": {
+       "expr": {
+        "ResourcePackageItem": {
+         "PackageName": "RegisteredResources",
+         "PackageType": 1,
+         "ItemName": "flow_operativo.svg"
+        }
+       }
+      }
+     }
+    }
+   ]
   },
-  "visual": {
-    "visualType": "image",
-    "objects": {
-      "general": [
-        {
-          "properties": {
-            "imageUrl": {
-              "expr": {
-                "ResourcePackageItem": {
-                  "PackageName": "RegisteredResources",
-                  "PackageType": 1,
-                  "ItemName": "flow_operativo.svg"
-                }
-              }
-            }
-          }
+  "visualContainerObjects": {
+   "title": [
+    {
+     "properties": {
+      "show": {
+       "expr": {
+        "Literal": {
+         "Value": "false"
         }
-      ]
-    },
-    "visualContainerObjects": {
-      "title": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          }
+       }
+      }
+     }
+    }
+   ],
+   "border": [
+    {
+     "properties": {
+      "show": {
+       "expr": {
+        "Literal": {
+         "Value": "false"
         }
-      ],
-      "border": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          }
+       }
+      }
+     }
+    }
+   ],
+   "background": [
+    {
+     "properties": {
+      "show": {
+       "expr": {
+        "Literal": {
+         "Value": "false"
         }
-      ],
-      "background": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          }
+       }
+      }
+     }
+    }
+   ],
+   "visualHeader": [
+    {
+     "properties": {
+      "show": {
+       "expr": {
+        "Literal": {
+         "Value": "false"
         }
-      ],
-      "visualHeader": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "visualTooltip": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            },
-            "type": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Default'"
-                }
-              }
-            },
-            "transparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "0L"
-                }
-              }
-            },
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "8L"
-                }
-              }
-            }
-          }
-        }
-      ]
-    },
-    "drillFilterOtherVisuals": true
-  }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "drillFilterOtherVisuals": true
+ }
 }
