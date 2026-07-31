@@ -1,0 +1,51 @@
+name: Repair and validate PBIP migration PR
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+    branches:
+      - work/ns-native-v2
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  repair-and-validate:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout migration branch
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install deterministic JSON repair dependency
+        run: python -m pip install --disable-pip-version-check json-repair==0.47.1
+
+      - name: Repair malformed JSON and validate all report visuals
+        run: python tools/repair_validate_pbip.py --repair
+
+      - name: Validate repaired report without mutation
+        run: python tools/repair_validate_pbip.py
+
+      - name: Commit repaired JSON and structural evidence
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add NS.Report Docs/AUDITORIA_LIVE/latest/structural_validation.json
+          git commit -m "fix(report): reparar JSON y validar todos los visuales [skip ci]"
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
