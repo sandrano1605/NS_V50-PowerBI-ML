@@ -1,13 +1,13 @@
 # Estado actual
 
 - Rama: work/ns-live-audit
-- Commit: PENDING (primer import del proyecto)
+- Commit: 8b4677642cdb475256733dbbdb63c64dd9b3603d
 - Fecha: 2026-07-31
 - Requerimiento: Visual "CLIENTES QUE REPITEN FUERA SLA" — mostrar todos los clientes fuera SLA (>= 1 mes), ordenar por recurrencia, actualizar título
 - Estado: VERDE
 - Refresh: OK (modelo v15 con datos cargados, 1.695 pedidos / 1.616 evaluables)
 - Modelo vivo: Validado vía MCP (Resultados: 251 clientes = 3+27+221)
-- Archivos modificados: Medidas.tmdl (5 medidas), visual.json fa_clientes_recurrentes, .gitignore, Docs/AUDITORIA_LIVE, AGENTS.md
+- Archivos modificados: Medidas.tmdl (5 medidas), visual.json fa_clientes_recurrentes, .gitignore, Docs/AUDITORIA_LIVE, AGENTS.md, layout lienzo 01 tras apertura PBI Desktop
 
 # Qué cambió
 
