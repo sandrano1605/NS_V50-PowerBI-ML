@@ -5,4 +5,4 @@
 - Validación: reparación JSON + referencias + estructura + posiciones + eliminación SVG dinámico.
 - Workflow instalado en `main` y en la rama base.
 - PR de reparación: `#2`.
-- Este commit sincroniza el PR para ejecutar la reparación automática.
+- Sincronización posterior a instalar el workflow en `main`.
