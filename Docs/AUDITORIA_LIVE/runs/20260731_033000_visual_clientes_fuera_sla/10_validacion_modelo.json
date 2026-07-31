@@ -4,7 +4,7 @@
   "timestamp_local": "2026-07-31T03:30:00-04:00",
   "branch": "work/ns-live-audit",
   "base_commit": "1426e00d3001370fba62cde3465623dcb7da0b2e",
-  "result_commit": "74a187dcfbd832d87df20645bcf2f38cf110b643",
+  "result_commit": "9fff2dbf92de54cf6ac844e273c384bb3d54f7e5",
   "power_bi_model": "NS",
   "pbip_path": "NS.pbip",
   "model_live_access": true,
