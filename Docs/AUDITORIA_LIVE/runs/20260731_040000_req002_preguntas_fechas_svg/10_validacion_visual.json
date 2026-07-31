@@ -1,0 +1,32 @@
+{
+  "project": "NS_V50-PowerBI-ML",
+  "run_id": "20260731_040000_req002_preguntas_fechas_svg",
+  "json_valid": true,
+  "tmdl_valid": true,
+  "model_live": "OK",
+  "visuales_con_svg": 10,
+  "tooltips_desactivados": 4,
+  "medidas_svg_con_imageurl": 19,
+  "ventana_temporal": {
+    "fecha_min": "30-04-2026",
+    "fecha_max": "14-07-2026",
+    "meses": 4,
+    "ultimo_mes": "Parcial"
+  },
+  "lienzos": {
+    "00": "OK",
+    "01": "OK",
+    "01.1": "OK"
+  },
+  "coherencia": {
+    "pedidos": 1616,
+    "fuera_sla": 360,
+    "ns": "77,72%",
+    "diferencia": 0
+  },
+  "regresion": {
+    "4190139455": "OK",
+    "1167577": "OK"
+  },
+  "estado": "VERDE"
+}

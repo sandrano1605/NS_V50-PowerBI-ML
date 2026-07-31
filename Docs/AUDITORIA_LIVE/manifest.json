@@ -1,10 +1,10 @@
 {
   "project": "NS_V50-PowerBI-ML",
-  "run_id": "20260731_033000_visual_clientes_fuera_sla",
-  "timestamp_local": "2026-07-31T03:30:00-04:00",
+  "run_id": "20260731_040000_req002_preguntas_fechas_svg",
+  "timestamp_local": "2026-07-31T04:00:00-04:00",
   "branch": "work/ns-live-audit",
-  "base_commit": "1426e00d3001370fba62cde3465623dcb7da0b2e",
-  "result_commit": "8b4677642cdb475256733dbbdb63c64dd9b3603d",
+  "base_commit": "311afcdfdbca830c104c01f16a40dee08ffd83cd",
+  "result_commit": "25a03fa6f967a5fbc75d2560e6557f17b3ed6d8b",
   "power_bi_model": "NS",
   "pbip_path": "NS.pbip",
   "model_live_access": true,
@@ -18,32 +18,46 @@
   "status": "VERDE",
   "changed_files": [
     "NS.SemanticModel/definition/tables/Medidas.tmdl",
-    "NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/fa_clientes_recurrentes/visual.json",
-    ".gitignore",
-    "AGENTS.md",
-    "Docs/AUDITORIA_LIVE/*"
+    "NS.Report/definition/pages/71af1998e2cb472d9799/visuals/window_note/visual.json",
+    "NS.Report/definition/pages/71af1998e2cb472d9799/visuals/chart_mensual_3m_v39/visual.json",
+    "NS.Report/definition/pages/71af1998e2cb472d9799/visuals/summary_month/visual.json",
+    "NS.Report/definition/pages/71af1998e2cb472d9799/visuals/bq_preguntas_negocio/visual.json",
+    "NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/fa_question_header/visual.json",
+    "NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/window_note/visual.json",
+    "NS.Report/definition/pages/ed2a2fead6d24153bee1/visuals/window_note/visual.json",
+    "NS.Report/definition/pages/ed2a2fead6d24153bee1/visuals/card_4e4fe7d672d840/visual.json",
+    "NS.Report/definition/pages/ed2a2fead6d24153bee1/visuals/table_c57572c4abbe4d/visual.json",
+    "NS.Report/definition/pages/ed2a2fead6d24153bee1/visuals/text_272b8969e32647/visual.json",
+    "Docs/AUDITORIA_LIVE/runs/20260731_040000_req002_preguntas_fechas_svg/*",
+    "Docs/AUDITORIA_LIVE/latest/*"
   ],
   "changed_measures": [
-    "FA Meses Fuera SLA Cliente Visible",
-    "FA Recurrencia Cliente Visible",
-    "FA Pedidos Fuera SLA Cliente Visible",
-    "FA % Fuera SLA Cliente Visible",
-    "FA DH Fuera SLA Cliente Visible"
+    "RE Fecha mínima contexto",
+    "RE Fecha máxima contexto",
+    "RE Estado último mes",
+    "RE Ventana análisis texto"
   ],
   "changed_visuals": [
-    "fa_clientes_recurrentes"
+    "window_note (00/01/01.1)",
+    "bq_preguntas_negocio (00)",
+    "fa_question_header (01)",
+    "text_272b8969e32647 (01.1)",
+    "chart_mensual_3m_v39",
+    "summary_month",
+    "card_4e4fe7d672d840",
+    "table_c57572c4abbe4d"
   ],
   "executed_dax_queries": [
-    "ROW FechaAuditoria+PedidosTracking",
-    "SUMMARIZE recurrencia Visible (251/3/27/221)",
+    "ROW Ventana temporal (min/max/texto/estado)",
     "ROW lienzos 00 vs 01 (1616/360/77.72%)",
-    "RANKX top 8 ranking recurrencia",
+    "SUMMARIZE recurrencia (251/3/27/221)",
     "FILTER pedidos clave 4190139455 y 1167577"
   ],
   "known_limitations": [
-    "Visual tableEx no soporta subtitulo nativo; guia de orden incluida en el titulo",
-    "Power BI Desktop sobrescribio visual.json al cerrar; reaplicado en disco con instancia cerrada",
-    "Validacion de renderizado final pendiente de apertura manual en Power BI Desktop"
+    "Power BI Desktop sobrescribio TMDL desde memoria al abrir (incidente resuelto cerrando PBI antes de editar)",
+    "Medidas duplicadas transitoriamente en TMDL (resuelto)",
+    "formatString vacio en 2 medidas (corregido a 0)",
+    "La verificacion visual de hover SVG requiere prueba manual en Power BI Desktop"
   ],
   "critical_findings": []
 }

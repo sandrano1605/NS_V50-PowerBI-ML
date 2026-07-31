@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "fa_btn_auditar_seleccion",
   "position": {
-    "x": 1175.0000000000002,
-    "y": 527.91048659901116,
+    "x": 1232,
+    "y": 528,
     "z": 26000,
-    "height": 28,
-    "width": 196,
+    "height": 32,
+    "width": 144,
     "tabOrder": 26000
   },
   "visual": {
@@ -382,8 +382,9 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "Literal": {
-                      "Value": "'#CED9E5'"
+                    "ThemeDataColor": {
+                      "ColorId": 3,
+                      "Percent": -0.25
                     }
                   }
                 }
@@ -392,7 +393,7 @@
             "weight": {
               "expr": {
                 "Literal": {
-                  "Value": "1D"
+                  "Value": "4D"
                 }
               }
             }
@@ -466,6 +467,13 @@
                   "Value": "false"
                 }
               }
+            },
+            "drillthroughSection": {
+              "expr": {
+                "Literal": {
+                  "Value": "'ed2a2fead6d24153bee1'"
+                }
+              }
             }
           }
         }
@@ -476,7 +484,21 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Detalle Pedidos'"
+                }
+              }
+            },
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'center'"
                 }
               }
             }

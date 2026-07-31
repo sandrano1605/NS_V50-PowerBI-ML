@@ -1,0 +1,13 @@
+﻿OBJETO,TIPO,CAMBIO,ESTADO
+Medidas.tmdl,DAX,4 medidas ventana temporal nuevas,APLICADO
+Medidas.tmdl,DAX,dataCategory ImageUrl en 5 medidas SVG,APLICADO
+window_note (00),Visual,Usa RE Ventana análisis texto,APLICADO
+window_note (01),Visual,Nuevo: ventana temporal,APLICADO
+window_note (01.1),Visual,Nuevo: ventana temporal,APLICADO
+bq_preguntas_negocio (00),Visual,Nuevo textbox preguntas de negocio,APLICADO
+fa_question_header (01),Visual,Preguntas REQ-002 actualizadas,APLICADO
+text_272b8969e32647 (01.1),Visual,Pregunta principal visible,APLICADO
+chart_mensual_3m_v39,Visual,Tooltip SVG desactivado,APLICADO
+summary_month,Visual,Tooltip SVG desactivado,APLICADO
+card_4e4fe7d672d840,Visual,Tooltip SVG desactivado,APLICADO
+table_c57572c4abbe4d,Visual,Tooltip SVG desactivado,APLICADO

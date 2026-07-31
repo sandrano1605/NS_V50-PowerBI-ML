@@ -1,0 +1,8 @@
+﻿VISUAL,MEDIDA,ANTES,DESPUES,ESTADO
+chart_mensual_3m_v39,RE Evolución 3M SVG,Tooltip default (mostraba código SVG),Tooltip desactivado (show=false),CORREGIDO
+summary_month,RE Resumen Mes SVG,Tooltip default (mostraba código SVG),Tooltip desactivado (show=false),CORREGIDO
+card_4e4fe7d672d840,AUD Semáforo general SVG,Tooltip default (mostraba código SVG),Tooltip desactivado (show=false),CORREGIDO
+table_c57572c4abbe4d,AUD Semáforo SVG,Tooltip default (mostraba código SVG),Tooltip desactivado (show=false),CORREGIDO
+critical_table (00 y 01),RE TT Estado SVG,Tooltip página 22a1,Tooltip página 22a1 sin SVG (verificado),OK
+fes_diag_card (tooltip),RE FES Diagnóstico SVG,tableEx,dataCategory ImageUrl en TMDL,OK
+tt_status (tooltip),UI Indicador ejecutivo SVG,tableEx,dataCategory ImageUrl en TMDL,OK

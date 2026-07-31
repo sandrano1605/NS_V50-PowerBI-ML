@@ -1,0 +1,7 @@
+﻿PEDIDO,CASO,FLUJO,ZONA,CIERRE,DIAS,SLA,CUMPLE,RESULTADO
+4190139455,FES cerrado clave,FES,Regiones,28-05-2026,2,5,TRUE,OK
+1167577,FES cerrado clave,FES,Santiago,02-07-2026,2,4,TRUE,OK
+1167926,FES cerrado,FES,Santiago,07-07-2026,4,4,TRUE,OK
+1167307,Santiago exactamente 4 DH,NORMAL,Santiago,30-06-2026,4,4,TRUE,OK
+1167339,Regiones exactamente 5 DH,NORMAL,Regiones,30-06-2026,3,5,TRUE,OK
+VENTANA,Último mes parcial,-,-,-,-,-,Parcial,OK: 14-07-2026 < fin de julio

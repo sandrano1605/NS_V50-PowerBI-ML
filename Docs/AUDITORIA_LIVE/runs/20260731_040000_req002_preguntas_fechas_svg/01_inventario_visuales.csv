@@ -1,0 +1,68 @@
+﻿PAGINA,ID_VISUAL,TIPO_VISUAL,TITULO,CAMPOS,FILTROS,TOOLTIP_ACTIVO,X,Y
+00 Resumen Ejecutivo Mayorista,3b0d647a439385b325bd,pivotTable,PROMEDIO DE DÍAS POR POR CANAL DE VENTA,M:RE Pedidos hito con dato;M:RE Promedio hito DH;M:RE P90 hito DH,M:RE Pedidos hito con dato;M:RE Promedio hito DH;M:RE P90 hito DH;C:PED_CANAL_CODIGO,NO,16,640
+00 Resumen Ejecutivo Mayorista,8b664941e6c072783070,pivotTable,PROMEDIO DE DÍAS POR POR ZONA SANTIAGO Y REGIONES,M:RE Pedidos hito con dato;M:RE Promedio hito DH;M:RE P90 hito DH,M:RE Promedio hito DH;M:RE P90 hito DH;C:ZONA;M:RE Pedidos hito con dato,NO,16,480
+00 Resumen Ejecutivo Mayorista,bg_page,shape,,,,NO,0,16
+00 Resumen Ejecutivo Mayorista,btn_reset_resumen,actionButton,,,,NO,32,416
+00 Resumen Ejecutivo Mayorista,chart_mensual_3m_v39,tableEx,,M:RE Evolución 3M SVG,M:RE Evolución 3M SVG,NO,235,220
+00 Resumen Ejecutivo Mayorista,critical_table,tableEx,PEDIDOS CRÍTICOS · HITO DOMINANTE Y MOTIVO OPERATIVO,C:PED_NUMERO_PEDIDO;M:RE TT Cliente;M:RE TT Vendedor;C:CLASIFICACION;M:RE TT Días Top 10;M:RE TT Hito crítico;M:RE TT Exceso crítico DH;M:RE TT Motivo operativo;M:RE TT Estado SVG;M:RE TT Creación;M:RE TT Factura;M:RE TT Cierre,C:PED_NUMERO_PEDIDO;M:RE TT Cliente;M:RE TT Vendedor;C:CLASIFICACION;M:RE TT Días Top 10;M:RE TT Hito crítico;M:RE TT Exceso crítico DH;M:RE TT Motivo operativo;M:RE TT Estado SVG;M:RE TT Cierre;M:RE TT Creación;M:RE TT Factura,SI,768.0000000000001,479.99999999999994
+00 Resumen Ejecutivo Mayorista,donut_flujo,tableEx,,M:RE Distribución Flujo SVG,,SI,1175.3731343283582,220.52238805970148
+00 Resumen Ejecutivo Mayorista,f07bd2d60e407e2ddd01,tableEx,,M:RE KPI Pedidos SVG,,SI,592,80
+00 Resumen Ejecutivo Mayorista,filter_panel,shape,,,,NO,16,80
+00 Resumen Ejecutivo Mayorista,filter_title,textbox,,,,NO,30.223880597014926,86.19402985074628
+00 Resumen Ejecutivo Mayorista,flow_operativo,image,,,,NO,224,80
+00 Resumen Ejecutivo Mayorista,header_panel,shape,,,,NO,18,12
+00 Resumen Ejecutivo Mayorista,kpi_promesa,tableEx,,M:RE KPI Promesa SVG,,SI,1248,80
+00 Resumen Ejecutivo Mayorista,logo_artel,image,,,,NO,34,20
+00 Resumen Ejecutivo Mayorista,matrix_hitos_resumen,pivotTable,PROMEDIO DE DÍAS POR MACROPROCESO Y HITO · MES SELECCIONADO,M:RE Promedio hito DH;M:RE P90 hito DH;M:RE Pedidos hito con dato,C:Flujo;M:RE Promedio hito DH;C:Subproceso;M:RE P90 hito DH;M:RE Pedidos hito con dato;C:Macroproceso,NO,320,479.99999999999994
+00 Resumen Ejecutivo Mayorista,nav_tracking_v34,actionButton,,,,NO,655,20
+00 Resumen Ejecutivo Mayorista,sla_panel,tableEx,,M:RE SLA Panel SVG,,SI,912,80
+00 Resumen Ejecutivo Mayorista,slicer_clasif,slicer,,C:CLASIFICACION,,NO,30,352
+00 Resumen Ejecutivo Mayorista,slicer_flujo,slicer,,C:Flujo,,NO,30,290
+00 Resumen Ejecutivo Mayorista,slicer_mes_3m_v39,slicer,,C:Etiqueta,C:Etiqueta,NO,30,122
+00 Resumen Ejecutivo Mayorista,slicer_zona,slicer,,C:Zona,C:Zona,NO,30,228
+00 Resumen Ejecutivo Mayorista,summary_month,tableEx,,M:RE Resumen Mes SVG,M:RE Resumen Mes SVG,NO,864,224
+00 Resumen Ejecutivo Mayorista,title_ns,textbox,,,,NO,208,16
+00 Resumen Ejecutivo Mayorista,update_label,textbox,,,,NO,1360,25
+00 Resumen Ejecutivo Mayorista,update_value,cardVisual,,,,NO,1217.910447761194,12.313432835820896
+00 Resumen Ejecutivo Mayorista,window_note,tableEx,,M:RE Ventana 3M texto,,NO,34,183
+01 Análisis Fuera SLA,404f2d93ca5a3787d85b,image,,,,NO,38.999999999999986,15.91048659901119
+01 Análisis Fuera SLA,bg_page,shape,,,,NO,0,0
+01 Análisis Fuera SLA,critical_table,tableEx,PEDIDOS CRÍTICOS DE LA SELECCIÓN · CLIC DERECHO O BOTÓN → AUDITORÍA INDIVIDUAL,C:PED_NUMERO_PEDIDO;M:RE TT Cliente;M:RE TT Vendedor;C:CLASIFICACION;M:RE TT Días Top 10;M:RE TT Hito crítico;M:RE TT Exceso crítico DH;M:RE TT Motivo operativo;M:RE TT Estado SVG;M:RE TT Creación;M:RE TT Factura;M:RE TT Cierre,C:PED_NUMERO_PEDIDO;M:RE TT Cliente;M:RE TT Vendedor;C:CLASIFICACION;M:RE TT Días Top 10;M:RE TT Hito crítico;M:RE TT Exceso crítico DH;M:RE TT Motivo operativo;M:RE TT Estado SVG;M:RE TT Cierre;M:RE TT Creación;M:RE TT Factura,SI,23.000000000000014,559.9104865990112
+01 Análisis Fuera SLA,fa_btn_auditar_seleccion,actionButton,,,,NO,1175.0000000000002,527.9104865990112
+01 Análisis Fuera SLA,fa_clientes_recurrentes,tableEx,1. CLIENTES FUERA SLA · FRECUENCIA EN LOS Últimos 3 MESES,C:CLIENTE_NOMBRE;C:VENDEDOR_NOMBRE;C:CLASIFICACION;M:FA Meses Fuera SLA Cliente Visible;M:FA Recurrencia Cliente Visible;M:FA Pedidos Fuera SLA Cliente Visible;M:FA % Fuera SLA Cliente Visible;M:FA DH Fuera SLA Cliente Visible,C:CLIENTE_NOMBRE;C:VENDEDOR_NOMBRE;C:CLASIFICACION;M:FA Meses Fuera SLA Cliente Visible;M:FA Recurrencia Cliente Visible;M:FA Pedidos Fuera SLA Cliente Visible;M:FA % Fuera SLA Cliente Visible;M:FA DH Fuera SLA Cliente Visible,SI,22.999999999999986,111.91048659901118
+01 Análisis Fuera SLA,fa_detail_header,textbox,,,,NO,22.999999999999986,527.9104865990112
+01 Análisis Fuera SLA,fa_fes_carga_tiempo,tableEx,4. FES VS CARGA · COHORTE CERRADA POR MOMENTO DEL MES,C:AnioMes;C:Momento_Mes;M:FA Carga Pedidos Creados;M:FA Carga % del Mes;M:FA Carga % FES;M:FA Carga Líneas x Pedido;M:FA Carga Unidades x Pedido;M:FA Carga Pedidos FES;M:FA NS %;M:FA Delta NS vs Resto;M:FA DH Promedio;M:FA Lectura Carga SLA,,SI,647,335.91048659901116
+01 Análisis Fuera SLA,fa_permanencia_cd,tableEx,2. FACTURA → CIERRE OFICIAL >15 DH · COHORTE CERRADA · FES=MANIFIESTO,C:CLIENTE_NOMBRE;C:CLASIFICACION;M:FA Días Factura Salida Promedio;M:FA P90 Días Factura Salida;M:FA Pedidos Facturados >15d;M:FA Pedidos Facturados >20d;M:FA Valor Retenido >15d,C:CLIENTE_NOMBRE;C:CLASIFICACION;M:FA Días Factura Salida Promedio;M:FA P90 Días Factura Salida;M:FA Pedidos Facturados >15d;M:FA Pedidos Facturados >20d;M:FA Valor Retenido >15d,SI,727,111.91048659901118
+01 Análisis Fuera SLA,fa_question_header,textbox,,,,NO,22.999999999999986,79.91048659901118
+01 Análisis Fuera SLA,fa_vendedores_reincidentes,tableEx,3. VENDEDORES · IMPACTO DE CLIENTES REINCIDENTES SEGÚN FLUJO,C:VENDEDOR_NOMBRE;C:CLASIFICACION;M:FA Clientes Recurrentes 3M Visible;M:FA Clientes Recurrentes 2M+ Visible;M:FA Pedidos Fuera SLA Vendedor Recurrente;M:FA % Fuera SLA Vendedor Recurrente;M:FA DH Fuera SLA Vendedor Recurrente;M:FA Líneas Fuera SLA Vendedor Recurrente,,SI,22.999999999999986,335.91048659901116
+01 Análisis Fuera SLA,header_panel,shape,,,,NO,22.999999999999986,7.910486599011186
+01 Análisis Fuera SLA,logo_artel,image,,,,NO,1087.0000000000002,15.91048659901119
+01 Análisis Fuera SLA,nav_resumen_v34,actionButton,,,,NO,831,23.91048659901119
+01 Análisis Fuera SLA,title_ns,textbox,,,,NO,199,15.91048659901119
+01 Análisis Fuera SLA,update_value,cardVisual,,,,NO,1015.0000000000002,15.91048659901119
+01.1 Auditoría por Pedido,back_v34,actionButton,,,,NO,770,10
+01.1 Auditoría por Pedido,bg_b86eed9c0f944c,shape,,,,NO,0,0
+01.1 Auditoría por Pedido,card_2f12187a01fd4f,tableEx,Cliente,M:AUD Cliente seleccionado,,NO,1120,191.99999999999997
+01.1 Auditoría por Pedido,card_4e4fe7d672d840,tableEx,Estado general,M:AUD Semáforo general SVG,,NO,545,82
+01.1 Auditoría por Pedido,card_7456a230aecc4b,tableEx,Vendedor responsable,M:AUD Vendedor seleccionado,,NO,1120,288
+01.1 Auditoría por Pedido,card_a4c6bb42ec7e4b,tableEx,Promesa y preparación,M:AUD Promesa del pedido,,NO,1120,383.99999999999994
+01.1 Auditoría por Pedido,card_b4b787e0adcf44,tableEx,Máximo exceso (DH),M:AUD Máximo exceso DH,,NO,1155,82
+01.1 Auditoría por Pedido,card_b95415e0abff4b,tableEx,Pedido seleccionado,M:AUD Pedido seleccionado,,NO,305,82
+01.1 Auditoría por Pedido,card_bf5790c8c1194f,tableEx,Hito más crítico,M:AUD Hito crítico,,NO,805,82
+01.1 Auditoría por Pedido,card_e506604c21704c,tableEx,Hitos fuera de KPI,M:AUD Hitos fuera KPI,,NO,1365,82
+01.1 Auditoría por Pedido,chart_fc031821591949,clusteredBarChart,Detalle de subprocesos · cambie la medida con el selector izquierdo,,,SI,305,195
+01.1 Auditoría por Pedido,footer_actualizacion,cardVisual,,,,NO,32,48
+01.1 Auditoría por Pedido,header_f7d683129fa84d,shape,,,,NO,0,0
+01.1 Auditoría por Pedido,nav_cuellos_v34,actionButton,,,,NO,1232,10
+01.1 Auditoría por Pedido,nav_detalle_v34,actionButton,,,,NO,1404,10
+01.1 Auditoría por Pedido,nav_resumen_v34,actionButton,,,,NO,888,10
+01.1 Auditoría por Pedido,nav_tracking_v34,actionButton,,,,NO,1060,10
+01.1 Auditoría por Pedido,panel_e68971fdd4ed43,shape,,,,NO,25,392
+01.1 Auditoría por Pedido,slicer_b3b552ed5de540,slicer,,C:PED_NUMERO_PEDIDO,,NO,25,82
+01.1 Auditoría por Pedido,slicer_b9672eb4d21342,slicer,,C:Medida,,NO,25,205
+01.1 Auditoría por Pedido,sync_mes_3m_v39,slicer,,C:Etiqueta,C:Etiqueta,NO,0,0
+01.1 Auditoría por Pedido,table_c57572c4abbe4d,tableEx,CRONOLOGÍA AUDITABLE Y EXPORTABLE · MENÚ (…) → EXPORTAR DATOS,C:ORDEN_HITO;M:AUD Semáforo SVG;C:HITO;C:AREA_RESPONSABLE;C:FECHA_INICIO;C:FECHA_FIN;M:AUD Días reales;M:AUD SLA objetivo;M:AUD Exceso sobre SLA;C:REGLA_FECHA_FIN;C:FUENTE_FECHA;C:ESTADO_TRAZABILIDAD,,NO,305,495
+01.1 Auditoría por Pedido,text_0525f79da21148,textbox,,,,NO,43,445
+01.1 Auditoría por Pedido,text_272b8969e32647,textbox,,,,NO,30,8
+01.1 Auditoría por Pedido,text_879da652872d45,textbox,,,,NO,43,410
+01.1 Auditoría por Pedido,text_b8949333e83642,textbox,,,,NO,25,875

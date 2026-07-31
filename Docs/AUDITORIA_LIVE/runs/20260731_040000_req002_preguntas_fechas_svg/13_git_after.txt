@@ -1,0 +1,10 @@
+# RUN 20260731_040000_req002_preguntas_fechas_svg
+
+## Git after
+
+- Commit funcional: 92114b0ceaad1c1e6b92b8743d3c4446db227f00
+  feat(report): agregar preguntas de negocio y ventana temporal por lienzo
+- Commit SVG: 25a03fa6f967a5fbc75d2560e6557f17b3ed6d8b
+  fix(svg): eliminar codigo tecnico de tooltips y hover
+- Commit auditoria: PENDING (se crea despues de este archivo)
+- Rama: work/ns-live-audit

@@ -1,0 +1,7 @@
+﻿MEDIDA,EXPRESION,FORMATO,CARPETA,ESTADO
+RE Fecha mínima contexto,"MINX(ALLSELECTED(Fact_Tracking), Fact_Tracking[PED_FECHA_HORA])",dd-MM-yyyy,02. Resumen Ejecutivo\14. Ventana Temporal,NUEVA
+RE Fecha máxima contexto,"MAXX(ALLSELECTED(Fact_Tracking), Fact_Tracking[PED_FECHA_HORA])",dd-MM-yyyy,02. Resumen Ejecutivo\14. Ventana Temporal,NUEVA
+RE Ventana análisis texto,Texto 'Período analizado: X al Y · N meses · estado',,02. Resumen Ejecutivo\14. Ventana Temporal,NUEVA
+RE Estado último mes,"IF(FechaMax < EOMONTH(FechaMax,0), 'Último mes parcial', 'Último mes completo')",,02. Resumen Ejecutivo\14. Ventana Temporal,NUEVA
+U Fecha mínima creación,MIN(Fact_Tracking[PED_FECHA_HORA]),dd-MM-yyyy,01. Universo Único\Periodo,EXISTENTE
+U Fecha máxima creación,MAX(Fact_Tracking[PED_FECHA_HORA]),dd-MM-yyyy,01. Universo Único\Periodo,EXISTENTE

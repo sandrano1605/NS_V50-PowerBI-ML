@@ -1,0 +1,12 @@
+﻿METRICA,VALOR,FUENTE,ESTADO
+Pedidos evaluados,1616,RE Pedidos contexto,OK
+Pedidos fuera SLA,360,RE Pedidos fuera SLA contexto,OK
+NS,"77,72%",RE NS contexto,OK
+Clientes fuera SLA,251,SUMMARIZE recurrencia,OK
+Recurrentes 3M,3,SUMMARIZE recurrencia,OK
+Recurrentes 2M,27,SUMMARIZE recurrencia,OK
+Puntual 1M,221,SUMMARIZE recurrencia,OK
+Diferencia lienzos,0,RE vs FA,OK
+Fecha mínima contexto,30-04-2026,RE Fecha mínima contexto,OK
+Fecha máxima contexto,14-07-2026,RE Fecha máxima contexto,OK
+Último mes,Parcial,RE Estado último mes,OK
