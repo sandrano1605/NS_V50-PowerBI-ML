@@ -4,7 +4,7 @@
   "timestamp_local": "2026-07-31T01:06:00-04:00",
   "branch": "work/ns-live-audit",
   "base_commit": "9495cead9e4ba813e9e4731630ef046c7f13e341",
-  "result_commit": "PENDING",
+  "result_commit": "d5ed042a7db19412d34206eff96bab6623448654",
   "power_bi_model": "NS",
   "pbip_path": "NS.pbip",
   "model_live_access": true,
@@ -16,9 +16,15 @@
   "visual_validation": "OK",
   "business_rule_validation": "OK",
   "status": "VERDE",
-  "changed_files": [],
+  "changed_files": [
+    "39 visual.json (tooltip show=false)",
+    "tools/fix_svg_hover_req003.py",
+    "Docs/AUDITORIA_LIVE/runs/20260731_010600_svg_hover_final/*"
+  ],
   "changed_measures": [],
-  "changed_visuals": [],
+  "changed_visuals": [
+    "39 visuales SVG"
+  ],
   "executed_dax_queries": [
     "ROW lienzos (1616/360/77.72%)",
     "SUMMARIZE recurrencia (251/3/27/221)",
