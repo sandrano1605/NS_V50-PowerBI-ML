@@ -1,0 +1,1008 @@
+PROMPT MAESTRO PARA AUDITORÍA DEL MODELO POWER BI EN VIVO
+Actúa como auditor senior de Power BI, Tabular Model, DAX, Power Query, Python y modelo semántico.
+
+Tienes acceso al modelo Power BI actualmente abierto mediante MCP Modeline / MCP del modelo semántico en vivo.
+
+Tu tarea es auditar el modelo completo sin modificarlo inicialmente.
+
+Debes trabajar de forma técnica, reproducible y basada en evidencia.
+
+==================================================
+1. OBJETIVO GENERAL
+==================================================
+
+Validar que el modelo de Nivel de Servicio cumple correctamente las reglas de negocio, que las medidas DAX son coherentes con las columnas base, que las relaciones no producen ambigüedad, que los visuales responden las preguntas de negocio y que los casos de pedidos específicos se calculan correctamente.
+
+El modelo contiene al menos los siguientes lienzos:
+
+- 00 Resumen Ejecutivo Mayorista
+- 01 Análisis Fuera SLA
+- 01.1 Auditoría por Pedido
+
+El modelo contiene o puede contener tablas como:
+
+- Fact_Tracking
+- Fact_Pedidos_Auditoria
+- Fact_Pedidos
+- Fact_Tiempos_Hitos
+- Fact_Hitos_Operacionales
+- Lineas_y_unidades_por_pedidos
+- Dim_Pedido
+- Dim_Cliente
+- Dim_Fecha
+- Dim_Responsable
+- Dim_Canal
+- Medidas
+
+Debes descubrir los nombres reales desde el modelo, no asumirlos.
+
+==================================================
+2. REGLAS DE NEGOCIO OFICIALES
+==================================================
+
+2.1 Universo analítico
+
+El análisis histórico de SLA debe considerar:
+
+- Todos los flujos:
+  - NORMAL
+  - FES
+  - SALDO
+  - FES + SALDO
+
+- Solo pedidos con:
+  - TRACKING = TRUE
+  - pedido cerrado según su flujo
+  - DIAS_INTERNOS_DH informado
+
+Los pedidos abiertos pueden aparecer en tracking operativo, pero no deben entrar al NS histórico.
+
+2.2 Fecha de cierre por flujo
+
+Para FES y FES + SALDO:
+
+- La fecha de cierre oficial es el último manifiesto.
+- El manifiesto se obtiene desde el flujo VBFA y su relación con transporte/VTTP.
+- Si el modelo usa primera y última fecha de transporte:
+  - primera fecha de transporte = primer manifiesto
+  - última fecha de transporte = último manifiesto
+- Para cierre debe usarse la última fecha válida.
+- Un FES sin manifiesto válido no debe considerarse cerrado.
+
+Para NORMAL:
+
+- Fecha de cierre = último despacho válido.
+
+Para SALDO:
+
+- Fecha de cierre = último despacho asociado al cierre total del pedido.
+
+2.3 SLA interno
+
+- Santiago = 4 días hábiles.
+- Regiones = 5 días hábiles.
+
+2.4 Promesa cliente
+
+- Santiago = 5 días hábiles.
+- Regiones = 7 días hábiles.
+
+2.5 Composición de la promesa
+
+Santiago:
+
+- Administración = 1 DH
+- Operación = 3 DH
+- Última milla = 1 DH
+- SLA interno = 4 DH
+- Promesa cliente = 5 DH
+
+Regiones:
+
+- Administración = 1 DH
+- Operación = 4 DH
+- Última milla = 2 DH
+- SLA interno = 5 DH
+- Promesa cliente = 7 DH
+
+2.6 Cumplimiento
+
+- Santiago cumple si DIAS_INTERNOS_DH <= 4.
+- Regiones cumple si DIAS_INTERNOS_DH <= 5.
+- No debe existir ninguna medida general que compare todos los pedidos contra 5 fijo.
+
+2.7 Permanencia postfactura
+
+Para FES y FES + SALDO:
+
+- Fecha inicial = factura válida.
+- Fecha final = último manifiesto.
+- Solo pedidos TRACKING = TRUE y cerrados.
+
+Para NORMAL y SALDO:
+
+- Fecha inicial = factura válida.
+- Fecha final = despacho final.
+- Solo pedidos TRACKING = TRUE y cerrados.
+
+En el visual “>15 DH”:
+
+- La cantidad debe contar solo pedidos con permanencia >15 DH.
+- El promedio debe calcularse solo sobre pedidos >15 DH.
+- El P90 debe calcularse solo sobre pedidos >15 DH.
+- El valor debe sumar solo pedidos >15 DH.
+
+2.8 Recurrencia
+
+Ventana:
+
+- Últimos 3 meses calendario disponibles en la cohorte.
+
+Clasificación:
+
+- Recurrente 3M = fuera SLA en 3 meses distintos.
+- Recurrente 2M = fuera SLA en 2 meses distintos.
+- Puntual 1M = fuera SLA en 1 mes.
+- Nunca contar meses en blanco.
+- Nunca retornar más de 3 meses.
+
+2.9 FES versus carga
+
+Comparar por:
+
+- Inicio de mes
+- Resto del mes
+- Cierre de mes
+
+Mostrar al menos:
+
+- pedidos creados o pedidos cerrados, según definición explícita
+- pedidos FES
+- porcentaje FES
+- líneas
+- unidades
+- líneas por pedido
+- unidades por pedido
+- NS
+- promedio DH
+- madurez de la cohorte, si el mes está incompleto
+
+No atribuir causalidad automática. Usar términos como:
+
+- coincide con caída
+- asociación
+- señal
+- patrón
+
+==================================================
+3. USO DEL MCP MODELINE
+==================================================
+
+Debes usar el MCP para inspeccionar el modelo en vivo.
+
+Sigue este orden:
+
+3.1 Descubrimiento
+
+Obtener:
+
+- nombre del modelo
+- nombre del dataset
+- tablas
+- columnas
+- medidas
+- jerarquías
+- relaciones
+- roles
+- perspectivas
+- grupos de cálculo
+- parámetros de campo
+- páginas
+- visuales
+- filtros de página
+- filtros de visual
+- drillthrough
+- tooltips
+
+3.2 Modelo semántico
+
+Consultar mediante DMV o herramientas equivalentes:
+
+- TMSCHEMA_TABLES
+- TMSCHEMA_COLUMNS
+- TMSCHEMA_MEASURES
+- TMSCHEMA_RELATIONSHIPS
+- TMSCHEMA_PARTITIONS
+- TMSCHEMA_EXPRESSIONS
+- TMSCHEMA_ROLES
+- TMSCHEMA_CALCULATION_GROUPS
+
+Si el MCP no expone DMV directamente, usar la función equivalente de metadata.
+
+3.3 Consultas DAX
+
+Ejecutar consultas DAX para validar resultados.
+
+No depender únicamente de medidas existentes.
+
+Para cada métrica crítica:
+
+- obtener resultado de la medida oficial
+- recalcular de forma independiente desde columnas base
+- comparar ambos resultados
+
+3.4 Visuales
+
+Para cada visual:
+
+- identificar la página
+- nombre interno
+- título
+- tipo visual
+- campos
+- medidas
+- filtros
+- ordenamiento
+- interacciones
+- drillthrough
+- contexto
+
+Exportar el resultado exacto del visual cuando sea posible.
+
+==================================================
+4. AUDITORÍA TÉCNICA DEL MODELO
+==================================================
+
+Crear un inventario completo.
+
+Archivo:
+
+00_inventario_modelo.csv
+
+Columnas:
+
+TIPO_OBJETO
+TABLA
+NOMBRE
+TIPO_DATO
+EXPRESION
+FORMATO
+CARPETA
+VISIBLE
+LINEAGE_TAG
+DEPENDENCIAS
+OBSERVACION
+
+Incluir:
+
+- tablas
+- columnas
+- medidas
+- columnas calculadas
+- tablas calculadas
+- parámetros de campo
+- grupos de cálculo
+
+==================================================
+5. AUDITORÍA DE RELACIONES
+==================================================
+
+Crear:
+
+01_relaciones_modelo.csv
+
+Columnas:
+
+RELACION
+TABLA_ORIGEN
+COLUMNA_ORIGEN
+CARDINALIDAD_ORIGEN
+TABLA_DESTINO
+COLUMNA_DESTINO
+CARDINALIDAD_DESTINO
+DIRECCION_FILTRO
+ACTIVA
+SEGURIDAD
+AMBIGUA
+RIESGO
+OBSERVACION
+
+Validar especialmente:
+
+- Fact_Tracking → Dim_Pedido
+- Lineas_y_unidades_por_pedidos → Dim_Pedido
+- Fact_Tracking → Dim_Fecha
+- Fact_Tracking → Dim_Cliente
+- Fact_Tracking → Dim_Responsable
+- Fact_Tracking → Dim_Canal
+
+Detectar:
+
+- muchos a muchos
+- bidireccionales
+- relaciones inactivas
+- caminos ambiguos
+- duplicados en el lado 1
+- huérfanos
+
+==================================================
+6. AUDITORÍA DE MEDIDAS SLA
+==================================================
+
+Crear:
+
+02_medidas_sla.csv
+
+Columnas:
+
+MEDIDA
+TABLA
+EXPRESION_DAX
+USA_SLA_FIJO_5
+USA_SLA_ZONAL
+USA_TRACKING_TRUE
+USA_PEDIDO_CERRADO
+USA_FECHA_CIERRE_CORRECTA
+DEPENDENCIAS
+RESULTADO
+OBSERVACION
+
+Buscar expresiones como:
+
+- > 5
+- <= 5
+- SLA = 5
+- SWITCH con zonas
+- COALESCE con 5
+- variables llamadas SLA
+- referencias antiguas a 5 Santiago / 7 Regiones como SLA interno
+
+Marcar:
+
+- OK
+- REVISAR
+- ERROR
+
+==================================================
+7. COHORTE BASE COMPLETA
+==================================================
+
+Crear:
+
+03_cohorte_tracking.csv
+
+Una fila por pedido.
+
+Columnas obligatorias:
+
+PEDIDO
+TRACKING
+CLASIFICACION
+FLUJO
+ZONA_GEOGRAFICA
+REGION
+ES_CERRADO
+FECHA_CREACION
+FECHA_PRIMERA_FACTURA
+FECHA_ULTIMA_FACTURA
+FECHA_PRIMER_DESPACHO
+FECHA_ULTIMO_DESPACHO
+FECHA_PRIMER_MANIFIESTO
+FECHA_ULTIMO_MANIFIESTO
+FECHA_CIERRE_MODELO
+FUENTE_CIERRE_MODELO
+DIAS_INTERNOS_DH
+SLA_OPERACION_DH
+SLA_INTERNO_DH
+ULTIMA_MILLA_DH
+SLA_CLIENTE_DH
+CUMPLE_SLA_INTERNO
+EXCESO_SLA_INTERNO_DH
+CLIENTE
+VENDEDOR
+CANAL
+LINEAS
+UNIDADES
+VALOR_PEDIDO
+
+Incluir todos los pedidos TRACKING = TRUE.
+
+==================================================
+8. AUDITORÍA INDEPENDIENTE DE FECHAS
+==================================================
+
+Crear:
+
+04_auditoria_fechas.csv
+
+Recalcular sin usar la medida oficial.
+
+Columnas:
+
+PEDIDO
+FLUJO
+ZONA
+TRACKING
+FECHA_CREACION
+FACTURA_INICIO_MODELO
+FACTURA_INICIO_RECALCULADA
+DESPACHO_FINAL_MODELO
+DESPACHO_FINAL_RECALCULADO
+MANIFIESTO_FINAL_MODELO
+MANIFIESTO_FINAL_RECALCULADO
+CIERRE_MODELO
+CIERRE_ESPERADO
+FUENTE_CIERRE_MODELO
+FUENTE_CIERRE_ESPERADA
+COINCIDE_CIERRE
+OBSERVACION
+
+Reglas de cierre esperado:
+
+- FES/FES+SALDO → último manifiesto
+- NORMAL/SALDO → último despacho
+
+No usar el cierre ya calculado para recalcular el cierre esperado.
+
+==================================================
+9. AUDITORÍA DE DÍAS HÁBILES
+==================================================
+
+Crear:
+
+05_auditoria_dias_habiles.csv
+
+Columnas:
+
+PEDIDO
+FECHA_INICIO
+FECHA_FIN
+DIAS_MODELO
+DIAS_RECALCULADOS
+DIFERENCIA
+SLA_INTERNO
+CUMPLE_MODELO
+CUMPLE_RECALCULADO
+COINCIDE_RESULTADO
+OBSERVACION
+
+Recalcular los días hábiles con la misma tabla calendario del modelo:
+
+- excluir fines de semana
+- excluir feriados utilizados por el modelo
+- respetar inclusividad/exclusividad de fecha inicial y final
+
+Si no es posible inferir la convención exacta:
+
+- exportar ambas opciones
+- documentar la diferencia
+
+==================================================
+10. PEDIDOS CLAVE
+==================================================
+
+Auditar obligatoriamente:
+
+- 4190139455
+- 1167577
+
+Además seleccionar:
+
+- 5 FES cerrados
+- 5 FES abiertos
+- 5 NORMAL cerrados
+- 5 SALDO cerrados
+- 5 FES + SALDO cerrados
+- 5 Santiago
+- 5 Regiones
+- 5 exactamente en SLA
+- 5 un día fuera SLA
+- 5 con factura y manifiesto el mismo día
+- 5 con primera y última fecha de transporte distintas
+
+Crear:
+
+06_auditoria_pedidos_clave.csv
+
+Columnas:
+
+PEDIDO
+FLUJO
+CLASIFICACION
+ZONA
+TRACKING
+ES_CERRADO
+FECHA_CREACION
+FACTURA_INICIO
+PRIMER_DESPACHO
+ULTIMO_DESPACHO
+PRIMER_MANIFIESTO
+ULTIMO_MANIFIESTO
+FECHA_CIERRE_MODELO
+FECHA_CIERRE_ESPERADA
+FUENTE_CIERRE
+DIAS_MODELO
+DIAS_RECALCULADOS
+SLA_INTERNO
+SLA_CLIENTE
+CUMPLE_MODELO
+CUMPLE_RECALCULADO
+RESULTADO_AUDITORIA
+OBSERVACION
+
+==================================================
+11. AUDITORÍA DE RECURRENCIA
+==================================================
+
+Crear:
+
+07_clientes_recurrentes.csv
+
+Columnas:
+
+CLIENTE
+VENDEDOR
+FLUJO
+MES_1
+FUERA_SLA_MES_1
+MES_2
+FUERA_SLA_MES_2
+MES_3
+FUERA_SLA_MES_3
+MESES_FUERA_SLA
+CLASIFICACION_RECURRENCIA
+PEDIDOS_TOTAL
+PEDIDOS_FUERA_SLA
+PORCENTAJE_FUERA_SLA
+PROMEDIO_DH_FUERA_SLA
+P90_DH_FUERA_SLA
+
+Validaciones:
+
+- MESES_FUERA_SLA entre 0 y 3
+- Recurrente 3M solo si MESES_FUERA_SLA = 3
+- Recurrente 2M solo si MESES_FUERA_SLA = 2
+
+==================================================
+12. AUDITORÍA DE PERMANENCIA POSTFACTURA
+==================================================
+
+Crear:
+
+08_permanencia_postfactura.csv
+
+Columnas:
+
+PEDIDO
+CLIENTE
+VENDEDOR
+FLUJO
+TRACKING
+ES_CERRADO
+FACTURA_INICIO
+CIERRE_OFICIAL
+TIPO_CIERRE
+DIAS_POSTFACTURA_DH
+MAYOR_15_DH
+MAYOR_20_DH
+VALOR_PEDIDO
+
+Reglas:
+
+- FES/FES+SALDO → factura a manifiesto
+- NORMAL/SALDO → factura a despacho
+- solo TRACKING = TRUE
+- solo cerrados
+
+Crear también:
+
+08b_resumen_permanencia_cliente.csv
+
+Columnas:
+
+CLIENTE
+FLUJO
+PEDIDOS_MAYOR_15
+PEDIDOS_MAYOR_20
+PROMEDIO_DH_SOLO_MAYOR_15
+P90_DH_SOLO_MAYOR_15
+VALOR_SOLO_MAYOR_15
+
+Validar que:
+
+- si PEDIDOS_MAYOR_15 > 0
+- entonces PROMEDIO_DH_SOLO_MAYOR_15 > 15
+
+==================================================
+13. AUDITORÍA DE VENDEDORES
+==================================================
+
+Crear:
+
+09_vendedores_recurrentes.csv
+
+Columnas:
+
+VENDEDOR
+FLUJO
+CLIENTES_3M
+CLIENTES_2M_MAS
+PEDIDOS_FUERA_SLA_SOLO_RECURRENTES
+PORCENTAJE_FUERA_SLA_SOLO_RECURRENTES
+PROMEDIO_DH_SOLO_RECURRENTES
+LINEAS_SOLO_RECURRENTES
+UNIDADES_SOLO_RECURRENTES
+VALOR_SOLO_RECURRENTES
+
+No incluir clientes no recurrentes en las métricas del vendedor.
+
+==================================================
+14. AUDITORÍA FES VS CARGA
+==================================================
+
+Crear:
+
+10_fes_vs_carga.csv
+
+Columnas:
+
+MES
+MOMENTO_MES
+PEDIDOS
+PORCENTAJE_CARGA_MENSUAL
+PEDIDOS_FES
+PORCENTAJE_FES
+LINEAS
+UNIDADES
+LINEAS_POR_PEDIDO
+UNIDADES_POR_PEDIDO
+PEDIDOS_CERRADOS
+MADUREZ_COHORTE
+NS
+PROMEDIO_DH
+P90_DH
+VARIACION_NS_VS_RESTO
+LECTURA
+
+Momento mes:
+
+- Inicio
+- Resto
+- Cierre
+
+Documentar exactamente cómo se define cada tramo.
+
+==================================================
+15. COMPARACIÓN DE LIENZOS
+==================================================
+
+Crear:
+
+11_comparacion_lienzos.csv
+
+Por:
+
+- mes
+- zona
+- flujo
+- clasificación
+
+Columnas:
+
+MES
+ZONA
+FLUJO
+CLASIFICACION
+PEDIDOS_LIENZO_00
+PEDIDOS_LIENZO_01
+DIFERENCIA_PEDIDOS
+FUERA_SLA_LIENZO_00
+FUERA_SLA_LIENZO_01
+DIFERENCIA_FUERA_SLA
+NS_LIENZO_00
+NS_LIENZO_01
+DIFERENCIA_NS
+LINEAS
+UNIDADES
+
+Bajo el mismo contexto:
+
+- diferencia pedidos = 0
+- diferencia fuera SLA = 0
+- diferencia NS = 0
+
+==================================================
+16. AUDITORÍA DE LÍNEAS Y UNIDADES
+==================================================
+
+Crear:
+
+12_cobertura_lineas_unidades.csv
+
+Columnas:
+
+PEDIDO
+EXISTE_EN_TRACKING
+EXISTE_EN_TABLA_LINEAS
+FILAS_TABLA_LINEAS
+LINEAS
+UNIDADES
+DUPLICADO
+RESULTADO
+OBSERVACION
+
+Validar:
+
+- una fila por pedido en la tabla agregada
+- ausencia de duplicación por relaciones
+- cobertura de pedidos del tracking
+
+==================================================
+17. AUDITORÍA DE VISUALES
+==================================================
+
+Crear:
+
+13_objetos_lienzos.csv
+
+Columnas:
+
+PAGINA
+ID_VISUAL
+NOMBRE_VISUAL
+TIPO_VISUAL
+TITULO
+SUBTITULO
+TABLAS_USADAS
+COLUMNAS_USADAS
+MEDIDAS_USADAS
+FILTROS_VISUAL
+FILTROS_PAGINA
+FILTROS_REPORTE
+ORDENAMIENTO
+DRILLTHROUGH
+TOOLTIP
+VISIBLE
+X
+Y
+ANCHO
+ALTO
+SUPERPOSICION
+RESPONDE_PREGUNTA_NEGOCIO
+OBSERVACION
+
+Revisar especialmente:
+
+- textos con SLA antiguo
+- SVG con promesas antiguas
+- tooltips con 5/7 incorrecto
+- visuales que usan cohorte diferente
+- visuales que mezclan abiertos y cerrados
+
+==================================================
+18. AUDITORÍA DE POWER QUERY Y PYTHON
+==================================================
+
+Crear:
+
+14_consultas_powerquery.csv
+
+Columnas:
+
+CONSULTA
+TIPO
+FUENTE
+DEPENDENCIAS
+CARGA_HABILITADA
+ERROR
+USA_PYTHON
+SCRIPT_PYTHON
+RIESGO
+OBSERVACION
+
+Revisar:
+
+- consultas bloqueadas
+- dependencias circulares
+- cambios de tipo
+- columnas eliminadas
+- joins muchos a muchos
+- uso incorrecto de List, Table.Buffer o Python.Execute
+
+Para Python:
+
+- verificar que no se pase ndarray a fillna
+- verificar índices alineados
+- verificar nulos en PED_REGION
+- verificar tipos
+- verificar que la salida sea DataFrame
+- compilar el script
+- ejecutar prueba mínima si el entorno lo permite
+
+==================================================
+19. INFORME FINAL
+==================================================
+
+Crear:
+
+AUDITORIA_MODELO_NS.md
+
+Estructura:
+
+# Resultado general
+
+Estado:
+
+- VERDE
+- AMARILLO
+- ROJO
+
+# Resumen ejecutivo
+
+# Reglas de negocio verificadas
+
+# Hallazgos críticos
+
+# Hallazgos medios
+
+# Hallazgos menores
+
+# Auditoría de pedidos clave
+
+Incluir:
+
+- 4190139455
+- 1167577
+
+# Medidas incorrectas
+
+# Fechas de cierre incorrectas
+
+# Diferencias entre modelo y recálculo
+
+# Problemas de relaciones
+
+# Problemas de visuales
+
+# Problemas de Power Query/Python
+
+# Recomendaciones priorizadas
+
+# Evidencia generada
+
+No declarar VERDE si:
+
+- existen diferencias sin explicar
+- hay medidas con SLA fijo antiguo
+- FES se cierra con despacho en vez de manifiesto
+- hay pedidos abiertos incluidos en NS histórico
+- existen errores de refresh
+- los lienzos no coinciden
+
+==================================================
+20. CARPETA DE SALIDA
+==================================================
+
+Crear una carpeta:
+
+AUDITORIA_NS_MODELO_VIVO
+
+Debe contener:
+
+00_inventario_modelo.csv
+01_relaciones_modelo.csv
+02_medidas_sla.csv
+03_cohorte_tracking.csv
+04_auditoria_fechas.csv
+05_auditoria_dias_habiles.csv
+06_auditoria_pedidos_clave.csv
+07_clientes_recurrentes.csv
+08_permanencia_postfactura.csv
+08b_resumen_permanencia_cliente.csv
+09_vendedores_recurrentes.csv
+10_fes_vs_carga.csv
+11_comparacion_lienzos.csv
+12_cobertura_lineas_unidades.csv
+13_objetos_lienzos.csv
+14_consultas_powerquery.csv
+AUDITORIA_MODELO_NS.md
+
+Comprimir como:
+
+AUDITORIA_NS_MODELO_VIVO.zip
+
+==================================================
+21. REGLAS DE EJECUCIÓN
+==================================================
+
+- No modificar el modelo en la primera pasada.
+- No ocultar errores.
+- No corregir datos silenciosamente.
+- No usar una medida oficial para validar otra medida oficial.
+- Recalcular desde columnas base.
+- No inferir manifiestos inexistentes.
+- No usar despacho como cierre FES.
+- No mezclar pedidos abiertos con históricos.
+- No contar meses en blanco.
+- No afirmar causalidad sin evidencia.
+- Registrar toda consulta DAX ejecutada.
+- Registrar fecha y hora de la auditoría.
+- Registrar nombre del modelo y versión.
+- Registrar errores MCP o limitaciones.
+Instrucciones adicionales para usar bien el MCP Modeline
+
+Pídele que siga este flujo técnico:
+
+1. Conéctate al modelo activo.
+2. Ejecuta discovery del endpoint.
+3. Enumera datasets/modelos disponibles.
+4. Selecciona el modelo abierto.
+5. Lee metadata completa.
+6. Guarda snapshot de metadata antes de cualquier acción.
+7. Ejecuta consultas DAX pequeñas para validar acceso.
+8. Ejecuta las consultas de auditoría por lotes.
+9. Exporta cada resultado inmediatamente a CSV.
+10. No mantengas resultados solo en memoria.
+11. Genera checksum o conteo de filas por archivo.
+12. Comprime la carpeta final.
+Primera consulta de prueba
+
+Pídele primero:
+
+EVALUATE
+ROW(
+    "FechaAuditoria", NOW(),
+    "PedidosTracking", CALCULATE(
+        DISTINCTCOUNT(Fact_Tracking[PED_NUMERO_PEDIDO]),
+        Fact_Tracking[TRACKING] = TRUE()
+    )
+)
+
+Si TRACKING tiene otro nombre, debe descubrirlo y documentarlo.
+
+Consulta de prueba para los pedidos clave
+EVALUATE
+FILTER(
+    SELECTCOLUMNS(
+        Fact_Tracking,
+        "Pedido", Fact_Tracking[PED_NUMERO_PEDIDO],
+        "Flujo", Fact_Tracking[CLASIFICACION],
+        "Zona", Fact_Tracking[ZONA_GEOGRAFICA],
+        "Tracking", Fact_Tracking[TRACKING],
+        "Cerrado", Fact_Tracking[ES_CERRADO],
+        "Creacion", Fact_Tracking[PED_FECHA_HORA],
+        "Factura", Fact_Tracking[FECHA_PRIMERA_FACTURA],
+        "Despacho", Fact_Tracking[FECHA_ULTIMO_DESPACHO],
+        "Manifiesto", Fact_Tracking[FECHA_ULTIMO_MANIFIESTO],
+        "Cierre", Fact_Tracking[FECHA_CIERRE],
+        "Dias", Fact_Tracking[DIAS_INTERNOS_DH],
+        "SLAInterno", Fact_Tracking[SLA_INTERNO_DH],
+        "Cumple", Fact_Tracking[CUMPLE_SLA_INTERNO]
+    ),
+    [Pedido] IN {"4190139455", "1167577"}
+)
+
+Debe adaptar los nombres reales si difieren.
+
+Lo mínimo que debe entregarte
+
+Como mínimo, no aceptes una auditoría sin estos archivos:
+
+03_cohorte_tracking.csv
+04_auditoria_fechas.csv
+05_auditoria_dias_habiles.csv
+06_auditoria_pedidos_clave.csv
+08_permanencia_postfactura.csv
+10_fes_vs_carga.csv
+13_objetos_lienzos.csv
+AUDITORIA_MODELO_NS.md
+
+El archivo clave para que yo pueda revisar los dos pedidos es:
+
+06_auditoria_pedidos_clave.csv
+
+Y el más importante para validar todo el universo es:
+
+03_cohorte_tracking.csv
+
+Cuando el LLM local termine, trae el ZIP AUDITORIA_NS_MODELO_VIVO.zip. Con eso se puede hacer una auditoría cruzada de fechas, SLA, cierres, medidas, visuales y coherencia entre lienzos.

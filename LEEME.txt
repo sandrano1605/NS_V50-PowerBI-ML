@@ -1,0 +1,45 @@
+NS_V36
+======
+
+Proyecto depurado y alineado.
+
+Contenido visible:
+- 00 Resumen Ejecutivo Mayorista
+- 01 Tracking Operativo
+- 02 Cuellos de Botella
+- 03 Auditoría 360 por Pedido
+
+Reglas centrales:
+- Canales 42–47, ventana móvil de 90 días por creación.
+- Normal + FES + Saldo puro + FES + Saldo.
+- SLA interno 5 DH: Administrativo 1 DH + Operaciones 4 DH.
+- Regiones: +2 DH estimados de tránsito, sin POD ni última milla.
+- Santiago sin salida registrada: factura hasta las 16:00 como cierre operativo solo cuando el corte ya se cumplió; Saldo usa la última factura.
+
+Apertura:
+1. Descomprimir.
+2. Ejecutar ABRIR.bat o abrir NS.pbip.
+3. Configurar credenciales SQL.
+4. Actualizar.
+
+Ver Docs/REGLAS.md, Docs/LIENZO_00_AUDIT.md y Docs/AUDIT.md.
+
+
+NS_V50: pestaña 04 Python · Modelo ML. Resultado ahora entrena regresión logística y lineal con flujo completo, audita calidad y clasifica pendientes del Tracking.
+
+
+NS_V50 V11 · AJUSTE PREGUNTAS DE NEGOCIO
+=========================================
+El lienzo 01 fue corregido usando los resultados exportados del modelo:
+- Recurrencia real de clientes en 2 o 3 de los últimos 3 meses.
+- Ranking por flujo de clientes y vendedores reincidentes.
+- Permanencia postfactura en días hábiles, incluyendo pedidos abiertos.
+- Comparación de carga y SLA por inicio, resto y cierre del mes.
+- Filtro adicional de zona.
+
+Después de abrir:
+1. Ejecutar Actualizar todo.
+2. Verificar que Meses f.SLA solo muestre 2 o 3.
+3. Confirmar Clientes 3M <= Clientes 2M+.
+4. Confirmar que Prom. DH f.SLA sea mayor a 5 DH.
+5. Exportar nuevamente las cuatro tablas si se requiere auditoría.

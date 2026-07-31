@@ -1,0 +1,37 @@
+{
+  "version": "V14",
+  "replacements": [
+    "interval first manifest fallback",
+    "interval invoice to first manifest fallback",
+    "interval invoice to last manifest fallback",
+    "interval manifest gap fallback",
+    "output manifest dates with FES transport fallback",
+    "official FES close fallback"
+  ],
+  "json_files_checked": 200,
+  "json_errors": 0,
+  "checks": {
+    "tracking fallback": true,
+    "official fallback": true,
+    "invoice-last-manifest fallback": true,
+    "santiago SLA 4": true
+  },
+  "cases": {
+    "4190139455": {
+      "flow": "FES",
+      "zone": "Regiones",
+      "expected_close": "2026-05-28 16:05:00",
+      "expected_internal_dh": 2,
+      "sla_internal_dh": 5,
+      "status": "CERRADO EN SLA"
+    },
+    "1167577": {
+      "flow": "FES",
+      "zone": "Santiago",
+      "expected_close": "2026-07-02 00:00:00",
+      "expected_internal_dh": 2,
+      "sla_internal_dh": 4,
+      "status": "CERRADO EN SLA"
+    }
+  }
+}

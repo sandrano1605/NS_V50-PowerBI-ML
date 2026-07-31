@@ -1,0 +1,12 @@
+{
+  "version": "NS_V36",
+  "status": "OK",
+  "json_validos": 145,
+  "visuales": 129,
+  "medidas": 153,
+  "medidas_duplicadas": [],
+  "lineage_duplicados": [],
+  "querysort_invalidos": [],
+  "errores": [],
+  "controles_lienzo_00": 20
+}

@@ -1,0 +1,7 @@
+ARCHIVO,CAMBIO,TIPO,ESTADO
+NS.SemanticModel/definition/tables/Medidas.tmdl,P1: 5 medidas Visible de >=2 a >=1,DAX,APLICADO
+NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/fa_clientes_recurrentes/visual.json,P2: sort 3 criterios recurrencia,JSON,APLICADO
+NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/fa_clientes_recurrentes/visual.json,P3: titulo actualizado,JSON,APLICADO
+.gitignore,Reglas PBIP: localSettings/cache.abf/venv,CONFIG,APLICADO
+Docs/AUDITORIA_LIVE/*,Estructura de auditoria live,NUEVO,APLICADO
+AGENTS.md,Instrucciones maestras del repositorio,NUEVO,APLICADO

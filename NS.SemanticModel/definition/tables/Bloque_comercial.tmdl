@@ -1,0 +1,340 @@
+table Bloque_comercial
+	lineageTag: 5390eb82-867a-4723-9786-e4b8e43e4831
+
+	column Pedido
+		dataType: string
+		lineageTag: 8bb79c31-8673-4631-8aff-56b1181a4a1f
+		summarizeBy: none
+		sourceColumn: Pedido
+
+		annotation SummarizationSetBy = Automatic
+
+	column Estado_Pedido
+		dataType: string
+		lineageTag: 189a7931-97f0-426d-b9c1-aec63d6c2a55
+		summarizeBy: none
+		sourceColumn: Estado_Pedido
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fecha_pedido
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b3733d75-a91f-4a9a-9ef1-e5550cad635c
+		summarizeBy: none
+		sourceColumn: Fecha_pedido
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Recuento
+		dataType: int64
+		formatString: 0
+		lineageTag: b022582d-a6e7-4db2-80c2-bea081ce3073
+		summarizeBy: sum
+		sourceColumn: Recuento
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Bloque_comercial = m
+		mode: import
+		source = ```
+				let
+				    // ===============================================================
+				    // STP_GET_ESTADO_PEDIDO.php — POST
+				    // API estado pedido Artel
+				    // - Body JSON con usuario y password directo en el código
+				    // - Expansión robusta
+				    // - EnsureSchema
+				    // - Tipado defensivo
+				    // - Fecha ERDAT dd-MM-yyyy
+				    // - Distinct por Pedido + Posición + Material + Fecha
+				    // ===============================================================
+				 
+				    // ----------- Parámetros API -----------
+				    BaseUrl  = "http://apis.nacional.cl",
+				    Endpoint = "prod/artel/STP_GET_ESTADO_PEDIDO.php",
+				 
+				    UsuarioAPI = "amoyaprd",
+				    ClaveAPI   = "sandrano",
+				 
+				    // ----------- Columnas esperadas -----------
+				    ColumnasEsperadas = {
+				        "VBELN",
+				        "POSNR",
+				        "MATNR",
+				        "BEZEI",
+				        "CMGST",
+				        "ERDAT",
+				        "ESTADO_PEDIDO"
+				    },
+				 
+				    // ===============================================================
+				    // Funciones auxiliares
+				    // ===============================================================
+				 
+				    ToTextSafe = (x as any) as nullable text =>
+				        if x = null then null else Text.From(x),
+				 
+				    ToDateDMY = (x as any) as nullable date =>
+				        let
+				            txt = if x = null then null else Text.Trim(Text.From(x)),
+				            resultado =
+				                if txt = null or txt = "" then
+				                    null
+				                else
+				                    try Date.FromText(txt, "es-CL") otherwise
+				                    try #date(
+				                        Number.FromText(Text.End(txt, 4)),
+				                        Number.FromText(Text.Middle(txt, 3, 2)),
+				                        Number.FromText(Text.Start(txt, 2))
+				                    ) otherwise null
+				        in
+				            resultado,
+				 
+				    DetectaLista = (json as any) as list =>
+				        if Value.Is(json, type list) then
+				            json
+				        else if Value.Is(json, type record) then
+				            let
+				                TieneError   = Record.HasFields(json, "error"),
+				                TieneData    = Record.HasFields(json, "data") and Value.Is(json[data], type list),
+				                Vals         = Record.FieldValues(json),
+				                Flags        = List.Transform(Vals, each Value.Is(_, type list)),
+				                PosPrimera   = List.PositionOf(Flags, true),
+				                HayLista     = PosPrimera <> -1,
+				                PrimeraLista = if HayLista then Vals{PosPrimera} else {}
+				            in
+				                if TieneError then {}
+				                else if TieneData then json[data]
+				                else if HayLista then PrimeraLista
+				                else {}
+				        else
+				            {},
+				 
+				    ToTable = (lst as list) as table =>
+				        let
+				            Tempty = if List.Count(lst) = 0 then #table({}, {}) else null,
+				            Tout =
+				                if Tempty <> null then
+				                    Tempty
+				                else
+				                    let
+				                        T0 = Table.FromList(
+				                                lst,
+				                                Splitter.SplitByNothing(),
+				                                {"Row"},
+				                                null,
+				                                ExtraValues.Error
+				                             ),
+				 
+				                        TieneFilas  = Table.RowCount(T0) > 0,
+				                        EsRecordRow = TieneFilas and (try Value.Is(T0{0}[Row], type record) otherwise false),
+				                        EsListRow   = TieneFilas and (try Value.Is(T0{0}[Row], type list) otherwise false),
+				 
+				                        T1 =
+				                            if EsRecordRow then
+				                                let
+				                                    Cols = Record.FieldNames(T0{0}[Row])
+				                                in
+				                                    Table.ExpandRecordColumn(
+				                                        T0,
+				                                        "Row",
+				                                        Cols,
+				                                        List.Transform(Cols, each "Row." & _)
+				                                    )
+				                            else if EsListRow then
+				                                let
+				                                    TList = Table.ExpandListColumn(T0, "Row")
+				                                in
+				                                    @ToTable(Table.Column(TList, "Row"))
+				                            else
+				                                #table({}, {})
+				                    in
+				                        T1
+				        in
+				            Tout,
+				 
+				    QuitaPrefijo = (name as text) as text =>
+				        if Text.StartsWith(name, "Row.") then
+				            Text.AfterDelimiter(name, "Row.", 1)
+				        else
+				            name,
+				 
+				    EnsureSchema = (t as table) as table =>
+				        let
+				            colsActuales = Table.ColumnNames(t),
+				            tBase        = if List.Count(colsActuales) = 0 then #table(ColumnasEsperadas, {}) else t,
+				            cols2        = Table.ColumnNames(tBase),
+				            faltantes    = List.Difference(ColumnasEsperadas, cols2),
+				 
+				            tConFalt = List.Accumulate(
+				                faltantes,
+				                tBase,
+				                (state, c) => Table.AddColumn(state, c, each null, type any)
+				            ),
+				 
+				            tOrdenado = Table.SelectColumns(
+				                tConFalt,
+				                ColumnasEsperadas,
+				                MissingField.UseNull
+				            )
+				        in
+				            tOrdenado,
+				 
+				    // ===============================================================
+				    // POST API
+				    // ===============================================================
+				 
+				    BodyRecord = [
+				        username = UsuarioAPI,
+				        password = ClaveAPI
+				    ],
+				 
+				    BodyBin = Json.FromValue(BodyRecord),
+				 
+				    SourceRaw = Web.Contents(
+				        BaseUrl,
+				        [
+				            RelativePath = Endpoint,
+				            Content = BodyBin,
+				            Headers = [
+				                #"Content-Type"  = "application/json; charset=utf-8",
+				                Accept           = "application/json",
+				                #"Cache-Control" = "no-cache"
+				            ],
+				            Timeout = #duration(0, 0, 30, 0)
+				        ]
+				    ),
+				 
+				    JsonBruto = Json.Document(SourceRaw),
+				 
+				    Lista = DetectaLista(JsonBruto),
+				
+				 
+				    // ===============================================================
+				    // Convertir lista de records a tabla real
+				    // ===============================================================
+				 
+				    TablaRaw =
+				        if List.Count(Lista) = 0 then
+				            #table(ColumnasEsperadas, {})
+				        else
+				            Table.FromRecords(Lista, null, MissingField.UseNull),
+				 
+				    // ===============================================================
+				    // Normalizar nombres de columnas
+				    // - Quita espacios
+				    // - Quita prefijo Row. si viniera
+				    // - Convierte a mayúscula
+				    // ===============================================================
+				 
+				    ColumnasNormalizadas = Table.TransformColumnNames(
+				        TablaRaw,
+				        each 
+				            let
+				                Nombre0 = Text.Trim(_),
+				                Nombre1 = if Text.StartsWith(Nombre0, "Row.") then Text.Replace(Nombre0, "Row.", "") else Nombre0,
+				                Nombre2 = Text.Upper(Nombre1)
+				            in
+				                Nombre2
+				    ),
+				 
+				    // ===============================================================
+				    // Asegurar columnas esperadas
+				    // ===============================================================
+				 
+				    ConEsquema = EnsureSchema(ColumnasNormalizadas),
+				 
+				    // ===============================================================
+				    // Tipado defensivo
+				    // ===============================================================
+				 
+				    Ttyped = Table.TransformColumns(
+				        ConEsquema,
+				        {
+				            {"VBELN", each ToTextSafe(_), type text},
+				            {"POSNR", each ToTextSafe(_), type text},
+				            {"MATNR", each ToTextSafe(_), type text},
+				            {"BEZEI", each ToTextSafe(_), type text},
+				            {"CMGST", each ToTextSafe(_), type text},
+				            {"ERDAT", each ToDateDMY(_), type date},
+				            {"ESTADO_PEDIDO", each ToTextSafe(_), type text}
+				        }
+				    ),
+				 
+				    // ===============================================================
+				    // Renombrar columnas para modelo BI
+				    // ===============================================================
+				 
+				    Renombrado = Table.RenameColumns(
+				        Ttyped,
+				        {
+				            {"VBELN", "Pedido"},
+				            {"POSNR", "Posicion"},
+				            {"MATNR", "Material"},
+				            {"BEZEI", "Descripcion_Estado"},
+				            {"CMGST", "Estado_Credito"},
+				            {"ERDAT", "Fecha_Creacion"},
+				            {"ESTADO_PEDIDO", "Estado_Pedido"}
+				        },
+				        MissingField.Ignore
+				    ),
+				 
+				    // ===============================================================
+				    // Quitar filas totalmente vacías
+				    // ===============================================================
+				 
+				    SinFilasVacias = Table.SelectRows(
+				        Renombrado,
+				        each 
+				            [Pedido] <> null 
+				            or [Posicion] <> null 
+				            or [Material] <> null 
+				            or [Descripcion_Estado] <> null 
+				            or [Estado_Credito] <> null 
+				            or [Fecha_Creacion] <> null 
+				            or [Estado_Pedido] <> null
+				    ),
+				 
+				    // ===============================================================
+				    // Deduplicar registros
+				    // ===============================================================
+				 
+				    SinDuplicados = Table.Distinct(
+				        SinFilasVacias,
+				        {
+				            "Pedido",
+				            "Posicion",
+				            "Material",
+				            "Fecha_Creacion"
+				        }
+				    ),
+				 
+				    // ===============================================================
+				    // Orden final
+				    // ===============================================================
+				 
+				    Resultado = Table.Sort(
+				        SinDuplicados,
+				        {
+				            {"Fecha_Creacion", Order.Descending},
+				            {"Pedido", Order.Ascending},
+				            {"Posicion", Order.Ascending}
+				        }
+				    ),
+				    #"Filas filtradas" = Table.SelectRows(Resultado, each true),
+				    #"Filas agrupadas" = Table.Group(#"Filas filtradas", {"Estado_Pedido", "Pedido"}, {{"Fecha_pedido", each List.Max([Fecha_Creacion]), type date}}),
+				    #"Columnas reordenadas" = Table.ReorderColumns(#"Filas agrupadas",{"Pedido", "Estado_Pedido", "Fecha_pedido"}),
+				    #"Filas filtradas1" = Table.SelectRows(#"Columnas reordenadas", each ([Estado_Pedido] <> "PreSol convertida")),
+				    #"Filas agrupadas1" = Table.Group(#"Filas filtradas1", {"Pedido", "Estado_Pedido", "Fecha_pedido"}, {{"Recuento", each Table.RowCount(_), Int64.Type}}),
+				    #"Filas ordenadas" = Table.Sort(#"Filas agrupadas1",{{"Recuento", Order.Ascending}})
+				in
+				    #"Filas ordenadas"
+				```
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

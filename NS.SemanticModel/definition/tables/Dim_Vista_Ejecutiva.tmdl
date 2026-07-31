@@ -1,0 +1,112 @@
+/// Jerarquía desconectada para la matriz ejecutiva V14. Permite expandir Total Mayorista, flujo, macroproceso y subproceso.
+table Dim_Vista_Ejecutiva
+	lineageTag: 13a00000-7b21-4b4b-9c50-130000000001
+
+	column Grupo
+		dataType: string
+		lineageTag: 13a00000-7b21-4b4b-9c50-130000000002
+		summarizeBy: none
+		sourceColumn: GRUPO_MAYORISTA
+
+		annotation SummarizationSetBy = User
+
+	column Flujo
+		dataType: string
+		lineageTag: 13a00000-7b21-4b4b-9c50-130000000003
+		summarizeBy: none
+		sourceColumn: FLUJO_MAYORISTA
+		sortByColumn: ORDEN_FLUJO
+
+		annotation SummarizationSetBy = User
+
+	column Macroproceso
+		dataType: string
+		lineageTag: 13a00000-7b21-4b4b-9c50-130000000004
+		summarizeBy: none
+		sourceColumn: MACROPROCESO
+		sortByColumn: ORDEN_MACRO
+
+		annotation SummarizationSetBy = User
+
+	column Subproceso
+		dataType: string
+		lineageTag: 13a00000-7b21-4b4b-9c50-130000000005
+		summarizeBy: none
+		sourceColumn: SUBPROCESO
+		sortByColumn: ORDEN_SUBPROCESO
+
+		annotation SummarizationSetBy = User
+
+	column METRICA_CODIGO
+		dataType: string
+		lineageTag: 13a00000-7b21-4b4b-9c50-130000000006
+		summarizeBy: none
+		sourceColumn: METRICA_CODIGO
+
+		annotation SummarizationSetBy = User
+
+	column ORDEN_FLUJO
+		dataType: int64
+		formatString: 0
+		lineageTag: 13a00000-7b21-4b4b-9c50-130000000007
+		summarizeBy: none
+		sourceColumn: ORDEN_FLUJO
+
+		annotation SummarizationSetBy = User
+
+	column ORDEN_MACRO
+		dataType: int64
+		formatString: 0
+		lineageTag: 13a00000-7b21-4b4b-9c50-130000000008
+		summarizeBy: none
+		sourceColumn: ORDEN_MACRO
+
+		annotation SummarizationSetBy = User
+
+	column ORDEN_SUBPROCESO
+		dataType: int64
+		formatString: 0
+		lineageTag: 13a00000-7b21-4b4b-9c50-130000000009
+		summarizeBy: none
+		sourceColumn: ORDEN_SUBPROCESO
+
+		annotation SummarizationSetBy = User
+
+	partition Dim_Vista_Ejecutiva = m
+		mode: import
+		source =
+				let
+				    Grupo = "Total Pedidos Mayorista · diagnóstico por subprocesos",
+				    Admin = "1. Administrativo · SLA total 1 DH",
+				    Operaciones = "2. Operaciones · SLA total 4 DH",
+				    Origen = #table(
+				        type table [GRUPO_MAYORISTA=text, FLUJO_MAYORISTA=text, MACROPROCESO=text, SUBPROCESO=text, METRICA_CODIGO=text, ORDEN_FLUJO=Int64.Type, ORDEN_MACRO=Int64.Type, ORDEN_SUBPROCESO=Int64.Type],
+				        {
+				            {Grupo, "1. Flujo Normal", Admin, "Creación → Comercial/SAC", "CREACION_COMERCIAL", 1, 1, 10},
+				            {Grupo, "1. Flujo Normal", Admin, "Comercial/SAC → Crédito", "COMERCIAL_CREDITO", 1, 1, 20},
+				            {Grupo, "1. Flujo Normal", Admin, "Crédito → Ingreso a Logística", "CREDITO_ENTREGA", 1, 1, 30},
+				            {Grupo, "1. Flujo Normal", Operaciones, "Ingreso a Logística → Facturación", "ENTREGA_FACTURACION", 1, 2, 40},
+				            {Grupo, "1. Flujo Normal", Operaciones, "Facturación → Despacho", "FACTURACION_DESPACHO", 1, 2, 70},
+				
+				            {Grupo, "2. FES (incluye FES + Saldo)", Admin, "Creación → Comercial/SAC", "CREACION_COMERCIAL", 2, 1, 10},
+				            {Grupo, "2. FES (incluye FES + Saldo)", Admin, "Comercial/SAC → Crédito", "COMERCIAL_CREDITO", 2, 1, 20},
+				            {Grupo, "2. FES (incluye FES + Saldo)", Admin, "Crédito → Ingreso a Logística", "CREDITO_ENTREGA", 2, 1, 30},
+				            {Grupo, "2. FES (incluye FES + Saldo)", Operaciones, "Ingreso a Logística → Facturación", "ENTREGA_FACTURACION", 2, 2, 40},
+				            {Grupo, "2. FES (incluye FES + Saldo)", Operaciones, "Facturación → Pedido para despacho", "FES_FACT_PED_POST", 2, 2, 50},
+				            {Grupo, "2. FES (incluye FES + Saldo)", Operaciones, "Pedido para despacho → Entrega posterior", "FES_PED_POST_ENT_POST", 2, 2, 60},
+				            {Grupo, "2. FES (incluye FES + Saldo)", Operaciones, "Entrega posterior → Manifiesto", "FES_ENT_POST_MANIFIESTO", 2, 2, 70},
+				
+				            {Grupo, "3. Saldos puros", Admin, "Creación → Comercial/SAC", "CREACION_COMERCIAL", 3, 1, 10},
+				            {Grupo, "3. Saldos puros", Admin, "Comercial/SAC → Crédito", "COMERCIAL_CREDITO", 3, 1, 20},
+				            {Grupo, "3. Saldos puros", Admin, "Crédito → Ingreso a Logística", "CREDITO_ENTREGA", 3, 1, 30},
+				            {Grupo, "3. Saldos puros", Operaciones, "Ingreso a Logística → Facturación", "ENTREGA_FACTURACION", 3, 2, 40},
+				            {Grupo, "3. Saldos puros", Operaciones, "Facturación → Despacho", "FACTURACION_DESPACHO", 3, 2, 70}
+				        }
+				    )
+				in
+				    Origen
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

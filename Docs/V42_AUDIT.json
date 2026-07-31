@@ -1,0 +1,22 @@
+{
+  "status": "OK",
+  "json_validos": 189,
+  "visuales_resumen": 33,
+  "recursos_registrados": 18,
+  "referencias_recursos": 70,
+  "recursos_faltantes": [],
+  "sort_invalidos": 0,
+  "campos_tabla_criticos": [
+    "Pedido",
+    "Cliente",
+    "Vendedor",
+    "Clasificación",
+    "DH total",
+    "Hito crítico",
+    "Exceso",
+    "Motivo operativo",
+    "Estado",
+    "Cierre"
+  ],
+  "errores": []
+}

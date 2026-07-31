@@ -1,0 +1,3298 @@
+/// Tabla exclusiva para medidas DAX. No contiene información transaccional.
+table Medidas
+	lineageTag: ced1aa5b-7fc8-4bac-a655-0f0abfcaec8a
+
+	/// Cantidad única de pedidos originales en el contexto de filtros seleccionado.
+	measure Pedidos = [U Pedidos universo]
+		formatString: #,0
+		displayFolder: 01. Universo Único\Compatibilidad
+		lineageTag: 0121c9cd-bb46-48d1-bdac-27530abbc73a
+
+	measure 'OP Pedidos Hito' = DISTINCTCOUNT(Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO])
+		formatString: #,0
+		displayFolder: 03. Operación por Hitos\Volumen
+		lineageTag: 42f52cba-27be-4b8f-b20e-47b65a070001
+
+	measure 'OP Pedidos con Dato' = CALCULATE([OP Pedidos Hito], Fact_Hitos_Operacionales[TIENE_DATO] = TRUE())
+		formatString: #,0
+		displayFolder: 03. Operación por Hitos\Calidad
+		lineageTag: 665ac37a-e177-4231-8723-2218398d0003
+
+	measure 'OP Cobertura Hitos %' = DIVIDE([OP Pedidos con Dato], [OP Pedidos Hito])
+		formatString: 0.0%
+		displayFolder: 03. Operación por Hitos\Calidad
+		lineageTag: 6a1c613a-8cac-4471-a80a-70c76e5c0004
+
+	measure 'OP Pedidos Cumple KPI' = CALCULATE([OP Pedidos Hito], Fact_Hitos_Operacionales[CUMPLE_KPI] = TRUE())
+		formatString: #,0
+		displayFolder: 03. Operación por Hitos\Cumplimiento
+		lineageTag: e56151f7-31f3-4bea-9423-a57a40350005
+
+	measure 'OP Pedidos Fuera KPI' = CALCULATE([OP Pedidos Hito], Fact_Hitos_Operacionales[TIENE_DATO] = TRUE(), Fact_Hitos_Operacionales[CUMPLE_KPI] = FALSE())
+		formatString: #,0
+		displayFolder: 03. Operación por Hitos\Cumplimiento
+		lineageTag: a16b52b6-1bca-4e93-8fb6-9ea615230006
+
+	measure 'OP % Cumplimiento Hito' = DIVIDE([OP Pedidos Cumple KPI], [OP Pedidos Cumple KPI] + [OP Pedidos Fuera KPI])
+		formatString: 0.0%
+		displayFolder: 03. Operación por Hitos\Cumplimiento
+		lineageTag: 2a2b0405-14dd-4654-90f2-d8e5b8490007
+
+	/// Promedio de días hábiles del hito. Respeta contexto de Dim_Vista_Ejecutiva.
+	measure 'OP Promedio Hito DH' = CALCULATE(AVERAGE(Fact_Hitos_Operacionales[DIAS_HABILES]), TREATAS(VALUES(Dim_Vista_Ejecutiva[METRICA_CODIGO]), Fact_Hitos_Operacionales[METRICA_CODIGO]))
+		formatString: 0.0
+		displayFolder: 03. Operación por Hitos\Estadística
+		lineageTag: e7767cb8-8363-4ca6-9124-88728f6b0008
+
+	measure 'OP P90 Hito DH' =
+			PERCENTILEX.INC(
+			    FILTER(Fact_Hitos_Operacionales, NOT ISBLANK(Fact_Hitos_Operacionales[DIAS_HABILES])),
+			    Fact_Hitos_Operacionales[DIAS_HABILES],
+			    0.90
+			)
+		formatString: 0.0
+		displayFolder: 03. Operación por Hitos\Estadística
+		lineageTag: 14419748-3d93-47a9-b378-aed6e82a000a
+
+	measure 'OP SLA Hito DH' = SELECTEDVALUE(Config_SLA_Hitos[SLA_DH])
+		formatString: 0
+		displayFolder: 03. Operación por Hitos\Configuración
+		lineageTag: 95b3780c-d2d9-4984-8aa0-87a7e5b9000c
+
+	measure 'OP Días Exceso' = SUM(Fact_Hitos_Operacionales[EXCESO_DH])
+		formatString: #,0
+		displayFolder: 03. Operación por Hitos\Impacto
+		lineageTag: cbf0c984-f1ce-4aa8-915e-68ef8738000d
+
+	measure 'OP Valor Afectado' =
+			SUMX(
+			    CALCULATETABLE(
+			        VALUES(Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO]),
+			        Fact_Hitos_Operacionales[TIENE_DATO] = TRUE(),
+			        Fact_Hitos_Operacionales[CUMPLE_KPI] = FALSE()
+			    ),
+			    CALCULATE(MAX(Fact_Hitos_Operacionales[PED_VALOR_NETO]))
+			)
+		formatString: "CLP $" #,0;-"CLP $" #,0;"CLP $" 0
+		displayFolder: 03. Operación por Hitos\Impacto
+		lineageTag: a8b2d9f3-b002-435d-a84a-37d9064d000e
+
+	measure 'OP Meses Incumplimiento Cliente' = CALCULATE(DISTINCTCOUNT(Fact_Hitos_Operacionales[MES_CREACION]), Fact_Hitos_Operacionales[TIENE_DATO] = TRUE(), Fact_Hitos_Operacionales[CUMPLE_KPI] = FALSE())
+		formatString: #,0
+		displayFolder: 04. Clientes por Hito\Reincidencia
+		lineageTag: 468c138f-a147-4b6c-809a-9ad779a90010
+
+	measure 'OP Clientes Recurrentes' =
+			COUNTROWS(
+			    FILTER(
+			        VALUES(Dim_Cliente[CLIENTE_CODIGO]),
+			        [OP Meses Incumplimiento Cliente] >= 2
+			    )
+			)
+		formatString: #,0
+		displayFolder: 04. Clientes por Hito\Reincidencia
+		lineageTag: 5e482395-4048-4a7f-8099-d30e33f00013
+
+	measure 'OP Score Cuello Hito' =
+			VAR SLA = [OP SLA Hito DH]
+			VAR Severidad = MIN(1, DIVIDE([OP P90 Hito DH], SLA * 3, 0))
+			VAR Incumplimiento = 1 - [OP % Cumplimiento Hito]
+			VAR ExcesoTotal = CALCULATE([OP Días Exceso], REMOVEFILTERS(Config_SLA_Hitos))
+			VAR ParticipacionExceso = DIVIDE([OP Días Exceso], ExcesoTotal, 0)
+			VAR Activo = SELECTEDVALUE(Config_SLA_Hitos[ACTIVO_CUELLO], FALSE())
+			RETURN IF(Activo && [OP Pedidos con Dato] > 0, Severidad * 45 + Incumplimiento * 35 + ParticipacionExceso * 20)
+		formatString: 0.0
+		displayFolder: 05. Cuello Operacional\Score
+		lineageTag: 254684c9-1ce0-44f9-8078-470488aa0014
+
+	measure 'OP Cuello de Botella' =
+			VAR Tabla =
+			    ADDCOLUMNS(
+			        FILTER(ALLSELECTED(Config_SLA_Hitos), Config_SLA_Hitos[ACTIVO_CUELLO] = TRUE()),
+			        "@Score", [OP Score Cuello Hito]
+			    )
+			RETURN MAXX(TOPN(1, Tabla, [@Score], DESC, Config_SLA_Hitos[ORDEN_HITO], ASC), Config_SLA_Hitos[HITO])
+		displayFolder: 05. Cuello Operacional\Diagnóstico
+		lineageTag: 38a22951-f0a7-4a59-a987-93c501040016
+
+	measure 'OP Principal Cliente Fuera KPI' =
+			VAR Tabla =
+			    ADDCOLUMNS(
+			        ALLSELECTED(Dim_Cliente[CLIENTE_ETIQUETA]),
+			        "@Fuera", [OP Pedidos Fuera KPI],
+			        "@Exceso", [OP Días Exceso]
+			    )
+			VAR Candidatos = FILTER(Tabla, [@Fuera] > 0)
+			RETURN MAXX(TOPN(1, Candidatos, [@Fuera], DESC, [@Exceso], DESC, Dim_Cliente[CLIENTE_ETIQUETA], ASC), Dim_Cliente[CLIENTE_ETIQUETA])
+		displayFolder: 04. Clientes por Hito\Diagnóstico
+		lineageTag: 02cb766b-ad22-478a-849f-64e4d73c0017
+
+	measure 'OP Prioridad Hallazgo' =
+			VAR HitoFinal = SELECTEDVALUE(Config_SLA_Hitos[HITO], [OP Cuello de Botella])
+			VAR Cumplimiento = CALCULATE([OP % Cumplimiento Hito], REMOVEFILTERS(Config_SLA_Hitos), TREATAS({HitoFinal}, Config_SLA_Hitos[HITO]))
+			VAR Recurrentes = CALCULATE([OP Clientes Recurrentes], REMOVEFILTERS(Config_SLA_Hitos), TREATAS({HitoFinal}, Config_SLA_Hitos[HITO]))
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        ISBLANK(Cumplimiento), "SIN DATOS",
+			        Cumplimiento < 0.70 || Recurrentes >= 10, "CRÍTICA",
+			        Cumplimiento < 0.85 || Recurrentes >= 5, "ALTA",
+			        Cumplimiento < 0.95 || Recurrentes > 0, "MEDIA",
+			        "CONTROLADA"
+			    )
+		displayFolder: 06. Hallazgos y Acciones\Prioridad
+		lineageTag: 69899b6a-cd66-424f-a84c-ce14a89f001e
+
+	measure 'OP Hallazgo Dinámico' =
+			VAR HitoSeleccionado = SELECTEDVALUE(Config_SLA_Hitos[HITO], [OP Cuello de Botella])
+			VAR Fuera = CALCULATE([OP Pedidos Fuera KPI], REMOVEFILTERS(Config_SLA_Hitos), TREATAS({HitoSeleccionado}, Config_SLA_Hitos[HITO]))
+			VAR Cumplimiento = CALCULATE([OP % Cumplimiento Hito], REMOVEFILTERS(Config_SLA_Hitos), TREATAS({HitoSeleccionado}, Config_SLA_Hitos[HITO]))
+			VAR P90 = CALCULATE([OP P90 Hito DH], REMOVEFILTERS(Config_SLA_Hitos), TREATAS({HitoSeleccionado}, Config_SLA_Hitos[HITO]))
+			VAR SLA = CALCULATE([OP SLA Hito DH], REMOVEFILTERS(Config_SLA_Hitos), TREATAS({HitoSeleccionado}, Config_SLA_Hitos[HITO]))
+			VAR Exceso = CALCULATE([OP Días Exceso], REMOVEFILTERS(Config_SLA_Hitos), TREATAS({HitoSeleccionado}, Config_SLA_Hitos[HITO]))
+			VAR Cliente = CALCULATE([OP Principal Cliente Fuera KPI], REMOVEFILTERS(Config_SLA_Hitos), TREATAS({HitoSeleccionado}, Config_SLA_Hitos[HITO]))
+			RETURN
+			    "Hallazgo: " & HitoSeleccionado
+			    & " presenta " & FORMAT(Fuera, "#,0") & " pedidos fuera de KPI ("
+			    & FORMAT(1 - Cumplimiento, "0.0%") & "). "
+			    & "P90: " & FORMAT(P90, "0.0") & " DH frente a SLA " & FORMAT(SLA, "0") & " DH; "
+			    & "exceso acumulado: " & FORMAT(Exceso, "#,0") & " DH. "
+			    & "Cliente principal: " & COALESCE(Cliente, "sin identificar") & "."
+		displayFolder: 06. Hallazgos y Acciones\Narrativa
+		lineageTag: 12e559eb-8ca8-4c11-a47d-d9cce7f8001f
+
+	measure 'OP Plan de Acción Dinámico' =
+			VAR Codigo = SELECTEDVALUE(Config_SLA_Hitos[METRICA_CODIGO])
+			VAR HitoCuello = [OP Cuello de Botella]
+			VAR CodigoCuello = MAXX(FILTER(ALLSELECTED(Config_SLA_Hitos), Config_SLA_Hitos[HITO] = HitoCuello), Config_SLA_Hitos[METRICA_CODIGO])
+			VAR CodigoFinal = COALESCE(Codigo, CodigoCuello)
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        CodigoFinal = "PDA_CREACION", "Acción: revisar demora de digitación PDA, completitud de antecedentes y pedidos pendientes de creación. Responsable: Comercial.",
+			        CodigoFinal = "CREACION_COMERCIAL", "Acción: revisar cola de liberación comercial y clientes con reprocesos. Responsable: Comercial.",
+			        CodigoFinal = "COMERCIAL_CREDITO", "Acción: priorizar clientes recurrentes, causas de bloqueo y documentación financiera. Responsable: Crédito y Cobranzas.",
+			        CodigoFinal = "CREDITO_ENTREGA", "Acción: revisar pedidos liberados sin generación oportuna de entrega. Responsable: Crédito y Logística.",
+			        CodigoFinal = "ENTREGA_FACTURACION", "Acción: revisar cola interna, picking, packing, capacidad y pedidos reincidentes hasta factura. Responsable: Operaciones.",
+			        CodigoFinal IN {"FACTURACION_DESPACHO", "OPERACIONES_TOTAL"}, "Acción: revisar facturados sin salida, cortes de transporte, consolidación y clientes recurrentes. Responsable: Operaciones y Transporte.",
+			        CodigoFinal = "ADMIN_TOTAL", "Acción: asegurar la liberación completa Comercial/SAC y Crédito dentro de 1 DH. Responsable: Comercial y Crédito y Cobranzas.",
+			        CodigoFinal = "MAYORISTA_CIERRE_TOTAL", "Acción: separar el incumplimiento entre el macroproceso administrativo de 1 DH y Operaciones de 4 DH, y priorizar el bloque dominante.",
+			        LEFT(CodigoFinal, 4) = "FES_", "Acción: revisar vínculo al pedido posterior, entrega posterior y manifiesto oficial; priorizar FES sin salida o con brecha de manifiestos. Responsable: Comercial, Logística y Transporte.",
+			        "Acción: abrir el detalle de pedidos, validar la trazabilidad y asignar responsable según el hito dominante."
+			    )
+		displayFolder: 06. Hallazgos y Acciones\Narrativa
+		lineageTag: 1c088779-c49d-4cbd-a0d9-152638b00020
+
+	measure 'Normal evaluados' =
+			CALCULATE(
+			    DISTINCTCOUNT(Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO]),
+			    REMOVEFILTERS(Config_SLA_Hitos),
+			    Fact_Hitos_Operacionales[METRICA_CODIGO] = "MAYORISTA_CIERRE_TOTAL",
+			    NOT ISBLANK(Fact_Hitos_Operacionales[DIAS_HABILES])
+			)
+		formatString: #,0
+		displayFolder: 01. Universo Único\Compatibilidad
+		lineageTag: 16000000-0000-4000-8000-000000000102
+
+	measure 'Preparación P90 DH' =
+			VAR BaseUniverso =
+			    CALCULATETABLE(
+			        FILTER(Fact_Hitos_Operacionales, NOT ISBLANK(Fact_Hitos_Operacionales[DIAS_HABILES])),
+			        REMOVEFILTERS(Config_SLA_Hitos),
+			        Fact_Hitos_Operacionales[METRICA_CODIGO] = "MAYORISTA_CIERRE_TOTAL"
+			    )
+			RETURN PERCENTILEX.INC(BaseUniverso, Fact_Hitos_Operacionales[DIAS_HABILES], 0.9)
+		formatString: 0.0
+		displayFolder: 01. Universo Único\Servicio
+		lineageTag: 16000000-0000-4000-8000-000000000106
+
+	measure 'Tránsito mínimo DH' =
+			VAR ZonaSeleccionada = SELECTEDVALUE(Fact_Hitos_Operacionales[Zona])
+			RETURN COALESCE(LOOKUPVALUE(Config_Promesa_Entrega[Tránsito mínimo DH], Config_Promesa_Entrega[Zona], ZonaSeleccionada), MIN(Config_Promesa_Entrega[Tránsito mínimo DH]))
+		formatString: 0
+		displayFolder: 07. Promesa Cliente\Configuración
+		lineageTag: 16000000-0000-4000-8000-000000000108
+
+	measure 'Tránsito máximo DH' =
+			VAR ZonaSeleccionada = SELECTEDVALUE(Fact_Hitos_Operacionales[Zona])
+			RETURN COALESCE(LOOKUPVALUE(Config_Promesa_Entrega[Tránsito máximo DH], Config_Promesa_Entrega[Zona], ZonaSeleccionada), MAX(Config_Promesa_Entrega[Tránsito máximo DH]))
+		formatString: 0
+		displayFolder: 07. Promesa Cliente\Configuración
+		lineageTag: 16000000-0000-4000-8000-000000000109
+
+	measure 'Promesa mínima DH' =
+			VAR ZonaSeleccionada = SELECTEDVALUE(Fact_Hitos_Operacionales[Zona])
+			RETURN COALESCE(LOOKUPVALUE(Config_Promesa_Entrega[Promesa mínima DH], Config_Promesa_Entrega[Zona], ZonaSeleccionada), MIN(Config_Promesa_Entrega[Promesa mínima DH]))
+		formatString: 0
+		displayFolder: 07. Promesa Cliente\Configuración
+		lineageTag: 16000000-0000-4000-8000-000000000110
+
+	measure 'Promesa máxima DH' =
+			VAR ZonaSeleccionada = SELECTEDVALUE(Fact_Hitos_Operacionales[Zona])
+			RETURN COALESCE(LOOKUPVALUE(Config_Promesa_Entrega[Promesa máxima DH], Config_Promesa_Entrega[Zona], ZonaSeleccionada), MAX(Config_Promesa_Entrega[Promesa máxima DH]))
+		formatString: 0
+		displayFolder: 07. Promesa Cliente\Configuración
+		lineageTag: 16000000-0000-4000-8000-000000000111
+
+	measure 'Promesa oficial' =
+			VAR ZonaSeleccionada = SELECTEDVALUE(Fact_Hitos_Operacionales[Zona])
+			RETURN
+			    IF(
+			        ISBLANK(ZonaSeleccionada),
+			        "Santiago 5 DH cliente · Regiones 7 DH cliente",
+			        FORMAT([Promesa máxima DH], "0") & " DH estimados"
+			    )
+		displayFolder: 07. Promesa Cliente\Configuración
+		lineageTag: 16000000-0000-4000-8000-000000000112
+
+	measure 'NS preparación %' = [U NS observado interno]
+		formatString: 0.0%
+		displayFolder: 01. Universo Único\Servicio
+		lineageTag: 16000000-0000-4000-8000-000000000113
+
+	measure 'AUD Pedido seleccionado' = SELECTEDVALUE(Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO], "Seleccione un pedido")
+		displayFolder: 08. Auditoría 360\Contexto
+		lineageTag: 17000000-0000-4000-8000-000000000101
+
+	measure 'AUD Cliente seleccionado' =
+			VAR Codigo = SELECTEDVALUE(Fact_Hitos_Operacionales[PED_CODIGO_CLIENTE])
+			RETURN
+			    COALESCE(
+			        LOOKUPVALUE(Dim_Cliente[CLIENTE_ETIQUETA], Dim_Cliente[CLIENTE_CODIGO], Codigo),
+			        Codigo,
+			        "—"
+			    )
+		displayFolder: 08. Auditoría 360\Contexto
+		lineageTag: 17000000-0000-4000-8000-000000000102
+
+	measure 'AUD Vendedor seleccionado' =
+			VAR Codigo = SELECTEDVALUE(Fact_Hitos_Operacionales[PED_CODIGO_CLIENTE])
+			RETURN COALESCE(LOOKUPVALUE(Dim_Cliente[VENDEDOR_NOMBRE], Dim_Cliente[CLIENTE_CODIGO], Codigo), "—")
+		displayFolder: 08. Auditoría 360\Contexto
+		lineageTag: 17000000-0000-4000-8000-000000000103
+
+	measure 'AUD Máximo exceso DH' =
+			CALCULATE(
+			    MAX(Fact_Hitos_Operacionales[EXCESO_DH]),
+			    REMOVEFILTERS(Config_SLA_Hitos),
+			    REMOVEFILTERS(Fact_Hitos_Operacionales[METRICA_CODIGO]),
+			    REMOVEFILTERS(Fact_Hitos_Operacionales[HITO]),
+			    REMOVEFILTERS(Fact_Hitos_Operacionales[AREA_RESPONSABLE]),
+			    Fact_Hitos_Operacionales[ACTIVO_CUELLO] = TRUE()
+			)
+		formatString: 0
+		displayFolder: 08. Auditoría 360\Diagnóstico
+		lineageTag: 17000000-0000-4000-8000-000000000106
+
+	measure 'AUD Hitos fuera KPI' =
+			CALCULATE(
+			    DISTINCTCOUNT(Fact_Hitos_Operacionales[METRICA_CODIGO]),
+			    REMOVEFILTERS(Config_SLA_Hitos),
+			    REMOVEFILTERS(Fact_Hitos_Operacionales[METRICA_CODIGO]),
+			    REMOVEFILTERS(Fact_Hitos_Operacionales[HITO]),
+			    Fact_Hitos_Operacionales[ACTIVO_CUELLO] = TRUE(),
+			    Fact_Hitos_Operacionales[CUMPLE_KPI] = FALSE()
+			)
+		formatString: 0
+		displayFolder: 08. Auditoría 360\Diagnóstico
+		lineageTag: 17000000-0000-4000-8000-000000000107
+
+	/// Selecciona el subproceso con mayor exceso; en empate prioriza la mayor duración y luego el orden operacional.
+	measure 'AUD Hito crítico' =
+			VAR Base =
+			    CALCULATETABLE(
+			        ADDCOLUMNS(
+			            SUMMARIZE(
+			                Fact_Hitos_Operacionales,
+			                Fact_Hitos_Operacionales[METRICA_CODIGO],
+			                Fact_Hitos_Operacionales[HITO],
+			                Fact_Hitos_Operacionales[AREA_RESPONSABLE],
+			                Fact_Hitos_Operacionales[ORDEN_HITO]
+			            ),
+			            "Exceso", CALCULATE(MAX(Fact_Hitos_Operacionales[EXCESO_DH])),
+			            "Dias", CALCULATE(MAX(Fact_Hitos_Operacionales[DIAS_HABILES]))
+			        ),
+			        REMOVEFILTERS(Config_SLA_Hitos),
+			        REMOVEFILTERS(Fact_Hitos_Operacionales[METRICA_CODIGO]),
+			        REMOVEFILTERS(Fact_Hitos_Operacionales[HITO]),
+			        REMOVEFILTERS(Fact_Hitos_Operacionales[AREA_RESPONSABLE]),
+			        Fact_Hitos_Operacionales[ACTIVO_CUELLO] = TRUE()
+			    )
+			VAR Fila = TOPN(1, FILTER(Base, NOT ISBLANK([Dias])), [Exceso], DESC, [Dias], DESC, Fact_Hitos_Operacionales[ORDEN_HITO], ASC)
+			RETURN COALESCE(MAXX(Fila, Fact_Hitos_Operacionales[HITO]), "Sin hito evaluable")
+		displayFolder: 08. Auditoría 360\Diagnóstico
+		lineageTag: 17000000-0000-4000-8000-000000000108
+
+	measure 'AUD Semáforo general' =
+			VAR Exceso = [AUD Máximo exceso DH]
+			VAR SecuenciasInvalidas =
+			    CALCULATE(
+			        COUNTROWS(Fact_Hitos_Operacionales),
+			        REMOVEFILTERS(Config_SLA_Hitos),
+			        REMOVEFILTERS(Fact_Hitos_Operacionales[METRICA_CODIGO]),
+			        REMOVEFILTERS(Fact_Hitos_Operacionales[HITO]),
+			        Fact_Hitos_Operacionales[ACTIVO_CUELLO] = TRUE(),
+			        Fact_Hitos_Operacionales[ESTADO_TRAZABILIDAD] = "SECUENCIA INVÁLIDA"
+			    )
+			VAR AlertasTrazabilidad =
+			    CALCULATE(
+			        COUNTROWS(Fact_Hitos_Operacionales),
+			        REMOVEFILTERS(Config_SLA_Hitos),
+			        REMOVEFILTERS(Fact_Hitos_Operacionales[METRICA_CODIGO]),
+			        REMOVEFILTERS(Fact_Hitos_Operacionales[HITO]),
+			        Fact_Hitos_Operacionales[ACTIVO_CUELLO] = TRUE(),
+			        FILTER(
+			            Fact_Hitos_Operacionales,
+			            Fact_Hitos_Operacionales[HITO_OMITIDO] = TRUE()
+			                || Fact_Hitos_Operacionales[ESTADO_TRAZABILIDAD] IN {"INCOMPLETA", "SOLAPAMIENTO / REPROCESO"}
+			        )
+			    )
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        SELECTEDVALUE(Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO]) = BLANK(), "⚪ Seleccione un pedido",
+			        SecuenciasInvalidas > 0, "🔴 Secuencia inválida",
+			        Exceso > 0, "🔴 Fuera de SLA",
+			        AlertasTrazabilidad > 0, "🟡 Revisar trazabilidad",
+			        "🟢 En SLA"
+			    )
+		displayFolder: 08. Auditoría 360\Semáforo
+		lineageTag: 17000000-0000-4000-8000-000000000110
+
+	measure 'AUD Semáforo hito' =
+			VAR PedidoUnico = HASONEVALUE(Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO])
+			VAR Exceso = MAX(Fact_Hitos_Operacionales[EXCESO_DH])
+			VAR Dias = MAX(Fact_Hitos_Operacionales[DIAS_HABILES])
+			VAR SLA = MAX(Fact_Hitos_Operacionales[SLA_DH])
+			VAR Traza = SELECTEDVALUE(Fact_Hitos_Operacionales[ESTADO_TRAZABILIDAD])
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        NOT PedidoUnico, "⚪ Seleccione pedido",
+			        Traza = "SECUENCIA INVÁLIDA", "🔴 Secuencia inválida",
+			        Traza IN {"INCOMPLETA", "SOLAPAMIENTO / REPROCESO"}, "🟡 Revisar trazabilidad",
+			        ISBLANK(Dias), "⚪ Sin dato",
+			        ISBLANK(SLA), "⚪ Diagnóstico",
+			        Exceso > 0, "🔴 Fuera KPI",
+			        "🟢 Cumple"
+			    )
+		displayFolder: 08. Auditoría 360\Semáforo
+		lineageTag: 17000000-0000-4000-8000-000000000111
+
+	measure 'AUD Días reales' = MAX(Fact_Hitos_Operacionales[DIAS_HABILES])
+		formatString: 0
+		displayFolder: 08. Auditoría 360\Detalle del hito
+		lineageTag: 17000000-0000-4000-8000-000000000112
+
+	measure 'AUD SLA objetivo' = MAX(Fact_Hitos_Operacionales[SLA_DH])
+		formatString: 0
+		displayFolder: 08. Auditoría 360\Detalle del hito
+		lineageTag: 17000000-0000-4000-8000-000000000113
+
+	measure 'AUD Exceso sobre SLA' = MAX(Fact_Hitos_Operacionales[EXCESO_DH])
+		formatString: 0
+		displayFolder: 08. Auditoría 360\Detalle del hito
+		lineageTag: 17000000-0000-4000-8000-000000000114
+
+	measure 'AUD Pedidos fuera KPI' =
+			CALCULATE(
+			    DISTINCTCOUNT(Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO]),
+			    Fact_Hitos_Operacionales[TIENE_DATO] = TRUE(),
+			    Fact_Hitos_Operacionales[CUMPLE_KPI] = FALSE()
+			)
+		formatString: 0
+		displayFolder: 08. Auditoría 360\Detalle del hito
+		lineageTag: 17000000-0000-4000-8000-000000000115
+
+	measure 'AUD Valor métrica seleccionada' =
+			IF(
+			    SELECTEDVALUE(Fact_Hitos_Operacionales[ACTIVO_CUELLO]) <> TRUE(),
+			    BLANK(),
+			    SWITCH(
+			        SELECTEDVALUE(Dim_Metrica_Auditoria[Medida], "Días reales"),
+			        "SLA objetivo", [AUD SLA objetivo],
+			        "Exceso sobre SLA", [AUD Exceso sobre SLA],
+			        "Pedidos fuera KPI", [AUD Pedidos fuera KPI],
+			        [AUD Días reales]
+			    )
+			)
+		formatString: 0
+		displayFolder: 08. Auditoría 360\Selector
+		lineageTag: 17000000-0000-4000-8000-000000000116
+
+	measure 'AUD Fecha inicio' = FORMAT(MIN(Fact_Hitos_Operacionales[FECHA_INICIO]), "dd-MM-yyyy HH:mm")
+		displayFolder: 08. Auditoría 360\Detalle del hito
+		lineageTag: 17000000-0000-4000-8000-000000000118
+
+	measure 'AUD Fecha fin' = FORMAT(MAX(Fact_Hitos_Operacionales[FECHA_FIN]), "dd-MM-yyyy HH:mm")
+		displayFolder: 08. Auditoría 360\Detalle del hito
+		lineageTag: 17000000-0000-4000-8000-000000000119
+
+	measure 'AUD Regla aplicada' = SELECTEDVALUE(Fact_Hitos_Operacionales[REGLA_FECHA_FIN], "—")
+		displayFolder: 08. Auditoría 360\Detalle del hito
+		lineageTag: 17000000-0000-4000-8000-000000000120
+
+	measure 'AUD Promesa del pedido' =
+			VAR Zona = SELECTEDVALUE(Fact_Hitos_Operacionales[Zona], "—")
+			VAR Minimo = MAX(Fact_Hitos_Operacionales[PROMESA_MIN_DH])
+			VAR Maximo = MAX(Fact_Hitos_Operacionales[PROMESA_MAX_DH])
+			VAR Preparacion = MAX(Fact_Hitos_Operacionales[PREPARACION_SLA_DH])
+			RETURN
+			    Zona & " · Promesa oficial " & FORMAT(Minimo, "0") & "–" & FORMAT(Maximo, "0") & " DH"
+			    & " · Preparación observada " & COALESCE(FORMAT(Preparacion, "0"), "—") & " DH"
+		displayFolder: 08. Auditoría 360\Narrativa
+		lineageTag: 17000000-0000-4000-8000-000000000122
+
+	/// Etiqueta seleccionada en la vista ejecutiva compacta y expandida.
+	measure 'UI Indicador seleccionado' = SELECTEDVALUE(Dim_Indicador_Ejecutivo[Indicador], "Pedidos")
+		displayFolder: 09. Experiencia Ejecutiva\Selector
+		lineageTag: 18000000-0000-4000-8000-000000000101
+
+	measure 'UI Valor contexto CLP' = SUM(Fact_Tracking[PED_VALOR_NETO])
+		formatString: "CLP $" #,0;-"CLP $" #,0;"CLP $" 0
+		displayFolder: 09. Experiencia Ejecutiva\Indicadores
+		lineageTag: 18000000-0000-4000-8000-000000000102
+
+	measure 'UI Indicador formateado' =
+			SWITCH(
+			    [UI Indicador seleccionado],
+			    "Valor CLP", IF(ISBLANK([UI Valor contexto CLP]), BLANK(), "CLP $ " & FORMAT([UI Valor contexto CLP], "#,##0", "es-CL")),
+			    "Nivel de servicio", FORMAT([NS preparación %], "0.0%"),
+			    "P90 preparación", FORMAT([Preparación P90 DH], "0.0") & " DH",
+			    FORMAT([Normal evaluados], "#,0") & " pedidos"
+			)
+		displayFolder: 09. Experiencia Ejecutiva\Indicadores
+		lineageTag: 18000000-0000-4000-8000-000000000104
+
+	measure 'UI Zona actual' = SELECTEDVALUE(Fact_Hitos_Operacionales[Zona], "Total Mayorista")
+		displayFolder: 09. Experiencia Ejecutiva\Tooltip
+		lineageTag: 18000000-0000-4000-8000-000000000109
+
+	measure 'UI Tooltip ejecutivo' =
+			[UI Zona actual] & " · " & [UI Indicador seleccionado] & ": " & [UI Indicador formateado]
+			& " · Promesa " & [Promesa oficial]
+		displayFolder: 09. Experiencia Ejecutiva\Tooltip
+		lineageTag: 18000000-0000-4000-8000-000000000111
+
+	/// Tarjeta SVG dinámica del indicador ejecutivo. No requiere un visual HTML personalizado.
+	measure 'UI Indicador ejecutivo SVG' =
+			VAR Indicador = [UI Indicador seleccionado]
+			VAR Valor = [UI Indicador formateado]
+			VAR Etiqueta =
+			    SWITCH(
+			        Indicador,
+			        "Valor CLP", "VALOR%20CLP",
+			        "Nivel de servicio", "NIVEL%20DE%20SERVICIO",
+			        "P90 preparación", "P90%20PREPARACION",
+			        "PEDIDOS"
+			    )
+			VAR Acento = SWITCH(Indicador, "Valor CLP", "%232E8B57", "Nivel de servicio", "%231F9D8A", "P90 preparación", "%23E58B3A", "%231F5A7A")
+			VAR ValorUrl = SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(Valor, " ", "%20"), "%", "%25"), "$", "%24")
+			RETURN
+			    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='110' viewBox='0 0 420 110'%3E"
+			    & "%3Crect width='420' height='110' rx='16' fill='%230B3558'/%3E"
+			    & "%3Crect x='0' y='0' width='12' height='110' rx='6' fill='" & Acento & "'/%3E"
+			    & "%3Ccircle cx='58' cy='55' r='28' fill='" & Acento & "' opacity='.18'/%3E"
+			    & "%3Ccircle cx='58' cy='55' r='17' fill='" & Acento & "'/%3E"
+			    & "%3Ctext x='98' y='38' font-family='Segoe%20UI' font-size='13' font-weight='600' fill='%23BFD3E3'%3E" & Etiqueta & "%3C/text%3E"
+			    & "%3Ctext x='98' y='76' font-family='Segoe%20UI' font-size='27' font-weight='700' fill='%23FFFFFF'%3E" & ValorUrl & "%3C/text%3E"
+			    & "%3C/svg%3E"
+		displayFolder: 09. Experiencia Ejecutiva\SVG
+		lineageTag: 18000000-0000-4000-8000-000000000112
+		dataCategory: ImageUrl
+
+	/// Semáforo visual por hito. Un hito omitido que hereda la fecha previa mide 0 DH y se evalúa con su SLA.
+	measure 'AUD Semáforo SVG' =
+			VAR Estado = [AUD Semáforo hito]
+			VAR Color =
+			    SWITCH(
+			        TRUE(),
+			        CONTAINSSTRING(Estado, "🔴"), "%23D3392C",
+			        CONTAINSSTRING(Estado, "🟡"), "%23FFC827",
+			        CONTAINSSTRING(Estado, "🟢"), "%232E8B57",
+			        "%2384807D"
+			    )
+			VAR Etiqueta =
+			    SWITCH(
+			        TRUE(),
+			        CONTAINSSTRING(Estado, "Secuencia"), "SECUENCIA",
+			        CONTAINSSTRING(Estado, "Fuera KPI"), "FUERA%20KPI",
+			        CONTAINSSTRING(Estado, "Revisar"), "REVISAR",
+			        CONTAINSSTRING(Estado, "Cumple"), "CUMPLE",
+			        CONTAINSSTRING(Estado, "Diagnóstico"), "DIAGNOSTICO",
+			        CONTAINSSTRING(Estado, "Seleccione"), "SELECCIONE",
+			        "SIN%20DATO"
+			    )
+			RETURN
+			    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='36' viewBox='0 0 160 36'%3E"
+			    & "%3Crect x='1' y='1' width='158' height='34' rx='17' fill='" & Color & "' opacity='.13'/%3E"
+			    & "%3Ccircle cx='18' cy='18' r='7' fill='" & Color & "'/%3E"
+			    & "%3Ccircle cx='18' cy='18' r='2.5' fill='%23FFFFFF'/%3E"
+			    & "%3Ctext x='32' y='22' font-family='Segoe%20UI' font-size='10.5' font-weight='700' fill='" & Color & "'%3E" & Etiqueta & "%3C/text%3E"
+			    & "%3C/svg%3E"
+		displayFolder: 08. Auditoría 360\Semáforo
+		lineageTag: 18000000-0000-4000-8000-000000000113
+		dataCategory: ImageUrl
+
+	measure 'AUD Semáforo general SVG' =
+			VAR Estado = [AUD Semáforo general]
+			VAR Color = SWITCH(TRUE(), CONTAINSSTRING(Estado, "🔴"), "%23D3392C", CONTAINSSTRING(Estado, "🟡"), "%23FFC827", CONTAINSSTRING(Estado, "🟢"), "%232E8B57", "%2384807D")
+			VAR Etiqueta = SWITCH(TRUE(), CONTAINSSTRING(Estado, "Secuencia"), "SECUENCIA%20INVALIDA", CONTAINSSTRING(Estado, "Fuera"), "FUERA%20DE%20SLA", CONTAINSSTRING(Estado, "🟡"), "REVISAR%20TRAZABILIDAD", CONTAINSSTRING(Estado, "🟢"), "EN%20SLA", "SELECCIONE%20PEDIDO")
+			RETURN
+			    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='72' viewBox='0 0 300 72'%3E"
+			    & "%3Crect width='300' height='72' rx='14' fill='" & Color & "' opacity='.12'/%3E"
+			    & "%3Ccircle cx='38' cy='36' r='17' fill='" & Color & "'/%3E"
+			    & "%3Ccircle cx='38' cy='36' r='7' fill='%23FFFFFF'/%3E"
+			    & "%3Ctext x='70' y='42' font-family='Segoe%20UI' font-size='15' font-weight='700' fill='" & Color & "'%3E" & Etiqueta & "%3C/text%3E"
+			    & "%3C/svg%3E"
+		displayFolder: 08. Auditoría 360\Semáforo
+		lineageTag: 18000000-0000-4000-8000-000000000114
+		dataCategory: ImageUrl
+
+	/// Contexto del nuevo lienzo de ruta dinámica. La selección puede venir del pedido o de un hito pinchado en el gráfico.
+	measure 'TR Contexto ruta' =
+			VAR Pedido = SELECTEDVALUE(Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO])
+			VAR Hito = SELECTEDVALUE(Fact_Hitos_Operacionales[HITO])
+			VAR Area = SELECTEDVALUE(Fact_Hitos_Operacionales[AREA_RESPONSABLE])
+			VAR Zona = SELECTEDVALUE(Fact_Hitos_Operacionales[Zona])
+			VAR Segmento = SELECTEDVALUE(Fact_Hitos_Operacionales[SEGMENTO_EXCLUSIVO])
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        NOT ISBLANK(Hito), "Pedido " & COALESCE(Pedido, "—") & " · " & Hito & " · " & COALESCE(Area, "Sin responsable") & " · " & COALESCE(FORMAT([TR Días ruta DH], "0.0"), "—") & " DH / SLA " & COALESCE(FORMAT([TR SLA ruta DH], "0"), "—") & " DH",
+			        NOT ISBLANK(Pedido), "Pedido " & Pedido & " · " & COALESCE(Zona, "Zona sin clasificar") & " · " & COALESCE(Segmento, "Sin segmento") & " · " & [TR Proyección entrega],
+			        "Vista agregada · universo Mayorista completo · seleccione un pedido o un hito"
+			    )
+		displayFolder: 10. Ruta Dinámica\Contexto
+		lineageTag: 19000000-0000-4000-8000-000000000103
+
+	measure 'TR Días ruta DH' =
+			VAR HitoSeleccionado = ISFILTERED(Fact_Hitos_Operacionales[HITO]) && HASONEVALUE(Fact_Hitos_Operacionales[HITO])
+			VAR Pedido = SELECTEDVALUE(Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO])
+			VAR DiasPedido =
+			    CALCULATE(
+			        MAX(Fact_Hitos_Operacionales[DIAS_TRANSCURRIDOS]),
+			        REMOVEFILTERS(Config_SLA_Hitos),
+			        REMOVEFILTERS(Fact_Hitos_Operacionales[HITO]),
+			        REMOVEFILTERS(Fact_Hitos_Operacionales[METRICA_CODIGO]),
+			        Fact_Hitos_Operacionales[METRICA_CODIGO] = "MAYORISTA_CIERRE_TOTAL"
+			    )
+			RETURN SWITCH(TRUE(), HitoSeleccionado, MAX(Fact_Hitos_Operacionales[DIAS_TRANSCURRIDOS]), NOT ISBLANK(Pedido), DiasPedido, [U Promedio interno DH])
+		formatString: 0.0
+		displayFolder: 10. Ruta Dinámica\Métricas
+		lineageTag: 19000000-0000-4000-8000-000000000104
+
+	measure 'TR SLA ruta DH' =
+			VAR HitoSeleccionado = ISFILTERED(Fact_Hitos_Operacionales[HITO]) && HASONEVALUE(Fact_Hitos_Operacionales[HITO])
+			VAR PedidosRuta = VALUES(Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO])
+			VAR SLAIntegral = CALCULATE(MAX(Fact_Tracking[SLA_INTERNO_DH]), TREATAS(PedidosRuta, Fact_Tracking[PED_NUMERO_PEDIDO]))
+			RETURN IF(HitoSeleccionado, MAX(Fact_Hitos_Operacionales[SLA_DH]), COALESCE(SLAIntegral, 5))
+		formatString: 0
+		displayFolder: 10. Ruta Dinámica\Métricas
+		lineageTag: 19000000-0000-4000-8000-000000000105
+
+	measure 'TR NS ruta %' =
+			VAR HitoSeleccionado = ISFILTERED(Fact_Hitos_Operacionales[HITO]) && HASONEVALUE(Fact_Hitos_Operacionales[HITO])
+			VAR Pedido = SELECTEDVALUE(Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO])
+			RETURN SWITCH(TRUE(), HitoSeleccionado, [U NS hito actual], NOT ISBLANK(Pedido), IF([TR Días ruta DH] <= [TR SLA ruta DH], 1, 0), [U NS observado interno])
+		formatString: 0.0%
+		displayFolder: 10. Ruta Dinámica\Métricas
+		lineageTag: 19000000-0000-4000-8000-000000000106
+
+	measure 'TR Proyección entrega' =
+			VAR Dias = [TR Días ruta DH]
+			VAR Minimo = Dias + [Tránsito mínimo DH]
+			VAR Maximo = Dias + [Tránsito máximo DH]
+			RETURN
+			    IF(
+			        ISBLANK(Dias),
+			        "Sin proyección",
+			        "Llegada estimada D+" & FORMAT(Minimo, "0.0") & " a D+" & FORMAT(Maximo, "0.0") & " DH"
+			    )
+		displayFolder: 10. Ruta Dinámica\Métricas
+		lineageTag: 19000000-0000-4000-8000-000000000108
+
+	measure 'TR Ruta camión SVG' =
+			VAR Dias = COALESCE([TR Días ruta DH], 0)
+			VAR SLA = COALESCE([TR SLA ruta DH], 0)
+			VAR HitoSeleccionado = ISFILTERED(Fact_Hitos_Operacionales[HITO]) && HASONEVALUE(Fact_Hitos_Operacionales[HITO])
+			VAR Segmento = SELECTEDVALUE(Fact_Hitos_Operacionales[SEGMENTO_EXCLUSIVO])
+			VAR Pedido = SELECTEDVALUE(Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO])
+			VAR FueraUniverso = FALSE()
+			VAR TransitoMin = COALESCE([Tránsito mínimo DH], 0)
+			VAR TransitoMax = COALESCE([Tránsito máximo DH], 0)
+			VAR PromesaMin = COALESCE([Promesa mínima DH], 0)
+			VAR PromesaMax = COALESCE([Promesa máxima DH], 0)
+			VAR ProyeccionMin = Dias + TransitoMin
+			VAR ProyeccionMax = Dias + TransitoMax
+			VAR EscalaBase = MAX(MAX(Dias, SLA), IF(HitoSeleccionado, 0, MAX(PromesaMax, ProyeccionMax)))
+			VAR Escala = MAX(7, ROUNDUP(EscalaBase, 0))
+			VAR Origen = 120
+			VAR AnchoRuta = 1100
+			VAR Posicion = Origen + DIVIDE(MIN(Dias, Escala), Escala, 0) * AnchoRuta
+			VAR PosicionSLA = Origen + DIVIDE(MIN(SLA, Escala), Escala, 0) * AnchoRuta
+			VAR PosicionAdmin = Origen + DIVIDE(MIN(1, Escala), Escala, 0) * AnchoRuta
+			VAR PosicionPromesaMin = Origen + DIVIDE(MIN(PromesaMin, Escala), Escala, 0) * AnchoRuta
+			VAR PosicionPromesaMax = Origen + DIVIDE(MIN(PromesaMax, Escala), Escala, 0) * AnchoRuta
+			VAR PosicionProyeccionMax = Origen + DIVIDE(MIN(ProyeccionMax, Escala), Escala, 0) * AnchoRuta
+			VAR Progreso = MAX(0, Posicion - Origen)
+			VAR ColorEstado = IF(FueraUniverso, "%2384807D", IF(Dias <= SLA, "%232E8B57", "%23D3392C"))
+			VAR DiasTxt = FORMAT(Dias, "0.0")
+			VAR SLATxt = FORMAT(SLA, "0")
+			VAR PromesaTxt = FORMAT(PromesaMin, "0") & "%E2%80%93" & FORMAT(PromesaMax, "0")
+			VAR ProyeccionTxt = FORMAT(ProyeccionMin, "0.0") & "%E2%80%93" & FORMAT(ProyeccionMax, "0.0")
+			VAR Titulo = IF(HitoSeleccionado, "TRAMO%20SELECCIONADO", "PEDIDO%20A%20CLIENTE")
+			VAR Subtitulo = IF(HitoSeleccionado, "Tiempo%20del%20hito%20frente%20a%20su%20SLA", "Preparacion%20observada%20hasta%20salida%20%2B%20transito%20estimado")
+			VAR LecturaDerecha =
+			    IF(
+			        FueraUniverso,
+			        "DIAGNOSTICO%20" & DiasTxt & "%20DH%20%C2%B7%20FUERA%20DEL%20NS%20OFICIAL",
+			        IF(HitoSeleccionado, "REAL%20" & DiasTxt & "%20DH", "SALIDA%20" & DiasTxt & "%20DH%20%C2%B7%20LLEGADA%20D%2B" & ProyeccionTxt)
+			    )
+			VAR CapaNegocio =
+			    IF(
+			        HitoSeleccionado,
+			        "",
+			        "%3Cline x1='" & FORMAT(PosicionAdmin, "0") & "' y1='101' x2='" & FORMAT(PosicionAdmin, "0") & "' y2='139' stroke='%2304A2C3' stroke-width='2' stroke-dasharray='3 3'/%3E"
+			        & "%3Ctext x='" & FORMAT(PosicionAdmin, "0") & "' y='96' text-anchor='middle' font-family='Segoe%20UI' font-size='9.5' font-weight='700' fill='%23047C97'%3EADMIN%20D%2B1%3C/text%3E"
+			        & "%3Cline x1='" & FORMAT(Posicion, "0") & "' y1='120' x2='" & FORMAT(PosicionProyeccionMax, "0") & "' y2='120' stroke='%232A5C94' stroke-width='5' stroke-dasharray='9 7'/%3E"
+			        & "%3Crect x='" & FORMAT(PosicionPromesaMin, "0") & "' y='148' width='" & FORMAT(MAX(4, PosicionPromesaMax - PosicionPromesaMin), "0") & "' height='10' rx='5' fill='%23A64383' opacity='.20'/%3E"
+			        & "%3Ctext x='" & FORMAT((PosicionPromesaMin + PosicionPromesaMax) / 2, "0") & "' y='176' text-anchor='middle' font-family='Segoe%20UI' font-size='10' font-weight='700' fill='%237F3278'%3EPROMESA%20OFICIAL%20D%2B" & PromesaTxt & "%20DH%3C/text%3E"
+			    )
+			RETURN
+			    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1340' height='210' viewBox='0 0 1340 210'%3E"
+			    & "%3Crect width='1340' height='210' rx='18' fill='%23FCFBF7'/%3E"
+			    & "%3Cpath d='M18%200H268V5H18Q0%205%200%2023V18Q0%200%2018%200Z' fill='%2304A2C3'/%3E"
+			    & "%3Crect x='268' y='0' width='268' height='5' fill='%232A5C94'/%3E"
+			    & "%3Crect x='536' y='0' width='268' height='5' fill='%23A64383'/%3E"
+			    & "%3Crect x='804' y='0' width='268' height='5' fill='%23FFC827'/%3E"
+			    & "%3Cpath d='M1072%200H1322Q1340%200%201340%2018V23Q1340%205%201322%205H1072Z' fill='%23D3392C'/%3E"
+			    & "%3Ctext x='36' y='30' font-family='Segoe%20UI' font-size='14' font-weight='700' fill='%23666783'%3E" & Titulo & "%3C/text%3E"
+			    & "%3Ctext x='36' y='50' font-family='Segoe%20UI' font-size='10.5' fill='%2384807D'%3E" & Subtitulo & "%3C/text%3E"
+			    & "%3Ctext x='1300' y='32' text-anchor='end' font-family='Segoe%20UI' font-size='11.5' font-weight='700' fill='" & ColorEstado & "'%3E" & LecturaDerecha & "%3C/text%3E"
+			    & "%3Crect x='120' y='112' width='1100' height='16' rx='8' fill='%23E3DFDA'/%3E"
+			    & CapaNegocio
+			    & "%3Crect x='120' y='112' width='" & FORMAT(Progreso, "0") & "' height='16' rx='8' fill='" & ColorEstado & "'%3E%3Canimate attributeName='width' from='0' to='" & FORMAT(Progreso, "0") & "' dur='0.9s' fill='freeze'/%3E%3C/rect%3E"
+			    & "%3Cline x1='" & FORMAT(PosicionSLA, "0") & "' y1='68' x2='" & FORMAT(PosicionSLA, "0") & "' y2='143' stroke='%23FFC827' stroke-width='3' stroke-dasharray='6 5'/%3E"
+			    & "%3Crect x='" & FORMAT(PosicionSLA - 54, "0") & "' y='56' width='108' height='22' rx='11' fill='%23FFF3C2'/%3E"
+			    & "%3Ctext x='" & FORMAT(PosicionSLA, "0") & "' y='71' text-anchor='middle' font-family='Segoe%20UI' font-size='10' font-weight='700' fill='%23B52D27'%3E" & IF(HitoSeleccionado, "SLA%20HITO%20", "SALIDA%20META%20") & SLATxt & "%20DH%3C/text%3E"
+			    & "%3Cg transform='translate(" & FORMAT(Posicion, "0") & "%200)'%3E%3CanimateTransform attributeName='transform' type='translate' from='120%200' to='" & FORMAT(Posicion, "0") & "%200' dur='0.9s' fill='freeze'/%3E"
+			    & "%3Crect x='-110' y='77' width='70' height='36' rx='2' fill='%23D3392C'/%3E"
+			    & "%3Crect x='-40' y='77' width='40' height='36' rx='1' fill='%2384807D' stroke='%23666783' stroke-width='1.5'/%3E"
+			    & "%3Crect x='-31' y='83' width='22' height='14' rx='1' fill='%2304A2C3'/%3E"
+			    & "%3Crect x='-6' y='103' width='6' height='7' fill='%23FFC827'/%3E"
+			    & "%3Crect x='-110' y='108' width='22' height='5' fill='%2304A2C3'/%3E"
+			    & "%3Crect x='-88' y='108' width='22' height='5' fill='%232A5C94'/%3E"
+			    & "%3Crect x='-66' y='108' width='22' height='5' fill='%23A64383'/%3E"
+			    & "%3Crect x='-44' y='108' width='22' height='5' fill='%23FFC827'/%3E"
+			    & "%3Crect x='-22' y='108' width='22' height='5' fill='%23D3392C'/%3E"
+			    & "%3Cellipse cx='-75' cy='94' rx='27' ry='11' fill='%23FFFCF4' stroke='%23FFFFFF' stroke-width='1.5'/%3E"
+			    & "%3Cellipse cx='-75' cy='94' rx='24' ry='8.5' fill='%23FFFCF4' stroke='%23D3392C' stroke-width='1.2'/%3E"
+			    & "%3Ctext x='-75' y='96' text-anchor='middle' font-family='Arial' font-size='8.5' font-weight='700' fill='%23D3392C'%3EARTEL%3C/text%3E"
+			    & "%3Ctext x='-75' y='102' text-anchor='middle' font-family='Arial' font-size='3.2' font-weight='700' letter-spacing='.7' fill='%23D3392C'%3EDESDE%201938%3C/text%3E"
+			    & "%3Ccircle cx='-88' cy='116' r='9' fill='%232A5C94'/%3E%3Ccircle cx='-19' cy='116' r='9' fill='%232A5C94'/%3E"
+			    & "%3Ccircle cx='-88' cy='116' r='3.5' fill='%23FFFFFF'/%3E%3Ccircle cx='-19' cy='116' r='3.5' fill='%23FFFFFF'/%3E%3C/g%3E"
+			    & "%3Ctext x='120' y='198' font-family='Segoe%20UI' font-size='10' fill='%2384807D'%3E" & IF(HitoSeleccionado, "INICIO%20DEL%20TRAMO", "INGRESO%20EFECTIVO%20AL%20SLA") & "%3C/text%3E"
+			    & "%3Ctext x='1220' y='198' text-anchor='end' font-family='Segoe%20UI' font-size='10' fill='%2384807D'%3ED%2B" & FORMAT(Escala, "0") & "%20DIAS%20HABILES%3C/text%3E"
+			    & "%3C/svg%3E"
+		displayFolder: 10. Ruta Dinámica\SVG
+		lineageTag: 19000000-0000-4000-8000-000000000110
+		dataCategory: ImageUrl
+
+	measure 'TR NS ruta SVG' =
+			VAR NS = [TR NS ruta %]
+			VAR Porcentaje = MAX(0, MIN(1, COALESCE(NS, 0)))
+			VAR Ancho = Porcentaje * 430
+			VAR Pedido = SELECTEDVALUE(Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO])
+			VAR Segmento = SELECTEDVALUE(Fact_Hitos_Operacionales[SEGMENTO_EXCLUSIVO])
+			VAR FueraUniverso = FALSE()
+			VAR Dias = [TR Días ruta DH]
+			VAR SLA = [TR SLA ruta DH]
+			VAR ColorEstado = IF(FueraUniverso || ISBLANK(NS), "%2384807D", IF(NOT ISBLANK(Pedido) && Dias > SLA, "%23D3392C", "%232E8B57"))
+			VAR Etiqueta = SWITCH(TRUE(), FueraUniverso, "FUERA%20UNIVERSO", ISBLANK(NS), "SIN%20NS%20OFICIAL", NOT ISBLANK(Pedido) && Dias <= SLA, "CUMPLE%20SLA", NOT ISBLANK(Pedido), "FUERA%20SLA", "NS%20FLUJO%20NORMAL")
+			VAR Valor = IF(ISBLANK(NS), "--", FORMAT(NS, "0.0%"))
+			VAR ValorUrl = SUBSTITUTE(Valor, "%", "%25")
+			RETURN
+			    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='105' viewBox='0 0 520 105'%3E"
+			    & "%3Crect width='520' height='105' rx='16' fill='%23666783'/%3E"
+			    & "%3Crect x='18' y='0' width='97' height='4' fill='%2304A2C3'/%3E"
+			    & "%3Crect x='115' y='0' width='97' height='4' fill='%232A5C94'/%3E"
+			    & "%3Crect x='212' y='0' width='96' height='4' fill='%23A64383'/%3E"
+			    & "%3Crect x='308' y='0' width='97' height='4' fill='%23FFC827'/%3E"
+			    & "%3Crect x='405' y='0' width='97' height='4' fill='%23D3392C'/%3E"
+			    & "%3Ctext x='24' y='31' font-family='Segoe%20UI' font-size='12' font-weight='700' fill='%23FFFCF4'%3ENIVEL%20DE%20SERVICIO%3C/text%3E"
+			    & "%3Ctext x='496' y='35' text-anchor='end' font-family='Segoe%20UI' font-size='25' font-weight='700' fill='%23FFFFFF'%3E" & ValorUrl & "%3C/text%3E"
+			    & "%3Crect x='24' y='52' width='430' height='14' rx='7' fill='%2384807D'/%3E"
+			    & "%3Crect x='24' y='52' width='" & FORMAT(Ancho, "0") & "' height='14' rx='7' fill='" & ColorEstado & "'%3E%3Canimate attributeName='width' from='0' to='" & FORMAT(Ancho, "0") & "' dur='0.8s' fill='freeze'/%3E%3C/rect%3E"
+			    & "%3Ccircle cx='480' cy='59' r='12' fill='" & ColorEstado & "'/%3E"
+			    & "%3Ctext x='24' y='89' font-family='Segoe%20UI' font-size='11' font-weight='700' fill='" & ColorEstado & "'%3E" & Etiqueta & "%3C/text%3E"
+			    & "%3C/svg%3E"
+		displayFolder: 10. Ruta Dinámica\SVG
+		lineageTag: 19000000-0000-4000-8000-000000000111
+		dataCategory: ImageUrl
+
+	/// Universo ejecutivo oficial: pedidos normales facturados, canales 42 a 47, medidos desde creación efectiva hasta despacho oficial.
+	measure 'HT Hito seleccionado' =
+			COALESCE(
+			    SELECTEDVALUE(Config_SLA_Hitos[HITO]),
+			    SELECTEDVALUE(Fact_Hitos_Operacionales[HITO]),
+			    "Detalle contextual de hitos"
+			)
+		displayFolder: 11. Tooltip por Hito\01. Contexto
+		lineageTag: 23000000-0000-4000-8000-000000000101
+
+	measure 'HT Resumen hito' =
+			VAR Pedidos = [OP Pedidos con Dato]
+			VAR Cumplimiento = [OP % Cumplimiento Hito]
+			VAR P90 = [OP P90 Hito DH]
+			VAR SLA = [HT SLA hito]
+			RETURN
+			    UPPER([HT Hito seleccionado])
+			    & "  ·  " & FORMAT(Pedidos, "#,##0", "es-CL") & " pedidos evaluados"
+			    & "  ·  NS " & IF(ISBLANK(Cumplimiento), "--", FORMAT(Cumplimiento, "0.0%", "es-CL"))
+			    & "  ·  P90 " & IF(ISBLANK(P90), "--", FORMAT(P90, "0.0", "es-CL") & " DH")
+			    & "  ·  SLA " & IF(ISBLANK(SLA), "diagnóstico", FORMAT(SLA, "0", "es-CL") & " DH")
+		displayFolder: 11. Tooltip por Hito\01. Contexto
+		lineageTag: 23000000-0000-4000-8000-000000000102
+
+	measure 'HT Días hito' = MAX(Fact_Hitos_Operacionales[DIAS_HABILES])
+		formatString: 0 "DH"
+		displayFolder: 11. Tooltip por Hito\02. Ranking
+		lineageTag: 23000000-0000-4000-8000-000000000103
+
+	measure 'HT SLA hito' =
+			COALESCE(
+			    SELECTEDVALUE(Config_SLA_Hitos[SLA_DH]),
+			    MAX(Fact_Hitos_Operacionales[SLA_DH])
+			)
+		formatString: 0 "DH"
+		displayFolder: 11. Tooltip por Hito\02. Ranking
+		lineageTag: 23000000-0000-4000-8000-000000000104
+
+	measure 'HT Exceso hito' = MAX(Fact_Hitos_Operacionales[EXCESO_DH])
+		formatString: 0 "DH"
+		displayFolder: 11. Tooltip por Hito\02. Ranking
+		lineageTag: 23000000-0000-4000-8000-000000000105
+
+	/// TOPN usa el número de pedido como segundo criterio para entregar exactamente diez filas aun cuando existan empates.
+	measure 'HT Días hito Top 10' =
+			VAR Pedido = SELECTEDVALUE(Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO])
+			VAR TopPedidos =
+			    TOPN(
+			        10,
+			        CALCULATETABLE(
+			            VALUES(Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO]),
+			            REMOVEFILTERS(Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO])
+			        ),
+			        CALCULATE(MAX(Fact_Hitos_Operacionales[DIAS_HABILES])), DESC,
+			        Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO], ASC
+			    )
+			VAR EstaEnTop =
+			    NOT ISBLANK(Pedido)
+			    && CONTAINS(
+			        TopPedidos,
+			        Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO], Pedido
+			    )
+			RETURN IF(EstaEnTop, [HT Días hito])
+		formatString: 0 "DH"
+		displayFolder: 11. Tooltip por Hito\02. Ranking
+		lineageTag: 23000000-0000-4000-8000-000000000106
+
+	measure 'HT SLA Top 10' = IF(NOT ISBLANK([HT Días hito Top 10]), [HT SLA hito])
+		formatString: 0 "DH"
+		displayFolder: 11. Tooltip por Hito\02. Ranking
+		lineageTag: 23000000-0000-4000-8000-000000000107
+
+	measure 'HT Exceso Top 10' = IF(NOT ISBLANK([HT Días hito Top 10]), [HT Exceso hito])
+		formatString: 0 "DH"
+		displayFolder: 11. Tooltip por Hito\02. Ranking
+		lineageTag: 23000000-0000-4000-8000-000000000108
+
+	measure 'HT Tipo pedido Top 10' =
+			IF(
+			    NOT ISBLANK([HT Días hito Top 10]),
+			    SELECTEDVALUE(Fact_Hitos_Operacionales[SEGMENTO_EXCLUSIVO], "Sin tipo")
+			)
+		displayFolder: 11. Tooltip por Hito\03. Identificación
+		lineageTag: 23000000-0000-4000-8000-000000000109
+
+	measure 'HT Cliente Top 10' =
+			VAR Codigo = SELECTEDVALUE(Fact_Hitos_Operacionales[PED_CODIGO_CLIENTE])
+			VAR Nombre =
+			    LOOKUPVALUE(
+			        Dim_Cliente[CLIENTE_NOMBRE],
+			        Dim_Cliente[CLIENTE_CODIGO], Codigo
+			    )
+			RETURN
+			    IF(
+			        NOT ISBLANK([HT Días hito Top 10]),
+			        COALESCE(Nombre, "Sin nombre de cliente")
+			    )
+		displayFolder: 11. Tooltip por Hito\03. Identificación
+		lineageTag: 23000000-0000-4000-8000-000000000110
+
+	measure 'HT Vendedor Top 10' =
+			VAR Codigo = SELECTEDVALUE(Fact_Hitos_Operacionales[PED_CODIGO_CLIENTE])
+			VAR Vendedor =
+			    LOOKUPVALUE(
+			        Dim_Cliente[VENDEDOR_NOMBRE],
+			        Dim_Cliente[CLIENTE_CODIGO], Codigo
+			    )
+			RETURN
+			    IF(
+			        NOT ISBLANK([HT Días hito Top 10]),
+			        COALESCE(Vendedor, "Sin vendedor")
+			    )
+		displayFolder: 11. Tooltip por Hito\03. Identificación
+		lineageTag: 23000000-0000-4000-8000-000000000111
+
+	measure 'HT Creación Top 10' =
+			IF(
+			    NOT ISBLANK([HT Días hito Top 10]),
+			    MIN(Fact_Hitos_Operacionales[PED_FECHA_HORA])
+			)
+		formatString: dd-MM-yyyy HH:mm
+		displayFolder: 11. Tooltip por Hito\04. Fechas auditables
+		lineageTag: 23000000-0000-4000-8000-000000000112
+
+	measure 'HT Inicio hito Top 10' =
+			IF(
+			    NOT ISBLANK([HT Días hito Top 10]),
+			    MIN(Fact_Hitos_Operacionales[FECHA_INICIO])
+			)
+		formatString: dd-MM-yyyy HH:mm
+		displayFolder: 11. Tooltip por Hito\04. Fechas auditables
+		lineageTag: 23000000-0000-4000-8000-000000000113
+
+	measure 'HT Fin hito Top 10' =
+			IF(
+			    NOT ISBLANK([HT Días hito Top 10]),
+			    MAX(Fact_Hitos_Operacionales[FECHA_FIN])
+			)
+		formatString: dd-MM-yyyy HH:mm
+		displayFolder: 11. Tooltip por Hito\04. Fechas auditables
+		lineageTag: 23000000-0000-4000-8000-000000000114
+
+	measure 'HT Primera factura Top 10' =
+			VAR Pedido = SELECTEDVALUE(Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO])
+			VAR Fecha =
+			    LOOKUPVALUE(
+			        Fact_Pedidos_Auditoria[FAC_P_FECHA_HORA_REAL],
+			        Fact_Pedidos_Auditoria[PED_NUMERO_PEDIDO], Pedido
+			    )
+			RETURN IF(NOT ISBLANK([HT Días hito Top 10]), Fecha)
+		formatString: dd-MM-yyyy HH:mm
+		displayFolder: 11. Tooltip por Hito\04. Fechas auditables
+		lineageTag: 23000000-0000-4000-8000-000000000115
+
+	measure 'HT Última factura Top 10' =
+			VAR Pedido = SELECTEDVALUE(Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO])
+			VAR Fecha =
+			    LOOKUPVALUE(
+			        Fact_Pedidos_Auditoria[FAC_U_FECHA_HORA],
+			        Fact_Pedidos_Auditoria[PED_NUMERO_PEDIDO], Pedido
+			    )
+			RETURN IF(NOT ISBLANK([HT Días hito Top 10]), Fecha)
+		formatString: dd-MM-yyyy HH:mm
+		displayFolder: 11. Tooltip por Hito\04. Fechas auditables
+		lineageTag: 23000000-0000-4000-8000-000000000116
+
+	measure 'HT Despacho Top 10' =
+			VAR Pedido = SELECTEDVALUE(Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO])
+			VAR Segmento = SELECTEDVALUE(Fact_Hitos_Operacionales[SEGMENTO_EXCLUSIVO], "NORMAL")
+			VAR EsFES = CONTAINSSTRING(Segmento, "FES")
+			VAR Manifiesto =
+			    LOOKUPVALUE(
+			        Fact_Pedidos_Auditoria[ULTIMA_FECHA_MANIFIESTO],
+			        Fact_Pedidos_Auditoria[PED_NUMERO_PEDIDO], Pedido
+			    )
+			VAR UltimoTransporte =
+			    LOOKUPVALUE(
+			        Fact_Pedidos_Auditoria[TRP_U_FECHA_HORA],
+			        Fact_Pedidos_Auditoria[PED_NUMERO_PEDIDO], Pedido
+			    )
+			VAR PrimerTransporte =
+			    LOOKUPVALUE(
+			        Fact_Pedidos_Auditoria[TRP_P_FECHA_HORA],
+			        Fact_Pedidos_Auditoria[PED_NUMERO_PEDIDO], Pedido
+			    )
+			VAR FechaSalida = IF(EsFES, Manifiesto, COALESCE(UltimoTransporte, PrimerTransporte))
+			RETURN IF(NOT ISBLANK([HT Días hito Top 10]), FechaSalida)
+		formatString: dd-MM-yyyy HH:mm
+		displayFolder: 11. Tooltip por Hito\04. Fechas auditables
+		lineageTag: 23000000-0000-4000-8000-000000000117
+
+	measure 'HT Brecha facturas Top 10' =
+			VAR Primera = [HT Primera factura Top 10]
+			VAR Ultima = [HT Última factura Top 10]
+			RETURN
+			    IF(
+			        NOT ISBLANK(Primera) && NOT ISBLANK(Ultima),
+			        DATEDIFF(DATE(YEAR(Primera), MONTH(Primera), DAY(Primera)), DATE(YEAR(Ultima), MONTH(Ultima), DAY(Ultima)), DAY)
+			    )
+		formatString: 0 "días calendario"
+		displayFolder: 11. Tooltip por Hito\05. Control Saldo
+		lineageTag: 23000000-0000-4000-8000-000000000118
+
+	measure 'HT Validación saldo Top 10' =
+			VAR Primera = [HT Primera factura Top 10]
+			VAR Ultima = [HT Última factura Top 10]
+			VAR Brecha = [HT Brecha facturas Top 10]
+			VAR Segmento = [HT Tipo pedido Top 10]
+			VAR EsSaldo = NOT ISBLANK(Segmento) && CONTAINSSTRING(Segmento, "SALDO")
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        ISBLANK([HT Días hito Top 10]), BLANK(),
+			        ISBLANK(Primera) || ISBLANK(Ultima), "REVISAR · FECHA FALTANTE",
+			        Brecha < 0, "REVISAR · ÚLTIMA < PRIMERA",
+			        Brecha > 0 && EsSaldo, "COHERENTE · SALDO",
+			        Brecha = 0 && NOT EsSaldo, "COHERENTE · NO SALDO",
+			        Brecha > 0 && NOT EsSaldo, "REVISAR · DEBIERA SER SALDO",
+			        Brecha = 0 && EsSaldo, "REVISAR · SIN BRECHA",
+			        "REVISAR CLASIFICACIÓN"
+			    )
+		displayFolder: 11. Tooltip por Hito\05. Control Saldo
+		lineageTag: 23000000-0000-4000-8000-000000000119
+
+	measure 'HT Estado hito Top 10' =
+			VAR Dias = [HT Días hito Top 10]
+			VAR SLA = [HT SLA Top 10]
+			VAR Cumple = SELECTEDVALUE(Fact_Hitos_Operacionales[CUMPLE_KPI])
+			VAR Color =
+			    SWITCH(
+			        TRUE(),
+			        ISBLANK(Dias) || ISBLANK(SLA), "%2384807D",
+			        Cumple = TRUE(), "%232E8B57",
+			        "%23D3392C"
+			    )
+			VAR Estado =
+			    SWITCH(
+			        TRUE(),
+			        ISBLANK(Dias), "",
+			        ISBLANK(SLA), "SIN%20SLA",
+			        Cumple = TRUE(), "CUMPLE",
+			        "FUERA%20SLA"
+			    )
+			RETURN
+			    IF(
+			        ISBLANK(Dias),
+			        BLANK(),
+			        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='112' height='26' viewBox='0 0 112 26'%3E"
+			        & "%3Crect x='1' y='1' width='110' height='24' rx='12' fill='" & Color & "' opacity='.13'/%3E"
+			        & "%3Ccircle cx='14' cy='13' r='5' fill='" & Color & "'/%3E"
+			        & "%3Ctext x='26' y='17' font-family='Segoe%20UI' font-size='10' font-weight='700' fill='" & Color & "'%3E" & Estado & "%3C/text%3E%3C/svg%3E"
+			    )
+		displayFolder: 11. Tooltip por Hito\02. Ranking
+		lineageTag: 23000000-0000-4000-8000-000000000121
+		dataCategory: ImageUrl
+
+	/// Fecha mínima del universo oficial que responde a los filtros activos del reporte.
+	measure 'U Pedidos universo' = DISTINCTCOUNT(Fact_Tracking[PED_NUMERO_PEDIDO])
+		formatString: #,0
+		displayFolder: 01. Universo Único\Volumen
+		lineageTag: 26000000-0000-4000-8000-000000003001
+
+	measure 'U Pedidos cerrados' = CALCULATE([U Pedidos universo], Fact_Tracking[ES_CERRADO]=TRUE())
+		formatString: #,0
+		displayFolder: 01. Universo Único\Volumen
+		lineageTag: 26000000-0000-4000-8000-000000003002
+
+	measure 'U Pedidos abiertos' = CALCULATE([U Pedidos universo], Fact_Tracking[ES_CERRADO]=FALSE())
+		formatString: #,0
+		displayFolder: 01. Universo Único\Volumen
+		lineageTag: 26000000-0000-4000-8000-000000003003
+
+	measure 'U Pendientes factura' = CALCULATE([U Pedidos universo], Fact_Tracking[PENDIENTE_FACTURA]=TRUE())
+		formatString: #,0
+		displayFolder: 01. Universo Único\Backlog
+		lineageTag: 26000000-0000-4000-8000-000000003004
+
+	measure 'U Pendientes despacho' = CALCULATE([U Pedidos universo], Fact_Tracking[PENDIENTE_DESPACHO]=TRUE())
+		formatString: #,0
+		displayFolder: 01. Universo Único\Backlog
+		lineageTag: 26000000-0000-4000-8000-000000003005
+
+	measure 'U Pedidos vencidos' = CALCULATE([U Pedidos universo], Fact_Tracking[ES_CERRADO]=FALSE(), Fact_Tracking[DIAS_RESTANTES_DH] < 0)
+		formatString: #,0
+		displayFolder: 01. Universo Único\Backlog
+		lineageTag: 26000000-0000-4000-8000-000000003006
+
+	measure 'U Valor abierto CLP' = CALCULATE(SUM(Fact_Tracking[PED_VALOR_NETO]), Fact_Tracking[ES_CERRADO]=FALSE())
+		formatString: "CLP $" #,0;-"CLP $" #,0;"CLP $" 0
+		displayFolder: 01. Universo Único\Backlog
+		lineageTag: 26000000-0000-4000-8000-000000003007
+
+	measure 'U Valor en riesgo CLP' = CALCULATE(SUM(Fact_Tracking[PED_VALOR_NETO]), Fact_Tracking[ES_CERRADO]=FALSE(), Fact_Tracking[DIAS_RESTANTES_DH] <= 1)
+		formatString: "CLP $" #,0;-"CLP $" #,0;"CLP $" 0
+		displayFolder: 01. Universo Único\Backlog
+		lineageTag: 26000000-0000-4000-8000-000000003008
+
+	measure 'U NS comprometido interno' = 0.9
+		formatString: 0.0%
+		displayFolder: 01. Universo Único\Servicio
+		lineageTag: 26000000-0000-4000-8000-000000003009
+
+	measure 'U Pedidos cerrados en SLA' = CALCULATE([U Pedidos universo], Fact_Tracking[ES_CERRADO]=TRUE(), Fact_Tracking[CUMPLE_SLA_INTERNO]=TRUE())
+		formatString: #,0
+		displayFolder: 01. Universo Único\Servicio
+		lineageTag: 26000000-0000-4000-8000-000000003010
+
+	measure 'U NS observado interno' = DIVIDE([U Pedidos cerrados en SLA],[U Pedidos cerrados])
+		formatString: 0.0%
+		displayFolder: 01. Universo Único\Servicio
+		lineageTag: 26000000-0000-4000-8000-000000003011
+
+	measure 'U Brecha NS' = [U NS observado interno] - [U NS comprometido interno]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 01. Universo Único\Servicio
+		lineageTag: 26000000-0000-4000-8000-000000003012
+
+	measure 'U Promedio interno DH' = AVERAGE(Fact_Tracking[DIAS_INTERNOS_DH])
+		formatString: 0.0 "DH"
+		displayFolder: 01. Universo Único\Servicio
+		lineageTag: 26000000-0000-4000-8000-000000003013
+
+	measure 'U P90 interno DH' = PERCENTILEX.INC(FILTER(Fact_Tracking, Fact_Tracking[ES_CERRADO]=TRUE() && NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])), Fact_Tracking[DIAS_INTERNOS_DH], 0.9)
+		formatString: 0.0 "DH"
+		displayFolder: 01. Universo Único\Servicio
+		lineageTag: 26000000-0000-4000-8000-000000003014
+
+	measure 'U P90 estado' = VAR ExcesoP90 = PERCENTILEX.INC(FILTER(Fact_Tracking, Fact_Tracking[ES_CERRADO]=TRUE() && NOT ISBLANK(Fact_Tracking[EXCESO_SLA_INTERNO_DH])), Fact_Tracking[EXCESO_SLA_INTERNO_DH], 0.9) RETURN IF(ISBLANK(ExcesoP90),"SIN DATO",IF(ExcesoP90<=0,"P90 DENTRO DEL SLA ZONAL","P90 SUPERA SLA ZONAL EN "&FORMAT(ExcesoP90,"0.0")&" DH"))
+		displayFolder: 01. Universo Único\Servicio
+		lineageTag: 26000000-0000-4000-8000-000000003015
+
+	measure 'U Fecha mínima creación' = MIN(Fact_Tracking[PED_FECHA_HORA])
+		formatString: dd-MM-yyyy
+		displayFolder: 01. Universo Único\Periodo
+		lineageTag: 26000000-0000-4000-8000-000000003016
+
+	measure 'U Fecha máxima creación' = MAX(Fact_Tracking[PED_FECHA_HORA])
+		formatString: dd-MM-yyyy
+		displayFolder: 01. Universo Único\Periodo
+		lineageTag: 26000000-0000-4000-8000-000000003017
+
+	measure 'U Fecha mínima factura' = MIN(Fact_Tracking[FECHA_PRIMERA_FACTURA])
+		formatString: dd-MM-yyyy
+		displayFolder: 01. Universo Único\Periodo
+		lineageTag: 26000000-0000-4000-8000-000000003018
+
+	measure 'U Fecha máxima factura' = MAX(Fact_Tracking[FECHA_ULTIMA_FACTURA])
+		formatString: dd-MM-yyyy
+		displayFolder: 01. Universo Único\Periodo
+		lineageTag: 26000000-0000-4000-8000-000000003019
+
+	measure 'U Fecha mínima despacho' = MIN(Fact_Tracking[FECHA_DESPACHO])
+		formatString: dd-MM-yyyy
+		displayFolder: 01. Universo Único\Periodo
+		lineageTag: 26000000-0000-4000-8000-000000003020
+
+	measure 'U Fecha máxima despacho' = MAX(Fact_Tracking[FECHA_DESPACHO])
+		formatString: dd-MM-yyyy
+		displayFolder: 01. Universo Único\Periodo
+		lineageTag: 26000000-0000-4000-8000-000000003021
+
+	measure 'U Fecha actualización' = CALCULATE(MAX(Fact_Tracking[FECHA_ACTUALIZACION]), REMOVEFILTERS())
+		formatString: dd-MM-yyyy HH:mm
+		displayFolder: 01. Universo Único\Periodo
+		lineageTag: 26000000-0000-4000-8000-000000003022
+
+	/// Último pedido recibido por la fuente. No representa el momento de refresco del modelo.
+	measure 'U Último pedido creado' = CALCULATE(MAX(Fact_Tracking[PED_FECHA_HORA]), REMOVEFILTERS())
+		formatString: dd-MM-yyyy HH:mm
+		displayFolder: 12. Gobierno del reporte\Actualización
+		lineageTag: 28000000-0000-4000-8000-000000000101
+
+	/// Mensaje común que debe aparecer en todos los lienzos analíticos.
+	measure 'U Estado datos' =
+			"Último registro del set: "
+			& COALESCE(FORMAT([U Último pedido creado], "dd-MM-yyyy HH:mm"), "--")
+			& " · Base: 3 meses calendario incluyendo el actual"
+		displayFolder: 12. Gobierno del reporte\Actualización
+		lineageTag: 28000000-0000-4000-8000-000000000102
+
+	measure 'U Periodo completo' =
+			"Base por creación " & COALESCE(FORMAT([U Fecha mínima creación],"dd-MM-yyyy"),"--") & " a " & COALESCE(FORMAT([U Fecha máxima creación],"dd-MM-yyyy"),"--")
+			& " · Facturación " & COALESCE(FORMAT([U Fecha mínima factura],"dd-MM-yyyy"),"--") & " a " & COALESCE(FORMAT([U Fecha máxima factura],"dd-MM-yyyy"),"--")
+			& " · Despacho " & COALESCE(FORMAT([U Fecha mínima despacho],"dd-MM-yyyy"),"--") & " a " & COALESCE(FORMAT([U Fecha máxima despacho],"dd-MM-yyyy"),"--")
+			& " · Último registro del set " & COALESCE(FORMAT([U Último pedido creado],"dd-MM-yyyy HH:mm"),"--")
+		displayFolder: 12. Gobierno del reporte\Actualización
+		lineageTag: 26000000-0000-4000-8000-000000003023
+
+	measure 'U Pedidos hito' = DISTINCTCOUNT(Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO])
+		formatString: #,0
+		displayFolder: 01. Universo Único\Hitos
+		lineageTag: 26000000-0000-4000-8000-000000003024
+
+	measure 'U Promedio hito DH' = AVERAGE(Fact_Hitos_Operacionales[DIAS_TRANSCURRIDOS])
+		formatString: 0.0 "DH"
+		displayFolder: 01. Universo Único\Hitos
+		lineageTag: 26000000-0000-4000-8000-000000003026
+
+	measure 'U NS hito actual' = DIVIDE(CALCULATE([U Pedidos hito], Fact_Hitos_Operacionales[CUMPLE_ACTUAL]=TRUE()), CALCULATE([U Pedidos hito], NOT ISBLANK(Fact_Hitos_Operacionales[CUMPLE_ACTUAL])))
+		formatString: 0.0%
+		displayFolder: 01. Universo Único\Hitos
+		lineageTag: 26000000-0000-4000-8000-000000003027
+
+	/// V27 · Cohorte única y auditable para el lienzo 00 Resumen Ejecutivo Mayorista.
+	/// Toda métrica parte de pedidos cerrados con días internos válidos en Fact_Tracking.
+	measure 'RE Pedidos contexto' =
+			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
+			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
+			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
+			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
+			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
+			RETURN
+				CALCULATE(
+					DISTINCTCOUNT(Fact_Tracking[PED_NUMERO_PEDIDO]),
+					KEEPFILTERS(
+						FILTER(
+							Fact_Tracking,
+							Fact_Tracking[ES_CERRADO] = TRUE()
+								&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
+								&& (
+									ISBLANK(FlujoSel)
+										|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
+										|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
+										|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
+								)
+								&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+								&& (
+									NOT TieneRango
+										|| (
+											Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH
+												&& (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH)
+										)
+								)
+						)
+					)
+				)
+		formatString: #,0
+		displayFolder: 02. Resumen Ejecutivo\01. Cohorte
+		lineageTag: 27000000-0000-4000-8000-000000000101
+
+	measure 'RE Pedidos en SLA contexto' =
+			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
+			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
+			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
+			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
+			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
+			RETURN
+				CALCULATE(
+					DISTINCTCOUNT(Fact_Tracking[PED_NUMERO_PEDIDO]),
+					KEEPFILTERS(
+						FILTER(
+							Fact_Tracking,
+							Fact_Tracking[ES_CERRADO] = TRUE()
+								&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
+								&& Fact_Tracking[CUMPLE_SLA_INTERNO] = TRUE()
+								&& (
+									ISBLANK(FlujoSel)
+										|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
+										|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
+										|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
+								)
+								&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+								&& (
+									NOT TieneRango
+										|| (
+											Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH
+												&& (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH)
+										)
+								)
+						)
+					)
+				)
+		formatString: #,0
+		displayFolder: 02. Resumen Ejecutivo\01. Cohorte
+		lineageTag: 27000000-0000-4000-8000-000000000102
+
+	measure 'RE Pedidos fuera SLA contexto' = [RE Pedidos contexto] - [RE Pedidos en SLA contexto]
+		formatString: #,0
+		displayFolder: 02. Resumen Ejecutivo\01. Cohorte
+		lineageTag: 27000000-0000-4000-8000-000000000103
+
+	measure 'RE NS contexto' = DIVIDE([RE Pedidos en SLA contexto], [RE Pedidos contexto])
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 02. Resumen Ejecutivo\02. Servicio
+		lineageTag: 27000000-0000-4000-8000-000000000104
+
+	measure 'RE Valor contexto' =
+			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
+			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
+			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
+			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
+			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
+			VAR PedidosCohorte =
+				CALCULATETABLE(
+					VALUES(Fact_Tracking[PED_NUMERO_PEDIDO]),
+					KEEPFILTERS(
+						FILTER(
+							Fact_Tracking,
+							Fact_Tracking[ES_CERRADO] = TRUE()
+								&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
+								&& (
+									ISBLANK(FlujoSel)
+										|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
+										|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
+										|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
+								)
+								&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+								&& (NOT TieneRango || (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH)))
+						)
+					)
+				)
+			RETURN
+				SUMX(PedidosCohorte, CALCULATE(MAX(Fact_Tracking[PED_VALOR_NETO])))
+		formatString: #,##0
+		displayFolder: 02. Resumen Ejecutivo\01. Cohorte
+		lineageTag: 27000000-0000-4000-8000-000000000105
+
+	measure 'RE Valor en SLA contexto' =
+			CALCULATE(
+				[RE Valor contexto],
+				KEEPFILTERS(Fact_Tracking[CUMPLE_SLA_INTERNO] = TRUE())
+			)
+		formatString: #,##0
+		displayFolder: 02. Resumen Ejecutivo\01. Cohorte
+		lineageTag: 27000000-0000-4000-8000-000000000106
+
+	measure 'RE Valor fuera SLA contexto' = [RE Valor contexto] - [RE Valor en SLA contexto]
+		formatString: #,##0
+		displayFolder: 02. Resumen Ejecutivo\01. Cohorte
+		lineageTag: 27000000-0000-4000-8000-000000000107
+
+	measure 'RE Promedio contexto DH' =
+			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
+			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
+			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
+			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
+			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
+			VAR Cohorte =
+				FILTER(
+					Fact_Tracking,
+					Fact_Tracking[ES_CERRADO] = TRUE()
+						&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
+						&& (
+							ISBLANK(FlujoSel)
+								|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
+								|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
+								|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
+						)
+						&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+						&& (NOT TieneRango || (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH)))
+				)
+			RETURN AVERAGEX(Cohorte, Fact_Tracking[DIAS_INTERNOS_DH])
+		formatString: 0.0 "DH"
+		displayFolder: 02. Resumen Ejecutivo\02. Servicio
+		lineageTag: 27000000-0000-4000-8000-000000000108
+
+	measure 'RE P90 contexto DH' =
+			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
+			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
+			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
+			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
+			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
+			VAR Cohorte =
+				FILTER(
+					Fact_Tracking,
+					Fact_Tracking[ES_CERRADO] = TRUE()
+						&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
+						&& (
+							ISBLANK(FlujoSel)
+								|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
+								|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
+								|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
+						)
+						&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+						&& (NOT TieneRango || (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH)))
+				)
+			RETURN PERCENTILEX.INC(Cohorte, Fact_Tracking[DIAS_INTERNOS_DH], 0.9)
+		formatString: 0.0 "DH"
+		displayFolder: 02. Resumen Ejecutivo\02. Servicio
+		lineageTag: 27000000-0000-4000-8000-000000000109
+
+	measure 'RE Participación flujo %' =
+			DIVIDE(
+				[RE Pedidos contexto],
+				CALCULATE(
+					[RE Pedidos contexto],
+					REMOVEFILTERS(Dim_Vista_Ejecutiva)
+				)
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 02. Resumen Ejecutivo\03. Flujo
+		lineageTag: 27000000-0000-4000-8000-000000000110
+
+	measure 'RE Participación rango %' =
+			VAR EsDetalle = ISINSCOPE(Dim_Rango_Entrega[Rango])
+			VAR TotalZona =
+				CALCULATE(
+					[RE Pedidos contexto],
+					REMOVEFILTERS(Dim_Rango_Entrega[Rango]),
+					REMOVEFILTERS(Dim_Rango_Entrega[MinDH]),
+					REMOVEFILTERS(Dim_Rango_Entrega[MaxDH]),
+					REMOVEFILTERS(Dim_Rango_Entrega[OrdenRango])
+				)
+			RETURN IF(EsDetalle, DIVIDE([RE Pedidos contexto], TotalZona), 1)
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 02. Resumen Ejecutivo\04. Zona
+		lineageTag: 27000000-0000-4000-8000-000000000111
+
+	measure 'RE NS zona %' = IF(ISINSCOPE(Dim_Rango_Entrega[Rango]), BLANK(), [RE NS contexto])
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 02. Resumen Ejecutivo\04. Zona
+		lineageTag: 27000000-0000-4000-8000-000000000112
+
+	measure 'RE Estado zona SVG' =
+			VAR EsDetalle = ISINSCOPE(Dim_Rango_Entrega[Rango])
+			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
+			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
+			VAR NS = [RE NS contexto]
+			VAR SLAZona = IF(SELECTEDVALUE(Dim_Rango_Entrega[Zona])="Santiago", 4, 5)
+			VAR Estado =
+				SWITCH(
+					TRUE(),
+					EsDetalle && NOT ISBLANK(MaxDH) && MaxDH <= SLAZona, "EN%20SLA",
+					EsDetalle && MinDH > SLAZona, "FUERA%20SLA",
+					ISBLANK(NS), "SIN%20DATO",
+					NS >= 0.9, "CUMPLE",
+					NS >= 0.8, "RIESGO",
+					"ALERTA"
+				)
+			VAR Color =
+				SWITCH(
+					TRUE(),
+					Estado IN {"EN%20SLA", "CUMPLE"}, "%232E8B57",
+					Estado = "RIESGO", "%23D5A000",
+					Estado IN {"FUERA%20SLA", "ALERTA"}, "%23D3392C",
+					"%2384807D"
+				)
+			RETURN
+				"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='20' viewBox='0 0 88 20'%3E"
+				& "%3Crect x='1' y='1' width='86' height='18' rx='9' fill='" & Color & "' opacity='.13'/%3E"
+				& "%3Ccircle cx='10' cy='10' r='3.5' fill='" & Color & "'/%3E"
+				& "%3Ctext x='18' y='13' font-family='Segoe%20UI' font-size='7.5' font-weight='700' fill='" & Color & "'%3E" & Estado & "%3C/text%3E%3C/svg%3E"
+		displayFolder: 02. Resumen Ejecutivo\04. Zona
+		lineageTag: 27000000-0000-4000-8000-000000000113
+		dataCategory: ImageUrl
+
+	measure 'RE Pedidos matriz' = [RE Pedidos contexto]
+		formatString: #,0
+		displayFolder: 02. Resumen Ejecutivo\05. Hitos
+		lineageTag: 27000000-0000-4000-8000-000000000114
+
+	/// Identifica el indicador correcto según el nivel visible: total, flujo, macroproceso o subproceso.
+	measure 'RE Código nivel matriz' =
+			VAR Macro = SELECTEDVALUE(Dim_Vista_Ejecutiva[Macroproceso])
+			RETURN
+				SWITCH(
+					TRUE(),
+					ISINSCOPE(Dim_Vista_Ejecutiva[Subproceso]), SELECTEDVALUE(Dim_Vista_Ejecutiva[METRICA_CODIGO]),
+					ISINSCOPE(Dim_Vista_Ejecutiva[Macroproceso]) && CONTAINSSTRING(Macro, "Administrativo"), "ADMIN_TOTAL",
+					ISINSCOPE(Dim_Vista_Ejecutiva[Macroproceso]) && CONTAINSSTRING(Macro, "Operaciones"), "OPERACIONES_TOTAL",
+					"MAYORISTA_CIERRE_TOTAL"
+				)
+		displayFolder: 13. Matriz jerárquica\Soporte
+		lineageTag: 29000000-0000-4000-8000-000000000101
+
+	/// SLA visible por nivel: integral zonal 4 DH Santiago / 5 DH Regiones; administrativo 1 DH; operaciones 3 DH Santiago / 4 DH Regiones.
+	measure 'RE SLA nivel DH' =
+			VAR Codigo = [RE Código nivel matriz]
+			VAR EsNivelIntegral = NOT ISINSCOPE(Dim_Vista_Ejecutiva[Macroproceso])
+			VAR Zona = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
+			VAR SLAIntegral = IF(Zona="Santiago", 4, 5)
+			VAR SLAOperaciones = IF(Zona="Santiago", 3, 4)
+			RETURN
+				SWITCH(
+					TRUE(),
+					EsNivelIntegral, SLAIntegral,
+					Codigo = "OPERACIONES_TOTAL", SLAOperaciones,
+					CALCULATE(MAX(Config_SLA_Hitos[SLA_DH]), REMOVEFILTERS(Config_SLA_Hitos), TREATAS({Codigo}, Config_SLA_Hitos[METRICA_CODIGO]))
+				)
+		formatString: 0 "DH"
+		displayFolder: 13. Matriz jerárquica\Servicio
+		lineageTag: 29000000-0000-4000-8000-000000000102
+
+	measure 'RE Pedidos hito con dato' =
+			VAR Codigo = [RE Código nivel matriz]
+			VAR EsNivelIntegral = NOT ISINSCOPE(Dim_Vista_Ejecutiva[Macroproceso])
+			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
+			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
+			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
+			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
+			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
+			VAR PedidosCohorte =
+				CALCULATETABLE(
+					VALUES(Fact_Tracking[PED_NUMERO_PEDIDO]),
+					KEEPFILTERS(
+						FILTER(
+							Fact_Tracking,
+							Fact_Tracking[ES_CERRADO] = TRUE()
+								&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
+								&& (
+									ISBLANK(FlujoSel)
+										|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
+										|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
+										|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
+								)
+								&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+								&& (NOT TieneRango || (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH)))
+						)
+					)
+				)
+			RETURN
+				IF(
+					EsNivelIntegral,
+					[RE Pedidos matriz],
+					CALCULATE(
+						DISTINCTCOUNT(Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO]),
+						REMOVEFILTERS(Config_SLA_Hitos),
+						TREATAS(PedidosCohorte, Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO]),
+						Fact_Hitos_Operacionales[METRICA_CODIGO] = Codigo,
+						Fact_Hitos_Operacionales[TIENE_DATO] = TRUE()
+					)
+				)
+		formatString: #,0
+		displayFolder: 02. Resumen Ejecutivo\05. Hitos
+		lineageTag: 27000000-0000-4000-8000-000000000115
+
+	measure 'RE Cobertura hito %' = DIVIDE([RE Pedidos hito con dato], [RE Pedidos matriz])
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 02. Resumen Ejecutivo\05. Hitos
+		lineageTag: 27000000-0000-4000-8000-000000000116
+
+	measure 'RE Pedidos hito cumplen' =
+			VAR Codigo = [RE Código nivel matriz]
+			VAR EsNivelIntegral = NOT ISINSCOPE(Dim_Vista_Ejecutiva[Macroproceso])
+			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
+			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
+			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
+			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
+			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
+			VAR PedidosCohorte =
+				CALCULATETABLE(
+					VALUES(Fact_Tracking[PED_NUMERO_PEDIDO]),
+					KEEPFILTERS(
+						FILTER(
+							Fact_Tracking,
+							Fact_Tracking[ES_CERRADO] = TRUE()
+								&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
+								&& (
+									ISBLANK(FlujoSel)
+										|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
+										|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
+										|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
+								)
+								&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+								&& (NOT TieneRango || (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH)))
+						)
+					)
+				)
+			RETURN
+				IF(
+					EsNivelIntegral,
+					[RE Pedidos en SLA contexto],
+					CALCULATE(
+						DISTINCTCOUNT(Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO]),
+						REMOVEFILTERS(Config_SLA_Hitos),
+						TREATAS(PedidosCohorte, Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO]),
+						Fact_Hitos_Operacionales[METRICA_CODIGO] = Codigo,
+						Fact_Hitos_Operacionales[TIENE_DATO] = TRUE(),
+						Fact_Hitos_Operacionales[CUMPLE_KPI] = TRUE()
+					)
+				)
+		formatString: #,0
+		displayFolder: 02. Resumen Ejecutivo\05. Hitos
+		lineageTag: 27000000-0000-4000-8000-000000000117
+
+	measure 'RE NS hito %' = DIVIDE([RE Pedidos hito cumplen], [RE Pedidos matriz])
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 02. Resumen Ejecutivo\05. Hitos
+		lineageTag: 27000000-0000-4000-8000-000000000118
+
+	measure 'RE Promedio hito DH' =
+			VAR Codigo = [RE Código nivel matriz]
+			VAR EsNivelIntegral = NOT ISINSCOPE(Dim_Vista_Ejecutiva[Macroproceso])
+			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
+			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
+			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
+			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
+			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
+			VAR PedidosCohorte =
+				CALCULATETABLE(
+					VALUES(Fact_Tracking[PED_NUMERO_PEDIDO]),
+					KEEPFILTERS(
+						FILTER(
+							Fact_Tracking,
+							Fact_Tracking[ES_CERRADO] = TRUE()
+								&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
+								&& (
+									ISBLANK(FlujoSel)
+										|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
+										|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
+										|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
+								)
+								&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+								&& (NOT TieneRango || (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH)))
+						)
+					)
+				)
+			RETURN
+				IF(
+					EsNivelIntegral,
+					[RE Promedio contexto DH],
+					CALCULATE(
+						AVERAGE(Fact_Hitos_Operacionales[DIAS_HABILES]),
+						REMOVEFILTERS(Config_SLA_Hitos),
+						TREATAS(PedidosCohorte, Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO]),
+						Fact_Hitos_Operacionales[METRICA_CODIGO] = Codigo,
+						Fact_Hitos_Operacionales[TIENE_DATO] = TRUE()
+					)
+				)
+		formatString: 0.0 "DH"
+		displayFolder: 02. Resumen Ejecutivo\05. Hitos
+		lineageTag: 27000000-0000-4000-8000-000000000119
+
+	measure 'RE P90 hito DH' =
+			VAR Codigo = [RE Código nivel matriz]
+			VAR EsNivelIntegral = NOT ISINSCOPE(Dim_Vista_Ejecutiva[Macroproceso])
+			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
+			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
+			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
+			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
+			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
+			VAR PedidosCohorte =
+				CALCULATETABLE(
+					VALUES(Fact_Tracking[PED_NUMERO_PEDIDO]),
+					KEEPFILTERS(
+						FILTER(
+							Fact_Tracking,
+							Fact_Tracking[ES_CERRADO] = TRUE()
+								&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
+								&& (
+									ISBLANK(FlujoSel)
+										|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
+										|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
+										|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
+								)
+								&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+								&& (NOT TieneRango || (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH)))
+						)
+					)
+				)
+			RETURN
+				IF(
+					EsNivelIntegral,
+					[RE P90 contexto DH],
+					CALCULATE(
+						PERCENTILEX.INC(
+							FILTER(
+								Fact_Hitos_Operacionales,
+								Fact_Hitos_Operacionales[TIENE_DATO] = TRUE()
+									&& Fact_Hitos_Operacionales[METRICA_CODIGO] = Codigo
+							),
+							Fact_Hitos_Operacionales[DIAS_HABILES],
+							0.9
+						),
+						REMOVEFILTERS(Config_SLA_Hitos),
+						TREATAS(PedidosCohorte, Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO])
+					)
+				)
+		formatString: 0.0 "DH"
+		displayFolder: 02. Resumen Ejecutivo\05. Hitos
+		lineageTag: 27000000-0000-4000-8000-000000000120
+
+	measure 'RE Periodo contexto' =
+			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
+			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
+			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
+			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
+			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
+			VAR Cohorte =
+				FILTER(
+					Fact_Tracking,
+					Fact_Tracking[ES_CERRADO] = TRUE()
+						&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
+						&& (ISBLANK(FlujoSel)
+							|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
+							|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
+							|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO"))
+						&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+						&& (NOT TieneRango || (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH)))
+				)
+			VAR MinCre = MINX(Cohorte, Fact_Tracking[PED_FECHA_HORA])
+			VAR MaxCre = MAXX(Cohorte, Fact_Tracking[PED_FECHA_HORA])
+			VAR FacturasValidas = FILTER(Cohorte, NOT ISBLANK(Fact_Tracking[FECHA_PRIMERA_FACTURA]) && Fact_Tracking[FECHA_PRIMERA_FACTURA] >= Fact_Tracking[PED_FECHA_HORA])
+			VAR MinFac = MINX(FacturasValidas, Fact_Tracking[FECHA_PRIMERA_FACTURA])
+			VAR MaxFac = MAXX(FacturasValidas, Fact_Tracking[FECHA_ULTIMA_FACTURA])
+			VAR CierresValidos = FILTER(Cohorte, NOT ISBLANK(Fact_Tracking[FECHA_CIERRE]) && Fact_Tracking[FECHA_CIERRE] >= Fact_Tracking[PED_FECHA_HORA])
+			VAR MinCierre = MINX(CierresValidos, Fact_Tracking[FECHA_CIERRE])
+			VAR MaxCierre = MAXX(CierresValidos, Fact_Tracking[FECHA_CIERRE])
+			VAR Actualizado = MAXX(Cohorte, Fact_Tracking[FECHA_ACTUALIZACION])
+			RETURN
+				"Cohorte " & FORMAT([RE Pedidos contexto], "#,##0", "es-CL") & " pedidos · Creación " & COALESCE(FORMAT(MinCre, "dd-MM-yyyy"), "--") & " a " & COALESCE(FORMAT(MaxCre, "dd-MM-yyyy"), "--")
+				& " · Factura válida " & COALESCE(FORMAT(MinFac, "dd-MM-yyyy"), "--") & " a " & COALESCE(FORMAT(MaxFac, "dd-MM-yyyy"), "--")
+				& " · Cierre operativo " & COALESCE(FORMAT(MinCierre, "dd-MM-yyyy"), "--") & " a " & COALESCE(FORMAT(MaxCierre, "dd-MM-yyyy"), "--")
+				& " · Último registro del set " & COALESCE(FORMAT([U Último pedido creado], "dd-MM-yyyy HH:mm"), "--")
+		displayFolder: 02. Resumen Ejecutivo\06. Periodo
+		lineageTag: 27000000-0000-4000-8000-000000000121
+
+	measure 'RE Subtítulo pedidos' =
+			"En SLA " & FORMAT([RE Pedidos en SLA contexto], "#,##0", "es-CL")
+			& "  ·  Fuera " & FORMAT([RE Pedidos fuera SLA contexto], "#,##0", "es-CL")
+			& "  ·  Cohorte única"
+		displayFolder: 02. Resumen Ejecutivo\07. Texto
+		lineageTag: 27000000-0000-4000-8000-000000000122
+
+	measure 'RE Subtítulo valor' =
+			"En SLA CLP " & FORMAT(DIVIDE([RE Valor en SLA contexto], 1000000), "#,##0.0", "es-CL") & " MM"
+			& "  ·  Fuera CLP " & FORMAT(DIVIDE([RE Valor fuera SLA contexto], 1000000), "#,##0.0", "es-CL") & " MM"
+		displayFolder: 02. Resumen Ejecutivo\07. Texto
+		lineageTag: 27000000-0000-4000-8000-000000000123
+
+	measure 'RE Subtítulo NS' =
+			"Meta 90,0%  ·  Prom. " & FORMAT([RE Promedio contexto DH], "0.0", "es-CL") & " DH"
+			& "  ·  P90 " & FORMAT([RE P90 contexto DH], "0.0", "es-CL") & " DH"
+		displayFolder: 02. Resumen Ejecutivo\07. Texto
+		lineageTag: 27000000-0000-4000-8000-000000000124
+
+	measure 'RE Color NS' = SWITCH(TRUE(), ISBLANK([RE NS contexto]), "#84807D", [RE NS contexto] >= 0.9, "#2E8B57", [RE NS contexto] >= 0.8, "#D5A000", "#D3392C")
+		displayFolder: 02. Resumen Ejecutivo\07. Texto
+		lineageTag: 27000000-0000-4000-8000-000000000125
+
+	measure 'RE Promesa cliente' = "Santiago: 4 DH internos + 1 última milla = 5 DH" & UNICHAR(10) & "Regiones: 5 DH internos + 2 última milla = 7 DH"
+		displayFolder: 02. Resumen Ejecutivo\07. Texto
+		lineageTag: 27000000-0000-4000-8000-000000000126
+
+	measure 'RE Lectura ejecutiva' =
+			"Cohorte única: " & FORMAT([RE Pedidos contexto], "#,##0", "es-CL") & " pedidos cerrados y evaluables de canales 42–47. SLA interno zonal (Santiago 4 DH · Regiones 5 DH): "
+			& FORMAT([RE Pedidos en SLA contexto], "#,##0", "es-CL") & " (" & FORMAT([RE NS contexto], "0.0%", "es-CL") & "); fuera: "
+			& FORMAT([RE Pedidos fuera SLA contexto], "#,##0", "es-CL") & ". Promedio " & FORMAT([RE Promedio contexto DH], "0.0", "es-CL")
+			& " DH y P90 " & FORMAT([RE P90 contexto DH], "0.0", "es-CL") & " DH. El cierre es despacho para Normal/Saldo y manifiesto para FES; la promesa cliente es 5 DH Santiago y 7 DH Regiones; el cierre FES es el último manifiesto."
+		displayFolder: 02. Resumen Ejecutivo\07. Texto
+		lineageTag: 27000000-0000-4000-8000-000000000127
+
+	/// Tooltip compacto. Respeta selección de flujo, zona/rango y filtros de cliente/vendedor. Muestra los 15 pedidos con mayor DH.
+	measure 'RE TT Días Top 10' =
+			VAR PedidoActual = SELECTEDVALUE(Fact_Tracking[PED_NUMERO_PEDIDO])
+			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
+			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
+			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
+			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
+			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
+			VAR Base =
+				FILTER(
+					ALLSELECTED(Fact_Tracking),
+					Fact_Tracking[ES_CERRADO] = TRUE()
+						&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
+						&& Fact_Tracking[CUMPLE_SLA_INTERNO] = FALSE()
+						&& (ISBLANK(FlujoSel)
+							|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
+							|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
+							|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO"))
+						&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+						&& (NOT TieneRango || (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH)))
+				)
+			VAR TopPedidos = TOPN(15, Base, Fact_Tracking[DIAS_INTERNOS_DH], DESC, Fact_Tracking[PED_NUMERO_PEDIDO], ASC)
+			RETURN
+				IF(
+					NOT ISBLANK(PedidoActual)
+						&& CONTAINS(TopPedidos, Fact_Tracking[PED_NUMERO_PEDIDO], PedidoActual),
+					MAX(Fact_Tracking[DIAS_INTERNOS_DH])
+				)
+		formatString: 0 "DH"
+		displayFolder: 02. Resumen Ejecutivo\09. Tooltip
+		lineageTag: 27000000-0000-4000-8000-000000000129
+
+	measure 'RE TT Cliente' =
+			VAR Codigo = SELECTEDVALUE(Fact_Tracking[PED_CODIGO_CLIENTE])
+			VAR Nombre = LOOKUPVALUE(Dim_Cliente[CLIENTE_NOMBRE], Dim_Cliente[CLIENTE_CODIGO], Codigo)
+			RETURN IF(NOT ISBLANK([RE TT Días Top 10]), COALESCE(Nombre, Codigo, "Sin cliente"))
+		displayFolder: 02. Resumen Ejecutivo\09. Tooltip
+		lineageTag: 27000000-0000-4000-8000-000000000130
+
+	measure 'RE TT Vendedor' =
+			VAR Codigo = SELECTEDVALUE(Fact_Tracking[PED_CODIGO_CLIENTE])
+			VAR Vendedor = LOOKUPVALUE(Dim_Cliente[VENDEDOR_NOMBRE], Dim_Cliente[CLIENTE_CODIGO], Codigo)
+			RETURN IF(NOT ISBLANK([RE TT Días Top 10]), COALESCE(Vendedor, SELECTEDVALUE(Fact_Tracking[PED_RESPONSABLE]), "Sin vendedor"))
+		displayFolder: 02. Resumen Ejecutivo\09. Tooltip
+		lineageTag: 27000000-0000-4000-8000-000000000131
+
+	measure 'RE TT Estado SVG' =
+			VAR Dias = [RE TT Días Top 10]
+			VAR SLAObjetivo = MAX(Fact_Tracking[SLA_INTERNO_DH])
+			VAR EnSLA = NOT ISBLANK(Dias) && NOT ISBLANK(SLAObjetivo) && Dias <= SLAObjetivo
+			VAR Color = IF(EnSLA, "%232E8B57", "%23D3392C")
+			VAR Estado = IF(EnSLA, "EN%20SLA", "FUERA%20SLA")
+			RETURN IF(ISBLANK(Dias), BLANK(),
+				"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='78' height='18' viewBox='0 0 78 18'%3E"
+				& "%3Crect x='1' y='1' width='76' height='16' rx='8' fill='" & Color & "' opacity='.13'/%3E"
+				& "%3Ccircle cx='9' cy='9' r='3' fill='" & Color & "'/%3E"
+				& "%3Ctext x='16' y='12' font-family='Segoe%20UI' font-size='7' font-weight='700' fill='" & Color & "'%3E" & Estado & "%3C/text%3E%3C/svg%3E")
+		displayFolder: 02. Resumen Ejecutivo\09. Tooltip
+		lineageTag: 27000000-0000-4000-8000-000000000132
+		dataCategory: ImageUrl
+
+	measure 'RE TT Creación' = IF(NOT ISBLANK([RE TT Días Top 10]), MAX(Fact_Tracking[PED_FECHA_HORA]))
+		formatString: dd-MM-yyyy HH:mm
+		displayFolder: 02. Resumen Ejecutivo\09. Tooltip
+		lineageTag: 27000000-0000-4000-8000-000000000133
+
+	measure 'RE TT Factura' = IF(NOT ISBLANK([RE TT Días Top 10]), MAX(Fact_Tracking[FECHA_PRIMERA_FACTURA]))
+		formatString: dd-MM-yyyy HH:mm
+		displayFolder: 02. Resumen Ejecutivo\09. Tooltip
+		lineageTag: 27000000-0000-4000-8000-000000000134
+
+	measure 'RE TT Cierre' = IF(NOT ISBLANK([RE TT Días Top 10]), MAX(Fact_Tracking[FECHA_CIERRE]))
+		formatString: dd-MM-yyyy HH:mm
+		displayFolder: 02. Resumen Ejecutivo\09. Tooltip
+		lineageTag: 27000000-0000-4000-8000-000000000135
+
+	measure 'RE TT Título' =
+			VAR Flujo = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
+			VAR Zona = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
+			VAR Rango = SELECTEDVALUE(Dim_Rango_Entrega[Rango])
+			VAR Contexto = COALESCE(Flujo, IF(NOT ISBLANK(Zona), Zona & IF(NOT ISBLANK(Rango), " · " & Rango, ""), "Universo cerrado") )
+			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
+			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
+			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
+			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
+			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
+			VAR Cohorte =
+				FILTER(
+					Fact_Tracking,
+					Fact_Tracking[ES_CERRADO] = TRUE()
+						&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
+						&& (
+							ISBLANK(FlujoSel)
+								|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
+								|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
+								|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
+						)
+						&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+						&& (NOT TieneRango || (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH)))
+				)
+			VAR MinCre = MINX(Cohorte, Fact_Tracking[PED_FECHA_HORA])
+			VAR MaxCre = MAXX(Cohorte, Fact_Tracking[PED_FECHA_HORA])
+			VAR PedidosContexto = [RE Pedidos contexto]
+			VAR FilasMostradas = MIN(10, PedidosContexto)
+			RETURN
+				"TOP CRÍTICOS · "
+				& FORMAT(FilasMostradas, "#,##0", "es-CL") & " de " & FORMAT(PedidosContexto, "#,##0", "es-CL") & " pedidos"
+				& " · " & COALESCE(FORMAT(MinCre, "dd-MM-yyyy"), "--") & " a " & COALESCE(FORMAT(MaxCre, "dd-MM-yyyy"), "--")
+				& " · " & Contexto
+		displayFolder: 02. Resumen Ejecutivo\09. Tooltip
+		lineageTag: 27000000-0000-4000-8000-000000000136
+
+	measure 'RE Subtítulo gráfico' = [RE Periodo contexto] & "  ·  Columnas: pedidos cohorte  ·  Líneas: NS interno y participación"
+		displayFolder: 02. Resumen Ejecutivo\07. Texto
+		lineageTag: 27000000-0000-4000-8000-000000000137
+
+	measure 'RE Subtítulo promesa' = "*Incluye +2 DH estimados de tránsito  ·  sin POD/última milla"
+		displayFolder: 02. Resumen Ejecutivo\07. Texto
+		lineageTag: 27000000-0000-4000-8000-000000000138
+
+	measure 'RE TT Hito crítico' =
+			VAR Pedido = SELECTEDVALUE(Fact_Tracking[PED_NUMERO_PEDIDO])
+			VAR Base =
+				CALCULATETABLE(
+					ADDCOLUMNS(
+						SUMMARIZE(
+							Fact_Hitos_Operacionales,
+							Fact_Hitos_Operacionales[METRICA_CODIGO],
+							Fact_Hitos_Operacionales[HITO],
+							Fact_Hitos_Operacionales[ORDEN_HITO]
+						),
+						"@Exceso", CALCULATE(MAX(Fact_Hitos_Operacionales[EXCESO_DH])),
+						"@Dias", CALCULATE(MAX(Fact_Hitos_Operacionales[DIAS_HABILES]))
+					),
+					REMOVEFILTERS(Config_SLA_Hitos),
+					REMOVEFILTERS(Fact_Hitos_Operacionales[METRICA_CODIGO]),
+					REMOVEFILTERS(Fact_Hitos_Operacionales[HITO]),
+					TREATAS({Pedido}, Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO]),
+					Fact_Hitos_Operacionales[ACTIVO_CUELLO] = TRUE(),
+					NOT (Fact_Hitos_Operacionales[TIPO_KPI] IN {"KPI MACRO", "DIAGNÓSTICO INTEGRAL", "DIAGNÓSTICO FES"})
+				)
+			VAR Fila = TOPN(1, FILTER(Base, NOT ISBLANK([@Dias])), [@Exceso], DESC, [@Dias], DESC, Fact_Hitos_Operacionales[ORDEN_HITO], ASC)
+			RETURN IF(NOT ISBLANK([RE TT Días Top 10]), COALESCE(MAXX(Fila, Fact_Hitos_Operacionales[HITO]), "Sin hito evaluable"))
+		displayFolder: 02. Resumen Ejecutivo\09. Tooltip
+		lineageTag: 34000000-0000-4000-8000-000000000101
+
+	measure 'RE TT Exceso crítico DH' =
+			VAR Pedido = SELECTEDVALUE(Fact_Tracking[PED_NUMERO_PEDIDO])
+			VAR Base =
+				CALCULATETABLE(
+					ADDCOLUMNS(
+						SUMMARIZE(Fact_Hitos_Operacionales, Fact_Hitos_Operacionales[METRICA_CODIGO], Fact_Hitos_Operacionales[ORDEN_HITO]),
+						"@Exceso", CALCULATE(MAX(Fact_Hitos_Operacionales[EXCESO_DH])),
+						"@Dias", CALCULATE(MAX(Fact_Hitos_Operacionales[DIAS_HABILES]))
+					),
+					REMOVEFILTERS(Config_SLA_Hitos),
+					REMOVEFILTERS(Fact_Hitos_Operacionales[METRICA_CODIGO]),
+					REMOVEFILTERS(Fact_Hitos_Operacionales[HITO]),
+					TREATAS({Pedido}, Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO]),
+					Fact_Hitos_Operacionales[ACTIVO_CUELLO] = TRUE(),
+					NOT (Fact_Hitos_Operacionales[TIPO_KPI] IN {"KPI MACRO", "DIAGNÓSTICO INTEGRAL", "DIAGNÓSTICO FES"})
+				)
+			VAR Fila = TOPN(1, FILTER(Base, NOT ISBLANK([@Dias])), [@Exceso], DESC, [@Dias], DESC, Fact_Hitos_Operacionales[ORDEN_HITO], ASC)
+			RETURN IF(NOT ISBLANK([RE TT Días Top 10]), MAX(0, COALESCE(MAXX(Fila, [@Exceso]), 0)))
+		formatString: 0 "DH"
+		displayFolder: 02. Resumen Ejecutivo\09. Tooltip
+		lineageTag: 34000000-0000-4000-8000-000000000102
+
+	/// Motivo operativo asociado al hito dominante. No reemplaza una causa raíz registrada por el área responsable.
+	measure 'RE TT Motivo operativo' =
+			VAR Pedido = SELECTEDVALUE(Fact_Tracking[PED_NUMERO_PEDIDO])
+			VAR Base =
+				CALCULATETABLE(
+					ADDCOLUMNS(
+						SUMMARIZE(
+							Fact_Hitos_Operacionales,
+							Fact_Hitos_Operacionales[METRICA_CODIGO],
+							Fact_Hitos_Operacionales[ORDEN_HITO],
+							Fact_Hitos_Operacionales[ESTADO_TRAZABILIDAD]
+						),
+						"@Exceso", CALCULATE(MAX(Fact_Hitos_Operacionales[EXCESO_DH])),
+						"@Dias", CALCULATE(MAX(Fact_Hitos_Operacionales[DIAS_HABILES]))
+					),
+					REMOVEFILTERS(Config_SLA_Hitos),
+					REMOVEFILTERS(Fact_Hitos_Operacionales[METRICA_CODIGO]),
+					REMOVEFILTERS(Fact_Hitos_Operacionales[HITO]),
+					TREATAS({Pedido}, Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO]),
+					Fact_Hitos_Operacionales[ACTIVO_CUELLO] = TRUE(),
+					NOT (Fact_Hitos_Operacionales[TIPO_KPI] IN {"KPI MACRO", "DIAGNÓSTICO INTEGRAL", "DIAGNÓSTICO FES"})
+				)
+			VAR Fila = TOPN(1, FILTER(Base, NOT ISBLANK([@Dias])), [@Exceso], DESC, [@Dias], DESC, Fact_Hitos_Operacionales[ORDEN_HITO], ASC)
+			VAR Codigo = MAXX(Fila, Fact_Hitos_Operacionales[METRICA_CODIGO])
+			VAR Trazabilidad = MAXX(Fila, Fact_Hitos_Operacionales[ESTADO_TRAZABILIDAD])
+			RETURN
+				IF(
+					ISBLANK([RE TT Días Top 10]),
+					BLANK(),
+					SWITCH(
+						TRUE(),
+						Trazabilidad = "SECUENCIA INVÁLIDA", "Revisar secuencia de fechas",
+						CONTAINSSTRING(COALESCE(Trazabilidad, ""), "OMIT"), "Hito omitido o trazabilidad incompleta",
+						Codigo = "PDA_CREACION", "Espera de creación/digitación del pedido",
+						Codigo = "CREACION_COMERCIAL", "Espera de liberación Comercial/SAC",
+						Codigo = "COMERCIAL_CREDITO", "Espera de revisión o liberación de crédito",
+						Codigo = "CREDITO_ENTREGA", "Liberado sin ingreso oportuno a Logística",
+						Codigo = "ENTREGA_FACTURACION", "Espera interna hasta facturación",
+						Codigo IN {"FACTURACION_DESPACHO", "OPERACIONES_TOTAL"}, "Factura sin salida o espera de transporte",
+						LEFT(COALESCE(Codigo, ""), 4) = "FES_", "Espera de pedido posterior, entrega o manifiesto FES",
+						Codigo = "ADMIN_TOTAL", "Demora acumulada del bloque administrativo",
+						Codigo = "MAYORISTA_CIERRE_TOTAL", "Demora integral; revisar el subproceso dominante",
+						"Motivo no registrado; revisar detalle 360"
+					)
+				)
+		displayFolder: 02. Resumen Ejecutivo\09. Tooltip
+		lineageTag: 34000000-0000-4000-8000-000000000103
+
+	measure 'RE Tarjeta pedidos' = FORMAT([RE Pedidos contexto], "#,##0", "es-CL")
+		displayFolder: 02. Resumen Ejecutivo\07. Tarjetas
+		lineageTag: 36000000-0000-4000-8000-000000000101
+
+	measure 'RE Tarjeta valor' = "CLP " & FORMAT(DIVIDE([RE Valor contexto], 1000000), "#,##0.0", "es-CL") & " MM"
+		displayFolder: 02. Resumen Ejecutivo\07. Tarjetas
+		lineageTag: 36000000-0000-4000-8000-000000000102
+
+	measure 'RE Tarjeta NS' = FORMAT([RE NS contexto], "0.0%", "es-CL")
+		displayFolder: 02. Resumen Ejecutivo\07. Tarjetas
+		lineageTag: 36000000-0000-4000-8000-000000000103
+
+	/// Cantidad cerrada y evaluable del mes mostrado en el gráfico comparativo de tres meses.
+	measure 'M3 Pedidos evaluados' =
+			VAR Mes = SELECTEDVALUE(Dim_Mes_Trend[AnioMes])
+			RETURN
+				CALCULATE(
+					DISTINCTCOUNT(Fact_Tracking[PED_NUMERO_PEDIDO]),
+					REMOVEFILTERS(Dim_Periodo_3M),
+					REMOVEFILTERS(Dim_Fecha),
+					TREATAS({Mes}, Dim_Fecha[AnioMes]),
+					Fact_Tracking[ES_CERRADO] = TRUE(),
+					NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
+				)
+		formatString: #,##0
+		displayFolder: 02. Resumen Ejecutivo\08. Comparación mensual
+		lineageTag: 39000000-0000-4000-8000-000000000101
+
+	measure 'M3 Promedio total DH' =
+			VAR Mes = SELECTEDVALUE(Dim_Mes_Trend[AnioMes])
+			RETURN
+				CALCULATE(
+					AVERAGE(Fact_Tracking[DIAS_INTERNOS_DH]),
+					REMOVEFILTERS(Dim_Periodo_3M),
+					REMOVEFILTERS(Dim_Fecha),
+					TREATAS({Mes}, Dim_Fecha[AnioMes]),
+					Fact_Tracking[ES_CERRADO] = TRUE(),
+					NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
+				)
+		formatString: 0.0 "DH"
+		displayFolder: 02. Resumen Ejecutivo\08. Comparación mensual
+		lineageTag: 39000000-0000-4000-8000-000000000102
+
+	measure 'M3 Promedio administrativo DH' =
+			VAR Mes = SELECTEDVALUE(Dim_Mes_Trend[AnioMes])
+			VAR PedidosMes =
+				SELECTCOLUMNS(
+					CALCULATETABLE(
+						VALUES(Fact_Tracking[PED_NUMERO_PEDIDO]),
+						REMOVEFILTERS(Dim_Periodo_3M),
+						REMOVEFILTERS(Dim_Fecha),
+						TREATAS({Mes}, Dim_Fecha[AnioMes]),
+						Fact_Tracking[ES_CERRADO] = TRUE(),
+						NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
+					),
+					"Pedido", Fact_Tracking[PED_NUMERO_PEDIDO]
+				)
+			RETURN
+				AVERAGEX(
+					PedidosMes,
+					VAR PedidoActual = [Pedido]
+					RETURN
+						COALESCE(
+							CALCULATE(
+								MAX(Fact_Hitos_Operacionales[DIAS_HABILES]),
+								REMOVEFILTERS(Dim_Periodo_3M),
+								REMOVEFILTERS(Dim_Fecha),
+								TREATAS({PedidoActual}, Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO]),
+								Fact_Hitos_Operacionales[METRICA_CODIGO] = "ADMIN_TOTAL"
+							),
+							0
+						)
+				)
+		formatString: 0.0 "DH"
+		displayFolder: 02. Resumen Ejecutivo\08. Comparación mensual
+		lineageTag: 39000000-0000-4000-8000-000000000103
+
+	measure 'M3 Promedio operaciones DH' =
+			VAR Mes = SELECTEDVALUE(Dim_Mes_Trend[AnioMes])
+			VAR PedidosMes =
+				SELECTCOLUMNS(
+					CALCULATETABLE(
+						VALUES(Fact_Tracking[PED_NUMERO_PEDIDO]),
+						REMOVEFILTERS(Dim_Periodo_3M),
+						REMOVEFILTERS(Dim_Fecha),
+						TREATAS({Mes}, Dim_Fecha[AnioMes]),
+						Fact_Tracking[ES_CERRADO] = TRUE(),
+						NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
+					),
+					"Pedido", Fact_Tracking[PED_NUMERO_PEDIDO]
+				)
+			RETURN
+				AVERAGEX(
+					PedidosMes,
+					VAR PedidoActual = [Pedido]
+					RETURN
+						COALESCE(
+							CALCULATE(
+								MAX(Fact_Hitos_Operacionales[DIAS_HABILES]),
+								REMOVEFILTERS(Dim_Periodo_3M),
+								REMOVEFILTERS(Dim_Fecha),
+								TREATAS({PedidoActual}, Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO]),
+								Fact_Hitos_Operacionales[METRICA_CODIGO] = "OPERACIONES_TOTAL"
+							),
+							0
+						)
+				)
+		formatString: 0.0 "DH"
+		displayFolder: 02. Resumen Ejecutivo\08. Comparación mensual
+		lineageTag: 39000000-0000-4000-8000-000000000104
+
+	measure 'M3 NS interno %' =
+			VAR Mes = SELECTEDVALUE(Dim_Mes_Trend[AnioMes])
+			VAR Total =
+				CALCULATE(
+					DISTINCTCOUNT(Fact_Tracking[PED_NUMERO_PEDIDO]),
+					REMOVEFILTERS(Dim_Periodo_3M),
+					REMOVEFILTERS(Dim_Fecha),
+					TREATAS({Mes}, Dim_Fecha[AnioMes]),
+					Fact_Tracking[ES_CERRADO] = TRUE(),
+					NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
+				)
+			VAR Cumple =
+				CALCULATE(
+					DISTINCTCOUNT(Fact_Tracking[PED_NUMERO_PEDIDO]),
+					REMOVEFILTERS(Dim_Periodo_3M),
+					REMOVEFILTERS(Dim_Fecha),
+					TREATAS({Mes}, Dim_Fecha[AnioMes]),
+					Fact_Tracking[ES_CERRADO] = TRUE(),
+					NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH]),
+					Fact_Tracking[CUMPLE_SLA_INTERNO] = TRUE()
+				)
+			RETURN DIVIDE(Cumple, Total)
+		formatString: 0.0%
+		displayFolder: 02. Resumen Ejecutivo\08. Comparación mensual
+		lineageTag: 39000000-0000-4000-8000-000000000105
+
+	measure 'M3 Subtítulo' =
+			"Barras: promedio Administrativo + Operaciones · Línea: promedio interno total · Selección actual: "
+			& COALESCE(SELECTEDVALUE(Dim_Periodo_3M[Etiqueta]), "Mes actual")
+		displayFolder: 02. Resumen Ejecutivo\08. Comparación mensual
+		lineageTag: 39000000-0000-4000-8000-000000000106
+
+	measure 'TT Contexto pedido' =
+			"Pedido " & [AUD Pedido seleccionado]
+			& " · " & [AUD Cliente seleccionado]
+			& " · " & [AUD Vendedor seleccionado]
+		displayFolder: 10. Tooltips\Contexto
+		lineageTag: 40000000-0000-4000-8000-000000000101
+
+	measure 'TT Detalle hito' =
+			"Inicio: " & [AUD Fecha inicio]
+			& UNICHAR(10) & "Fin: " & [AUD Fecha fin]
+			& UNICHAR(10) & "Regla aplicada: " & [AUD Regla aplicada]
+		displayFolder: 10. Tooltips\Contexto
+		lineageTag: 40000000-0000-4000-8000-000000000102
+
+	measure 'RE Fuera SLA %' = RETURN 1 - [RE NS contexto]
+		formatString: 0.0%
+		displayFolder: 02. Resumen Ejecutivo\10. Diseño 2026
+		lineageTag: a9386396-a0ab-4324-a968-dc0d62d08ec8
+
+	measure 'RE KPI Pedidos SVG' =
+			VAR Valor = SUBSTITUTE(FORMAT([RE Pedidos contexto], "#,##0", "es-CL"), " ", "%20")
+			RETURN
+			"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='310' height='120' viewBox='0 0 310 120'%3E"
+			& "%3Crect x='1' y='1' width='308' height='118' rx='10' fill='%23FFFFFF' stroke='%23CED9E5'/%3E"
+			& "%3Cpath d='M10 1 H300 A9 9 0 0 1 309 10 V28 H1 V10 A9 9 0 0 1 10 1Z' fill='%232A5C94'/%3E"
+			& "%3Ctext x='155' y='19' text-anchor='middle' font-family='Segoe%20UI' font-size='11' font-weight='700' fill='%23FFFFFF'%3EPEDIDOS%20EVALUADOS%3C/text%3E"
+			& "%3Ctext x='175' y='43' text-anchor='middle' font-family='Segoe%20UI' font-size='8.5' fill='%23535A65'%3EMES%20SELECCIONADO%3C/text%3E"
+			& "%3Ccircle cx='45' cy='73' r='25' fill='%231976D2'/%3E%3Crect x='36' y='59' width='18' height='25' rx='2' fill='none' stroke='%23FFFFFF' stroke-width='2'/%3E%3Cline x1='40' y1='66' x2='50' y2='66' stroke='%23FFFFFF'/%3E%3Cline x1='40' y1='72' x2='50' y2='72' stroke='%23FFFFFF'/%3E"
+			& "%3Ctext x='175' y='76' text-anchor='middle' font-family='Segoe%20UI' font-size='28' font-weight='700' fill='%23111827'%3E" & Valor & "%3C/text%3E"
+			& "%3Ctext x='175' y='99' text-anchor='middle' font-family='Segoe%20UI' font-size='8.5' fill='%23535A65'%3E100%25%20DEL%20UNIVERSO%20FILTRADO%3C/text%3E"
+			& "%3C/svg%3E"
+		displayFolder: 02. Resumen Ejecutivo\10. Diseño 2026
+		lineageTag: b266ef8a-051c-44d0-9197-b24efc914350
+		dataCategory: ImageUrl
+
+	measure 'RE KPI Valor SVG' =
+			VAR Valor = SUBSTITUTE("CLP " & FORMAT(DIVIDE([RE Valor contexto],1000000), "#,##0.0", "es-CL") & " MM", " ", "%20")
+			RETURN
+			"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='310' height='120' viewBox='0 0 310 120'%3E"
+			& "%3Crect x='1' y='1' width='308' height='118' rx='10' fill='%23FFFFFF' stroke='%23CED9E5'/%3E"
+			& "%3Cpath d='M10 1 H300 A9 9 0 0 1 309 10 V28 H1 V10 A9 9 0 0 1 10 1Z' fill='%23A93B89'/%3E"
+			& "%3Ctext x='155' y='19' text-anchor='middle' font-family='Segoe%20UI' font-size='11' font-weight='700' fill='%23FFFFFF'%3EVALOR%20NETO%20EVALUADO%3C/text%3E"
+			& "%3Ctext x='180' y='43' text-anchor='middle' font-family='Segoe%20UI' font-size='8.5' fill='%23535A65'%3EMES%20SELECCIONADO%3C/text%3E"
+			& "%3Ccircle cx='45' cy='73' r='25' fill='%23B0117D'/%3E%3Ctext x='45' y='82' text-anchor='middle' font-family='Segoe%20UI' font-size='30' fill='%23FFFFFF'%3E%24%3C/text%3E"
+			& "%3Ctext x='180' y='76' text-anchor='middle' font-family='Segoe%20UI' font-size='23' font-weight='700' fill='%23111827'%3E" & Valor & "%3C/text%3E"
+			& "%3Ctext x='180' y='99' text-anchor='middle' font-family='Segoe%20UI' font-size='8.5' fill='%23535A65'%3E100%25%20DEL%20UNIVERSO%20FILTRADO%3C/text%3E"
+			& "%3C/svg%3E"
+		displayFolder: 02. Resumen Ejecutivo\10. Diseño 2026
+		lineageTag: 5c2e5747-f5a4-4334-8259-37e7b4d13e40
+		dataCategory: ImageUrl
+
+	measure 'RE KPI NS SVG' =
+			VAR NS = SUBSTITUTE(FORMAT([RE NS contexto], "0.0%", "es-CL"), "%", "%25")
+			VAR EnSLA = SUBSTITUTE(FORMAT([RE Pedidos en SLA contexto], "#,##0", "es-CL"), " ", "%20")
+			VAR Fuera = SUBSTITUTE(FORMAT([RE Pedidos fuera SLA contexto], "#,##0", "es-CL"), " ", "%20")
+			RETURN
+			"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='310' height='120' viewBox='0 0 310 120'%3E"
+			& "%3Crect x='1' y='1' width='308' height='118' rx='10' fill='%23FFFFFF' stroke='%23CED9E5'/%3E"
+			& "%3Cpath d='M10 1 H300 A9 9 0 0 1 309 10 V28 H1 V10 A9 9 0 0 1 10 1Z' fill='%23E8B000'/%3E"
+			& "%3Ctext x='155' y='19' text-anchor='middle' font-family='Segoe%20UI' font-size='11' font-weight='700' fill='%23FFFFFF'%3ENS%20INTERNO%20%C2%B7%20SLA%20ZONAL%204%2F5%20DH%3C/text%3E"
+			& "%3Ctext x='180' y='43' text-anchor='middle' font-family='Segoe%20UI' font-size='8.5' fill='%23535A65'%3EMES%20SELECCIONADO%20%C2%B7%20META:%2090%25%3C/text%3E"
+			& "%3Ccircle cx='45' cy='73' r='25' fill='%23F0A500'/%3E%3Ccircle cx='45' cy='73' r='13' fill='none' stroke='%23FFFFFF' stroke-width='3'/%3E%3Cline x1='45' y1='73' x2='55' y2='63' stroke='%23FFFFFF' stroke-width='3'/%3E"
+			& "%3Ctext x='180' y='76' text-anchor='middle' font-family='Segoe%20UI' font-size='28' font-weight='700' fill='%23111827'%3E" & NS & "%3C/text%3E"
+			& "%3Ctext x='180' y='99' text-anchor='middle' font-family='Segoe%20UI' font-size='8.5' fill='%23535A65'%3E" & EnSLA & "%20EN%20SLA%20%C2%B7%20" & Fuera & "%20FUERA%3C/text%3E"
+			& "%3C/svg%3E"
+		displayFolder: 02. Resumen Ejecutivo\10. Diseño 2026
+		lineageTag: 02251bd1-57cc-4174-b28f-b0a07fb345b9
+		dataCategory: ImageUrl
+
+	measure 'RE KPI Promesa SVG' =
+			"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='350' height='120' viewBox='0 0 350 120'%3E"
+			& "%3Crect x='1' y='1' width='348' height='118' rx='10' fill='%23FFFFFF' stroke='%23CED9E5'/%3E"
+			& "%3Cpath d='M10 1 H340 A9 9 0 0 1 349 10 V28 H1 V10 A9 9 0 0 1 10 1Z' fill='%236C6A8E'/%3E"
+			& "%3Ctext x='175' y='19' text-anchor='middle' font-family='Segoe%20UI' font-size='11' font-weight='700' fill='%23FFFFFF'%3EPROMESA%20CLIENTE%20ESTIMADA%3C/text%3E"
+			& "%3Ctext x='195' y='43' text-anchor='middle' font-family='Segoe%20UI' font-size='8.5' fill='%23535A65'%3ETIEMPO%20TOTAL%20ESTIMADO%3C/text%3E"
+			& "%3Ccircle cx='45' cy='73' r='25' fill='%236C6A8E'/%3E%3Ccircle cx='40' cy='66' r='7' fill='none' stroke='%23FFFFFF' stroke-width='2'/%3E%3Ccircle cx='54' cy='69' r='6' fill='none' stroke='%23FFFFFF' stroke-width='2'/%3E%3Cpath d='M28 87 q12 -14 24 0 M46 87 q9 -11 18 0' fill='none' stroke='%23FFFFFF' stroke-width='2'/%3E"
+			& "%3Ctext x='92' y='68' font-family='Segoe%20UI' font-size='13' font-weight='700' fill='%231B365D'%3ESantiago:%204%20DH%20internos%20%2B%201%20ultima%20milla%20%3D%205%3C/text%3E"
+			& "%3Ctext x='92' y='91' font-family='Segoe%20UI' font-size='13' font-weight='700' fill='%231B365D'%3ERegiones:%205%20DH%20internos%20%2B%202%20ultima%20milla%20%3D%207%3C/text%3E"
+			& "%3C/svg%3E"
+		displayFolder: 02. Resumen Ejecutivo\10. Diseño 2026
+		lineageTag: 2292f88d-f778-4725-a126-d86322decdf1
+		dataCategory: ImageUrl
+
+	measure 'RE Resumen Mes SVG' =
+			VAR Mes = SUBSTITUTE(COALESCE(SELECTEDVALUE(Dim_Periodo_3M[Etiqueta]), "Mes actual"), " ", "%20")
+			VAR Ped = SUBSTITUTE(FORMAT([RE Pedidos contexto], "#,##0", "es-CL"), " ", "%20")
+			VAR Valor = SUBSTITUTE("CLP " & FORMAT(DIVIDE([RE Valor contexto],1000000), "#,##0.0", "es-CL") & " MM", " ", "%20")
+			VAR NS = SUBSTITUTE(FORMAT([RE NS contexto], "0.0%", "es-CL"), "%", "%25")
+			VAR EnSLA = SUBSTITUTE(FORMAT([RE Pedidos en SLA contexto], "#,##0", "es-CL"), " ", "%20")
+			VAR Fuera = SUBSTITUTE(FORMAT([RE Pedidos fuera SLA contexto], "#,##0", "es-CL"), " ", "%20")
+			VAR Prom = SUBSTITUTE(FORMAT([RE Promedio contexto DH], "0.0", "es-CL"), ",", ".") & "%20DH"
+			VAR P90 = SUBSTITUTE(FORMAT([RE P90 contexto DH], "0.0", "es-CL"), ",", ".") & "%20DH"
+			RETURN
+			"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='290' height='238' viewBox='0 0 290 238'%3E"
+			& "%3Crect x='1' y='1' width='288' height='236' rx='10' fill='%23FFFFFF' stroke='%23CED9E5'/%3E%3Ctext x='14' y='24' font-family='Segoe%20UI' font-size='11' font-weight='700' fill='%231B365D'%3ERESUMEN%20%C2%B7%20" & Mes & "%3C/text%3E"
+			& "%3Cg font-family='Segoe%20UI' font-size='10' fill='%23343A40'%3E%3Ctext x='18' y='56'%3EPedidos%20evaluados%3C/text%3E%3Ctext x='270' y='56' text-anchor='end' font-weight='700'%3E" & Ped & "%3C/text%3E"
+			& "%3Ctext x='18' y='82'%3EValor%20neto%3C/text%3E%3Ctext x='270' y='82' text-anchor='end' font-weight='700'%3E" & Valor & "%3C/text%3E"
+			& "%3Ctext x='18' y='108'%3ENS%20interno%3C/text%3E%3Ctext x='270' y='108' text-anchor='end' font-weight='700'%3E" & NS & "%3C/text%3E"
+			& "%3Ctext x='18' y='134'%3EEn%20SLA%20(%E2%89%A45%20DH)%3C/text%3E%3Ctext x='270' y='134' text-anchor='end' font-weight='700'%3E" & EnSLA & "%3C/text%3E"
+			& "%3Ctext x='18' y='160'%3EFuera%20de%20SLA%20(%3E5%20DH)%3C/text%3E%3Ctext x='270' y='160' text-anchor='end' font-weight='700'%3E" & Fuera & "%3C/text%3E"
+			& "%3Ctext x='18' y='186'%3EPromedio%20interno%3C/text%3E%3Ctext x='270' y='186' text-anchor='end' font-weight='700'%3E" & Prom & "%3C/text%3E"
+			& "%3Ctext x='18' y='212'%3EP90%20interno%3C/text%3E%3Ctext x='270' y='212' text-anchor='end' font-weight='700'%3E" & P90 & "%3C/text%3E%3C/g%3E%3C/svg%3E"
+		displayFolder: 02. Resumen Ejecutivo\10. Diseño 2026
+		lineageTag: 103f1db8-8cab-4c23-9eab-66af38a66072
+		dataCategory: ImageUrl
+
+	measure 'RE SLA Panel SVG' =
+			VAR Mes = SUBSTITUTE(COALESCE(SELECTEDVALUE(Dim_Periodo_3M[Etiqueta]), "Mes actual"), " ", "%20")
+			VAR NS = [RE NS contexto]
+			VAR FueraPct = 1 - NS
+			VAR NsTxt = SUBSTITUTE(FORMAT(NS,"0.0%","es-CL"),"%","%25")
+			VAR FueraTxt = SUBSTITUTE(FORMAT(FueraPct,"0.0%","es-CL"),"%","%25")
+			VAR EnSLA = SUBSTITUTE(FORMAT([RE Pedidos en SLA contexto],"#,##0","es-CL")," ","%20")
+			VAR Fuera = SUBSTITUTE(FORMAT([RE Pedidos fuera SLA contexto],"#,##0","es-CL")," ","%20")
+			VAR Barra = ROUND(330 * MIN(MAX(NS,0),1),0)
+			RETURN
+			"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='380' height='150' viewBox='0 0 380 150'%3E"
+			& "%3Crect x='1' y='1' width='378' height='148' rx='10' fill='%23FFFFFF' stroke='%23CED9E5'/%3E%3Ctext x='14' y='23' font-family='Segoe%20UI' font-size='11' font-weight='700' fill='%231B365D'%3EINDICADORES%20SLA%20%C2%B7%20" & Mes & "%3C/text%3E"
+			& "%3Ctext x='95' y='52' text-anchor='middle' font-family='Segoe%20UI' font-size='10' font-weight='700' fill='%23343A40'%3EEN%20SLA%20(%E2%89%A45%20DH)%3C/text%3E%3Ctext x='95' y='86' text-anchor='middle' font-family='Segoe%20UI' font-size='28' font-weight='700' fill='%232E8B57'%3E" & NsTxt & "%3C/text%3E%3Ctext x='95' y='105' text-anchor='middle' font-family='Segoe%20UI' font-size='9' fill='%23535A65'%3E" & EnSLA & "%20pedidos%3C/text%3E"
+			& "%3Cline x1='190' y1='42' x2='190' y2='112' stroke='%23D7E0EA'/%3E"
+			& "%3Ctext x='285' y='52' text-anchor='middle' font-family='Segoe%20UI' font-size='10' font-weight='700' fill='%23343A40'%3EFUERA%20DE%20SLA%20(%3E5%20DH)%3C/text%3E%3Ctext x='285' y='86' text-anchor='middle' font-family='Segoe%20UI' font-size='28' font-weight='700' fill='%23D3392C'%3E" & FueraTxt & "%3C/text%3E%3Ctext x='285' y='105' text-anchor='middle' font-family='Segoe%20UI' font-size='9' fill='%23535A65'%3E" & Fuera & "%20pedidos%3C/text%3E"
+			& "%3Crect x='25' y='123' width='330' height='10' rx='5' fill='%23E5E7EB'/%3E%3Crect x='25' y='123' width='" & FORMAT(Barra,"0") & "' height='10' rx='5' fill='%232E8B57'/%3E%3Cline x1='322' y1='117' x2='322' y2='138' stroke='%231B365D' stroke-width='2'/%3E%3Ctext x='190' y='146' text-anchor='middle' font-family='Segoe%20UI' font-size='8.5' fill='%232E8B57'%3EMeta%2090%25%3C/text%3E%3C/svg%3E"
+		displayFolder: 02. Resumen Ejecutivo\10. Diseño 2026
+		lineageTag: e578a723-2e9e-4f20-84ce-ef20c676b2db
+		dataCategory: ImageUrl
+
+	measure 'RE Promesa Lateral SVG' =
+			"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='190' height='145' viewBox='0 0 190 145'%3E"
+			& "%3Crect x='1' y='1' width='188' height='143' rx='10' fill='%23FFFFFF' stroke='%23CED9E5'/%3E%3Ctext x='12' y='23' font-family='Segoe%20UI' font-size='11' font-weight='700' fill='%231B365D'%3EPROMESA%20OPERATIVA%20(NS)%3C/text%3E"
+			& "%3Ccircle cx='28' cy='58' r='14' fill='%231976D2'/%3E%3Ctext x='28' y='63' text-anchor='middle' font-size='15' fill='%23FFFFFF'%3E%F0%9F%93%8D%3C/text%3E%3Ctext x='52' y='53' font-family='Segoe%20UI' font-size='10' font-weight='700' fill='%231976D2'%3ESANTIAGO%3C/text%3E%3Ctext x='52' y='70' font-family='Segoe%20UI' font-size='11' fill='%23111827'%3E1%E2%80%935%20DH%20internos%3C/text%3E"
+			& "%3Ccircle cx='28' cy='105' r='14' fill='%237B1FA2'/%3E%3Ctext x='28' y='110' text-anchor='middle' font-size='15' fill='%23FFFFFF'%3E%F0%9F%93%8D%3C/text%3E%3Ctext x='52' y='100' font-family='Segoe%20UI' font-size='10' font-weight='700' fill='%237B1FA2'%3EREGIONES%3C/text%3E%3Ctext x='52' y='117' font-family='Segoe%20UI' font-size='11' fill='%23111827'%3E3%E2%80%937%20DH%20estimados%3C/text%3E%3C/svg%3E"
+		displayFolder: 02. Resumen Ejecutivo\10. Diseño 2026
+		lineageTag: 65d7fc24-8740-4f01-ad31-393c3c8c28d7
+		dataCategory: ImageUrl
+
+	measure 'RE Tooltip seleccionado texto' =
+			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
+			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
+			VAR Base = FILTER(ALLSELECTED(Fact_Tracking), Fact_Tracking[ES_CERRADO] = TRUE() && NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH]) && (ISBLANK(FlujoSel) || (CONTAINSSTRING(FlujoSel,"Flujo Normal") && Fact_Tracking[CLASIFICACION]="NORMAL") || (CONTAINSSTRING(FlujoSel,"FES") && Fact_Tracking[CLASIFICACION] IN {"FES","FES + SALDO"}) || (CONTAINSSTRING(FlujoSel,"Saldos") && Fact_Tracking[CLASIFICACION]="SALDO")) && (ISBLANK(ZonaSel) || Fact_Tracking[ZONA]=ZonaSel))
+			VAR PedidoSeleccionado = SELECTEDVALUE(Fact_Tracking[PED_NUMERO_PEDIDO])
+			VAR PedidoTop = MAXX(TOPN(1, Base, Fact_Tracking[DIAS_INTERNOS_DH], DESC, Fact_Tracking[PED_NUMERO_PEDIDO], ASC), Fact_Tracking[PED_NUMERO_PEDIDO])
+			VAR Pedido = COALESCE(PedidoSeleccionado, PedidoTop)
+			VAR Codigo = CALCULATE(MAX(Fact_Tracking[PED_CODIGO_CLIENTE]), TREATAS({Pedido}, Fact_Tracking[PED_NUMERO_PEDIDO]))
+			VAR Cliente = COALESCE(LOOKUPVALUE(Dim_Cliente[CLIENTE_NOMBRE], Dim_Cliente[CLIENTE_CODIGO], Codigo), Codigo, "Sin cliente")
+			VAR Vendedor = COALESCE(LOOKUPVALUE(Dim_Cliente[VENDEDOR_NOMBRE], Dim_Cliente[CLIENTE_CODIGO], Codigo), CALCULATE(MAX(Fact_Tracking[PED_RESPONSABLE]), TREATAS({Pedido}, Fact_Tracking[PED_NUMERO_PEDIDO])), "Sin vendedor")
+			VAR Dias = CALCULATE(MAX(Fact_Tracking[DIAS_INTERNOS_DH]), TREATAS({Pedido}, Fact_Tracking[PED_NUMERO_PEDIDO]))
+			VAR Hito = CALCULATE([RE TT Hito crítico], TREATAS({Pedido}, Fact_Tracking[PED_NUMERO_PEDIDO]))
+			VAR Exceso = CALCULATE([RE TT Exceso crítico DH], TREATAS({Pedido}, Fact_Tracking[PED_NUMERO_PEDIDO]))
+			VAR Motivo = CALCULATE([RE TT Motivo operativo], TREATAS({Pedido}, Fact_Tracking[PED_NUMERO_PEDIDO]))
+			VAR Cierre = CALCULATE(MAX(Fact_Tracking[FECHA_CIERRE]), TREATAS({Pedido}, Fact_Tracking[PED_NUMERO_PEDIDO]))
+			RETURN
+			"¿POR QUÉ ESTE PEDIDO ESTÁ FUERA DE SLA?" & UNICHAR(10)
+			& "Pedido: " & COALESCE(FORMAT(Pedido,"0"),"--") & UNICHAR(10)
+			& "Cliente: " & Cliente & UNICHAR(10)
+			& "Vendedor: " & Vendedor & UNICHAR(10)
+			& "DH total: " & COALESCE(FORMAT(Dias,"0"),"--") & " · Exceso: " & COALESCE(FORMAT(Exceso,"0"),"--") & " DH" & UNICHAR(10)
+			& "Hito dominante: " & COALESCE(Hito,"Sin dato") & UNICHAR(10)
+			& "Motivo asociado: " & COALESCE(Motivo,"Sin evidencia suficiente") & UNICHAR(10)
+			& "Cierre operativo: " & COALESCE(FORMAT(Cierre,"dd-MM-yyyy HH:mm"),"--")
+		displayFolder: 02. Resumen Ejecutivo\10. Diseño 2026
+		lineageTag: 04d04d34-1e2e-43b1-b66a-13de29a711a5
+
+	/// Cohorte ejecutiva superior: conserva filtros de negocio, pero siempre resume la ventana completa de tres meses.
+	measure 'RE Pedidos 3M contexto' =
+			CALCULATE(
+				[RE Pedidos contexto],
+				REMOVEFILTERS(Dim_Periodo_3M),
+				REMOVEFILTERS(Dim_Fecha)
+			)
+		formatString: #,##0
+		displayFolder: 02. Resumen Ejecutivo\10. Diseño 2026
+		lineageTag: 44000000-0000-4000-8000-000000000101
+
+	measure 'RE Pedidos en SLA 3M contexto' =
+			CALCULATE(
+				[RE Pedidos en SLA contexto],
+				REMOVEFILTERS(Dim_Periodo_3M),
+				REMOVEFILTERS(Dim_Fecha)
+			)
+		formatString: #,##0
+		displayFolder: 02. Resumen Ejecutivo\10. Diseño 2026
+		lineageTag: 44000000-0000-4000-8000-000000000102
+
+	measure 'RE Pedidos fuera SLA 3M contexto' = [RE Pedidos 3M contexto] - [RE Pedidos en SLA 3M contexto]
+		formatString: #,##0
+		displayFolder: 02. Resumen Ejecutivo\10. Diseño 2026
+		lineageTag: 44000000-0000-4000-8000-000000000103
+
+	measure 'RE NS 3M contexto' = DIVIDE([RE Pedidos en SLA 3M contexto], [RE Pedidos 3M contexto])
+		formatString: 0.0%
+		displayFolder: 02. Resumen Ejecutivo\10. Diseño 2026
+		lineageTag: 44000000-0000-4000-8000-000000000104
+
+	measure 'RE Valor 3M contexto' =
+			CALCULATE(
+				[RE Valor contexto],
+				REMOVEFILTERS(Dim_Periodo_3M),
+				REMOVEFILTERS(Dim_Fecha)
+			)
+		formatString: #,##0
+		displayFolder: 02. Resumen Ejecutivo\10. Diseño 2026
+		lineageTag: 44000000-0000-4000-8000-000000000105
+
+	measure 'RE Valor en SLA 3M contexto' =
+			CALCULATE(
+				[RE Valor en SLA contexto],
+				REMOVEFILTERS(Dim_Periodo_3M),
+				REMOVEFILTERS(Dim_Fecha)
+			)
+		formatString: #,##0
+		displayFolder: 02. Resumen Ejecutivo\10. Diseño 2026
+		lineageTag: 44000000-0000-4000-8000-000000000106
+
+	measure 'RE Valor fuera SLA 3M contexto' = [RE Valor 3M contexto] - [RE Valor en SLA 3M contexto]
+		formatString: #,##0
+		displayFolder: 02. Resumen Ejecutivo\10. Diseño 2026
+		lineageTag: 44000000-0000-4000-8000-000000000107
+
+	measure 'RE Ventana 3M texto' =
+			VAR MesSeleccionado = COALESCE(SELECTEDVALUE(Dim_Periodo_3M[Etiqueta]), "Mes actual")
+			VAR Ventana = CONCATENATEX(ALL(Dim_Mes_Trend), Dim_Mes_Trend[Etiqueta], " · ", Dim_Mes_Trend[Orden], ASC)
+			RETURN
+				"Mes seleccionado: " & MesSeleccionado & UNICHAR(10)
+				& "Tendencia 3M: " & Ventana
+		displayFolder: 02. Resumen Ejecutivo\10. Diseño 2026
+		lineageTag: 44000000-0000-4000-8000-000000000108
+
+	measure 'RE Distribución Flujo SVG' =
+			VAR Mes = SUBSTITUTE(COALESCE(SELECTEDVALUE(Dim_Periodo_3M[Etiqueta]), "Mes actual"), " ", "%20")
+			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
+			VAR NormalBase =
+				CALCULATE(
+					[RE Pedidos contexto],
+					REMOVEFILTERS(Dim_Vista_Ejecutiva[Flujo]),
+					KEEPFILTERS(Fact_Tracking[CLASIFICACION] = "NORMAL")
+				)
+			VAR FesBase = [RE FES Total pedidos]
+			VAR FesPuroBase = [RE FES Puro pedidos]
+			VAR FesSaldoBase = [RE FES con Saldo pedidos]
+			VAR SaldoBase =
+				CALCULATE(
+					[RE Pedidos contexto],
+					REMOVEFILTERS(Dim_Vista_Ejecutiva[Flujo]),
+					KEEPFILTERS(Fact_Tracking[CLASIFICACION] = "SALDO")
+				)
+			VAR NormalCnt = IF(ISBLANK(FlujoSel) || CONTAINSSTRING(FlujoSel, "Flujo Normal"), NormalBase, 0)
+			VAR FesCnt = IF(ISBLANK(FlujoSel) || CONTAINSSTRING(FlujoSel, "FES"), FesBase, 0)
+			VAR FesPuroCnt = IF(FesCnt > 0, FesPuroBase, 0)
+			VAR FesSaldoCnt = IF(FesCnt > 0, FesSaldoBase, 0)
+			VAR SaldoCnt = IF(ISBLANK(FlujoSel) || CONTAINSSTRING(FlujoSel, "Saldos"), SaldoBase, 0)
+			VAR TotalCnt = NormalCnt + FesCnt + SaldoCnt
+			VAR PctNormal = DIVIDE(NormalCnt, TotalCnt, 0) * 100
+			VAR PctFes = DIVIDE(FesCnt, TotalCnt, 0) * 100
+			VAR PctSaldo = DIVIDE(SaldoCnt, TotalCnt, 0) * 100
+			VAR NDash = FORMAT(PctNormal, "0.###", "en-US")
+			VAR FDash = FORMAT(PctFes, "0.###", "en-US")
+			VAR SDash = FORMAT(PctSaldo, "0.###", "en-US")
+			VAR FOffset = FORMAT(-PctNormal, "0.###", "en-US")
+			VAR SOffset = FORMAT(-(PctNormal + PctFes), "0.###", "en-US")
+			VAR TotalTxt = SUBSTITUTE(FORMAT(TotalCnt, "#,##0", "es-CL"), " ", "%20")
+			VAR NormalTxt = SUBSTITUTE(FORMAT(NormalCnt, "#,##0", "es-CL"), " ", "%20")
+			VAR FESTxt = SUBSTITUTE(FORMAT(FesCnt, "#,##0", "es-CL"), " ", "%20")
+			VAR SaldoTxt = SUBSTITUTE(FORMAT(SaldoCnt, "#,##0", "es-CL"), " ", "%20")
+			VAR FESPuroTxt = SUBSTITUTE(FORMAT(FesPuroCnt, "#,##0", "es-CL"), " ", "%20")
+			VAR FESSaldoTxt = SUBSTITUTE(FORMAT(FesSaldoCnt, "#,##0", "es-CL"), " ", "%20")
+			VAR NormalPctTxt = SUBSTITUTE(FORMAT(DIVIDE(NormalCnt, TotalCnt), "0.0%", "es-CL"), "%", "%25")
+			VAR FESPctTxt = SUBSTITUTE(FORMAT(DIVIDE(FesCnt, TotalCnt), "0.0%", "es-CL"), "%", "%25")
+			VAR SaldoPctTxt = SUBSTITUTE(FORMAT(DIVIDE(SaldoCnt, TotalCnt), "0.0%", "es-CL"), "%", "%25")
+			VAR FESSaldoPctTxt = SUBSTITUTE(FORMAT(DIVIDE(FesSaldoCnt, FesCnt), "0.0%", "es-CL"), "%", "%25")
+			VAR NSPuro = SUBSTITUTE(COALESCE(FORMAT([RE FES Puro NS], "0.0%", "es-CL"), "--"), "%", "%25")
+			VAR NSSaldo = SUBSTITUTE(COALESCE(FORMAT([RE FES con Saldo NS], "0.0%", "es-CL"), "--"), "%", "%25")
+			VAR PromPuro = SUBSTITUTE(COALESCE(FORMAT([RE FES Puro promedio DH], "0.0", "es-CL"), "--"), ",", ".")
+			VAR PromSaldo = SUBSTITUTE(COALESCE(FORMAT([RE FES con Saldo promedio DH], "0.0", "es-CL"), "--"), ",", ".")
+			VAR Brecha = SUBSTITUTE(COALESCE(FORMAT([RE FES Brecha facturación promedio DH], "0.0", "es-CL"), "--"), ",", ".")
+			RETURN
+				"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250' viewBox='0 0 400 250'%3E"
+				& "%3Crect x='1' y='1' width='398' height='248' rx='10' fill='%23FFFFFF' stroke='%23CED9E5'/%3E"
+				& "%3Ctext x='14' y='24' font-family='Segoe%20UI' font-size='10.5' font-weight='700' fill='%231B365D'%3EDISTRIBUCI%C3%93N%20POR%20FLUJO%20%C2%B7%20" & Mes & "%3C/text%3E"
+				& "%3Ccircle cx='105' cy='123' r='60' fill='none' stroke='%23E6ECF2' stroke-width='26'/%3E"
+				& "%3Ccircle cx='105' cy='123' r='60' pathLength='100' fill='none' stroke='%231976D2' stroke-width='26' stroke-dasharray='" & NDash & " " & FORMAT(100-PctNormal,"0.###","en-US") & "' transform='rotate(-90 105 123)'/%3E"
+				& "%3Ccircle cx='105' cy='123' r='60' pathLength='100' fill='none' stroke='%23F0A500' stroke-width='26' stroke-dasharray='" & FDash & " " & FORMAT(100-PctFes,"0.###","en-US") & "' stroke-dashoffset='" & FOffset & "' transform='rotate(-90 105 123)'/%3E"
+				& "%3Ccircle cx='105' cy='123' r='60' pathLength='100' fill='none' stroke='%237B1FA2' stroke-width='26' stroke-dasharray='" & SDash & " " & FORMAT(100-PctSaldo,"0.###","en-US") & "' stroke-dashoffset='" & SOffset & "' transform='rotate(-90 105 123)'/%3E"
+				& "%3Ctext x='105' y='119' text-anchor='middle' font-family='Segoe%20UI' font-size='22' font-weight='700' fill='%23111827'%3E" & TotalTxt & "%3C/text%3E"
+				& "%3Ctext x='105' y='137' text-anchor='middle' font-family='Segoe%20UI' font-size='9.5' fill='%23535A65'%3EPedidos%3C/text%3E"
+				& "%3Ccircle cx='206' cy='58' r='5.5' fill='%231976D2'/%3E%3Ctext x='218' y='56' font-family='Segoe%20UI' font-size='9.5' font-weight='700' fill='%231B365D'%3ENORMAL%3C/text%3E%3Ctext x='218' y='72' font-family='Segoe%20UI' font-size='9' fill='%23535A65'%3E" & NormalTxt & "%20%C2%B7%20" & NormalPctTxt & "%3C/text%3E"
+				& "%3Ccircle cx='206' cy='98' r='5.5' fill='%23F0A500'/%3E%3Ctext x='218' y='96' font-family='Segoe%20UI' font-size='9.5' font-weight='700' fill='%231B365D'%3EFES%20TOTAL%3C/text%3E%3Ctext x='218' y='112' font-family='Segoe%20UI' font-size='9' fill='%23535A65'%3E" & FESTxt & "%20%C2%B7%20" & FESPctTxt & "%3C/text%3E"
+				& "%3Cline x1='218' y1='121' x2='378' y2='121' stroke='%23E1E6ED'/%3E"
+				& "%3Ccircle cx='225' cy='136' r='4' fill='%23F6C453'/%3E%3Ctext x='235' y='139' font-family='Segoe%20UI' font-size='8.3' fill='%23343A40'%3EFES%20puro:%20" & FESPuroTxt & "%20%C2%B7%20NS%20" & NSPuro & "%20%C2%B7%20" & PromPuro & "%20DH%3C/text%3E"
+				& "%3Ccircle cx='225' cy='155' r='4' fill='%23D97706'/%3E%3Ctext x='235' y='158' font-family='Segoe%20UI' font-size='8.3' fill='%23343A40'%3EFES%20%2B%20Saldo:%20" & FESSaldoTxt & "%20(" & FESSaldoPctTxt & ")%20%C2%B7%20NS%20" & NSSaldo & "%3C/text%3E"
+				& "%3Ctext x='235' y='174' font-family='Segoe%20UI' font-size='8.3' fill='%23343A40'%3EProm.%20" & PromSaldo & "%20DH%20%C2%B7%20brecha%20fact.%20" & Brecha & "%20DH%3C/text%3E"
+				& "%3Ccircle cx='206' cy='198' r='5.5' fill='%237B1FA2'/%3E%3Ctext x='218' y='196' font-family='Segoe%20UI' font-size='9.5' font-weight='700' fill='%231B365D'%3ESALDO%20PURO%3C/text%3E%3Ctext x='218' y='212' font-family='Segoe%20UI' font-size='9' fill='%23535A65'%3E" & SaldoTxt & "%20%C2%B7%20" & SaldoPctTxt & "%3C/text%3E"
+				& "%3Ctext x='14' y='236' font-family='Segoe%20UI' font-size='8' fill='%236B7280'%3EPase%20el%20cursor%20para%20comparar%20NS,%20promedio,%20P90%20y%20brecha%20de%20facturaci%C3%B3n.%3C/text%3E"
+				& "%3C/svg%3E"
+		displayFolder: 02. Resumen Ejecutivo\10. Diseño 2026
+		lineageTag: 44000000-0000-4000-8000-000000000109
+		dataCategory: ImageUrl
+
+	/// Tarjeta ejecutiva del pedido seleccionado; si no hay selección, utiliza el pedido más crítico del contexto.
+	measure 'RE Pedido Seleccionado SVG' =
+			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
+			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
+			VAR Base =
+				FILTER(
+					ALLSELECTED(Fact_Tracking),
+					Fact_Tracking[ES_CERRADO] = TRUE()
+						&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
+						&& (ISBLANK(FlujoSel)
+							|| (CONTAINSSTRING(FlujoSel,"Flujo Normal") && Fact_Tracking[CLASIFICACION]="NORMAL")
+							|| (CONTAINSSTRING(FlujoSel,"FES") && Fact_Tracking[CLASIFICACION] IN {"FES","FES + SALDO"})
+							|| (CONTAINSSTRING(FlujoSel,"Saldos") && Fact_Tracking[CLASIFICACION]="SALDO"))
+						&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA]=ZonaSel)
+				)
+			VAR PedidoSeleccionado = SELECTEDVALUE(Fact_Tracking[PED_NUMERO_PEDIDO])
+			VAR PedidoTop = MAXX(TOPN(1, Base, Fact_Tracking[DIAS_INTERNOS_DH], DESC, Fact_Tracking[PED_NUMERO_PEDIDO], ASC), Fact_Tracking[PED_NUMERO_PEDIDO])
+			VAR Pedido = COALESCE(PedidoSeleccionado, PedidoTop)
+			VAR Codigo = CALCULATE(MAX(Fact_Tracking[PED_CODIGO_CLIENTE]), TREATAS({Pedido}, Fact_Tracking[PED_NUMERO_PEDIDO]))
+			VAR Cliente = COALESCE(LOOKUPVALUE(Dim_Cliente[CLIENTE_NOMBRE], Dim_Cliente[CLIENTE_CODIGO], Codigo), Codigo, "Sin cliente")
+			VAR Vendedor = COALESCE(LOOKUPVALUE(Dim_Cliente[VENDEDOR_NOMBRE], Dim_Cliente[CLIENTE_CODIGO], Codigo), CALCULATE(MAX(Fact_Tracking[PED_RESPONSABLE]), TREATAS({Pedido}, Fact_Tracking[PED_NUMERO_PEDIDO])), "Sin vendedor")
+			VAR Dias = CALCULATE(MAX(Fact_Tracking[DIAS_INTERNOS_DH]), TREATAS({Pedido}, Fact_Tracking[PED_NUMERO_PEDIDO]))
+			VAR Hito = CALCULATE([RE TT Hito crítico], TREATAS({Pedido}, Fact_Tracking[PED_NUMERO_PEDIDO]))
+			VAR Exceso = CALCULATE([RE TT Exceso crítico DH], TREATAS({Pedido}, Fact_Tracking[PED_NUMERO_PEDIDO]))
+			VAR Motivo = CALCULATE([RE TT Motivo operativo], TREATAS({Pedido}, Fact_Tracking[PED_NUMERO_PEDIDO]))
+			VAR Cierre = CALCULATE(MAX(Fact_Tracking[FECHA_CIERRE]), TREATAS({Pedido}, Fact_Tracking[PED_NUMERO_PEDIDO]))
+			VAR Flecha = SEARCH("→", COALESCE(Hito,""), 1, 0)
+			VAR Hito1 = IF(Flecha > 0, TRIM(LEFT(Hito, Flecha - 1)), COALESCE(Hito,"Sin dato"))
+			VAR Hito2 = IF(Flecha > 0, "→ " & TRIM(MID(Hito, Flecha + 1, LEN(Hito))), "")
+			VAR ClienteUrl = SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(Cliente,"&","%26"),"#","%23"),"<","%3C")," ","%20")
+			VAR VendedorUrl = SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(Vendedor,"&","%26"),"#","%23"),"<","%3C")," ","%20")
+			VAR Hito1Url = SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(Hito1,"&","%26"),"#","%23")," ","%20")
+			VAR Hito2Url = SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(Hito2,"&","%26"),"#","%23")," ","%20")
+			VAR MotivoUrl = SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(Motivo,"&","%26"),"#","%23"),"<","%3C")," ","%20")
+			VAR PedidoTxt = COALESCE(FORMAT(Pedido,"0"),"--")
+			VAR DiasTxt = COALESCE(FORMAT(Dias,"0"),"--")
+			VAR ExcesoTxt = COALESCE(FORMAT(Exceso,"0"),"--")
+			VAR CierreTxt = SUBSTITUTE(COALESCE(FORMAT(Cierre,"dd-MM-yyyy HH:mm"),"--")," ","%20")
+			RETURN
+				"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='290' height='195' viewBox='0 0 290 195'%3E"
+				& "%3Crect x='1' y='1' width='288' height='193' rx='9' fill='%23FFFFFF' stroke='%23CED9E5'/%3E"
+				& "%3Cpath d='M10 1 H280 A9 9 0 0 1 289 10 V29 H1 V10 A9 9 0 0 1 10 1Z' fill='%231B365D'/%3E"
+				& "%3Ctext x='145' y='20' text-anchor='middle' font-family='Segoe%20UI' font-size='9' font-weight='700' fill='%23FFFFFF'%3E%C2%BFPOR%20QU%C3%89%20ESTE%20PEDIDO%20EST%C3%81%20FUERA%20DE%20SLA%3F%3C/text%3E"
+				& "%3Ctext x='12' y='47' font-family='Segoe%20UI' font-size='8.5' font-weight='700' fill='%231B365D'%3EPedido:%20" & PedidoTxt & "%3C/text%3E"
+				& "%3Ctext x='12' y='62' font-family='Segoe%20UI' font-size='7.8' fill='%23343A40'%3ECliente:%20" & ClienteUrl & "%3C/text%3E"
+				& "%3Ctext x='12' y='76' font-family='Segoe%20UI' font-size='7.8' fill='%23343A40'%3EVendedor:%20" & VendedorUrl & "%3C/text%3E"
+				& "%3Crect x='12' y='86' width='58' height='48' rx='6' fill='%23F4F7FA' stroke='%23D7E0EA'/%3E%3Ctext x='41' y='101' text-anchor='middle' font-family='Segoe%20UI' font-size='7.5' fill='%23535A65'%3EDH%20TOTAL%3C/text%3E%3Ctext x='41' y='124' text-anchor='middle' font-family='Segoe%20UI' font-size='21' font-weight='700' fill='%23111827'%3E" & DiasTxt & "%3C/text%3E"
+				& "%3Crect x='76' y='86' width='144' height='48' rx='6' fill='%23F4F7FA' stroke='%23D7E0EA'/%3E%3Ctext x='148' y='101' text-anchor='middle' font-family='Segoe%20UI' font-size='7.5' fill='%23535A65'%3EHITO%20CR%C3%8DTICO%3C/text%3E%3Ctext x='148' y='116' text-anchor='middle' font-family='Segoe%20UI' font-size='8' font-weight='700' fill='%231B365D'%3E" & Hito1Url & "%3C/text%3E%3Ctext x='148' y='128' text-anchor='middle' font-family='Segoe%20UI' font-size='8' font-weight='700' fill='%231B365D'%3E" & Hito2Url & "%3C/text%3E"
+				& "%3Crect x='226' y='86' width='52' height='48' rx='6' fill='%23FFF2F1' stroke='%23F1B6B2'/%3E%3Ctext x='252' y='101' text-anchor='middle' font-family='Segoe%20UI' font-size='7.5' fill='%23A52620'%3EEXCESO%3C/text%3E%3Ctext x='252' y='123' text-anchor='middle' font-family='Segoe%20UI' font-size='17' font-weight='700' fill='%23D3392C'%3E" & ExcesoTxt & "%20DH%3C/text%3E"
+				& "%3Ctext x='12' y='151' font-family='Segoe%20UI' font-size='7.5' font-weight='700' fill='%23535A65'%3EMOTIVO%20OPERATIVO%20ASOCIADO%3C/text%3E%3Ctext x='12' y='165' font-family='Segoe%20UI' font-size='8.2' fill='%23111827'%3E" & MotivoUrl & "%3C/text%3E"
+				& "%3Ctext x='12' y='184' font-family='Segoe%20UI' font-size='7.8' fill='%23535A65'%3ECierre%20operativo:%20" & CierreTxt & "%3C/text%3E"
+				& "%3C/svg%3E"
+		displayFolder: 02. Resumen Ejecutivo\10. Diseño 2026
+		lineageTag: 44000000-0000-4000-8000-000000000110
+		dataCategory: ImageUrl
+
+	/// Diagnóstico interno del grupo FES. FES puro y FES + Saldo son mutuamente excluyentes.
+	measure 'RE FES Total pedidos' =
+			CALCULATE(
+				[RE Pedidos contexto],
+				REMOVEFILTERS(Dim_Vista_Ejecutiva[Flujo]),
+				KEEPFILTERS(Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
+			)
+		formatString: #,##0
+		displayFolder: 02. Resumen Ejecutivo\11. Diagnóstico FES
+		lineageTag: 45000000-0000-4000-8000-000000000101
+
+	measure 'RE FES Puro pedidos' =
+			CALCULATE(
+				[RE Pedidos contexto],
+				REMOVEFILTERS(Dim_Vista_Ejecutiva[Flujo]),
+				KEEPFILTERS(Fact_Tracking[CLASIFICACION] = "FES")
+			)
+		formatString: #,##0
+		displayFolder: 02. Resumen Ejecutivo\11. Diagnóstico FES
+		lineageTag: 45000000-0000-4000-8000-000000000102
+
+	measure 'RE FES con Saldo pedidos' =
+			CALCULATE(
+				[RE Pedidos contexto],
+				REMOVEFILTERS(Dim_Vista_Ejecutiva[Flujo]),
+				KEEPFILTERS(Fact_Tracking[CLASIFICACION] = "FES + SALDO")
+			)
+		formatString: #,##0
+		displayFolder: 02. Resumen Ejecutivo\11. Diagnóstico FES
+		lineageTag: 45000000-0000-4000-8000-000000000103
+
+	measure 'RE FES con Saldo %' = DIVIDE([RE FES con Saldo pedidos], [RE FES Total pedidos])
+		formatString: 0.0%
+		displayFolder: 02. Resumen Ejecutivo\11. Diagnóstico FES
+		lineageTag: 45000000-0000-4000-8000-000000000104
+
+	measure 'RE FES Puro NS' =
+			CALCULATE(
+				[RE NS contexto],
+				REMOVEFILTERS(Dim_Vista_Ejecutiva[Flujo]),
+				KEEPFILTERS(Fact_Tracking[CLASIFICACION] = "FES")
+			)
+		formatString: 0.0%
+		displayFolder: 02. Resumen Ejecutivo\11. Diagnóstico FES
+		lineageTag: 45000000-0000-4000-8000-000000000105
+
+	measure 'RE FES con Saldo NS' =
+			CALCULATE(
+				[RE NS contexto],
+				REMOVEFILTERS(Dim_Vista_Ejecutiva[Flujo]),
+				KEEPFILTERS(Fact_Tracking[CLASIFICACION] = "FES + SALDO")
+			)
+		formatString: 0.0%
+		displayFolder: 02. Resumen Ejecutivo\11. Diagnóstico FES
+		lineageTag: 45000000-0000-4000-8000-000000000106
+
+	measure 'RE FES Puro promedio DH' =
+			CALCULATE(
+				[RE Promedio contexto DH],
+				REMOVEFILTERS(Dim_Vista_Ejecutiva[Flujo]),
+				KEEPFILTERS(Fact_Tracking[CLASIFICACION] = "FES")
+			)
+		formatString: 0.0 "DH"
+		displayFolder: 02. Resumen Ejecutivo\11. Diagnóstico FES
+		lineageTag: 45000000-0000-4000-8000-000000000107
+
+	measure 'RE FES con Saldo promedio DH' =
+			CALCULATE(
+				[RE Promedio contexto DH],
+				REMOVEFILTERS(Dim_Vista_Ejecutiva[Flujo]),
+				KEEPFILTERS(Fact_Tracking[CLASIFICACION] = "FES + SALDO")
+			)
+		formatString: 0.0 "DH"
+		displayFolder: 02. Resumen Ejecutivo\11. Diagnóstico FES
+		lineageTag: 45000000-0000-4000-8000-000000000108
+
+	measure 'RE FES Puro P90 DH' =
+			CALCULATE(
+				[RE P90 contexto DH],
+				REMOVEFILTERS(Dim_Vista_Ejecutiva[Flujo]),
+				KEEPFILTERS(Fact_Tracking[CLASIFICACION] = "FES")
+			)
+		formatString: 0.0 "DH"
+		displayFolder: 02. Resumen Ejecutivo\11. Diagnóstico FES
+		lineageTag: 45000000-0000-4000-8000-000000000109
+
+	measure 'RE FES con Saldo P90 DH' =
+			CALCULATE(
+				[RE P90 contexto DH],
+				REMOVEFILTERS(Dim_Vista_Ejecutiva[Flujo]),
+				KEEPFILTERS(Fact_Tracking[CLASIFICACION] = "FES + SALDO")
+			)
+		formatString: 0.0 "DH"
+		displayFolder: 02. Resumen Ejecutivo\11. Diagnóstico FES
+		lineageTag: 45000000-0000-4000-8000-000000000110
+
+	measure 'RE FES Brecha facturación promedio DH' =
+			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
+			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
+			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
+			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
+			VAR Cohorte =
+				FILTER(
+					Fact_Tracking,
+					Fact_Tracking[ES_CERRADO] = TRUE()
+						&& Fact_Tracking[CLASIFICACION] = "FES + SALDO"
+						&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
+						&& NOT ISBLANK(Fact_Tracking[DIAS_HABILES_SALDO])
+						&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+						&& (NOT TieneRango || (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH)))
+				)
+			RETURN AVERAGEX(Cohorte, Fact_Tracking[DIAS_HABILES_SALDO])
+		formatString: 0.0 "DH"
+		displayFolder: 02. Resumen Ejecutivo\11. Diagnóstico FES
+		lineageTag: 45000000-0000-4000-8000-000000000111
+
+	measure 'RE FES Diferencia promedio DH' = [RE FES con Saldo promedio DH] - [RE FES Puro promedio DH]
+		formatString: +0.0;-0.0;0.0 "DH"
+		displayFolder: 02. Resumen Ejecutivo\11. Diagnóstico FES
+		lineageTag: 45000000-0000-4000-8000-000000000112
+
+	measure 'RE FES Reconciliación' = [RE FES Total pedidos] - [RE FES Puro pedidos] - [RE FES con Saldo pedidos]
+		formatString: #,##0
+		displayFolder: 12. Gobierno del reporte\Auditoría FES
+		lineageTag: 45000000-0000-4000-8000-000000000113
+
+	measure 'RE FES Contexto texto' =
+			VAR Mes = COALESCE(SELECTEDVALUE(Dim_Periodo_3M[Etiqueta]), "Ventana seleccionada")
+			VAR Zona = COALESCE(SELECTEDVALUE(Dim_Rango_Entrega[Zona]), "Todas las zonas")
+			RETURN Mes & " · " & Zona & " · FES total sin duplicar pedidos"
+		displayFolder: 02. Resumen Ejecutivo\11. Diagnóstico FES
+		lineageTag: 45000000-0000-4000-8000-000000000114
+
+	measure 'RE FES Diagnóstico SVG' =
+			VAR Total = [RE FES Total pedidos]
+			VAR Puro = [RE FES Puro pedidos]
+			VAR ConSaldo = [RE FES con Saldo pedidos]
+			VAR PartSaldo = [RE FES con Saldo %]
+			VAR NSPuro = [RE FES Puro NS]
+			VAR NSSaldo = [RE FES con Saldo NS]
+			VAR PromPuro = [RE FES Puro promedio DH]
+			VAR PromSaldo = [RE FES con Saldo promedio DH]
+			VAR P90Puro = [RE FES Puro P90 DH]
+			VAR P90Saldo = [RE FES con Saldo P90 DH]
+			VAR Brecha = [RE FES Brecha facturación promedio DH]
+			VAR Delta = [RE FES Diferencia promedio DH]
+			VAR Contexto = SUBSTITUTE(SUBSTITUTE([RE FES Contexto texto], " ", "%20"), "·", "%C2%B7")
+			VAR TotalTxt = SUBSTITUTE(FORMAT(Total, "#,##0", "es-CL"), " ", "%20")
+			VAR PuroTxt = SUBSTITUTE(FORMAT(Puro, "#,##0", "es-CL"), " ", "%20")
+			VAR SaldoTxt = SUBSTITUTE(FORMAT(ConSaldo, "#,##0", "es-CL"), " ", "%20")
+			VAR PartTxt = SUBSTITUTE(COALESCE(FORMAT(PartSaldo, "0.0%", "es-CL"), "--"), "%", "%25")
+			VAR NSPuroTxt = SUBSTITUTE(COALESCE(FORMAT(NSPuro, "0.0%", "es-CL"), "--"), "%", "%25")
+			VAR NSSaldoTxt = SUBSTITUTE(COALESCE(FORMAT(NSSaldo, "0.0%", "es-CL"), "--"), "%", "%25")
+			VAR PromPuroTxt = SUBSTITUTE(COALESCE(FORMAT(PromPuro, "0.0", "es-CL"), "--"), ",", ".")
+			VAR PromSaldoTxt = SUBSTITUTE(COALESCE(FORMAT(PromSaldo, "0.0", "es-CL"), "--"), ",", ".")
+			VAR P90PuroTxt = SUBSTITUTE(COALESCE(FORMAT(P90Puro, "0.0", "es-CL"), "--"), ",", ".")
+			VAR P90SaldoTxt = SUBSTITUTE(COALESCE(FORMAT(P90Saldo, "0.0", "es-CL"), "--"), ",", ".")
+			VAR BrechaTxt = SUBSTITUTE(COALESCE(FORMAT(Brecha, "0.0", "es-CL"), "--"), ",", ".")
+			VAR DeltaTxt = SUBSTITUTE(COALESCE(FORMAT(ABS(Delta), "0.0", "es-CL"), "--"), ",", ".")
+			VAR Sentido = IF(ISBLANK(Delta), "sin%20comparaci%C3%B3n", IF(Delta > 0, "m%C3%A1s", IF(Delta < 0, "menos", "igual")))
+			VAR ColorDelta = IF(ISBLANK(Delta), "%236B7280", IF(Delta > 0, "%23D3392C", IF(Delta < 0, "%232E8B57", "%236B7280")))
+			RETURN
+				"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='676' height='336' viewBox='0 0 676 336'%3E"
+				& "%3Crect x='1' y='1' width='674' height='334' rx='10' fill='%23FFFFFF' stroke='%23CED9E5'/%3E%3Crect x='1' y='1' width='674' height='6' rx='6' fill='%23F0A500'/%3E"
+				& "%3Ctext x='18' y='30' font-family='Segoe%20UI' font-size='14' font-weight='700' fill='%231B365D'%3E%C2%BFCU%C3%81NTO%20DEL%20TIEMPO%20FES%20EST%C3%81%20ASOCIADO%20A%20SALDO%3F%3C/text%3E"
+				& "%3Ctext x='18' y='50' font-family='Segoe%20UI' font-size='9.5' fill='%236B7280'%3E" & Contexto & "%3C/text%3E"
+				& "%3Crect x='18' y='66' width='198' height='66' rx='8' fill='%23F7F9FC' stroke='%23D7E0EA'/%3E%3Ctext x='32' y='86' font-family='Segoe%20UI' font-size='8.5' fill='%23535A65'%3EFES%20TOTAL%3C/text%3E%3Ctext x='32' y='116' font-family='Segoe%20UI' font-size='25' font-weight='700' fill='%23111827'%3E" & TotalTxt & "%3C/text%3E"
+				& "%3Crect x='239' y='66' width='198' height='66' rx='8' fill='%23FFF7E8' stroke='%23F0C46D'/%3E%3Ctext x='253' y='86' font-family='Segoe%20UI' font-size='8.5' fill='%23805B00'%3EFES%20%2B%20SALDO%3C/text%3E%3Ctext x='253' y='116' font-family='Segoe%20UI' font-size='25' font-weight='700' fill='%23B66A00'%3E" & SaldoTxt & "%3C/text%3E%3Ctext x='330' y='115' font-family='Segoe%20UI' font-size='11' font-weight='700' fill='%23B66A00'%3E" & PartTxt & "%20de%20FES%3C/text%3E"
+				& "%3Crect x='460' y='66' width='198' height='66' rx='8' fill='%23FFF2F1' stroke='%23F1B6B2'/%3E%3Ctext x='474' y='86' font-family='Segoe%20UI' font-size='8.5' fill='%23A52620'%3EDIFERENCIA%20PROMEDIO%3C/text%3E%3Ctext x='474' y='116' font-family='Segoe%20UI' font-size='22' font-weight='700' fill='" & ColorDelta & "'%3E" & DeltaTxt & "%20DH%20" & Sentido & "%3C/text%3E"
+				& "%3Crect x='18' y='148' width='640' height='116' rx='8' fill='%23FFFFFF' stroke='%23D7E0EA'/%3E"
+				& "%3Crect x='18' y='148' width='640' height='28' rx='8' fill='%231B365D'/%3E"
+				& "%3Ctext x='34' y='167' font-family='Segoe%20UI' font-size='8.5' font-weight='700' fill='%23FFFFFF'%3ESEGMENTO%3C/text%3E%3Ctext x='220' y='167' text-anchor='middle' font-family='Segoe%20UI' font-size='8.5' font-weight='700' fill='%23FFFFFF'%3EPEDIDOS%3C/text%3E%3Ctext x='310' y='167' text-anchor='middle' font-family='Segoe%20UI' font-size='8.5' font-weight='700' fill='%23FFFFFF'%3ENS%3C/text%3E%3Ctext x='400' y='167' text-anchor='middle' font-family='Segoe%20UI' font-size='8.5' font-weight='700' fill='%23FFFFFF'%3EPROM.%20DH%3C/text%3E%3Ctext x='486' y='167' text-anchor='middle' font-family='Segoe%20UI' font-size='8.5' font-weight='700' fill='%23FFFFFF'%3EP90%20DH%3C/text%3E%3Ctext x='590' y='167' text-anchor='middle' font-family='Segoe%20UI' font-size='8.5' font-weight='700' fill='%23FFFFFF'%3EBRECHA%20FACT.%3C/text%3E"
+				& "%3Ctext x='34' y='203' font-family='Segoe%20UI' font-size='10' font-weight='700' fill='%231B365D'%3EFES%20PURO%3C/text%3E%3Ctext x='220' y='203' text-anchor='middle' font-family='Segoe%20UI' font-size='10' fill='%23343A40'%3E" & PuroTxt & "%3C/text%3E%3Ctext x='310' y='203' text-anchor='middle' font-family='Segoe%20UI' font-size='10' fill='%23343A40'%3E" & NSPuroTxt & "%3C/text%3E%3Ctext x='400' y='203' text-anchor='middle' font-family='Segoe%20UI' font-size='10' fill='%23343A40'%3E" & PromPuroTxt & "%3C/text%3E%3Ctext x='486' y='203' text-anchor='middle' font-family='Segoe%20UI' font-size='10' fill='%23343A40'%3E" & P90PuroTxt & "%3C/text%3E%3Ctext x='590' y='203' text-anchor='middle' font-family='Segoe%20UI' font-size='10' fill='%236B7280'%3ENo%20aplica%3C/text%3E"
+				& "%3Cline x1='30' y1='220' x2='646' y2='220' stroke='%23E1E6ED'/%3E"
+				& "%3Ctext x='34' y='247' font-family='Segoe%20UI' font-size='10' font-weight='700' fill='%23B66A00'%3EFES%20%2B%20SALDO%3C/text%3E%3Ctext x='220' y='247' text-anchor='middle' font-family='Segoe%20UI' font-size='10' fill='%23343A40'%3E" & SaldoTxt & "%3C/text%3E%3Ctext x='310' y='247' text-anchor='middle' font-family='Segoe%20UI' font-size='10' fill='%23343A40'%3E" & NSSaldoTxt & "%3C/text%3E%3Ctext x='400' y='247' text-anchor='middle' font-family='Segoe%20UI' font-size='10' fill='%23343A40'%3E" & PromSaldoTxt & "%3C/text%3E%3Ctext x='486' y='247' text-anchor='middle' font-family='Segoe%20UI' font-size='10' fill='%23343A40'%3E" & P90SaldoTxt & "%3C/text%3E%3Ctext x='590' y='247' text-anchor='middle' font-family='Segoe%20UI' font-size='10' font-weight='700' fill='%23B66A00'%3E" & BrechaTxt & "%20DH%3C/text%3E"
+				& "%3Crect x='18' y='279' width='640' height='40' rx='7' fill='%23F7F9FC'/%3E%3Ctext x='32' y='298' font-family='Segoe%20UI' font-size='9.5' font-weight='700' fill='" & ColorDelta & "'%3EFES%20%2B%20Saldo%20tarda%20" & DeltaTxt & "%20DH%20" & Sentido & "%20que%20FES%20puro.%3C/text%3E%3Ctext x='32' y='313' font-family='Segoe%20UI' font-size='8.5' fill='%236B7280'%3ELa%20brecha%20de%20facturaci%C3%B3n%20mide%20asociaci%C3%B3n%20temporal;%20no%20demuestra%20causalidad.%3C/text%3E"
+				& "%3C/svg%3E"
+		displayFolder: 02. Resumen Ejecutivo\11. Diagnóstico FES
+		lineageTag: 45000000-0000-4000-8000-000000000115
+		dataCategory: ImageUrl
+
+	measure 'RE Evolución 3M SVG' =
+			VAR A2 = COALESCE(CALCULATE([M3 Promedio administrativo DH], TREATAS({2}, Dim_Mes_Trend[PeriodoKey])), 0)
+			VAR O2 = COALESCE(CALCULATE([M3 Promedio operaciones DH], TREATAS({2}, Dim_Mes_Trend[PeriodoKey])), 0)
+			VAR T2 = COALESCE(CALCULATE([M3 Promedio total DH], TREATAS({2}, Dim_Mes_Trend[PeriodoKey])), 0)
+			VAR A1 = COALESCE(CALCULATE([M3 Promedio administrativo DH], TREATAS({1}, Dim_Mes_Trend[PeriodoKey])), 0)
+			VAR O1 = COALESCE(CALCULATE([M3 Promedio operaciones DH], TREATAS({1}, Dim_Mes_Trend[PeriodoKey])), 0)
+			VAR T1 = COALESCE(CALCULATE([M3 Promedio total DH], TREATAS({1}, Dim_Mes_Trend[PeriodoKey])), 0)
+			VAR A0 = COALESCE(CALCULATE([M3 Promedio administrativo DH], TREATAS({0}, Dim_Mes_Trend[PeriodoKey])), 0)
+			VAR O0 = COALESCE(CALCULATE([M3 Promedio operaciones DH], TREATAS({0}, Dim_Mes_Trend[PeriodoKey])), 0)
+			VAR T0 = COALESCE(CALCULATE([M3 Promedio total DH], TREATAS({0}, Dim_Mes_Trend[PeriodoKey])), 0)
+			VAR L2 = SUBSTITUTE(COALESCE(CALCULATE(SELECTEDVALUE(Dim_Mes_Trend[Etiqueta]), TREATAS({2}, Dim_Mes_Trend[PeriodoKey])), "--"), " ", "%20")
+			VAR L1 = SUBSTITUTE(COALESCE(CALCULATE(SELECTEDVALUE(Dim_Mes_Trend[Etiqueta]), TREATAS({1}, Dim_Mes_Trend[PeriodoKey])), "--"), " ", "%20")
+			VAR L0 = SUBSTITUTE(COALESCE(CALCULATE(SELECTEDVALUE(Dim_Mes_Trend[Etiqueta]), TREATAS({0}, Dim_Mes_Trend[PeriodoKey])), "--"), " ", "%20")
+			VAR Top2 = MAX(A2 + O2, T2)
+			VAR Top1 = MAX(A1 + O1, T1)
+			VAR Top0 = MAX(A0 + O0, T0)
+			VAR MaxY = MAX(5, CEILING(MAX(MAX(Top2, Top1), Top0), 1))
+			VAR Escala = DIVIDE(145, MaxY, 0)
+			VAR BaseY = 218
+			VAR A2H = A2 * Escala
+			VAR O2H = O2 * Escala
+			VAR A1H = A1 * Escala
+			VAR O1H = O1 * Escala
+			VAR A0H = A0 * Escala
+			VAR O0H = O0 * Escala
+			VAR Y2 = BaseY - T2 * Escala
+			VAR Y1 = BaseY - T1 * Escala
+			VAR Y0 = BaseY - T0 * Escala
+			VAR F = "0.0"
+			VAR A2Txt = SUBSTITUTE(FORMAT(A2, F, "es-CL"), ",", ".")
+			VAR O2Txt = SUBSTITUTE(FORMAT(O2, F, "es-CL"), ",", ".")
+			VAR T2Txt = SUBSTITUTE(FORMAT(T2, F, "es-CL"), ",", ".")
+			VAR A1Txt = SUBSTITUTE(FORMAT(A1, F, "es-CL"), ",", ".")
+			VAR O1Txt = SUBSTITUTE(FORMAT(O1, F, "es-CL"), ",", ".")
+			VAR T1Txt = SUBSTITUTE(FORMAT(T1, F, "es-CL"), ",", ".")
+			VAR A0Txt = SUBSTITUTE(FORMAT(A0, F, "es-CL"), ",", ".")
+			VAR O0Txt = SUBSTITUTE(FORMAT(O0, F, "es-CL"), ",", ".")
+			VAR T0Txt = SUBSTITUTE(FORMAT(T0, F, "es-CL"), ",", ".")
+			RETURN
+				"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='610' height='250' viewBox='0 0 610 250'%3E"
+				& "%3Crect x='1' y='1' width='608' height='248' rx='10' fill='%23FFFFFF' stroke='%23CED9E5'/%3E"
+				& "%3Ctext x='14' y='23' font-family='Segoe%20UI' font-size='10.5' font-weight='700' fill='%231B365D'%3EEVOLUCI%C3%93N%203%20MESES%20%C2%B7%20PROMEDIO%20DE%20D%C3%8DAS%20INTERNOS%3C/text%3E"
+				& "%3Ccircle cx='20' cy='43' r='5' fill='%231976D2'/%3E%3Ctext x='30' y='47' font-family='Segoe%20UI' font-size='8.5' fill='%23343A40'%3EAdministrativo%3C/text%3E"
+				& "%3Ccircle cx='122' cy='43' r='5' fill='%23F0A500'/%3E%3Ctext x='132' y='47' font-family='Segoe%20UI' font-size='8.5' fill='%23343A40'%3EOperaciones%3C/text%3E"
+				& "%3Ccircle cx='214' cy='43' r='5' fill='%231B365D'/%3E%3Ctext x='224' y='47' font-family='Segoe%20UI' font-size='8.5' fill='%23343A40'%3EPromedio%20total%3C/text%3E"
+				& "%3Cline x1='58' y1='218' x2='590' y2='218' stroke='%23BFC9D4'/%3E%3Cline x1='58' y1='145.5' x2='590' y2='145.5' stroke='%23E6ECF2' stroke-dasharray='3 4'/%3E%3Cline x1='58' y1='73' x2='590' y2='73' stroke='%23E6ECF2' stroke-dasharray='3 4'/%3E"
+				& "%3Ctext x='50' y='221' text-anchor='end' font-family='Segoe%20UI' font-size='8' fill='%236B7280'%3E0%3C/text%3E%3Ctext x='50' y='148' text-anchor='end' font-family='Segoe%20UI' font-size='8' fill='%236B7280'%3E" & SUBSTITUTE(FORMAT(MaxY/2, "0.0", "es-CL"), ",", ".") & "%3C/text%3E%3Ctext x='50' y='76' text-anchor='end' font-family='Segoe%20UI' font-size='8' fill='%236B7280'%3E" & FORMAT(MaxY, "0", "en-US") & "%3C/text%3E"
+				& "%3Crect x='111' y='" & FORMAT(BaseY-A2H,"0.0","en-US") & "' width='64' height='" & FORMAT(A2H,"0.0","en-US") & "' fill='%231976D2'/%3E%3Crect x='111' y='" & FORMAT(BaseY-A2H-O2H,"0.0","en-US") & "' width='64' height='" & FORMAT(O2H,"0.0","en-US") & "' fill='%23F0A500'/%3E"
+				& "%3Crect x='273' y='" & FORMAT(BaseY-A1H,"0.0","en-US") & "' width='64' height='" & FORMAT(A1H,"0.0","en-US") & "' fill='%231976D2'/%3E%3Crect x='273' y='" & FORMAT(BaseY-A1H-O1H,"0.0","en-US") & "' width='64' height='" & FORMAT(O1H,"0.0","en-US") & "' fill='%23F0A500'/%3E"
+				& "%3Crect x='435' y='" & FORMAT(BaseY-A0H,"0.0","en-US") & "' width='64' height='" & FORMAT(A0H,"0.0","en-US") & "' fill='%231976D2'/%3E%3Crect x='435' y='" & FORMAT(BaseY-A0H-O0H,"0.0","en-US") & "' width='64' height='" & FORMAT(O0H,"0.0","en-US") & "' fill='%23F0A500'/%3E"
+				& "%3Cpolyline points='143," & FORMAT(Y2,"0.0","en-US") & " 305," & FORMAT(Y1,"0.0","en-US") & " 467," & FORMAT(Y0,"0.0","en-US") & "' fill='none' stroke='%231B365D' stroke-width='2.5'/%3E%3Ccircle cx='143' cy='" & FORMAT(Y2,"0.0","en-US") & "' r='4' fill='%231B365D'/%3E%3Ccircle cx='305' cy='" & FORMAT(Y1,"0.0","en-US") & "' r='4' fill='%231B365D'/%3E%3Ccircle cx='467' cy='" & FORMAT(Y0,"0.0","en-US") & "' r='4' fill='%231B365D'/%3E"
+				& "%3Cg font-family='Segoe%20UI' font-size='8.5' font-weight='700' fill='%23FFFFFF' text-anchor='middle'%3E%3Ctext x='143' y='" & FORMAT(BaseY-A2H/2+3,"0.0","en-US") & "'%3E" & A2Txt & "%3C/text%3E%3Ctext x='143' y='" & FORMAT(BaseY-A2H-O2H/2+3,"0.0","en-US") & "'%3E" & O2Txt & "%3C/text%3E%3Ctext x='305' y='" & FORMAT(BaseY-A1H/2+3,"0.0","en-US") & "'%3E" & A1Txt & "%3C/text%3E%3Ctext x='305' y='" & FORMAT(BaseY-A1H-O1H/2+3,"0.0","en-US") & "'%3E" & O1Txt & "%3C/text%3E%3Ctext x='467' y='" & FORMAT(BaseY-A0H/2+3,"0.0","en-US") & "'%3E" & A0Txt & "%3C/text%3E%3Ctext x='467' y='" & FORMAT(BaseY-A0H-O0H/2+3,"0.0","en-US") & "'%3E" & O0Txt & "%3C/text%3E%3C/g%3E"
+				& "%3Cg font-family='Segoe%20UI' font-size='8.5' font-weight='700' fill='%231B365D' text-anchor='middle'%3E%3Ctext x='143' y='" & FORMAT(Y2-7,"0.0","en-US") & "'%3E" & T2Txt & "%3C/text%3E%3Ctext x='305' y='" & FORMAT(Y1-7,"0.0","en-US") & "'%3E" & T1Txt & "%3C/text%3E%3Ctext x='467' y='" & FORMAT(Y0-7,"0.0","en-US") & "'%3E" & T0Txt & "%3C/text%3E%3C/g%3E"
+				& "%3Cg font-family='Segoe%20UI' font-size='9' fill='%23343A40' text-anchor='middle'%3E%3Ctext x='143' y='239'%3E" & L2 & "%3C/text%3E%3Ctext x='305' y='239'%3E" & L1 & "%3C/text%3E%3Ctext x='467' y='239'%3E" & L0 & "%3C/text%3E%3C/g%3E"
+				& "%3C/svg%3E"
+		displayFolder: 02. Resumen Ejecutivo\08. Comparación mensual
+		lineageTag: 47000000-0000-4000-8000-000000000101
+		dataCategory: ImageUrl
+
+	measure 'TR Clasificación SVG' =
+			VAR NormalCnt = CALCULATE([U Pedidos hito], KEEPFILTERS(Dim_Pedido[CLASIFICACION] = "NORMAL"))
+			VAR FesCnt = CALCULATE([U Pedidos hito], KEEPFILTERS(Dim_Pedido[CLASIFICACION] = "FES"))
+			VAR FesSaldoCnt = CALCULATE([U Pedidos hito], KEEPFILTERS(Dim_Pedido[CLASIFICACION] = "FES + SALDO"))
+			VAR SaldoCnt = CALCULATE([U Pedidos hito], KEEPFILTERS(Dim_Pedido[CLASIFICACION] = "SALDO"))
+			VAR MaxCnt = MAX(1, MAX(MAX(NormalCnt, FesCnt), MAX(FesSaldoCnt, SaldoCnt)))
+			VAR WN = 390 * DIVIDE(NormalCnt, MaxCnt, 0)
+			VAR WF = 390 * DIVIDE(FesCnt, MaxCnt, 0)
+			VAR WFS = 390 * DIVIDE(FesSaldoCnt, MaxCnt, 0)
+			VAR WS = 390 * DIVIDE(SaldoCnt, MaxCnt, 0)
+			VAR NT = SUBSTITUTE(FORMAT(NormalCnt, "#,##0", "es-CL"), " ", "%20")
+			VAR FT = SUBSTITUTE(FORMAT(FesCnt, "#,##0", "es-CL"), " ", "%20")
+			VAR FST = SUBSTITUTE(FORMAT(FesSaldoCnt, "#,##0", "es-CL"), " ", "%20")
+			VAR ST = SUBSTITUTE(FORMAT(SaldoCnt, "#,##0", "es-CL"), " ", "%20")
+			RETURN
+				"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='542' height='152' viewBox='0 0 542 152'%3E"
+				& "%3Crect x='1' y='1' width='540' height='150' rx='8' fill='%23FFFFFF' stroke='%23D7E0EA'/%3E%3Ctext x='14' y='22' font-family='Segoe%20UI' font-size='11' font-weight='700' fill='%231B365D'%3EPEDIDOS%20POR%20CLASIFICACI%C3%93N%3C/text%3E"
+				& "%3Cg font-family='Segoe%20UI' font-size='8.5' fill='%23343A40'%3E%3Ctext x='14' y='50'%3ENORMAL%3C/text%3E%3Ctext x='14' y='78'%3EFES%3C/text%3E%3Ctext x='14' y='106'%3EFES%20%2B%20SALDO%3C/text%3E%3Ctext x='14' y='134'%3ESALDO%3C/text%3E%3C/g%3E"
+				& "%3Crect x='115' y='38' width='390' height='14' rx='7' fill='%23EEF2F6'/%3E%3Crect x='115' y='38' width='" & FORMAT(WN,"0.0","en-US") & "' height='14' rx='7' fill='%231976D2'/%3E%3Ctext x='515' y='49' text-anchor='end' font-family='Segoe%20UI' font-size='9' font-weight='700' fill='%231B365D'%3E" & NT & "%3C/text%3E"
+				& "%3Crect x='115' y='66' width='390' height='14' rx='7' fill='%23EEF2F6'/%3E%3Crect x='115' y='66' width='" & FORMAT(WF,"0.0","en-US") & "' height='14' rx='7' fill='%23F0A500'/%3E%3Ctext x='515' y='77' text-anchor='end' font-family='Segoe%20UI' font-size='9' font-weight='700' fill='%231B365D'%3E" & FT & "%3C/text%3E"
+				& "%3Crect x='115' y='94' width='390' height='14' rx='7' fill='%23EEF2F6'/%3E%3Crect x='115' y='94' width='" & FORMAT(WFS,"0.0","en-US") & "' height='14' rx='7' fill='%23D97706'/%3E%3Ctext x='515' y='105' text-anchor='end' font-family='Segoe%20UI' font-size='9' font-weight='700' fill='%231B365D'%3E" & FST & "%3C/text%3E"
+				& "%3Crect x='115' y='122' width='390' height='14' rx='7' fill='%23EEF2F6'/%3E%3Crect x='115' y='122' width='" & FORMAT(WS,"0.0","en-US") & "' height='14' rx='7' fill='%237B1FA2'/%3E%3Ctext x='515' y='133' text-anchor='end' font-family='Segoe%20UI' font-size='9' font-weight='700' fill='%231B365D'%3E" & ST & "%3C/text%3E"
+				& "%3C/svg%3E"
+		displayFolder: 03. Tracking Operativo\Diseño
+		lineageTag: 47000000-0000-4000-8000-000000000102
+		dataCategory: ImageUrl
+
+	/// Pedidos abiertos provenientes del Tracking vivo y clasificados por el modelo ML.
+	measure 'ML Pedidos pendientes' = CALCULATE(DISTINCTCOUNT(Resultado[PED_NUMERO_PEDIDO]), Resultado[ES_PENDIENTE] = TRUE())
+		formatString: #,##0
+		displayFolder: 13. Machine Learning\01. Operación
+		lineageTag: 7e63207c-0cc2-46de-a5b2-143f14601e5e
+
+	measure 'ML Pedidos alto riesgo' = CALCULATE([ML Pedidos pendientes], Resultado[RIESGO_ATRASO] IN {"ALTO", "ATRASADO"})
+		formatString: #,##0
+		displayFolder: 13. Machine Learning\01. Operación
+		lineageTag: 2dcb5e61-54b1-4517-8cc0-be6a20921e30
+
+	measure 'ML Valor alto riesgo' = CALCULATE(SUM(Resultado[VALOR_NETO]), Resultado[ES_PENDIENTE] = TRUE(), Resultado[RIESGO_ATRASO] IN {"ALTO", "ATRASADO"})
+		formatString: '"CLP $" #,0,,"MM"'
+		displayFolder: 13. Machine Learning\01. Operación
+		lineageTag: bb5765e2-c2f5-4763-805e-50deafb4b50e
+
+	measure 'ML Atrasos esperados' = CALCULATE(SUM(Resultado[PROB_ML_ATRASO]), Resultado[ES_PENDIENTE] = TRUE())
+		formatString: 0.0
+		displayFolder: 13. Machine Learning\01. Operación
+		lineageTag: 74087295-d44d-431b-8027-bc63a53e84a6
+
+	measure 'ML Probabilidad promedio' = CALCULATE(AVERAGE(Resultado[PROB_ML_ATRASO]), Resultado[ES_PENDIENTE] = TRUE())
+		formatString: 0.0%
+		displayFolder: 13. Machine Learning\01. Operación
+		lineageTag: e23fdf27-7767-4e88-8a95-1e899219d144
+
+	measure 'ML Días predichos promedio' = CALCULATE(AVERAGE(Resultado[DH_PREDICHO_ML]), Resultado[ES_PENDIENTE] = TRUE())
+		formatString: 0.0 "DH"
+		displayFolder: 13. Machine Learning\01. Operación
+		lineageTag: 79b5091b-12c4-4e36-befd-295568277690
+
+	measure 'ML AUC validación' = MAX(Resultado[AUC_TEST])
+		formatString: 0.0%
+		displayFolder: 13. Machine Learning\02. Auditoría
+		lineageTag: a8ea93ca-9aed-4e3e-8321-144dd3695d2e
+
+	measure 'ML MAE días validación' = MAX(Resultado[MAE_DIAS_TEST])
+		formatString: 0.00 "DH"
+		displayFolder: 13. Machine Learning\02. Auditoría
+		lineageTag: 71976632-0ab3-47ba-81b8-6f0b03e35dbc
+
+	measure 'ML RMSE días validación' = MAX(Resultado[RMSE_DIAS_TEST])
+		formatString: 0.00 "DH"
+		displayFolder: 13. Machine Learning\02. Auditoría
+		lineageTag: 88810f47-3c05-4dd6-9da6-d8a39d99f688
+
+	measure 'ML R2 días validación' = MAX(Resultado[R2_DIAS_TEST])
+		formatString: 0.0%
+		displayFolder: 13. Machine Learning\02. Auditoría
+		lineageTag: 4d02c785-bbe1-4aaa-8593-56ddf9319e9d
+
+	measure 'ML Pedidos entrenamiento' = MAX(Resultado[N_ENTRENAMIENTO_FINAL])
+		formatString: #,##0
+		displayFolder: 13. Machine Learning\02. Auditoría
+		lineageTag: c2e83ef0-73a3-4779-b025-0df257483f97
+
+	measure 'ML Modelo versión' = MAX(Resultado[MODELO_VERSION])
+		displayFolder: 13. Machine Learning\02. Auditoría
+		lineageTag: 9efee9b7-5630-40e0-88db-9d40ca36b8bd
+
+	/// Pedidos que alcanzaron el hito (reales o heredados). Respeta contexto de Dim_Vista_Ejecutiva.
+	measure 'OP Pedidos Hito Real' = CALCULATE(DISTINCTCOUNT(Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO]), TREATAS(VALUES(Dim_Vista_Ejecutiva[METRICA_CODIGO]), Fact_Hitos_Operacionales[METRICA_CODIGO]))
+		formatString: #,0
+		displayFolder: 03. Operación por Hitos\Volumen
+		lineageTag: d631aea4-8b22-4911-ad28-0d294faf7a14
+
+	/// Porcentaje de pedidos que alcanzaron el hito.
+	measure 'OP % Hito Real' = DIVIDE([OP Pedidos Hito Real], [Pedidos])
+		formatString: 0.0%
+		displayFolder: 03. Operación por Hitos\Volumen
+		lineageTag: 1ad9ed92-06d2-4c50-ab8f-9c776ce0431e
+
+	measure 'FA Pedidos' = [RE Pedidos contexto]
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\KPIs
+		lineageTag: b35d101b-8c00-4cd2-8ecb-95b7242d6b11
+
+	measure 'FA FES' = CALCULATE([RE Pedidos contexto], KEEPFILTERS(Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"}))
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\KPIs
+		lineageTag: c04c0cd6-e662-41ee-b310-34f7a3df0119
+
+	measure 'FA Normal' = CALCULATE([RE Pedidos contexto], KEEPFILTERS(Fact_Tracking[CLASIFICACION] = "NORMAL"))
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\KPIs
+		lineageTag: 140c134a-f17d-4978-a428-dbc7da4fb84c
+
+	measure 'FA % FES' = DIVIDE([FA FES], [FA Pedidos])
+		formatString: 0.0%
+		displayFolder: 04. Análisis Fuera SLA\KPIs
+		lineageTag: 2da82992-1118-4651-b2a6-2133b10ae57c
+
+	measure 'FA Fuera SLA' = [RE Pedidos fuera SLA contexto]
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\KPIs
+		lineageTag: cc7a302d-43c7-4449-a6dd-c38e3ac0060b
+
+	measure 'FA FES Fuera SLA' = CALCULATE([RE Pedidos fuera SLA contexto], KEEPFILTERS(Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"}))
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\KPIs
+		lineageTag: 11a469de-f33d-46bb-bae1-d13c797d647c
+
+	measure 'FA FES Fin Mes' = CALCULATE([RE Pedidos contexto], KEEPFILTERS(Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"}), KEEPFILTERS(Dim_Fecha[Es_Ultimos_7_DH] = TRUE()))
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\KPIs
+		lineageTag: 49dacbab-c053-4687-946b-6343ec2c0efb
+
+	/// Nombre del cliente para tabla de FES.
+	measure 'FA Cliente FES' = VAR Codigo = SELECTEDVALUE(Fact_Tracking[PED_CODIGO_CLIENTE]) VAR Nombre = LOOKUPVALUE(Dim_Cliente[CLIENTE_NOMBRE], Dim_Cliente[CLIENTE_CODIGO], Codigo) RETURN IF(NOT ISBLANK([FA FES]), COALESCE(Nombre, Codigo, "Sin cliente"))
+		displayFolder: 04. Análisis Fuera SLA\Tooltip
+		lineageTag: a06f51ed-c401-481d-a129-062ab42c8b6e
+
+	/// Meses distintos con pedidos FES por cliente.
+	measure 'FA Meses FES Cliente' = CALCULATE(DISTINCTCOUNT(Fact_Pedidos_Auditoria[MES_CREACION]), Fact_Pedidos_Auditoria[ES_FES] = TRUE, TREATAS(VALUES(Fact_Tracking[PED_NUMERO_PEDIDO]), Fact_Pedidos_Auditoria[PED_NUMERO_PEDIDO]))
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\Clientes
+		lineageTag: 4109ddd3-4c62-4d59-8995-306b93adfb8a
+
+	measure 'FA Pedidos Fuera SLA x Cliente' = CALCULATE(COUNTROWS(Fact_Tracking), Fact_Tracking[ES_CERRADO] = TRUE, Fact_Tracking[CUMPLE_SLA_INTERNO] = FALSE())
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\Clientes
+		lineageTag: eeb410dd-e4c1-4006-9024-3598ecea54e3
+
+	measure 'FA DH Promedio' = [RE Promedio contexto DH]
+		formatString: 0.0 "DH"
+		displayFolder: 04. Análisis Fuera SLA\Métricas
+		lineageTag: c3413af1-c2ab-4cb7-be17-9d883609f700
+
+	measure 'FA Vendedor' = VAR Codigo = SELECTEDVALUE(Fact_Tracking[PED_RESPONSABLE]) RETURN IF(NOT ISBLANK([FA Pedidos]), COALESCE(Codigo, "Sin vendedor"))
+		displayFolder: 04. Análisis Fuera SLA\Tooltip
+		lineageTag: 6545865c-f43a-4d90-80a6-e71f05b29b53
+
+	measure 'FA % Fuera SLA x Vendedor' = DIVIDE([FA Fuera SLA], [FA Pedidos])
+		formatString: 0.0%
+		displayFolder: 04. Análisis Fuera SLA\Clientes
+		lineageTag: c641f3ce-d0a3-41c2-8005-c6c8968ac34b
+
+	measure 'FA % FES Fin Mes' = DIVIDE([FA FES Fin Mes], [FA FES])
+		formatString: 0.0%
+		displayFolder: 04. Análisis Fuera SLA\KPIs
+		lineageTag: 013e9096-b55e-4c8a-b52b-15045106881d
+
+	measure 'FA Líneas' =
+			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
+			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
+			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
+			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
+			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
+			VAR PedidosCohorte =
+				CALCULATETABLE(
+					VALUES(Fact_Tracking[PED_NUMERO_PEDIDO]),
+					KEEPFILTERS(
+						FILTER(
+							Fact_Tracking,
+							Fact_Tracking[ES_CERRADO] = TRUE()
+								&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
+								&& (
+									ISBLANK(FlujoSel)
+										|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
+										|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
+										|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
+									)
+								&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+								&& (
+									NOT TieneRango
+										|| (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH))
+									)
+						)
+					)
+				)
+			RETURN
+				CALCULATE(
+					SUM(Lineas_y_unidades_por_pedidos[Lineas]),
+					TREATAS(PedidosCohorte, Lineas_y_unidades_por_pedidos[Pedido])
+				)
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\KPIs
+		lineageTag: 705e4446-60a3-47f4-80fb-2c4a7a296ea5
+
+	measure 'FA Unidades' =
+			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
+			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
+			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
+			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
+			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
+			VAR PedidosCohorte =
+				CALCULATETABLE(
+					VALUES(Fact_Tracking[PED_NUMERO_PEDIDO]),
+					KEEPFILTERS(
+						FILTER(
+							Fact_Tracking,
+							Fact_Tracking[ES_CERRADO] = TRUE()
+								&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
+								&& (
+									ISBLANK(FlujoSel)
+										|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
+										|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
+										|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
+									)
+								&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+								&& (
+									NOT TieneRango
+										|| (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH))
+									)
+						)
+					)
+				)
+			RETURN
+				CALCULATE(
+					SUM(Lineas_y_unidades_por_pedidos[Suma_Unidades]),
+					TREATAS(PedidosCohorte, Lineas_y_unidades_por_pedidos[Pedido])
+				)
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\KPIs
+		lineageTag: b6451c62-9d2e-4ca1-bcd0-a69f1b59c9fc
+
+	measure 'FA Líneas FES' = CALCULATE( [FA Líneas], KEEPFILTERS(Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"}) )
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\KPIs
+		lineageTag: b4bb7b6d-8296-4859-a4cc-693d847bfb1f
+
+	measure 'FA Unidades FES' = CALCULATE( [FA Unidades], KEEPFILTERS(Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"}) )
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\KPIs
+		lineageTag: f4582ff3-5b42-453f-a6bf-cdbeb2dc6fde
+
+	measure 'FA DH Promedio FES' =
+			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
+			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
+			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
+			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
+			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
+			RETURN
+				CALCULATE(
+					AVERAGE(Fact_Tracking[DIAS_INTERNOS_DH]),
+					KEEPFILTERS(
+						FILTER(
+							Fact_Tracking,
+							Fact_Tracking[ES_CERRADO] = TRUE()
+								&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
+								&& Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"}
+								&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+								&& (
+									NOT TieneRango
+										|| (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH))
+								)
+						)
+					)
+				)
+		formatString: 0.0
+		displayFolder: 04. Análisis Fuera SLA\Métricas
+		lineageTag: 6a1e76e2-399b-44d6-b9ee-f80dfce18c05
+
+	measure 'FA Líneas Fuera SLA' =
+			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
+			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
+			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
+			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
+			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
+			VAR PedidosCohorte =
+				CALCULATETABLE(
+					VALUES(Fact_Tracking[PED_NUMERO_PEDIDO]),
+					KEEPFILTERS(
+						FILTER(
+							Fact_Tracking,
+							Fact_Tracking[ES_CERRADO] = TRUE()
+								&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
+								&& Fact_Tracking[CUMPLE_SLA_INTERNO] = FALSE()
+								&& (
+									ISBLANK(FlujoSel)
+										|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
+										|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
+										|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
+								)
+								&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+								&& (NOT TieneRango || (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH)))
+						)
+					)
+				)
+			RETURN
+				CALCULATE(
+					SUM(Lineas_y_unidades_por_pedidos[Lineas]),
+					TREATAS(PedidosCohorte, Lineas_y_unidades_por_pedidos[Pedido])
+				)
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\KPIs
+		lineageTag: 7423c458-96f2-48a2-a002-4cb110f8f732
+
+	measure 'FA Unidades Fuera SLA' =
+			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
+			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
+			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
+			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
+			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
+			VAR PedidosCohorte =
+				CALCULATETABLE(
+					VALUES(Fact_Tracking[PED_NUMERO_PEDIDO]),
+					KEEPFILTERS(
+						FILTER(
+							Fact_Tracking,
+							Fact_Tracking[ES_CERRADO] = TRUE()
+								&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
+								&& Fact_Tracking[CUMPLE_SLA_INTERNO] = FALSE()
+								&& (
+									ISBLANK(FlujoSel)
+										|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
+										|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
+										|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
+								)
+								&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+								&& (NOT TieneRango || (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH)))
+						)
+					)
+				)
+			RETURN
+				CALCULATE(
+					SUM(Lineas_y_unidades_por_pedidos[Suma_Unidades]),
+					TREATAS(PedidosCohorte, Lineas_y_unidades_por_pedidos[Pedido])
+				)
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\KPIs
+		lineageTag: 9ddf42d0-ded2-47d7-9039-90d860797098
+
+	measure 'FA DH Promedio Normal' =
+			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
+			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
+			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
+			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
+			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
+			RETURN
+				CALCULATE(
+					AVERAGE(Fact_Tracking[DIAS_INTERNOS_DH]),
+					KEEPFILTERS(
+						FILTER(
+							Fact_Tracking,
+							Fact_Tracking[ES_CERRADO] = TRUE()
+								&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
+								&& Fact_Tracking[CLASIFICACION] = "NORMAL"
+								&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+								&& (
+									NOT TieneRango
+										|| (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH))
+								)
+						)
+					)
+				)
+		formatString: 0.0
+		displayFolder: 04. Análisis Fuera SLA\Métricas
+		lineageTag: a69e655d-4b4c-4d9d-bbeb-3bdef8f7369b
+
+	measure 'FA Arrastre Mes Siguiente' = CALCULATE( [RE Pedidos contexto], KEEPFILTERS(Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"}), KEEPFILTERS( FILTER( Fact_Tracking, NOT ISBLANK(Fact_Tracking[PED_FECHA]) && NOT ISBLANK(Fact_Tracking[FECHA_CIERRE]) && EOMONTH(Fact_Tracking[FECHA_CIERRE], 0) > EOMONTH(Fact_Tracking[PED_FECHA], 0) ) ) )
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\KPIs
+		lineageTag: 051120fc-b9d9-4629-972b-78a7428be4ce
+
+	/// Porcentaje genérico de incumplimiento para matrices y gráficos dinámicos.
+	measure 'FA % Fuera SLA' = DIVIDE([FA Fuera SLA], [FA Pedidos])
+		formatString: 0.0%
+		displayFolder: 04. Análisis Fuera SLA\Métricas
+		lineageTag: 54000000-0000-4000-8000-000000000108
+
+	/// Pedidos de la cohorte evaluada que poseen correspondencia en la tabla de líneas y unidades.
+	measure 'FA Pedidos con Volumen' =
+			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
+			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
+			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
+			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
+			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
+			VAR PedidosCohorte =
+				CALCULATETABLE(
+					VALUES(Fact_Tracking[PED_NUMERO_PEDIDO]),
+					KEEPFILTERS(
+						FILTER(
+							Fact_Tracking,
+							Fact_Tracking[ES_CERRADO] = TRUE()
+								&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
+								&& (
+									ISBLANK(FlujoSel)
+										|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
+										|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
+										|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
+									)
+								&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+								&& (
+									NOT TieneRango
+										|| (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH))
+									)
+						)
+					)
+				)
+			RETURN
+				CALCULATE(
+					DISTINCTCOUNT(Lineas_y_unidades_por_pedidos[Pedido]),
+					TREATAS(PedidosCohorte, Lineas_y_unidades_por_pedidos[Pedido])
+				)
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\Calidad
+		lineageTag: 53000000-0000-4000-8000-000000000101
+
+	measure 'FA Cobertura Volumen %' = DIVIDE([FA Pedidos con Volumen], [FA Pedidos])
+		formatString: 0.0%
+		displayFolder: 04. Análisis Fuera SLA\Calidad
+		lineageTag: 53000000-0000-4000-8000-000000000102
+
+	measure 'FA Pedidos sin Volumen' = [FA Pedidos] - [FA Pedidos con Volumen]
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\Calidad
+		lineageTag: 53000000-0000-4000-8000-000000000103
+
+	measure 'U Pendientes manifiesto FES' = CALCULATE([U Pedidos universo], Fact_Tracking[PENDIENTE_MANIFIESTO_FES]=TRUE())
+		formatString: #,0
+		displayFolder: 01. Universo Único\Backlog
+		lineageTag: 26000000-0000-4000-8000-000000003033
+
+	/// Meses distintos con al menos un pedido fuera SLA para el cliente en el contexto de los últimos 3 meses. Ignora el filtro de mes del canvas.
+	/// Cuenta únicamente los meses válidos de la ventana 3M; excluye la fila en blanco de la relación calendario-periodo.
+	measure 'FA Meses Fuera SLA Cliente' =
+			VAR MesesVentana =
+				FILTER(
+					ALL(Dim_Periodo_3M[AnioMes]),
+					NOT ISBLANK(Dim_Periodo_3M[AnioMes])
+				)
+			RETURN
+				SUMX(
+					MesesVentana,
+					VAR MesEvaluado = Dim_Periodo_3M[AnioMes]
+					VAR PedidosFueraMes =
+						CALCULATE(
+							[RE Pedidos fuera SLA contexto],
+							REMOVEFILTERS(Dim_Fecha),
+							TREATAS({MesEvaluado}, Dim_Fecha[AnioMes])
+						)
+					RETURN IF(PedidosFueraMes > 0, 1, 0)
+				)
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\Recurrencia 3M
+		lineageTag: 56000000-0000-4000-8000-000000000001
+
+	measure 'FA Recurrencia Cliente' = SWITCH(TRUE(), [FA Meses Fuera SLA Cliente] >= 3, "Recurrente 3M", [FA Meses Fuera SLA Cliente] = 2, "Recurrente 2M", [FA Meses Fuera SLA Cliente] = 1, "Puntual 1M", "Sin incumplimiento")
+		displayFolder: 04. Análisis Fuera SLA\Recurrencia 3M
+		lineageTag: 56000000-0000-4000-8000-000000000002
+
+	measure 'FA Clientes Recurrentes 2M+' = COUNTROWS(FILTER(VALUES(Dim_Cliente[CLIENTE_CODIGO]), CALCULATE([FA Meses Fuera SLA Cliente]) >= 2))
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\Recurrencia 3M
+		lineageTag: 56000000-0000-4000-8000-000000000003
+
+	measure 'FA Clientes Recurrentes 3M' = COUNTROWS(FILTER(VALUES(Dim_Cliente[CLIENTE_CODIGO]), CALCULATE([FA Meses Fuera SLA Cliente]) >= 3))
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\Recurrencia 3M
+		lineageTag: 56000000-0000-4000-8000-000000000004
+
+	measure 'FA Días Factura Salida Promedio' = VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo]) VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona]) VAR BasePost = FILTER(Fact_Tracking, Fact_Tracking[ES_CERRADO] = TRUE() && NOT ISBLANK(Fact_Tracking[DIAS_POSTFACTURA_DH]) && (ISBLANK(FlujoSel) || (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL") || (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"}) || (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")) && (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)) VAR Criticos15 = FILTER(BasePost, Fact_Tracking[DIAS_POSTFACTURA_DH] > 15) RETURN IF(COUNTROWS(Criticos15)=0, BLANK(), AVERAGEX(Criticos15, Fact_Tracking[DIAS_POSTFACTURA_DH]))
+		formatString: 0.0
+		displayFolder: 04. Análisis Fuera SLA\Permanencia CD
+		lineageTag: 56000000-0000-4000-8000-000000000005
+
+	measure 'FA P90 Días Factura Salida' = VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo]) VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona]) VAR BasePost = FILTER(Fact_Tracking, Fact_Tracking[ES_CERRADO] = TRUE() && NOT ISBLANK(Fact_Tracking[DIAS_POSTFACTURA_DH]) && (ISBLANK(FlujoSel) || (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL") || (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"}) || (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")) && (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)) VAR Criticos15 = FILTER(BasePost, Fact_Tracking[DIAS_POSTFACTURA_DH] > 15) RETURN IF(COUNTROWS(Criticos15)=0, BLANK(), PERCENTILEX.INC(Criticos15, Fact_Tracking[DIAS_POSTFACTURA_DH], 0.9))
+		formatString: 0.0
+		displayFolder: 04. Análisis Fuera SLA\Permanencia CD
+		lineageTag: 56000000-0000-4000-8000-000000000006
+
+	measure 'FA Pedidos Facturados >15d' = VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo]) VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona]) VAR BasePost = FILTER(Fact_Tracking, Fact_Tracking[ES_CERRADO] = TRUE() && NOT ISBLANK(Fact_Tracking[DIAS_POSTFACTURA_DH]) && (ISBLANK(FlujoSel) || (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL") || (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"}) || (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")) && (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)) VAR Criticos15 = FILTER(BasePost, Fact_Tracking[DIAS_POSTFACTURA_DH] > 15) VAR Resultado = COUNTROWS(Criticos15) RETURN IF(Resultado=0, BLANK(), Resultado)
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\Permanencia CD
+		lineageTag: 56000000-0000-4000-8000-000000000007
+
+	measure 'FA Pedidos Facturados >20d' = VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo]) VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona]) VAR BasePost = FILTER(Fact_Tracking, Fact_Tracking[ES_CERRADO] = TRUE() && NOT ISBLANK(Fact_Tracking[DIAS_POSTFACTURA_DH]) && (ISBLANK(FlujoSel) || (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL") || (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"}) || (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")) && (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)) VAR Criticos20 = FILTER(BasePost, Fact_Tracking[DIAS_POSTFACTURA_DH] > 20) VAR Resultado = COUNTROWS(Criticos20) RETURN IF(Resultado=0, BLANK(), Resultado)
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\Permanencia CD
+		lineageTag: 56000000-0000-4000-8000-000000000008
+
+	measure 'FA Valor Retenido >15d' = VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo]) VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona]) VAR BasePost = FILTER(Fact_Tracking, Fact_Tracking[ES_CERRADO] = TRUE() && NOT ISBLANK(Fact_Tracking[DIAS_POSTFACTURA_DH]) && (ISBLANK(FlujoSel) || (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL") || (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"}) || (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")) && (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)) VAR Criticos15 = FILTER(BasePost, Fact_Tracking[DIAS_POSTFACTURA_DH] > 15) RETURN IF(COUNTROWS(Criticos15)=0, BLANK(), SUMX(Criticos15, Fact_Tracking[PED_VALOR_NETO]))
+		formatString: "$"#,0;("$"#,0);"$"#,0
+		displayFolder: 04. Análisis Fuera SLA\Permanencia CD
+		lineageTag: 56000000-0000-4000-8000-000000000009
+
+	measure 'FA NS %' = [RE NS contexto]
+		formatString: 0.0%
+		displayFolder: 04. Análisis Fuera SLA\Carga y SLA
+		lineageTag: 56000000-0000-4000-8000-000000000010
+
+	measure 'FA Pedidos Inicio Mes' = CALCULATE([FA Pedidos], KEEPFILTERS(FILTER(Dim_Fecha, Dim_Fecha[Dia_Mes] <= 7)))
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\Carga y SLA
+		lineageTag: 56000000-0000-4000-8000-000000000011
+
+	measure 'FA DH Promedio Fuera SLA' = CALCULATE([RE Promedio contexto DH], KEEPFILTERS(Fact_Tracking[CUMPLE_SLA_INTERNO] = FALSE()))
+		formatString: 0.0 "DH"
+		displayFolder: 04. Análisis Fuera SLA\Recurrencia 3M
+		lineageTag: 57000000-0000-4000-8000-000000000101
+
+	/// Meses distintos con incumplimiento, visible para cualquier cliente con al menos un mes fuera SLA (>= 1).
+	measure 'FA Meses Fuera SLA Cliente Visible' = IF([FA Meses Fuera SLA Cliente] >= 1, [FA Meses Fuera SLA Cliente])
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\Recurrencia 3M
+		lineageTag: 57000000-0000-4000-8000-000000000102
+
+	/// Clasificacion de recurrencia visible para cualquier cliente con al menos un mes fuera SLA (>= 1).
+	measure 'FA Recurrencia Cliente Visible' = IF([FA Meses Fuera SLA Cliente] >= 1, [FA Recurrencia Cliente])
+		displayFolder: 04. Análisis Fuera SLA\Recurrencia 3M
+		lineageTag: 57000000-0000-4000-8000-000000000103
+
+	/// Pedidos fuera SLA visibles para cualquier cliente con al menos un mes fuera SLA (>= 1).
+	measure 'FA Pedidos Fuera SLA Cliente Visible' = IF([FA Meses Fuera SLA Cliente] >= 1, [FA Fuera SLA])
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\Recurrencia 3M
+		lineageTag: 57000000-0000-4000-8000-000000000104
+
+	/// Porcentaje fuera SLA visible para cualquier cliente con al menos un mes fuera SLA (>= 1).
+	measure 'FA % Fuera SLA Cliente Visible' = IF([FA Meses Fuera SLA Cliente] >= 1, [FA % Fuera SLA])
+		formatString: 0.0%
+		displayFolder: 04. Análisis Fuera SLA\Recurrencia 3M
+		lineageTag: 57000000-0000-4000-8000-000000000105
+
+	/// Promedio DH fuera SLA visible para cualquier cliente con al menos un mes fuera SLA (>= 1).
+	measure 'FA DH Fuera SLA Cliente Visible' = IF([FA Meses Fuera SLA Cliente] >= 1, [FA DH Promedio Fuera SLA])
+		formatString: 0.0 "DH"
+		displayFolder: 04. Análisis Fuera SLA\Recurrencia 3M
+		lineageTag: 57000000-0000-4000-8000-000000000106
+
+	measure 'FA Pedidos Postfactura Abiertos >15d' = VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo]) VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona]) VAR BasePost = FILTER(Fact_Tracking, Fact_Tracking[POSTFACTURA_ABIERTO] = TRUE() && NOT ISBLANK(Fact_Tracking[DIAS_POSTFACTURA_DH]) && Fact_Tracking[DIAS_POSTFACTURA_DH] > 15 && (ISBLANK(FlujoSel) || (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL") || (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"}) || (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")) && (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)) VAR Resultado = COUNTROWS(BasePost) RETURN IF(Resultado=0, BLANK(), Resultado)
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\Permanencia CD
+		lineageTag: 57000000-0000-4000-8000-000000000107
+
+	measure 'FA Clientes Recurrentes 3M Visible' = VAR Resultado = [FA Clientes Recurrentes 3M] RETURN IF(Resultado > 0, Resultado)
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\Recurrencia 3M
+		lineageTag: 57000000-0000-4000-8000-000000000108
+
+	measure 'FA Clientes Recurrentes 2M+ Visible' = VAR Resultado = [FA Clientes Recurrentes 2M+] RETURN IF(Resultado > 0, Resultado)
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\Recurrencia 3M
+		lineageTag: 57000000-0000-4000-8000-000000000109
+
+	measure 'FA Pedidos Fuera SLA Vendedor Recurrente' = VAR ClientesRec = FILTER(VALUES(Dim_Cliente[CLIENTE_CODIGO]), CALCULATE([FA Meses Fuera SLA Cliente]) >= 2) VAR Resultado = CALCULATE([FA Fuera SLA], KEEPFILTERS(ClientesRec)) RETURN IF(COUNTROWS(ClientesRec)>0 && Resultado>0, Resultado)
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\Recurrencia 3M
+		lineageTag: 57000000-0000-4000-8000-000000000110
+
+	measure 'FA % Fuera SLA Vendedor Recurrente' = VAR ClientesRec = FILTER(VALUES(Dim_Cliente[CLIENTE_CODIGO]), CALCULATE([FA Meses Fuera SLA Cliente]) >= 2) VAR Fuera = CALCULATE([FA Fuera SLA], KEEPFILTERS(ClientesRec)) VAR Total = CALCULATE([FA Pedidos], KEEPFILTERS(ClientesRec)) RETURN IF(COUNTROWS(ClientesRec)>0, DIVIDE(Fuera, Total))
+		formatString: 0.0%
+		displayFolder: 04. Análisis Fuera SLA\Recurrencia 3M
+		lineageTag: 57000000-0000-4000-8000-000000000111
+
+	measure 'FA DH Fuera SLA Vendedor Recurrente' = VAR ClientesRec = FILTER(VALUES(Dim_Cliente[CLIENTE_CODIGO]), CALCULATE([FA Meses Fuera SLA Cliente]) >= 2) VAR Resultado = CALCULATE([FA DH Promedio Fuera SLA], KEEPFILTERS(ClientesRec)) RETURN IF(COUNTROWS(ClientesRec)>0, Resultado)
+		formatString: 0.0 "DH"
+		displayFolder: 04. Análisis Fuera SLA\Recurrencia 3M
+		lineageTag: 57000000-0000-4000-8000-000000000112
+
+	measure 'FA Líneas Fuera SLA Vendedor Recurrente' = VAR ClientesRec = FILTER(VALUES(Dim_Cliente[CLIENTE_CODIGO]), CALCULATE([FA Meses Fuera SLA Cliente]) >= 2) VAR Resultado = CALCULATE([FA Líneas Fuera SLA], KEEPFILTERS(ClientesRec)) RETURN IF(COUNTROWS(ClientesRec)>0, Resultado)
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\Recurrencia 3M
+		lineageTag: 57000000-0000-4000-8000-000000000113
+
+	/// Pedidos de la cohorte histórica cerrada (equivalente a TRACKING analítico = TRUE).
+	/// Incluye todos los flujos, pero excluye pedidos abiertos o sin cierre oficial.
+	measure 'FA Carga Pedidos Creados' = VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo]) VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona]) RETURN CALCULATE(DISTINCTCOUNT(Fact_Tracking[PED_NUMERO_PEDIDO]), KEEPFILTERS(FILTER(Fact_Tracking, Fact_Tracking[ES_CERRADO] = TRUE() && NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH]) && (ISBLANK(FlujoSel) || (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL") || (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"}) || (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")) && (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel))))
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\Carga y SLA
+		lineageTag: 58000000-0000-4000-8000-000000000201
+
+	measure 'FA Carga Pedidos FES' = CALCULATE([FA Carga Pedidos Creados], KEEPFILTERS(Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"}))
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\Carga y SLA
+		lineageTag: 58000000-0000-4000-8000-000000000202
+
+	measure 'FA Carga % FES' = DIVIDE([FA Carga Pedidos FES], [FA Carga Pedidos Creados])
+		formatString: 0.0%
+		displayFolder: 04. Análisis Fuera SLA\Carga y SLA
+		lineageTag: 58000000-0000-4000-8000-000000000203
+
+	measure 'FA Carga % del Mes' = VAR TotalMes = CALCULATE([FA Carga Pedidos Creados], REMOVEFILTERS(Dim_Fecha[Momento_Mes])) RETURN DIVIDE([FA Carga Pedidos Creados], TotalMes)
+		formatString: 0.0%
+		displayFolder: 04. Análisis Fuera SLA\Carga y SLA
+		lineageTag: 58000000-0000-4000-8000-000000000204
+
+	measure 'FA Carga Líneas' = VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo]) VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona]) VAR PedidosCarga = CALCULATETABLE(VALUES(Fact_Tracking[PED_NUMERO_PEDIDO]), KEEPFILTERS(FILTER(Fact_Tracking, Fact_Tracking[ES_CERRADO] = TRUE() && NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH]) && (ISBLANK(FlujoSel) || (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL") || (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"}) || (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")) && (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)))) RETURN CALCULATE(SUM(Lineas_y_unidades_por_pedidos[Lineas]), TREATAS(PedidosCarga, Lineas_y_unidades_por_pedidos[Pedido]))
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\Carga y SLA
+		lineageTag: 58000000-0000-4000-8000-000000000205
+
+	measure 'FA Carga Unidades' = VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo]) VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona]) VAR PedidosCarga = CALCULATETABLE(VALUES(Fact_Tracking[PED_NUMERO_PEDIDO]), KEEPFILTERS(FILTER(Fact_Tracking, Fact_Tracking[ES_CERRADO] = TRUE() && NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH]) && (ISBLANK(FlujoSel) || (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL") || (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"}) || (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")) && (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)))) RETURN CALCULATE(SUM(Lineas_y_unidades_por_pedidos[Suma_Unidades]), TREATAS(PedidosCarga, Lineas_y_unidades_por_pedidos[Pedido]))
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\Carga y SLA
+		lineageTag: 58000000-0000-4000-8000-000000000206
+
+	measure 'FA Carga Líneas x Pedido' = DIVIDE([FA Carga Líneas], [FA Carga Pedidos Creados])
+		formatString: 0.0
+		displayFolder: 04. Análisis Fuera SLA\Carga y SLA
+		lineageTag: 58000000-0000-4000-8000-000000000207
+
+	measure 'FA Carga Unidades x Pedido' = DIVIDE([FA Carga Unidades], [FA Carga Pedidos Creados])
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\Carga y SLA
+		lineageTag: 58000000-0000-4000-8000-000000000208
+
+	measure 'FA Madurez Cohorte SLA %' = 1.0
+		formatString: 0.0%
+		displayFolder: 04. Análisis Fuera SLA\Carga y SLA
+		lineageTag: 58000000-0000-4000-8000-000000000209
+
+	measure 'FA Delta NS vs Resto' = VAR NSActual = [FA NS %] VAR NSResto = CALCULATE([FA NS %], REMOVEFILTERS(Dim_Fecha[Momento_Mes]), TREATAS({"Resto del mes"}, Dim_Fecha[Momento_Mes])) RETURN IF(ISBLANK(NSActual) || ISBLANK(NSResto), BLANK(), NSActual - NSResto)
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 04. Análisis Fuera SLA\Carga y SLA
+		lineageTag: 58000000-0000-4000-8000-000000000210
+
+	measure 'FA Lectura Carga SLA' = VAR Momento = SELECTEDVALUE(Dim_Fecha[Momento_Mes]) VAR Carga = [FA Carga % del Mes] VAR PorcFES = [FA Carga % FES] VAR DeltaNS = [FA Delta NS vs Resto] RETURN SWITCH(TRUE(), ISBLANK([FA Carga Pedidos Creados]), BLANK(), Momento = "Resto del mes", "BASE DE COMPARACIÓN", Momento = "Cierre · últimos 7 DH" && DeltaNS <= -0.10 && PorcFES >= 0.35 && Carga >= 0.35, "FES + ALTA CARGA COINCIDEN CON CAÍDA", DeltaNS <= -0.10 && Carga >= 0.35, "ALTA CARGA COINCIDE CON CAÍDA", Momento = "Inicio · primeros 7 DH" && DeltaNS <= -0.08, "ARRASTRE VISIBLE AL INICIO", PorcFES >= 0.35 && DeltaNS > -0.05, "FES ALTA SIN CAÍDA RELEVANTE", "SIN DETERIORO RELEVANTE")
+		displayFolder: 04. Análisis Fuera SLA\Carga y SLA
+		lineageTag: 58000000-0000-4000-8000-000000000211
+
+	measure 'RE SLA interno objetivo DH' = VAR Zona = SELECTEDVALUE(Dim_Rango_Entrega[Zona]) RETURN IF(Zona="Santiago",4,IF(Zona="Regiones",5,BLANK()))
+		formatString: 0 "DH"
+		displayFolder: 02. Resumen Ejecutivo\02. Servicio
+		lineageTag: 27000000-0000-4000-8000-000000000140
+
+	measure 'RE SLA cliente objetivo DH' = VAR Zona = SELECTEDVALUE(Dim_Rango_Entrega[Zona]) RETURN IF(Zona="Santiago",5,IF(Zona="Regiones",7,BLANK()))
+		formatString: 0 "DH"
+		displayFolder: 02. Resumen Ejecutivo\02. Servicio
+		lineageTag: 27000000-0000-4000-8000-000000000141
+
+	column __Medida
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: a999e59e-35e3-4a38-82ae-fee350894158
+		summarizeBy: none
+		sourceColumn: __Medida
+
+		annotation SummarizationSetBy = User
+
+	partition Medidas = m
+		mode: import
+		source =
+				let
+				    Origen = #table(type table [__Medida = Int64.Type], {{1}})
+				in
+				    Origen
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

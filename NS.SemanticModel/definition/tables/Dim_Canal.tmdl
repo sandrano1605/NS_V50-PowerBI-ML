@@ -1,0 +1,59 @@
+table Dim_Canal
+	lineageTag: b8faf44b-000e-4f1c-9b8a-d7f0f5a06e53
+
+	column CANAL_CODIGO
+		dataType: string
+		isKey
+		lineageTag: 2a06b593-dcdc-4cf5-ba3f-5998e4254c6f
+		summarizeBy: none
+		sourceColumn: CANAL_CODIGO
+
+		annotation SummarizationSetBy = User
+
+	column CANAL
+		dataType: string
+		lineageTag: d7b1acc2-de28-4230-a213-da7ae4b04d66
+		summarizeBy: none
+		sourceColumn: CANAL
+
+		annotation SummarizationSetBy = User
+
+	column CATEGORIA_ANALISIS
+		dataType: string
+		lineageTag: 0dc3f30c-da36-48dc-8b3d-c646a55c1010
+		summarizeBy: none
+		sourceColumn: CATEGORIA_ANALISIS
+
+		annotation SummarizationSetBy = User
+
+	column INCLUIR_NS
+		dataType: boolean
+		formatString: """Sí"";""Sí"";""No"""
+		lineageTag: 3b41766d-f62b-4d34-becf-b34539d21011
+		summarizeBy: none
+		sourceColumn: INCLUIR_NS
+
+		annotation SummarizationSetBy = User
+
+	partition Dim_Canal = m
+		mode: import
+		source =
+				let
+				    Origen = Fact_Pedidos,
+				    Columnas = Table.SelectColumns(Origen, {"PED_CANAL_CODIGO", "PED_CANAL"}),
+				    Filtrados = Table.SelectRows(Columnas, each [PED_CANAL_CODIGO] <> null and Text.Trim([PED_CANAL_CODIGO]) <> ""),
+				    Agrupados = Table.Group(
+				        Filtrados,
+				        {"PED_CANAL_CODIGO"},
+				        {{"PED_CANAL", each try List.First(List.RemoveNulls([PED_CANAL])) otherwise "No clasificado", type nullable text}}
+				    ),
+				    Renombradas = Table.RenameColumns(Agrupados, {{"PED_CANAL_CODIGO", "CANAL_CODIGO"}, {"PED_CANAL", "CANAL"}}),
+				    Categoria = Table.AddColumn(Renombradas, "CATEGORIA_ANALISIS", each let c = Text.TrimStart(Text.Trim(Text.From([CANAL_CODIGO])), "0") in if List.Contains({"40", "41"}, c) then "AGENDADO - EXCLUIDO NS" else if List.Contains({"42", "43", "44", "45", "46", "47"}, c) then "OPERACIÓN COMPARABLE - INCLUIDO NS" else "FUERA DE ALCANCE", type text),
+				    Incluir = Table.AddColumn(Categoria, "INCLUIR_NS", each let c = Text.TrimStart(Text.Trim(Text.From([CANAL_CODIGO])), "0") in List.Contains({"42", "43", "44", "45", "46", "47"}, c), type logical)
+				in
+				    Incluir
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

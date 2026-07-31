@@ -1,0 +1,92 @@
+table auditoria
+	lineageTag: 8da24b33-9996-4edc-93d0-7e344d43bf52
+
+	column Columna
+		dataType: string
+		lineageTag: 3c6cdb60-8bf1-4986-9b99-684f87ddb6ca
+		summarizeBy: none
+		sourceColumn: Columna
+
+		annotation SummarizationSetBy = Automatic
+
+	column Tipo_Dato
+		dataType: string
+		lineageTag: f19fafe4-5e7a-44f1-9237-b16633cc81ee
+		summarizeBy: none
+		sourceColumn: Tipo_Dato
+
+		annotation SummarizationSetBy = Automatic
+
+	column Categoria_Tipo
+		dataType: string
+		lineageTag: 2ed68b86-4964-4590-89c0-d39a4e3386a7
+		summarizeBy: none
+		sourceColumn: Categoria_Tipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Permite_Nulos
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 3598bbb0-06b2-41fa-9392-3a3a089b10bc
+		summarizeBy: none
+		sourceColumn: Permite_Nulos
+
+		annotation SummarizationSetBy = Automatic
+
+	column Posicion
+		dataType: double
+		lineageTag: 9bcce6d8-dfbb-47bc-8928-b419b8a67664
+		summarizeBy: sum
+		sourceColumn: Posicion
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition auditoria = m
+		mode: import
+		source =
+				let
+				    Origen = Fact_Pedidos_Auditoria,
+				
+				    Esquema = Table.Schema(Origen),
+				
+				    ColumnasSeleccionadas =
+				        Table.SelectColumns(
+				            Esquema,
+				            {
+				                "Name",
+				                "TypeName",
+				                "Kind",
+				                "IsNullable",
+				                "Position"
+				            }
+				        ),
+				
+				    ColumnasRenombradas =
+				        Table.RenameColumns(
+				            ColumnasSeleccionadas,
+				            {
+				                {"Name", "Columna"},
+				                {"TypeName", "Tipo_Dato"},
+				                {"Kind", "Categoria_Tipo"},
+				                {"IsNullable", "Permite_Nulos"},
+				                {"Position", "Posicion"}
+				            }
+				        ),
+				
+				    Ordenado =
+				        Table.Sort(
+				            ColumnasRenombradas,
+				            {
+				                {"Posicion", Order.Ascending}
+				            }
+				        )
+				in
+				    Ordenado
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

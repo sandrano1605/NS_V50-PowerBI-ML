@@ -1,0 +1,22 @@
+{
+  "version": "V13",
+  "regla_sla": {
+    "Santiago": {"administracion_dh": 1, "operacion_dh": 3, "interno_dh": 4, "ultima_milla_dh": 1, "cliente_dh": 5},
+    "Regiones": {"administracion_dh": 1, "operacion_dh": 4, "interno_dh": 5, "ultima_milla_dh": 2, "cliente_dh": 7}
+  },
+  "cohorte": "Todos los flujos; solo pedidos cerrados y medibles (ES_CERRADO=true)",
+  "cierre": {
+    "FES": "ultimo manifiesto VBFA/VTTP",
+    "FES + SALDO": "ultimo manifiesto VBFA/VTTP",
+    "NORMAL": "ultimo despacho valido",
+    "SALDO": "ultimo despacho valido"
+  },
+  "validaciones": {
+    "json_errores": 0,
+    "referencias_visuales_inexistentes": 0,
+    "lineage_tags_duplicados": 0,
+    "python_compile": "OK",
+    "metricas_abiertas_en_bloque_historico_2": 0,
+    "metricas_no_cerradas_en_bloque_4": 0
+  }
+}

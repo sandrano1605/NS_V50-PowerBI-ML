@@ -1,0 +1,55 @@
+/// Parámetro de campos para cambiar dinámicamente las medidas de la matriz del lienzo 01.
+table 'Parámetro Indicadores SLA'
+	lineageTag: 3a86d08b-033a-40d5-93df-f12b8c83dcf8
+
+	column Indicador
+		lineageTag: 4b72ee32-c98a-4192-bb61-f78a0fee04f3
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Indicador Orden'
+
+		relatedColumnDetails
+			groupByColumn: 'Indicador Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Indicador Campos'
+		isHidden
+		lineageTag: a744849f-6773-4814-bec1-210f357b418c
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Indicador Orden'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Indicador Orden'
+		dataType: int64
+		formatString: 0
+		lineageTag: 07c97174-df78-4499-8d54-ffe689836da3
+		summarizeBy: none
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Parámetro Indicadores SLA' = calculated
+		mode: import
+		source =
+				{
+				    ("Pedidos", NAMEOF('Medidas'[FA Pedidos]), 0),
+				    ("Fuera SLA", NAMEOF('Medidas'[FA Fuera SLA]), 1),
+				    ("% Fuera SLA", NAMEOF('Medidas'[FA % Fuera SLA]), 2),
+				    ("Líneas", NAMEOF('Medidas'[FA Líneas]), 3),
+				    ("Unidades", NAMEOF('Medidas'[FA Unidades]), 4),
+				    ("Promedio DH", NAMEOF('Medidas'[FA DH Promedio]), 5),
+				    ("FES", NAMEOF('Medidas'[FA FES]), 6),
+				    ("FES fuera SLA", NAMEOF('Medidas'[FA FES Fuera SLA]), 7)
+				}
+
+	annotation PBI_Id = 31bf8d2e-ca82-42d3-a303-e874f9d3b4af
+

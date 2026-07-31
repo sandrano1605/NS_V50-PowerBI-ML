@@ -1,0 +1,28 @@
+table Dim_Responsable
+	lineageTag: 0ff6a588-e94f-4361-90f8-886b097b427a
+
+	column RESPONSABLE_CODIGO
+		dataType: string
+		isKey
+		lineageTag: a0c5b9ce-0b60-4085-9c0e-0cc54d526cd1
+		summarizeBy: none
+		sourceColumn: RESPONSABLE_CODIGO
+
+		annotation SummarizationSetBy = User
+
+	partition Dim_Responsable = m
+		mode: import
+		source =
+				let
+				    Origen = Fact_Pedidos,
+				    Columnas = Table.SelectColumns(Origen, {"PED_RESPONSABLE"}),
+				    Filtrados = Table.SelectRows(Columnas, each [PED_RESPONSABLE] <> null and Text.Trim([PED_RESPONSABLE]) <> ""),
+				    Distintos = Table.Distinct(Filtrados),
+				    Renombradas = Table.RenameColumns(Distintos, {{"PED_RESPONSABLE", "RESPONSABLE_CODIGO"}})
+				in
+				    Renombradas
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

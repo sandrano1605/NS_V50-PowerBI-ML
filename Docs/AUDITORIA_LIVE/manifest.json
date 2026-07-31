@@ -1,0 +1,49 @@
+{
+  "project": "NS_V50-PowerBI-ML",
+  "run_id": "20260731_033000_visual_clientes_fuera_sla",
+  "timestamp_local": "2026-07-31T03:30:00-04:00",
+  "branch": "work/ns-live-audit",
+  "base_commit": "PENDING (primer commit del repositorio)",
+  "result_commit": "PENDING",
+  "power_bi_model": "NS",
+  "pbip_path": "NS.pbip",
+  "model_live_access": true,
+  "mcp_connected": true,
+  "refresh_executed": true,
+  "refresh_result": "OK",
+  "structural_validation": "OK",
+  "semantic_validation": "OK",
+  "visual_validation": "OK",
+  "business_rule_validation": "OK",
+  "status": "VERDE",
+  "changed_files": [
+    "NS.SemanticModel/definition/tables/Medidas.tmdl",
+    "NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/fa_clientes_recurrentes/visual.json",
+    ".gitignore",
+    "AGENTS.md",
+    "Docs/AUDITORIA_LIVE/*"
+  ],
+  "changed_measures": [
+    "FA Meses Fuera SLA Cliente Visible",
+    "FA Recurrencia Cliente Visible",
+    "FA Pedidos Fuera SLA Cliente Visible",
+    "FA % Fuera SLA Cliente Visible",
+    "FA DH Fuera SLA Cliente Visible"
+  ],
+  "changed_visuals": [
+    "fa_clientes_recurrentes"
+  ],
+  "executed_dax_queries": [
+    "ROW FechaAuditoria+PedidosTracking",
+    "SUMMARIZE recurrencia Visible (251/3/27/221)",
+    "ROW lienzos 00 vs 01 (1616/360/77.72%)",
+    "RANKX top 8 ranking recurrencia",
+    "FILTER pedidos clave 4190139455 y 1167577"
+  ],
+  "known_limitations": [
+    "Visual tableEx no soporta subtitulo nativo; guia de orden incluida en el titulo",
+    "Power BI Desktop sobrescribio visual.json al cerrar; reaplicado en disco con instancia cerrada",
+    "Validacion de renderizado final pendiente de apertura manual en Power BI Desktop"
+  ],
+  "critical_findings": []
+}

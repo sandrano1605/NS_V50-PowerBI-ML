@@ -1,0 +1,9 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "19a0c7f8d6e54b3a9210",
+  "displayName": "05 Tracking Operativo",
+  "displayOption": "FitToPage",
+  "height": 1440,
+  "width": 1600,
+  "visibility": "HiddenInViewMode"
+}

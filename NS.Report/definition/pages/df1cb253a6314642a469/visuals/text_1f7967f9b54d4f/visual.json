@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "text_1f7967f9b54d4f",
+  "position": {
+    "x": 32,
+    "y": 848.00000000000011,
+    "z": 12000,
+    "height": 48,
+    "width": 1536,
+    "tabOrder": 9000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Ventana móvil: hoy y 89 días anteriores · DH: días hábiles sin fines de semana ni feriados chilenos · SLA editables en Config_SLA_Hitos",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#5d7083"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

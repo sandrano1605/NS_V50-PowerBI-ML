@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "text_b8949333e83642",
+  "position": {
+    "x": 25,
+    "y": 875,
+    "z": 19000,
+    "height": 16,
+    "width": 1540,
+    "tabOrder": 16000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Exportación: tabla Cronología → menú (…) → Exportar datos. Universo único canales 42–47 · Normal + FES + Saldo + FES/Saldo · SLA interno zonal: Santiago 4 DH · Regiones 5 DH · promesa cliente 5/7 DH.",
+                    "textStyle": {
+                      "fontSize": "8pt",
+                      "color": "#5D7083"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

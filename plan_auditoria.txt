@@ -1,0 +1,565 @@
+# Metodología de análisis de concentración de pedidos de fin de mes
+
+## 1. Objetivo general
+
+Determinar si existe una concentración sistemática de pedidos, líneas y unidades durante los últimos días activos de cada mes, identificar qué clientes y canales explican este comportamiento y evaluar su impacto sobre el nivel de servicio, la fragmentación de entregas y el uso del centro de distribución.
+
+## 2. Hipótesis principal
+
+La operación presenta una concentración significativa de pedidos durante los últimos días del mes, posiblemente asociada al cumplimiento de metas comerciales, condiciones especiales de precio o acuerdos de despacho diferido.
+
+Esta concentración podría generar:
+
+* Sobrecarga operacional.
+* Mayor cantidad de pedidos fuera de SLA.
+* Entregas parcializadas.
+* Arrastre de pedidos al mes siguiente.
+* Uso prolongado del centro de distribución como almacenamiento para clientes.
+* Incremento de líneas y documentos administrativos sin un crecimiento proporcional de unidades.
+
+## 3. Hipótesis específicas
+
+### H1. Concentración de cierre
+
+El promedio diario de pedidos, líneas y unidades durante las últimas tres fechas activas del mes es superior al promedio diario del resto de los días activos.
+
+### H2. Concentración por canal
+
+La concentración de cierre no es homogénea y se presenta con mayor intensidad en determinados canales de venta, especialmente Tradicional Detalle y Mayorista.
+
+### H3. Clientes recurrentes
+
+Los mismos clientes repiten compras concentradas durante los últimos días del mes en varios períodos consecutivos.
+
+### H4. Despacho diferido
+
+Parte de los pedidos creados al cierre se despacha varios días después de su creación, lo que podría indicar acuerdos comerciales de compra anticipada y almacenamiento temporal en el centro de distribución.
+
+### H5. Fragmentación operacional
+
+Los pedidos creados al cierre presentan mayor cantidad de entregas parciales, mayor extensión entre el primer y último despacho y mayor probabilidad de quedar fuera de SLA.
+
+### H6. Impacto sobre el nivel de servicio
+
+Los meses y clientes con mayor concentración de cierre presentan mayor porcentaje de pedidos FES, atrasados, fragmentados o arrastrados al mes siguiente.
+
+---
+
+# 4. Alcance del análisis
+
+## Período
+
+Se recomienda utilizar al menos 12 meses completos, idealmente 24 meses, excluyendo el mes actual cuando aún está incompleto.
+
+## Unidad de análisis
+
+El análisis debe realizarse en cuatro niveles:
+
+1. Mes y canal.
+2. Mes y cliente.
+3. Pedido.
+4. Línea de entrega.
+
+## Exclusiones
+
+* Excluir movimiento `901`.
+* Clasificar movimiento `641` como `NACIONAL`, con prioridad sobre el canal de venta.
+* Excluir documentos anulados o reversados, cuando corresponda.
+* No mezclar meses incompletos con meses cerrados.
+
+---
+
+# 5. Preparación y calidad de los datos
+
+## 5.1. Llaves principales
+
+* Pedido: `LIPS_SAP.VGBEL`
+* Entrega: `LIKP_SAP.VBELN`
+* Cliente: `LIKP_SAP.KUNNR`
+* Material: `LIPS_SAP.MATNR`
+* Fecha de creación de entrega: `LIKP_SAP.ERDAT`
+* Fecha de contabilización: `LIKP_SAP.WADAT_IST`
+* Unidades: `LIPS_SAP.LFIMG`
+* Movimiento: `LIPS_SAP.BWART`
+
+## 5.2. Regla para evitar duplicación de pedidos
+
+Cada pedido debe contabilizarse una sola vez por mes.
+
+Para ello:
+
+* Se identifica la primera fecha de creación asociada al pedido dentro del mes.
+* El pedido se asigna al período correspondiente a esa primera fecha.
+* No se cuenta nuevamente aunque tenga entregas antes y después del corte.
+* Las líneas y unidades sí se mantienen según su fecha real, porque representan la carga operacional efectiva.
+
+La validación debe cumplir:
+
+```text
+Pedidos del mes
+=
+Pedidos últimas 3 fechas activas
++
+Pedidos resto del mes
+```
+
+La diferencia debe ser cero.
+
+## 5.3. Asignación única de canal
+
+Un pedido debe quedar asociado a un solo canal.
+
+Prioridad recomendada:
+
+1. Movimiento 641: Nacional.
+2. Canal 40: Supermercados.
+3. Canal 43: Tradicional Detalle.
+4. Canal 45: Mayorista.
+5. Otros canales: Otros.
+
+---
+
+# 6. Definición de los períodos de cierre
+
+## 6.1. Últimos siete días calendario
+
+Corresponden a los siete días comprendidos entre:
+
+```text
+Fin de mes - 6 días
+y
+Fin de mes
+```
+
+Este análisis permite comparar la participación del cierre sobre el total mensual.
+
+## 6.2. Últimas tres fechas activas
+
+No se utilizan tres días calendario.
+
+Se identifican las tres últimas fechas distintas del mes en las que realmente existió creación de entregas.
+
+Ejemplo:
+
+```text
+30 de junio
+27 de junio
+26 de junio
+```
+
+Aunque existan días intermedios sin movimiento, esas serían las tres últimas fechas activas.
+
+Esta definición evita distorsiones por:
+
+* Fines de semana.
+* Feriados.
+* Días sin operación.
+* Cierres administrativos.
+
+---
+
+# 7. Indicadores principales
+
+## 7.1. Volumen mensual
+
+* Pedidos del mes.
+* Entregas del mes.
+* Líneas del mes.
+* Unidades del mes.
+* Valor neto del mes sin IVA.
+
+Para analizar metas comerciales debe utilizarse valor neto, porque el IVA no representa ingreso comercial.
+
+## 7.2. Concentración en últimos siete días
+
+* Pedidos últimos siete días.
+* Líneas últimos siete días.
+* Unidades últimos siete días.
+* Porcentaje sobre el total mensual.
+* Porcentaje contra el resto del mes.
+
+## 7.3. Concentración en últimas tres fechas activas
+
+* Pedidos últimas tres fechas activas.
+* Líneas últimas tres fechas activas.
+* Unidades últimas tres fechas activas.
+* Valor neto últimas tres fechas activas.
+* Participación sobre el total mensual.
+
+## 7.4. Promedios diarios
+
+### Promedio diario del cierre
+
+```text
+Pedidos últimas tres fechas activas
+/
+3 días activos
+```
+
+### Promedio diario del resto del mes
+
+```text
+Pedidos resto del mes
+/
+Cantidad de días activos restantes
+```
+
+Se calcula de la misma forma para:
+
+* Pedidos.
+* Líneas.
+* Unidades.
+* Valor neto.
+
+## 7.5. Incremento del cierre
+
+```text
+Promedio diario últimas tres fechas
+/
+Promedio diario resto del mes
+- 1
+```
+
+Interpretación:
+
+* `0 %`: comportamiento igual al resto del mes.
+* `50 %`: el cierre tiene un promedio 1,5 veces mayor.
+* `100 %`: el promedio del cierre duplica al resto.
+* `200 %`: el promedio del cierre triplica al resto.
+* Valor negativo: el cierre fue inferior al comportamiento normal.
+
+---
+
+# 8. Indicadores de comportamiento del cliente
+
+Para cada cliente se deben calcular:
+
+* Cantidad de meses con compras en últimas tres fechas.
+* Porcentaje de pedidos creados al cierre.
+* Valor neto creado al cierre.
+* Incremento promedio respecto a sus días habituales.
+* Cantidad de pedidos fuera de SLA.
+* Porcentaje de incumplimiento.
+* Promedio de días entre creación y primer despacho.
+* Promedio de días entre creación y último despacho.
+* Cantidad promedio de entregas por pedido.
+* Porcentaje de pedidos parcializados.
+* Pedidos con despacho posterior a 7, 15 y 20 días.
+* Unidades pendientes después de cada umbral.
+* Valor neto pendiente.
+* Cantidad de meses consecutivos con el mismo patrón.
+
+---
+
+# 9. Detección de despachos parcializados
+
+Un pedido se considera parcializado cuando está asociado a más de una entrega.
+
+## Indicadores
+
+* Cantidad de entregas por pedido.
+* Primera fecha de despacho.
+* Última fecha de despacho.
+* Días entre primer y último despacho.
+* Cantidad entregada en el primer despacho.
+* Cantidad total del pedido.
+* Porcentaje entregado inicialmente.
+* Saldo pendiente.
+* Número de meses en que el cliente repite esta conducta.
+
+## Clasificación sugerida
+
+* Una entrega: despacho completo.
+* Dos entregas: fragmentación baja.
+* Tres entregas: fragmentación media.
+* Cuatro o más: fragmentación alta.
+
+---
+
+# 10. Detección de uso del centro de distribución como bodega
+
+Este comportamiento puede identificarse cuando se presentan simultáneamente estas condiciones:
+
+1. Pedido creado durante los últimos días del mes.
+2. Primera entrega realizada varios días después.
+3. Pedido con entrega parcializada.
+4. Última entrega posterior a 15 o 20 días.
+5. Cliente que repite el patrón.
+6. Producto reservado o comprometido durante ese período.
+
+## Indicador propuesto
+
+```text
+Días de permanencia del pedido
+=
+Fecha último despacho
+-
+Fecha creación
+```
+
+## Clasificación sugerida
+
+* 0 a 5 días: operación normal.
+* 6 a 10 días: revisar.
+* 11 a 20 días: permanencia alta.
+* Más de 20 días: posible almacenamiento para cliente.
+
+Esta clasificación debe ajustarse al SLA oficial y a los acuerdos comerciales vigentes.
+
+---
+
+# 11. Relación con el SLA
+
+Cada pedido debe clasificarse como:
+
+* Dentro de SLA.
+* Fuera de SLA.
+* Parcializado dentro de SLA.
+* Parcializado fuera de SLA.
+* Arrastrado al mes siguiente.
+* Con despacho diferido acordado.
+* Sin información suficiente.
+
+La comparación principal debe ser:
+
+```text
+Concentración últimas tres fechas
+versus
+porcentaje de pedidos fuera de SLA
+```
+
+También se debe medir:
+
+```text
+Incremento de cierre
+versus
+días promedio de despacho
+```
+
+y:
+
+```text
+Incremento de cierre
+versus
+cantidad de entregas por pedido
+```
+
+---
+
+# 12. Análisis de recurrencia
+
+No basta con encontrar un caso aislado.
+
+Se debe evaluar si el comportamiento se repite.
+
+## Índice de recurrencia
+
+```text
+Meses con comportamiento de cierre
+/
+Meses en que el cliente tuvo actividad
+```
+
+## Clasificación sugerida
+
+* Menos de 20 %: ocasional.
+* Entre 20 % y 40 %: recurrente moderado.
+* Entre 40 % y 60 %: recurrente alto.
+* Más de 60 %: patrón estructural.
+
+Un cliente con alta recurrencia, alto valor neto y alto incumplimiento debe ser priorizado.
+
+---
+
+# 13. Segmentación recomendada
+
+## Segmento A: cierre crítico
+
+* Alto incremento en últimos tres días.
+* Alto valor neto.
+* Alto porcentaje fuera de SLA.
+* Alta fragmentación.
+* Alta recurrencia.
+
+## Segmento B: cierre comercial controlado
+
+* Alto volumen al cierre.
+* Cumplimiento de SLA aceptable.
+* Baja fragmentación.
+
+## Segmento C: almacenamiento para cliente
+
+* Pedido al cierre.
+* Despacho posterior a 15 o 20 días.
+* Inventario comprometido.
+* Alta recurrencia.
+
+## Segmento D: operación normal
+
+* Sin concentración relevante.
+* Despacho dentro de SLA.
+* Baja fragmentación.
+
+---
+
+# 14. Preguntas de negocio que responde el análisis
+
+## Concentración comercial
+
+1. ¿Existe realmente una concentración de pedidos al cierre del mes?
+2. ¿Cuánto aumenta el promedio diario durante las últimas tres fechas activas?
+3. ¿La concentración se observa en pedidos, líneas, unidades o valor neto?
+4. ¿El volumen del cierre es mayor que el comportamiento normal del resto del mes?
+5. ¿La concentración se mantiene en el tiempo o corresponde a meses aislados?
+6. ¿Qué meses presentan los cierres más intensos?
+7. ¿La concentración está aumentando o disminuyendo año a año?
+
+## Canales de venta
+
+8. ¿Qué canal concentra más pedidos en los últimos días?
+9. ¿En qué canal el incremento del cierre es más alto?
+10. ¿Qué canal genera mayor carga operacional por línea o por unidad?
+11. ¿El canal Tradicional Detalle presenta un patrón más intenso que Supermercados o Mayorista?
+12. ¿El canal Nacional tiene un comportamiento distinto por el movimiento 641?
+
+## Clientes
+
+13. ¿Qué clientes compran repetidamente durante las últimas tres fechas activas?
+14. ¿Qué clientes explican la mayor parte del volumen de cierre?
+15. ¿Qué clientes tienen el mayor incremento respecto a su comportamiento habitual?
+16. ¿Los mismos clientes repiten este patrón mes a mes?
+17. ¿Cuántos meses consecutivos mantienen el comportamiento?
+18. ¿Qué clientes concentran valor neto alto al cierre?
+19. ¿Qué clientes deberían ser gestionados comercialmente antes del cierre mensual?
+
+## Metas comerciales
+
+20. ¿Existe evidencia de ingreso masivo de pedidos asociado al cumplimiento de metas?
+21. ¿El valor neto de ventas aumenta de forma desproporcionada en los últimos días?
+22. ¿El crecimiento del cierre se produce en valor, unidades o solamente en cantidad de pedidos?
+23. ¿Se están creando muchos pedidos pequeños para completar metas?
+24. ¿Los pedidos de cierre tienen un ticket promedio superior o inferior al resto del mes?
+25. ¿Qué vendedores o responsables concentran más ventas durante el cierre?
+
+## Nivel de servicio
+
+26. ¿Los pedidos creados al cierre tienen mayor probabilidad de incumplir el SLA?
+27. ¿Cuántos pedidos de cierre quedan fuera de SLA?
+28. ¿Qué clientes de cierre presentan incumplimiento recurrente?
+29. ¿Cuántos días adicionales tarda un pedido creado al cierre?
+30. ¿Qué etapa del proceso se transforma en cuello de botella durante el cierre?
+31. ¿El incremento de cierre afecta preparación, facturación o despacho?
+32. ¿Cuántos pedidos del cierre se arrastran al mes siguiente?
+
+## Despachos parcializados
+
+33. ¿Los pedidos creados al cierre se despachan en más entregas?
+34. ¿Qué clientes presentan mayor cantidad de entregas por pedido?
+35. ¿Cuál es el tiempo entre el primer y último despacho?
+36. ¿Qué porcentaje del pedido se entrega inicialmente?
+37. ¿Cuántas unidades quedan pendientes después del primer despacho?
+38. ¿La fragmentación explica parte del incumplimiento del SLA?
+39. ¿Qué canales concentran más despachos parciales?
+
+## Uso del centro de distribución
+
+40. ¿Qué clientes compran al cierre y reciben varios días después?
+41. ¿Qué pedidos permanecen más de 15 o 20 días en el centro de distribución?
+42. ¿Qué volumen de unidades queda comprometido para despachos futuros?
+43. ¿Cuál es el valor neto asociado a inventario reservado?
+44. ¿Qué clientes utilizan recurrentemente el CD como almacenamiento?
+45. ¿Cuánto espacio y capacidad operacional está siendo utilizado por esos pedidos?
+46. ¿Existen acuerdos comerciales que justifiquen esos tiempos?
+47. ¿El almacenamiento diferido está siendo cobrado o incorporado en las condiciones comerciales?
+
+## Gestión y decisiones
+
+48. ¿Qué clientes requieren revisión comercial?
+49. ¿Qué vendedores deben anticipar pedidos antes del cierre?
+50. ¿Qué pedidos requieren una fecha comprometida de despacho?
+51. ¿Qué clientes deberían tener restricciones de almacenamiento?
+52. ¿Dónde se deben aumentar recursos durante los últimos días del mes?
+53. ¿Qué canal requiere planificación especial de capacidad?
+54. ¿Qué clientes deben ser incorporados a una alerta preventiva?
+55. ¿Qué impacto tendría redistribuir parte del volumen hacia semanas anteriores?
+56. ¿Cuánto podría mejorar el SLA reduciendo la concentración de cierre?
+
+---
+
+# 15. Visualizaciones recomendadas
+
+## Página 1: Resumen ejecutivo
+
+* Pedidos del mes.
+* Porcentaje en últimas tres fechas.
+* Incremento promedio diario.
+* Unidades en cierre.
+* Valor neto en cierre.
+* Porcentaje fuera de SLA.
+* Pedidos parcializados.
+* Pedidos con permanencia superior a 20 días.
+
+## Página 2: Tendencia mensual
+
+* Evolución del incremento de pedidos.
+* Evolución de líneas y unidades.
+* Comparación por año.
+* Concentración últimos 7 días versus últimas 3 fechas activas.
+
+## Página 3: Canales
+
+* Concentración por canal.
+* Incremento diario por canal.
+* Porcentaje fuera de SLA por canal.
+* Fragmentación por canal.
+
+## Página 4: Clientes
+
+* Ranking de clientes por concentración.
+* Ranking de clientes por valor neto.
+* Clientes recurrentes.
+* Clientes fuera de SLA.
+* Clientes con despacho posterior a 20 días.
+
+## Página 5: Fragmentación y almacenamiento
+
+* Entregas por pedido.
+* Días hasta primer despacho.
+* Días hasta último despacho.
+* Saldo pendiente.
+* Unidades y valor almacenado.
+
+## Página 6: Detalle operacional
+
+* Pedido.
+* Cliente.
+* Canal.
+* Fecha de creación.
+* Primera entrega.
+* Última entrega.
+* Cantidad de entregas.
+* Unidades.
+* Valor neto.
+* Días de permanencia.
+* Estado SLA.
+* Motivo de atraso.
+
+---
+
+# 16. Criterio para confirmar la tesis
+
+La tesis tendría evidencia fuerte si se cumplen simultáneamente estas condiciones:
+
+1. El promedio diario de pedidos de las últimas tres fechas activas supera de manera recurrente al resto del mes.
+2. El patrón aparece en la mayoría de los meses analizados.
+3. Se concentra en canales y clientes específicos.
+4. Los mismos clientes repiten el comportamiento.
+5. Los pedidos del cierre tienen mayor fragmentación.
+6. Los pedidos del cierre presentan mayor tiempo hasta el despacho.
+7. Existe mayor incumplimiento de SLA.
+8. Parte relevante del volumen permanece más de 15 o 20 días en el centro de distribución.
+9. El comportamiento se asocia a valor neto y no solamente a cantidad de documentos.
+
+## Formulación final de la tesis
+
+> Existe una concentración recurrente de pedidos y valor neto durante las últimas fechas activas del mes, asociada principalmente a determinados clientes y canales. Esta concentración incrementa la carga operacional, la fragmentación de entregas, el tiempo de permanencia de los pedidos y la probabilidad de incumplimiento del SLA. En algunos casos, además, se observa un patrón compatible con compra anticipada y utilización del centro de distribución como almacenamiento temporal para el cliente.

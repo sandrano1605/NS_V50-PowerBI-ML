@@ -1,0 +1,119 @@
+/// Calendario nacional de feriados utilizado por todos los cálculos de días hábiles.
+table Dim_Feriados_Chile
+	lineageTag: 7d9e9bb7-83f7-49ac-b25f-237bf02ac501
+
+	column Fecha
+		dataType: dateTime
+		isKey
+		formatString: Short Date
+		lineageTag: 4ea4ba92-18ef-4fd0-8924-7eb816116501
+		summarizeBy: none
+		sourceColumn: Fecha
+
+		annotation SummarizationSetBy = User
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Feriado
+		dataType: string
+		lineageTag: e24c0b1e-acde-48d4-9593-a80a61272065
+		summarizeBy: none
+		sourceColumn: Feriado
+
+		annotation SummarizationSetBy = User
+
+	column Anio
+		dataType: int64
+		formatString: 0
+		lineageTag: b0712115-caba-4d87-9454-a62a74327665
+		summarizeBy: none
+		sourceColumn: Anio
+
+		annotation SummarizationSetBy = User
+
+	column Ambito
+		dataType: string
+		lineageTag: 4607765a-cbd2-4c76-b070-a54b6d7c4f42
+		summarizeBy: none
+		sourceColumn: Ambito
+
+		annotation SummarizationSetBy = User
+
+	column Fuente
+		dataType: string
+		lineageTag: 736ba7a4-996c-40ba-9175-a7af44557a97
+		summarizeBy: none
+		sourceColumn: Fuente
+
+		annotation SummarizationSetBy = User
+
+	partition Dim_Feriados_Chile = m
+		mode: import
+		source =
+				let
+				    FuenteOficial = "Gobierno de Chile / legislación nacional vigente",
+				    Origen = #table(
+				        type table [Fecha = date, Feriado = text, Ambito = text, Fuente = text],
+				        {
+				            {#date(2025,1,1), "Año Nuevo", "Nacional", FuenteOficial},
+				            {#date(2025,4,18), "Viernes Santo", "Nacional", FuenteOficial},
+				            {#date(2025,4,19), "Sábado Santo", "Nacional", FuenteOficial},
+				            {#date(2025,5,1), "Día del Trabajo", "Nacional", FuenteOficial},
+				            {#date(2025,5,21), "Glorias Navales", "Nacional", FuenteOficial},
+				            {#date(2025,6,20), "Día Nacional de los Pueblos Indígenas", "Nacional", FuenteOficial},
+				            {#date(2025,6,29), "San Pedro y San Pablo", "Nacional", FuenteOficial},
+				            {#date(2025,7,16), "Virgen del Carmen", "Nacional", FuenteOficial},
+				            {#date(2025,8,15), "Asunción de la Virgen", "Nacional", FuenteOficial},
+				            {#date(2025,9,18), "Independencia Nacional", "Nacional", FuenteOficial},
+				            {#date(2025,9,19), "Glorias del Ejército", "Nacional", FuenteOficial},
+				            {#date(2025,10,12), "Encuentro de Dos Mundos", "Nacional", FuenteOficial},
+				            {#date(2025,10,31), "Iglesias Evangélicas y Protestantes", "Nacional", FuenteOficial},
+				            {#date(2025,11,1), "Todos los Santos", "Nacional", FuenteOficial},
+				            {#date(2025,11,16), "Elecciones Presidenciales y Parlamentarias", "Nacional", FuenteOficial},
+				            {#date(2025,12,8), "Inmaculada Concepción", "Nacional", FuenteOficial},
+				            {#date(2025,12,14), "Segunda Votación Presidencial", "Nacional", FuenteOficial},
+				            {#date(2025,12,25), "Navidad", "Nacional", FuenteOficial},
+				            {#date(2026,1,1), "Año Nuevo", "Nacional", FuenteOficial},
+				            {#date(2026,4,3), "Viernes Santo", "Nacional", FuenteOficial},
+				            {#date(2026,4,4), "Sábado Santo", "Nacional", FuenteOficial},
+				            {#date(2026,5,1), "Día del Trabajo", "Nacional", FuenteOficial},
+				            {#date(2026,5,21), "Glorias Navales", "Nacional", FuenteOficial},
+				            {#date(2026,6,21), "Día Nacional de los Pueblos Indígenas", "Nacional", FuenteOficial},
+				            {#date(2026,6,29), "San Pedro y San Pablo", "Nacional", FuenteOficial},
+				            {#date(2026,7,16), "Virgen del Carmen", "Nacional", FuenteOficial},
+				            {#date(2026,8,15), "Asunción de la Virgen", "Nacional", FuenteOficial},
+				            {#date(2026,9,18), "Independencia Nacional", "Nacional", FuenteOficial},
+				            {#date(2026,9,19), "Glorias del Ejército", "Nacional", FuenteOficial},
+				            {#date(2026,10,12), "Encuentro de Dos Mundos", "Nacional", FuenteOficial},
+				            {#date(2026,10,31), "Iglesias Evangélicas y Protestantes", "Nacional", FuenteOficial},
+				            {#date(2026,11,1), "Todos los Santos", "Nacional", FuenteOficial},
+				            {#date(2026,12,8), "Inmaculada Concepción", "Nacional", FuenteOficial},
+				            {#date(2026,12,25), "Navidad", "Nacional", FuenteOficial},
+				            {#date(2027,1,1), "Año Nuevo", "Nacional", FuenteOficial},
+				            {#date(2027,3,26), "Viernes Santo", "Nacional", FuenteOficial},
+				            {#date(2027,3,27), "Sábado Santo", "Nacional", FuenteOficial},
+				            {#date(2027,5,1), "Día del Trabajo", "Nacional", FuenteOficial},
+				            {#date(2027,5,21), "Glorias Navales", "Nacional", FuenteOficial},
+				            {#date(2027,6,21), "Día Nacional de los Pueblos Indígenas", "Nacional", FuenteOficial},
+				            {#date(2027,6,28), "San Pedro y San Pablo", "Nacional", FuenteOficial},
+				            {#date(2027,7,16), "Virgen del Carmen", "Nacional", FuenteOficial},
+				            {#date(2027,8,15), "Asunción de la Virgen", "Nacional", FuenteOficial},
+				            {#date(2027,9,18), "Independencia Nacional", "Nacional", FuenteOficial},
+				            {#date(2027,9,19), "Glorias del Ejército", "Nacional", FuenteOficial},
+				            {#date(2027,10,11), "Encuentro de Dos Mundos", "Nacional", FuenteOficial},
+				            {#date(2027,10,31), "Iglesias Evangélicas y Protestantes", "Nacional", FuenteOficial},
+				            {#date(2027,11,1), "Todos los Santos", "Nacional", FuenteOficial},
+				            {#date(2027,12,8), "Inmaculada Concepción", "Nacional", FuenteOficial},
+				            {#date(2027,12,25), "Navidad", "Nacional", FuenteOficial}
+				        }
+				    ),
+				    Anio = Table.AddColumn(Origen, "Anio", each Date.Year([Fecha]), Int64.Type),
+				    Unicos = Table.Distinct(Anio, {"Fecha"}),
+				    Ordenados = Table.Sort(Unicos, {{"Fecha", Order.Ascending}})
+				in
+				    Ordenados
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

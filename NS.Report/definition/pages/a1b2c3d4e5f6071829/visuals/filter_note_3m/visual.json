@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "filter_note_3m",
+  "position": {
+    "x": 32,
+    "y": 352,
+    "z": 10020,
+    "height": 32,
+    "width": 176,
+    "tabOrder": 10020
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "VENTANA FIJA · ÚLTIMOS 3 MESES",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "7pt",
+                      "color": "#535a65"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

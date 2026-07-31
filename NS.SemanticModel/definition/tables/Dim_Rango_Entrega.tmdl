@@ -1,0 +1,92 @@
+/// Segmentación ejecutiva del tiempo interno creación a despacho. La entrega cliente es una proyección sin POD.
+table Dim_Rango_Entrega
+	lineageTag: 22000000-0000-4000-8000-000000000001
+
+	column Grupo
+		dataType: string
+		lineageTag: 22000000-0000-4000-8000-000000000002
+		summarizeBy: none
+		sourceColumn: GRUPO
+		sortByColumn: OrdenGrupo
+
+		annotation SummarizationSetBy = User
+
+	column Rango
+		dataType: string
+		lineageTag: 22000000-0000-4000-8000-000000000003
+		summarizeBy: none
+		sourceColumn: RANGO
+		sortByColumn: OrdenRango
+
+		annotation SummarizationSetBy = User
+
+	column Zona
+		dataType: string
+		lineageTag: 22000000-0000-4000-8000-000000000004
+		summarizeBy: none
+		sourceColumn: ZONA
+
+		annotation SummarizationSetBy = User
+
+	column OrdenGrupo
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 22000000-0000-4000-8000-000000000005
+		summarizeBy: none
+		sourceColumn: ORDEN_GRUPO
+
+		annotation SummarizationSetBy = User
+
+	column OrdenRango
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 22000000-0000-4000-8000-000000000006
+		summarizeBy: none
+		sourceColumn: ORDEN_RANGO
+
+		annotation SummarizationSetBy = User
+
+	column MinDH
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 22000000-0000-4000-8000-000000000007
+		summarizeBy: none
+		sourceColumn: MIN_DH
+
+		annotation SummarizationSetBy = User
+
+	column MaxDH
+		dataType: double
+		isHidden
+		formatString: 0
+		lineageTag: 22000000-0000-4000-8000-000000000008
+		summarizeBy: none
+		sourceColumn: MAX_DH
+
+		annotation SummarizationSetBy = User
+
+	partition Dim_Rango_Entrega = m
+		mode: import
+		source =
+				let
+				    Origen = #table(
+				        type table [GRUPO=text, RANGO=text, ZONA=text, ORDEN_GRUPO=Int64.Type, ORDEN_RANGO=Int64.Type, MIN_DH=Int64.Type, MAX_DH=nullable number],
+				        {
+				            {"1. Santiago · interno 4 DH · cliente 5 DH", "0–2 DH", "Santiago", 1, 10, 0, 2},
+				            {"1. Santiago · interno 4 DH · cliente 5 DH", "3–4 DH", "Santiago", 1, 20, 3, 4},
+				            {"1. Santiago · interno 4 DH · cliente 5 DH", "Más de 4 DH", "Santiago", 1, 30, 5, null},
+				            {"2. Regiones · interno 5 DH · cliente 7 DH", "0–2 DH", "Regiones", 2, 10, 0, 2},
+				            {"2. Regiones · interno 5 DH · cliente 7 DH", "3–5 DH", "Regiones", 2, 20, 3, 5},
+				            {"2. Regiones · interno 5 DH · cliente 7 DH", "Más de 5 DH", "Regiones", 2, 30, 6, null}
+				        }
+				    )
+				in
+				    Origen
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

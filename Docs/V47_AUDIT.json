@@ -1,0 +1,18 @@
+{
+  "status": "OK",
+  "json_files": 175,
+  "visuals": 147,
+  "main_visuals": 33,
+  "measures": 196,
+  "registered_resources": 18,
+  "checks": {
+    "mes_actual_preseleccionado_por_key_0": true,
+    "tarjetas_responden_mes": true,
+    "tendencia_3m_svg": true,
+    "colores_semanticos": true,
+    "botones_texto_en_svg": true,
+    "tracking_clasificacion_semantica": true
+  },
+  "errors": [],
+  "warnings": []
+}

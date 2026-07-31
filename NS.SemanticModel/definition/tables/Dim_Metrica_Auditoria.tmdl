@@ -1,0 +1,43 @@
+/// Selector desconectado para cambiar la lectura del gráfico de auditoría sin duplicar visuales.
+table Dim_Metrica_Auditoria
+	lineageTag: 17000000-0000-4000-8000-000000000001
+
+	column Medida
+		dataType: string
+		lineageTag: 17000000-0000-4000-8000-000000000002
+		summarizeBy: none
+		sourceColumn: MEDIDA
+		sortByColumn: Orden
+
+		annotation SummarizationSetBy = User
+
+	column Orden
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 17000000-0000-4000-8000-000000000003
+		summarizeBy: none
+		sourceColumn: ORDEN
+
+		annotation SummarizationSetBy = User
+
+	partition Dim_Metrica_Auditoria = m
+		mode: import
+		source =
+				let
+				    Origen = #table(
+				        type table [MEDIDA = text, ORDEN = Int64.Type],
+				        {
+				            {"Días reales", 1},
+				            {"SLA objetivo", 2},
+				            {"Exceso sobre SLA", 3},
+				            {"Pedidos fuera KPI", 4}
+				        }
+				    )
+				in
+				    Origen
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

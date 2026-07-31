@@ -1,0 +1,6 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='132' height='24' viewBox='0 0 132 24'>
+  <g transform='translate(1 0)' fill='none' stroke='#FFFFFF' color='#FFFFFF' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'>
+    <g transform='translate(0 0) scale(0.82)'><path d='M5 3h10l4 4v7'/><path d='M15 3v4h4'/><path d='M8 10h6M8 14h4'/><circle cx='16.5' cy='16.5' r='3.5'/><path d='m19 19 2 2'/></g>
+  </g>
+  <text x='27' y='16.5' font-family='Segoe UI, Arial, sans-serif' font-size='12' font-weight='600' fill='#FFFFFF'>Detalle 360</text>
+</svg>

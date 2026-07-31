@@ -1,0 +1,9 @@
+{
+  "json_validos": 142,
+  "invalid_sort": [],
+  "relationship_missing": [],
+  "dim_single_sql_source": true,
+  "dim_unique_guard": true,
+  "auto_relationships_removed": true,
+  "errors": []
+}

@@ -1,0 +1,299 @@
+/// Tabla larga de tiempos: una fila por pedido y métrica esperada.
+table Fact_Tiempos_Hitos
+	lineageTag: 189672ba-8c8b-4452-81a8-57519f3952f1
+
+	column PED_NUMERO_PEDIDO
+		dataType: string
+		lineageTag: 1021674a-4024-49e3-93da-c393cd75dccd
+		summarizeBy: none
+		sourceColumn: PED_NUMERO_PEDIDO
+
+		annotation SummarizationSetBy = User
+
+	column PED_CODIGO_CLIENTE
+		dataType: string
+		lineageTag: 915f0306-e3b2-4d0d-9d81-1906121565fb
+		summarizeBy: none
+		sourceColumn: PED_CODIGO_CLIENTE
+
+		annotation SummarizationSetBy = User
+
+	column PED_RESPONSABLE
+		dataType: string
+		lineageTag: f90eeed6-982a-42e8-be41-f8e579e90045
+		summarizeBy: none
+		sourceColumn: PED_RESPONSABLE
+
+		annotation SummarizationSetBy = User
+
+	column PED_CONDICION_EXPEDICION_CODIGO
+		dataType: string
+		lineageTag: 0c1767db-318f-4339-add8-ce5a3b90f795
+		summarizeBy: none
+		sourceColumn: PED_CONDICION_EXPEDICION_CODIGO
+
+		annotation SummarizationSetBy = User
+
+	column PED_CANAL_CODIGO
+		dataType: string
+		lineageTag: 0e22be94-1782-4264-ac38-000371628414
+		summarizeBy: none
+		sourceColumn: PED_CANAL_CODIGO
+
+		annotation SummarizationSetBy = User
+
+	column PED_VALOR_NETO
+		dataType: decimal
+		formatString: "CLP $" #,0;-"CLP $" #,0;"CLP $" 0
+		lineageTag: 3179f29f-d3e8-4c9d-bf34-869bd30261d8
+		summarizeBy: sum
+		sourceColumn: PED_VALOR_NETO
+
+		annotation SummarizationSetBy = User
+
+	column SEGMENTO_ANALISIS
+		dataType: string
+		lineageTag: bbe27b4b-7248-4866-b981-fa1b52a902c0
+		summarizeBy: none
+		sourceColumn: SEGMENTO_ANALISIS
+
+		annotation SummarizationSetBy = User
+
+	column AUD_ESTADO_GENERAL
+		dataType: string
+		lineageTag: 6de849a9-1fa5-4906-a521-06ef95730e74
+		summarizeBy: none
+		sourceColumn: AUD_ESTADO_GENERAL
+
+		annotation SummarizationSetBy = User
+
+	column PED_FECHA
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: dcc3fb43-3d88-484f-b44f-c4a6fb14d707
+		summarizeBy: none
+		sourceColumn: PED_FECHA
+
+		annotation SummarizationSetBy = User
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column METRICA_CODIGO
+		dataType: string
+		lineageTag: 572ac2db-6fcf-49a4-9375-351696eae4c9
+		summarizeBy: none
+		sourceColumn: METRICA_CODIGO
+
+		annotation SummarizationSetBy = User
+
+	column DIAS_HABILES
+		dataType: int64
+		formatString: 0
+		lineageTag: c27df62a-b476-494f-b4d5-ae3ac879c3cd
+		summarizeBy: average
+		sourceColumn: DIAS_HABILES
+
+		annotation SummarizationSetBy = User
+
+	column TIENE_DATO
+		dataType: boolean
+		formatString: """Sí"";""Sí"";""No"""
+		lineageTag: 2e0ee0da-95ae-41e6-8159-e60b85b771ee
+		summarizeBy: none
+		sourceColumn: TIENE_DATO
+
+		annotation SummarizationSetBy = User
+
+	column RANGO_DIAS
+		dataType: string
+		lineageTag: cf09aece-0841-4023-a52d-5647d4145f3e
+		summarizeBy: none
+		sourceColumn: RANGO_DIAS
+		sortByColumn: ORDEN_RANGO
+
+		annotation SummarizationSetBy = User
+
+	column ORDEN_RANGO
+		dataType: int64
+		formatString: 0
+		lineageTag: 1bf4eb3b-7f4e-4f56-8f41-59a8984776be
+		summarizeBy: none
+		sourceColumn: ORDEN_RANGO
+
+		annotation SummarizationSetBy = User
+
+	partition Fact_Tiempos_Hitos = m
+		mode: import
+		source =
+				let
+								    Origen = Fact_Pedidos_Auditoria,
+								    Columnas = Table.SelectColumns(
+								        Origen,
+								        {
+				                                "PED_NUMERO_PEDIDO",
+				                                "PED_CODIGO_CLIENTE",
+				                                "PED_RESPONSABLE",
+				                                "PED_CONDICION_EXPEDICION_CODIGO",
+				                                "PED_CANAL_CODIGO",
+				                                "PED_VALOR_NETO",
+				                                "SEGMENTO_ANALISIS",
+				                                "ES_FES",
+				                                "ES_SALDO",
+				                                "INCLUIR_SLA_NORMAL",
+				                                "PED_FECHA_HORA",
+				                                "AUD_ESTADO_GENERAL",
+				                                "DH_COMERCIAL_PDA_SAC",
+				                                "DH_CREDITO_COBRANZAS",
+				                                "DH_CREDITO_A_PRIMERA_ENTREGA",
+				                                "DH_PRIMERA_ENTREGA_A_PRIMER_PICKING",
+				                                "DH_PRIMER_PICKING_A_PRIMER_PACKING",
+				                                "DH_PRIMER_PACKING_A_PRIMERA_FACTURA",
+				                                "DH_PRIMER_PICKING_A_PRIMERA_FACTURA",
+				                                "DH_OPERACION_INTERNA",
+				                                "DH_DESPACHO",
+				                                "DH_LEAD_NORMAL",
+				                                "DH_DESPACHO_A_CEDIBLE",
+				                                "DH_CREACION_A_CEDIBLE",
+				                                "DH_FES_CREDITO_A_PRIMER_DESPACHO",
+				                                "DH_FES_FACTURA_A_PRIMER_DESPACHO",
+				                                "DH_FES_FACTURA_A_PRIMER_PEDIDO_POSTERIOR",
+				                                "DH_FES_PRIMER_PEDIDO_A_PRIMERA_ENTREGA_POSTERIOR",
+				                                "DH_FES_PRIMERA_ENTREGA_A_PRIMER_MANIFIESTO",
+				                                "DH_FES_FACTURA_A_PRIMER_MANIFIESTO",
+				                                "DH_FES_FACTURA_A_ULTIMO_MANIFIESTO",
+				                                "DH_FES_BRECHA_PRIMER_ULTIMO_MANIFIESTO",
+				                                "DH_ENTREGA_COMPLETA_100",
+				                                "DH_BRECHA_PRIMER_ULTIMO_DESPACHO",
+				                                "DH_PRIMERA_FACTURA_A_ULTIMO_DESPACHO",
+				                                "DH_ENT_PRIMERA_ULTIMA",
+				                                "DH_PIC_PRIMERO_ULTIMO",
+				                                "DH_PAC_PRIMERO_ULTIMO",
+				                                "DH_FAC_PRIMERA_ULTIMA"
+								        },
+								        MissingField.UseNull
+								    ),
+								    Fecha = Table.AddColumn(
+								        Columnas,
+								        "PED_FECHA",
+								        each if [PED_FECHA_HORA] = null then null else Date.From([PED_FECHA_HORA]),
+								        type date
+								    ),
+								    Registros = Table.AddColumn(
+								        Fecha,
+								        "REGISTROS_HITO",
+								        each #table(
+								            {"METRICA_CODIGO", "DIAS_HABILES"},
+								            {
+				                                {"DH_COMERCIAL_PDA_SAC", [DH_COMERCIAL_PDA_SAC]},
+				                                {"DH_CREDITO_COBRANZAS", [DH_CREDITO_COBRANZAS]},
+				                                {"DH_CREDITO_A_PRIMERA_ENTREGA", [DH_CREDITO_A_PRIMERA_ENTREGA]},
+				                                {"DH_PRIMERA_ENTREGA_A_PRIMER_PICKING", [DH_PRIMERA_ENTREGA_A_PRIMER_PICKING]},
+				                                {"DH_PRIMER_PICKING_A_PRIMER_PACKING", [DH_PRIMER_PICKING_A_PRIMER_PACKING]},
+				                                {"DH_PRIMER_PACKING_A_PRIMERA_FACTURA", [DH_PRIMER_PACKING_A_PRIMERA_FACTURA]},
+				                                {"DH_PRIMER_PICKING_A_PRIMERA_FACTURA", [DH_PRIMER_PICKING_A_PRIMERA_FACTURA]},
+				                                {"DH_OPERACION_INTERNA", [DH_OPERACION_INTERNA]},
+				                                {"DH_DESPACHO", [DH_DESPACHO]},
+				                                {"DH_LEAD_NORMAL", if [INCLUIR_SLA_NORMAL] = true then [DH_LEAD_NORMAL] else null},
+				                                {"DH_DESPACHO_A_CEDIBLE", [DH_DESPACHO_A_CEDIBLE]},
+				                                {"DH_CREACION_A_CEDIBLE", [DH_CREACION_A_CEDIBLE]},
+				                                {"DH_FES_CREDITO_A_PRIMER_DESPACHO", if [ES_FES] = true then [DH_FES_CREDITO_A_PRIMER_DESPACHO] else null},
+				                                {"DH_FES_FACTURA_A_PRIMER_DESPACHO", if [ES_FES] = true then [DH_FES_FACTURA_A_PRIMER_DESPACHO] else null},
+				                                {"DH_FES_FACTURA_A_PRIMER_PEDIDO_POSTERIOR", if [ES_FES] = true then [DH_FES_FACTURA_A_PRIMER_PEDIDO_POSTERIOR] else null},
+				                                {"DH_FES_PRIMER_PEDIDO_A_PRIMERA_ENTREGA_POSTERIOR", if [ES_FES] = true then [DH_FES_PRIMER_PEDIDO_A_PRIMERA_ENTREGA_POSTERIOR] else null},
+				                                {"DH_FES_PRIMERA_ENTREGA_A_PRIMER_MANIFIESTO", if [ES_FES] = true then [DH_FES_PRIMERA_ENTREGA_A_PRIMER_MANIFIESTO] else null},
+				                                {"DH_FES_FACTURA_A_PRIMER_MANIFIESTO", if [ES_FES] = true then [DH_FES_FACTURA_A_PRIMER_MANIFIESTO] else null},
+				                                {"DH_FES_FACTURA_A_ULTIMO_MANIFIESTO", if [ES_FES] = true then [DH_FES_FACTURA_A_ULTIMO_MANIFIESTO] else null},
+				                                {"DH_FES_BRECHA_PRIMER_ULTIMO_MANIFIESTO", if [ES_FES] = true then [DH_FES_BRECHA_PRIMER_ULTIMO_MANIFIESTO] else null},
+				                                {"DH_ENTREGA_COMPLETA_100", if [ES_SALDO] = true then [DH_ENTREGA_COMPLETA_100] else null},
+				                                {"DH_BRECHA_PRIMER_ULTIMO_DESPACHO", if [ES_SALDO] = true then [DH_BRECHA_PRIMER_ULTIMO_DESPACHO] else null},
+				                                {"DH_PRIMERA_FACTURA_A_ULTIMO_DESPACHO", if [ES_SALDO] = true then [DH_PRIMERA_FACTURA_A_ULTIMO_DESPACHO] else null},
+				                                {"DH_ENT_PRIMERA_ULTIMA", if [ES_SALDO] = true then [DH_ENT_PRIMERA_ULTIMA] else null},
+				                                {"DH_PIC_PRIMERO_ULTIMO", if [ES_SALDO] = true then [DH_PIC_PRIMERO_ULTIMO] else null},
+				                                {"DH_PAC_PRIMERO_ULTIMO", if [ES_SALDO] = true then [DH_PAC_PRIMERO_ULTIMO] else null},
+				                                {"DH_FAC_PRIMERA_ULTIMA", if [ES_SALDO] = true then [DH_FAC_PRIMERA_ULTIMA] else null}
+								            }
+								        ),
+								        type table [METRICA_CODIGO = text, DIAS_HABILES = nullable number]
+								    ),
+								    Expandida = Table.ExpandTableColumn(
+								        Registros,
+								        "REGISTROS_HITO",
+								        {"METRICA_CODIGO", "DIAS_HABILES"},
+								        {"METRICA_CODIGO", "DIAS_HABILES"}
+								    ),
+								    Reducida = Table.SelectColumns(
+								        Expandida,
+								        {
+								            "PED_NUMERO_PEDIDO",
+								            "PED_CODIGO_CLIENTE",
+								            "PED_RESPONSABLE",
+								            "PED_CONDICION_EXPEDICION_CODIGO",
+								            "PED_CANAL_CODIGO",
+								            "PED_VALOR_NETO",
+								            "SEGMENTO_ANALISIS",
+								            "AUD_ESTADO_GENERAL",
+								            "PED_FECHA",
+								            "METRICA_CODIGO",
+								            "DIAS_HABILES"
+								        }
+								    ),
+								    TieneDato = Table.AddColumn(
+								        Reducida,
+								        "TIENE_DATO",
+								        each [DIAS_HABILES] <> null,
+								        type logical
+								    ),
+								    Rango = Table.AddColumn(
+								        TieneDato,
+								        "RANGO_DIAS",
+								        each
+								            if [DIAS_HABILES] = null then "Sin dato"
+								            else if [DIAS_HABILES] <= 0 then "0 días"
+								            else if [DIAS_HABILES] = 1 then "1 día"
+								            else if [DIAS_HABILES] = 2 then "2 días"
+								            else if [DIAS_HABILES] = 3 then "3 días"
+								            else if [DIAS_HABILES] <= 5 then "4-5 días"
+								            else if [DIAS_HABILES] <= 7 then "6-7 días"
+								            else if [DIAS_HABILES] <= 10 then "8-10 días"
+								            else if [DIAS_HABILES] <= 15 then "11-15 días"
+								            else "16+ días",
+								        type text
+								    ),
+								    OrdenRango = Table.AddColumn(
+								        Rango,
+								        "ORDEN_RANGO",
+								        each
+								            if [RANGO_DIAS] = "0 días" then 0
+								            else if [RANGO_DIAS] = "1 día" then 1
+								            else if [RANGO_DIAS] = "2 días" then 2
+								            else if [RANGO_DIAS] = "3 días" then 3
+								            else if [RANGO_DIAS] = "4-5 días" then 4
+								            else if [RANGO_DIAS] = "6-7 días" then 5
+								            else if [RANGO_DIAS] = "8-10 días" then 6
+								            else if [RANGO_DIAS] = "11-15 días" then 7
+								            else if [RANGO_DIAS] = "16+ días" then 8
+								            else 99,
+								        Int64.Type
+								    ),
+								    Tipos = Table.TransformColumnTypes(
+								        OrdenRango,
+								        {
+								            {"PED_NUMERO_PEDIDO", type text},
+								            {"PED_CODIGO_CLIENTE", type text},
+								            {"PED_RESPONSABLE", type text},
+								            {"PED_CONDICION_EXPEDICION_CODIGO", type text},
+								            {"PED_CANAL_CODIGO", type text},
+								            {"PED_VALOR_NETO", Currency.Type},
+								            {"PED_FECHA", type date},
+								            {"METRICA_CODIGO", type text},
+								            {"DIAS_HABILES", Int64.Type},
+								            {"ORDEN_RANGO", Int64.Type}
+								        }
+								    )
+								in
+								    Tipos
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

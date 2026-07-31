@@ -1,0 +1,10 @@
+METRICA,VALOR_ANTES,FECHA_CAPTURA,NOTA
+Clientes visibles en visual,30 (solo 2M+),30-07-2026 22:54,Medidas Visible con >= 2
+Recurrentes 3M,3,30-07-2026 22:54,Medida oficial sin filtro
+Recurrentes 2M,27,30-07-2026 22:54,Medida oficial sin filtro
+Puntual 1M,excluidos,30-07-2026 22:54,No visibles por filtro >= 2
+Total clientes fuera SLA,251,30-07-2026 22:54,Recalculo independiente 07_clientes_recurrentes.csv
+Pedidos evaluados,1616,30-07-2026 22:54,RE Pedidos contexto
+Pedidos fuera SLA,360,30-07-2026 22:54,RE Pedidos fuera SLA contexto
+NS,77.72%,30-07-2026 22:54,RE NS contexto
+Diferencia lienzo 00 vs 01,0,30-07-2026 22:54,Comparacion medidas RE vs FA

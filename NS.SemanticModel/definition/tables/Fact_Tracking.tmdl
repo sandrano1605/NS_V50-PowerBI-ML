@@ -1,0 +1,387 @@
+/// Cartera viva V26. Una fila por pedido del mismo universo Mayorista usado por el resto del modelo.
+table Fact_Tracking
+	lineageTag: 26000000-0000-4000-8000-000000001000
+
+	column PED_NUMERO_PEDIDO
+		dataType: string
+		isKey
+		lineageTag: 26000000-0000-4000-8000-000000001001
+		summarizeBy: none
+		sourceColumn: PED_NUMERO_PEDIDO
+
+	column PED_CODIGO_CLIENTE
+		dataType: string
+		lineageTag: 26000000-0000-4000-8000-000000001002
+		summarizeBy: none
+		sourceColumn: PED_CODIGO_CLIENTE
+
+	column PED_RESPONSABLE
+		dataType: string
+		lineageTag: 26000000-0000-4000-8000-000000001003
+		summarizeBy: none
+		sourceColumn: PED_RESPONSABLE
+
+	column PED_CANAL_CODIGO
+		dataType: string
+		lineageTag: 26000000-0000-4000-8000-000000001004
+		summarizeBy: none
+		sourceColumn: PED_CANAL_CODIGO
+
+	column PED_CONDICION_EXPEDICION_CODIGO
+		dataType: string
+		lineageTag: 26000000-0000-4000-8000-000000001005
+		summarizeBy: none
+		sourceColumn: PED_CONDICION_EXPEDICION_CODIGO
+
+	column PED_VALOR_NETO
+		dataType: double
+		formatString: "CLP $" #,0;-"CLP $" #,0;"CLP $" 0
+		lineageTag: 26000000-0000-4000-8000-000000001006
+		summarizeBy: sum
+		sourceColumn: PED_VALOR_NETO
+
+	column PED_CIUDAD
+		dataType: string
+		lineageTag: 26000000-0000-4000-8000-000000001007
+		summarizeBy: none
+		sourceColumn: PED_CIUDAD
+
+	column PED_REGION
+		dataType: string
+		lineageTag: 26000000-0000-4000-8000-000000001008
+		summarizeBy: none
+		sourceColumn: PED_REGION
+
+	column ZONA
+		dataType: string
+		lineageTag: 26000000-0000-4000-8000-000000001009
+		summarizeBy: none
+		sourceColumn: ZONA
+
+	column CLASIFICACION
+		dataType: string
+		lineageTag: 26000000-0000-4000-8000-000000001010
+		summarizeBy: none
+		sourceColumn: CLASIFICACION
+
+	column PED_FECHA
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 26000000-0000-4000-8000-000000001011
+		summarizeBy: none
+		sourceColumn: PED_FECHA
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column PED_FECHA_HORA
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 26000000-0000-4000-8000-000000001012
+		summarizeBy: none
+		sourceColumn: PED_FECHA_HORA
+
+	column FECHA_PRIMERA_FACTURA
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 26000000-0000-4000-8000-000000001013
+		summarizeBy: none
+		sourceColumn: FECHA_PRIMERA_FACTURA
+
+	column FECHA_ULTIMA_FACTURA
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 26000000-0000-4000-8000-000000001014
+		summarizeBy: none
+		sourceColumn: FECHA_ULTIMA_FACTURA
+
+	column FECHA_DESPACHO
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 26000000-0000-4000-8000-000000001015
+		summarizeBy: none
+		sourceColumn: FECHA_DESPACHO
+
+	column FECHA_MANIFIESTO
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 26000000-0000-4000-8000-000000001016
+		summarizeBy: none
+		sourceColumn: FECHA_MANIFIESTO
+
+	column FECHA_CIERRE
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 26000000-0000-4000-8000-000000001017
+		summarizeBy: none
+		sourceColumn: FECHA_CIERRE
+
+	column ES_CERRADO
+		dataType: boolean
+		formatString: """Sí"";""Sí"";""No"""
+		lineageTag: 26000000-0000-4000-8000-000000001018
+		summarizeBy: none
+		sourceColumn: ES_CERRADO
+
+	column PENDIENTE_FACTURA
+		dataType: boolean
+		formatString: """Sí"";""Sí"";""No"""
+		lineageTag: 26000000-0000-4000-8000-000000001019
+		summarizeBy: none
+		sourceColumn: PENDIENTE_FACTURA
+
+	column PENDIENTE_DESPACHO
+		dataType: boolean
+		formatString: """Sí"";""Sí"";""No"""
+		lineageTag: 26000000-0000-4000-8000-000000001020
+		summarizeBy: none
+		sourceColumn: PENDIENTE_DESPACHO
+
+	column ESTADO_ACTUAL
+		dataType: string
+		lineageTag: 26000000-0000-4000-8000-000000001021
+		summarizeBy: none
+		sourceColumn: ESTADO_ACTUAL
+
+	column HITO_ACTUAL
+		dataType: string
+		lineageTag: 26000000-0000-4000-8000-000000001022
+		summarizeBy: none
+		sourceColumn: HITO_ACTUAL
+
+	column FECHA_INICIO_ESTADO
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 26000000-0000-4000-8000-000000001023
+		summarizeBy: none
+		sourceColumn: FECHA_INICIO_ESTADO
+
+	column DIAS_INTERNOS_DH
+		dataType: int64
+		formatString: 0
+		lineageTag: 26000000-0000-4000-8000-000000001024
+		summarizeBy: none
+		sourceColumn: DIAS_INTERNOS_DH
+
+	column DIAS_EN_ESTADO_DH
+		dataType: int64
+		formatString: 0
+		lineageTag: 26000000-0000-4000-8000-000000001025
+		summarizeBy: none
+		sourceColumn: DIAS_EN_ESTADO_DH
+
+	column SLA_INTERNO_DH
+		dataType: int64
+		formatString: 0
+		lineageTag: 26000000-0000-4000-8000-000000001026
+		summarizeBy: none
+		sourceColumn: SLA_INTERNO_DH
+
+	column DIAS_RESTANTES_DH
+		dataType: int64
+		formatString: 0
+		lineageTag: 26000000-0000-4000-8000-000000001027
+		summarizeBy: none
+		sourceColumn: DIAS_RESTANTES_DH
+
+	column SEMAFORO
+		dataType: string
+		lineageTag: 26000000-0000-4000-8000-000000001028
+		summarizeBy: none
+		sourceColumn: SEMAFORO
+
+	column DIAS_CALENDARIO_SALDO
+		dataType: int64
+		formatString: 0
+		lineageTag: 26000000-0000-4000-8000-000000001029
+		summarizeBy: none
+		sourceColumn: DIAS_CALENDARIO_SALDO
+
+	column DIAS_HABILES_SALDO
+		dataType: int64
+		formatString: 0
+		lineageTag: 26000000-0000-4000-8000-000000001032
+		summarizeBy: none
+		sourceColumn: DIAS_HABILES_SALDO
+
+	column VALIDACION_SALDO
+		dataType: string
+		lineageTag: 26000000-0000-4000-8000-000000001030
+		summarizeBy: none
+		sourceColumn: VALIDACION_SALDO
+
+	column FECHA_ACTUALIZACION
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 26000000-0000-4000-8000-000000001031
+		summarizeBy: none
+		sourceColumn: FECHA_ACTUALIZACION
+
+	column PENDIENTE_MANIFIESTO_FES
+		dataType: boolean
+		formatString: """Sí"";""Sí"";""No"""
+		lineageTag: 26000000-0000-4000-8000-000000001033
+		summarizeBy: none
+		sourceColumn: PENDIENTE_MANIFIESTO_FES
+
+	column DIAS_HASTA_DESPACHO_DH
+		dataType: int64
+		formatString: 0
+		lineageTag: 26000000-0000-4000-8000-000000001034
+		summarizeBy: none
+		sourceColumn: DIAS_HASTA_DESPACHO_DH
+
+	column DIAS_ESPERA_MANIFIESTO_DH
+		dataType: int64
+		formatString: 0
+		lineageTag: 26000000-0000-4000-8000-000000001035
+		summarizeBy: none
+		sourceColumn: DIAS_ESPERA_MANIFIESTO_DH
+
+	column TIPO_MEDICION_DIAS
+		dataType: string
+		lineageTag: 26000000-0000-4000-8000-000000001036
+		summarizeBy: none
+		sourceColumn: TIPO_MEDICION_DIAS
+
+	column DIAS_POSTFACTURA_DH
+		dataType: int64
+		formatString: 0
+		lineageTag: 26000000-0000-4000-8000-000000001037
+		summarizeBy: none
+		sourceColumn: DIAS_POSTFACTURA_DH
+
+	column POSTFACTURA_ABIERTO
+		dataType: boolean
+		formatString: """Sí"";""Sí"";""No"""
+		lineageTag: 26000000-0000-4000-8000-000000001038
+		summarizeBy: none
+		sourceColumn: POSTFACTURA_ABIERTO
+
+	column SLA_OPERACION_DH
+		dataType: int64
+		formatString: 0
+		lineageTag: 26000000-0000-4000-8000-000000001039
+		summarizeBy: none
+		sourceColumn: SLA_OPERACION_DH
+
+	column ULTIMA_MILLA_DH
+		dataType: int64
+		formatString: 0
+		lineageTag: 26000000-0000-4000-8000-000000001040
+		summarizeBy: none
+		sourceColumn: ULTIMA_MILLA_DH
+
+	column SLA_CLIENTE_DH
+		dataType: int64
+		formatString: 0
+		lineageTag: 26000000-0000-4000-8000-000000001041
+		summarizeBy: none
+		sourceColumn: SLA_CLIENTE_DH
+
+	column CUMPLE_SLA_INTERNO
+		dataType: boolean
+		formatString: """Sí"";""Sí"";""No"""
+		lineageTag: 26000000-0000-4000-8000-000000001042
+		summarizeBy: none
+		sourceColumn: CUMPLE_SLA_INTERNO
+
+	column EXCESO_SLA_INTERNO_DH
+		dataType: int64
+		formatString: 0
+		lineageTag: 26000000-0000-4000-8000-000000001043
+		summarizeBy: none
+		sourceColumn: EXCESO_SLA_INTERNO_DH
+
+	partition Fact_Tracking = m
+		mode: import
+		source =
+				let
+				    Origen = Fact_Pedidos_Auditoria,
+				    Feriados = List.Buffer(List.Transform(Dim_Feriados_Chile[Fecha], each Date.From(_))),
+				    // Momento exacto en que Power BI ejecuta la actualización.
+				    // Se transforma a la zona local del equipo o gateway que refresca el modelo.
+				    AhoraZona = DateTimeZone.ToLocal(DateTimeZone.FixedUtcNow()),
+				    Ahora = DateTimeZone.RemoveZone(AhoraZona),
+				    Hoy = Date.From(Ahora),
+				    FnDH = (Inicio as any, Fin as any) as nullable number =>
+				        let
+				            I = try Date.From(Inicio) otherwise null,
+				            F = try Date.From(Fin) otherwise null,
+				            Fechas = if I = null or F = null or F < I then {} else if F = I then {} else List.Dates(Date.AddDays(I, 1), Duration.Days(F-I), #duration(1,0,0,0)),
+				            Habiles = List.Select(Fechas, each Date.DayOfWeek(_, Day.Monday) < 5 and not List.Contains(Feriados, _))
+				        in if I = null or F = null or F < I then null else List.Count(Habiles),
+				    Seleccion = Table.SelectColumns(Origen, {"PED_NUMERO_PEDIDO","PED_CODIGO_CLIENTE","PED_RESPONSABLE","PED_CANAL_CODIGO","PED_CONDICION_EXPEDICION_CODIGO","PED_VALOR_NETO","PED_CIUDAD","PED_REGION","ES_FES","ES_SALDO","PED_FECHA_HORA","CRD_P_FECHA_HORA","ENT_P_FECHA_HORA","PIC_P_FECHA_HORA","PAC_P_FECHA_HORA","FAC_P_FECHA_HORA_REAL","FAC_U_FECHA_HORA","TRP_P_FECHA_HORA","TRP_U_FECHA_HORA","PRIMERA_FECHA_PEDIDO_POSTERIOR","ULTIMA_FECHA_PEDIDO_POSTERIOR","PRIMERA_FECHA_ENTREGA_POSTERIOR","ULTIMA_FECHA_ENTREGA_POSTERIOR","PRIMERA_FECHA_MANIFIESTO","ULTIMA_FECHA_MANIFIESTO"}, MissingField.UseNull),
+				    Clasificacion = Table.AddColumn(Seleccion, "CLASIFICACION", each if [ES_FES] = true and [ES_SALDO] = true then "FES + SALDO" else if [ES_FES] = true then "FES" else if [ES_SALDO] = true then "SALDO" else "NORMAL", type text),
+				    Zona = Table.AddColumn(Clasificacion, "ZONA", each if Text.TrimStart(Text.Trim(Text.From([PED_REGION])), "0") = "13" then "Santiago" else "Regiones", type text),
+				    PedFecha = Table.AddColumn(Zona, "PED_FECHA", each if [PED_FECHA_HORA]=null then null else Date.From([PED_FECHA_HORA]), type nullable date),
+				    Fact1 = Table.AddColumn(PedFecha, "FECHA_PRIMERA_FACTURA", each [FAC_P_FECHA_HORA_REAL], type nullable datetime),
+				    FactU = Table.AddColumn(Fact1, "FECHA_ULTIMA_FACTURA", each [FAC_U_FECHA_HORA], type nullable datetime),
+				    // Regla de salida física Santiago: cuando no existe TRP, la factura válida emitida
+				    // hasta las 16:00 puede actuar como proxy de despacho del mismo día. En SALDO se usa
+				    // la última factura y en los demás flujos la primera. Esta regla NUNCA cierra un FES:
+				    // FES y FES + SALDO cierran exclusivamente con el último manifiesto VBFA/VTTP.
+				    FacturaCierre = Table.AddColumn(FactU, "FACTURA_CIERRE_BASE", each if [ES_SALDO]=true and [FECHA_ULTIMA_FACTURA]<>null then [FECHA_ULTIMA_FACTURA] else [FECHA_PRIMERA_FACTURA], type nullable datetime),
+				    Desp = Table.AddColumn(FacturaCierre, "FECHA_DESPACHO", each
+				        let
+				            Real = if [TRP_U_FECHA_HORA]<>null then [TRP_U_FECHA_HORA] else [TRP_P_FECHA_HORA],
+				            Factura = [FACTURA_CIERRE_BASE],
+				            FechaFactura = if Factura=null then null else Date.From(Factura),
+				            HoraFactura = if Factura=null then null else Time.From(Factura),
+				            CorteCumplido = FechaFactura<>null and (FechaFactura<Hoy or (FechaFactura=Hoy and Time.From(Ahora)>=#time(16,0,0))),
+				            AplicaSantiago = [ZONA]="Santiago" and Factura<>null and HoraFactura<=#time(16,0,0) and CorteCumplido
+				        in
+				            if Real<>null then Real else if AplicaSantiago then Factura else null,
+				        type nullable datetime),
+				    // Manifiesto FES: prioridad al último manifiesto obtenido por VBFA/VTTP.
+				    // Cuando el enlace VBFA/VTTP no devuelve fecha pero el tracking sí contiene TRP,
+				    // se usa TRP_U/TRP_P como respaldo operacional del manifiesto.
+				    Man = Table.AddColumn(Desp, "FECHA_MANIFIESTO", each
+				        if [ES_FES]<>true then null
+				        else if [ULTIMA_FECHA_MANIFIESTO]<>null then DateTime.From([ULTIMA_FECHA_MANIFIESTO])
+				        else if [PRIMERA_FECHA_MANIFIESTO]<>null then DateTime.From([PRIMERA_FECHA_MANIFIESTO])
+				        else if [TRP_U_FECHA_HORA]<>null then [TRP_U_FECHA_HORA]
+				        else [TRP_P_FECHA_HORA],
+				        type nullable datetime),
+				    // Cierre oficial: FES y FES + SALDO cierran con el manifiesto consolidado anterior.
+				    // NORMAL y SALDO cierran con el último despacho válido.
+				    Cierre = Table.AddColumn(Man, "FECHA_CIERRE", each if [ES_FES]=true then [FECHA_MANIFIESTO] else [FECHA_DESPACHO], type nullable datetime),
+				    Cerrado = Table.AddColumn(Cierre, "ES_CERRADO", each [FECHA_CIERRE]<>null, type logical),
+				    PendFac = Table.AddColumn(Cerrado, "PENDIENTE_FACTURA", each [FECHA_PRIMERA_FACTURA]=null, type logical),
+				    // Pendiente de despacho real: existe factura, pero todavía no existe salida física.
+				    PendDesp = Table.AddColumn(PendFac, "PENDIENTE_DESPACHO", each [FECHA_PRIMERA_FACTURA]<>null and [FECHA_DESPACHO]=null, type logical),
+				    // En FES se separa el despacho físico del cierre documental por manifiesto.
+				    PendMan = Table.AddColumn(PendDesp, "PENDIENTE_MANIFIESTO_FES", each [ES_FES]=true and [FECHA_DESPACHO]<>null and [FECHA_MANIFIESTO]=null, type logical),
+				    Estado = Table.AddColumn(PendMan, "ESTADO_ACTUAL", each if [FECHA_CIERRE]<>null then "CERRADO" else if [FECHA_PRIMERA_FACTURA]=null then "PENDIENTE FACTURA" else if [FECHA_DESPACHO]=null and [ES_FES]=true then "FACTURADO SIN DESPACHO FES" else if [FECHA_DESPACHO]=null then "FACTURADO SIN DESPACHO" else if [ES_FES]=true and [FECHA_MANIFIESTO]=null then "PENDIENTE MANIFIESTO FES" else "PENDIENTE CIERRE", type text),
+				    Hito = Table.AddColumn(Estado, "HITO_ACTUAL", each if [FECHA_CIERRE]<>null then "CIERRE OPERATIVO" else if [FECHA_PRIMERA_FACTURA]=null and [ENT_P_FECHA_HORA]=null then "ADMINISTRATIVO" else if [FECHA_PRIMERA_FACTURA]=null then "FACTURACIÓN" else if [FECHA_DESPACHO]=null then "DESPACHO" else if [ES_FES]=true and [FECHA_MANIFIESTO]=null then "MANIFIESTO FES" else "CIERRE OPERATIVO", type text),
+				    InicioEstado = Table.AddColumn(Hito, "FECHA_INICIO_ESTADO", each if [FECHA_CIERRE]<>null then [FECHA_CIERRE] else if [FECHA_PRIMERA_FACTURA]=null then (if [ENT_P_FECHA_HORA]<>null then [ENT_P_FECHA_HORA] else [PED_FECHA_HORA]) else if [FECHA_DESPACHO]=null then [FECHA_PRIMERA_FACTURA] else if [ES_FES]=true and [FECHA_MANIFIESTO]=null then [FECHA_DESPACHO] else [FECHA_PRIMERA_FACTURA], type nullable datetime),
+				    DiasHastaDesp = Table.AddColumn(InicioEstado, "DIAS_HASTA_DESPACHO_DH", each if [FECHA_DESPACHO]=null then null else FnDH([PED_FECHA_HORA], [FECHA_DESPACHO]), Int64.Type),
+				    DiasEsperaMan = Table.AddColumn(DiasHastaDesp, "DIAS_ESPERA_MANIFIESTO_DH", each if [ES_FES]<>true or [FECHA_DESPACHO]=null then null else FnDH([FECHA_DESPACHO], if [FECHA_MANIFIESTO]<>null then [FECHA_MANIFIESTO] else Ahora), Int64.Type),
+				    TipoMedicion = Table.AddColumn(DiasEsperaMan, "TIPO_MEDICION_DIAS", each if [ES_CERRADO] then "LEAD CERRADO" else "ANTIGÜEDAD ABIERTA", type text),
+				    DiasInt = Table.AddColumn(TipoMedicion, "DIAS_INTERNOS_DH", each FnDH([PED_FECHA_HORA], if [FECHA_CIERRE]<>null then [FECHA_CIERRE] else Ahora), Int64.Type),
+				    DiasEstado = Table.AddColumn(DiasInt, "DIAS_EN_ESTADO_DH", each FnDH([FECHA_INICIO_ESTADO], if [FECHA_CIERRE]<>null then [FECHA_CIERRE] else Ahora), Int64.Type),
+				    // Permanencia postfactura según cierre oficial del flujo.
+				    // FES/FES+SALDO: factura válida → último manifiesto. NORMAL/SALDO: factura válida → último despacho.
+				    DiasPostFactura = Table.AddColumn(DiasEstado, "DIAS_POSTFACTURA_DH", each
+				        let FinOficial = if [ES_FES]=true then [FECHA_MANIFIESTO] else [FECHA_DESPACHO]
+				        in if [FACTURA_CIERRE_BASE]=null then null else FnDH([FACTURA_CIERRE_BASE], if FinOficial<>null then FinOficial else Ahora), Int64.Type),
+				    PostFacturaAbierto = Table.AddColumn(DiasPostFactura, "POSTFACTURA_ABIERTO", each [FACTURA_CIERRE_BASE]<>null and (if [ES_FES]=true then [FECHA_MANIFIESTO]=null else [FECHA_DESPACHO]=null), type logical),
+				    SLAOperacion = Table.AddColumn(PostFacturaAbierto, "SLA_OPERACION_DH", each if [ZONA]="Santiago" then 3 else 4, Int64.Type),
+				    SLA = Table.AddColumn(SLAOperacion, "SLA_INTERNO_DH", each 1 + [SLA_OPERACION_DH], Int64.Type),
+				    UltimaMilla = Table.AddColumn(SLA, "ULTIMA_MILLA_DH", each if [ZONA]="Santiago" then 1 else 2, Int64.Type),
+				    SLACliente = Table.AddColumn(UltimaMilla, "SLA_CLIENTE_DH", each [SLA_INTERNO_DH] + [ULTIMA_MILLA_DH], Int64.Type),
+				    CumpleSLA = Table.AddColumn(SLACliente, "CUMPLE_SLA_INTERNO", each if [DIAS_INTERNOS_DH]=null then null else [DIAS_INTERNOS_DH] <= [SLA_INTERNO_DH], type nullable logical),
+				    ExcesoSLA = Table.AddColumn(CumpleSLA, "EXCESO_SLA_INTERNO_DH", each if [DIAS_INTERNOS_DH]=null then null else if [DIAS_INTERNOS_DH] > [SLA_INTERNO_DH] then [DIAS_INTERNOS_DH]-[SLA_INTERNO_DH] else 0, Int64.Type),
+				    Restantes = Table.AddColumn(ExcesoSLA, "DIAS_RESTANTES_DH", each if [DIAS_INTERNOS_DH]=null then null else [SLA_INTERNO_DH]-[DIAS_INTERNOS_DH], Int64.Type),
+				    Semaforo = Table.AddColumn(Restantes, "SEMAFORO", each if [DIAS_INTERNOS_DH]=null then "REVISAR DATOS" else if [ES_CERRADO] then (if [CUMPLE_SLA_INTERNO]=true then "CERRADO EN SLA" else "CERRADO FUERA SLA") else if [DIAS_RESTANTES_DH]<0 then "VENCIDO" else if [DIAS_RESTANTES_DH]<=1 then "ATENCIÓN" else "EN PLAZO", type text),
+				    DiasSaldo = Table.AddColumn(Semaforo, "DIAS_CALENDARIO_SALDO", each if [FECHA_PRIMERA_FACTURA]=null or [FECHA_ULTIMA_FACTURA]=null then null else Duration.Days(Date.From([FECHA_ULTIMA_FACTURA])-Date.From([FECHA_PRIMERA_FACTURA])), Int64.Type),
+				    DiasSaldoDH = Table.AddColumn(DiasSaldo, "DIAS_HABILES_SALDO", each if [FECHA_PRIMERA_FACTURA]=null or [FECHA_ULTIMA_FACTURA]=null then null else FnDH([FECHA_PRIMERA_FACTURA], [FECHA_ULTIMA_FACTURA]), Int64.Type),
+				    ValSaldo = Table.AddColumn(DiasSaldoDH, "VALIDACION_SALDO", each if [ES_SALDO]=true and ([DIAS_CALENDARIO_SALDO]=null or [DIAS_CALENDARIO_SALDO]<=0) then "REVISAR: BANDERA SIN DIFERENCIA POSITIVA" else if [ES_SALDO]<>true and [DIAS_CALENDARIO_SALDO]<>null and [DIAS_CALENDARIO_SALDO]>0 then "REVISAR: DIFERENCIA POSITIVA SIN BANDERA" else if [ES_SALDO]=true then "SALDO VALIDADO" else "NO SALDO", type text),
+				    Actualizacion = Table.AddColumn(ValSaldo, "FECHA_ACTUALIZACION", each Ahora, type nullable datetime),
+				    Resultado = Table.SelectColumns(Actualizacion, {"PED_NUMERO_PEDIDO","PED_CODIGO_CLIENTE","PED_RESPONSABLE","PED_CANAL_CODIGO","PED_CONDICION_EXPEDICION_CODIGO","PED_VALOR_NETO","PED_CIUDAD","PED_REGION","ZONA","CLASIFICACION","PED_FECHA","PED_FECHA_HORA","FECHA_PRIMERA_FACTURA","FECHA_ULTIMA_FACTURA","FECHA_DESPACHO","FECHA_MANIFIESTO","FECHA_CIERRE","ES_CERRADO","PENDIENTE_FACTURA","PENDIENTE_DESPACHO","PENDIENTE_MANIFIESTO_FES","ESTADO_ACTUAL","HITO_ACTUAL","FECHA_INICIO_ESTADO","DIAS_HASTA_DESPACHO_DH","DIAS_ESPERA_MANIFIESTO_DH","TIPO_MEDICION_DIAS","DIAS_INTERNOS_DH","DIAS_EN_ESTADO_DH","DIAS_POSTFACTURA_DH","POSTFACTURA_ABIERTO","SLA_OPERACION_DH","SLA_INTERNO_DH","ULTIMA_MILLA_DH","SLA_CLIENTE_DH","CUMPLE_SLA_INTERNO","EXCESO_SLA_INTERNO_DH","DIAS_RESTANTES_DH","SEMAFORO","DIAS_CALENDARIO_SALDO","DIAS_HABILES_SALDO","VALIDACION_SALDO","FECHA_ACTUALIZACION"})
+				in
+				    Resultado
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,24 @@
+{
+  "version": "V11",
+  "source": "NS_V50(6).zip",
+  "issues_detected": {
+    "recurrence_months": "Meses f.SLA returned 4 because the blank member of Dim_Periodo_3M was counted.",
+    "post_invoice_table": "691 rows, only 10 with >15 days.",
+    "seller_recurrence": "Clientes 3M equaled Clientes 2M+ because recurrence was always 4.",
+    "time_analysis": "Only monthly totals; no beginning/rest/end-of-month segmentation."
+  },
+  "corrections": {
+    "recurrence": "Strict 0-3 month count with blank exclusion and TREATAS by month.",
+    "client_ranking": "Only recurrent clients (2M or 3M); includes flow; outside-SLA average only.",
+    "post_invoice": "Business days, includes open and closed orders, only clients with >15 DH, adds open >15 DH.",
+    "seller_ranking": "Includes flow and outside-SLA average/lines under same cohort.",
+    "time": "Month split into first 7 business days, rest, last 7 business days; shows load and SLA together.",
+    "filters": "Added zone; kept flow and classification."
+  },
+  "static_validation": {
+    "json_errors": 0,
+    "missing_visual_field_references": 0,
+    "duplicate_lineage_tags": 0,
+    "out_of_bounds_visuals": 0
+  }
+}

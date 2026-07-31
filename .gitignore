@@ -1,0 +1,51 @@
+# Power BI
+*.pbix
+*.pbit
+*.pbip.user
+
+# Power BI PBIP - archivos locales y caché
+.pbi/localSettings.json
+**/.pbi/cache.abf
+**/*.abf
+*.abf
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.eggs/
+*.egg
+dist/
+build/
+.eggs/
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Temp
+tmp/
+temp/
+*.tmp
+*.bak
+~$*
+
+# Credentials
+*.env
+.env.local
+
+# Artefactos locales de evidencia (no versionar ZIP duplicados)
+*.zip

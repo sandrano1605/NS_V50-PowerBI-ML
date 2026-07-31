@@ -1,0 +1,3 @@
+PAGINA,ID_VISUAL,TIPO_VISUAL,CAMBIO,ESTADO
+01 Analisis Fuera SLA,fa_clientes_recurrentes,tableEx,P2: sort por recurrencia (3 criterios),APLICADO
+01 Analisis Fuera SLA,fa_clientes_recurrentes,tableEx,P3: titulo actualizado,APLICADO

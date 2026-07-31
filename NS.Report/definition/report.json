@@ -1,0 +1,231 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.3.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "CY24SU10",
+      "reportVersionAtImport": {
+        "visual": "1.8.95",
+        "report": "2.0.95",
+        "page": "1.3.95"
+      },
+      "type": "SharedResources"
+    }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "2b5007ba07099aceea69",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_Tracking"
+              }
+            },
+            "Property": "PED_CANAL_CODIGO"
+          }
+        },
+        "type": "Categorical",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "f",
+              "Entity": "Fact_Tracking",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "f"
+                          }
+                        },
+                        "Property": "PED_CANAL_CODIGO"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'43'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'45'"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      }
+    ]
+  },
+  "objects": {
+    "section": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Top'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "false"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "publicCustomVisuals": [
+    "textFilter25A4896A83E0487089E2B90C9AE57C8A"
+  ],
+  "resourcePackages": [
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "CY24SU10",
+          "path": "BaseThemes/CY24SU10.json",
+          "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "artel_logo.svg",
+          "path": "artel_logo.svg",
+          "type": "Image"
+        },
+        {
+          "name": "flow_operativo.svg",
+          "path": "flow_operativo.svg",
+          "type": "Image"
+        },
+        {
+          "name": "logo-artel7339256143830972.png",
+          "path": "logo-artel7339256143830972.png",
+          "type": "Image"
+        },
+        {
+          "name": "ns_back_dark.svg",
+          "path": "ns_back_dark.svg",
+          "type": "Image"
+        },
+        {
+          "name": "ns_back_hover.svg",
+          "path": "ns_back_hover.svg",
+          "type": "Image"
+        },
+        {
+          "name": "ns_cuellos_dark.svg",
+          "path": "ns_cuellos_dark.svg",
+          "type": "Image"
+        },
+        {
+          "name": "ns_cuellos_hover.svg",
+          "path": "ns_cuellos_hover.svg",
+          "type": "Image"
+        },
+        {
+          "name": "ns_cuellos_white.svg",
+          "path": "ns_cuellos_white.svg",
+          "type": "Image"
+        },
+        {
+          "name": "ns_detalle_dark.svg",
+          "path": "ns_detalle_dark.svg",
+          "type": "Image"
+        },
+        {
+          "name": "ns_detalle_hover.svg",
+          "path": "ns_detalle_hover.svg",
+          "type": "Image"
+        },
+        {
+          "name": "ns_detalle_white.svg",
+          "path": "ns_detalle_white.svg",
+          "type": "Image"
+        },
+        {
+          "name": "ns_resumen_dark.svg",
+          "path": "ns_resumen_dark.svg",
+          "type": "Image"
+        },
+        {
+          "name": "ns_resumen_hover.svg",
+          "path": "ns_resumen_hover.svg",
+          "type": "Image"
+        },
+        {
+          "name": "ns_resumen_white.svg",
+          "path": "ns_resumen_white.svg",
+          "type": "Image"
+        },
+        {
+          "name": "ns_tracking_dark.svg",
+          "path": "ns_tracking_dark.svg",
+          "type": "Image"
+        },
+        {
+          "name": "ns_tracking_hover.svg",
+          "path": "ns_tracking_hover.svg",
+          "type": "Image"
+        },
+        {
+          "name": "ns_tracking_white.svg",
+          "path": "ns_tracking_white.svg",
+          "type": "Image"
+        },
+        {
+          "name": "reset_dark.svg",
+          "path": "reset_dark.svg",
+          "type": "Image"
+        },
+        {
+          "name": "reset_hover.svg",
+          "path": "reset_hover.svg",
+          "type": "Image"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true,
+    "useDefaultAggregateDisplayName": true
+  }
+}

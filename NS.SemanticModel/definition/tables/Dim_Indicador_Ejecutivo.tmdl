@@ -1,0 +1,51 @@
+/// Selector desconectado para alternar el indicador ejecutivo sin duplicar lienzos ni objetos visuales.
+table Dim_Indicador_Ejecutivo
+	lineageTag: 18000000-0000-4000-8000-000000000001
+
+	column Indicador
+		dataType: string
+		lineageTag: 18000000-0000-4000-8000-000000000002
+		summarizeBy: none
+		sourceColumn: INDICADOR
+		sortByColumn: Orden
+
+		annotation SummarizationSetBy = User
+
+	column Orden
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 18000000-0000-4000-8000-000000000003
+		summarizeBy: none
+		sourceColumn: ORDEN
+
+		annotation SummarizationSetBy = User
+
+	column Unidad
+		dataType: string
+		lineageTag: 18000000-0000-4000-8000-000000000004
+		summarizeBy: none
+		sourceColumn: UNIDAD
+
+		annotation SummarizationSetBy = User
+
+	partition Dim_Indicador_Ejecutivo = m
+		mode: import
+		source =
+				let
+				    Origen = #table(
+				        type table [INDICADOR = text, ORDEN = Int64.Type, UNIDAD = text],
+				        {
+				            {"Pedidos", 1, "pedidos"},
+				            {"Valor CLP", 2, "CLP"},
+				            {"Nivel de servicio", 3, "%"},
+				            {"P90 preparación", 4, "DH"}
+				        }
+				    )
+				in
+				    Origen
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "text_0525f79da21148",
+  "position": {
+    "x": 43,
+    "y": 445,
+    "z": 8000,
+    "height": 380,
+    "width": 225,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "1. Busque y seleccione un único pedido.\n\n2. Cambie la medida del gráfico entre días reales, SLA, exceso y pedidos fuera de KPI.\n\n3. Pase el cursor sobre un hito para abrir su detalle contextual.\n\n4. Revise el semáforo y la tabla cronológica.\n\nSemáforo:\n🔴 incumplimiento o secuencia inválida\n🟡 omisión, solapamiento o dato a revisar\n🟢 dentro del SLA\n\nUn hito vacío hereda la fecha anterior, mide 0 DH y conserva la alerta de omisión.",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#111111"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

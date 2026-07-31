@@ -1,0 +1,113 @@
+/// Parámetros editables. Modificar SLA_DH y actualizar para recalcular todo el reporte.
+table Config_SLA_Hitos
+	lineageTag: c4cbf88e-6222-4d6c-b8e6-667688f94200
+
+	column METRICA_CODIGO
+		dataType: string
+		isKey
+		lineageTag: 58af26e2-cfa8-4a54-b2be-9d39c5a64e00
+		summarizeBy: none
+		sourceColumn: METRICA_CODIGO
+
+		annotation SummarizationSetBy = User
+
+	column HITO
+		dataType: string
+		lineageTag: d4b79795-8a9a-4372-9e62-82bf52dc9200
+		summarizeBy: none
+		sourceColumn: HITO
+		sortByColumn: ORDEN_HITO
+
+		annotation SummarizationSetBy = User
+
+	column MACROETAPA
+		dataType: string
+		lineageTag: cde9a32f-a2c3-4c6f-aeb1-bd17fc700200
+		summarizeBy: none
+		sourceColumn: MACROETAPA
+
+		annotation SummarizationSetBy = User
+
+	column AREA_RESPONSABLE
+		dataType: string
+		lineageTag: 57d8b582-8582-4f03-b02a-20d9223e1200
+		summarizeBy: none
+		sourceColumn: AREA_RESPONSABLE
+
+		annotation SummarizationSetBy = User
+
+	column ORDEN_HITO
+		dataType: int64
+		formatString: 0
+		lineageTag: 1f54e31b-67ef-4521-a66f-45681f075200
+		summarizeBy: none
+		sourceColumn: ORDEN_HITO
+
+		annotation SummarizationSetBy = User
+
+	column SLA_DH
+		dataType: int64
+		formatString: 0
+		lineageTag: fc433785-a4e8-4f6c-a29f-a86af1083200
+		summarizeBy: none
+		sourceColumn: SLA_DH
+
+		annotation SummarizationSetBy = User
+
+	column TIPO_KPI
+		dataType: string
+		lineageTag: eba22f76-348a-4542-9599-41fccf183200
+		summarizeBy: none
+		sourceColumn: TIPO_KPI
+
+		annotation SummarizationSetBy = User
+
+	column ACTIVO_CUELLO
+		dataType: boolean
+		formatString: """Sí"";""Sí"";""No"""
+		lineageTag: 18eb945a-fd13-4345-acd1-d7ed41685200
+		summarizeBy: none
+		sourceColumn: ACTIVO_CUELLO
+
+		annotation SummarizationSetBy = User
+
+	column OBSERVACION
+		dataType: string
+		lineageTag: f77d64f6-37b2-46d2-b0e6-7ec8add6f200
+		summarizeBy: none
+		sourceColumn: OBSERVACION
+
+		annotation SummarizationSetBy = User
+
+	partition Config_SLA_Hitos = m
+		mode: import
+		source =
+				let
+				    // Tabla editable: cambiar solamente SLA_DH cuando el negocio ajuste la meta.
+				    Origen = #table(
+				        type table [METRICA_CODIGO=text, HITO=text, MACROETAPA=text, AREA_RESPONSABLE=text, ORDEN_HITO=Int64.Type, SLA_DH=Int64.Type, TIPO_KPI=text, ACTIVO_CUELLO=logical, OBSERVACION=text],
+				        {
+				            {"PDA_CREACION", "PDA → Creación", "Preventa", "Comercial", 10, 1, "CONTROL PREVIO", false, "Indicador previo; queda fuera de la promesa al cliente"},
+				            {"CREACION_COMERCIAL", "Creación → Comercial/SAC", "Administrativo", "Comercial / SAC", 20, 1, "CONTROL NO ADITIVO", true, "Subproceso contenido dentro del macro SLA administrativo de 1 DH"},
+				            {"COMERCIAL_CREDITO", "Comercial/SAC → Crédito", "Administrativo", "Crédito y Cobranzas", 30, 1, "CONTROL NO ADITIVO", true, "Subproceso contenido dentro del macro SLA administrativo de 1 DH"},
+				            {"CREDITO_ENTREGA", "Crédito → Ingreso a Logística", "Administrativo", "Crédito / Logística", 40, 1, "CONTROL NO ADITIVO", true, "La suma de subprocesos no reemplaza el macro SLA administrativo"},
+				            {"ADMIN_TOTAL", "Creación → Ingreso a Logística", "Administrativo", "Comercial / Crédito", 45, 1, "KPI MACRO", true, "Primer gran bloque: liberación administrativa completa en 1 DH"},
+				            {"ENTREGA_FACTURACION", "Ingreso a Logística → Facturación", "Operaciones", "Operaciones", 50, 3, "TRAMO", true, "Preparación interna y facturación dentro del macro SLA operacional"},
+				            {"FACTURACION_DESPACHO", "Facturación → Despacho", "Operaciones", "Operaciones / Transporte", 60, 1, "TRAMO", true, "Cierra con el último despacho válido"},
+				            {"OPERACIONES_TOTAL", "Ingreso a Logística → Salida oficial", "Operaciones", "Operaciones / Transporte", 70, 4, "KPI MACRO", true, "Meta zonal aplicada en Fact_Hitos: 3 DH Santiago y 4 DH Regiones hasta despacho o manifiesto FES"},
+				            {"MAYORISTA_CIERRE_TOTAL", "Creación → Salida oficial", "Flujo integral", "Interáreas", 80, null, "DIAGNÓSTICO INTEGRAL", false, "No usar como promesa; la medición oficial comienza en la fecha efectiva y aplica SLA por zona"},
+				            {"FES_CREACION_PED_POST", "FES: Creación original → Pedido para despacho", "FES", "Interáreas", 110, 4, "DIAGNÓSTICO FES", false, "Acumula el proceso hasta factura/pedido posterior; no es un tramo adicional"},
+				            {"FES_FACT_PED_POST", "FES: Facturación → Pedido para despacho", "Operaciones", "Operaciones / Comercial", 115, 0, "CONTROL MISMO DÍA", true, "El pedido posterior debe generarse el mismo día de la factura"},
+				            {"FES_PED_POST_ENT_POST", "FES: Pedido para despacho → Entrega posterior", "Operaciones", "Logística", 120, 0, "CONTROL MISMO DÍA", true, "Conversión operativa esperada el mismo día"},
+				            {"FES_ENT_POST_MANIFIESTO", "FES: Entrega posterior → Manifiesto", "Operaciones", "Operaciones / Transporte", 130, 1, "TRAMO FES", true, "El manifiesto es la salida oficial FES"},
+				            {"FES_CIERRE_TOTAL", "FES: Creación → Último manifiesto", "Flujo integral", "Interáreas", 140, null, "DIAGNÓSTICO FES", false, "Auditoría del cierre real FES; integra el universo único y usa el último manifiesto como salida oficial"},
+				            {"FES_BRECHA_SALIDA", "FES: Primer → Último manifiesto", "FES / Saldo", "Operaciones / Transporte", 150, 1, "FRAGMENTACIÓN", true, "Brecha de salidas; no se suma al SLA integral"}
+				        }
+				    )
+				in
+				    Origen
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Exception
+

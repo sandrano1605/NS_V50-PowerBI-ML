@@ -1,0 +1,14 @@
+OBJETO,METRICA,ANTES,DESPUES,ESPERADO,DIFERENCIA,ESTADO,EVIDENCIA
+Visual fa_clientes_recurrentes,Clientes visibles,30,251,251,0,OK,07_resultados_despues.csv
+Visual fa_clientes_recurrentes,Recurrentes 3M,3,3,3,0,OK,07_resultados_despues.csv
+Visual fa_clientes_recurrentes,Recurrentes 2M,27,27,27,0,OK,07_resultados_despues.csv
+Visual fa_clientes_recurrentes,Puntual 1M,excluidos,221,221,0,OK,07_resultados_despues.csv
+Visual fa_clientes_recurrentes,Titulo,CLIENTES REINCIDENTES 2+,CLIENTES FUERA SLA · FRECUENCIA 3M,CLIENTES FUERA SLA · FRECUENCIA 3M,0,OK,visual.json
+Visual fa_clientes_recurrentes,Sort,Prom DH DESC,Meses DESC + Pedidos DESC + DH DESC,Meses DESC + Pedidos DESC + DH DESC,0,OK,visual.json
+Medidas Visible (5),Filtro,>= 2,>= 1,>= 1,0,OK,Medidas.tmdl
+Lienzo 00,Pedidos,1616,1616,1616,0,OK,comparacion
+Lienzo 01,Pedidos,1616,1616,1616,0,OK,comparacion
+Lienzo 00/01,Pedidos fuera SLA,360,360,360,0,OK,comparacion
+Lienzo 00/01,NS,77.72%,77.72%,77.72%,0,OK,comparacion
+Regresion 4190139455,Cierre,manifiesto,manifiesto,manifiesto,0,OK,09_casos_auditoria.csv
+Regresion 1167577,Cierre,manifiesto,manifiesto,manifiesto,0,OK,09_casos_auditoria.csv

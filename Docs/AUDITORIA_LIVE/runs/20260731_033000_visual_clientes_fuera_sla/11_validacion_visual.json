@@ -1,0 +1,20 @@
+{
+  "project": "NS_V50-PowerBI-ML",
+  "run_id": "20260731_033000_visual_clientes_fuera_sla",
+  "visual": "fa_clientes_recurrentes",
+  "page": "01 Analisis Fuera SLA",
+  "visual_type": "tableEx",
+  "json_valid": true,
+  "title": "1. CLIENTES FUERA SLA · FRECUENCIA EN LOS ÚLTIMOS 3 MESES → Recurrente 3M → 2M → 1M",
+  "sort_criteria": [
+    {"property": "FA Meses Fuera SLA Cliente Visible", "direction": "Descending"},
+    {"property": "FA Pedidos Fuera SLA Cliente Visible", "direction": "Descending"},
+    {"property": "FA DH Fuera SLA Cliente Visible", "direction": "Descending"}
+  ],
+  "fields_preserved": ["Dim_Cliente.CLIENTE_NOMBRE", "Dim_Cliente.VENDEDOR_NOMBRE", "Fact_Tracking.CLASIFICACION"],
+  "filters_preserved": true,
+  "cohort_preserved": true,
+  "sla_preserved": true,
+  "fes_closure_preserved": true,
+  "validation": "OK"
+}

@@ -1,0 +1,12 @@
+METRICA,VALOR_DESPUES,FECHA_CAPTURA,NOTA
+Clientes visibles en visual,251,31-07-2026 03:31,Medidas Visible con >= 1
+Recurrentes 3M,3,31-07-2026 03:31,Primer bloque del ranking
+Recurrentes 2M,27,31-07-2026 03:31,Segundo bloque
+Puntual 1M,221,31-07-2026 03:31,Tercer bloque
+Total clientes fuera SLA,251,31-07-2026 03:31,3+27+221
+Pedidos evaluados,1616,31-07-2026 03:31,Sin cambio de cohorte
+Pedidos fuera SLA,360,31-07-2026 03:31,Sin cambio de SLA ni cierre
+NS,77.72%,31-07-2026 03:31,Sin cambio de SLA ni cierre
+Diferencia lienzo 00 vs 01,0,31-07-2026 03:31,Coherencia intacta
+Titulo visual,1. CLIENTES FUERA SLA · FRECUENCIA EN LOS ÚLTIMOS 3 MESES → Recurrente 3M → 2M → 1M,31-07-2026 03:31,visual.json validado
+Sort visual,3 criterios recurrencia,31-07-2026 03:31,visual.json validado

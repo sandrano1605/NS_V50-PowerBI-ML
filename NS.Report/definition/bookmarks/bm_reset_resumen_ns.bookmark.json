@@ -1,0 +1,86 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/2.1.0/schema.json",
+  "displayName": "Restablecer filtros Resumen NS",
+  "name": "bm_reset_resumen_ns",
+  "options": {
+    "applyOnlyToTargetVisuals": true,
+    "targetVisualNames": [
+      "slicer_zona",
+      "slicer_flujo",
+      "slicer_clasif",
+      "slicer_canal"
+    ],
+    "suppressActiveSection": true,
+    "suppressDisplay": true
+  },
+  "explorationState": {
+    "version": "1.0",
+    "activeSection": "71af1998e2cb472d9799",
+    "sections": {
+      "71af1998e2cb472d9799": {
+        "visualContainers": {
+          "slicer_zona": {
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {},
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_Rango_Entrega"
+                        }
+                      },
+                      "Property": "Zona"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "slicer_flujo": {
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {},
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_Vista_Ejecutiva"
+                        }
+                      },
+                      "Property": "Flujo"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "slicer_clasif": {
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {},
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_Pedido"
+                        }
+                      },
+                      "Property": "CLASIFICACION"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

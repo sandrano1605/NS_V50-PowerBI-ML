@@ -1,0 +1,16 @@
+{
+  "version": "V12",
+  "base": "NS_V50(7).zip",
+  "changes": {
+    "post_invoice": "FACTURA_CIERRE_BASE -> FECHA_DESPACHO; manifesto excluded",
+    "post_invoice_stats": "Average/P90 only >15 DH",
+    "seller_recurrence": "metrics restricted to recurrent clients 2M+",
+    "load_sla": "all created load + evaluated maturity + delta vs rest"
+  },
+  "validation": {
+    "json_errors": 0,
+    "bad_visual_refs": 0,
+    "duplicate_lineage_tags": 0,
+    "main_visual_overlaps": 0
+  }
+}

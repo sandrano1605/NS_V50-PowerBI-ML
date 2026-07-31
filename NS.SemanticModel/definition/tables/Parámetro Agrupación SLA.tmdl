@@ -1,0 +1,52 @@
+/// Parámetro de campos para cambiar dinámicamente las filas de la matriz del lienzo 01.
+table 'Parámetro Agrupación SLA'
+	lineageTag: faca6dfb-5135-403f-a91c-9e45ec87e994
+
+	column 'Agrupar por'
+		lineageTag: b3d281d7-0cd4-44ad-85dd-29e12a7dd027
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Agrupar por Orden'
+
+		relatedColumnDetails
+			groupByColumn: 'Agrupar por Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Agrupar por Campos'
+		isHidden
+		lineageTag: 83098313-09c5-4184-97fa-0d5bb5d7cd4b
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Agrupar por Orden'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Agrupar por Orden'
+		dataType: int64
+		formatString: 0
+		lineageTag: ddbaae69-383b-4285-94a9-ab62fbf07865
+		summarizeBy: none
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Parámetro Agrupación SLA' = calculated
+		mode: import
+		source =
+				{
+				    ("Cliente", NAMEOF('Dim_Cliente'[CLIENTE_NOMBRE]), 0),
+				    ("Vendedor", NAMEOF('Dim_Responsable'[RESPONSABLE_CODIGO]), 1),
+				    ("Canal", NAMEOF('Dim_Canal'[CANAL]), 2),
+				    ("Mes", NAMEOF('Dim_Fecha'[AnioMes]), 3),
+				    ("Pedido", NAMEOF('Dim_Pedido'[PED_NUMERO_PEDIDO]), 4)
+				}
+
+	annotation PBI_Id = 8c3cd58b-383b-49de-a4b5-540df4be0277
+

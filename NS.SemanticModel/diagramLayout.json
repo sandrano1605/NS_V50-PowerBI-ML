@@ -1,0 +1,399 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 534.16321853978582
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 1893.9933480640339,
+            "y": 983.90429496199067
+          },
+          "nodeIndex": "Medidas",
+          "nodeLineageTag": "ced1aa5b-7fc8-4bac-a655-0f0abfcaec8a",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2177.9933480640339,
+            "y": 1033.9042949619907
+          },
+          "nodeIndex": "auditoria",
+          "nodeLineageTag": "8da24b33-9996-4edc-93d0-7e344d43bf52",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2461.9933480640339,
+            "y": 1045.9042949619907
+          },
+          "nodeIndex": "Cliente_Vendedor",
+          "nodeLineageTag": "aff9a8a2-01b2-4b83-b36e-480b4616b2bc",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2745.9933480640339,
+            "y": 983.90429496199067
+          },
+          "nodeIndex": "Config_Promesa_Entrega",
+          "nodeLineageTag": "15000000-0000-4000-8000-000000000001",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 154.7576682606624,
+            "y": -50
+          },
+          "nodeIndex": "Config_SLA_Hitos",
+          "nodeLineageTag": "c4cbf88e-6222-4d6c-b8e6-667688f94200",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 790.469185132203,
+            "y": 1539.6958039900296
+          },
+          "nodeIndex": "Dim_Canal",
+          "nodeLineageTag": "b8faf44b-000e-4f1c-9b8a-d7f0f5a06e53",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1659.9933480640339,
+            "y": 994.12488004236093
+          },
+          "nodeIndex": "Dim_Cliente",
+          "nodeLineageTag": "7f11bc1c-7498-4998-8dda-a62d380ee02b",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 573.40463904698686,
+            "y": 1122.9272697590852
+          },
+          "nodeIndex": "Dim_Condicion_Expedicion",
+          "nodeLineageTag": "f73cd343-0673-4f8a-b046-67fb71016363",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1331.8340024350673,
+            "y": 875.03452549676422
+          },
+          "nodeIndex": "Dim_Fecha",
+          "nodeLineageTag": "a6fee08c-b686-4fa7-bcc6-016e4998d342",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3029.9933480640339,
+            "y": 1033.9042949619907
+          },
+          "nodeIndex": "Dim_Feriados_Chile",
+          "nodeLineageTag": "7d9e9bb7-83f7-49ac-b25f-237bf02ac501",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1411.3431843535682,
+            "y": 1945.8085899239818
+          },
+          "nodeIndex": "Dim_Hito",
+          "nodeLineageTag": "23279f65-ca72-41ef-8b9c-0f5a50d33ff4",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3313.9933480640339,
+            "y": 1057.9042949619907
+          },
+          "nodeIndex": "Dim_Indicador_Ejecutivo",
+          "nodeLineageTag": "18000000-0000-4000-8000-000000000001",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3597.9933480640339,
+            "y": 1045.9042949619907
+          },
+          "nodeIndex": "Dim_Mes_Trend",
+          "nodeLineageTag": "39000000-0000-4000-8000-000000000011",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3881.9933480640339,
+            "y": 1069.9042949619907
+          },
+          "nodeIndex": "Dim_Metrica_Auditoria",
+          "nodeLineageTag": "17000000-0000-4000-8000-000000000001",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 283.58442313199345,
+            "y": 1221.9582518298189
+          },
+          "nodeIndex": "Dim_Pedido",
+          "nodeLineageTag": "26000000-0000-4000-8000-000000004000",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1618.2675607105543,
+            "y": 660.43196906099456
+          },
+          "nodeIndex": "Dim_Periodo_3M",
+          "nodeLineageTag": "39000000-0000-4000-8000-000000000001",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 4165.9933480640339,
+            "y": 1009.9042949619907
+          },
+          "nodeIndex": "Dim_Rango_Entrega",
+          "nodeLineageTag": "22000000-0000-4000-8000-000000000001",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 379.03298682822629,
+            "y": 775.59408292138278
+          },
+          "nodeIndex": "Dim_Responsable",
+          "nodeLineageTag": "0ff6a588-e94f-4361-90f8-886b097b427a",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 4449.9933480640339,
+            "y": 997.90429496199067
+          },
+          "nodeIndex": "Dim_Vista_Ejecutiva",
+          "nodeLineageTag": "13a00000-7b21-4b4b-9c50-130000000001",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 379.0787835957214,
+            "y": 303.27238349062327
+          },
+          "nodeIndex": "Fact_Hitos_Operacionales",
+          "nodeLineageTag": "64bfb264-94b6-4e61-9243-33ec73f6c100",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 863.22491019921813,
+            "y": 874.5409412435456
+          },
+          "nodeIndex": "Fact_Pedidos",
+          "nodeLineageTag": "e3d18d01-eedf-4de2-b8a3-e6d8bbdf7079",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": 866.21731814030181
+          },
+          "nodeIndex": "Fact_Pedidos_Auditoria",
+          "nodeLineageTag": "60de4c02-af37-476f-9d67-4dd35cd7406c",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1179.3651821186434,
+            "y": 1588.7903894080584
+          },
+          "nodeIndex": "Fact_Tiempos_Hitos",
+          "nodeLineageTag": "189672ba-8c8b-4452-81a8-57519f3952f1",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1080.2843951063167,
+            "y": 1231.6451914294419
+          },
+          "nodeIndex": "Fact_Tracking",
+          "nodeLineageTag": "26000000-0000-4000-8000-000000001000",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 668.868471902867,
+            "y": 517.42754742037391
+          },
+          "nodeIndex": "Resultado",
+          "nodeLineageTag": "1f7fb967-bc11-4112-ba69-d838235f77fe",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 4683.9933480640339,
+            "y": 1045.9042949619909
+          },
+          "nodeIndex": "Bloque_comercial",
+          "nodeLineageTag": "5390eb82-867a-4723-9786-e4b8e43e4831",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 4917.9933480640339,
+            "y": 0
+          },
+          "nodeIndex": "Lineas_y_unidades_por_pedidos",
+          "nodeLineageTag": "21f25e76-989d-4d4a-8b83-2b8a9bfa82bd",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 5291.5103721148644,
+            "y": 0
+          },
+          "nodeIndex": "Parámetro Agrupación SLA",
+          "nodeLineageTag": "faca6dfb-5135-403f-a91c-9e45ec87e994",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 5665.0273961656949,
+            "y": 0
+          },
+          "nodeIndex": "Parámetro Indicadores SLA",
+          "nodeLineageTag": "3a86d08b-033a-40d5-93df-f12b8c83dcf8",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Todas las tablas",
+      "zoomValue": 43.432417648337207,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas las tablas",
+  "defaultDiagram": "Todas las tablas"
+}

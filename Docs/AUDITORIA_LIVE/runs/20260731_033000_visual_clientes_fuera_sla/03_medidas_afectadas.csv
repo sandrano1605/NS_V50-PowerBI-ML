@@ -1,0 +1,6 @@
+MEDIDA,EXPRESION_DAX,RESULTADO_ANTES,RESULTADO_DESPUES,RESULTADO_RECALCULADO,DIFERENCIA,ESTADO,OBSERVACION
+FA Meses Fuera SLA Cliente Visible,IF([FA Meses Fuera SLA Cliente] >= 1, [FA Meses Fuera SLA Cliente]),2+,1..3,1..3,0,OK,P1 aplicado: >= 1
+FA Recurrencia Cliente Visible,IF([FA Meses Fuera SLA Cliente] >= 1, [FA Recurrencia Cliente]),Recurrente 2M+,Recurrente 3M/2M/Puntual 1M,Recurrente 3M/2M/Puntual 1M,0,OK,P1 aplicado: >= 1
+FA Pedidos Fuera SLA Cliente Visible,IF([FA Meses Fuera SLA Cliente] >= 1, [FA Fuera SLA]),solo 2M+,todos fuera SLA,todos fuera SLA,0,OK,P1 aplicado: >= 1
+FA % Fuera SLA Cliente Visible,IF([FA Meses Fuera SLA Cliente] >= 1, [FA % Fuera SLA]),solo 2M+,todos fuera SLA,todos fuera SLA,0,OK,P1 aplicado: >= 1
+FA DH Fuera SLA Cliente Visible,IF([FA Meses Fuera SLA Cliente] >= 1, [FA DH Promedio Fuera SLA]),solo 2M+,todos fuera SLA,todos fuera SLA,0,OK,P1 aplicado: >= 1

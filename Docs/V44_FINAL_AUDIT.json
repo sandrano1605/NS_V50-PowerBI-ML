@@ -1,0 +1,25 @@
+{
+  "version": "NS_V44",
+  "status": "OK",
+  "json_validos": 191,
+  "objetos_lienzo_00": 33,
+  "medidas": 179,
+  "lineage_tags": 703,
+  "checks": {
+    "kpi_pedidos": true,
+    "kpi_valor": true,
+    "kpi_ns": true,
+    "kpi_promesa": true,
+    "chart_mensual_3m_v39": true,
+    "summary_month": true,
+    "donut_flujo": true,
+    "sla_panel": true,
+    "matrix_hitos_resumen": true,
+    "critical_table": true,
+    "tooltip_selected": true,
+    "flow_operativo": true,
+    "referencia_guardada": true,
+    "33_objetos": true
+  },
+  "errores": []
+}
