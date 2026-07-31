@@ -3,7 +3,7 @@
   "name": "critical_table",
   "position": {
     "x": 23.000000000000014,
-    "y": 559.91048659901116,
+    "y": 559.9104865990112,
     "z": 20000,
     "height": 240.00000000000003,
     "width": 1344,
@@ -719,28 +719,14 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },
             "type": {
               "expr": {
                 "Literal": {
-                  "Value": "'ReportPage'"
-                }
-              }
-            },
-            "section": {
-              "expr": {
-                "Literal": {
-                  "Value": "'22a1b2c3d4e5f6071829'"
-                }
-              }
-            },
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "8L"
+                  "Value": "'Default'"
                 }
               }
             },
@@ -748,6 +734,13 @@
               "expr": {
                 "Literal": {
                   "Value": "0L"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "8L"
                 }
               }
             }

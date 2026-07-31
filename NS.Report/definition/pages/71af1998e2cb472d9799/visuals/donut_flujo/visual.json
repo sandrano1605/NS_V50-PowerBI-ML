@@ -5,7 +5,7 @@
     "x": 1175.3731343283582,
     "y": 220.52238805970148,
     "z": 17000,
-    "height": 259.70149253731341,
+    "height": 259.7014925373134,
     "width": 404.1044776119403,
     "tabOrder": 17000
   },
@@ -204,28 +204,14 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },
             "type": {
               "expr": {
                 "Literal": {
-                  "Value": "'ReportPage'"
-                }
-              }
-            },
-            "section": {
-              "expr": {
-                "Literal": {
-                  "Value": "'45f3e8a9c0124b67d89a'"
-                }
-              }
-            },
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "9L"
+                  "Value": "'Default'"
                 }
               }
             },
@@ -233,6 +219,13 @@
               "expr": {
                 "Literal": {
                   "Value": "0L"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "8L"
                 }
               }
             }
