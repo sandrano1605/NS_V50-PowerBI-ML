@@ -1,0 +1,5 @@
+﻿PARAMETRO,TIPO,DESCRIPCION_DEDUCIDA,ESTADO
+P1 (ej. 'M-J'),VARCHAR/NVARCHAR,Debe demostrarse desde la definicion del SP,PENDIENTE_EJECUCION_SQL
+P2 (ej. 'C'),VARCHAR/NVARCHAR,Debe demostrarse desde la definicion del SP,PENDIENTE_EJECUCION_SQL
+P3 (fecha desde),DATE,Inicio de ventana,PENDIENTE_EJECUCION_SQL
+P4 (fecha hasta),DATE,Fin de ventana,PENDIENTE_EJECUCION_SQL

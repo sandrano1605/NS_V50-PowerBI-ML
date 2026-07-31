@@ -1,0 +1,30 @@
+{
+  "project": "NS_V50-PowerBI-ML",
+  "run_id": "20260731_151500_trazabilidad_completa",
+  "timestamp_local": "2026-07-31T15:11:03.732727",
+  "branch": "work/ns-lineage-audit",
+  "base_commit": "5965551c8743d8245310727a228a3a77fb8feff7",
+  "result_commit": "PENDING",
+  "status": "AMARILLO",
+  "lineage": {
+    "tables": 29,
+    "edges": 1218,
+    "broken": 0,
+    "fpa_columns": 181,
+    "keep": 87,
+    "blocked": 94
+  },
+  "vbfa_sp": "PENDIENTE_EJECUCION_SQL",
+  "python_contract": "ESQUEMA_RESULTADO_EXPORTADO_86_COLS",
+  "snapshot": {
+    "pedidos": 1907,
+    "fuera_sla": 394,
+    "ns": "79,34%",
+    "clientes": 265,
+    "rec": "4/36/225"
+  },
+  "pedidos_clave": {
+    "4190139455": "OK",
+    "1167577": "OK"
+  }
+}

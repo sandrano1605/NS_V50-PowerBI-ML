@@ -1,0 +1,20 @@
+{
+  "status": "AMARILLO",
+  "tables": 29,
+  "edges": 1218,
+  "broken_references_or_json": 0,
+  "dynamic_blocker_tables": [
+    "Dim_Cliente",
+    "Fact_Pedidos_Auditoria",
+    "Fact_Tracking",
+    "Resultado"
+  ],
+  "fact_pedidos_auditoria_columns": 181,
+  "fpa_keep_or_blocked": 181,
+  "fpa_candidates": 0,
+  "important": [
+    "CANDIDATA_A_RECORTAR no significa autorizada para borrar.",
+    "Python.Execute y Table.Schema obligan a una prueba de contrato antes/después.",
+    "Las métricas dinámicas deben compararse dentro del mismo refresh y ventana temporal."
+  ]
+}

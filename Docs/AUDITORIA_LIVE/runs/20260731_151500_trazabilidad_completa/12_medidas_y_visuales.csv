@@ -1,0 +1,7 @@
+﻿MEDIDA,VISUALES,COHORTE,ESTADO
+RE Pedidos contexto,"00 KPIs, matriz",Cerrados evaluables,OK
+RE NS contexto,"00 NS, SLA panel",Cerrados evaluables,OK
+RE Pedidos fuera SLA contexto,00/01 fuera SLA,Cerrados evaluables,OK
+FA Meses Fuera SLA Cliente,01 clientes recurrentes,3M,OK
+FA Recurrencia Cliente,01 clientes recurrentes,3M,OK
+AUD Semáforo general,01.1 estado general,Pedido,OK

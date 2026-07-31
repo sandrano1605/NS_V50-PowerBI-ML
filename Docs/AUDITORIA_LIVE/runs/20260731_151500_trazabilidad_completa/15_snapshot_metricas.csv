@@ -1,0 +1,13 @@
+﻿METRICA,VALOR,FECHA_SNAPSHOT,ESTADO
+Pedidos evaluables,1907,2026-07-31,OK
+Fuera SLA,394,2026-07-31,OK
+NS,"79,34%",2026-07-31,OK
+Clientes fuera SLA,265,2026-07-31,OK
+Recurrente 3M,4,2026-07-31,OK
+Recurrente 2M,36,2026-07-31,OK
+Puntual 1M,225,2026-07-31,OK
+Fact_Pedidos_Auditoria filas,1992,2026-07-31,OK
+Fact_Tracking filas,1992,2026-07-31,OK
+Fact_Hitos_Operacionales filas,23265,2026-07-31,OK
+Resultado filas,1992,2026-07-31,OK
+auditoria filas,181,2026-07-31,OK

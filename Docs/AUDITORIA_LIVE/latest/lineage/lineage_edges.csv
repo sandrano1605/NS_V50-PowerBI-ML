@@ -1,0 +1,1219 @@
+﻿source_type,source_object,target_type,target_object,dependency_kind,file,evidence
+COLUMN,Bloque_comercial[Estado_Pedido],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Estado_Pedido
+COLUMN,Bloque_comercial[Fecha_pedido],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Fecha_pedido
+COLUMN,Bloque_comercial[Pedido],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Pedido
+COLUMN,Bloque_comercial[Recuento],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Recuento
+COLUMN,Cliente_Vendedor[Recuento],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Recuento
+COLUMN,Cliente_Vendedor[SUCURSAL_NORMALIZADA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,SUCURSAL_NORMALIZADA
+COLUMN,Cliente_Vendedor[VCLT_SUCURSAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,VCLT_SUCURSAL
+COLUMN,Cliente_Vendedor[VEN_NOMBRE],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,VEN_NOMBRE
+TABLE,Config_Promesa_Entrega,TABLE,Fact_Hitos_Operacionales,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,Config_Promesa_Entrega mencionado en definición de Fact_Hitos_Operacionales
+TABLE,Config_Promesa_Entrega,TABLE,Medidas,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Medidas.tmdl,Config_Promesa_Entrega mencionado en definición de Medidas
+COLUMN,Config_Promesa_Entrega[Alcance],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Alcance
+COLUMN,Config_Promesa_Entrega[Hora corte lunes a jueves],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Hora corte lunes a jueves
+COLUMN,Config_Promesa_Entrega[Hora corte viernes],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Hora corte viernes
+COLUMN,Config_Promesa_Entrega[Preparación máxima DH],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Preparación máxima DH
+COLUMN,Config_Promesa_Entrega[Preparación mínima DH],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Preparación mínima DH
+COLUMN,Config_Promesa_Entrega[Promesa máxima DH],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Config_Promesa_Entrega[Promesa máxima DH]
+COLUMN,Config_Promesa_Entrega[Promesa máxima DH],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Promesa máxima DH
+COLUMN,Config_Promesa_Entrega[Promesa mínima DH],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Config_Promesa_Entrega[Promesa mínima DH]
+COLUMN,Config_Promesa_Entrega[Promesa mínima DH],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Promesa mínima DH
+COLUMN,Config_Promesa_Entrega[Tránsito máximo DH],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Config_Promesa_Entrega[Tránsito máximo DH]
+COLUMN,Config_Promesa_Entrega[Tránsito máximo DH],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Tránsito máximo DH
+COLUMN,Config_Promesa_Entrega[Tránsito mínimo DH],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Config_Promesa_Entrega[Tránsito mínimo DH]
+COLUMN,Config_Promesa_Entrega[Tránsito mínimo DH],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Tránsito mínimo DH
+COLUMN,Config_Promesa_Entrega[Zona],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Config_Promesa_Entrega[Zona]
+COLUMN,Config_Promesa_Entrega[Zona],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Zona
+TABLE,Config_SLA_Hitos,TABLE,Fact_Hitos_Operacionales,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,Config_SLA_Hitos mencionado en definición de Fact_Hitos_Operacionales
+TABLE,Config_SLA_Hitos,TABLE,Medidas,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Medidas.tmdl,Config_SLA_Hitos mencionado en definición de Medidas
+COLUMN,Config_SLA_Hitos[ACTIVO_CUELLO],TABLE,Fact_Hitos_Operacionales,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,ACTIVO_CUELLO
+COLUMN,Config_SLA_Hitos[ACTIVO_CUELLO],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Config_SLA_Hitos[ACTIVO_CUELLO]
+COLUMN,Config_SLA_Hitos[ACTIVO_CUELLO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ACTIVO_CUELLO
+COLUMN,Config_SLA_Hitos[AREA_RESPONSABLE],TABLE,Fact_Hitos_Operacionales,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,AREA_RESPONSABLE
+COLUMN,Config_SLA_Hitos[AREA_RESPONSABLE],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AREA_RESPONSABLE
+COLUMN,Config_SLA_Hitos[HITO],TABLE,Fact_Hitos_Operacionales,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,HITO
+COLUMN,Config_SLA_Hitos[HITO],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Config_SLA_Hitos[HITO]
+COLUMN,Config_SLA_Hitos[HITO],VISUAL,chart_706a63cf524349,REPORT_PROJECTION,NS.Report\definition\pages\df1cb253a6314642a469\visuals\chart_706a63cf524349\visual.json,Column: Config_SLA_Hitos[HITO]
+COLUMN,Config_SLA_Hitos[HITO],VISUAL,chart_924aca87b5094c,REPORT_PROJECTION,NS.Report\definition\pages\df1cb253a6314642a469\visuals\chart_924aca87b5094c\visual.json,Column: Config_SLA_Hitos[HITO]
+COLUMN,Config_SLA_Hitos[HITO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,HITO
+COLUMN,Config_SLA_Hitos[HITO],VISUAL,table_04f889ab184a48,REPORT_PROJECTION,NS.Report\definition\pages\df1cb253a6314642a469\visuals\table_04f889ab184a48\visual.json,Column: Config_SLA_Hitos[HITO]
+COLUMN,Config_SLA_Hitos[MACROETAPA],TABLE,Fact_Hitos_Operacionales,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,MACROETAPA
+COLUMN,Config_SLA_Hitos[MACROETAPA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,MACROETAPA
+COLUMN,Config_SLA_Hitos[METRICA_CODIGO],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,METRICA_CODIGO
+COLUMN,Config_SLA_Hitos[METRICA_CODIGO],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Config_SLA_Hitos[METRICA_CODIGO]
+COLUMN,Config_SLA_Hitos[METRICA_CODIGO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,METRICA_CODIGO
+COLUMN,Config_SLA_Hitos[OBSERVACION],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,OBSERVACION
+COLUMN,Config_SLA_Hitos[ORDEN_HITO],TABLE,Fact_Hitos_Operacionales,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,ORDEN_HITO
+COLUMN,Config_SLA_Hitos[ORDEN_HITO],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Config_SLA_Hitos[ORDEN_HITO]
+COLUMN,Config_SLA_Hitos[ORDEN_HITO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ORDEN_HITO
+COLUMN,Config_SLA_Hitos[SLA_DH],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,SLA_DH
+COLUMN,Config_SLA_Hitos[SLA_DH],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Config_SLA_Hitos[SLA_DH]
+COLUMN,Config_SLA_Hitos[SLA_DH],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,SLA_DH
+COLUMN,Config_SLA_Hitos[TIPO_KPI],TABLE,Fact_Hitos_Operacionales,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,TIPO_KPI
+COLUMN,Config_SLA_Hitos[TIPO_KPI],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,TIPO_KPI
+TABLE,Dim_Canal,TABLE,Parámetro Agrupación SLA,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Parámetro Agrupación SLA.tmdl,Dim_Canal mencionado en definición de Parámetro Agrupación SLA
+COLUMN,Dim_Canal[CANAL],TABLE_OR_MEASURE_FILE,Parámetro Agrupación SLA,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Parámetro Agrupación SLA.tmdl,Dim_Canal[CANAL]
+COLUMN,Dim_Canal[CANAL],TABLE,Parámetro Agrupación SLA,M_BRACKET,NS.SemanticModel\definition\tables\Parámetro Agrupación SLA.tmdl,CANAL
+COLUMN,Dim_Canal[CANAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,CANAL
+COLUMN,Dim_Canal[CANAL_CODIGO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,CANAL_CODIGO
+COLUMN,Dim_Canal[CATEGORIA_ANALISIS],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,CATEGORIA_ANALISIS
+COLUMN,Dim_Canal[INCLUIR_NS],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,INCLUIR_NS
+TABLE,Dim_Cliente,TABLE,Cliente_Vendedor,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Cliente_Vendedor.tmdl,Dim_Cliente mencionado en definición de Cliente_Vendedor
+TABLE,Dim_Cliente,TABLE,Medidas,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Cliente mencionado en definición de Medidas
+TABLE,Dim_Cliente,TABLE,Parámetro Agrupación SLA,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Parámetro Agrupación SLA.tmdl,Dim_Cliente mencionado en definición de Parámetro Agrupación SLA
+TABLE,Dim_Cliente,DYNAMIC_CONSUMER,Python.Execute en Resultado,FULL_TABLE_OR_DYNAMIC_SCHEMA,NS.SemanticModel\definition\tables\Resultado.tmdl,Python.Execute detectado; requiere prueba de contrato de columnas
+TABLE,Dim_Cliente,TABLE,Resultado,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Resultado.tmdl,Dim_Cliente mencionado en definición de Resultado
+COLUMN,Dim_Cliente[CLIENTE_CIUDAD],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,CLIENTE_CIUDAD
+COLUMN,Dim_Cliente[CLIENTE_CODIGO],TABLE,Cliente_Vendedor,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Cliente_Vendedor.tmdl,CLIENTE_CODIGO
+COLUMN,Dim_Cliente[CLIENTE_CODIGO],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Cliente[CLIENTE_CODIGO]
+COLUMN,Dim_Cliente[CLIENTE_CODIGO],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,CLIENTE_CODIGO
+COLUMN,Dim_Cliente[CLIENTE_CODIGO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,CLIENTE_CODIGO
+COLUMN,Dim_Cliente[CLIENTE_ETIQUETA],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Cliente[CLIENTE_ETIQUETA]
+COLUMN,Dim_Cliente[CLIENTE_ETIQUETA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,CLIENTE_ETIQUETA
+COLUMN,Dim_Cliente[CLIENTE_NOMBRE],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Cliente[CLIENTE_NOMBRE]
+COLUMN,Dim_Cliente[CLIENTE_NOMBRE],TABLE_OR_MEASURE_FILE,Parámetro Agrupación SLA,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Parámetro Agrupación SLA.tmdl,Dim_Cliente[CLIENTE_NOMBRE]
+COLUMN,Dim_Cliente[CLIENTE_NOMBRE],TABLE,Parámetro Agrupación SLA,M_BRACKET,NS.SemanticModel\definition\tables\Parámetro Agrupación SLA.tmdl,CLIENTE_NOMBRE
+COLUMN,Dim_Cliente[CLIENTE_NOMBRE],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,CLIENTE_NOMBRE
+COLUMN,Dim_Cliente[CLIENTE_NOMBRE],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,CLIENTE_NOMBRE
+COLUMN,Dim_Cliente[CLIENTE_NOMBRE],VISUAL,fa_clientes_recurrentes,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_clientes_recurrentes\visual.json,Column: Dim_Cliente[CLIENTE_NOMBRE]
+COLUMN,Dim_Cliente[CLIENTE_NOMBRE],VISUAL,fa_permanencia_cd,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_permanencia_cd\visual.json,Column: Dim_Cliente[CLIENTE_NOMBRE]
+COLUMN,Dim_Cliente[CLIENTE_NOMBRE],VISUAL,flt_cliente,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\flt_cliente\visual.json,Column: Dim_Cliente[CLIENTE_NOMBRE]
+COLUMN,Dim_Cliente[CLIENTE_NOMBRE],VISUAL,tbl_tracking,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\tbl_tracking\visual.json,Column: Dim_Cliente[CLIENTE_NOMBRE]
+COLUMN,Dim_Cliente[CLIENTE_REGION],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,CLIENTE_REGION
+COLUMN,Dim_Cliente[VENDEDOR_NOMBRE],TABLE,Cliente_Vendedor,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Cliente_Vendedor.tmdl,VENDEDOR_NOMBRE
+COLUMN,Dim_Cliente[VENDEDOR_NOMBRE],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Cliente[VENDEDOR_NOMBRE]
+COLUMN,Dim_Cliente[VENDEDOR_NOMBRE],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,VENDEDOR_NOMBRE
+COLUMN,Dim_Cliente[VENDEDOR_NOMBRE],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,VENDEDOR_NOMBRE
+COLUMN,Dim_Cliente[VENDEDOR_NOMBRE],VISUAL,fa_clientes_recurrentes,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_clientes_recurrentes\visual.json,Column: Dim_Cliente[VENDEDOR_NOMBRE]
+COLUMN,Dim_Cliente[VENDEDOR_NOMBRE],VISUAL,fa_vendedores_reincidentes,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_vendedores_reincidentes\visual.json,Column: Dim_Cliente[VENDEDOR_NOMBRE]
+COLUMN,Dim_Cliente[VENDEDOR_NOMBRE],VISUAL,flt_vendedor,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\flt_vendedor\visual.json,Column: Dim_Cliente[VENDEDOR_NOMBRE]
+COLUMN,Dim_Cliente[VENDEDOR_NOMBRE],VISUAL,tbl_tracking,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\tbl_tracking\visual.json,Column: Dim_Cliente[VENDEDOR_NOMBRE]
+COLUMN,Dim_Condicion_Expedicion[CONDICION_EXPEDICION],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,CONDICION_EXPEDICION
+COLUMN,Dim_Condicion_Expedicion[CONDICION_EXPEDICION_CODIGO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,CONDICION_EXPEDICION_CODIGO
+TABLE,Dim_Fecha,TABLE,Medidas,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Fecha mencionado en definición de Medidas
+TABLE,Dim_Fecha,TABLE,Parámetro Agrupación SLA,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Parámetro Agrupación SLA.tmdl,Dim_Fecha mencionado en definición de Parámetro Agrupación SLA
+COLUMN,Dim_Fecha[AnioMes],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Fecha[AnioMes]
+COLUMN,Dim_Fecha[AnioMes],TABLE_OR_MEASURE_FILE,Parámetro Agrupación SLA,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Parámetro Agrupación SLA.tmdl,Dim_Fecha[AnioMes]
+COLUMN,Dim_Fecha[AnioMes],TABLE,Parámetro Agrupación SLA,M_BRACKET,NS.SemanticModel\definition\tables\Parámetro Agrupación SLA.tmdl,AnioMes
+COLUMN,Dim_Fecha[AnioMes],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AnioMes
+COLUMN,Dim_Fecha[AnioMes],VISUAL,fa_fes_carga_tiempo,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_fes_carga_tiempo\visual.json,Column: Dim_Fecha[AnioMes]
+COLUMN,Dim_Fecha[Anio],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Anio
+COLUMN,Dim_Fecha[DH_Acumulados_Mes],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_Acumulados_Mes
+COLUMN,Dim_Fecha[DH_Restantes_Mes],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_Restantes_Mes
+COLUMN,Dim_Fecha[Dia_Mes],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Fecha[Dia_Mes]
+COLUMN,Dim_Fecha[Dia_Mes],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Dia_Mes
+COLUMN,Dim_Fecha[Dia_Semana],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Dia_Semana
+COLUMN,Dim_Fecha[Dia_Semana_Numero],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Dia_Semana_Numero
+COLUMN,Dim_Fecha[Es_Dia_Habil],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Es_Dia_Habil
+COLUMN,Dim_Fecha[Es_Feriado],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Es_Feriado
+COLUMN,Dim_Fecha[Es_Fin_Semana],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Es_Fin_Semana
+COLUMN,Dim_Fecha[Es_Primeros_7_DH],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Es_Primeros_7_DH
+COLUMN,Dim_Fecha[Es_Ultimos_7_DH],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Fecha[Es_Ultimos_7_DH]
+COLUMN,Dim_Fecha[Es_Ultimos_7_DH],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Es_Ultimos_7_DH
+COLUMN,Dim_Fecha[Fecha],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Fecha
+COLUMN,Dim_Fecha[Mes],TABLE,Parámetro Agrupación SLA,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Parámetro Agrupación SLA.tmdl,Mes
+COLUMN,Dim_Fecha[Mes],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Mes
+COLUMN,Dim_Fecha[Mes_Numero],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Mes_Numero
+COLUMN,Dim_Fecha[Momento_Mes],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Fecha[Momento_Mes]
+COLUMN,Dim_Fecha[Momento_Mes],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Momento_Mes
+COLUMN,Dim_Fecha[Momento_Mes],VISUAL,fa_fes_carga_tiempo,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_fes_carga_tiempo\visual.json,Column: Dim_Fecha[Momento_Mes]
+COLUMN,Dim_Fecha[Nombre_Feriado],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Nombre_Feriado
+COLUMN,Dim_Fecha[Orden_AnioMes],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Orden_AnioMes
+COLUMN,Dim_Fecha[Orden_Semana_Mes],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Orden_Semana_Mes
+COLUMN,Dim_Fecha[Semana_Anio],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Semana_Anio
+COLUMN,Dim_Fecha[Semana_Mes],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Semana_Mes
+COLUMN,Dim_Fecha[Tipo_Dia],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Tipo_Dia
+COLUMN,Dim_Fecha[Trimestre],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Trimestre
+COLUMN,Dim_Fecha[Trimestre_Numero],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Trimestre_Numero
+TABLE,Dim_Feriados_Chile,TABLE,Dim_Fecha,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Dim_Fecha.tmdl,Dim_Feriados_Chile mencionado en definición de Dim_Fecha
+TABLE,Dim_Feriados_Chile,TABLE,Fact_Hitos_Operacionales,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,Dim_Feriados_Chile mencionado en definición de Fact_Hitos_Operacionales
+TABLE,Dim_Feriados_Chile,TABLE,Fact_Tracking,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,Dim_Feriados_Chile mencionado en definición de Fact_Tracking
+COLUMN,Dim_Feriados_Chile[Ambito],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Ambito
+COLUMN,Dim_Feriados_Chile[Anio],TABLE,Dim_Fecha,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Dim_Fecha.tmdl,Anio
+COLUMN,Dim_Feriados_Chile[Anio],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Anio
+COLUMN,Dim_Feriados_Chile[Fecha],TABLE_OR_MEASURE_FILE,Dim_Fecha,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Dim_Fecha.tmdl,Dim_Feriados_Chile[Fecha]
+COLUMN,Dim_Feriados_Chile[Fecha],TABLE,Dim_Fecha,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Dim_Fecha.tmdl,Fecha
+COLUMN,Dim_Feriados_Chile[Fecha],TABLE_OR_MEASURE_FILE,Fact_Hitos_Operacionales,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,Dim_Feriados_Chile[Fecha]
+COLUMN,Dim_Feriados_Chile[Fecha],TABLE_OR_MEASURE_FILE,Fact_Tracking,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,Dim_Feriados_Chile[Fecha]
+COLUMN,Dim_Feriados_Chile[Fecha],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Fecha
+COLUMN,Dim_Feriados_Chile[Feriado],TABLE,Dim_Fecha,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Dim_Fecha.tmdl,Feriado
+COLUMN,Dim_Feriados_Chile[Feriado],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Feriado
+COLUMN,Dim_Feriados_Chile[Fuente],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Fuente
+COLUMN,Dim_Hito[DESCRIPCION],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DESCRIPCION
+COLUMN,Dim_Hito[ES_ETAPA_CUELLO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ES_ETAPA_CUELLO
+COLUMN,Dim_Hito[GRUPO_PROCESO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,GRUPO_PROCESO
+COLUMN,Dim_Hito[HITO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,HITO
+COLUMN,Dim_Hito[METRICA_CODIGO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,METRICA_CODIGO
+COLUMN,Dim_Hito[ORDEN_HITO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ORDEN_HITO
+COLUMN,Dim_Hito[TIPO_FLUJO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,TIPO_FLUJO
+COLUMN,Dim_Hito[UNIDAD],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,UNIDAD
+TABLE,Dim_Indicador_Ejecutivo,TABLE,Medidas,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Indicador_Ejecutivo mencionado en definición de Medidas
+COLUMN,Dim_Indicador_Ejecutivo[Indicador],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Indicador_Ejecutivo[Indicador]
+COLUMN,Dim_Indicador_Ejecutivo[Indicador],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Indicador
+COLUMN,Dim_Indicador_Ejecutivo[Orden],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Orden
+COLUMN,Dim_Indicador_Ejecutivo[Unidad],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Unidad
+TABLE,Dim_Mes_Trend,TABLE,Medidas,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Mes_Trend mencionado en definición de Medidas
+COLUMN,Dim_Mes_Trend[AnioMes],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Mes_Trend[AnioMes]
+COLUMN,Dim_Mes_Trend[AnioMes],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AnioMes
+COLUMN,Dim_Mes_Trend[Etiqueta],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Mes_Trend[Etiqueta]
+COLUMN,Dim_Mes_Trend[Etiqueta],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Etiqueta
+COLUMN,Dim_Mes_Trend[Orden],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Mes_Trend[Orden]
+COLUMN,Dim_Mes_Trend[Orden],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Orden
+COLUMN,Dim_Mes_Trend[PeriodoKey],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Mes_Trend[PeriodoKey]
+COLUMN,Dim_Mes_Trend[PeriodoKey],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PeriodoKey
+TABLE,Dim_Metrica_Auditoria,TABLE,Medidas,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Metrica_Auditoria mencionado en definición de Medidas
+COLUMN,Dim_Metrica_Auditoria[Medida],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Metrica_Auditoria[Medida]
+COLUMN,Dim_Metrica_Auditoria[Medida],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Medida
+COLUMN,Dim_Metrica_Auditoria[Medida],VISUAL,slicer_b9672eb4d21342,REPORT_PROJECTION,NS.Report\definition\pages\ed2a2fead6d24153bee1\visuals\slicer_b9672eb4d21342\visual.json,Column: Dim_Metrica_Auditoria[Medida]
+COLUMN,Dim_Metrica_Auditoria[Orden],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Orden
+TABLE,Dim_Pedido,TABLE,Medidas,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Pedido mencionado en definición de Medidas
+TABLE,Dim_Pedido,TABLE,Parámetro Agrupación SLA,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Parámetro Agrupación SLA.tmdl,Dim_Pedido mencionado en definición de Parámetro Agrupación SLA
+COLUMN,Dim_Pedido[CLASIFICACION],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Pedido[CLASIFICACION]
+COLUMN,Dim_Pedido[CLASIFICACION],VISUAL,bm_reset_resumen_ns,REPORT_PROJECTION,NS.Report\definition\bookmarks\bm_reset_resumen_ns.bookmark.json,Column: Dim_Pedido[CLASIFICACION]
+COLUMN,Dim_Pedido[CLASIFICACION],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,CLASIFICACION
+COLUMN,Dim_Pedido[CLASIFICACION],VISUAL,flt_clasif,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\flt_clasif\visual.json,Column: Dim_Pedido[CLASIFICACION]
+COLUMN,Dim_Pedido[CLASIFICACION],VISUAL,slicer_clasif,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\slicer_clasif\visual.json,Column: Dim_Pedido[CLASIFICACION]
+COLUMN,Dim_Pedido[ESTADO_ACTUAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ESTADO_ACTUAL
+COLUMN,Dim_Pedido[ESTADO_ACTUAL],VISUAL,flt_estado,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\flt_estado\visual.json,Column: Dim_Pedido[ESTADO_ACTUAL]
+COLUMN,Dim_Pedido[ES_CERRADO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ES_CERRADO
+COLUMN,Dim_Pedido[HITO_ACTUAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,HITO_ACTUAL
+COLUMN,Dim_Pedido[PED_NUMERO_PEDIDO],VISUAL,47a4fa002331b23249c5,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\47a4fa002331b23249c5\visual.json,Column: Dim_Pedido[PED_NUMERO_PEDIDO]
+COLUMN,Dim_Pedido[PED_NUMERO_PEDIDO],TABLE_OR_MEASURE_FILE,Parámetro Agrupación SLA,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Parámetro Agrupación SLA.tmdl,Dim_Pedido[PED_NUMERO_PEDIDO]
+COLUMN,Dim_Pedido[PED_NUMERO_PEDIDO],TABLE,Parámetro Agrupación SLA,M_BRACKET,NS.SemanticModel\definition\tables\Parámetro Agrupación SLA.tmdl,PED_NUMERO_PEDIDO
+COLUMN,Dim_Pedido[PED_NUMERO_PEDIDO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_NUMERO_PEDIDO
+COLUMN,Dim_Pedido[PED_NUMERO_PEDIDO],VISUAL,slicer_b3b552ed5de540,REPORT_PROJECTION,NS.Report\definition\pages\ed2a2fead6d24153bee1\visuals\slicer_b3b552ed5de540\visual.json,Column: Dim_Pedido[PED_NUMERO_PEDIDO]
+COLUMN,Dim_Pedido[PED_NUMERO_PEDIDO],VISUAL,tbl_tracking,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\tbl_tracking\visual.json,Column: Dim_Pedido[PED_NUMERO_PEDIDO]
+COLUMN,Dim_Pedido[SEMAFORO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,SEMAFORO
+COLUMN,Dim_Pedido[SEMAFORO],VISUAL,flt_semaforo,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\flt_semaforo\visual.json,Column: Dim_Pedido[SEMAFORO]
+TABLE,Dim_Periodo_3M,TABLE,Medidas,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Periodo_3M mencionado en definición de Medidas
+COLUMN,Dim_Periodo_3M[AnioMes],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Periodo_3M[AnioMes]
+COLUMN,Dim_Periodo_3M[AnioMes],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AnioMes
+COLUMN,Dim_Periodo_3M[Etiqueta],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Periodo_3M[Etiqueta]
+COLUMN,Dim_Periodo_3M[Etiqueta],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Etiqueta
+COLUMN,Dim_Periodo_3M[Etiqueta],VISUAL,slicer_mes_3m_v39,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\slicer_mes_3m_v39\visual.json,Column: Dim_Periodo_3M[Etiqueta]
+COLUMN,Dim_Periodo_3M[Etiqueta],VISUAL,sync_mes_3m_v39,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\sync_mes_3m_v39\visual.json,Column: Dim_Periodo_3M[Etiqueta]
+COLUMN,Dim_Periodo_3M[Etiqueta],VISUAL,sync_mes_3m_v39,REPORT_PROJECTION,NS.Report\definition\pages\df1cb253a6314642a469\visuals\sync_mes_3m_v39\visual.json,Column: Dim_Periodo_3M[Etiqueta]
+COLUMN,Dim_Periodo_3M[Etiqueta],VISUAL,sync_mes_3m_v39,REPORT_PROJECTION,NS.Report\definition\pages\ed2a2fead6d24153bee1\visuals\sync_mes_3m_v39\visual.json,Column: Dim_Periodo_3M[Etiqueta]
+COLUMN,Dim_Periodo_3M[FechaFin],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,FechaFin
+COLUMN,Dim_Periodo_3M[FechaInicio],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,FechaInicio
+COLUMN,Dim_Periodo_3M[Orden],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Orden
+COLUMN,Dim_Periodo_3M[PeriodoKey],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PeriodoKey
+TABLE,Dim_Rango_Entrega,TABLE,Medidas,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Rango_Entrega mencionado en definición de Medidas
+COLUMN,Dim_Rango_Entrega[Grupo],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Grupo
+COLUMN,Dim_Rango_Entrega[MaxDH],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Rango_Entrega[MaxDH]
+COLUMN,Dim_Rango_Entrega[MaxDH],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,MaxDH
+COLUMN,Dim_Rango_Entrega[MinDH],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Rango_Entrega[MinDH]
+COLUMN,Dim_Rango_Entrega[MinDH],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,MinDH
+COLUMN,Dim_Rango_Entrega[OrdenGrupo],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,OrdenGrupo
+COLUMN,Dim_Rango_Entrega[OrdenRango],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Rango_Entrega[OrdenRango]
+COLUMN,Dim_Rango_Entrega[OrdenRango],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,OrdenRango
+COLUMN,Dim_Rango_Entrega[Rango],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Rango_Entrega[Rango]
+COLUMN,Dim_Rango_Entrega[Rango],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Rango
+COLUMN,Dim_Rango_Entrega[Zona],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Rango_Entrega[Zona]
+COLUMN,Dim_Rango_Entrega[Zona],VISUAL,bm_reset_resumen_ns,REPORT_PROJECTION,NS.Report\definition\bookmarks\bm_reset_resumen_ns.bookmark.json,Column: Dim_Rango_Entrega[Zona]
+COLUMN,Dim_Rango_Entrega[Zona],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Zona
+COLUMN,Dim_Rango_Entrega[Zona],VISUAL,slicer_zona,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\slicer_zona\visual.json,Column: Dim_Rango_Entrega[Zona]
+TABLE,Dim_Responsable,TABLE,Parámetro Agrupación SLA,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Parámetro Agrupación SLA.tmdl,Dim_Responsable mencionado en definición de Parámetro Agrupación SLA
+COLUMN,Dim_Responsable[RESPONSABLE_CODIGO],TABLE_OR_MEASURE_FILE,Parámetro Agrupación SLA,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Parámetro Agrupación SLA.tmdl,Dim_Responsable[RESPONSABLE_CODIGO]
+COLUMN,Dim_Responsable[RESPONSABLE_CODIGO],TABLE,Parámetro Agrupación SLA,M_BRACKET,NS.SemanticModel\definition\tables\Parámetro Agrupación SLA.tmdl,RESPONSABLE_CODIGO
+COLUMN,Dim_Responsable[RESPONSABLE_CODIGO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,RESPONSABLE_CODIGO
+TABLE,Dim_Vista_Ejecutiva,TABLE,Medidas,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Vista_Ejecutiva mencionado en definición de Medidas
+COLUMN,Dim_Vista_Ejecutiva[Flujo],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Vista_Ejecutiva[Flujo]
+COLUMN,Dim_Vista_Ejecutiva[Flujo],VISUAL,bm_reset_resumen_ns,REPORT_PROJECTION,NS.Report\definition\bookmarks\bm_reset_resumen_ns.bookmark.json,Column: Dim_Vista_Ejecutiva[Flujo]
+COLUMN,Dim_Vista_Ejecutiva[Flujo],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Flujo
+COLUMN,Dim_Vista_Ejecutiva[Flujo],VISUAL,matrix_hitos_resumen,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\matrix_hitos_resumen\visual.json,Column: Dim_Vista_Ejecutiva[Flujo]
+COLUMN,Dim_Vista_Ejecutiva[Flujo],VISUAL,slicer_flujo,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\slicer_flujo\visual.json,Column: Dim_Vista_Ejecutiva[Flujo]
+COLUMN,Dim_Vista_Ejecutiva[Grupo],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Grupo
+COLUMN,Dim_Vista_Ejecutiva[METRICA_CODIGO],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Vista_Ejecutiva[METRICA_CODIGO]
+COLUMN,Dim_Vista_Ejecutiva[METRICA_CODIGO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,METRICA_CODIGO
+COLUMN,Dim_Vista_Ejecutiva[Macroproceso],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Vista_Ejecutiva[Macroproceso]
+COLUMN,Dim_Vista_Ejecutiva[Macroproceso],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Macroproceso
+COLUMN,Dim_Vista_Ejecutiva[Macroproceso],VISUAL,matrix_hitos_resumen,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\matrix_hitos_resumen\visual.json,Column: Dim_Vista_Ejecutiva[Macroproceso]
+COLUMN,Dim_Vista_Ejecutiva[ORDEN_FLUJO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ORDEN_FLUJO
+COLUMN,Dim_Vista_Ejecutiva[ORDEN_MACRO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ORDEN_MACRO
+COLUMN,Dim_Vista_Ejecutiva[ORDEN_SUBPROCESO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ORDEN_SUBPROCESO
+COLUMN,Dim_Vista_Ejecutiva[Subproceso],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Dim_Vista_Ejecutiva[Subproceso]
+COLUMN,Dim_Vista_Ejecutiva[Subproceso],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Subproceso
+COLUMN,Dim_Vista_Ejecutiva[Subproceso],VISUAL,matrix_hitos_resumen,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\matrix_hitos_resumen\visual.json,Column: Dim_Vista_Ejecutiva[Subproceso]
+TABLE,Fact_Hitos_Operacionales,TABLE,Medidas,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Hitos_Operacionales mencionado en definición de Medidas
+COLUMN,Fact_Hitos_Operacionales[ACTIVO_CUELLO],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Hitos_Operacionales[ACTIVO_CUELLO]
+COLUMN,Fact_Hitos_Operacionales[ACTIVO_CUELLO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ACTIVO_CUELLO
+COLUMN,Fact_Hitos_Operacionales[AREA_RESPONSABLE],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Hitos_Operacionales[AREA_RESPONSABLE]
+COLUMN,Fact_Hitos_Operacionales[AREA_RESPONSABLE],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AREA_RESPONSABLE
+COLUMN,Fact_Hitos_Operacionales[AREA_RESPONSABLE],VISUAL,table_15b8b83ff48292,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\table_15b8b83ff48292\visual.json,Column: Fact_Hitos_Operacionales[AREA_RESPONSABLE]
+COLUMN,Fact_Hitos_Operacionales[AREA_RESPONSABLE],VISUAL,table_c57572c4abbe4d,REPORT_PROJECTION,NS.Report\definition\pages\ed2a2fead6d24153bee1\visuals\table_c57572c4abbe4d\visual.json,Column: Fact_Hitos_Operacionales[AREA_RESPONSABLE]
+COLUMN,Fact_Hitos_Operacionales[CUMPLE_ACTUAL],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Hitos_Operacionales[CUMPLE_ACTUAL]
+COLUMN,Fact_Hitos_Operacionales[CUMPLE_ACTUAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,CUMPLE_ACTUAL
+COLUMN,Fact_Hitos_Operacionales[CUMPLE_KPI],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Hitos_Operacionales[CUMPLE_KPI]
+COLUMN,Fact_Hitos_Operacionales[CUMPLE_KPI],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,CUMPLE_KPI
+COLUMN,Fact_Hitos_Operacionales[CUMPLE_PREPARACION],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,CUMPLE_PREPARACION
+COLUMN,Fact_Hitos_Operacionales[DIAS_HABILES],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Hitos_Operacionales[DIAS_HABILES]
+COLUMN,Fact_Hitos_Operacionales[DIAS_HABILES],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DIAS_HABILES
+COLUMN,Fact_Hitos_Operacionales[DIAS_TRANSCURRIDOS],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Hitos_Operacionales[DIAS_TRANSCURRIDOS]
+COLUMN,Fact_Hitos_Operacionales[DIAS_TRANSCURRIDOS],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DIAS_TRANSCURRIDOS
+COLUMN,Fact_Hitos_Operacionales[DIFERIDO_POR_CORTE],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DIFERIDO_POR_CORTE
+COLUMN,Fact_Hitos_Operacionales[ESTADO_KPI],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ESTADO_KPI
+COLUMN,Fact_Hitos_Operacionales[ESTADO_OPERATIVO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ESTADO_OPERATIVO
+COLUMN,Fact_Hitos_Operacionales[ESTADO_TRAZABILIDAD],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Hitos_Operacionales[ESTADO_TRAZABILIDAD]
+COLUMN,Fact_Hitos_Operacionales[ESTADO_TRAZABILIDAD],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ESTADO_TRAZABILIDAD
+COLUMN,Fact_Hitos_Operacionales[ESTADO_TRAZABILIDAD],VISUAL,table_c57572c4abbe4d,REPORT_PROJECTION,NS.Report\definition\pages\ed2a2fead6d24153bee1\visuals\table_c57572c4abbe4d\visual.json,Column: Fact_Hitos_Operacionales[ESTADO_TRAZABILIDAD]
+COLUMN,Fact_Hitos_Operacionales[EXCESO_ACTUAL_DH],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,EXCESO_ACTUAL_DH
+COLUMN,Fact_Hitos_Operacionales[EXCESO_DH],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Hitos_Operacionales[EXCESO_DH]
+COLUMN,Fact_Hitos_Operacionales[EXCESO_DH],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,EXCESO_DH
+COLUMN,Fact_Hitos_Operacionales[FECHA_EVALUACION],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,FECHA_EVALUACION
+COLUMN,Fact_Hitos_Operacionales[FECHA_FIN],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Hitos_Operacionales[FECHA_FIN]
+COLUMN,Fact_Hitos_Operacionales[FECHA_FIN],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,FECHA_FIN
+COLUMN,Fact_Hitos_Operacionales[FECHA_FIN],VISUAL,table_15b8b83ff48292,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\table_15b8b83ff48292\visual.json,Column: Fact_Hitos_Operacionales[FECHA_FIN]
+COLUMN,Fact_Hitos_Operacionales[FECHA_FIN],VISUAL,table_c57572c4abbe4d,REPORT_PROJECTION,NS.Report\definition\pages\ed2a2fead6d24153bee1\visuals\table_c57572c4abbe4d\visual.json,Column: Fact_Hitos_Operacionales[FECHA_FIN]
+COLUMN,Fact_Hitos_Operacionales[FECHA_INGRESO_SLA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,FECHA_INGRESO_SLA
+COLUMN,Fact_Hitos_Operacionales[FECHA_INICIO],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Hitos_Operacionales[FECHA_INICIO]
+COLUMN,Fact_Hitos_Operacionales[FECHA_INICIO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,FECHA_INICIO
+COLUMN,Fact_Hitos_Operacionales[FECHA_INICIO],VISUAL,table_15b8b83ff48292,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\table_15b8b83ff48292\visual.json,Column: Fact_Hitos_Operacionales[FECHA_INICIO]
+COLUMN,Fact_Hitos_Operacionales[FECHA_INICIO],VISUAL,table_c57572c4abbe4d,REPORT_PROJECTION,NS.Report\definition\pages\ed2a2fead6d24153bee1\visuals\table_c57572c4abbe4d\visual.json,Column: Fact_Hitos_Operacionales[FECHA_INICIO]
+COLUMN,Fact_Hitos_Operacionales[FECHA_PROMETIDA_MAX],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,FECHA_PROMETIDA_MAX
+COLUMN,Fact_Hitos_Operacionales[FECHA_PROMETIDA_MIN],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,FECHA_PROMETIDA_MIN
+COLUMN,Fact_Hitos_Operacionales[FUENTE_FECHA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,FUENTE_FECHA
+COLUMN,Fact_Hitos_Operacionales[FUENTE_FECHA],VISUAL,table_c57572c4abbe4d,REPORT_PROJECTION,NS.Report\definition\pages\ed2a2fead6d24153bee1\visuals\table_c57572c4abbe4d\visual.json,Column: Fact_Hitos_Operacionales[FUENTE_FECHA]
+COLUMN,Fact_Hitos_Operacionales[HITO],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Hitos_Operacionales[HITO]
+COLUMN,Fact_Hitos_Operacionales[HITO],VISUAL,chart_fc031821591949,REPORT_PROJECTION,NS.Report\definition\pages\ed2a2fead6d24153bee1\visuals\chart_fc031821591949\visual.json,Column: Fact_Hitos_Operacionales[HITO]
+COLUMN,Fact_Hitos_Operacionales[HITO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,HITO
+COLUMN,Fact_Hitos_Operacionales[HITO],VISUAL,table_15b8b83ff48292,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\table_15b8b83ff48292\visual.json,Column: Fact_Hitos_Operacionales[HITO]
+COLUMN,Fact_Hitos_Operacionales[HITO],VISUAL,table_c57572c4abbe4d,REPORT_PROJECTION,NS.Report\definition\pages\ed2a2fead6d24153bee1\visuals\table_c57572c4abbe4d\visual.json,Column: Fact_Hitos_Operacionales[HITO]
+COLUMN,Fact_Hitos_Operacionales[HITO_OMITIDO],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Hitos_Operacionales[HITO_OMITIDO]
+COLUMN,Fact_Hitos_Operacionales[HITO_OMITIDO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,HITO_OMITIDO
+COLUMN,Fact_Hitos_Operacionales[MACROETAPA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,MACROETAPA
+COLUMN,Fact_Hitos_Operacionales[MES_CREACION],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Hitos_Operacionales[MES_CREACION]
+COLUMN,Fact_Hitos_Operacionales[MES_CREACION],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,MES_CREACION
+COLUMN,Fact_Hitos_Operacionales[METRICA_CODIGO],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Hitos_Operacionales[METRICA_CODIGO]
+COLUMN,Fact_Hitos_Operacionales[METRICA_CODIGO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,METRICA_CODIGO
+COLUMN,Fact_Hitos_Operacionales[ORDEN_HITO],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Hitos_Operacionales[ORDEN_HITO]
+COLUMN,Fact_Hitos_Operacionales[ORDEN_HITO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ORDEN_HITO
+COLUMN,Fact_Hitos_Operacionales[ORDEN_HITO],VISUAL,table_15b8b83ff48292,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\table_15b8b83ff48292\visual.json,Column: Fact_Hitos_Operacionales[ORDEN_HITO]
+COLUMN,Fact_Hitos_Operacionales[ORDEN_HITO],VISUAL,table_c57572c4abbe4d,REPORT_PROJECTION,NS.Report\definition\pages\ed2a2fead6d24153bee1\visuals\table_c57572c4abbe4d\visual.json,Column: Fact_Hitos_Operacionales[ORDEN_HITO]
+COLUMN,Fact_Hitos_Operacionales[ORDEN_ZONA_GEOGRAFICA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ORDEN_ZONA_GEOGRAFICA
+COLUMN,Fact_Hitos_Operacionales[PED_CANAL_CODIGO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_CANAL_CODIGO
+COLUMN,Fact_Hitos_Operacionales[PED_CIUDAD],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_CIUDAD
+COLUMN,Fact_Hitos_Operacionales[PED_CODIGO_CLIENTE],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Hitos_Operacionales[PED_CODIGO_CLIENTE]
+COLUMN,Fact_Hitos_Operacionales[PED_CODIGO_CLIENTE],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_CODIGO_CLIENTE
+COLUMN,Fact_Hitos_Operacionales[PED_CONDICION_EXPEDICION_CODIGO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_CONDICION_EXPEDICION_CODIGO
+COLUMN,Fact_Hitos_Operacionales[PED_FECHA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_FECHA
+COLUMN,Fact_Hitos_Operacionales[PED_FECHA_HORA],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Hitos_Operacionales[PED_FECHA_HORA]
+COLUMN,Fact_Hitos_Operacionales[PED_FECHA_HORA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_FECHA_HORA
+COLUMN,Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO]
+COLUMN,Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_NUMERO_PEDIDO
+COLUMN,Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO],VISUAL,table_v23_hito,REPORT_PROJECTION,NS.Report\definition\pages\23a1b2c3d4e5f6071829\visuals\table_v23_hito\visual.json,Column: Fact_Hitos_Operacionales[PED_NUMERO_PEDIDO]
+COLUMN,Fact_Hitos_Operacionales[PED_REGION],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_REGION
+COLUMN,Fact_Hitos_Operacionales[PED_RESPONSABLE],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_RESPONSABLE
+COLUMN,Fact_Hitos_Operacionales[PED_VALOR_NETO],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Hitos_Operacionales[PED_VALOR_NETO]
+COLUMN,Fact_Hitos_Operacionales[PED_VALOR_NETO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_VALOR_NETO
+COLUMN,Fact_Hitos_Operacionales[PREPARACION_MAX_DH],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PREPARACION_MAX_DH
+COLUMN,Fact_Hitos_Operacionales[PREPARACION_SLA_DH],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Hitos_Operacionales[PREPARACION_SLA_DH]
+COLUMN,Fact_Hitos_Operacionales[PREPARACION_SLA_DH],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PREPARACION_SLA_DH
+COLUMN,Fact_Hitos_Operacionales[PROMESA_MAX_DH],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Hitos_Operacionales[PROMESA_MAX_DH]
+COLUMN,Fact_Hitos_Operacionales[PROMESA_MAX_DH],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PROMESA_MAX_DH
+COLUMN,Fact_Hitos_Operacionales[PROMESA_MIN_DH],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Hitos_Operacionales[PROMESA_MIN_DH]
+COLUMN,Fact_Hitos_Operacionales[PROMESA_MIN_DH],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PROMESA_MIN_DH
+COLUMN,Fact_Hitos_Operacionales[REGLA_CORTE_INGRESO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,REGLA_CORTE_INGRESO
+COLUMN,Fact_Hitos_Operacionales[REGLA_FECHA_FIN],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Hitos_Operacionales[REGLA_FECHA_FIN]
+COLUMN,Fact_Hitos_Operacionales[REGLA_FECHA_FIN],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,REGLA_FECHA_FIN
+COLUMN,Fact_Hitos_Operacionales[REGLA_FECHA_FIN],VISUAL,table_c57572c4abbe4d,REPORT_PROJECTION,NS.Report\definition\pages\ed2a2fead6d24153bee1\visuals\table_c57572c4abbe4d\visual.json,Column: Fact_Hitos_Operacionales[REGLA_FECHA_FIN]
+COLUMN,Fact_Hitos_Operacionales[SEGMENTO_EXCLUSIVO],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Hitos_Operacionales[SEGMENTO_EXCLUSIVO]
+COLUMN,Fact_Hitos_Operacionales[SEGMENTO_EXCLUSIVO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,SEGMENTO_EXCLUSIVO
+COLUMN,Fact_Hitos_Operacionales[SLA_DH],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Hitos_Operacionales[SLA_DH]
+COLUMN,Fact_Hitos_Operacionales[SLA_DH],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,SLA_DH
+COLUMN,Fact_Hitos_Operacionales[TIENE_DATO],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Hitos_Operacionales[TIENE_DATO]
+COLUMN,Fact_Hitos_Operacionales[TIENE_DATO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,TIENE_DATO
+COLUMN,Fact_Hitos_Operacionales[TIPO_KPI],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Hitos_Operacionales[TIPO_KPI]
+COLUMN,Fact_Hitos_Operacionales[TIPO_KPI],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,TIPO_KPI
+COLUMN,Fact_Hitos_Operacionales[Zona],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Hitos_Operacionales[Zona]
+COLUMN,Fact_Hitos_Operacionales[Zona],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Zona
+TABLE,Fact_Pedidos,TABLE,Dim_Canal,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Dim_Canal.tmdl,Fact_Pedidos mencionado en definición de Dim_Canal
+TABLE,Fact_Pedidos,TABLE,Dim_Condicion_Expedicion,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Dim_Condicion_Expedicion.tmdl,Fact_Pedidos mencionado en definición de Dim_Condicion_Expedicion
+TABLE,Fact_Pedidos,TABLE,Dim_Fecha,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Dim_Fecha.tmdl,Fact_Pedidos mencionado en definición de Dim_Fecha
+TABLE,Fact_Pedidos,TABLE,Dim_Responsable,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Dim_Responsable.tmdl,Fact_Pedidos mencionado en definición de Dim_Responsable
+COLUMN,Fact_Pedidos[AUD_ESTADO_FLUJO_FES],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_ESTADO_FLUJO_FES
+COLUMN,Fact_Pedidos[AUD_ESTADO_FLUJO_NORMAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_ESTADO_FLUJO_NORMAL
+COLUMN,Fact_Pedidos[AUD_ESTADO_FLUJO_SALDO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_ESTADO_FLUJO_SALDO
+COLUMN,Fact_Pedidos[AUD_ESTADO_GENERAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_ESTADO_GENERAL
+COLUMN,Fact_Pedidos[AUD_PCT_COBERTURA_HITOS],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_PCT_COBERTURA_HITOS
+COLUMN,Fact_Pedidos[AUD_PRINCIPAL_INCONGRUENCIA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_PRINCIPAL_INCONGRUENCIA
+COLUMN,Fact_Pedidos[AUD_REQUIERE_REVISION],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_REQUIERE_REVISION
+COLUMN,Fact_Pedidos[AUD_TOTAL_ADVERTENCIAS],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_TOTAL_ADVERTENCIAS
+COLUMN,Fact_Pedidos[AUD_TOTAL_CRITICAS],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_TOTAL_CRITICAS
+COLUMN,Fact_Pedidos[AUD_TOTAL_INCONGRUENCIAS],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_TOTAL_INCONGRUENCIAS
+COLUMN,Fact_Pedidos[CRD_P_FECHA_HORA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,CRD_P_FECHA_HORA
+COLUMN,Fact_Pedidos[DH_CREDITO_A_PRIMERA_ENTREGA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_CREDITO_A_PRIMERA_ENTREGA
+COLUMN,Fact_Pedidos[DH_CREDITO_COBRANZAS],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_CREDITO_COBRANZAS
+COLUMN,Fact_Pedidos[DH_DESPACHO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_DESPACHO
+COLUMN,Fact_Pedidos[DH_LEAD_NORMAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_LEAD_NORMAL
+COLUMN,Fact_Pedidos[DH_OPERACION_INTERNA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_OPERACION_INTERNA
+COLUMN,Fact_Pedidos[DH_PRIMERA_ENTREGA_A_PRIMER_PICKING],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_PRIMERA_ENTREGA_A_PRIMER_PICKING
+COLUMN,Fact_Pedidos[DH_PRIMER_PICKING_A_PRIMERA_FACTURA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_PRIMER_PICKING_A_PRIMERA_FACTURA
+COLUMN,Fact_Pedidos[DIA_MES_CREACION],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DIA_MES_CREACION
+COLUMN,Fact_Pedidos[ENT_P_FECHA_HORA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ENT_P_FECHA_HORA
+COLUMN,Fact_Pedidos[ESTADO_SLA_NORMAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ESTADO_SLA_NORMAL
+COLUMN,Fact_Pedidos[ES_FES],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ES_FES
+COLUMN,Fact_Pedidos[ES_SALDO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ES_SALDO
+COLUMN,Fact_Pedidos[ES_ULTIMOS_7_DIAS_HABILES_MES],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ES_ULTIMOS_7_DIAS_HABILES_MES
+COLUMN,Fact_Pedidos[FAC_P_FECHA_HORA_REAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,FAC_P_FECHA_HORA_REAL
+COLUMN,Fact_Pedidos[FAC_U_FECHA_HORA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,FAC_U_FECHA_HORA
+COLUMN,Fact_Pedidos[INCLUIR_SLA_NORMAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,INCLUIR_SLA_NORMAL
+COLUMN,Fact_Pedidos[MES_CREACION],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,MES_CREACION
+COLUMN,Fact_Pedidos[OTIF_ESTADO_PEDIDO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,OTIF_ESTADO_PEDIDO
+COLUMN,Fact_Pedidos[PED_ANIO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_ANIO
+COLUMN,Fact_Pedidos[PED_ANIO_MES],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_ANIO_MES
+COLUMN,Fact_Pedidos[PED_BLOQUEO_ENTREGA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_BLOQUEO_ENTREGA
+COLUMN,Fact_Pedidos[PED_CANAL],TABLE,Dim_Canal,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Dim_Canal.tmdl,PED_CANAL
+COLUMN,Fact_Pedidos[PED_CANAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_CANAL
+COLUMN,Fact_Pedidos[PED_CANAL_CODIGO],TABLE,Dim_Canal,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Dim_Canal.tmdl,PED_CANAL_CODIGO
+COLUMN,Fact_Pedidos[PED_CANAL_CODIGO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_CANAL_CODIGO
+COLUMN,Fact_Pedidos[PED_CENTRO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_CENTRO
+COLUMN,Fact_Pedidos[PED_CIUDAD],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_CIUDAD
+COLUMN,Fact_Pedidos[PED_CODIGO_CLIENTE],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_CODIGO_CLIENTE
+COLUMN,Fact_Pedidos[PED_CONDICION_EXPEDICION],TABLE,Dim_Condicion_Expedicion,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Dim_Condicion_Expedicion.tmdl,PED_CONDICION_EXPEDICION
+COLUMN,Fact_Pedidos[PED_CONDICION_EXPEDICION],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_CONDICION_EXPEDICION
+COLUMN,Fact_Pedidos[PED_CONDICION_EXPEDICION_CODIGO],TABLE,Dim_Condicion_Expedicion,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Dim_Condicion_Expedicion.tmdl,PED_CONDICION_EXPEDICION_CODIGO
+COLUMN,Fact_Pedidos[PED_CONDICION_EXPEDICION_CODIGO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_CONDICION_EXPEDICION_CODIGO
+COLUMN,Fact_Pedidos[PED_ESTADO_CREDITO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_ESTADO_CREDITO
+COLUMN,Fact_Pedidos[PED_FECHA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_FECHA
+COLUMN,Fact_Pedidos[PED_FECHA_HORA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_FECHA_HORA
+COLUMN,Fact_Pedidos[PED_MES_NOMBRE],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_MES_NOMBRE
+COLUMN,Fact_Pedidos[PED_MES_NUMERO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_MES_NUMERO
+COLUMN,Fact_Pedidos[PED_MONEDA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_MONEDA
+COLUMN,Fact_Pedidos[PED_NUMERO_PEDIDO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_NUMERO_PEDIDO
+COLUMN,Fact_Pedidos[PED_ORDEN_COMPRA_CLIENTE],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_ORDEN_COMPRA_CLIENTE
+COLUMN,Fact_Pedidos[PED_REGION],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_REGION
+COLUMN,Fact_Pedidos[PED_RESPONSABLE],TABLE,Dim_Responsable,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Dim_Responsable.tmdl,PED_RESPONSABLE
+COLUMN,Fact_Pedidos[PED_RESPONSABLE],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_RESPONSABLE
+COLUMN,Fact_Pedidos[PED_TEXTO_ESTADO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_TEXTO_ESTADO
+COLUMN,Fact_Pedidos[PED_VALOR_NETO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_VALOR_NETO
+COLUMN,Fact_Pedidos[PIC_P_FECHA_HORA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PIC_P_FECHA_HORA
+COLUMN,Fact_Pedidos[PROCESO_DOMINANTE_NORMAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PROCESO_DOMINANTE_NORMAL
+COLUMN,Fact_Pedidos[SEGMENTO_ANALISIS],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,SEGMENTO_ANALISIS
+COLUMN,Fact_Pedidos[SERV_TIPO_SERVICIO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,SERV_TIPO_SERVICIO
+COLUMN,Fact_Pedidos[SERV_TIPO_SERVICIO_PLANIFICADO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,SERV_TIPO_SERVICIO_PLANIFICADO
+COLUMN,Fact_Pedidos[TRAMO_MES_CALENDARIO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,TRAMO_MES_CALENDARIO
+COLUMN,Fact_Pedidos[TRP_P_FECHA_HORA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,TRP_P_FECHA_HORA
+COLUMN,Fact_Pedidos[TRP_U_FECHA_HORA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,TRP_U_FECHA_HORA
+TABLE,Fact_Pedidos_Auditoria,TABLE,Fact_Hitos_Operacionales,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,Fact_Pedidos_Auditoria mencionado en definición de Fact_Hitos_Operacionales
+TABLE,Fact_Pedidos_Auditoria,TABLE,Fact_Pedidos,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,Fact_Pedidos_Auditoria mencionado en definición de Fact_Pedidos
+TABLE,Fact_Pedidos_Auditoria,TABLE,Fact_Tiempos_Hitos,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,Fact_Pedidos_Auditoria mencionado en definición de Fact_Tiempos_Hitos
+TABLE,Fact_Pedidos_Auditoria,TABLE,Fact_Tracking,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,Fact_Pedidos_Auditoria mencionado en definición de Fact_Tracking
+TABLE,Fact_Pedidos_Auditoria,TABLE,Medidas,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Pedidos_Auditoria mencionado en definición de Medidas
+TABLE,Fact_Pedidos_Auditoria,DYNAMIC_CONSUMER,Python.Execute en Resultado,FULL_TABLE_OR_DYNAMIC_SCHEMA,NS.SemanticModel\definition\tables\Resultado.tmdl,Python.Execute detectado; requiere prueba de contrato de columnas
+TABLE,Fact_Pedidos_Auditoria,TABLE,Resultado,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Resultado.tmdl,Fact_Pedidos_Auditoria mencionado en definición de Resultado
+TABLE,Fact_Pedidos_Auditoria,DYNAMIC_CONSUMER,Table.Schema en auditoria,SCHEMA_INTROSPECTION,NS.SemanticModel\definition\tables\auditoria.tmdl,Table.Schema consume el esquema completo
+TABLE,Fact_Pedidos_Auditoria,TABLE,auditoria,TABLE_REFERENCE,NS.SemanticModel\definition\tables\auditoria.tmdl,Fact_Pedidos_Auditoria mencionado en definición de auditoria
+COLUMN,Fact_Pedidos_Auditoria[AUD_ADVERTENCIAS_FES],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_ADVERTENCIAS_FES
+COLUMN,Fact_Pedidos_Auditoria[AUD_ADVERTENCIAS_FLUJO_NORMAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_ADVERTENCIAS_FLUJO_NORMAL
+COLUMN,Fact_Pedidos_Auditoria[AUD_ADVERTENCIAS_PRIMERO_ULTIMO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_ADVERTENCIAS_PRIMERO_ULTIMO
+COLUMN,Fact_Pedidos_Auditoria[AUD_ADVERTENCIAS_SALDO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_ADVERTENCIAS_SALDO
+COLUMN,Fact_Pedidos_Auditoria[AUD_ALERTAS_FECHAS_ATIPICAS],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_ALERTAS_FECHAS_ATIPICAS
+COLUMN,Fact_Pedidos_Auditoria[AUD_ALERTAS_HORA_00],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_ALERTAS_HORA_00
+COLUMN,Fact_Pedidos_Auditoria[AUD_CANTIDAD_HITOS_FALTANTES],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_CANTIDAD_HITOS_FALTANTES
+COLUMN,Fact_Pedidos_Auditoria[AUD_CANTIDAD_HITOS_PRESENTES],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_CANTIDAD_HITOS_PRESENTES
+COLUMN,Fact_Pedidos_Auditoria[AUD_CRITICAS_FES],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_CRITICAS_FES
+COLUMN,Fact_Pedidos_Auditoria[AUD_CRITICAS_FLUJO_NORMAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_CRITICAS_FLUJO_NORMAL
+COLUMN,Fact_Pedidos_Auditoria[AUD_CRITICAS_PRIMERO_ULTIMO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_CRITICAS_PRIMERO_ULTIMO
+COLUMN,Fact_Pedidos_Auditoria[AUD_CRITICAS_SALDO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_CRITICAS_SALDO
+COLUMN,Fact_Pedidos_Auditoria[AUD_ESTADO_FLUJO_FES],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,AUD_ESTADO_FLUJO_FES
+COLUMN,Fact_Pedidos_Auditoria[AUD_ESTADO_FLUJO_FES],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_ESTADO_FLUJO_FES
+COLUMN,Fact_Pedidos_Auditoria[AUD_ESTADO_FLUJO_NORMAL],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,AUD_ESTADO_FLUJO_NORMAL
+COLUMN,Fact_Pedidos_Auditoria[AUD_ESTADO_FLUJO_NORMAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_ESTADO_FLUJO_NORMAL
+COLUMN,Fact_Pedidos_Auditoria[AUD_ESTADO_FLUJO_SALDO],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,AUD_ESTADO_FLUJO_SALDO
+COLUMN,Fact_Pedidos_Auditoria[AUD_ESTADO_FLUJO_SALDO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_ESTADO_FLUJO_SALDO
+COLUMN,Fact_Pedidos_Auditoria[AUD_ESTADO_GENERAL],TABLE,Fact_Hitos_Operacionales,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,AUD_ESTADO_GENERAL
+COLUMN,Fact_Pedidos_Auditoria[AUD_ESTADO_GENERAL],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,AUD_ESTADO_GENERAL
+COLUMN,Fact_Pedidos_Auditoria[AUD_ESTADO_GENERAL],TABLE,Fact_Tiempos_Hitos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,AUD_ESTADO_GENERAL
+COLUMN,Fact_Pedidos_Auditoria[AUD_ESTADO_GENERAL],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,AUD_ESTADO_GENERAL
+COLUMN,Fact_Pedidos_Auditoria[AUD_ESTADO_GENERAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_ESTADO_GENERAL
+COLUMN,Fact_Pedidos_Auditoria[AUD_FALTANTES_FES],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_FALTANTES_FES
+COLUMN,Fact_Pedidos_Auditoria[AUD_FALTANTES_SALDO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_FALTANTES_SALDO
+COLUMN,Fact_Pedidos_Auditoria[AUD_FES_CICLO_MAYOR_60_DIAS],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_FES_CICLO_MAYOR_60_DIAS
+COLUMN,Fact_Pedidos_Auditoria[AUD_FES_ENTREGA_ANTES_PEDIDO_POST],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_FES_ENTREGA_ANTES_PEDIDO_POST
+COLUMN,Fact_Pedidos_Auditoria[AUD_FES_MANIFIESTO_ANTES_ENTREGA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_FES_MANIFIESTO_ANTES_ENTREGA
+COLUMN,Fact_Pedidos_Auditoria[AUD_FES_PEDIDO_POST_ANTES_FACTURA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_FES_PEDIDO_POST_ANTES_FACTURA
+COLUMN,Fact_Pedidos_Auditoria[AUD_FES_SIN_ENTREGA_POSTERIOR],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_FES_SIN_ENTREGA_POSTERIOR
+COLUMN,Fact_Pedidos_Auditoria[AUD_FES_SIN_FECHA_PEDIDO_POSTERIOR],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_FES_SIN_FECHA_PEDIDO_POSTERIOR
+COLUMN,Fact_Pedidos_Auditoria[AUD_FES_SIN_MANIFIESTO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_FES_SIN_MANIFIESTO
+COLUMN,Fact_Pedidos_Auditoria[AUD_FES_ULT_ENTREGA_ANTES_PRIMERA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_FES_ULT_ENTREGA_ANTES_PRIMERA
+COLUMN,Fact_Pedidos_Auditoria[AUD_FES_ULT_MANIFIESTO_ANTES_PRIMERO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_FES_ULT_MANIFIESTO_ANTES_PRIMERO
+COLUMN,Fact_Pedidos_Auditoria[AUD_FES_ULT_PEDIDO_ANTES_PRIMERO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_FES_ULT_PEDIDO_ANTES_PRIMERO
+COLUMN,Fact_Pedidos_Auditoria[AUD_HITOS_OBLIGATORIOS_ESPERADOS],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_HITOS_OBLIGATORIOS_ESPERADOS
+COLUMN,Fact_Pedidos_Auditoria[AUD_HITOS_OPCIONALES_ESPERADOS],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_HITOS_OPCIONALES_ESPERADOS
+COLUMN,Fact_Pedidos_Auditoria[AUD_HITOS_OPCIONALES_FALTANTES],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_HITOS_OPCIONALES_FALTANTES
+COLUMN,Fact_Pedidos_Auditoria[AUD_HITOS_OPCIONALES_PRESENTES],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_HITOS_OPCIONALES_PRESENTES
+COLUMN,Fact_Pedidos_Auditoria[AUD_HORA_00_CED],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_HORA_00_CED
+COLUMN,Fact_Pedidos_Auditoria[AUD_HORA_00_COM],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_HORA_00_COM
+COLUMN,Fact_Pedidos_Auditoria[AUD_HORA_00_CRD],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_HORA_00_CRD
+COLUMN,Fact_Pedidos_Auditoria[AUD_HORA_00_ENT],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_HORA_00_ENT
+COLUMN,Fact_Pedidos_Auditoria[AUD_HORA_00_FAC],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_HORA_00_FAC
+COLUMN,Fact_Pedidos_Auditoria[AUD_HORA_00_PAC],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_HORA_00_PAC
+COLUMN,Fact_Pedidos_Auditoria[AUD_HORA_00_PED],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_HORA_00_PED
+COLUMN,Fact_Pedidos_Auditoria[AUD_HORA_00_PIC],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_HORA_00_PIC
+COLUMN,Fact_Pedidos_Auditoria[AUD_HORA_00_TRP],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_HORA_00_TRP
+COLUMN,Fact_Pedidos_Auditoria[AUD_INC_CED_ANTES_TRP],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_INC_CED_ANTES_TRP
+COLUMN,Fact_Pedidos_Auditoria[AUD_INC_CED_U_ANTES_CED_P],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_INC_CED_U_ANTES_CED_P
+COLUMN,Fact_Pedidos_Auditoria[AUD_INC_COM_ANTES_PED],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_INC_COM_ANTES_PED
+COLUMN,Fact_Pedidos_Auditoria[AUD_INC_COM_U_ANTES_COM_P],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_INC_COM_U_ANTES_COM_P
+COLUMN,Fact_Pedidos_Auditoria[AUD_INC_CRD_ANTES_PED],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_INC_CRD_ANTES_PED
+COLUMN,Fact_Pedidos_Auditoria[AUD_INC_ENT_ANTES_PED],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_INC_ENT_ANTES_PED
+COLUMN,Fact_Pedidos_Auditoria[AUD_INC_ENT_U_ANTES_ENT_P],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_INC_ENT_U_ANTES_ENT_P
+COLUMN,Fact_Pedidos_Auditoria[AUD_INC_FAC_ANTES_PIC],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_INC_FAC_ANTES_PIC
+COLUMN,Fact_Pedidos_Auditoria[AUD_INC_FAC_MAS_30_DIAS_ANTES_PED],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_INC_FAC_MAS_30_DIAS_ANTES_PED
+COLUMN,Fact_Pedidos_Auditoria[AUD_INC_FAC_MAS_365_DIAS_DESPUES_PED],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_INC_FAC_MAS_365_DIAS_DESPUES_PED
+COLUMN,Fact_Pedidos_Auditoria[AUD_INC_FAC_U_ANTES_FAC_P],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_INC_FAC_U_ANTES_FAC_P
+COLUMN,Fact_Pedidos_Auditoria[AUD_INC_HITO_FECHA_FUTURA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_INC_HITO_FECHA_FUTURA
+COLUMN,Fact_Pedidos_Auditoria[AUD_INC_PAC_ANTES_PIC],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_INC_PAC_ANTES_PIC
+COLUMN,Fact_Pedidos_Auditoria[AUD_INC_PAC_U_ANTES_PAC_P],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_INC_PAC_U_ANTES_PAC_P
+COLUMN,Fact_Pedidos_Auditoria[AUD_INC_PDA_DESPUES_PED],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_INC_PDA_DESPUES_PED
+COLUMN,Fact_Pedidos_Auditoria[AUD_INC_PIC_ANTES_ENT],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_INC_PIC_ANTES_ENT
+COLUMN,Fact_Pedidos_Auditoria[AUD_INC_PIC_U_ANTES_PIC_P],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_INC_PIC_U_ANTES_PIC_P
+COLUMN,Fact_Pedidos_Auditoria[AUD_INC_TRP_ANTES_FAC],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_INC_TRP_ANTES_FAC
+COLUMN,Fact_Pedidos_Auditoria[AUD_INC_TRP_MAS_30_DIAS_ANTES_PED],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_INC_TRP_MAS_30_DIAS_ANTES_PED
+COLUMN,Fact_Pedidos_Auditoria[AUD_INC_TRP_MAS_365_DIAS_DESPUES_PED],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_INC_TRP_MAS_365_DIAS_DESPUES_PED
+COLUMN,Fact_Pedidos_Auditoria[AUD_INC_TRP_U_ANTES_TRP_P],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_INC_TRP_U_ANTES_TRP_P
+COLUMN,Fact_Pedidos_Auditoria[AUD_INC_TSTTO_U_ANTES_TSTTO_P],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_INC_TSTTO_U_ANTES_TSTTO_P
+COLUMN,Fact_Pedidos_Auditoria[AUD_NO_FES_CON_FECHAS_FES],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_NO_FES_CON_FECHAS_FES
+COLUMN,Fact_Pedidos_Auditoria[AUD_NO_FES_CON_METRICAS_FES],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_NO_FES_CON_METRICAS_FES
+COLUMN,Fact_Pedidos_Auditoria[AUD_OBS_PDA_DESPUES_PEDIDO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_OBS_PDA_DESPUES_PEDIDO
+COLUMN,Fact_Pedidos_Auditoria[AUD_PCT_COBERTURA_HITOS],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,AUD_PCT_COBERTURA_HITOS
+COLUMN,Fact_Pedidos_Auditoria[AUD_PCT_COBERTURA_HITOS],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_PCT_COBERTURA_HITOS
+COLUMN,Fact_Pedidos_Auditoria[AUD_PCT_COBERTURA_OPCIONAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_PCT_COBERTURA_OPCIONAL
+COLUMN,Fact_Pedidos_Auditoria[AUD_PRINCIPAL_INCONGRUENCIA],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,AUD_PRINCIPAL_INCONGRUENCIA
+COLUMN,Fact_Pedidos_Auditoria[AUD_PRINCIPAL_INCONGRUENCIA],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,AUD_PRINCIPAL_INCONGRUENCIA
+COLUMN,Fact_Pedidos_Auditoria[AUD_PRINCIPAL_INCONGRUENCIA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_PRINCIPAL_INCONGRUENCIA
+COLUMN,Fact_Pedidos_Auditoria[AUD_REQUIERE_REVISION],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,AUD_REQUIERE_REVISION
+COLUMN,Fact_Pedidos_Auditoria[AUD_REQUIERE_REVISION],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_REQUIERE_REVISION
+COLUMN,Fact_Pedidos_Auditoria[AUD_SALDO_FAC_U_ANTES_FAC_P],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_SALDO_FAC_U_ANTES_FAC_P
+COLUMN,Fact_Pedidos_Auditoria[AUD_SALDO_SIN_FAC_P],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_SALDO_SIN_FAC_P
+COLUMN,Fact_Pedidos_Auditoria[AUD_SALDO_SIN_FAC_U],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_SALDO_SIN_FAC_U
+COLUMN,Fact_Pedidos_Auditoria[AUD_SALDO_SIN_TRP_U],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_SALDO_SIN_TRP_U
+COLUMN,Fact_Pedidos_Auditoria[AUD_SALDO_TRP_U_ANTES_TRP_P],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_SALDO_TRP_U_ANTES_TRP_P
+COLUMN,Fact_Pedidos_Auditoria[AUD_TIENE_CED_P],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_TIENE_CED_P
+COLUMN,Fact_Pedidos_Auditoria[AUD_TIENE_COM_P],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_TIENE_COM_P
+COLUMN,Fact_Pedidos_Auditoria[AUD_TIENE_CRD_P],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_TIENE_CRD_P
+COLUMN,Fact_Pedidos_Auditoria[AUD_TIENE_ENT_P],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_TIENE_ENT_P
+COLUMN,Fact_Pedidos_Auditoria[AUD_TIENE_FAC_P],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_TIENE_FAC_P
+COLUMN,Fact_Pedidos_Auditoria[AUD_TIENE_PAC_P],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_TIENE_PAC_P
+COLUMN,Fact_Pedidos_Auditoria[AUD_TIENE_PDA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_TIENE_PDA
+COLUMN,Fact_Pedidos_Auditoria[AUD_TIENE_PED],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_TIENE_PED
+COLUMN,Fact_Pedidos_Auditoria[AUD_TIENE_PIC_P],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_TIENE_PIC_P
+COLUMN,Fact_Pedidos_Auditoria[AUD_TIENE_TRP_P],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_TIENE_TRP_P
+COLUMN,Fact_Pedidos_Auditoria[AUD_TIENE_TSTTO_P],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_TIENE_TSTTO_P
+COLUMN,Fact_Pedidos_Auditoria[AUD_TOTAL_ADVERTENCIAS],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,AUD_TOTAL_ADVERTENCIAS
+COLUMN,Fact_Pedidos_Auditoria[AUD_TOTAL_ADVERTENCIAS],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_TOTAL_ADVERTENCIAS
+COLUMN,Fact_Pedidos_Auditoria[AUD_TOTAL_CRITICAS],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,AUD_TOTAL_CRITICAS
+COLUMN,Fact_Pedidos_Auditoria[AUD_TOTAL_CRITICAS],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,AUD_TOTAL_CRITICAS
+COLUMN,Fact_Pedidos_Auditoria[AUD_TOTAL_CRITICAS],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_TOTAL_CRITICAS
+COLUMN,Fact_Pedidos_Auditoria[AUD_TOTAL_INCONGRUENCIAS],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,AUD_TOTAL_INCONGRUENCIAS
+COLUMN,Fact_Pedidos_Auditoria[AUD_TOTAL_INCONGRUENCIAS],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_TOTAL_INCONGRUENCIAS
+COLUMN,Fact_Pedidos_Auditoria[CED_CANTIDAD_COPIAS],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,CED_CANTIDAD_COPIAS
+COLUMN,Fact_Pedidos_Auditoria[CED_P_FECHA_HORA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,CED_P_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[CED_U_FECHA_HORA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,CED_U_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[COM_P_FECHA_HORA],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,COM_P_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[COM_P_FECHA_HORA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,COM_P_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[COM_U_FECHA_HORA],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,COM_U_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[COM_U_FECHA_HORA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,COM_U_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[CRD_P_FECHA_HORA],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,CRD_P_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[CRD_P_FECHA_HORA],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,CRD_P_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[CRD_P_FECHA_HORA],TABLE,Fact_Tracking,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,CRD_P_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[CRD_P_FECHA_HORA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,CRD_P_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[DH_BRECHA_PRIMER_ULTIMO_DESPACHO],TABLE,Fact_Tiempos_Hitos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,DH_BRECHA_PRIMER_ULTIMO_DESPACHO
+COLUMN,Fact_Pedidos_Auditoria[DH_BRECHA_PRIMER_ULTIMO_DESPACHO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_BRECHA_PRIMER_ULTIMO_DESPACHO
+COLUMN,Fact_Pedidos_Auditoria[DH_COMERCIAL_PDA_SAC],TABLE,Fact_Tiempos_Hitos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,DH_COMERCIAL_PDA_SAC
+COLUMN,Fact_Pedidos_Auditoria[DH_COMERCIAL_PDA_SAC],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_COMERCIAL_PDA_SAC
+COLUMN,Fact_Pedidos_Auditoria[DH_CREACION_A_CEDIBLE],TABLE,Fact_Tiempos_Hitos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,DH_CREACION_A_CEDIBLE
+COLUMN,Fact_Pedidos_Auditoria[DH_CREACION_A_CEDIBLE],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_CREACION_A_CEDIBLE
+COLUMN,Fact_Pedidos_Auditoria[DH_CREDITO_A_PRIMERA_ENTREGA],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,DH_CREDITO_A_PRIMERA_ENTREGA
+COLUMN,Fact_Pedidos_Auditoria[DH_CREDITO_A_PRIMERA_ENTREGA],TABLE,Fact_Tiempos_Hitos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,DH_CREDITO_A_PRIMERA_ENTREGA
+COLUMN,Fact_Pedidos_Auditoria[DH_CREDITO_A_PRIMERA_ENTREGA],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,DH_CREDITO_A_PRIMERA_ENTREGA
+COLUMN,Fact_Pedidos_Auditoria[DH_CREDITO_A_PRIMERA_ENTREGA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_CREDITO_A_PRIMERA_ENTREGA
+COLUMN,Fact_Pedidos_Auditoria[DH_CREDITO_COBRANZAS],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,DH_CREDITO_COBRANZAS
+COLUMN,Fact_Pedidos_Auditoria[DH_CREDITO_COBRANZAS],TABLE,Fact_Tiempos_Hitos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,DH_CREDITO_COBRANZAS
+COLUMN,Fact_Pedidos_Auditoria[DH_CREDITO_COBRANZAS],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,DH_CREDITO_COBRANZAS
+COLUMN,Fact_Pedidos_Auditoria[DH_CREDITO_COBRANZAS],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_CREDITO_COBRANZAS
+COLUMN,Fact_Pedidos_Auditoria[DH_DESPACHO],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,DH_DESPACHO
+COLUMN,Fact_Pedidos_Auditoria[DH_DESPACHO],TABLE,Fact_Tiempos_Hitos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,DH_DESPACHO
+COLUMN,Fact_Pedidos_Auditoria[DH_DESPACHO],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,DH_DESPACHO
+COLUMN,Fact_Pedidos_Auditoria[DH_DESPACHO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_DESPACHO
+COLUMN,Fact_Pedidos_Auditoria[DH_DESPACHO_A_CEDIBLE],TABLE,Fact_Tiempos_Hitos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,DH_DESPACHO_A_CEDIBLE
+COLUMN,Fact_Pedidos_Auditoria[DH_DESPACHO_A_CEDIBLE],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_DESPACHO_A_CEDIBLE
+COLUMN,Fact_Pedidos_Auditoria[DH_ENTREGA_COMPLETA_100],TABLE,Fact_Tiempos_Hitos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,DH_ENTREGA_COMPLETA_100
+COLUMN,Fact_Pedidos_Auditoria[DH_ENTREGA_COMPLETA_100],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,DH_ENTREGA_COMPLETA_100
+COLUMN,Fact_Pedidos_Auditoria[DH_ENTREGA_COMPLETA_100],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_ENTREGA_COMPLETA_100
+COLUMN,Fact_Pedidos_Auditoria[DH_ENT_PRIMERA_ULTIMA],TABLE,Fact_Tiempos_Hitos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,DH_ENT_PRIMERA_ULTIMA
+COLUMN,Fact_Pedidos_Auditoria[DH_ENT_PRIMERA_ULTIMA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_ENT_PRIMERA_ULTIMA
+COLUMN,Fact_Pedidos_Auditoria[DH_FAC_PRIMERA_ULTIMA],TABLE,Fact_Tiempos_Hitos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,DH_FAC_PRIMERA_ULTIMA
+COLUMN,Fact_Pedidos_Auditoria[DH_FAC_PRIMERA_ULTIMA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_FAC_PRIMERA_ULTIMA
+COLUMN,Fact_Pedidos_Auditoria[DH_FES_BRECHA_PRIMER_ULTIMO_MANIFIESTO],TABLE,Fact_Tiempos_Hitos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,DH_FES_BRECHA_PRIMER_ULTIMO_MANIFIESTO
+COLUMN,Fact_Pedidos_Auditoria[DH_FES_BRECHA_PRIMER_ULTIMO_MANIFIESTO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_FES_BRECHA_PRIMER_ULTIMO_MANIFIESTO
+COLUMN,Fact_Pedidos_Auditoria[DH_FES_CREDITO_A_PRIMER_DESPACHO],TABLE,Fact_Tiempos_Hitos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,DH_FES_CREDITO_A_PRIMER_DESPACHO
+COLUMN,Fact_Pedidos_Auditoria[DH_FES_CREDITO_A_PRIMER_DESPACHO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_FES_CREDITO_A_PRIMER_DESPACHO
+COLUMN,Fact_Pedidos_Auditoria[DH_FES_FACTURA_A_PRIMER_DESPACHO],TABLE,Fact_Tiempos_Hitos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,DH_FES_FACTURA_A_PRIMER_DESPACHO
+COLUMN,Fact_Pedidos_Auditoria[DH_FES_FACTURA_A_PRIMER_DESPACHO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_FES_FACTURA_A_PRIMER_DESPACHO
+COLUMN,Fact_Pedidos_Auditoria[DH_FES_FACTURA_A_PRIMER_MANIFIESTO],TABLE,Fact_Tiempos_Hitos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,DH_FES_FACTURA_A_PRIMER_MANIFIESTO
+COLUMN,Fact_Pedidos_Auditoria[DH_FES_FACTURA_A_PRIMER_MANIFIESTO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_FES_FACTURA_A_PRIMER_MANIFIESTO
+COLUMN,Fact_Pedidos_Auditoria[DH_FES_FACTURA_A_PRIMER_PEDIDO_POSTERIOR],TABLE,Fact_Tiempos_Hitos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,DH_FES_FACTURA_A_PRIMER_PEDIDO_POSTERIOR
+COLUMN,Fact_Pedidos_Auditoria[DH_FES_FACTURA_A_PRIMER_PEDIDO_POSTERIOR],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_FES_FACTURA_A_PRIMER_PEDIDO_POSTERIOR
+COLUMN,Fact_Pedidos_Auditoria[DH_FES_FACTURA_A_ULTIMO_MANIFIESTO],TABLE,Fact_Tiempos_Hitos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,DH_FES_FACTURA_A_ULTIMO_MANIFIESTO
+COLUMN,Fact_Pedidos_Auditoria[DH_FES_FACTURA_A_ULTIMO_MANIFIESTO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_FES_FACTURA_A_ULTIMO_MANIFIESTO
+COLUMN,Fact_Pedidos_Auditoria[DH_FES_PRIMERA_ENTREGA_A_PRIMER_MANIFIESTO],TABLE,Fact_Tiempos_Hitos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,DH_FES_PRIMERA_ENTREGA_A_PRIMER_MANIFIESTO
+COLUMN,Fact_Pedidos_Auditoria[DH_FES_PRIMERA_ENTREGA_A_PRIMER_MANIFIESTO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_FES_PRIMERA_ENTREGA_A_PRIMER_MANIFIESTO
+COLUMN,Fact_Pedidos_Auditoria[DH_FES_PRIMER_PEDIDO_A_PRIMERA_ENTREGA_POSTERIOR],TABLE,Fact_Tiempos_Hitos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,DH_FES_PRIMER_PEDIDO_A_PRIMERA_ENTREGA_POSTERIOR
+COLUMN,Fact_Pedidos_Auditoria[DH_FES_PRIMER_PEDIDO_A_PRIMERA_ENTREGA_POSTERIOR],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_FES_PRIMER_PEDIDO_A_PRIMERA_ENTREGA_POSTERIOR
+COLUMN,Fact_Pedidos_Auditoria[DH_LEAD_NORMAL],TABLE,Fact_Pedidos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,DH_LEAD_NORMAL
+COLUMN,Fact_Pedidos_Auditoria[DH_LEAD_NORMAL],TABLE,Fact_Tiempos_Hitos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,DH_LEAD_NORMAL
+COLUMN,Fact_Pedidos_Auditoria[DH_LEAD_NORMAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_LEAD_NORMAL
+COLUMN,Fact_Pedidos_Auditoria[DH_OPERACION_INTERNA],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,DH_OPERACION_INTERNA
+COLUMN,Fact_Pedidos_Auditoria[DH_OPERACION_INTERNA],TABLE,Fact_Tiempos_Hitos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,DH_OPERACION_INTERNA
+COLUMN,Fact_Pedidos_Auditoria[DH_OPERACION_INTERNA],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,DH_OPERACION_INTERNA
+COLUMN,Fact_Pedidos_Auditoria[DH_OPERACION_INTERNA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_OPERACION_INTERNA
+COLUMN,Fact_Pedidos_Auditoria[DH_PAC_PRIMERO_ULTIMO],TABLE,Fact_Tiempos_Hitos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,DH_PAC_PRIMERO_ULTIMO
+COLUMN,Fact_Pedidos_Auditoria[DH_PAC_PRIMERO_ULTIMO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_PAC_PRIMERO_ULTIMO
+COLUMN,Fact_Pedidos_Auditoria[DH_PIC_PRIMERO_ULTIMO],TABLE,Fact_Tiempos_Hitos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,DH_PIC_PRIMERO_ULTIMO
+COLUMN,Fact_Pedidos_Auditoria[DH_PIC_PRIMERO_ULTIMO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_PIC_PRIMERO_ULTIMO
+COLUMN,Fact_Pedidos_Auditoria[DH_PRIMERA_ENTREGA_A_PRIMER_PICKING],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,DH_PRIMERA_ENTREGA_A_PRIMER_PICKING
+COLUMN,Fact_Pedidos_Auditoria[DH_PRIMERA_ENTREGA_A_PRIMER_PICKING],TABLE,Fact_Tiempos_Hitos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,DH_PRIMERA_ENTREGA_A_PRIMER_PICKING
+COLUMN,Fact_Pedidos_Auditoria[DH_PRIMERA_ENTREGA_A_PRIMER_PICKING],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,DH_PRIMERA_ENTREGA_A_PRIMER_PICKING
+COLUMN,Fact_Pedidos_Auditoria[DH_PRIMERA_ENTREGA_A_PRIMER_PICKING],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_PRIMERA_ENTREGA_A_PRIMER_PICKING
+COLUMN,Fact_Pedidos_Auditoria[DH_PRIMERA_FACTURA_A_ULTIMO_DESPACHO],TABLE,Fact_Tiempos_Hitos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,DH_PRIMERA_FACTURA_A_ULTIMO_DESPACHO
+COLUMN,Fact_Pedidos_Auditoria[DH_PRIMERA_FACTURA_A_ULTIMO_DESPACHO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_PRIMERA_FACTURA_A_ULTIMO_DESPACHO
+COLUMN,Fact_Pedidos_Auditoria[DH_PRIMER_PACKING_A_PRIMERA_FACTURA],TABLE,Fact_Tiempos_Hitos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,DH_PRIMER_PACKING_A_PRIMERA_FACTURA
+COLUMN,Fact_Pedidos_Auditoria[DH_PRIMER_PACKING_A_PRIMERA_FACTURA],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,DH_PRIMER_PACKING_A_PRIMERA_FACTURA
+COLUMN,Fact_Pedidos_Auditoria[DH_PRIMER_PACKING_A_PRIMERA_FACTURA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_PRIMER_PACKING_A_PRIMERA_FACTURA
+COLUMN,Fact_Pedidos_Auditoria[DH_PRIMER_PICKING_A_PRIMERA_FACTURA],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,DH_PRIMER_PICKING_A_PRIMERA_FACTURA
+COLUMN,Fact_Pedidos_Auditoria[DH_PRIMER_PICKING_A_PRIMERA_FACTURA],TABLE,Fact_Tiempos_Hitos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,DH_PRIMER_PICKING_A_PRIMERA_FACTURA
+COLUMN,Fact_Pedidos_Auditoria[DH_PRIMER_PICKING_A_PRIMERA_FACTURA],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,DH_PRIMER_PICKING_A_PRIMERA_FACTURA
+COLUMN,Fact_Pedidos_Auditoria[DH_PRIMER_PICKING_A_PRIMERA_FACTURA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_PRIMER_PICKING_A_PRIMERA_FACTURA
+COLUMN,Fact_Pedidos_Auditoria[DH_PRIMER_PICKING_A_PRIMER_PACKING],TABLE,Fact_Tiempos_Hitos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,DH_PRIMER_PICKING_A_PRIMER_PACKING
+COLUMN,Fact_Pedidos_Auditoria[DH_PRIMER_PICKING_A_PRIMER_PACKING],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_PRIMER_PICKING_A_PRIMER_PACKING
+COLUMN,Fact_Pedidos_Auditoria[DIAS_EQ_COMERCIAL_9_5H],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DIAS_EQ_COMERCIAL_9_5H
+COLUMN,Fact_Pedidos_Auditoria[DIA_MES_CREACION],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,DIA_MES_CREACION
+COLUMN,Fact_Pedidos_Auditoria[DIA_MES_CREACION],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DIA_MES_CREACION
+COLUMN,Fact_Pedidos_Auditoria[ENT_P_FECHA_HORA],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,ENT_P_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[ENT_P_FECHA_HORA],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,ENT_P_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[ENT_P_FECHA_HORA],TABLE,Fact_Tracking,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,ENT_P_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[ENT_P_FECHA_HORA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ENT_P_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[ENT_U_FECHA_HORA],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,ENT_U_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[ENT_U_FECHA_HORA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ENT_U_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[ESTADO_SLA_NORMAL],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,ESTADO_SLA_NORMAL
+COLUMN,Fact_Pedidos_Auditoria[ESTADO_SLA_NORMAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ESTADO_SLA_NORMAL
+COLUMN,Fact_Pedidos_Auditoria[ES_FES],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,ES_FES
+COLUMN,Fact_Pedidos_Auditoria[ES_FES],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,ES_FES
+COLUMN,Fact_Pedidos_Auditoria[ES_FES],TABLE,Fact_Tiempos_Hitos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,ES_FES
+COLUMN,Fact_Pedidos_Auditoria[ES_FES],TABLE,Fact_Tracking,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,ES_FES
+COLUMN,Fact_Pedidos_Auditoria[ES_FES],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Pedidos_Auditoria[ES_FES]
+COLUMN,Fact_Pedidos_Auditoria[ES_FES],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,ES_FES
+COLUMN,Fact_Pedidos_Auditoria[ES_FES],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ES_FES
+COLUMN,Fact_Pedidos_Auditoria[ES_SALDO],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,ES_SALDO
+COLUMN,Fact_Pedidos_Auditoria[ES_SALDO],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,ES_SALDO
+COLUMN,Fact_Pedidos_Auditoria[ES_SALDO],TABLE,Fact_Tiempos_Hitos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,ES_SALDO
+COLUMN,Fact_Pedidos_Auditoria[ES_SALDO],TABLE,Fact_Tracking,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,ES_SALDO
+COLUMN,Fact_Pedidos_Auditoria[ES_SALDO],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,ES_SALDO
+COLUMN,Fact_Pedidos_Auditoria[ES_SALDO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ES_SALDO
+COLUMN,Fact_Pedidos_Auditoria[ES_ULTIMOS_7_DIAS_HABILES_MES],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,ES_ULTIMOS_7_DIAS_HABILES_MES
+COLUMN,Fact_Pedidos_Auditoria[ES_ULTIMOS_7_DIAS_HABILES_MES],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,ES_ULTIMOS_7_DIAS_HABILES_MES
+COLUMN,Fact_Pedidos_Auditoria[ES_ULTIMOS_7_DIAS_HABILES_MES],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ES_ULTIMOS_7_DIAS_HABILES_MES
+COLUMN,Fact_Pedidos_Auditoria[FAC_FECHA_OPERATIVA_AJUSTADA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,FAC_FECHA_OPERATIVA_AJUSTADA
+COLUMN,Fact_Pedidos_Auditoria[FAC_P_FECHA_HORA_REAL],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,FAC_P_FECHA_HORA_REAL
+COLUMN,Fact_Pedidos_Auditoria[FAC_P_FECHA_HORA_REAL],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,FAC_P_FECHA_HORA_REAL
+COLUMN,Fact_Pedidos_Auditoria[FAC_P_FECHA_HORA_REAL],TABLE,Fact_Tracking,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,FAC_P_FECHA_HORA_REAL
+COLUMN,Fact_Pedidos_Auditoria[FAC_P_FECHA_HORA_REAL],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Pedidos_Auditoria[FAC_P_FECHA_HORA_REAL]
+COLUMN,Fact_Pedidos_Auditoria[FAC_P_FECHA_HORA_REAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,FAC_P_FECHA_HORA_REAL
+COLUMN,Fact_Pedidos_Auditoria[FAC_U_FECHA_HORA],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,FAC_U_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[FAC_U_FECHA_HORA],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,FAC_U_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[FAC_U_FECHA_HORA],TABLE,Fact_Tracking,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,FAC_U_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[FAC_U_FECHA_HORA],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Pedidos_Auditoria[FAC_U_FECHA_HORA]
+COLUMN,Fact_Pedidos_Auditoria[FAC_U_FECHA_HORA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,FAC_U_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[FECHA_CARGA_MASTER],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,FECHA_CARGA_MASTER
+COLUMN,Fact_Pedidos_Auditoria[FES_FECHA_CIERRE_OPERATIVO_100],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,FES_FECHA_CIERRE_OPERATIVO_100
+COLUMN,Fact_Pedidos_Auditoria[GER_P_FECHA_HORA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,GER_P_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[HRS_COMERCIAL_PDA_SAC],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,HRS_COMERCIAL_PDA_SAC
+COLUMN,Fact_Pedidos_Auditoria[INCLUIR_SLA_NORMAL],TABLE,Fact_Pedidos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,INCLUIR_SLA_NORMAL
+COLUMN,Fact_Pedidos_Auditoria[INCLUIR_SLA_NORMAL],TABLE,Fact_Tiempos_Hitos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,INCLUIR_SLA_NORMAL
+COLUMN,Fact_Pedidos_Auditoria[INCLUIR_SLA_NORMAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,INCLUIR_SLA_NORMAL
+COLUMN,Fact_Pedidos_Auditoria[MES_CREACION],TABLE,Fact_Hitos_Operacionales,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,MES_CREACION
+COLUMN,Fact_Pedidos_Auditoria[MES_CREACION],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,MES_CREACION
+COLUMN,Fact_Pedidos_Auditoria[MES_CREACION],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Pedidos_Auditoria[MES_CREACION]
+COLUMN,Fact_Pedidos_Auditoria[MES_CREACION],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,MES_CREACION
+COLUMN,Fact_Pedidos_Auditoria[MES_CREACION],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,MES_CREACION
+COLUMN,Fact_Pedidos_Auditoria[OTIF_ESTADO_PEDIDO],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,OTIF_ESTADO_PEDIDO
+COLUMN,Fact_Pedidos_Auditoria[OTIF_ESTADO_PEDIDO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,OTIF_ESTADO_PEDIDO
+COLUMN,Fact_Pedidos_Auditoria[PAC_P_FECHA_HORA],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PAC_P_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[PAC_P_FECHA_HORA],TABLE,Fact_Tracking,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,PAC_P_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[PAC_P_FECHA_HORA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PAC_P_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[PAC_U_FECHA_HORA],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PAC_U_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[PAC_U_FECHA_HORA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PAC_U_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[PARAM_FECHA_DESDE],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PARAM_FECHA_DESDE
+COLUMN,Fact_Pedidos_Auditoria[PARAM_FECHA_HASTA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PARAM_FECHA_HASTA
+COLUMN,Fact_Pedidos_Auditoria[PDA_P_FECHA_HORA],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PDA_P_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[PDA_P_FECHA_HORA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PDA_P_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[PED_BLOQUEO_ENTREGA],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,PED_BLOQUEO_ENTREGA
+COLUMN,Fact_Pedidos_Auditoria[PED_BLOQUEO_ENTREGA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_BLOQUEO_ENTREGA
+COLUMN,Fact_Pedidos_Auditoria[PED_CANAL],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,PED_CANAL
+COLUMN,Fact_Pedidos_Auditoria[PED_CANAL],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,PED_CANAL
+COLUMN,Fact_Pedidos_Auditoria[PED_CANAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_CANAL
+COLUMN,Fact_Pedidos_Auditoria[PED_CANAL_CODIGO],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PED_CANAL_CODIGO
+COLUMN,Fact_Pedidos_Auditoria[PED_CANAL_CODIGO],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,PED_CANAL_CODIGO
+COLUMN,Fact_Pedidos_Auditoria[PED_CANAL_CODIGO],TABLE,Fact_Tiempos_Hitos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,PED_CANAL_CODIGO
+COLUMN,Fact_Pedidos_Auditoria[PED_CANAL_CODIGO],TABLE,Fact_Tracking,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,PED_CANAL_CODIGO
+COLUMN,Fact_Pedidos_Auditoria[PED_CANAL_CODIGO],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,PED_CANAL_CODIGO
+COLUMN,Fact_Pedidos_Auditoria[PED_CANAL_CODIGO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_CANAL_CODIGO
+COLUMN,Fact_Pedidos_Auditoria[PED_CENTRO],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,PED_CENTRO
+COLUMN,Fact_Pedidos_Auditoria[PED_CENTRO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_CENTRO
+COLUMN,Fact_Pedidos_Auditoria[PED_CIUDAD],TABLE,Fact_Hitos_Operacionales,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PED_CIUDAD
+COLUMN,Fact_Pedidos_Auditoria[PED_CIUDAD],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,PED_CIUDAD
+COLUMN,Fact_Pedidos_Auditoria[PED_CIUDAD],TABLE,Fact_Tracking,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,PED_CIUDAD
+COLUMN,Fact_Pedidos_Auditoria[PED_CIUDAD],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,PED_CIUDAD
+COLUMN,Fact_Pedidos_Auditoria[PED_CIUDAD],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_CIUDAD
+COLUMN,Fact_Pedidos_Auditoria[PED_CODIGO_CLIENTE],TABLE,Fact_Hitos_Operacionales,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PED_CODIGO_CLIENTE
+COLUMN,Fact_Pedidos_Auditoria[PED_CODIGO_CLIENTE],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,PED_CODIGO_CLIENTE
+COLUMN,Fact_Pedidos_Auditoria[PED_CODIGO_CLIENTE],TABLE,Fact_Tiempos_Hitos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,PED_CODIGO_CLIENTE
+COLUMN,Fact_Pedidos_Auditoria[PED_CODIGO_CLIENTE],TABLE,Fact_Tracking,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,PED_CODIGO_CLIENTE
+COLUMN,Fact_Pedidos_Auditoria[PED_CODIGO_CLIENTE],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,PED_CODIGO_CLIENTE
+COLUMN,Fact_Pedidos_Auditoria[PED_CODIGO_CLIENTE],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_CODIGO_CLIENTE
+COLUMN,Fact_Pedidos_Auditoria[PED_CONDICION_EXPEDICION],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,PED_CONDICION_EXPEDICION
+COLUMN,Fact_Pedidos_Auditoria[PED_CONDICION_EXPEDICION],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,PED_CONDICION_EXPEDICION
+COLUMN,Fact_Pedidos_Auditoria[PED_CONDICION_EXPEDICION],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_CONDICION_EXPEDICION
+COLUMN,Fact_Pedidos_Auditoria[PED_CONDICION_EXPEDICION_CODIGO],TABLE,Fact_Hitos_Operacionales,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PED_CONDICION_EXPEDICION_CODIGO
+COLUMN,Fact_Pedidos_Auditoria[PED_CONDICION_EXPEDICION_CODIGO],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,PED_CONDICION_EXPEDICION_CODIGO
+COLUMN,Fact_Pedidos_Auditoria[PED_CONDICION_EXPEDICION_CODIGO],TABLE,Fact_Tiempos_Hitos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,PED_CONDICION_EXPEDICION_CODIGO
+COLUMN,Fact_Pedidos_Auditoria[PED_CONDICION_EXPEDICION_CODIGO],TABLE,Fact_Tracking,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,PED_CONDICION_EXPEDICION_CODIGO
+COLUMN,Fact_Pedidos_Auditoria[PED_CONDICION_EXPEDICION_CODIGO],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,PED_CONDICION_EXPEDICION_CODIGO
+COLUMN,Fact_Pedidos_Auditoria[PED_CONDICION_EXPEDICION_CODIGO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_CONDICION_EXPEDICION_CODIGO
+COLUMN,Fact_Pedidos_Auditoria[PED_ESTADO_CREDITO],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,PED_ESTADO_CREDITO
+COLUMN,Fact_Pedidos_Auditoria[PED_ESTADO_CREDITO],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,PED_ESTADO_CREDITO
+COLUMN,Fact_Pedidos_Auditoria[PED_ESTADO_CREDITO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_ESTADO_CREDITO
+COLUMN,Fact_Pedidos_Auditoria[PED_FECHA_HORA],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PED_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[PED_FECHA_HORA],TABLE,Fact_Pedidos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,PED_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[PED_FECHA_HORA],TABLE,Fact_Tiempos_Hitos,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,PED_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[PED_FECHA_HORA],TABLE,Fact_Tracking,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,PED_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[PED_FECHA_HORA],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,PED_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[PED_FECHA_HORA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[PED_MONEDA],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,PED_MONEDA
+COLUMN,Fact_Pedidos_Auditoria[PED_MONEDA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_MONEDA
+COLUMN,Fact_Pedidos_Auditoria[PED_NUMERO_PEDIDO],TABLE,Fact_Hitos_Operacionales,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PED_NUMERO_PEDIDO
+COLUMN,Fact_Pedidos_Auditoria[PED_NUMERO_PEDIDO],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,PED_NUMERO_PEDIDO
+COLUMN,Fact_Pedidos_Auditoria[PED_NUMERO_PEDIDO],TABLE,Fact_Tiempos_Hitos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,PED_NUMERO_PEDIDO
+COLUMN,Fact_Pedidos_Auditoria[PED_NUMERO_PEDIDO],TABLE,Fact_Tracking,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,PED_NUMERO_PEDIDO
+COLUMN,Fact_Pedidos_Auditoria[PED_NUMERO_PEDIDO],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Pedidos_Auditoria[PED_NUMERO_PEDIDO]
+COLUMN,Fact_Pedidos_Auditoria[PED_NUMERO_PEDIDO],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,PED_NUMERO_PEDIDO
+COLUMN,Fact_Pedidos_Auditoria[PED_NUMERO_PEDIDO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_NUMERO_PEDIDO
+COLUMN,Fact_Pedidos_Auditoria[PED_ORDEN_COMPRA_CLIENTE],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,PED_ORDEN_COMPRA_CLIENTE
+COLUMN,Fact_Pedidos_Auditoria[PED_ORDEN_COMPRA_CLIENTE],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_ORDEN_COMPRA_CLIENTE
+COLUMN,Fact_Pedidos_Auditoria[PED_REGION],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PED_REGION
+COLUMN,Fact_Pedidos_Auditoria[PED_REGION],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,PED_REGION
+COLUMN,Fact_Pedidos_Auditoria[PED_REGION],TABLE,Fact_Tracking,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,PED_REGION
+COLUMN,Fact_Pedidos_Auditoria[PED_REGION],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,PED_REGION
+COLUMN,Fact_Pedidos_Auditoria[PED_REGION],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_REGION
+COLUMN,Fact_Pedidos_Auditoria[PED_RESPONSABLE],TABLE,Fact_Hitos_Operacionales,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PED_RESPONSABLE
+COLUMN,Fact_Pedidos_Auditoria[PED_RESPONSABLE],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,PED_RESPONSABLE
+COLUMN,Fact_Pedidos_Auditoria[PED_RESPONSABLE],TABLE,Fact_Tiempos_Hitos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,PED_RESPONSABLE
+COLUMN,Fact_Pedidos_Auditoria[PED_RESPONSABLE],TABLE,Fact_Tracking,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,PED_RESPONSABLE
+COLUMN,Fact_Pedidos_Auditoria[PED_RESPONSABLE],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,PED_RESPONSABLE
+COLUMN,Fact_Pedidos_Auditoria[PED_RESPONSABLE],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_RESPONSABLE
+COLUMN,Fact_Pedidos_Auditoria[PED_TEXTO_ESTADO],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,PED_TEXTO_ESTADO
+COLUMN,Fact_Pedidos_Auditoria[PED_TEXTO_ESTADO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_TEXTO_ESTADO
+COLUMN,Fact_Pedidos_Auditoria[PED_VALOR_NETO],TABLE,Fact_Hitos_Operacionales,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PED_VALOR_NETO
+COLUMN,Fact_Pedidos_Auditoria[PED_VALOR_NETO],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,PED_VALOR_NETO
+COLUMN,Fact_Pedidos_Auditoria[PED_VALOR_NETO],TABLE,Fact_Tiempos_Hitos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,PED_VALOR_NETO
+COLUMN,Fact_Pedidos_Auditoria[PED_VALOR_NETO],TABLE,Fact_Tracking,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,PED_VALOR_NETO
+COLUMN,Fact_Pedidos_Auditoria[PED_VALOR_NETO],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,PED_VALOR_NETO
+COLUMN,Fact_Pedidos_Auditoria[PED_VALOR_NETO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_VALOR_NETO
+COLUMN,Fact_Pedidos_Auditoria[PIC_P_FECHA_HORA],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PIC_P_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[PIC_P_FECHA_HORA],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,PIC_P_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[PIC_P_FECHA_HORA],TABLE,Fact_Tracking,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,PIC_P_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[PIC_P_FECHA_HORA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PIC_P_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[PIC_U_FECHA_HORA],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PIC_U_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[PIC_U_FECHA_HORA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PIC_U_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[PRIMERA_FECHA_ENTREGA_POSTERIOR],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PRIMERA_FECHA_ENTREGA_POSTERIOR
+COLUMN,Fact_Pedidos_Auditoria[PRIMERA_FECHA_ENTREGA_POSTERIOR],TABLE,Fact_Tracking,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,PRIMERA_FECHA_ENTREGA_POSTERIOR
+COLUMN,Fact_Pedidos_Auditoria[PRIMERA_FECHA_ENTREGA_POSTERIOR],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PRIMERA_FECHA_ENTREGA_POSTERIOR
+COLUMN,Fact_Pedidos_Auditoria[PRIMERA_FECHA_MANIFIESTO],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PRIMERA_FECHA_MANIFIESTO
+COLUMN,Fact_Pedidos_Auditoria[PRIMERA_FECHA_MANIFIESTO],TABLE,Fact_Tracking,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,PRIMERA_FECHA_MANIFIESTO
+COLUMN,Fact_Pedidos_Auditoria[PRIMERA_FECHA_MANIFIESTO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PRIMERA_FECHA_MANIFIESTO
+COLUMN,Fact_Pedidos_Auditoria[PRIMERA_FECHA_PEDIDO_POSTERIOR],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PRIMERA_FECHA_PEDIDO_POSTERIOR
+COLUMN,Fact_Pedidos_Auditoria[PRIMERA_FECHA_PEDIDO_POSTERIOR],TABLE,Fact_Tracking,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,PRIMERA_FECHA_PEDIDO_POSTERIOR
+COLUMN,Fact_Pedidos_Auditoria[PRIMERA_FECHA_PEDIDO_POSTERIOR],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PRIMERA_FECHA_PEDIDO_POSTERIOR
+COLUMN,Fact_Pedidos_Auditoria[PROCESO_DOMINANTE_NORMAL],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,PROCESO_DOMINANTE_NORMAL
+COLUMN,Fact_Pedidos_Auditoria[PROCESO_DOMINANTE_NORMAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PROCESO_DOMINANTE_NORMAL
+COLUMN,Fact_Pedidos_Auditoria[REGLA_CLASIFICACION_FES],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,REGLA_CLASIFICACION_FES
+COLUMN,Fact_Pedidos_Auditoria[REGLA_CLASIFICACION_SALDO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,REGLA_CLASIFICACION_SALDO
+COLUMN,Fact_Pedidos_Auditoria[SEGMENTO_ANALISIS],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,SEGMENTO_ANALISIS
+COLUMN,Fact_Pedidos_Auditoria[SEGMENTO_ANALISIS],TABLE,Fact_Tiempos_Hitos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tiempos_Hitos.tmdl,SEGMENTO_ANALISIS
+COLUMN,Fact_Pedidos_Auditoria[SEGMENTO_ANALISIS],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,SEGMENTO_ANALISIS
+COLUMN,Fact_Pedidos_Auditoria[SEGMENTO_ANALISIS],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,SEGMENTO_ANALISIS
+COLUMN,Fact_Pedidos_Auditoria[SERV_TIPO_SERVICIO],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,SERV_TIPO_SERVICIO
+COLUMN,Fact_Pedidos_Auditoria[SERV_TIPO_SERVICIO],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,SERV_TIPO_SERVICIO
+COLUMN,Fact_Pedidos_Auditoria[SERV_TIPO_SERVICIO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,SERV_TIPO_SERVICIO
+COLUMN,Fact_Pedidos_Auditoria[SERV_TIPO_SERVICIO_PLANIFICADO],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,SERV_TIPO_SERVICIO_PLANIFICADO
+COLUMN,Fact_Pedidos_Auditoria[SERV_TIPO_SERVICIO_PLANIFICADO],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,SERV_TIPO_SERVICIO_PLANIFICADO
+COLUMN,Fact_Pedidos_Auditoria[SERV_TIPO_SERVICIO_PLANIFICADO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,SERV_TIPO_SERVICIO_PLANIFICADO
+COLUMN,Fact_Pedidos_Auditoria[TRAMO_MES_CALENDARIO],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,TRAMO_MES_CALENDARIO
+COLUMN,Fact_Pedidos_Auditoria[TRAMO_MES_CALENDARIO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,TRAMO_MES_CALENDARIO
+COLUMN,Fact_Pedidos_Auditoria[TRP_P_FECHA_HORA],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,TRP_P_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[TRP_P_FECHA_HORA],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,TRP_P_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[TRP_P_FECHA_HORA],TABLE,Fact_Tracking,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,TRP_P_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[TRP_P_FECHA_HORA],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Pedidos_Auditoria[TRP_P_FECHA_HORA]
+COLUMN,Fact_Pedidos_Auditoria[TRP_P_FECHA_HORA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,TRP_P_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[TRP_U_FECHA_HORA],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,TRP_U_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[TRP_U_FECHA_HORA],TABLE,Fact_Pedidos,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Pedidos.tmdl,TRP_U_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[TRP_U_FECHA_HORA],TABLE,Fact_Tracking,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,TRP_U_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[TRP_U_FECHA_HORA],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Pedidos_Auditoria[TRP_U_FECHA_HORA]
+COLUMN,Fact_Pedidos_Auditoria[TRP_U_FECHA_HORA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,TRP_U_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[TSTTO_P_FECHA_HORA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,TSTTO_P_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[TSTTO_U_FECHA_HORA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,TSTTO_U_FECHA_HORA
+COLUMN,Fact_Pedidos_Auditoria[ULTIMA_FECHA_ENTREGA_POSTERIOR],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,ULTIMA_FECHA_ENTREGA_POSTERIOR
+COLUMN,Fact_Pedidos_Auditoria[ULTIMA_FECHA_ENTREGA_POSTERIOR],TABLE,Fact_Tracking,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,ULTIMA_FECHA_ENTREGA_POSTERIOR
+COLUMN,Fact_Pedidos_Auditoria[ULTIMA_FECHA_ENTREGA_POSTERIOR],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ULTIMA_FECHA_ENTREGA_POSTERIOR
+COLUMN,Fact_Pedidos_Auditoria[ULTIMA_FECHA_MANIFIESTO],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,ULTIMA_FECHA_MANIFIESTO
+COLUMN,Fact_Pedidos_Auditoria[ULTIMA_FECHA_MANIFIESTO],TABLE,Fact_Tracking,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,ULTIMA_FECHA_MANIFIESTO
+COLUMN,Fact_Pedidos_Auditoria[ULTIMA_FECHA_MANIFIESTO],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Pedidos_Auditoria[ULTIMA_FECHA_MANIFIESTO]
+COLUMN,Fact_Pedidos_Auditoria[ULTIMA_FECHA_MANIFIESTO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ULTIMA_FECHA_MANIFIESTO
+COLUMN,Fact_Pedidos_Auditoria[ULTIMA_FECHA_PEDIDO_POSTERIOR],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,ULTIMA_FECHA_PEDIDO_POSTERIOR
+COLUMN,Fact_Pedidos_Auditoria[ULTIMA_FECHA_PEDIDO_POSTERIOR],TABLE,Fact_Tracking,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,ULTIMA_FECHA_PEDIDO_POSTERIOR
+COLUMN,Fact_Pedidos_Auditoria[ULTIMA_FECHA_PEDIDO_POSTERIOR],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ULTIMA_FECHA_PEDIDO_POSTERIOR
+COLUMN,Fact_Tiempos_Hitos[AUD_ESTADO_GENERAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_ESTADO_GENERAL
+COLUMN,Fact_Tiempos_Hitos[DIAS_HABILES],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DIAS_HABILES
+COLUMN,Fact_Tiempos_Hitos[METRICA_CODIGO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,METRICA_CODIGO
+COLUMN,Fact_Tiempos_Hitos[ORDEN_RANGO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ORDEN_RANGO
+COLUMN,Fact_Tiempos_Hitos[PED_CANAL_CODIGO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_CANAL_CODIGO
+COLUMN,Fact_Tiempos_Hitos[PED_CODIGO_CLIENTE],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_CODIGO_CLIENTE
+COLUMN,Fact_Tiempos_Hitos[PED_CONDICION_EXPEDICION_CODIGO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_CONDICION_EXPEDICION_CODIGO
+COLUMN,Fact_Tiempos_Hitos[PED_FECHA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_FECHA
+COLUMN,Fact_Tiempos_Hitos[PED_NUMERO_PEDIDO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_NUMERO_PEDIDO
+COLUMN,Fact_Tiempos_Hitos[PED_RESPONSABLE],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_RESPONSABLE
+COLUMN,Fact_Tiempos_Hitos[PED_VALOR_NETO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_VALOR_NETO
+COLUMN,Fact_Tiempos_Hitos[RANGO_DIAS],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,RANGO_DIAS
+COLUMN,Fact_Tiempos_Hitos[SEGMENTO_ANALISIS],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,SEGMENTO_ANALISIS
+COLUMN,Fact_Tiempos_Hitos[TIENE_DATO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,TIENE_DATO
+TABLE,Fact_Tracking,TABLE,Dim_Pedido,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Dim_Pedido.tmdl,Fact_Tracking mencionado en definición de Dim_Pedido
+TABLE,Fact_Tracking,TABLE,Fact_Hitos_Operacionales,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,Fact_Tracking mencionado en definición de Fact_Hitos_Operacionales
+TABLE,Fact_Tracking,TABLE,Medidas,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Tracking mencionado en definición de Medidas
+TABLE,Fact_Tracking,DYNAMIC_CONSUMER,Python.Execute en Resultado,FULL_TABLE_OR_DYNAMIC_SCHEMA,NS.SemanticModel\definition\tables\Resultado.tmdl,Python.Execute detectado; requiere prueba de contrato de columnas
+TABLE,Fact_Tracking,TABLE,Resultado,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Resultado.tmdl,Fact_Tracking mencionado en definición de Resultado
+COLUMN,Fact_Tracking[CLASIFICACION],TABLE,Dim_Pedido,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Dim_Pedido.tmdl,CLASIFICACION
+COLUMN,Fact_Tracking[CLASIFICACION],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Tracking[CLASIFICACION]
+COLUMN,Fact_Tracking[CLASIFICACION],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,CLASIFICACION
+COLUMN,Fact_Tracking[CLASIFICACION],VISUAL,critical_table,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\critical_table\visual.json,Column: Fact_Tracking[CLASIFICACION]
+COLUMN,Fact_Tracking[CLASIFICACION],VISUAL,critical_table,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\critical_table\visual.json,Column: Fact_Tracking[CLASIFICACION]
+COLUMN,Fact_Tracking[CLASIFICACION],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,CLASIFICACION
+COLUMN,Fact_Tracking[CLASIFICACION],VISUAL,fa_clientes_recurrentes,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_clientes_recurrentes\visual.json,Column: Fact_Tracking[CLASIFICACION]
+COLUMN,Fact_Tracking[CLASIFICACION],VISUAL,fa_permanencia_cd,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_permanencia_cd\visual.json,Column: Fact_Tracking[CLASIFICACION]
+COLUMN,Fact_Tracking[CLASIFICACION],VISUAL,fa_vendedores_reincidentes,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_vendedores_reincidentes\visual.json,Column: Fact_Tracking[CLASIFICACION]
+COLUMN,Fact_Tracking[CLASIFICACION],VISUAL,tbl_tracking,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\tbl_tracking\visual.json,Column: Fact_Tracking[CLASIFICACION]
+COLUMN,Fact_Tracking[CUMPLE_SLA_INTERNO],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Tracking[CUMPLE_SLA_INTERNO]
+COLUMN,Fact_Tracking[DIAS_CALENDARIO_SALDO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DIAS_CALENDARIO_SALDO
+COLUMN,Fact_Tracking[DIAS_EN_ESTADO_DH],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,DIAS_EN_ESTADO_DH
+COLUMN,Fact_Tracking[DIAS_EN_ESTADO_DH],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DIAS_EN_ESTADO_DH
+COLUMN,Fact_Tracking[DIAS_ESPERA_MANIFIESTO_DH],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DIAS_ESPERA_MANIFIESTO_DH
+COLUMN,Fact_Tracking[DIAS_HABILES_SALDO],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Tracking[DIAS_HABILES_SALDO]
+COLUMN,Fact_Tracking[DIAS_HABILES_SALDO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DIAS_HABILES_SALDO
+COLUMN,Fact_Tracking[DIAS_HASTA_DESPACHO_DH],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DIAS_HASTA_DESPACHO_DH
+COLUMN,Fact_Tracking[DIAS_INTERNOS_DH],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Tracking[DIAS_INTERNOS_DH]
+COLUMN,Fact_Tracking[DIAS_INTERNOS_DH],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,DIAS_INTERNOS_DH
+COLUMN,Fact_Tracking[DIAS_INTERNOS_DH],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DIAS_INTERNOS_DH
+COLUMN,Fact_Tracking[DIAS_INTERNOS_DH],VISUAL,tbl_tracking,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\tbl_tracking\visual.json,Column: Fact_Tracking[DIAS_INTERNOS_DH]
+COLUMN,Fact_Tracking[DIAS_POSTFACTURA_DH],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Tracking[DIAS_POSTFACTURA_DH]
+COLUMN,Fact_Tracking[DIAS_RESTANTES_DH],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Tracking[DIAS_RESTANTES_DH]
+COLUMN,Fact_Tracking[DIAS_RESTANTES_DH],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,DIAS_RESTANTES_DH
+COLUMN,Fact_Tracking[DIAS_RESTANTES_DH],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DIAS_RESTANTES_DH
+COLUMN,Fact_Tracking[DIAS_RESTANTES_DH],VISUAL,tbl_tracking,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\tbl_tracking\visual.json,Column: Fact_Tracking[DIAS_RESTANTES_DH]
+COLUMN,Fact_Tracking[ESTADO_ACTUAL],TABLE,Dim_Pedido,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Dim_Pedido.tmdl,ESTADO_ACTUAL
+COLUMN,Fact_Tracking[ESTADO_ACTUAL],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,ESTADO_ACTUAL
+COLUMN,Fact_Tracking[ESTADO_ACTUAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ESTADO_ACTUAL
+COLUMN,Fact_Tracking[ESTADO_ACTUAL],VISUAL,tbl_tracking,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\tbl_tracking\visual.json,Column: Fact_Tracking[ESTADO_ACTUAL]
+COLUMN,Fact_Tracking[ES_CERRADO],TABLE,Dim_Pedido,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Dim_Pedido.tmdl,ES_CERRADO
+COLUMN,Fact_Tracking[ES_CERRADO],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Tracking[ES_CERRADO]
+COLUMN,Fact_Tracking[ES_CERRADO],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,ES_CERRADO
+COLUMN,Fact_Tracking[ES_CERRADO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ES_CERRADO
+COLUMN,Fact_Tracking[EXCESO_SLA_INTERNO_DH],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Tracking[EXCESO_SLA_INTERNO_DH]
+COLUMN,Fact_Tracking[FECHA_ACTUALIZACION],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Tracking[FECHA_ACTUALIZACION]
+COLUMN,Fact_Tracking[FECHA_ACTUALIZACION],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,FECHA_ACTUALIZACION
+COLUMN,Fact_Tracking[FECHA_ACTUALIZACION],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,FECHA_ACTUALIZACION
+COLUMN,Fact_Tracking[FECHA_CIERRE],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Tracking[FECHA_CIERRE]
+COLUMN,Fact_Tracking[FECHA_CIERRE],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,FECHA_CIERRE
+COLUMN,Fact_Tracking[FECHA_DESPACHO],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Tracking[FECHA_DESPACHO]
+COLUMN,Fact_Tracking[FECHA_DESPACHO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,FECHA_DESPACHO
+COLUMN,Fact_Tracking[FECHA_INICIO_ESTADO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,FECHA_INICIO_ESTADO
+COLUMN,Fact_Tracking[FECHA_MANIFIESTO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,FECHA_MANIFIESTO
+COLUMN,Fact_Tracking[FECHA_PRIMERA_FACTURA],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Tracking[FECHA_PRIMERA_FACTURA]
+COLUMN,Fact_Tracking[FECHA_PRIMERA_FACTURA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,FECHA_PRIMERA_FACTURA
+COLUMN,Fact_Tracking[FECHA_ULTIMA_FACTURA],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Tracking[FECHA_ULTIMA_FACTURA]
+COLUMN,Fact_Tracking[FECHA_ULTIMA_FACTURA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,FECHA_ULTIMA_FACTURA
+COLUMN,Fact_Tracking[HITO_ACTUAL],TABLE,Dim_Pedido,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Dim_Pedido.tmdl,HITO_ACTUAL
+COLUMN,Fact_Tracking[HITO_ACTUAL],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,HITO_ACTUAL
+COLUMN,Fact_Tracking[HITO_ACTUAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,HITO_ACTUAL
+COLUMN,Fact_Tracking[HITO_ACTUAL],VISUAL,tbl_tracking,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\tbl_tracking\visual.json,Column: Fact_Tracking[HITO_ACTUAL]
+COLUMN,Fact_Tracking[PED_CANAL_CODIGO],VISUAL,3b0d647a439385b325bd,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\3b0d647a439385b325bd\visual.json,Column: Fact_Tracking[PED_CANAL_CODIGO]
+COLUMN,Fact_Tracking[PED_CANAL_CODIGO],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PED_CANAL_CODIGO
+COLUMN,Fact_Tracking[PED_CANAL_CODIGO],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,PED_CANAL_CODIGO
+COLUMN,Fact_Tracking[PED_CANAL_CODIGO],VISUAL,definition,REPORT_PROJECTION,NS.Report\definition\report.json,Column: Fact_Tracking[PED_CANAL_CODIGO]
+COLUMN,Fact_Tracking[PED_CANAL_CODIGO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_CANAL_CODIGO
+COLUMN,Fact_Tracking[PED_CIUDAD],TABLE,Fact_Hitos_Operacionales,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PED_CIUDAD
+COLUMN,Fact_Tracking[PED_CIUDAD],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,PED_CIUDAD
+COLUMN,Fact_Tracking[PED_CIUDAD],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_CIUDAD
+COLUMN,Fact_Tracking[PED_CODIGO_CLIENTE],TABLE,Fact_Hitos_Operacionales,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PED_CODIGO_CLIENTE
+COLUMN,Fact_Tracking[PED_CODIGO_CLIENTE],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Tracking[PED_CODIGO_CLIENTE]
+COLUMN,Fact_Tracking[PED_CODIGO_CLIENTE],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,PED_CODIGO_CLIENTE
+COLUMN,Fact_Tracking[PED_CODIGO_CLIENTE],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_CODIGO_CLIENTE
+COLUMN,Fact_Tracking[PED_CONDICION_EXPEDICION_CODIGO],TABLE,Fact_Hitos_Operacionales,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PED_CONDICION_EXPEDICION_CODIGO
+COLUMN,Fact_Tracking[PED_CONDICION_EXPEDICION_CODIGO],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,PED_CONDICION_EXPEDICION_CODIGO
+COLUMN,Fact_Tracking[PED_CONDICION_EXPEDICION_CODIGO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_CONDICION_EXPEDICION_CODIGO
+COLUMN,Fact_Tracking[PED_FECHA],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PED_FECHA
+COLUMN,Fact_Tracking[PED_FECHA],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Tracking[PED_FECHA]
+COLUMN,Fact_Tracking[PED_FECHA],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,PED_FECHA
+COLUMN,Fact_Tracking[PED_FECHA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_FECHA
+COLUMN,Fact_Tracking[PED_FECHA_HORA],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PED_FECHA_HORA
+COLUMN,Fact_Tracking[PED_FECHA_HORA],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Tracking[PED_FECHA_HORA]
+COLUMN,Fact_Tracking[PED_FECHA_HORA],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,PED_FECHA_HORA
+COLUMN,Fact_Tracking[PED_FECHA_HORA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_FECHA_HORA
+COLUMN,Fact_Tracking[PED_NUMERO_PEDIDO],TABLE,Dim_Pedido,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Dim_Pedido.tmdl,PED_NUMERO_PEDIDO
+COLUMN,Fact_Tracking[PED_NUMERO_PEDIDO],TABLE,Fact_Hitos_Operacionales,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PED_NUMERO_PEDIDO
+COLUMN,Fact_Tracking[PED_NUMERO_PEDIDO],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Tracking[PED_NUMERO_PEDIDO]
+COLUMN,Fact_Tracking[PED_NUMERO_PEDIDO],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,PED_NUMERO_PEDIDO
+COLUMN,Fact_Tracking[PED_NUMERO_PEDIDO],VISUAL,critical_table,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\critical_table\visual.json,Column: Fact_Tracking[PED_NUMERO_PEDIDO]
+COLUMN,Fact_Tracking[PED_NUMERO_PEDIDO],VISUAL,critical_table,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\critical_table\visual.json,Column: Fact_Tracking[PED_NUMERO_PEDIDO]
+COLUMN,Fact_Tracking[PED_NUMERO_PEDIDO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_NUMERO_PEDIDO
+COLUMN,Fact_Tracking[PED_NUMERO_PEDIDO],VISUAL,table_v22_tooltip,REPORT_PROJECTION,NS.Report\definition\pages\22a1b2c3d4e5f6071829\visuals\table_v22_tooltip\visual.json,Column: Fact_Tracking[PED_NUMERO_PEDIDO]
+COLUMN,Fact_Tracking[PED_REGION],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PED_REGION
+COLUMN,Fact_Tracking[PED_REGION],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,PED_REGION
+COLUMN,Fact_Tracking[PED_REGION],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_REGION
+COLUMN,Fact_Tracking[PED_RESPONSABLE],TABLE,Fact_Hitos_Operacionales,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PED_RESPONSABLE
+COLUMN,Fact_Tracking[PED_RESPONSABLE],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Tracking[PED_RESPONSABLE]
+COLUMN,Fact_Tracking[PED_RESPONSABLE],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,PED_RESPONSABLE
+COLUMN,Fact_Tracking[PED_RESPONSABLE],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_RESPONSABLE
+COLUMN,Fact_Tracking[PED_VALOR_NETO],TABLE,Fact_Hitos_Operacionales,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PED_VALOR_NETO
+COLUMN,Fact_Tracking[PED_VALOR_NETO],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Tracking[PED_VALOR_NETO]
+COLUMN,Fact_Tracking[PED_VALOR_NETO],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,PED_VALOR_NETO
+COLUMN,Fact_Tracking[PED_VALOR_NETO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_VALOR_NETO
+COLUMN,Fact_Tracking[PENDIENTE_DESPACHO],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Tracking[PENDIENTE_DESPACHO]
+COLUMN,Fact_Tracking[PENDIENTE_DESPACHO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PENDIENTE_DESPACHO
+COLUMN,Fact_Tracking[PENDIENTE_FACTURA],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Tracking[PENDIENTE_FACTURA]
+COLUMN,Fact_Tracking[PENDIENTE_FACTURA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PENDIENTE_FACTURA
+COLUMN,Fact_Tracking[PENDIENTE_MANIFIESTO_FES],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Tracking[PENDIENTE_MANIFIESTO_FES]
+COLUMN,Fact_Tracking[PENDIENTE_MANIFIESTO_FES],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PENDIENTE_MANIFIESTO_FES
+COLUMN,Fact_Tracking[POSTFACTURA_ABIERTO],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Tracking[POSTFACTURA_ABIERTO]
+COLUMN,Fact_Tracking[SEMAFORO],TABLE,Dim_Pedido,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Dim_Pedido.tmdl,SEMAFORO
+COLUMN,Fact_Tracking[SEMAFORO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,SEMAFORO
+COLUMN,Fact_Tracking[SEMAFORO],VISUAL,tbl_tracking,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\tbl_tracking\visual.json,Column: Fact_Tracking[SEMAFORO]
+COLUMN,Fact_Tracking[SLA_INTERNO_DH],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Tracking[SLA_INTERNO_DH]
+COLUMN,Fact_Tracking[SLA_INTERNO_DH],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,SLA_INTERNO_DH
+COLUMN,Fact_Tracking[SLA_INTERNO_DH],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,SLA_INTERNO_DH
+COLUMN,Fact_Tracking[TIPO_MEDICION_DIAS],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,TIPO_MEDICION_DIAS
+COLUMN,Fact_Tracking[VALIDACION_SALDO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,VALIDACION_SALDO
+COLUMN,Fact_Tracking[ZONA],VISUAL,8b664941e6c072783070,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\8b664941e6c072783070\visual.json,Column: Fact_Tracking[ZONA]
+COLUMN,Fact_Tracking[ZONA],TABLE,Fact_Hitos_Operacionales,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,ZONA
+COLUMN,Fact_Tracking[ZONA],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Fact_Tracking[ZONA]
+COLUMN,Fact_Tracking[ZONA],TABLE,Resultado,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Resultado.tmdl,ZONA
+COLUMN,Fact_Tracking[ZONA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ZONA
+TABLE,Lineas_y_unidades_por_pedidos,TABLE,Medidas,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Medidas.tmdl,Lineas_y_unidades_por_pedidos mencionado en definición de Medidas
+COLUMN,Lineas_y_unidades_por_pedidos[Lineas],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Lineas_y_unidades_por_pedidos[Lineas]
+COLUMN,Lineas_y_unidades_por_pedidos[Lineas],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Lineas
+COLUMN,Lineas_y_unidades_por_pedidos[Pedido],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Lineas_y_unidades_por_pedidos[Pedido]
+COLUMN,Lineas_y_unidades_por_pedidos[Pedido],TABLE,Medidas,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Medidas.tmdl,Pedido
+COLUMN,Lineas_y_unidades_por_pedidos[Pedido],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Pedido
+COLUMN,Lineas_y_unidades_por_pedidos[Suma_Unidades],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Lineas_y_unidades_por_pedidos[Suma_Unidades]
+COLUMN,Lineas_y_unidades_por_pedidos[Suma_Unidades],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Suma_Unidades
+TABLE,Medidas,TABLE,Parámetro Indicadores SLA,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Parámetro Indicadores SLA.tmdl,Medidas mencionado en definición de Parámetro Indicadores SLA
+MEASURE,Medidas[AUD Cliente seleccionado],VISUAL,card_2f12187a01fd4f,REPORT_PROJECTION,NS.Report\definition\pages\ed2a2fead6d24153bee1\visuals\card_2f12187a01fd4f\visual.json,Measure: Medidas[AUD Cliente seleccionado]
+MEASURE,Medidas[AUD Días reales],VISUAL,table_c57572c4abbe4d,REPORT_PROJECTION,NS.Report\definition\pages\ed2a2fead6d24153bee1\visuals\table_c57572c4abbe4d\visual.json,Measure: Medidas[AUD Días reales]
+MEASURE,Medidas[AUD Días reales],VISUAL,tt_kpi_1,REPORT_PROJECTION,NS.Report\definition\pages\cb613066ebaf4e749a13\visuals\tt_kpi_1\visual.json,Measure: Medidas[AUD Días reales]
+MEASURE,Medidas[AUD Exceso sobre SLA],VISUAL,table_c57572c4abbe4d,REPORT_PROJECTION,NS.Report\definition\pages\ed2a2fead6d24153bee1\visuals\table_c57572c4abbe4d\visual.json,Measure: Medidas[AUD Exceso sobre SLA]
+MEASURE,Medidas[AUD Exceso sobre SLA],VISUAL,tt_kpi_3,REPORT_PROJECTION,NS.Report\definition\pages\cb613066ebaf4e749a13\visuals\tt_kpi_3\visual.json,Measure: Medidas[AUD Exceso sobre SLA]
+MEASURE,Medidas[AUD Hito crítico],VISUAL,card_bf5790c8c1194f,REPORT_PROJECTION,NS.Report\definition\pages\ed2a2fead6d24153bee1\visuals\card_bf5790c8c1194f\visual.json,Measure: Medidas[AUD Hito crítico]
+MEASURE,Medidas[AUD Hitos fuera KPI],VISUAL,card_e506604c21704c,REPORT_PROJECTION,NS.Report\definition\pages\ed2a2fead6d24153bee1\visuals\card_e506604c21704c\visual.json,Measure: Medidas[AUD Hitos fuera KPI]
+MEASURE,Medidas[AUD Máximo exceso DH],VISUAL,card_b4b787e0adcf44,REPORT_PROJECTION,NS.Report\definition\pages\ed2a2fead6d24153bee1\visuals\card_b4b787e0adcf44\visual.json,Measure: Medidas[AUD Máximo exceso DH]
+MEASURE,Medidas[AUD Pedido seleccionado],VISUAL,card_b95415e0abff4b,REPORT_PROJECTION,NS.Report\definition\pages\ed2a2fead6d24153bee1\visuals\card_b95415e0abff4b\visual.json,Measure: Medidas[AUD Pedido seleccionado]
+MEASURE,Medidas[AUD Promesa del pedido],VISUAL,card_a4c6bb42ec7e4b,REPORT_PROJECTION,NS.Report\definition\pages\ed2a2fead6d24153bee1\visuals\card_a4c6bb42ec7e4b\visual.json,Measure: Medidas[AUD Promesa del pedido]
+MEASURE,Medidas[AUD SLA objetivo],VISUAL,table_c57572c4abbe4d,REPORT_PROJECTION,NS.Report\definition\pages\ed2a2fead6d24153bee1\visuals\table_c57572c4abbe4d\visual.json,Measure: Medidas[AUD SLA objetivo]
+MEASURE,Medidas[AUD SLA objetivo],VISUAL,tt_kpi_2,REPORT_PROJECTION,NS.Report\definition\pages\cb613066ebaf4e749a13\visuals\tt_kpi_2\visual.json,Measure: Medidas[AUD SLA objetivo]
+MEASURE,Medidas[AUD Semáforo SVG],VISUAL,table_15b8b83ff48292,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\table_15b8b83ff48292\visual.json,Measure: Medidas[AUD Semáforo SVG]
+MEASURE,Medidas[AUD Semáforo SVG],VISUAL,table_c57572c4abbe4d,REPORT_PROJECTION,NS.Report\definition\pages\ed2a2fead6d24153bee1\visuals\table_c57572c4abbe4d\visual.json,Measure: Medidas[AUD Semáforo SVG]
+MEASURE,Medidas[AUD Semáforo SVG],VISUAL,tt_status,REPORT_PROJECTION,NS.Report\definition\pages\cb613066ebaf4e749a13\visuals\tt_status\visual.json,Measure: Medidas[AUD Semáforo SVG]
+MEASURE,Medidas[AUD Semáforo general SVG],VISUAL,card_4e4fe7d672d840,REPORT_PROJECTION,NS.Report\definition\pages\ed2a2fead6d24153bee1\visuals\card_4e4fe7d672d840\visual.json,Measure: Medidas[AUD Semáforo general SVG]
+MEASURE,Medidas[AUD Valor métrica seleccionada],VISUAL,chart_fc031821591949,REPORT_PROJECTION,NS.Report\definition\pages\ed2a2fead6d24153bee1\visuals\chart_fc031821591949\visual.json,Measure: Medidas[AUD Valor métrica seleccionada]
+MEASURE,Medidas[AUD Vendedor seleccionado],VISUAL,card_7456a230aecc4b,REPORT_PROJECTION,NS.Report\definition\pages\ed2a2fead6d24153bee1\visuals\card_7456a230aecc4b\visual.json,Measure: Medidas[AUD Vendedor seleccionado]
+MEASURE,Medidas[FA % Fuera SLA Cliente Visible],VISUAL,fa_clientes_recurrentes,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_clientes_recurrentes\visual.json,Measure: Medidas[FA % Fuera SLA Cliente Visible]
+MEASURE,Medidas[FA % Fuera SLA Vendedor Recurrente],VISUAL,fa_vendedores_reincidentes,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_vendedores_reincidentes\visual.json,Measure: Medidas[FA % Fuera SLA Vendedor Recurrente]
+MEASURE,Medidas[FA Carga % FES],VISUAL,fa_fes_carga_tiempo,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_fes_carga_tiempo\visual.json,Measure: Medidas[FA Carga % FES]
+MEASURE,Medidas[FA Carga % del Mes],VISUAL,fa_fes_carga_tiempo,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_fes_carga_tiempo\visual.json,Measure: Medidas[FA Carga % del Mes]
+MEASURE,Medidas[FA Carga Líneas x Pedido],VISUAL,fa_fes_carga_tiempo,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_fes_carga_tiempo\visual.json,Measure: Medidas[FA Carga Líneas x Pedido]
+MEASURE,Medidas[FA Carga Pedidos Creados],VISUAL,fa_fes_carga_tiempo,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_fes_carga_tiempo\visual.json,Measure: Medidas[FA Carga Pedidos Creados]
+MEASURE,Medidas[FA Carga Pedidos FES],VISUAL,fa_fes_carga_tiempo,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_fes_carga_tiempo\visual.json,Measure: Medidas[FA Carga Pedidos FES]
+MEASURE,Medidas[FA Carga Unidades x Pedido],VISUAL,fa_fes_carga_tiempo,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_fes_carga_tiempo\visual.json,Measure: Medidas[FA Carga Unidades x Pedido]
+MEASURE,Medidas[FA Clientes Recurrentes 2M+ Visible],VISUAL,fa_vendedores_reincidentes,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_vendedores_reincidentes\visual.json,Measure: Medidas[FA Clientes Recurrentes 2M+ Visible]
+MEASURE,Medidas[FA Clientes Recurrentes 3M Visible],VISUAL,fa_vendedores_reincidentes,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_vendedores_reincidentes\visual.json,Measure: Medidas[FA Clientes Recurrentes 3M Visible]
+MEASURE,Medidas[FA DH Fuera SLA Cliente Visible],VISUAL,fa_clientes_recurrentes,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_clientes_recurrentes\visual.json,Measure: Medidas[FA DH Fuera SLA Cliente Visible]
+MEASURE,Medidas[FA DH Fuera SLA Vendedor Recurrente],VISUAL,fa_vendedores_reincidentes,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_vendedores_reincidentes\visual.json,Measure: Medidas[FA DH Fuera SLA Vendedor Recurrente]
+MEASURE,Medidas[FA DH Promedio],VISUAL,fa_fes_carga_tiempo,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_fes_carga_tiempo\visual.json,Measure: Medidas[FA DH Promedio]
+MEASURE,Medidas[FA Delta NS vs Resto],VISUAL,fa_fes_carga_tiempo,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_fes_carga_tiempo\visual.json,Measure: Medidas[FA Delta NS vs Resto]
+MEASURE,Medidas[FA Días Factura Salida Promedio],VISUAL,fa_permanencia_cd,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_permanencia_cd\visual.json,Measure: Medidas[FA Días Factura Salida Promedio]
+MEASURE,Medidas[FA Lectura Carga SLA],VISUAL,fa_fes_carga_tiempo,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_fes_carga_tiempo\visual.json,Measure: Medidas[FA Lectura Carga SLA]
+MEASURE,Medidas[FA Líneas Fuera SLA Vendedor Recurrente],VISUAL,fa_vendedores_reincidentes,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_vendedores_reincidentes\visual.json,Measure: Medidas[FA Líneas Fuera SLA Vendedor Recurrente]
+MEASURE,Medidas[FA Meses Fuera SLA Cliente Visible],VISUAL,fa_clientes_recurrentes,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_clientes_recurrentes\visual.json,Measure: Medidas[FA Meses Fuera SLA Cliente Visible]
+MEASURE,Medidas[FA NS %],VISUAL,fa_fes_carga_tiempo,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_fes_carga_tiempo\visual.json,Measure: Medidas[FA NS %]
+MEASURE,Medidas[FA P90 Días Factura Salida],VISUAL,fa_permanencia_cd,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_permanencia_cd\visual.json,Measure: Medidas[FA P90 Días Factura Salida]
+MEASURE,Medidas[FA Pedidos Facturados >15d],VISUAL,fa_permanencia_cd,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_permanencia_cd\visual.json,Measure: Medidas[FA Pedidos Facturados >15d]
+MEASURE,Medidas[FA Pedidos Facturados >20d],VISUAL,fa_permanencia_cd,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_permanencia_cd\visual.json,Measure: Medidas[FA Pedidos Facturados >20d]
+MEASURE,Medidas[FA Pedidos Fuera SLA Cliente Visible],VISUAL,fa_clientes_recurrentes,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_clientes_recurrentes\visual.json,Measure: Medidas[FA Pedidos Fuera SLA Cliente Visible]
+MEASURE,Medidas[FA Pedidos Fuera SLA Vendedor Recurrente],VISUAL,fa_vendedores_reincidentes,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_vendedores_reincidentes\visual.json,Measure: Medidas[FA Pedidos Fuera SLA Vendedor Recurrente]
+MEASURE,Medidas[FA Recurrencia Cliente Visible],VISUAL,fa_clientes_recurrentes,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_clientes_recurrentes\visual.json,Measure: Medidas[FA Recurrencia Cliente Visible]
+MEASURE,Medidas[FA Valor Retenido >15d],VISUAL,fa_permanencia_cd,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\fa_permanencia_cd\visual.json,Measure: Medidas[FA Valor Retenido >15d]
+MEASURE,Medidas[HT Brecha facturas Top 10],VISUAL,table_v23_hito,REPORT_PROJECTION,NS.Report\definition\pages\23a1b2c3d4e5f6071829\visuals\table_v23_hito\visual.json,Measure: Medidas[HT Brecha facturas Top 10]
+MEASURE,Medidas[HT Cliente Top 10],VISUAL,table_v23_hito,REPORT_PROJECTION,NS.Report\definition\pages\23a1b2c3d4e5f6071829\visuals\table_v23_hito\visual.json,Measure: Medidas[HT Cliente Top 10]
+MEASURE,Medidas[HT Creación Top 10],VISUAL,table_v23_hito,REPORT_PROJECTION,NS.Report\definition\pages\23a1b2c3d4e5f6071829\visuals\table_v23_hito\visual.json,Measure: Medidas[HT Creación Top 10]
+MEASURE,Medidas[HT Despacho Top 10],VISUAL,table_v23_hito,REPORT_PROJECTION,NS.Report\definition\pages\23a1b2c3d4e5f6071829\visuals\table_v23_hito\visual.json,Measure: Medidas[HT Despacho Top 10]
+MEASURE,Medidas[HT Días hito Top 10],VISUAL,table_v23_hito,REPORT_PROJECTION,NS.Report\definition\pages\23a1b2c3d4e5f6071829\visuals\table_v23_hito\visual.json,Measure: Medidas[HT Días hito Top 10]
+MEASURE,Medidas[HT Estado hito Top 10],VISUAL,table_v23_hito,REPORT_PROJECTION,NS.Report\definition\pages\23a1b2c3d4e5f6071829\visuals\table_v23_hito\visual.json,Measure: Medidas[HT Estado hito Top 10]
+MEASURE,Medidas[HT Exceso Top 10],VISUAL,table_v23_hito,REPORT_PROJECTION,NS.Report\definition\pages\23a1b2c3d4e5f6071829\visuals\table_v23_hito\visual.json,Measure: Medidas[HT Exceso Top 10]
+MEASURE,Medidas[HT Fin hito Top 10],VISUAL,table_v23_hito,REPORT_PROJECTION,NS.Report\definition\pages\23a1b2c3d4e5f6071829\visuals\table_v23_hito\visual.json,Measure: Medidas[HT Fin hito Top 10]
+MEASURE,Medidas[HT Inicio hito Top 10],VISUAL,table_v23_hito,REPORT_PROJECTION,NS.Report\definition\pages\23a1b2c3d4e5f6071829\visuals\table_v23_hito\visual.json,Measure: Medidas[HT Inicio hito Top 10]
+MEASURE,Medidas[HT Primera factura Top 10],VISUAL,table_v23_hito,REPORT_PROJECTION,NS.Report\definition\pages\23a1b2c3d4e5f6071829\visuals\table_v23_hito\visual.json,Measure: Medidas[HT Primera factura Top 10]
+MEASURE,Medidas[HT Resumen hito],VISUAL,tt_context,REPORT_PROJECTION,NS.Report\definition\pages\23a1b2c3d4e5f6071829\visuals\tt_context\visual.json,Measure: Medidas[HT Resumen hito]
+MEASURE,Medidas[HT SLA Top 10],VISUAL,table_v23_hito,REPORT_PROJECTION,NS.Report\definition\pages\23a1b2c3d4e5f6071829\visuals\table_v23_hito\visual.json,Measure: Medidas[HT SLA Top 10]
+MEASURE,Medidas[HT Tipo pedido Top 10],VISUAL,table_v23_hito,REPORT_PROJECTION,NS.Report\definition\pages\23a1b2c3d4e5f6071829\visuals\table_v23_hito\visual.json,Measure: Medidas[HT Tipo pedido Top 10]
+MEASURE,Medidas[HT Validación saldo Top 10],VISUAL,table_v23_hito,REPORT_PROJECTION,NS.Report\definition\pages\23a1b2c3d4e5f6071829\visuals\table_v23_hito\visual.json,Measure: Medidas[HT Validación saldo Top 10]
+MEASURE,Medidas[HT Vendedor Top 10],VISUAL,table_v23_hito,REPORT_PROJECTION,NS.Report\definition\pages\23a1b2c3d4e5f6071829\visuals\table_v23_hito\visual.json,Measure: Medidas[HT Vendedor Top 10]
+MEASURE,Medidas[HT Última factura Top 10],VISUAL,table_v23_hito,REPORT_PROJECTION,NS.Report\definition\pages\23a1b2c3d4e5f6071829\visuals\table_v23_hito\visual.json,Measure: Medidas[HT Última factura Top 10]
+MEASURE,Medidas[OP % Cumplimiento Hito],VISUAL,tt_kpi_2,REPORT_PROJECTION,NS.Report\definition\pages\23a1b2c3d4e5f6071829\visuals\tt_kpi_2\visual.json,Measure: Medidas[OP % Cumplimiento Hito]
+MEASURE,Medidas[OP Cobertura Hitos %],VISUAL,table_cef7a98ad59848,REPORT_PROJECTION,NS.Report\definition\pages\df1cb253a6314642a469\visuals\table_cef7a98ad59848\visual.json,Measure: Medidas[OP Cobertura Hitos %]
+MEASURE,Medidas[OP Cuello de Botella],VISUAL,table_9601cabf413a41,REPORT_PROJECTION,NS.Report\definition\pages\df1cb253a6314642a469\visuals\table_9601cabf413a41\visual.json,Measure: Medidas[OP Cuello de Botella]
+MEASURE,Medidas[OP Días Exceso],VISUAL,chart_924aca87b5094c,REPORT_PROJECTION,NS.Report\definition\pages\df1cb253a6314642a469\visuals\chart_924aca87b5094c\visual.json,Measure: Medidas[OP Días Exceso]
+MEASURE,Medidas[OP Días Exceso],VISUAL,table_bad13c26c1d64f,REPORT_PROJECTION,NS.Report\definition\pages\df1cb253a6314642a469\visuals\table_bad13c26c1d64f\visual.json,Measure: Medidas[OP Días Exceso]
+MEASURE,Medidas[OP Hallazgo Dinámico],VISUAL,table_04f889ab184a48,REPORT_PROJECTION,NS.Report\definition\pages\df1cb253a6314642a469\visuals\table_04f889ab184a48\visual.json,Measure: Medidas[OP Hallazgo Dinámico]
+MEASURE,Medidas[OP P90 Hito DH],VISUAL,tt_kpi_3,REPORT_PROJECTION,NS.Report\definition\pages\23a1b2c3d4e5f6071829\visuals\tt_kpi_3\visual.json,Measure: Medidas[OP P90 Hito DH]
+MEASURE,Medidas[OP Pedidos Fuera KPI],VISUAL,table_62c6c02944b14e,REPORT_PROJECTION,NS.Report\definition\pages\df1cb253a6314642a469\visuals\table_62c6c02944b14e\visual.json,Measure: Medidas[OP Pedidos Fuera KPI]
+MEASURE,Medidas[OP Pedidos con Dato],VISUAL,tt_kpi_1,REPORT_PROJECTION,NS.Report\definition\pages\23a1b2c3d4e5f6071829\visuals\tt_kpi_1\visual.json,Measure: Medidas[OP Pedidos con Dato]
+MEASURE,Medidas[OP Plan de Acción Dinámico],VISUAL,table_04f889ab184a48,REPORT_PROJECTION,NS.Report\definition\pages\df1cb253a6314642a469\visuals\table_04f889ab184a48\visual.json,Measure: Medidas[OP Plan de Acción Dinámico]
+MEASURE,Medidas[OP Prioridad Hallazgo],VISUAL,table_04f889ab184a48,REPORT_PROJECTION,NS.Report\definition\pages\df1cb253a6314642a469\visuals\table_04f889ab184a48\visual.json,Measure: Medidas[OP Prioridad Hallazgo]
+MEASURE,Medidas[OP Score Cuello Hito],VISUAL,chart_706a63cf524349,REPORT_PROJECTION,NS.Report\definition\pages\df1cb253a6314642a469\visuals\chart_706a63cf524349\visual.json,Measure: Medidas[OP Score Cuello Hito]
+MEASURE,Medidas[OP Score Cuello Hito],VISUAL,table_04f889ab184a48,REPORT_PROJECTION,NS.Report\definition\pages\df1cb253a6314642a469\visuals\table_04f889ab184a48\visual.json,Measure: Medidas[OP Score Cuello Hito]
+MEASURE,Medidas[OP Valor Afectado],VISUAL,table_f0e8d63e5a444c,REPORT_PROJECTION,NS.Report\definition\pages\df1cb253a6314642a469\visuals\table_f0e8d63e5a444c\visual.json,Measure: Medidas[OP Valor Afectado]
+MEASURE,Medidas[RE Distribución Flujo SVG],VISUAL,donut_flujo,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\donut_flujo\visual.json,Measure: Medidas[RE Distribución Flujo SVG]
+MEASURE,Medidas[RE Evolución 3M SVG],VISUAL,chart_mensual_3m_v39,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\chart_mensual_3m_v39\visual.json,Measure: Medidas[RE Evolución 3M SVG]
+MEASURE,Medidas[RE FES Diagnóstico SVG],VISUAL,fes_diag_card,REPORT_PROJECTION,NS.Report\definition\pages\45f3e8a9c0124b67d89a\visuals\fes_diag_card\visual.json,Measure: Medidas[RE FES Diagnóstico SVG]
+MEASURE,Medidas[RE KPI NS SVG],VISUAL,84343c674ecddeb910c5,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\84343c674ecddeb910c5\visual.json,Measure: Medidas[RE KPI NS SVG]
+MEASURE,Medidas[RE KPI Pedidos SVG],VISUAL,40ac169dd89e96270ac9,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\40ac169dd89e96270ac9\visual.json,Measure: Medidas[RE KPI Pedidos SVG]
+MEASURE,Medidas[RE KPI Pedidos SVG],VISUAL,f07bd2d60e407e2ddd01,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\f07bd2d60e407e2ddd01\visual.json,Measure: Medidas[RE KPI Pedidos SVG]
+MEASURE,Medidas[RE KPI Promesa SVG],VISUAL,kpi_promesa,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\kpi_promesa\visual.json,Measure: Medidas[RE KPI Promesa SVG]
+MEASURE,Medidas[RE KPI Valor SVG],VISUAL,309a51a96bc9d090ab43,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\309a51a96bc9d090ab43\visual.json,Measure: Medidas[RE KPI Valor SVG]
+MEASURE,Medidas[RE NS contexto],VISUAL,tt_kpi_2,REPORT_PROJECTION,NS.Report\definition\pages\22a1b2c3d4e5f6071829\visuals\tt_kpi_2\visual.json,Measure: Medidas[RE NS contexto]
+MEASURE,Medidas[RE NS contexto],VISUAL,tt_kpi_2,REPORT_PROJECTION,NS.Report\definition\pages\65238545e68f4c9884ca\visuals\tt_kpi_2\visual.json,Measure: Medidas[RE NS contexto]
+MEASURE,Medidas[RE P90 contexto DH],VISUAL,tt_kpi_3,REPORT_PROJECTION,NS.Report\definition\pages\22a1b2c3d4e5f6071829\visuals\tt_kpi_3\visual.json,Measure: Medidas[RE P90 contexto DH]
+MEASURE,Medidas[RE P90 contexto DH],VISUAL,tt_kpi_3,REPORT_PROJECTION,NS.Report\definition\pages\65238545e68f4c9884ca\visuals\tt_kpi_3\visual.json,Measure: Medidas[RE P90 contexto DH]
+MEASURE,Medidas[RE P90 hito DH],VISUAL,3b0d647a439385b325bd,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\3b0d647a439385b325bd\visual.json,Measure: Medidas[RE P90 hito DH]
+MEASURE,Medidas[RE P90 hito DH],VISUAL,8b664941e6c072783070,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\8b664941e6c072783070\visual.json,Measure: Medidas[RE P90 hito DH]
+MEASURE,Medidas[RE P90 hito DH],VISUAL,matrix_hitos_resumen,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\matrix_hitos_resumen\visual.json,Measure: Medidas[RE P90 hito DH]
+MEASURE,Medidas[RE Pedido Seleccionado SVG],VISUAL,dd60148c4db229925749,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\dd60148c4db229925749\visual.json,Measure: Medidas[RE Pedido Seleccionado SVG]
+MEASURE,Medidas[RE Pedidos contexto],VISUAL,tt_kpi_1,REPORT_PROJECTION,NS.Report\definition\pages\22a1b2c3d4e5f6071829\visuals\tt_kpi_1\visual.json,Measure: Medidas[RE Pedidos contexto]
+MEASURE,Medidas[RE Pedidos contexto],VISUAL,tt_kpi_1,REPORT_PROJECTION,NS.Report\definition\pages\65238545e68f4c9884ca\visuals\tt_kpi_1\visual.json,Measure: Medidas[RE Pedidos contexto]
+MEASURE,Medidas[RE Pedidos hito con dato],VISUAL,3b0d647a439385b325bd,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\3b0d647a439385b325bd\visual.json,Measure: Medidas[RE Pedidos hito con dato]
+MEASURE,Medidas[RE Pedidos hito con dato],VISUAL,8b664941e6c072783070,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\8b664941e6c072783070\visual.json,Measure: Medidas[RE Pedidos hito con dato]
+MEASURE,Medidas[RE Pedidos hito con dato],VISUAL,matrix_hitos_resumen,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\matrix_hitos_resumen\visual.json,Measure: Medidas[RE Pedidos hito con dato]
+MEASURE,Medidas[RE Periodo contexto],VISUAL,tt_context,REPORT_PROJECTION,NS.Report\definition\pages\65238545e68f4c9884ca\visuals\tt_context\visual.json,Measure: Medidas[RE Periodo contexto]
+MEASURE,Medidas[RE Promedio hito DH],VISUAL,3b0d647a439385b325bd,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\3b0d647a439385b325bd\visual.json,Measure: Medidas[RE Promedio hito DH]
+MEASURE,Medidas[RE Promedio hito DH],VISUAL,8b664941e6c072783070,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\8b664941e6c072783070\visual.json,Measure: Medidas[RE Promedio hito DH]
+MEASURE,Medidas[RE Promedio hito DH],VISUAL,matrix_hitos_resumen,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\matrix_hitos_resumen\visual.json,Measure: Medidas[RE Promedio hito DH]
+MEASURE,Medidas[RE Resumen Mes SVG],VISUAL,summary_month,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\summary_month\visual.json,Measure: Medidas[RE Resumen Mes SVG]
+MEASURE,Medidas[RE SLA Panel SVG],VISUAL,sla_panel,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\sla_panel\visual.json,Measure: Medidas[RE SLA Panel SVG]
+MEASURE,Medidas[RE TT Cierre],VISUAL,critical_table,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\critical_table\visual.json,Measure: Medidas[RE TT Cierre]
+MEASURE,Medidas[RE TT Cierre],VISUAL,critical_table,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\critical_table\visual.json,Measure: Medidas[RE TT Cierre]
+MEASURE,Medidas[RE TT Cliente],VISUAL,critical_table,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\critical_table\visual.json,Measure: Medidas[RE TT Cliente]
+MEASURE,Medidas[RE TT Cliente],VISUAL,critical_table,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\critical_table\visual.json,Measure: Medidas[RE TT Cliente]
+MEASURE,Medidas[RE TT Cliente],VISUAL,table_v22_tooltip,REPORT_PROJECTION,NS.Report\definition\pages\22a1b2c3d4e5f6071829\visuals\table_v22_tooltip\visual.json,Measure: Medidas[RE TT Cliente]
+MEASURE,Medidas[RE TT Creación],VISUAL,critical_table,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\critical_table\visual.json,Measure: Medidas[RE TT Creación]
+MEASURE,Medidas[RE TT Creación],VISUAL,critical_table,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\critical_table\visual.json,Measure: Medidas[RE TT Creación]
+MEASURE,Medidas[RE TT Días Top 10],VISUAL,critical_table,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\critical_table\visual.json,Measure: Medidas[RE TT Días Top 10]
+MEASURE,Medidas[RE TT Días Top 10],VISUAL,critical_table,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\critical_table\visual.json,Measure: Medidas[RE TT Días Top 10]
+MEASURE,Medidas[RE TT Días Top 10],VISUAL,table_v22_tooltip,REPORT_PROJECTION,NS.Report\definition\pages\22a1b2c3d4e5f6071829\visuals\table_v22_tooltip\visual.json,Measure: Medidas[RE TT Días Top 10]
+MEASURE,Medidas[RE TT Estado SVG],VISUAL,critical_table,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\critical_table\visual.json,Measure: Medidas[RE TT Estado SVG]
+MEASURE,Medidas[RE TT Estado SVG],VISUAL,critical_table,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\critical_table\visual.json,Measure: Medidas[RE TT Estado SVG]
+MEASURE,Medidas[RE TT Exceso crítico DH],VISUAL,critical_table,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\critical_table\visual.json,Measure: Medidas[RE TT Exceso crítico DH]
+MEASURE,Medidas[RE TT Exceso crítico DH],VISUAL,critical_table,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\critical_table\visual.json,Measure: Medidas[RE TT Exceso crítico DH]
+MEASURE,Medidas[RE TT Exceso crítico DH],VISUAL,table_v22_tooltip,REPORT_PROJECTION,NS.Report\definition\pages\22a1b2c3d4e5f6071829\visuals\table_v22_tooltip\visual.json,Measure: Medidas[RE TT Exceso crítico DH]
+MEASURE,Medidas[RE TT Factura],VISUAL,critical_table,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\critical_table\visual.json,Measure: Medidas[RE TT Factura]
+MEASURE,Medidas[RE TT Factura],VISUAL,critical_table,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\critical_table\visual.json,Measure: Medidas[RE TT Factura]
+MEASURE,Medidas[RE TT Hito crítico],VISUAL,critical_table,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\critical_table\visual.json,Measure: Medidas[RE TT Hito crítico]
+MEASURE,Medidas[RE TT Hito crítico],VISUAL,critical_table,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\critical_table\visual.json,Measure: Medidas[RE TT Hito crítico]
+MEASURE,Medidas[RE TT Hito crítico],VISUAL,table_v22_tooltip,REPORT_PROJECTION,NS.Report\definition\pages\22a1b2c3d4e5f6071829\visuals\table_v22_tooltip\visual.json,Measure: Medidas[RE TT Hito crítico]
+MEASURE,Medidas[RE TT Motivo operativo],VISUAL,critical_table,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\critical_table\visual.json,Measure: Medidas[RE TT Motivo operativo]
+MEASURE,Medidas[RE TT Motivo operativo],VISUAL,critical_table,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\critical_table\visual.json,Measure: Medidas[RE TT Motivo operativo]
+MEASURE,Medidas[RE TT Motivo operativo],VISUAL,table_v22_tooltip,REPORT_PROJECTION,NS.Report\definition\pages\22a1b2c3d4e5f6071829\visuals\table_v22_tooltip\visual.json,Measure: Medidas[RE TT Motivo operativo]
+MEASURE,Medidas[RE TT Título],VISUAL,tt_context,REPORT_PROJECTION,NS.Report\definition\pages\22a1b2c3d4e5f6071829\visuals\tt_context\visual.json,Measure: Medidas[RE TT Título]
+MEASURE,Medidas[RE TT Vendedor],VISUAL,critical_table,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\critical_table\visual.json,Measure: Medidas[RE TT Vendedor]
+MEASURE,Medidas[RE TT Vendedor],VISUAL,critical_table,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\critical_table\visual.json,Measure: Medidas[RE TT Vendedor]
+MEASURE,Medidas[RE TT Vendedor],VISUAL,table_v22_tooltip,REPORT_PROJECTION,NS.Report\definition\pages\22a1b2c3d4e5f6071829\visuals\table_v22_tooltip\visual.json,Measure: Medidas[RE TT Vendedor]
+MEASURE,Medidas[RE Ventana análisis texto],VISUAL,window_note,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\window_note\visual.json,Measure: Medidas[RE Ventana análisis texto]
+MEASURE,Medidas[RE Ventana análisis texto],VISUAL,window_note,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\window_note\visual.json,Measure: Medidas[RE Ventana análisis texto]
+MEASURE,Medidas[RE Ventana análisis texto],VISUAL,window_note,REPORT_PROJECTION,NS.Report\definition\pages\ed2a2fead6d24153bee1\visuals\window_note\visual.json,Measure: Medidas[RE Ventana análisis texto]
+MEASURE,Medidas[TR Clasificación SVG],VISUAL,chart_clasificacion,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\chart_clasificacion\visual.json,Measure: Medidas[TR Clasificación SVG]
+MEASURE,Medidas[TR Contexto ruta],VISUAL,card_4db71e6e91c716,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\card_4db71e6e91c716\visual.json,Measure: Medidas[TR Contexto ruta]
+MEASURE,Medidas[TR NS ruta SVG],VISUAL,card_cdce0b90a20e69,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\card_cdce0b90a20e69\visual.json,Measure: Medidas[TR NS ruta SVG]
+MEASURE,Medidas[TR Ruta camión SVG],VISUAL,route_40435689d94f81,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\route_40435689d94f81\visual.json,Measure: Medidas[TR Ruta camión SVG]
+MEASURE,Medidas[TR SLA ruta DH],VISUAL,table_15b8b83ff48292,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\table_15b8b83ff48292\visual.json,Measure: Medidas[TR SLA ruta DH]
+MEASURE,Medidas[TT Contexto pedido],VISUAL,tt_context,REPORT_PROJECTION,NS.Report\definition\pages\cb613066ebaf4e749a13\visuals\tt_context\visual.json,Measure: Medidas[TT Contexto pedido]
+MEASURE,Medidas[TT Detalle hito],VISUAL,tt_detail,REPORT_PROJECTION,NS.Report\definition\pages\cb613066ebaf4e749a13\visuals\tt_detail\visual.json,Measure: Medidas[TT Detalle hito]
+MEASURE,Medidas[U Estado datos],VISUAL,footer_actualizacion,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\footer_actualizacion\visual.json,Measure: Medidas[U Estado datos]
+MEASURE,Medidas[U Estado datos],VISUAL,footer_actualizacion,REPORT_PROJECTION,NS.Report\definition\pages\df1cb253a6314642a469\visuals\footer_actualizacion\visual.json,Measure: Medidas[U Estado datos]
+MEASURE,Medidas[U Estado datos],VISUAL,footer_actualizacion,REPORT_PROJECTION,NS.Report\definition\pages\ed2a2fead6d24153bee1\visuals\footer_actualizacion\visual.json,Measure: Medidas[U Estado datos]
+MEASURE,Medidas[U NS comprometido interno],VISUAL,kpi_comp,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\kpi_comp\visual.json,Measure: Medidas[U NS comprometido interno]
+MEASURE,Medidas[U NS observado interno],VISUAL,kpi_ns,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\kpi_ns\visual.json,Measure: Medidas[U NS observado interno]
+MEASURE,Medidas[U P90 interno DH],VISUAL,kpi_p90,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\kpi_p90\visual.json,Measure: Medidas[U P90 interno DH]
+MEASURE,Medidas[U Pedidos abiertos],VISUAL,kpi_abiertos,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\kpi_abiertos\visual.json,Measure: Medidas[U Pedidos abiertos]
+MEASURE,Medidas[U Pedidos universo],VISUAL,kpi_universo,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\kpi_universo\visual.json,Measure: Medidas[U Pedidos universo]
+MEASURE,Medidas[U Pedidos vencidos],VISUAL,kpi_vencidos,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\kpi_vencidos\visual.json,Measure: Medidas[U Pedidos vencidos]
+MEASURE,Medidas[U Pendientes despacho],VISUAL,kpi_despacho,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\kpi_despacho\visual.json,Measure: Medidas[U Pendientes despacho]
+MEASURE,Medidas[U Pendientes factura],VISUAL,kpi_factura,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\kpi_factura\visual.json,Measure: Medidas[U Pendientes factura]
+MEASURE,Medidas[U Promedio hito DH],VISUAL,table_15b8b83ff48292,REPORT_PROJECTION,NS.Report\definition\pages\19a0c7f8d6e54b3a9210\visuals\table_15b8b83ff48292\visual.json,Measure: Medidas[U Promedio hito DH]
+MEASURE,Medidas[U Último pedido creado],VISUAL,update_value,REPORT_PROJECTION,NS.Report\definition\pages\71af1998e2cb472d9799\visuals\update_value\visual.json,Measure: Medidas[U Último pedido creado]
+MEASURE,Medidas[U Último pedido creado],VISUAL,update_value,REPORT_PROJECTION,NS.Report\definition\pages\a1b2c3d4e5f6071829\visuals\update_value\visual.json,Measure: Medidas[U Último pedido creado]
+MEASURE,Medidas[UI Indicador ejecutivo SVG],VISUAL,tt_status,REPORT_PROJECTION,NS.Report\definition\pages\65238545e68f4c9884ca\visuals\tt_status\visual.json,Measure: Medidas[UI Indicador ejecutivo SVG]
+MEASURE,Medidas[UI Tooltip ejecutivo],VISUAL,tt_detail,REPORT_PROJECTION,NS.Report\definition\pages\65238545e68f4c9884ca\visuals\tt_detail\visual.json,Measure: Medidas[UI Tooltip ejecutivo]
+COLUMN,Medidas[__Medida],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,__Medida
+COLUMN,Parámetro Agrupación SLA[Agrupar por Campos],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Agrupar por Campos
+COLUMN,Parámetro Agrupación SLA[Agrupar por Orden],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Agrupar por Orden
+COLUMN,Parámetro Agrupación SLA[Agrupar por],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Agrupar por
+COLUMN,Parámetro Indicadores SLA[Indicador Campos],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Indicador Campos
+COLUMN,Parámetro Indicadores SLA[Indicador Orden],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Indicador Orden
+COLUMN,Parámetro Indicadores SLA[Indicador],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Indicador
+TABLE,Resultado,TABLE,Bloque_comercial,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Bloque_comercial.tmdl,Resultado mencionado en definición de Bloque_comercial
+TABLE,Resultado,TABLE,Dim_Mes_Trend,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Dim_Mes_Trend.tmdl,Resultado mencionado en definición de Dim_Mes_Trend
+TABLE,Resultado,TABLE,Dim_Pedido,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Dim_Pedido.tmdl,Resultado mencionado en definición de Dim_Pedido
+TABLE,Resultado,TABLE,Fact_Hitos_Operacionales,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,Resultado mencionado en definición de Fact_Hitos_Operacionales
+TABLE,Resultado,TABLE,Fact_Tracking,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,Resultado mencionado en definición de Fact_Tracking
+TABLE,Resultado,TABLE,Medidas,TABLE_REFERENCE,NS.SemanticModel\definition\tables\Medidas.tmdl,Resultado mencionado en definición de Medidas
+COLUMN,Resultado[ACCION_RECOMENDADA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ACCION_RECOMENDADA
+COLUMN,Resultado[AP_TEST],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AP_TEST
+COLUMN,Resultado[ATRASOS_ESPERADOS_PENDIENTES],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ATRASOS_ESPERADOS_PENDIENTES
+COLUMN,Resultado[AUC_TEST],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Resultado[AUC_TEST]
+COLUMN,Resultado[AUC_TEST],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUC_TEST
+COLUMN,Resultado[AUD_DUPLICADOS_ENTRADA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_DUPLICADOS_ENTRADA
+COLUMN,Resultado[AUD_ESTADO_GENERAL],TABLE,Fact_Hitos_Operacionales,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,AUD_ESTADO_GENERAL
+COLUMN,Resultado[AUD_ESTADO_GENERAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_ESTADO_GENERAL
+COLUMN,Resultado[AUD_PRINCIPAL_INCONGRUENCIA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_PRINCIPAL_INCONGRUENCIA
+COLUMN,Resultado[AUD_TOTAL_CRITICAS],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,AUD_TOTAL_CRITICAS
+COLUMN,Resultado[BANDA_DIAS_PREDICHOS],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,BANDA_DIAS_PREDICHOS
+COLUMN,Resultado[BRIER_TEST],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,BRIER_TEST
+COLUMN,Resultado[CLASIFICACION],TABLE,Dim_Pedido,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Dim_Pedido.tmdl,CLASIFICACION
+COLUMN,Resultado[CLASIFICACION],TABLE,Fact_Tracking,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,CLASIFICACION
+COLUMN,Resultado[CLASIFICACION],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,CLASIFICACION
+COLUMN,Resultado[CLIENTE],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,CLIENTE
+COLUMN,Resultado[DH_CREDITO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_CREDITO
+COLUMN,Resultado[DH_DESPACHO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_DESPACHO
+COLUMN,Resultado[DH_FACTURACION],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_FACTURACION
+COLUMN,Resultado[DH_FASE_LENTA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_FASE_LENTA
+COLUMN,Resultado[DH_OPERACIONES],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_OPERACIONES
+COLUMN,Resultado[DH_PICKING],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_PICKING
+COLUMN,Resultado[DH_PREDICHO_BASE_ML],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_PREDICHO_BASE_ML
+COLUMN,Resultado[DH_PREDICHO_ML],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Resultado[DH_PREDICHO_ML]
+COLUMN,Resultado[DH_PREDICHO_ML],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_PREDICHO_ML
+COLUMN,Resultado[DH_TOTAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DH_TOTAL
+COLUMN,Resultado[DIAS_ACTUALES_DH],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DIAS_ACTUALES_DH
+COLUMN,Resultado[DIAS_EN_ESTADO_DH],TABLE,Fact_Tracking,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,DIAS_EN_ESTADO_DH
+COLUMN,Resultado[DIAS_EN_ESTADO_DH],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DIAS_EN_ESTADO_DH
+COLUMN,Resultado[DIAS_RESTANTES_PREDICHOS],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DIAS_RESTANTES_PREDICHOS
+COLUMN,Resultado[DIA_MES],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,DIA_MES
+COLUMN,Resultado[ESTADO_ACTUAL],TABLE,Dim_Pedido,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Dim_Pedido.tmdl,ESTADO_ACTUAL
+COLUMN,Resultado[ESTADO_ACTUAL],TABLE,Fact_Tracking,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,ESTADO_ACTUAL
+COLUMN,Resultado[ESTADO_ACTUAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ESTADO_ACTUAL
+COLUMN,Resultado[ESTADO_SLA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ESTADO_SLA
+COLUMN,Resultado[ES_CALIDAD_VALIDA_ML],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ES_CALIDAD_VALIDA_ML
+COLUMN,Resultado[ES_CERRADO_TRACKING],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ES_CERRADO_TRACKING
+COLUMN,Resultado[ES_ENTRENAMIENTO_FINAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ES_ENTRENAMIENTO_FINAL
+COLUMN,Resultado[ES_FES],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,ES_FES
+COLUMN,Resultado[ES_FES],TABLE,Fact_Tracking,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,ES_FES
+COLUMN,Resultado[ES_FES],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ES_FES
+COLUMN,Resultado[ES_FIN_MES],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ES_FIN_MES
+COLUMN,Resultado[ES_FLUJO_COMPLETO_ML],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ES_FLUJO_COMPLETO_ML
+COLUMN,Resultado[ES_PENDIENTE],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Resultado[ES_PENDIENTE]
+COLUMN,Resultado[ES_PENDIENTE],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ES_PENDIENTE
+COLUMN,Resultado[ES_SALDO],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,ES_SALDO
+COLUMN,Resultado[ES_SALDO],TABLE,Fact_Tracking,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,ES_SALDO
+COLUMN,Resultado[ES_SALDO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ES_SALDO
+COLUMN,Resultado[ES_VALIDACION_TEST],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ES_VALIDACION_TEST
+COLUMN,Resultado[FACTOR_DIAS_PRINCIPAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,FACTOR_DIAS_PRINCIPAL
+COLUMN,Resultado[FACTOR_HISTORICO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,FACTOR_HISTORICO
+COLUMN,Resultado[FACTOR_PRINCIPAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,FACTOR_PRINCIPAL
+COLUMN,Resultado[FASE_MAS_LENTA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,FASE_MAS_LENTA
+COLUMN,Resultado[FEATURE_TOP1],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,FEATURE_TOP1
+COLUMN,Resultado[FEATURE_TOP2],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,FEATURE_TOP2
+COLUMN,Resultado[FEATURE_TOP3],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,FEATURE_TOP3
+COLUMN,Resultado[FECHA_ACTUALIZACION],TABLE,Fact_Tracking,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,FECHA_ACTUALIZACION
+COLUMN,Resultado[FECHA_ACTUALIZACION],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,FECHA_ACTUALIZACION
+COLUMN,Resultado[HITO_ACTUAL],TABLE,Dim_Pedido,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Dim_Pedido.tmdl,HITO_ACTUAL
+COLUMN,Resultado[HITO_ACTUAL],TABLE,Fact_Tracking,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,HITO_ACTUAL
+COLUMN,Resultado[HITO_ACTUAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,HITO_ACTUAL
+COLUMN,Resultado[MAE_DIAS_TEST],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Resultado[MAE_DIAS_TEST]
+COLUMN,Resultado[MAE_DIAS_TEST],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,MAE_DIAS_TEST
+COLUMN,Resultado[MESES_TRAIN_VALIDACION],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,MESES_TRAIN_VALIDACION
+COLUMN,Resultado[MES_CREACION],TABLE,Fact_Hitos_Operacionales,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,MES_CREACION
+COLUMN,Resultado[MES_CREACION],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,MES_CREACION
+COLUMN,Resultado[MES_TEST_VALIDACION],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,MES_TEST_VALIDACION
+COLUMN,Resultado[MODELO_DEPENDENCIA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,MODELO_DEPENDENCIA
+COLUMN,Resultado[MODELO_FECHA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,MODELO_FECHA
+COLUMN,Resultado[MODELO_FUENTE_SCORE],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,MODELO_FUENTE_SCORE
+COLUMN,Resultado[MODELO_ML],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,MODELO_ML
+COLUMN,Resultado[MODELO_VALIDADO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,MODELO_VALIDADO
+COLUMN,Resultado[MODELO_VERSION],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Resultado[MODELO_VERSION]
+COLUMN,Resultado[MODELO_VERSION],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,MODELO_VERSION
+COLUMN,Resultado[MOTIVO_EXCLUSION_ML],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,MOTIVO_EXCLUSION_ML
+COLUMN,Resultado[N_ENTRENAMIENTO_FINAL],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Resultado[N_ENTRENAMIENTO_FINAL]
+COLUMN,Resultado[N_ENTRENAMIENTO_FINAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,N_ENTRENAMIENTO_FINAL
+COLUMN,Resultado[N_TEST_VALIDACION],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,N_TEST_VALIDACION
+COLUMN,Resultado[N_TRAIN_VALIDACION],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,N_TRAIN_VALIDACION
+COLUMN,Resultado[PEDIDOS_PENDIENTES_ALTO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PEDIDOS_PENDIENTES_ALTO
+COLUMN,Resultado[PEDIDOS_PENDIENTES_MODELO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PEDIDOS_PENDIENTES_MODELO
+COLUMN,Resultado[PED_CANAL],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_CANAL
+COLUMN,Resultado[PED_CANAL_CODIGO],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PED_CANAL_CODIGO
+COLUMN,Resultado[PED_CANAL_CODIGO],TABLE,Fact_Tracking,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,PED_CANAL_CODIGO
+COLUMN,Resultado[PED_CANAL_CODIGO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_CANAL_CODIGO
+COLUMN,Resultado[PED_CODIGO_CLIENTE],TABLE,Fact_Hitos_Operacionales,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PED_CODIGO_CLIENTE
+COLUMN,Resultado[PED_CODIGO_CLIENTE],TABLE,Fact_Tracking,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,PED_CODIGO_CLIENTE
+COLUMN,Resultado[PED_CODIGO_CLIENTE],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_CODIGO_CLIENTE
+COLUMN,Resultado[PED_CONDICION_EXPEDICION],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_CONDICION_EXPEDICION
+COLUMN,Resultado[PED_CONDICION_EXPEDICION_CODIGO],TABLE,Fact_Hitos_Operacionales,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PED_CONDICION_EXPEDICION_CODIGO
+COLUMN,Resultado[PED_CONDICION_EXPEDICION_CODIGO],TABLE,Fact_Tracking,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,PED_CONDICION_EXPEDICION_CODIGO
+COLUMN,Resultado[PED_CONDICION_EXPEDICION_CODIGO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_CONDICION_EXPEDICION_CODIGO
+COLUMN,Resultado[PED_ESTADO_CREDITO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_ESTADO_CREDITO
+COLUMN,Resultado[PED_FECHA],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PED_FECHA
+COLUMN,Resultado[PED_FECHA],TABLE,Fact_Tracking,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,PED_FECHA
+COLUMN,Resultado[PED_FECHA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_FECHA
+COLUMN,Resultado[PED_NUMERO_PEDIDO],TABLE,Dim_Pedido,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Dim_Pedido.tmdl,PED_NUMERO_PEDIDO
+COLUMN,Resultado[PED_NUMERO_PEDIDO],TABLE,Fact_Hitos_Operacionales,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PED_NUMERO_PEDIDO
+COLUMN,Resultado[PED_NUMERO_PEDIDO],TABLE,Fact_Tracking,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,PED_NUMERO_PEDIDO
+COLUMN,Resultado[PED_NUMERO_PEDIDO],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Resultado[PED_NUMERO_PEDIDO]
+COLUMN,Resultado[PED_NUMERO_PEDIDO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_NUMERO_PEDIDO
+COLUMN,Resultado[PED_REGION],TABLE,Fact_Hitos_Operacionales,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PED_REGION
+COLUMN,Resultado[PED_REGION],TABLE,Fact_Tracking,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,PED_REGION
+COLUMN,Resultado[PED_REGION],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_REGION
+COLUMN,Resultado[PED_RESPONSABLE],TABLE,Fact_Hitos_Operacionales,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,PED_RESPONSABLE
+COLUMN,Resultado[PED_RESPONSABLE],TABLE,Fact_Tracking,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,PED_RESPONSABLE
+COLUMN,Resultado[PED_RESPONSABLE],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PED_RESPONSABLE
+COLUMN,Resultado[PREDICCION_SLA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PREDICCION_SLA
+COLUMN,Resultado[PRIORIDAD_SCORE],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PRIORIDAD_SCORE
+COLUMN,Resultado[PROB_ML_ATRASO],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Resultado[PROB_ML_ATRASO]
+COLUMN,Resultado[PROB_ML_ATRASO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,PROB_ML_ATRASO
+COLUMN,Resultado[R2_DIAS_TEST],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Resultado[R2_DIAS_TEST]
+COLUMN,Resultado[R2_DIAS_TEST],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,R2_DIAS_TEST
+COLUMN,Resultado[RESPONSABLE_AREA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,RESPONSABLE_AREA
+COLUMN,Resultado[RIESGO_ATRASO],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Resultado[RIESGO_ATRASO]
+COLUMN,Resultado[RIESGO_ATRASO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,RIESGO_ATRASO
+COLUMN,Resultado[RMSE_DIAS_TEST],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Resultado[RMSE_DIAS_TEST]
+COLUMN,Resultado[RMSE_DIAS_TEST],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,RMSE_DIAS_TEST
+COLUMN,Resultado[SEMANA_MES],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,SEMANA_MES
+COLUMN,Resultado[SERV_TIPO_SERVICIO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,SERV_TIPO_SERVICIO
+COLUMN,Resultado[SLA_CONSUMIDO_PCT],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,SLA_CONSUMIDO_PCT
+COLUMN,Resultado[VALOR_MM],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,VALOR_MM
+COLUMN,Resultado[VALOR_NETO],TABLE_OR_MEASURE_FILE,Medidas,DAX_OR_M_EXPLICIT,NS.SemanticModel\definition\tables\Medidas.tmdl,Resultado[VALOR_NETO]
+COLUMN,Resultado[VALOR_NETO],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,VALOR_NETO
+COLUMN,Resultado[VENDEDOR],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,VENDEDOR
+COLUMN,Resultado[ZONA],TABLE,Fact_Hitos_Operacionales,M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Hitos_Operacionales.tmdl,ZONA
+COLUMN,Resultado[ZONA],TABLE,Fact_Tracking,M_BRACKET+M_OR_PYTHON_STRING,NS.SemanticModel\definition\tables\Fact_Tracking.tmdl,ZONA
+COLUMN,Resultado[ZONA],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,ZONA
+COLUMN,auditoria[Categoria_Tipo],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Categoria_Tipo
+COLUMN,auditoria[Columna],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Columna
+COLUMN,auditoria[Permite_Nulos],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Permite_Nulos
+COLUMN,auditoria[Posicion],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Posicion
+COLUMN,auditoria[Tipo_Dato],CULTURE,es-ES,TRANSLATION_ONLY,NS.SemanticModel\definition\cultures\es-ES.tmdl,Tipo_Dato
