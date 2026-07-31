@@ -4,7 +4,7 @@
   "timestamp_local": "2026-07-31T15:11:03.732727",
   "branch": "work/ns-lineage-audit",
   "base_commit": "5965551c8743d8245310727a228a3a77fb8feff7",
-  "result_commit": "PENDING",
+  "result_commit": "b7a04e19cc290e19aa11d533fbd47c9ae331ba4f",
   "status": "AMARILLO",
   "lineage": {
     "tables": 29,
