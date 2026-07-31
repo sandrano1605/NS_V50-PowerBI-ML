@@ -1,0 +1,8 @@
+# RUN 20260731_033000_visual_clientes_fuera_sla
+
+## Estado git after
+
+- Commit funcional: `1426e00d3001370fba62cde3465623dcb7da0b2e`
+- Commit auditoría: `74a187dcfbd832d87df20645bcf2f38cf110b643`
+- Rama: work/ns-live-audit
+- Working tree limpio tras commits.
