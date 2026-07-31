@@ -3274,6 +3274,61 @@ table Medidas
 		displayFolder: 02. Resumen Ejecutivo\02. Servicio
 		lineageTag: 27000000-0000-4000-8000-000000000141
 
+	measure 'RE Fecha mínima contexto' = MINX(ALLSELECTED(Fact_Tracking), Fact_Tracking[PED_FECHA_HORA])
+		formatString: dd-MM-yyyy
+		displayFolder: 02. Resumen Ejecutivo\14. Ventana Temporal
+		lineageTag: 27000000-0000-4000-8000-000000000150
+
+	measure 'RE Fecha máxima contexto' = MAXX(ALLSELECTED(Fact_Tracking), Fact_Tracking[PED_FECHA_HORA])
+		formatString: dd-MM-yyyy
+		displayFolder: 02. Resumen Ejecutivo\14. Ventana Temporal
+		lineageTag: 27000000-0000-4000-8000-000000000151
+
+	measure 'RE Estado último mes' =
+			VAR FechaMax = [RE Fecha máxima contexto]
+			VAR FinMes = EOMONTH(FechaMax, 0)
+			RETURN
+				IF(
+					ISBLANK(FechaMax),
+					BLANK(),
+					IF(
+						FechaMax < FinMes,
+						"Último mes parcial",
+						"Último mes completo"
+					)
+				)
+			formatString: 0
+			displayFolder: 02. Resumen Ejecutivo\14. Ventana Temporal
+			lineageTag: 27000000-0000-4000-8000-000000000153
+		lineageTag: 818ab90d-4ecb-4163-b52b-97af5bb80213
+
+	measure 'RE Ventana análisis texto' =
+			VAR FechaMin = [RE Fecha mínima contexto]
+			VAR FechaMax = [RE Fecha máxima contexto]
+			VAR Meses =
+				DATEDIFF(
+					DATE(YEAR(FechaMin), MONTH(FechaMin), 1),
+					DATE(YEAR(FechaMax), MONTH(FechaMax), 1),
+					MONTH
+				) + 1
+			RETURN
+				IF(
+					ISBLANK(FechaMin) || ISBLANK(FechaMax),
+					"Sin datos en el contexto seleccionado",
+					"Período analizado: "
+						& FORMAT(FechaMin, "dd-MM-yyyy")
+						& " al "
+						& FORMAT(FechaMax, "dd-MM-yyyy")
+						& " · "
+						& FORMAT(Meses, "0")
+						& " meses · "
+						& [RE Estado último mes]
+				)
+			formatString: 0
+			displayFolder: 02. Resumen Ejecutivo\14. Ventana Temporal
+			lineageTag: 27000000-0000-4000-8000-000000000152
+		lineageTag: a05dd22d-ee32-4c06-a3dd-b846de9f6c77
+
 	column __Medida
 		dataType: int64
 		isHidden

@@ -19,109 +19,27 @@
               {
                 "textRuns": [
                   {
-                    "value": "PREGUNTA CENTRAL · RECURRENCIA, RETENCIÓN FÍSICA EN CD Y EFECTO DE CARGA/FES SOBRE EL SLA",
+                    "value": "PREGUNTAS DE NEGOCIO",
                     "textStyle": {
                       "fontWeight": "bold",
                       "fontSize": "10pt",
-                      "color": "#1b365d"
+                      "color": "#1B365D"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "1. ¿Qué clientes estuvieron fuera SLA en los últimos 3 meses, con qué frecuencia repitieron y cuáles requieren priorización?\n2. ¿Qué clientes tienen pedidos cerrados con más de 15 DH entre factura y cierre oficial?\n3. ¿Qué vendedores concentran clientes recurrentes fuera SLA?\n4. ¿El deterioro del NS coincide con mayor carga o participación FES al inicio o cierre del mes?",
+                    "textStyle": {
+                      "fontSize": "8pt",
+                      "color": "#111111"
                     }
                   }
                 ]
               }
             ]
-          }
-        }
-      ]
-    },
-    "visualContainerObjects": {
-      "background": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            },
-            "color": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'PREGUNTAS DE NEGOCIO · RECURRENCIA 3M · PERMANENCIA EN CD · RESPONSABILIDAD COMERCIAL · EFECTO FES/CARGA'"
-                    }
-                  }
-                }
-              }
-            },
-            "transparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "0L"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "border": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "visualHeader": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "padding": [
-        {
-          "properties": {
-            "top": {
-              "expr": {
-                "Literal": {
-                  "Value": "2L"
-                }
-              }
-            },
-            "bottom": {
-              "expr": {
-                "Literal": {
-                  "Value": "2L"
-                }
-              }
-            },
-            "left": {
-              "expr": {
-                "Literal": {
-                  "Value": "4L"
-                }
-              }
-            },
-            "right": {
-              "expr": {
-                "Literal": {
-                  "Value": "4L"
-                }
-              }
-            }
           }
         }
       ]

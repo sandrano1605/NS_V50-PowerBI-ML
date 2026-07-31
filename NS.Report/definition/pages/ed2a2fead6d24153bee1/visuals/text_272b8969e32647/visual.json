@@ -21,9 +21,20 @@
                   {
                     "value": "AUDITORÍA 360 POR PEDIDO",
                     "textStyle": {
-                      "fontSize": "21pt",
-                      "color": "#FFFFFF",
-                      "fontWeight": "bold"
+                      "fontWeight": "bold",
+                      "fontSize": "11pt",
+                      "color": "#111111"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "¿Cómo se construye el resultado de SLA de este pedido y qué fechas, flujo, zona y regla de cierre determinan su estado?",
+                    "textStyle": {
+                      "fontSize": "8pt",
+                      "color": "#535a65"
                     }
                   }
                 ]

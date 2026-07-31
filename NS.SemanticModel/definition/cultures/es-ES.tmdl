@@ -23320,16 +23320,6 @@ cultureInfo es-ES
 			          "RE ventana 3M texto": {
 			            "State": "Generated"
 			          }
-			        },
-			        {
-			          "Ventana de datos": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
 			        }
 			      ]
 			    },
@@ -27263,6 +27253,27 @@ cultureInfo es-ES
 			      "Terms": [
 			        {
 			          "Pedidos FES": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "medidas.re_ventana_análisis_texto": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Medidas",
+			          "ConceptualProperty": "RE Ventana análisis texto"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "RE Ventana análisis texto": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
