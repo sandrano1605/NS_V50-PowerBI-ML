@@ -1,0 +1,5 @@
+Refresh: OK
+Modelo: NS
+Fecha: 2026-07-31T07:57:10.922589
+Pedidos: 1695
+Evaluables: 1616

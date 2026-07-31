@@ -1,0 +1,12 @@
+﻿METRICA,VALOR,ESPERADO,ESTADO
+Pedidos evaluables,1616,1616,OK
+Pedidos fuera SLA,360,360,OK
+NS,"77,72%","77,72%",OK
+Clientes fuera SLA,251,251,OK
+Recurrente 3M,3,3,OK
+Recurrente 2M,27,27,OK
+Puntual 1M,221,221,OK
+SLA Santiago,4 DH,4 DH,OK
+SLA Regiones,5 DH,5 DH,OK
+Promesa Santiago,5 DH,5 DH,OK
+Promesa Regiones,7 DH,7 DH,OK
