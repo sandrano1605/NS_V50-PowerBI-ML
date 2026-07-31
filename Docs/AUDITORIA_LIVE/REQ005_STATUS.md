@@ -1,0 +1,1 @@
+Corrección funcional pendiente de commit: restaurar los 10 visuales analíticos SVG al estado sin tooltip técnico validado estructuralmente en e9d4941.
