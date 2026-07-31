@@ -2,8 +2,8 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "fa_question_header",
   "position": {
-    "x": 240,
-    "y": 80,
+    "x": 22.999999999999986,
+    "y": 79.910486599011179,
     "z": 19000,
     "height": 24,
     "width": 1349,

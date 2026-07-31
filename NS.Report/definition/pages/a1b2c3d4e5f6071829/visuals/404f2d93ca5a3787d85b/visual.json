@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
-  "name": "logo_artel",
+  "name": "404f2d93ca5a3787d85b",
   "position": {
-    "x": 1087.0000000000002,
+    "x": 38.999999999999986,
     "y": 15.91048659901119,
-    "z": 5000,
+    "z": 26001,
     "height": 48,
     "width": 160,
-    "tabOrder": 5000
+    "tabOrder": 26001
   },
   "visual": {
     "visualType": "image",

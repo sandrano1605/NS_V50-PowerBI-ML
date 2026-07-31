@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "fa_clientes_recurrentes",
   "position": {
-    "x": 240,
-    "y": 112,
+    "x": 22.999999999999986,
+    "y": 111.91048659901118,
     "z": 22023,
     "height": 208,
-    "width": 656,
+    "width": 696,
     "tabOrder": 22023
   },
   "visual": {
@@ -377,7 +377,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'1. CLIENTES FUERA SLA · FRECUENCIA EN LOS Últimos 3 MESES \u2192 Recurrente 3M \u2192 2M \u2192 1M'"
+                  "Value": "'1. CLIENTES FUERA SLA · FRECUENCIA EN LOS Últimos 3 MESES'"
                 }
               }
             },

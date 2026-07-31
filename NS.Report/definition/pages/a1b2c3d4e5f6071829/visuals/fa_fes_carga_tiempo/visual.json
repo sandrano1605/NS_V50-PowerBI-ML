@@ -2,8 +2,8 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "fa_fes_carga_tiempo",
   "position": {
-    "x": 864,
-    "y": 336,
+    "x": 647,
+    "y": 335.91048659901116,
     "z": 22026,
     "height": 184,
     "width": 720,

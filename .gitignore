@@ -5,6 +5,7 @@
 
 # Power BI PBIP - archivos locales y caché
 .pbi/localSettings.json
+**/.pbi/localSettings.json
 **/.pbi/cache.abf
 **/*.abf
 *.abf

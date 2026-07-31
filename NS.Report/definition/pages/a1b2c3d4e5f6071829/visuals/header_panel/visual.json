@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "header_panel",
   "position": {
-    "x": 18,
-    "y": 12,
+    "x": 22.999999999999986,
+    "y": 7.9104865990111861,
     "z": 2000,
-    "height": 62,
-    "width": 1564,
+    "height": 72,
+    "width": 1352,
     "tabOrder": 2000
   },
   "visual": {

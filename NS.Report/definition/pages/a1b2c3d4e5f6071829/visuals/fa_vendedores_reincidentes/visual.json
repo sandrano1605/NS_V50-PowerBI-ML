@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "fa_vendedores_reincidentes",
   "position": {
-    "x": 240,
-    "y": 336,
+    "x": 22.999999999999986,
+    "y": 335.91048659901116,
     "z": 22025,
     "height": 184,
-    "width": 608,
+    "width": 616,
     "tabOrder": 22025
   },
   "visual": {

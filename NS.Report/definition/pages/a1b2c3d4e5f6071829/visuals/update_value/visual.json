@@ -2,8 +2,8 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "update_value",
   "position": {
-    "x": 1232,
-    "y": 16,
+    "x": 1015.0000000000002,
+    "y": 15.91048659901119,
     "z": 9000,
     "height": 47.999999999999993,
     "width": 336,

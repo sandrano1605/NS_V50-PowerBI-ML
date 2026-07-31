@@ -2,8 +2,8 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "nav_resumen_v34",
   "position": {
-    "x": 480,
-    "y": 20,
+    "x": 831,
+    "y": 23.91048659901119,
     "z": 21000,
     "height": 42,
     "width": 160,

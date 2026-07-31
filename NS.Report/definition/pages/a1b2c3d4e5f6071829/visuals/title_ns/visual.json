@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "title_ns",
   "position": {
-    "x": 208,
-    "y": 16,
+    "x": 199,
+    "y": 15.91048659901119,
     "z": 7000,
-    "height": 48,
-    "width": 264,
+    "height": 56,
+    "width": 384,
     "tabOrder": 7000
   },
   "visual": {
@@ -22,7 +22,7 @@
                     "value": "01 ANÁLISIS FUERA SLA",
                     "textStyle": {
                       "fontWeight": "bold",
-                      "fontSize": "12pt",
+                      "fontSize": "11pt",
                       "color": "#111111"
                     }
                   }
@@ -35,7 +35,7 @@
                     "textStyle": {
                       "fontWeight": "bold",
                       "fontSize": "8pt",
-                      "color": "#535A65"
+                      "color": "#535a65"
                     }
                   }
                 ]

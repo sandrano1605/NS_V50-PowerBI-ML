@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "kpi_promesa",
   "position": {
-    "x": 1280,
+    "x": 1248,
     "y": 80,
     "z": 14000,
     "height": 144,
-    "width": 304,
+    "width": 336,
     "tabOrder": 14000
   },
   "visual": {
