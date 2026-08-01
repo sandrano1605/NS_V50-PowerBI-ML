@@ -15,7 +15,7 @@
     "blocked": 94
   },
   "vbfa_sp": "PENDIENTE_EJECUCION_SQL",
-  "python_contract": "ESQUEMA_RESULTADO_EXPORTADO_86_COLS",
+  "python_contract": "CONFIRMADO: 11 REQUIRED + 158 refs + df.columns dinamico",
   "snapshot": {
     "pedidos": 1907,
     "fuera_sla": 394,
