@@ -14,8 +14,8 @@
     "keep": 87,
     "blocked": 94
   },
-  "vbfa_sp": "PENDIENTE_EJECUCION_SQL",
-  "python_contract": "CONFIRMADO: 11 REQUIRED + 158 refs + df.columns dinamico",
+  "vbfa_sp": "PENDIENTE_SSMS_O_COPIA_TEMPORAL",
+  "python_contract": "5 CATEGORIAS: 11 REQUIRED + 28 OPTIONAL + 32 DERIVED + 19 OUTPUT + 10 LITERAL = 100",
   "snapshot": {
     "pedidos": 1907,
     "fuera_sla": 394,

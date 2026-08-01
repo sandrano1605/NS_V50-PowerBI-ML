@@ -11,23 +11,46 @@
 - 94 NO_BORRAR_SIN_PRUEBA_CONTRATO (NO autorizadas a borrar)
 - 0 interseccion, 0 duplicados (87+94=181)
 
-## 3. Contrato Python (tabla Resultado) - CONFIRMADO
+## 3. Contrato Python (tabla Resultado) - CORREGIDO con 5 categorias
 - Resultado = Fact_Pedidos_Auditoria COMPLETO + Fact_Tracking + Dim_Cliente -> Python.Execute
 - El script recibe el DataFrame `dataset` con TODAS las columnas de Fact_Pedidos_Auditoria
-- 11 columnas REQUIRED (obligatorias, el script falla si faltan):
-  PED_NUMERO_PEDIDO, PED_CODIGO_CLIENTE, PED_RESPONSABLE, PED_CANAL_CODIGO,
-  PED_REGION, PED_CONDICION_EXPEDICION_CODIGO, PED_ESTADO_CREDITO,
-  SERV_TIPO_SERVICIO, PED_VALOR_NETO, PED_FECHA_HORA, DH_ENTREGA_COMPLETA_100
-- 158 nombres de columna referenciados dentro del bloque Python
-- Usa `df.columns` para aplicar OPTIONAL_DEFAULTS: si una columna opcional falta, la rellena con default
-- Usa acceso directo df["PED_NUMERO_PEDIDO"], df["FECHA_ACTUALIZACION"], etc.
-- CONCLUSION: recortar una columna REQUIRED rompe el script; recortar una OPTIONAL cambia el dataset recibido.
-  Ninguna columna de entrada a Python puede borrarse sin prueba A/B del contrato.
+- CORRECCION: ya no se afirma '158 columnas de entrada'. Se clasificaron 100 identificadores unicos:
+
+### Clasificacion final (5 categorias)
+| Categoria | Cantidad | Regla |
+|---|---|---|
+| INPUT_REQUIRED | 11 | Columnas cuya ausencia genera error |
+| INPUT_OPTIONAL | 28 | Comprobadas via df.columns/get/OPTIONAL_DEFAULTS |
+| DERIVED_INTERNAL | 32 | Creadas dentro del Python (CAT_*, HIST_*, etc.) |
+| OUTPUT_COLUMN | 19 | Devueltas por el dataframe final |
+| LITERAL_OR_ENUM | 10 | Textos ALTO/BAJO/CRITICO/etc. |
+
+### INPUT_REQUIRED (11) - demostradas desde el script:
+PED_NUMERO_PEDIDO, PED_CODIGO_CLIENTE, PED_RESPONSABLE, PED_CANAL_CODIGO,
+PED_REGION, PED_CONDICION_EXPEDICION_CODIGO, PED_ESTADO_CREDITO,
+SERV_TIPO_SERVICIO, PED_VALOR_NETO, PED_FECHA_HORA, DH_ENTREGA_COMPLETA_100
+
+### INPUT_OPTIONAL (28) - leidas o con default:
+PED_CANAL, PED_CONDICION_EXPEDICION, SERV_TIPO_SERVICIO_PLANIFICADO, PED_CIUDAD,
+ES_FES, ES_SALDO, SEGMENTO_ANALISIS, ES_ULTIMOS_7_DIAS_HABILES_MES, AUD_TOTAL_CRITICAS,
+AUD_ESTADO_GENERAL, AUD_PRINCIPAL_INCONGRUENCIA, DH_CREDITO_COBRANZAS, DH_OPERACION_INTERNA,
+DH_CREDITO_A_PRIMERA_ENTREGA, DH_PRIMERA_ENTREGA_A_PRIMER_PICKING, DH_PRIMER_PICKING_A_PRIMERA_FACTURA,
+DH_PRIMER_PACKING_A_PRIMERA_FACTURA, DH_DESPACHO, ES_CERRADO, ESTADO_ACTUAL, HITO_ACTUAL,
+DIAS_INTERNOS_DH, DIAS_EN_ESTADO_DH, DIAS_RESTANTES_DH, SLA_INTERNO_DH, FECHA_ACTUALIZACION,
+CLIENTE_NOMBRE, VENDEDOR_NOMBRE
+
+### OUTPUT_COLUMN (19): salida del dataframe final
+### DERIVED_INTERNAL (32): variables y features creadas dentro (CAT_*, HIST_*, VALOR_*)
+### LITERAL_OR_ENUM (10): ALTO/BAJO/ATRASADO/CRITICO/CUMPLE/NORMAL/SALDO/etc.
+
+- CONCLUSION: recortar una INPUT_REQUIRED rompe el script; recortar una INPUT_OPTIONAL cambia
+  el dataset recibido (se rellena con default). Ninguna columna de entrada a Python puede
+  borrarse sin prueba A/B del contrato.
 
 ## 4. Procedimiento VBFA
 - Script sql/AUDIT_STP_GET_VBFA_TRAMO_FILTRO.sql listo
-- NO ejecutado: requiere acceso SQL Server 128.1.3.21/DMF_VTA_PRD
-- Credenciales solo en Power BI Desktop (no disponibles para el LLM)
+- Ejecucion via Power Query con carga desactivada sobre copia temporal del PBIP (en progreso)
+- Requiere autorizacion de Power BI Desktop a 128.1.3.21/DMF_VTA_PRD
 - La definicion del SP debe demostrar el significado de 'M-J' y 'C'
 
 ## 5. Snapshot actual (2026-07-31)
@@ -46,4 +69,7 @@
 ## 7. Estado
 - AMARILLO CONTROLADO
 - Recorte de columnas: NO autorizado (0 columnas aprobadas)
+- Contrato Python REQUIRED: VERDE preliminar
+- Contrato Python completo: AMARILLO (pendiente confirmacion manual de DERIVED/OUTPUT)
+- Procedimiento VBFA: PENDIENTE
 - Pendiente: ejecucion SP VBFA, prueba A/B, lectura de Table.Schema
