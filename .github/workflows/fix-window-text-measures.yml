@@ -3,7 +3,8 @@ name: Fix window text measures
 on:
   pull_request_target:
     types: [opened, synchronize, reopened, ready_for_review]
-    branches: [main]
+    branches:
+      - work/ns-lineage-audit
 
 permissions:
   contents: write
