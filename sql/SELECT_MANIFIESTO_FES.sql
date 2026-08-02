@@ -146,3 +146,83 @@ ORDER BY RM.ULTIMA_FECHA_MANIFIESTO DESC;
  de cierre FES para pedidos sin manifiesto VBFA/VTTP.
 ================================================================================
 */
+
+/*
+================================================================================
+ VERSION 3 - MANIFIESTO MANUAL REAL (PASO_WMS 128.1.3.60) VALIDADA
+================================================================================
+ Fuente externa de manifiestos manuales:
+   Servidor : 128.1.3.60
+   Base     : PASO_WMS
+   Usuario  : solo_lectura (solo SELECT)
+   Tablas   : dbo.MANIFIESTO_H (cabecera) / dbo.MANIFIESTO_D (detalle)
+   Relacion : MANIFIESTO_D.MAD_ID_H = MANIFIESTO_H.MAH_FOLIO
+
+ Columna clave para cruzar con el modelo:
+   MANIFIESTO_D.MAD_PEDIDO  -> numero de pedido original (igual a PED_NUMERO_PEDIDO)
+   MANIFIESTO_D.MAD_FECHA_EMISION -> fecha del manifiesto
+   MANIFIESTO_D.MAD_NRO_SAP -> numero SAP asociado
+   MANIFIESTO_D.MAD_STAT    -> estado (S=salida / cerrado)
+   MANIFIESTO_H.MAH_FOLIO   -> folio del manifiesto
+   MANIFIESTO_H.MAH_MANIFIESTO_SAP -> manifiesto SAP (si existe)
+
+ Consulta validada (785 filas en GETDATE()-90):
+   SELECT *
+   FROM [dbo].[MANIFIESTO_H]
+   INNER JOIN [MANIFIESTO_D] ON MAD_ID_H = MAH_FOLIO
+   WHERE MAD_FECHA_EMISION > GETDATE()-90;
+
+ Ejemplo de conexion Power Query (solo_lectura):
+   = Sql.Database("128.1.3.60", "PASO_WMS", [Query="
+       SELECT *
+       FROM [dbo].[MANIFIESTO_H]
+       INNER JOIN [MANIFIESTO_D] ON MAD_ID_H = MAH_FOLIO
+       WHERE MAD_FECHA_EMISION > GETDATE()-90
+   "])
+
+ NOTA IMPORTANTE - anomalias detectadas en datos:
+   1. MAD_FECHA_EMISION contiene fechas fuera de rango (años 2223, 2424, 2028)
+      -> filtrar con YEAR(MAD_FECHA_EMISION) BETWEEN 2000 AND 2100 o CAST valido
+   2. MAD_PEDIDO tiene NULL en registros recientes (mayo 2026)
+      -> excluir NULL al cruzar
+   3. MAD_STAT: True/False (logico) y 'S' (string) segun fila -> normalizar
+   4. MAD_ELIMINADO = False en muestras -> filtrar si aplica
+
+ ANALISIS VALIDADO (2026-08-02):
+   - MAD_FECHA_EMISION = fecha de emision real del manifiesto (datetime)
+   - MAD_FECHA         = fecha operativa de registro (datetime, mas precisa)
+   - MAD_INGRESO       = varchar 'S'/'M' (estado de ingreso, NO es fecha)
+   - MAD_STAT          = bit (True/False) estado del detalle
+   - MAD_PEDIDO        = 37 pedidos reales (> 1.000.000) en ultimos 90 dias;
+                         570 NULL y 170 con valor 1 (basura) -> filtrar MAD_PEDIDO > 1000000
+   - Anomalia: MAD_FECHA_EMISION con anos 2223/2424/2028 = fechas de expiracion
+     o carga mal registrada -> usar MAD_FECHA o filtrar YEAR entre 2000 y 2100
+================================================================================
+*/
+
+-- ============================================================================
+-- QUERY RECOMENDADA: manifiestos manuales del WMS limpios para cruzar con el modelo
+-- Filtra basura: MAD_PEDIDO > 1000000, fechas validas, sin eliminados
+-- ============================================================================
+SELECT
+    MAD_PEDIDO            AS PEDIDO_MODELO,
+    MAD_NRO_SAP           AS NRO_SAP,
+    MAD_ENTREGA           AS ENTREGA_SAP,
+    MAD_FECHA_EMISION     AS FECHA_MANIFIESTO_WMS,
+    MAD_FECHA             AS FECHA_REGISTRO_WMS,
+    MAH_FOLIO             AS FOLIO_MANIFIESTO,
+    MAH_MANIFIESTO_SAP    AS MANIFIESTO_SAP,
+    MAH_TRANSPORTE        AS TRANSPORTE,
+    MAH_PATENTE           AS PATENTE,
+    MAD_CLIENTE_NOMBRE    AS CLIENTE,
+    MAD_STAT              AS ESTADO,
+    MAD_ELIMINADO         AS ELIMINADO
+FROM [PASO_WMS].[dbo].[MANIFIESTO_H]
+INNER JOIN [PASO_WMS].[dbo].[MANIFIESTO_D] ON MAD_ID_H = MAH_FOLIO
+WHERE MAD_FECHA_EMISION > GETDATE()-90
+  AND MAD_PEDIDO > 1000000
+  AND MAD_PEDIDO IS NOT NULL
+  AND YEAR(MAD_FECHA_EMISION) BETWEEN 2000 AND 2100
+  AND ISNULL(MAD_ELIMINADO, 0) = 0
+ORDER BY MAD_FECHA_EMISION DESC;
+
