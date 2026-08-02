@@ -1,0 +1,12 @@
+﻿COLUMNA,TIPO
+VBELV,numeric
+VBTYP_N,varchar
+VBELN,varchar
+VBTYP_V,varchar
+ERDAT,varchar
+ERZET,varchar
+ERDAT_DATE,datetime
+POSNV,varchar
+POSNN,varchar
+RFMNG,int
+TSTP,datetime
