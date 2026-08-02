@@ -1,0 +1,29 @@
+{
+  "status": "VERDE",
+  "file": "NS.SemanticModel/definition/tables/Medidas.tmdl",
+  "targets": {
+    "RE Estado último mes": {
+      "block_start_line": 3287,
+      "block_end_line": 3302,
+      "embedded_numeric_format_count": 0,
+      "valid_display_folder_count": 1,
+      "embedded_display_folder_count": 0,
+      "valid_lineage_count": 1,
+      "embedded_lineage_count": 0,
+      "text_expression_detected": true
+    },
+    "RE Ventana análisis texto": {
+      "block_start_line": 3303,
+      "block_end_line": 3327,
+      "embedded_numeric_format_count": 0,
+      "valid_display_folder_count": 1,
+      "embedded_display_folder_count": 0,
+      "valid_lineage_count": 1,
+      "embedded_lineage_count": 0,
+      "text_expression_detected": true
+    }
+  },
+  "hidden_column_format_preserved": true,
+  "errors": [],
+  "scope": "Dos medidas de texto; expresiones DAX y columna __Medida preservadas"
+}
