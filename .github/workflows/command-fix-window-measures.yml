@@ -14,7 +14,7 @@ jobs:
     if: >-
       github.event.issue.pull_request &&
       github.event.issue.number == 3 &&
-      github.event.comment.body == '/fix-window-measures-v2' &&
+      github.event.comment.body == '/fix-window-measures-v3' &&
       github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
@@ -26,7 +26,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              body: 'AUTOMATION_START · reparación de medidas temporales iniciada'
+              body: 'AUTOMATION_START_V3 · diagnóstico y reparación iniciados'
             });
 
       - name: Read pull request
@@ -59,14 +59,50 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Apply deterministic repair
-        run: python tools/fix_window_text_measures.py
+      - name: Apply and validate deterministic repair
+        id: repair
+        shell: bash
+        run: |
+          set +e
+          {
+            echo '=== APPLY ==='
+            python tools/fix_window_text_measures.py
+            APPLY_CODE=$?
+            echo "APPLY_CODE=$APPLY_CODE"
+            if [ "$APPLY_CODE" -eq 0 ]; then
+              echo '=== CHECK ==='
+              python tools/fix_window_text_measures.py --check
+              CHECK_CODE=$?
+            else
+              CHECK_CODE=99
+            fi
+            echo "CHECK_CODE=$CHECK_CODE"
+          } > /tmp/window_repair.log 2>&1
+          cat /tmp/window_repair.log
+          if [ "$APPLY_CODE" -ne 0 ] || [ "$CHECK_CODE" -ne 0 ]; then
+            exit 1
+          fi
 
-      - name: Validate repaired TMDL
-        run: python tools/fix_window_text_measures.py --check
+      - name: Comment diagnostic on failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const raw = fs.existsSync('/tmp/window_repair.log')
+              ? fs.readFileSync('/tmp/window_repair.log', 'utf8')
+              : 'No se generó window_repair.log; el fallo ocurrió antes del script.';
+            const clipped = raw.slice(0, 5000);
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `AUTOMATION_DIAGNOSTIC · ROJO\n\n\`\`\`text\n${clipped}\n\`\`\``
+            });
 
       - name: Commit repaired model
         id: commit
+        if: success()
         shell: bash
         run: |
           if git diff --quiet; then
@@ -81,21 +117,17 @@ jobs:
           echo "changed=true" >> "$GITHUB_OUTPUT"
           echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
-      - name: Mark workflow result
-        if: always()
+      - name: Mark successful result
+        if: success()
         uses: actions/github-script@v7
         env:
           CHANGED: ${{ steps.commit.outputs.changed }}
           SHA: ${{ steps.commit.outputs.sha }}
         with:
           script: |
-            const status = '${{ job.status }}';
-            const body = status === 'success'
-              ? `AUTOMATION_END · VERDE · changed=${process.env.CHANGED || 'false'} · sha=${process.env.SHA || 'sin_nuevo_commit'}`
-              : `AUTOMATION_END · ROJO · revisar ejecución del workflow`;
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              body
+              body: `AUTOMATION_END · VERDE · changed=${process.env.CHANGED || 'false'} · sha=${process.env.SHA || 'sin_nuevo_commit'}`
             });
