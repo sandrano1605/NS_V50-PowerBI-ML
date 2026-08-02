@@ -23,6 +23,18 @@
    - IMPORTANTE: la entrega debe normalizarse como BIGINT (elimina ceros a la
      izquierda). VBFA entrega '0082389032' y WMS entrega '82389032' son la MISMA
      entrega. Usar CONVERT(BIGINT, ...) en el cruce.
+
+ CONTEO VALIDADO (2026-08-02):
+   - WMS tiene 41 pedidos unicos con manifiesto manual en ultimos 90 dias
+   - De ellos, SOLO 1 (1167577) cruza con VBFA C->J por ENTREGA
+   - La mayoria de manifiestos WMS son de pedidos que NO pasan por el flujo
+     VBFA C->C / C->J (canales directos o entregas sin pedido posterior)
+   - ESTRATEGIA DE CRUCE DUAL:
+       a) Por ENTREGA: DIM_VBFA_FES.ENTREGA_NUM = DIM_WMS.ENTREGA_NUM (1 coincidencia hoy)
+       b) Por PEDIDO:  DIM_WMS.PEDIDO_WMS = MASTER.PED_NUMERO_PEDIDO (41 candidatos,
+          cruzar dentro del modelo Power BI para ver cuantos son FES cerrados)
+   - La master (Fact_Pedidos_Auditoria) NO es tabla fisica SQL; es tabla calculada
+     del modelo. El cruce por pedido debe hacerse en Power BI.
 ================================================================================
 */
 
@@ -100,6 +112,7 @@ SELECT COUNT(*) AS FILAS_WMS, COUNT(DISTINCT ENTREGA) AS ENTREGAS FROM #Dim_WMS_
 -- ============================================================================
 -- TABLA 3: CRUCE FINAL POR PEDIDO
 -- Master + VBFA (entrega) + WMS (manifiesto manual) -> fecha de cierre FES ampliada
+-- ESTRATEGIA A: cruce por ENTREGA (VBFA C->J entrega = WMS entrega)
 -- ============================================================================
 SELECT
     V.PEDIDO_ORIGINAL_NUM     AS PEDIDO,
@@ -115,6 +128,26 @@ SELECT
 FROM #Dim_VBFA_FES AS V
 LEFT JOIN #Dim_WMS_Manifiesto AS W
     ON V.ENTREGA_NUM = W.ENTREGA_NUM;
+
+-- ============================================================================
+-- TABLA 3B: ESTRATEGIA B - cruce por PEDIDO directo
+-- WMS tiene 41 pedidos con manifiesto; cruzar por MAD_PEDIDO con la master
+-- en Power BI (la master no es tabla fisica SQL). Este cruce amplia mas
+-- el universo: cualquier pedido FES con manifiesto WMS manual.
+-- ============================================================================
+SELECT
+    CONVERT(BIGINT, MAD_PEDIDO)     AS PEDIDO_WMS,
+    MIN(MAD_FECHA_EMISION)          AS MANIFIESTO_WMS_MIN,
+    MAX(MAD_FECHA_EMISION)          AS MANIFIESTO_WMS_MAX,
+    COUNT(DISTINCT MAD_ENTREGA)     AS CANTIDAD_ENTREGAS,
+    COUNT(*)                        AS CANTIDAD_DETALLE
+FROM [PASO_WMS].[dbo].[MANIFIESTO_D]
+WHERE MAD_PEDIDO IS NOT NULL AND MAD_PEDIDO > 1000
+  AND YEAR(MAD_FECHA_EMISION) BETWEEN 2000 AND 2100
+  AND MAD_FECHA_EMISION > GETDATE()-90
+  AND ISNULL(MAD_ELIMINADO, 0) = 0
+GROUP BY CONVERT(BIGINT, MAD_PEDIDO)
+ORDER BY MANIFIESTO_WMS_MAX DESC;
 
 /*
 ================================================================================
