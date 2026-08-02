@@ -1,0 +1,49 @@
+name: Fix window text measures
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, ready_for_review]
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  fix-window-measures:
+    if: >-
+      github.actor != 'github-actions[bot]' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.event.pull_request.head.ref == 'work/ns-lineage-window-fix'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repair branch
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Apply deterministic repair
+        run: python tools/fix_window_text_measures.py
+
+      - name: Validate repaired TMDL
+        run: python tools/fix_window_text_measures.py --check
+
+      - name: Commit repaired model
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add NS.SemanticModel/definition/tables/Medidas.tmdl Docs/AUDITORIA_LIVE/latest/window_measure_validation.json
+          git commit -m "fix(model): corregir medidas de texto de ventana temporal [skip ci]"
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
