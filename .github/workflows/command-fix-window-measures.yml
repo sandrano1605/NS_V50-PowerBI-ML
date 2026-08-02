@@ -6,17 +6,29 @@ on:
 
 permissions:
   contents: write
-  pull-requests: read
+  pull-requests: write
+  issues: write
 
 jobs:
   fix-window-measures:
     if: >-
       github.event.issue.pull_request &&
       github.event.issue.number == 3 &&
-      github.event.comment.body == '/fix-window-measures' &&
+      github.event.comment.body == '/fix-window-measures-v2' &&
       github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
+      - name: Mark workflow start
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: 'AUTOMATION_START · reparación de medidas temporales iniciada'
+            });
+
       - name: Read pull request
         id: pr
         uses: actions/github-script@v7
@@ -54,10 +66,11 @@ jobs:
         run: python tools/fix_window_text_measures.py --check
 
       - name: Commit repaired model
+        id: commit
         shell: bash
         run: |
           if git diff --quiet; then
-            echo "No changes to commit"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git config user.name "github-actions[bot]"
@@ -65,3 +78,24 @@ jobs:
           git add NS.SemanticModel/definition/tables/Medidas.tmdl Docs/AUDITORIA_LIVE/latest/window_measure_validation.json
           git commit -m "fix(model): corregir medidas de texto de ventana temporal [skip ci]"
           git push origin HEAD:${{ steps.pr.outputs.head_ref }}
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Mark workflow result
+        if: always()
+        uses: actions/github-script@v7
+        env:
+          CHANGED: ${{ steps.commit.outputs.changed }}
+          SHA: ${{ steps.commit.outputs.sha }}
+        with:
+          script: |
+            const status = '${{ job.status }}';
+            const body = status === 'success'
+              ? `AUTOMATION_END · VERDE · changed=${process.env.CHANGED || 'false'} · sha=${process.env.SHA || 'sin_nuevo_commit'}`
+              : `AUTOMATION_END · ROJO · revisar ejecución del workflow`;
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body
+            });
