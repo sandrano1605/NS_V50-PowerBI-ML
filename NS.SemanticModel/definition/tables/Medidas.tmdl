@@ -3297,9 +3297,7 @@ table Medidas
 						"Último mes completo"
 					)
 				)
-			formatString: 0
-			displayFolder: 02. Resumen Ejecutivo\14. Ventana Temporal
-			lineageTag: 27000000-0000-4000-8000-000000000153
+		displayFolder: 02. Resumen Ejecutivo\14. Ventana Temporal
 		lineageTag: 818ab90d-4ecb-4163-b52b-97af5bb80213
 
 	measure 'RE Ventana análisis texto' =
@@ -3324,9 +3322,7 @@ table Medidas
 						& " meses · "
 						& [RE Estado último mes]
 				)
-			formatString: 0
-			displayFolder: 02. Resumen Ejecutivo\14. Ventana Temporal
-			lineageTag: 27000000-0000-4000-8000-000000000152
+		displayFolder: 02. Resumen Ejecutivo\14. Ventana Temporal
 		lineageTag: a05dd22d-ee32-4c06-a3dd-b846de9f6c77
 
 	column __Medida
