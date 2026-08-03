@@ -10,15 +10,18 @@ git switch work/ns-vbak-master-append
 git pull --ff-only origin work/ns-vbak-master-append
 git status --short
 git rev-parse HEAD
+git diff --name-only a8e818604826e689453769103d962cd3537399ed...HEAD
 ```
 
-SHA esperado:
+El `git status` debe quedar limpio. Respecto de `a8e8186`, antes de abrir Power BI solo deben existir archivos nuevos dentro de:
 
 ```text
-58c2dbb0d29df506a76af5db5950a1d8b22709ce
+PowerQuery/VBAK_APPEND/
+Docs/AUDITORIA_LIVE/LLM_LOCAL_EJECUTA_VBAK_APPEND.md
+tools/validate_vbak_append_kit.py
 ```
 
-Si el SHA remoto cambió por un commit documental posterior, confirmar que la rama contiene únicamente `PowerQuery/VBAK_APPEND`, este documento y `tools/validate_vbak_append_kit.py` respecto de `a8e8186`.
+No debe aparecer ningún archivo de `NS.Report` o `NS.SemanticModel` en esta etapa.
 
 ## Trabajo permitido
 
