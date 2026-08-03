@@ -1,0 +1,10 @@
+{
+  "status": "VERDE",
+  "master": "NS.SemanticModel/definition/tables/Fact_Pedidos_Auditoria.tmdl",
+  "block": "PowerQuery/VBAK_APPEND/06_MASTER_APPEND_INLINE_ACTIVE.pq",
+  "append_active": true,
+  "excludes_fes_vbfa": true,
+  "uses_left_anti": true,
+  "marker": "VBAK SIN ZART",
+  "errors": []
+}
