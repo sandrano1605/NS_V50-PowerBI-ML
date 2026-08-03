@@ -59,7 +59,7 @@ def main() -> int:
     if "ES_FES_VBFA" not in block or "JoinKind.LeftAnti" not in block:
         raise RuntimeError("Faltan barreras VBFA o anti-join")
 
-    prefixed_block = "\n".join(PREFIX + line for line in block.splitlines())
+    prefixed_block = "\n".join((PREFIX + line) if line else "" for line in block.splitlines())
     replacement = (
         PREFIX + '    #"Filas ordenadas" = Table.Sort(FiltradoCanalesMayoristas,{{"PED_FECHA_HORA", Order.Descending}}),\n'
         + prefixed_block + "\n"
