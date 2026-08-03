@@ -1,6 +1,6 @@
-# LLM local · Ejecución controlada del append VBAK
+# LLM local · Validación del cruce VBAK ya integrado
 
-ChatGPT ya diseñó y versionó la integración. No debes rediseñar la solución, editar TMDL manualmente ni modificar visuales.
+ChatGPT ya dejó el cruce activo dentro de `Fact_Pedidos_Auditoria`. No debes crear consultas, parámetros, pegar bloques ni editar TMDL.
 
 ## Recuperación
 
@@ -10,83 +10,77 @@ git switch work/ns-vbak-master-append
 git pull --ff-only origin work/ns-vbak-master-append
 git status --short
 git rev-parse HEAD
-git diff --name-only a8e818604826e689453769103d962cd3537399ed...HEAD
+python tools/validate_vbak_append_kit.py
 ```
 
-El `git status` debe quedar limpio. Respecto de `a8e8186`, antes de abrir Power BI solo deben existir archivos nuevos dentro de:
+El repositorio debe quedar limpio y el validador debe devolver `status = VERDE`.
 
-```text
-PowerQuery/VBAK_APPEND/
-Docs/AUDITORIA_LIVE/LLM_LOCAL_EJECUTA_VBAK_APPEND.md
-tools/validate_vbak_append_kit.py
-```
+## Trabajo único permitido
 
-No debe aparecer ningún archivo de `NS.Report` o `NS.SemanticModel` en esta etapa.
+1. Abrir `NS.pbip`.
+2. Ejecutar `Actualizar todo`.
+3. Conectar MCP al modelo vivo.
+4. Comprobar el cruce ya existente.
+5. Generar evidencia.
+6. No corregir el modelo.
 
-## Trabajo permitido
+## Qué está integrado
 
-1. Ejecutar `python tools/validate_vbak_append_kit.py`.
-2. Abrir `NS.pbip`.
-3. Crear las consultas y el parámetro usando exactamente los archivos de `PowerQuery/VBAK_APPEND/README.md`.
-4. Ejecutar el preflight con `VBAK_APPEND_ACTIVO=false`.
-5. Pegar el bloque en el Editor avanzado de `Fact_Pedidos_Auditoria`.
-6. Ejecutar prueba A con `false`.
-7. Ejecutar prueba B con `true` solamente si prueba A y preflight están verdes.
-8. Refrescar el modelo completo.
-9. Conectar MCP y generar evidencia.
-
-## Prohibiciones
-
-- No editar archivos `.tmdl` manualmente.
-- No agregar los 257 pedidos sin filtros.
-- No clasificar FES por intuición.
-- No asignar Regiones cuando `PED_REGION` es nulo.
-- No inferir SALDO con una sola factura.
-- No modificar DAX, relaciones, páginas, SVG o Python.
-- No recortar columnas.
+- anti-join por pedido normalizado;
+- ventana móvil de tres meses;
+- pedidos de clases `ZEDI`, `ZMAY`, `ZMAN`, `ZPDA`, `ZVGF`, `ZREL`, `ZVGM`, `ZTAN`, `TAN`;
+- canales 42–47;
+- atributos de VBAK y región/ciudad de KNA1;
+- exclusión FES por flujo VBFA `C→C` y por `fecha_fes`;
+- cliente, región y fecha de pedido obligatorios;
+- secuencia pedido → entrega → factura → salida validada;
+- marcador `PED_TEXTO_ESTADO = VBAK SIN ZART`;
+- filas agregadas con `AUD_ESTADO_GENERAL = REVISAR` y `AUD_REQUIERE_REVISION = true`.
 
 ## Validaciones obligatorias
 
-- Todas las columnas del preflight SQL: `OK`.
-- Parámetro `false`: master y métricas sin cambios.
-- Parámetro `true`: cero duplicados, claves nulas, canales fuera de 42–47, regiones nulas, FES/SALDO inferidos o salidas sin factura.
-- Todas las filas agregadas: `PED_TEXTO_ESTADO = VBAK SIN ZART`.
-- Todas las filas agregadas: `AUD_ESTADO_GENERAL = REVISAR`.
-- `4190139455` y `1167577`: sin regresión.
-- Resultado/Python: refresh sin error.
-- Preguntas y visuales: smoke test sin cambios funcionales.
+No usar `1.973` como total fijo: era un snapshot histórico. La fuente usa `GETDATE()` y la ventana cambia diariamente.
+
+En el mismo refresh registrar:
+
+- `MASTER_TOTAL`;
+- `VBAK_APPEND_FILAS` = filas con `PED_TEXTO_ESTADO = "VBAK SIN ZART"`;
+- `MASTER_ORIGINAL_ACTUAL = MASTER_TOTAL - VBAK_APPEND_FILAS`;
+- duplicados por `PED_NUMERO_PEDIDO` = 0;
+- claves nulas en filas VBAK = 0;
+- canales fuera de 42–47 = 0;
+- regiones nulas = 0;
+- `ES_FES = true` en filas VBAK = 0;
+- `ES_SALDO = true` en filas VBAK = 0;
+- salida sin factura = 0;
+- todas las filas VBAK marcadas `REVISAR`;
+- `Fact_Tracking`, `Fact_Pedidos`, `Fact_Tiempos_Hitos`, `Fact_Hitos_Operacionales` y `Resultado` refrescan sin error;
+- Python ejecuta sin error;
+- pedidos `4190139455` y `1167577` no presentan regresión;
+- páginas 00, 01 y 01.1 abren y muestran datos.
 
 ## Evidencia
 
-Crear:
+Crear solamente:
 
 ```text
-Docs/AUDITORIA_LIVE/runs/<timestamp>_vbak_master_append/
-├── 00_git_before.txt
-├── 01_kit_validation.json
-├── 02_schema_preflight.csv
-├── 03_candidatos_detalle.csv
-├── 04_prueba_false.csv
-├── 05_control_append.csv
-├── 06_snapshot_modelo.csv
-├── 07_pedidos_clave.csv
-├── 08_smoke_visual.txt
+Docs/AUDITORIA_LIVE/runs/<timestamp>_vbak_master_inline_live/
+├── 00_git.txt
+├── 01_refresh.txt
+├── 02_conteos_master.csv
+├── 03_filas_vbak.csv
+├── 04_controles_calidad.csv
+├── 05_tablas_derivadas.csv
+├── 06_pedidos_clave.csv
+├── 07_smoke_visual.txt
 ├── RESULTADO.md
 └── manifest.json
 ```
 
-No corregir hallazgos. Si algo falla, dejar `VBAK_APPEND_ACTIVO=false`, documentar el error y detenerse.
+Si el refresh falla, registrar el mensaje exacto y detenerse. No modificar DAX, M, TMDL, relaciones, Python ni visuales.
 
-## Commits permitidos
-
-Primer commit, solo si prueba A y B están verdes:
+Commit permitido:
 
 ```text
-feat(vbak): integrar pedidos elegibles en master mediante Power Query
-```
-
-Segundo commit:
-
-```text
-audit(vbak): registrar validacion del append en modelo vivo
+audit(vbak): validar cruce inline en modelo vivo
 ```
