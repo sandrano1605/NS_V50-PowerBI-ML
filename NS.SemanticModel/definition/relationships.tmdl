@@ -138,3 +138,7 @@ relationship 53000000-0000-4000-8000-000000000001
 	fromColumn: Lineas_y_unidades_por_pedidos.Pedido
 	toColumn: Dim_Pedido.PED_NUMERO_PEDIDO
 
+relationship 53000000-0000-4000-8000-0000000000B1
+	fromColumn: Fact_Pedidos_Auditoria.PED_NUMERO_PEDIDO
+	toColumn: Pedidos_Normal_VBAK.VBELN
+
