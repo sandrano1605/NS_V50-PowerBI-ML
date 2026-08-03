@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "chart_924aca87b5094c",
   "position": {
-    "x": 624,
-    "y": 192,
+    "x": 0,
+    "y": 463.99999999999994,
     "z": 10000,
-    "height": 304,
-    "width": 943.99999999999989,
+    "height": 400,
+    "width": 1552,
     "tabOrder": 7000
   },
   "visual": {
@@ -99,7 +99,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Exceso acumulado por hito'"
+                  "Value": "'Cantidad de lineas y pedidos ingresados por dia chorrelacionada por promedio, 90 cerramos diario.'"
                 }
               }
             },

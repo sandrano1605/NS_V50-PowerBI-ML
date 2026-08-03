@@ -1,218 +1,218 @@
 {
- "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
- "name": "card_cdce0b90a20e69",
- "position": {
-  "x": 1032,
-  "y": 624,
-  "z": 5000,
-  "height": 144,
-  "width": 552,
-  "tabOrder": 3000
- },
- "visual": {
-  "visualType": "tableEx",
-  "query": {
-   "queryState": {
-    "Values": {
-     "projections": [
-      {
-       "field": {
-        "Measure": {
-         "Expression": {
-          "SourceRef": {
-           "Entity": "Medidas"
-          }
-         },
-         "Property": "TR NS ruta SVG"
-        }
-       },
-       "queryRef": "Medidas.TR NS ruta SVG",
-       "nativeQueryRef": "TR NS ruta SVG"
-      }
-     ]
-    }
-   },
-   "sortDefinition": {
-    "sort": [
-     {
-      "field": {
-       "Measure": {
-        "Expression": {
-         "SourceRef": {
-          "Entity": "Medidas"
-         }
-        },
-        "Property": "TR NS ruta SVG"
-       }
-      },
-      "direction": "Descending"
-     }
-    ]
-   }
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "card_cdce0b90a20e69",
+  "position": {
+    "x": 1032,
+    "y": 624,
+    "z": 5000,
+    "height": 144,
+    "width": 552,
+    "tabOrder": 3000
   },
-  "objects": {
-   "grid": [
-    {
-     "properties": {
-      "rowPadding": {
-       "expr": {
-        "Literal": {
-         "Value": "0D"
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "TR NS ruta SVG"
+                }
+              },
+              "queryRef": "Medidas.TR NS ruta SVG",
+              "nativeQueryRef": "TR NS ruta SVG"
+            }
+          ]
         }
-       }
       },
-      "imageHeight": {
-       "expr": {
-        "Literal": {
-         "Value": "76D"
-        }
-       }
-      },
-      "imageWidth": {
-       "expr": {
-        "Literal": {
-         "Value": "390D"
-        }
-       }
-      }
-     }
-    }
-   ],
-   "columnHeaders": [
-    {
-     "properties": {}
-    }
-   ],
-   "total": [
-    {
-     "properties": {
-      "totals": {
-       "expr": {
-        "Literal": {
-         "Value": "false"
-        }
-       }
-      }
-     }
-    }
-   ]
-  },
-  "visualContainerObjects": {
-   "title": [
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "true"
-        }
-       }
-      },
-      "text": {
-       "expr": {
-        "Literal": {
-         "Value": "'Cumplimiento del nivel de servicio'"
-        }
-       }
-      },
-      "alignment": {
-       "expr": {
-        "Literal": {
-         "Value": "'left'"
-        }
-       }
-      },
-      "fontSize": {
-       "expr": {
-        "Literal": {
-         "Value": "11D"
-        }
-       }
-      },
-      "fontFamily": {
-       "expr": {
-        "Literal": {
-         "Value": "'Segoe UI Semibold'"
-        }
-       }
-      },
-      "fontColor": {
-       "solid": {
-        "color": {
-         "expr": {
-          "Literal": {
-           "Value": "'#111111'"
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Medidas"
+                  }
+                },
+                "Property": "TR NS ruta SVG"
+              }
+            },
+            "direction": "Descending"
           }
-         }
-        }
-       }
+        ]
       }
-     }
-    }
-   ],
-   "background": [
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "true"
-        }
-       }
-      },
-      "color": {
-       "solid": {
-        "color": {
-         "expr": {
-          "Literal": {
-           "Value": "'#FFFFFF'"
+    },
+    "objects": {
+      "grid": [
+        {
+          "properties": {
+            "rowPadding": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "imageHeight": {
+              "expr": {
+                "Literal": {
+                  "Value": "76D"
+                }
+              }
+            },
+            "imageWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "390D"
+                }
+              }
+            }
           }
-         }
         }
-       }
-      },
-      "transparency": {
-       "expr": {
-        "Literal": {
-         "Value": "0D"
+      ],
+      "columnHeaders": [
+        {
+          "properties": {}
         }
-       }
-      }
-     }
-    }
-   ],
-   "border": [
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "true"
-        }
-       }
-      },
-      "color": {
-       "solid": {
-        "color": {
-         "expr": {
-          "Literal": {
-           "Value": "'#D7E0EA'"
+      ],
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
           }
-         }
         }
-       }
-      },
-      "radius": {
-       "expr": {
-        "Literal": {
-         "Value": "8D"
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Cumplimiento del nivel de servicio'"
+                }
+              }
+            },
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'left'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "11D"
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Segoe UI Semibold'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#111111'"
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
-       }
-      }
-     }
-    }
-   ]
-  },
-  "drillFilterOtherVisuals": true
- }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#D7E0EA'"
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
 }

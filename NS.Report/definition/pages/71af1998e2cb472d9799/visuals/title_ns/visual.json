@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "title_ns",
   "position": {
-    "x": 208,
+    "x": 176,
     "y": 16,
     "z": 7000,
-    "height": 47.999999999999993,
-    "width": 240.00000000000003,
+    "height": 56,
+    "width": 344,
     "tabOrder": 7000
   },
   "visual": {
@@ -31,7 +31,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "TIEMPOS INTERNOS",
+                    "value": "TIEMPOS INTERNOS-PEDIDOS CERRADOS",
                     "textStyle": {
                       "fontWeight": "bold",
                       "fontSize": "11pt",

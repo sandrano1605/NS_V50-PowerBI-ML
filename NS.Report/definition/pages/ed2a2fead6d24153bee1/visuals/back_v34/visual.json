@@ -1,579 +1,579 @@
 {
- "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
- "name": "back_v34",
- "position": {
-  "x": 770,
-  "y": 10,
-  "z": 25000,
-  "height": 42,
-  "width": 104,
-  "tabOrder": 24000
- },
- "visual": {
-  "visualType": "actionButton",
-  "objects": {
-   "icon": [
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "true"
-        }
-       }
-      },
-      "shapeType": {
-       "expr": {
-        "Literal": {
-         "Value": "'custom'"
-        }
-       }
-      },
-      "iconSize": {
-       "expr": {
-        "Literal": {
-         "Value": "16D"
-        }
-       }
-      },
-      "horizontalAlignment": {
-       "expr": {
-        "Literal": {
-         "Value": "'left'"
-        }
-       }
-      },
-      "verticalAlignment": {
-       "expr": {
-        "Literal": {
-         "Value": "'middle'"
-        }
-       }
-      },
-      "leftMargin": {
-       "expr": {
-        "Literal": {
-         "Value": "9L"
-        }
-       }
-      },
-      "image": {
-       "image": {
-        "name": {
-         "expr": {
-          "Literal": {
-           "Value": "'ns_back_dark.svg'"
-          }
-         }
-        },
-        "url": {
-         "expr": {
-          "ResourcePackageItem": {
-           "PackageName": "RegisteredResources",
-           "PackageType": 1,
-           "ItemName": "ns_back_dark.svg"
-          }
-         }
-        },
-        "scaling": {
-         "expr": {
-          "Literal": {
-           "Value": "'Normal'"
-          }
-         }
-        }
-       }
-      }
-     },
-     "selector": {
-      "id": "default"
-     }
-    },
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "true"
-        }
-       }
-      },
-      "shapeType": {
-       "expr": {
-        "Literal": {
-         "Value": "'custom'"
-        }
-       }
-      },
-      "iconSize": {
-       "expr": {
-        "Literal": {
-         "Value": "16D"
-        }
-       }
-      },
-      "horizontalAlignment": {
-       "expr": {
-        "Literal": {
-         "Value": "'left'"
-        }
-       }
-      },
-      "verticalAlignment": {
-       "expr": {
-        "Literal": {
-         "Value": "'middle'"
-        }
-       }
-      },
-      "leftMargin": {
-       "expr": {
-        "Literal": {
-         "Value": "9L"
-        }
-       }
-      },
-      "image": {
-       "image": {
-        "name": {
-         "expr": {
-          "Literal": {
-           "Value": "'ns_back_hover.svg'"
-          }
-         }
-        },
-        "url": {
-         "expr": {
-          "ResourcePackageItem": {
-           "PackageName": "RegisteredResources",
-           "PackageType": 1,
-           "ItemName": "ns_back_hover.svg"
-          }
-         }
-        },
-        "scaling": {
-         "expr": {
-          "Literal": {
-           "Value": "'Normal'"
-          }
-         }
-        }
-       }
-      }
-     },
-     "selector": {
-      "id": "hover"
-     }
-    }
-   ],
-   "text": [
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "true"
-        }
-       }
-      },
-      "text": {
-       "expr": {
-        "Literal": {
-         "Value": "'Volver'"
-        }
-       }
-      },
-      "fontColor": {
-       "solid": {
-        "color": {
-         "expr": {
-          "Literal": {
-           "Value": "'#141414'"
-          }
-         }
-        }
-       }
-      },
-      "fontSize": {
-       "expr": {
-        "Literal": {
-         "Value": "8D"
-        }
-       }
-      },
-      "fontFamily": {
-       "expr": {
-        "Literal": {
-         "Value": "'Segoe UI Semibold'"
-        }
-       }
-      },
-      "bold": {
-       "expr": {
-        "Literal": {
-         "Value": "false"
-        }
-       }
-      },
-      "horizontalAlignment": {
-       "expr": {
-        "Literal": {
-         "Value": "'center'"
-        }
-       }
-      },
-      "leftMargin": {
-       "expr": {
-        "Literal": {
-         "Value": "20L"
-        }
-       }
-      },
-      "rightMargin": {
-       "expr": {
-        "Literal": {
-         "Value": "8L"
-        }
-       }
-      }
-     },
-     "selector": {
-      "id": "default"
-     }
-    },
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "true"
-        }
-       }
-      },
-      "text": {
-       "expr": {
-        "Literal": {
-         "Value": "'Volver'"
-        }
-       }
-      },
-      "fontColor": {
-       "solid": {
-        "color": {
-         "expr": {
-          "Literal": {
-           "Value": "'#FFFFFF'"
-          }
-         }
-        }
-       }
-      },
-      "fontSize": {
-       "expr": {
-        "Literal": {
-         "Value": "8D"
-        }
-       }
-      },
-      "fontFamily": {
-       "expr": {
-        "Literal": {
-         "Value": "'Segoe UI Semibold'"
-        }
-       }
-      },
-      "bold": {
-       "expr": {
-        "Literal": {
-         "Value": "true"
-        }
-       }
-      },
-      "horizontalAlignment": {
-       "expr": {
-        "Literal": {
-         "Value": "'center'"
-        }
-       }
-      },
-      "leftMargin": {
-       "expr": {
-        "Literal": {
-         "Value": "20L"
-        }
-       }
-      },
-      "rightMargin": {
-       "expr": {
-        "Literal": {
-         "Value": "8L"
-        }
-       }
-      }
-     },
-     "selector": {
-      "id": "hover"
-     }
-    }
-   ],
-   "shape": [
-    {
-     "properties": {
-      "roundEdge": {
-       "expr": {
-        "Literal": {
-         "Value": "6L"
-        }
-       }
-      }
-     },
-     "selector": {
-      "id": "default"
-     }
-    },
-    {
-     "properties": {
-      "roundEdge": {
-       "expr": {
-        "Literal": {
-         "Value": "6L"
-        }
-       }
-      }
-     },
-     "selector": {
-      "id": "hover"
-     }
-    }
-   ],
-   "fill": [
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "true"
-        }
-       }
-      }
-     }
-    },
-    {
-     "properties": {
-      "fillColor": {
-       "solid": {
-        "color": {
-         "expr": {
-          "Literal": {
-           "Value": "'#FFFFFF'"
-          }
-         }
-        }
-       }
-      },
-      "transparency": {
-       "expr": {
-        "Literal": {
-         "Value": "0D"
-        }
-       }
-      }
-     },
-     "selector": {
-      "id": "default"
-     }
-    },
-    {
-     "properties": {
-      "fillColor": {
-       "solid": {
-        "color": {
-         "expr": {
-          "Literal": {
-           "Value": "'#202A44'"
-          }
-         }
-        }
-       }
-      },
-      "transparency": {
-       "expr": {
-        "Literal": {
-         "Value": "0D"
-        }
-       }
-      }
-     },
-     "selector": {
-      "id": "hover"
-     }
-    }
-   ],
-   "outline": [
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "true"
-        }
-       }
-      }
-     }
-    },
-    {
-     "properties": {
-      "lineColor": {
-       "solid": {
-        "color": {
-         "expr": {
-          "Literal": {
-           "Value": "'#CED9E5'"
-          }
-         }
-        }
-       }
-      },
-      "weight": {
-       "expr": {
-        "Literal": {
-         "Value": "1D"
-        }
-       }
-      }
-     },
-     "selector": {
-      "id": "default"
-     }
-    },
-    {
-     "properties": {
-      "lineColor": {
-       "solid": {
-        "color": {
-         "expr": {
-          "Literal": {
-           "Value": "'#202A44'"
-          }
-         }
-        }
-       }
-      },
-      "weight": {
-       "expr": {
-        "Literal": {
-         "Value": "1D"
-        }
-       }
-      }
-     },
-     "selector": {
-      "id": "hover"
-     }
-    }
-   ]
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "back_v34",
+  "position": {
+    "x": 770,
+    "y": 10,
+    "z": 25000,
+    "height": 42,
+    "width": 104,
+    "tabOrder": 24000
   },
-  "visualContainerObjects": {
-   "visualLink": [
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "true"
+  "visual": {
+    "visualType": "actionButton",
+    "objects": {
+      "icon": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "shapeType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'custom'"
+                }
+              }
+            },
+            "iconSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "16D"
+                }
+              }
+            },
+            "horizontalAlignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'left'"
+                }
+              }
+            },
+            "verticalAlignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'middle'"
+                }
+              }
+            },
+            "leftMargin": {
+              "expr": {
+                "Literal": {
+                  "Value": "9L"
+                }
+              }
+            },
+            "image": {
+              "image": {
+                "name": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'ns_back_dark.svg'"
+                    }
+                  }
+                },
+                "url": {
+                  "expr": {
+                    "ResourcePackageItem": {
+                      "PackageName": "RegisteredResources",
+                      "PackageType": 1,
+                      "ItemName": "ns_back_dark.svg"
+                    }
+                  }
+                },
+                "scaling": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'Normal'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        },
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "shapeType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'custom'"
+                }
+              }
+            },
+            "iconSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "16D"
+                }
+              }
+            },
+            "horizontalAlignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'left'"
+                }
+              }
+            },
+            "verticalAlignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'middle'"
+                }
+              }
+            },
+            "leftMargin": {
+              "expr": {
+                "Literal": {
+                  "Value": "9L"
+                }
+              }
+            },
+            "image": {
+              "image": {
+                "name": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'ns_back_hover.svg'"
+                    }
+                  }
+                },
+                "url": {
+                  "expr": {
+                    "ResourcePackageItem": {
+                      "PackageName": "RegisteredResources",
+                      "PackageType": 1,
+                      "ItemName": "ns_back_hover.svg"
+                    }
+                  }
+                },
+                "scaling": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'Normal'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "hover"
+          }
         }
-       }
-      },
-      "type": {
-       "expr": {
-        "Literal": {
-         "Value": "'Back'"
+      ],
+      "text": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Volver'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#141414'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Segoe UI Semibold'"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "horizontalAlignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'center'"
+                }
+              }
+            },
+            "leftMargin": {
+              "expr": {
+                "Literal": {
+                  "Value": "20L"
+                }
+              }
+            },
+            "rightMargin": {
+              "expr": {
+                "Literal": {
+                  "Value": "8L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        },
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Volver'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Segoe UI Semibold'"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "horizontalAlignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'center'"
+                }
+              }
+            },
+            "leftMargin": {
+              "expr": {
+                "Literal": {
+                  "Value": "20L"
+                }
+              }
+            },
+            "rightMargin": {
+              "expr": {
+                "Literal": {
+                  "Value": "8L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "hover"
+          }
         }
-       }
-      },
-      "tooltip": {
-       "expr": {
-        "Literal": {
-         "Value": "'Volver a la página de origen'"
+      ],
+      "shape": [
+        {
+          "properties": {
+            "roundEdge": {
+              "expr": {
+                "Literal": {
+                  "Value": "6L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        },
+        {
+          "properties": {
+            "roundEdge": {
+              "expr": {
+                "Literal": {
+                  "Value": "6L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "hover"
+          }
         }
-       }
-      },
-      "showDefaultTooltip": {
-       "expr": {
-        "Literal": {
-         "Value": "false"
+      ],
+      "fill": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "fillColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        },
+        {
+          "properties": {
+            "fillColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#202A44'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "hover"
+          }
         }
-       }
-      }
-     }
-    }
-   ],
-   "general": [
-    {
-     "properties": {
-      "altText": {
-       "expr": {
-        "Literal": {
-         "Value": "'Volver a la página de origen'"
+      ],
+      "outline": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "lineColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#CED9E5'"
+                    }
+                  }
+                }
+              }
+            },
+            "weight": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        },
+        {
+          "properties": {
+            "lineColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#202A44'"
+                    }
+                  }
+                }
+              }
+            },
+            "weight": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "hover"
+          }
         }
-       }
-      }
-     }
-    }
-   ],
-   "title": [
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "false"
+      ]
+    },
+    "visualContainerObjects": {
+      "visualLink": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "type": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Back'"
+                }
+              }
+            },
+            "tooltip": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Volver a la página de origen'"
+                }
+              }
+            },
+            "showDefaultTooltip": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
         }
-       }
-      }
-     }
-    }
-   ],
-   "background": [
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "false"
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Volver a la página de origen'"
+                }
+              }
+            }
+          }
         }
-       }
-      }
-     }
-    }
-   ],
-   "border": [
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "false"
+      ],
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
         }
-       }
-      }
-     }
-    }
-   ],
-   "visualHeader": [
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "false"
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
         }
-       }
-      }
-     }
-    }
-   ]
-  },
-  "drillFilterOtherVisuals": true
- }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
 }

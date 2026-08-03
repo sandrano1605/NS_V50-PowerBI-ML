@@ -5,8 +5,8 @@
     "x": 32,
     "y": 0,
     "z": 3000,
-    "height": 47.999999999999993,
-    "width": 688,
+    "height": 48,
+    "width": 848,
     "tabOrder": 17000
   },
   "visual": {
@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "10 HITOS Y CUELLO OPERACIONAL",
+                    "value": "ANALISIS COMPORTAMIENTO DE PEDIDO INGRESO Y CIERRE ",
                     "textStyle": {
                       "fontWeight": "bold",
                       "fontSize": "21pt"

@@ -1,481 +1,481 @@
 {
- "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
- "name": "table_15b8b83ff48292",
- "position": {
-  "x": 24,
-  "y": 624,
-  "z": 7000,
-  "height": 504,
-  "width": 936,
-  "tabOrder": 5000
- },
- "visual": {
-  "visualType": "tableEx",
-  "query": {
-   "queryState": {
-    "Values": {
-     "projections": [
-      {
-       "field": {
-        "Column": {
-         "Expression": {
-          "SourceRef": {
-           "Entity": "Fact_Hitos_Operacionales"
-          }
-         },
-         "Property": "ORDEN_HITO"
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "table_15b8b83ff48292",
+  "position": {
+    "x": 24,
+    "y": 624,
+    "z": 7000,
+    "height": 504,
+    "width": 936,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Hitos_Operacionales"
+                    }
+                  },
+                  "Property": "ORDEN_HITO"
+                }
+              },
+              "queryRef": "Fact_Hitos_Operacionales.ORDEN_HITO",
+              "nativeQueryRef": "Orden"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "AUD Semáforo SVG"
+                }
+              },
+              "queryRef": "Medidas.AUD Semáforo SVG",
+              "nativeQueryRef": "AUD Semáforo SVG"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Hitos_Operacionales"
+                    }
+                  },
+                  "Property": "HITO"
+                }
+              },
+              "queryRef": "Fact_Hitos_Operacionales.HITO",
+              "nativeQueryRef": "Hito del proceso"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Hitos_Operacionales"
+                    }
+                  },
+                  "Property": "AREA_RESPONSABLE"
+                }
+              },
+              "queryRef": "Fact_Hitos_Operacionales.AREA_RESPONSABLE",
+              "nativeQueryRef": "Área responsable"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Hitos_Operacionales"
+                    }
+                  },
+                  "Property": "FECHA_INICIO"
+                }
+              },
+              "queryRef": "Fact_Hitos_Operacionales.FECHA_INICIO",
+              "nativeQueryRef": "Fecha inicio"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Hitos_Operacionales"
+                    }
+                  },
+                  "Property": "FECHA_FIN"
+                }
+              },
+              "queryRef": "Fact_Hitos_Operacionales.FECHA_FIN",
+              "nativeQueryRef": "Fecha fin"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "U Promedio hito DH"
+                }
+              },
+              "queryRef": "Medidas.U Promedio hito DH",
+              "nativeQueryRef": "U Promedio hito DH"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "TR SLA ruta DH"
+                }
+              },
+              "queryRef": "Medidas.TR SLA ruta DH",
+              "nativeQueryRef": "TR SLA ruta DH"
+            }
+          ]
         }
-       },
-       "queryRef": "Fact_Hitos_Operacionales.ORDEN_HITO",
-       "nativeQueryRef": "Orden"
       },
-      {
-       "field": {
-        "Measure": {
-         "Expression": {
-          "SourceRef": {
-           "Entity": "Medidas"
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Fact_Hitos_Operacionales"
+                  }
+                },
+                "Property": "ORDEN_HITO"
+              }
+            },
+            "direction": "Ascending"
           }
-         },
-         "Property": "AUD Semáforo SVG"
-        }
-       },
-       "queryRef": "Medidas.AUD Semáforo SVG",
-       "nativeQueryRef": "AUD Semáforo SVG"
-      },
-      {
-       "field": {
-        "Column": {
-         "Expression": {
-          "SourceRef": {
-           "Entity": "Fact_Hitos_Operacionales"
-          }
-         },
-         "Property": "HITO"
-        }
-       },
-       "queryRef": "Fact_Hitos_Operacionales.HITO",
-       "nativeQueryRef": "Hito del proceso"
-      },
-      {
-       "field": {
-        "Column": {
-         "Expression": {
-          "SourceRef": {
-           "Entity": "Fact_Hitos_Operacionales"
-          }
-         },
-         "Property": "AREA_RESPONSABLE"
-        }
-       },
-       "queryRef": "Fact_Hitos_Operacionales.AREA_RESPONSABLE",
-       "nativeQueryRef": "Área responsable"
-      },
-      {
-       "field": {
-        "Column": {
-         "Expression": {
-          "SourceRef": {
-           "Entity": "Fact_Hitos_Operacionales"
-          }
-         },
-         "Property": "FECHA_INICIO"
-        }
-       },
-       "queryRef": "Fact_Hitos_Operacionales.FECHA_INICIO",
-       "nativeQueryRef": "Fecha inicio"
-      },
-      {
-       "field": {
-        "Column": {
-         "Expression": {
-          "SourceRef": {
-           "Entity": "Fact_Hitos_Operacionales"
-          }
-         },
-         "Property": "FECHA_FIN"
-        }
-       },
-       "queryRef": "Fact_Hitos_Operacionales.FECHA_FIN",
-       "nativeQueryRef": "Fecha fin"
-      },
-      {
-       "field": {
-        "Measure": {
-         "Expression": {
-          "SourceRef": {
-           "Entity": "Medidas"
-          }
-         },
-         "Property": "U Promedio hito DH"
-        }
-       },
-       "queryRef": "Medidas.U Promedio hito DH",
-       "nativeQueryRef": "U Promedio hito DH"
-      },
-      {
-       "field": {
-        "Measure": {
-         "Expression": {
-          "SourceRef": {
-           "Entity": "Medidas"
-          }
-         },
-         "Property": "TR SLA ruta DH"
-        }
-       },
-       "queryRef": "Medidas.TR SLA ruta DH",
-       "nativeQueryRef": "TR SLA ruta DH"
+        ]
       }
-     ]
-    }
-   },
-   "sortDefinition": {
-    "sort": [
-     {
-      "field": {
-       "Column": {
-        "Expression": {
-         "SourceRef": {
-          "Entity": "Fact_Hitos_Operacionales"
-         }
+    },
+    "objects": {
+      "grid": [
+        {
+          "properties": {
+            "gridVertical": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "gridHorizontal": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "rowPadding": {
+              "expr": {
+                "Literal": {
+                  "Value": "3D"
+                }
+              }
+            },
+            "imageHeight": {
+              "expr": {
+                "Literal": {
+                  "Value": "34D"
+                }
+              }
+            },
+            "imageWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "140D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "9D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Mapa de calor de hitos · promedio, SLA y pendientes'"
+                }
+              }
+            },
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'left'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "11D"
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Segoe UI Semibold'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#111111'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#D7E0EA'"
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "f5b5e24990b8ba7e99ab",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_Hitos_Operacionales"
+              }
+            },
+            "Property": "ORDEN_HITO"
+          }
         },
-        "Property": "ORDEN_HITO"
-       }
+        "type": "Advanced"
       },
-      "direction": "Ascending"
-     }
+      {
+        "name": "2d0c5a9101307829006c",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "AUD Semáforo SVG"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "b886d49b060eda9660bb",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_Hitos_Operacionales"
+              }
+            },
+            "Property": "HITO"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "18af0b8608095a001858",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_Hitos_Operacionales"
+              }
+            },
+            "Property": "AREA_RESPONSABLE"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "0a0f2e7435c22d41a8bc",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_Hitos_Operacionales"
+              }
+            },
+            "Property": "FECHA_INICIO"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "90edc46e937ad250baec",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_Hitos_Operacionales"
+              }
+            },
+            "Property": "FECHA_FIN"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "2c9ee5623a3d7e5670dd",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "U Promedio hito DH"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "8787552f101c013e0c8a",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "TR SLA ruta DH"
+          }
+        },
+        "type": "Advanced"
+      }
     ]
-   }
-  },
-  "objects": {
-   "grid": [
-    {
-     "properties": {
-      "gridVertical": {
-       "expr": {
-        "Literal": {
-         "Value": "true"
-        }
-       }
-      },
-      "gridHorizontal": {
-       "expr": {
-        "Literal": {
-         "Value": "true"
-        }
-       }
-      },
-      "rowPadding": {
-       "expr": {
-        "Literal": {
-         "Value": "3D"
-        }
-       }
-      },
-      "imageHeight": {
-       "expr": {
-        "Literal": {
-         "Value": "34D"
-        }
-       }
-      },
-      "imageWidth": {
-       "expr": {
-        "Literal": {
-         "Value": "140D"
-        }
-       }
-      }
-     }
-    }
-   ],
-   "columnHeaders": [
-    {
-     "properties": {
-      "wordWrap": {
-       "expr": {
-        "Literal": {
-         "Value": "true"
-        }
-       }
-      },
-      "fontSize": {
-       "expr": {
-        "Literal": {
-         "Value": "9D"
-        }
-       }
-      }
-     }
-    }
-   ],
-   "values": [
-    {
-     "properties": {
-      "wordWrap": {
-       "expr": {
-        "Literal": {
-         "Value": "false"
-        }
-       }
-      },
-      "fontSize": {
-       "expr": {
-        "Literal": {
-         "Value": "8D"
-        }
-       }
-      }
-     }
-    }
-   ],
-   "total": [
-    {
-     "properties": {
-      "totals": {
-       "expr": {
-        "Literal": {
-         "Value": "false"
-        }
-       }
-      }
-     }
-    }
-   ]
-  },
-  "visualContainerObjects": {
-   "title": [
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "true"
-        }
-       }
-      },
-      "text": {
-       "expr": {
-        "Literal": {
-         "Value": "'Mapa de calor de hitos · promedio, SLA y pendientes'"
-        }
-       }
-      },
-      "alignment": {
-       "expr": {
-        "Literal": {
-         "Value": "'left'"
-        }
-       }
-      },
-      "fontSize": {
-       "expr": {
-        "Literal": {
-         "Value": "11D"
-        }
-       }
-      },
-      "fontFamily": {
-       "expr": {
-        "Literal": {
-         "Value": "'Segoe UI Semibold'"
-        }
-       }
-      },
-      "fontColor": {
-       "solid": {
-        "color": {
-         "expr": {
-          "Literal": {
-           "Value": "'#111111'"
-          }
-         }
-        }
-       }
-      }
-     }
-    }
-   ],
-   "background": [
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "true"
-        }
-       }
-      },
-      "color": {
-       "solid": {
-        "color": {
-         "expr": {
-          "Literal": {
-           "Value": "'#FFFFFF'"
-          }
-         }
-        }
-       }
-      },
-      "transparency": {
-       "expr": {
-        "Literal": {
-         "Value": "0D"
-        }
-       }
-      }
-     }
-    }
-   ],
-   "border": [
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "true"
-        }
-       }
-      },
-      "color": {
-       "solid": {
-        "color": {
-         "expr": {
-          "Literal": {
-           "Value": "'#D7E0EA'"
-          }
-         }
-        }
-       }
-      },
-      "radius": {
-       "expr": {
-        "Literal": {
-         "Value": "8D"
-        }
-       }
-      }
-     }
-    }
-   ]
-  },
-  "drillFilterOtherVisuals": true
- },
- "filterConfig": {
-  "filters": [
-   {
-    "name": "f5b5e24990b8ba7e99ab",
-    "field": {
-     "Column": {
-      "Expression": {
-       "SourceRef": {
-        "Entity": "Fact_Hitos_Operacionales"
-       }
-      },
-      "Property": "ORDEN_HITO"
-     }
-    },
-    "type": "Advanced"
-   },
-   {
-    "name": "2d0c5a9101307829006c",
-    "field": {
-     "Measure": {
-      "Expression": {
-       "SourceRef": {
-        "Entity": "Medidas"
-       }
-      },
-      "Property": "AUD Semáforo SVG"
-     }
-    },
-    "type": "Advanced"
-   },
-   {
-    "name": "b886d49b060eda9660bb",
-    "field": {
-     "Column": {
-      "Expression": {
-       "SourceRef": {
-        "Entity": "Fact_Hitos_Operacionales"
-       }
-      },
-      "Property": "HITO"
-     }
-    },
-    "type": "Categorical"
-   },
-   {
-    "name": "18af0b8608095a001858",
-    "field": {
-     "Column": {
-      "Expression": {
-       "SourceRef": {
-        "Entity": "Fact_Hitos_Operacionales"
-       }
-      },
-      "Property": "AREA_RESPONSABLE"
-     }
-    },
-    "type": "Categorical"
-   },
-   {
-    "name": "0a0f2e7435c22d41a8bc",
-    "field": {
-     "Column": {
-      "Expression": {
-       "SourceRef": {
-        "Entity": "Fact_Hitos_Operacionales"
-       }
-      },
-      "Property": "FECHA_INICIO"
-     }
-    },
-    "type": "Categorical"
-   },
-   {
-    "name": "90edc46e937ad250baec",
-    "field": {
-     "Column": {
-      "Expression": {
-       "SourceRef": {
-        "Entity": "Fact_Hitos_Operacionales"
-       }
-      },
-      "Property": "FECHA_FIN"
-     }
-    },
-    "type": "Categorical"
-   },
-   {
-    "name": "2c9ee5623a3d7e5670dd",
-    "field": {
-     "Measure": {
-      "Expression": {
-       "SourceRef": {
-        "Entity": "Medidas"
-       }
-      },
-      "Property": "U Promedio hito DH"
-     }
-    },
-    "type": "Advanced"
-   },
-   {
-    "name": "8787552f101c013e0c8a",
-    "field": {
-     "Measure": {
-      "Expression": {
-       "SourceRef": {
-        "Entity": "Medidas"
-       }
-      },
-      "Property": "TR SLA ruta DH"
-     }
-    },
-    "type": "Advanced"
-   }
-  ]
- }
+  }
 }

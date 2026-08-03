@@ -1,1015 +1,1015 @@
 {
- "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
- "name": "nav_resumen_v34",
- "position": {
-  "x": 888,
-  "y": 10,
-  "z": 14000,
-  "height": 42,
-  "width": 164,
-  "tabOrder": 13000
- },
- "visual": {
-  "visualType": "actionButton",
-  "objects": {
-   "icon": [
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "true"
-        }
-       }
-      },
-      "shapeType": {
-       "expr": {
-        "Literal": {
-         "Value": "'custom'"
-        }
-       }
-      },
-      "iconSize": {
-       "expr": {
-        "Literal": {
-         "Value": "120D"
-        }
-       }
-      },
-      "horizontalAlignment": {
-       "expr": {
-        "Literal": {
-         "Value": "'center'"
-        }
-       }
-      },
-      "verticalAlignment": {
-       "expr": {
-        "Literal": {
-         "Value": "'middle'"
-        }
-       }
-      },
-      "leftMargin": {
-       "expr": {
-        "Literal": {
-         "Value": "0L"
-        }
-       }
-      },
-      "image": {
-       "image": {
-        "name": {
-         "expr": {
-          "Literal": {
-           "Value": "'ns_resumen_dark.svg'"
-          }
-         }
-        },
-        "url": {
-         "expr": {
-          "ResourcePackageItem": {
-           "PackageName": "RegisteredResources",
-           "PackageType": 1,
-           "ItemName": "ns_resumen_dark.svg"
-          }
-         }
-        },
-        "scaling": {
-         "expr": {
-          "Literal": {
-           "Value": "'Normal'"
-          }
-         }
-        }
-       }
-      }
-     },
-     "selector": {
-      "id": "default"
-     }
-    },
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "true"
-        }
-       }
-      },
-      "shapeType": {
-       "expr": {
-        "Literal": {
-         "Value": "'custom'"
-        }
-       }
-      },
-      "iconSize": {
-       "expr": {
-        "Literal": {
-         "Value": "120D"
-        }
-       }
-      },
-      "horizontalAlignment": {
-       "expr": {
-        "Literal": {
-         "Value": "'center'"
-        }
-       }
-      },
-      "verticalAlignment": {
-       "expr": {
-        "Literal": {
-         "Value": "'middle'"
-        }
-       }
-      },
-      "leftMargin": {
-       "expr": {
-        "Literal": {
-         "Value": "0L"
-        }
-       }
-      },
-      "image": {
-       "image": {
-        "name": {
-         "expr": {
-          "Literal": {
-           "Value": "'ns_resumen_hover.svg'"
-          }
-         }
-        },
-        "url": {
-         "expr": {
-          "ResourcePackageItem": {
-           "PackageName": "RegisteredResources",
-           "PackageType": 1,
-           "ItemName": "ns_resumen_hover.svg"
-          }
-         }
-        },
-        "scaling": {
-         "expr": {
-          "Literal": {
-           "Value": "'Normal'"
-          }
-         }
-        }
-       }
-      }
-     },
-     "selector": {
-      "id": "hover"
-     }
-    },
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "true"
-        }
-       }
-      },
-      "shapeType": {
-       "expr": {
-        "Literal": {
-         "Value": "'custom'"
-        }
-       }
-      },
-      "iconSize": {
-       "expr": {
-        "Literal": {
-         "Value": "120D"
-        }
-       }
-      },
-      "horizontalAlignment": {
-       "expr": {
-        "Literal": {
-         "Value": "'center'"
-        }
-       }
-      },
-      "verticalAlignment": {
-       "expr": {
-        "Literal": {
-         "Value": "'middle'"
-        }
-       }
-      },
-      "leftMargin": {
-       "expr": {
-        "Literal": {
-         "Value": "0L"
-        }
-       }
-      },
-      "image": {
-       "image": {
-        "name": {
-         "expr": {
-          "Literal": {
-           "Value": "'ns_resumen_white.svg'"
-          }
-         }
-        },
-        "url": {
-         "expr": {
-          "ResourcePackageItem": {
-           "PackageName": "RegisteredResources",
-           "PackageType": 1,
-           "ItemName": "ns_resumen_white.svg"
-          }
-         }
-        },
-        "scaling": {
-         "expr": {
-          "Literal": {
-           "Value": "'Normal'"
-          }
-         }
-        }
-       }
-      }
-     },
-     "selector": {
-      "id": "active"
-     }
-    },
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "true"
-        }
-       }
-      },
-      "shapeType": {
-       "expr": {
-        "Literal": {
-         "Value": "'custom'"
-        }
-       }
-      },
-      "iconSize": {
-       "expr": {
-        "Literal": {
-         "Value": "120D"
-        }
-       }
-      },
-      "horizontalAlignment": {
-       "expr": {
-        "Literal": {
-         "Value": "'center'"
-        }
-       }
-      },
-      "verticalAlignment": {
-       "expr": {
-        "Literal": {
-         "Value": "'middle'"
-        }
-       }
-      },
-      "leftMargin": {
-       "expr": {
-        "Literal": {
-         "Value": "0L"
-        }
-       }
-      },
-      "image": {
-       "image": {
-        "name": {
-         "expr": {
-          "Literal": {
-           "Value": "'ns_resumen_dark.svg'"
-          }
-         }
-        },
-        "url": {
-         "expr": {
-          "ResourcePackageItem": {
-           "PackageName": "RegisteredResources",
-           "PackageType": 1,
-           "ItemName": "ns_resumen_dark.svg"
-          }
-         }
-        },
-        "scaling": {
-         "expr": {
-          "Literal": {
-           "Value": "'Normal'"
-          }
-         }
-        }
-       }
-      }
-     },
-     "selector": {
-      "id": "disabled"
-     }
-    }
-   ],
-   "text": [
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "false"
-        }
-       }
-      },
-      "text": {
-       "expr": {
-        "Literal": {
-         "Value": "'Resumen'"
-        }
-       }
-      },
-      "fontColor": {
-       "solid": {
-        "color": {
-         "expr": {
-          "Literal": {
-           "Value": "'#141414'"
-          }
-         }
-        }
-       }
-      },
-      "fontSize": {
-       "expr": {
-        "Literal": {
-         "Value": "8D"
-        }
-       }
-      },
-      "fontFamily": {
-       "expr": {
-        "Literal": {
-         "Value": "'Segoe UI Semibold'"
-        }
-       }
-      },
-      "bold": {
-       "expr": {
-        "Literal": {
-         "Value": "false"
-        }
-       }
-      },
-      "horizontalAlignment": {
-       "expr": {
-        "Literal": {
-         "Value": "'center'"
-        }
-       }
-      },
-      "leftMargin": {
-       "expr": {
-        "Literal": {
-         "Value": "20L"
-        }
-       }
-      },
-      "rightMargin": {
-       "expr": {
-        "Literal": {
-         "Value": "8L"
-        }
-       }
-      }
-     },
-     "selector": {
-      "id": "default"
-     }
-    },
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "false"
-        }
-       }
-      },
-      "text": {
-       "expr": {
-        "Literal": {
-         "Value": "'Resumen'"
-        }
-       }
-      },
-      "fontColor": {
-       "solid": {
-        "color": {
-         "expr": {
-          "Literal": {
-           "Value": "'#FFFFFF'"
-          }
-         }
-        }
-       }
-      },
-      "fontSize": {
-       "expr": {
-        "Literal": {
-         "Value": "8D"
-        }
-       }
-      },
-      "fontFamily": {
-       "expr": {
-        "Literal": {
-         "Value": "'Segoe UI Semibold'"
-        }
-       }
-      },
-      "bold": {
-       "expr": {
-        "Literal": {
-         "Value": "true"
-        }
-       }
-      },
-      "horizontalAlignment": {
-       "expr": {
-        "Literal": {
-         "Value": "'center'"
-        }
-       }
-      },
-      "leftMargin": {
-       "expr": {
-        "Literal": {
-         "Value": "20L"
-        }
-       }
-      },
-      "rightMargin": {
-       "expr": {
-        "Literal": {
-         "Value": "8L"
-        }
-       }
-      }
-     },
-     "selector": {
-      "id": "hover"
-     }
-    },
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "false"
-        }
-       }
-      },
-      "text": {
-       "expr": {
-        "Literal": {
-         "Value": "'Resumen'"
-        }
-       }
-      },
-      "fontColor": {
-       "solid": {
-        "color": {
-         "expr": {
-          "Literal": {
-           "Value": "'#FFFFFF'"
-          }
-         }
-        }
-       }
-      },
-      "fontSize": {
-       "expr": {
-        "Literal": {
-         "Value": "8D"
-        }
-       }
-      },
-      "fontFamily": {
-       "expr": {
-        "Literal": {
-         "Value": "'Segoe UI Semibold'"
-        }
-       }
-      },
-      "bold": {
-       "expr": {
-        "Literal": {
-         "Value": "true"
-        }
-       }
-      },
-      "horizontalAlignment": {
-       "expr": {
-        "Literal": {
-         "Value": "'center'"
-        }
-       }
-      },
-      "leftMargin": {
-       "expr": {
-        "Literal": {
-         "Value": "20L"
-        }
-       }
-      },
-      "rightMargin": {
-       "expr": {
-        "Literal": {
-         "Value": "8L"
-        }
-       }
-      }
-     },
-     "selector": {
-      "id": "active"
-     }
-    },
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "false"
-        }
-       }
-      },
-      "text": {
-       "expr": {
-        "Literal": {
-         "Value": "'Resumen'"
-        }
-       }
-      },
-      "fontColor": {
-       "solid": {
-        "color": {
-         "expr": {
-          "Literal": {
-           "Value": "'#77838E'"
-          }
-         }
-        }
-       }
-      },
-      "fontSize": {
-       "expr": {
-        "Literal": {
-         "Value": "8D"
-        }
-       }
-      },
-      "fontFamily": {
-       "expr": {
-        "Literal": {
-         "Value": "'Segoe UI Semibold'"
-        }
-       }
-      },
-      "bold": {
-       "expr": {
-        "Literal": {
-         "Value": "false"
-        }
-       }
-      },
-      "horizontalAlignment": {
-       "expr": {
-        "Literal": {
-         "Value": "'center'"
-        }
-       }
-      },
-      "leftMargin": {
-       "expr": {
-        "Literal": {
-         "Value": "20L"
-        }
-       }
-      },
-      "rightMargin": {
-       "expr": {
-        "Literal": {
-         "Value": "8L"
-        }
-       }
-      }
-     },
-     "selector": {
-      "id": "disabled"
-     }
-    }
-   ],
-   "shape": [
-    {
-     "properties": {
-      "roundEdge": {
-       "expr": {
-        "Literal": {
-         "Value": "6L"
-        }
-       }
-      }
-     },
-     "selector": {
-      "id": "default"
-     }
-    },
-    {
-     "properties": {
-      "roundEdge": {
-       "expr": {
-        "Literal": {
-         "Value": "6L"
-        }
-       }
-      }
-     },
-     "selector": {
-      "id": "hover"
-     }
-    },
-    {
-     "properties": {
-      "roundEdge": {
-       "expr": {
-        "Literal": {
-         "Value": "6L"
-        }
-       }
-      }
-     },
-     "selector": {
-      "id": "active"
-     }
-    },
-    {
-     "properties": {
-      "roundEdge": {
-       "expr": {
-        "Literal": {
-         "Value": "6L"
-        }
-       }
-      }
-     },
-     "selector": {
-      "id": "disabled"
-     }
-    }
-   ],
-   "fill": [
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "true"
-        }
-       }
-      }
-     }
-    },
-    {
-     "properties": {
-      "fillColor": {
-       "solid": {
-        "color": {
-         "expr": {
-          "Literal": {
-           "Value": "'#FFFFFF'"
-          }
-         }
-        }
-       }
-      },
-      "transparency": {
-       "expr": {
-        "Literal": {
-         "Value": "0D"
-        }
-       }
-      }
-     },
-     "selector": {
-      "id": "default"
-     }
-    },
-    {
-     "properties": {
-      "fillColor": {
-       "solid": {
-        "color": {
-         "expr": {
-          "Literal": {
-           "Value": "'#202A44'"
-          }
-         }
-        }
-       }
-      },
-      "transparency": {
-       "expr": {
-        "Literal": {
-         "Value": "0D"
-        }
-       }
-      }
-     },
-     "selector": {
-      "id": "hover"
-     }
-    },
-    {
-     "properties": {
-      "fillColor": {
-       "solid": {
-        "color": {
-         "expr": {
-          "Literal": {
-           "Value": "'#202A44'"
-          }
-         }
-        }
-       }
-      },
-      "transparency": {
-       "expr": {
-        "Literal": {
-         "Value": "0D"
-        }
-       }
-      }
-     },
-     "selector": {
-      "id": "active"
-     }
-    },
-    {
-     "properties": {
-      "fillColor": {
-       "solid": {
-        "color": {
-         "expr": {
-          "Literal": {
-           "Value": "'#E4E9EE'"
-          }
-         }
-        }
-       }
-      },
-      "transparency": {
-       "expr": {
-        "Literal": {
-         "Value": "0D"
-        }
-       }
-      }
-     },
-     "selector": {
-      "id": "disabled"
-     }
-    }
-   ],
-   "outline": [
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "true"
-        }
-       }
-      }
-     }
-    },
-    {
-     "properties": {
-      "lineColor": {
-       "solid": {
-        "color": {
-         "expr": {
-          "Literal": {
-           "Value": "'#CED9E5'"
-          }
-         }
-        }
-       }
-      },
-      "weight": {
-       "expr": {
-        "Literal": {
-         "Value": "1D"
-        }
-       }
-      }
-     },
-     "selector": {
-      "id": "default"
-     }
-    },
-    {
-     "properties": {
-      "lineColor": {
-       "solid": {
-        "color": {
-         "expr": {
-          "Literal": {
-           "Value": "'#202A44'"
-          }
-         }
-        }
-       }
-      },
-      "weight": {
-       "expr": {
-        "Literal": {
-         "Value": "1D"
-        }
-       }
-      }
-     },
-     "selector": {
-      "id": "hover"
-     }
-    },
-    {
-     "properties": {
-      "lineColor": {
-       "solid": {
-        "color": {
-         "expr": {
-          "Literal": {
-           "Value": "'#202A44'"
-          }
-         }
-        }
-       }
-      },
-      "weight": {
-       "expr": {
-        "Literal": {
-         "Value": "1D"
-        }
-       }
-      }
-     },
-     "selector": {
-      "id": "active"
-     }
-    },
-    {
-     "properties": {
-      "lineColor": {
-       "solid": {
-        "color": {
-         "expr": {
-          "Literal": {
-           "Value": "'#C3CDD6'"
-          }
-         }
-        }
-       }
-      },
-      "weight": {
-       "expr": {
-        "Literal": {
-         "Value": "1D"
-        }
-       }
-      }
-     },
-     "selector": {
-      "id": "disabled"
-     }
-    }
-   ]
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "nav_resumen_v34",
+  "position": {
+    "x": 888,
+    "y": 10,
+    "z": 14000,
+    "height": 42,
+    "width": 164,
+    "tabOrder": 13000
   },
-  "visualContainerObjects": {
-   "visualLink": [
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "true"
+  "visual": {
+    "visualType": "actionButton",
+    "objects": {
+      "icon": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "shapeType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'custom'"
+                }
+              }
+            },
+            "iconSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "120D"
+                }
+              }
+            },
+            "horizontalAlignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'center'"
+                }
+              }
+            },
+            "verticalAlignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'middle'"
+                }
+              }
+            },
+            "leftMargin": {
+              "expr": {
+                "Literal": {
+                  "Value": "0L"
+                }
+              }
+            },
+            "image": {
+              "image": {
+                "name": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'ns_resumen_dark.svg'"
+                    }
+                  }
+                },
+                "url": {
+                  "expr": {
+                    "ResourcePackageItem": {
+                      "PackageName": "RegisteredResources",
+                      "PackageType": 1,
+                      "ItemName": "ns_resumen_dark.svg"
+                    }
+                  }
+                },
+                "scaling": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'Normal'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        },
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "shapeType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'custom'"
+                }
+              }
+            },
+            "iconSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "120D"
+                }
+              }
+            },
+            "horizontalAlignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'center'"
+                }
+              }
+            },
+            "verticalAlignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'middle'"
+                }
+              }
+            },
+            "leftMargin": {
+              "expr": {
+                "Literal": {
+                  "Value": "0L"
+                }
+              }
+            },
+            "image": {
+              "image": {
+                "name": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'ns_resumen_hover.svg'"
+                    }
+                  }
+                },
+                "url": {
+                  "expr": {
+                    "ResourcePackageItem": {
+                      "PackageName": "RegisteredResources",
+                      "PackageType": 1,
+                      "ItemName": "ns_resumen_hover.svg"
+                    }
+                  }
+                },
+                "scaling": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'Normal'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "hover"
+          }
+        },
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "shapeType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'custom'"
+                }
+              }
+            },
+            "iconSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "120D"
+                }
+              }
+            },
+            "horizontalAlignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'center'"
+                }
+              }
+            },
+            "verticalAlignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'middle'"
+                }
+              }
+            },
+            "leftMargin": {
+              "expr": {
+                "Literal": {
+                  "Value": "0L"
+                }
+              }
+            },
+            "image": {
+              "image": {
+                "name": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'ns_resumen_white.svg'"
+                    }
+                  }
+                },
+                "url": {
+                  "expr": {
+                    "ResourcePackageItem": {
+                      "PackageName": "RegisteredResources",
+                      "PackageType": 1,
+                      "ItemName": "ns_resumen_white.svg"
+                    }
+                  }
+                },
+                "scaling": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'Normal'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "active"
+          }
+        },
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "shapeType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'custom'"
+                }
+              }
+            },
+            "iconSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "120D"
+                }
+              }
+            },
+            "horizontalAlignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'center'"
+                }
+              }
+            },
+            "verticalAlignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'middle'"
+                }
+              }
+            },
+            "leftMargin": {
+              "expr": {
+                "Literal": {
+                  "Value": "0L"
+                }
+              }
+            },
+            "image": {
+              "image": {
+                "name": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'ns_resumen_dark.svg'"
+                    }
+                  }
+                },
+                "url": {
+                  "expr": {
+                    "ResourcePackageItem": {
+                      "PackageName": "RegisteredResources",
+                      "PackageType": 1,
+                      "ItemName": "ns_resumen_dark.svg"
+                    }
+                  }
+                },
+                "scaling": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'Normal'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "disabled"
+          }
         }
-       }
-      },
-      "type": {
-       "expr": {
-        "Literal": {
-         "Value": "'PageNavigation'"
+      ],
+      "text": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Resumen'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#141414'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Segoe UI Semibold'"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "horizontalAlignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'center'"
+                }
+              }
+            },
+            "leftMargin": {
+              "expr": {
+                "Literal": {
+                  "Value": "20L"
+                }
+              }
+            },
+            "rightMargin": {
+              "expr": {
+                "Literal": {
+                  "Value": "8L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        },
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Resumen'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Segoe UI Semibold'"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "horizontalAlignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'center'"
+                }
+              }
+            },
+            "leftMargin": {
+              "expr": {
+                "Literal": {
+                  "Value": "20L"
+                }
+              }
+            },
+            "rightMargin": {
+              "expr": {
+                "Literal": {
+                  "Value": "8L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "hover"
+          }
+        },
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Resumen'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Segoe UI Semibold'"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "horizontalAlignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'center'"
+                }
+              }
+            },
+            "leftMargin": {
+              "expr": {
+                "Literal": {
+                  "Value": "20L"
+                }
+              }
+            },
+            "rightMargin": {
+              "expr": {
+                "Literal": {
+                  "Value": "8L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "active"
+          }
+        },
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Resumen'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#77838E'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Segoe UI Semibold'"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "horizontalAlignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'center'"
+                }
+              }
+            },
+            "leftMargin": {
+              "expr": {
+                "Literal": {
+                  "Value": "20L"
+                }
+              }
+            },
+            "rightMargin": {
+              "expr": {
+                "Literal": {
+                  "Value": "8L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "disabled"
+          }
         }
-       }
-      },
-      "navigationSection": {
-       "expr": {
-        "Literal": {
-         "Value": "'71af1998e2cb472d9799'"
+      ],
+      "shape": [
+        {
+          "properties": {
+            "roundEdge": {
+              "expr": {
+                "Literal": {
+                  "Value": "6L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        },
+        {
+          "properties": {
+            "roundEdge": {
+              "expr": {
+                "Literal": {
+                  "Value": "6L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "hover"
+          }
+        },
+        {
+          "properties": {
+            "roundEdge": {
+              "expr": {
+                "Literal": {
+                  "Value": "6L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "active"
+          }
+        },
+        {
+          "properties": {
+            "roundEdge": {
+              "expr": {
+                "Literal": {
+                  "Value": "6L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "disabled"
+          }
         }
-       }
-      },
-      "tooltip": {
-       "expr": {
-        "Literal": {
-         "Value": "'Ir a Resumen'"
+      ],
+      "fill": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "fillColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        },
+        {
+          "properties": {
+            "fillColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#202A44'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "hover"
+          }
+        },
+        {
+          "properties": {
+            "fillColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#202A44'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "active"
+          }
+        },
+        {
+          "properties": {
+            "fillColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E4E9EE'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "disabled"
+          }
         }
-       }
-      },
-      "showDefaultTooltip": {
-       "expr": {
-        "Literal": {
-         "Value": "false"
+      ],
+      "outline": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "lineColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#CED9E5'"
+                    }
+                  }
+                }
+              }
+            },
+            "weight": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        },
+        {
+          "properties": {
+            "lineColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#202A44'"
+                    }
+                  }
+                }
+              }
+            },
+            "weight": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "hover"
+          }
+        },
+        {
+          "properties": {
+            "lineColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#202A44'"
+                    }
+                  }
+                }
+              }
+            },
+            "weight": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "active"
+          }
+        },
+        {
+          "properties": {
+            "lineColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#C3CDD6'"
+                    }
+                  }
+                }
+              }
+            },
+            "weight": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "disabled"
+          }
         }
-       }
-      }
-     }
-    }
-   ],
-   "title": [
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "false"
+      ]
+    },
+    "visualContainerObjects": {
+      "visualLink": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "type": {
+              "expr": {
+                "Literal": {
+                  "Value": "'PageNavigation'"
+                }
+              }
+            },
+            "navigationSection": {
+              "expr": {
+                "Literal": {
+                  "Value": "'71af1998e2cb472d9799'"
+                }
+              }
+            },
+            "tooltip": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Ir a Resumen'"
+                }
+              }
+            },
+            "showDefaultTooltip": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
         }
-       }
-      }
-     }
-    }
-   ],
-   "border": [
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "false"
+      ],
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
         }
-       }
-      }
-     }
-    }
-   ],
-   "background": [
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "false"
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
         }
-       }
-      }
-     }
-    }
-   ],
-   "visualHeader": [
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "false"
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
         }
-       }
-      }
-     }
-    }
-   ],
-   "general": [
-    {
-     "properties": {
-      "altText": {
-       "expr": {
-        "Literal": {
-         "Value": "'Ir a Resumen'"
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
         }
-       }
-      }
-     }
-    }
-   ]
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Ir a Resumen'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
   },
-  "drillFilterOtherVisuals": true
- },
- "howCreated": "InsertVisualButton"
+  "howCreated": "InsertVisualButton"
 }

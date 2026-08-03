@@ -2,10 +2,10 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "fa_permanencia_cd",
   "position": {
-    "x": 727,
-    "y": 111.91048659901118,
+    "x": 728,
+    "y": 112,
     "z": 22024,
-    "height": 208,
+    "height": 120,
     "width": 640,
     "tabOrder": 22024
   },

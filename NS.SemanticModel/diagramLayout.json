@@ -384,6 +384,18 @@
             "width": 234
           },
           "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 7753.5096912782983,
+            "y": 1069.9042949619909
+          },
+          "nodeIndex": "Pedidos_Normal_VBAK",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "Todas las tablas",

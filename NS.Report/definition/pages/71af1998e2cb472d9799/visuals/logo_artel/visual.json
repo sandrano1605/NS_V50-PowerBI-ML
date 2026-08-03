@@ -1,127 +1,127 @@
 {
- "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
- "name": "logo_artel",
- "position": {
-  "x": 34,
-  "y": 20,
-  "z": 5000,
-  "height": 48,
-  "width": 160,
-  "tabOrder": 5000
- },
- "visual": {
-  "visualType": "image",
-  "objects": {
-   "general": [
-    {
-     "properties": {
-      "imageUrl": {
-       "expr": {
-        "ResourcePackageItem": {
-         "PackageName": "RegisteredResources",
-         "PackageType": 1,
-         "ItemName": "artel_logo.svg"
-        }
-       }
-      }
-     }
-    }
-   ],
-   "image": [
-    {
-     "properties": {
-      "sourceType": {
-       "expr": {
-        "Literal": {
-         "Value": "'image'"
-        }
-       }
-      },
-      "sourceFile": {
-       "image": {
-        "name": {
-         "expr": {
-          "Literal": {
-           "Value": "'logo-artel.png'"
-          }
-         }
-        },
-        "url": {
-         "expr": {
-          "ResourcePackageItem": {
-           "PackageName": "RegisteredResources",
-           "PackageType": 1,
-           "ItemName": "logo-artel7339256143830972.png"
-          }
-         }
-        },
-        "scaling": {
-         "expr": {
-          "Literal": {
-           "Value": "'Normal'"
-          }
-         }
-        }
-       }
-      }
-     }
-    }
-   ]
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "logo_artel",
+  "position": {
+    "x": 34,
+    "y": 20,
+    "z": 4000,
+    "height": 48,
+    "width": 160,
+    "tabOrder": 5000
   },
-  "visualContainerObjects": {
-   "title": [
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "false"
+  "visual": {
+    "visualType": "image",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "imageUrl": {
+              "expr": {
+                "ResourcePackageItem": {
+                  "PackageName": "RegisteredResources",
+                  "PackageType": 1,
+                  "ItemName": "artel_logo.svg"
+                }
+              }
+            }
+          }
         }
-       }
-      }
-     }
-    }
-   ],
-   "border": [
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "false"
+      ],
+      "image": [
+        {
+          "properties": {
+            "sourceType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'image'"
+                }
+              }
+            },
+            "sourceFile": {
+              "image": {
+                "name": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'logo-artel.png'"
+                    }
+                  }
+                },
+                "url": {
+                  "expr": {
+                    "ResourcePackageItem": {
+                      "PackageName": "RegisteredResources",
+                      "PackageType": 1,
+                      "ItemName": "logo-artel7339256143830972.png"
+                    }
+                  }
+                },
+                "scaling": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'Normal'"
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
-       }
-      }
-     }
-    }
-   ],
-   "background": [
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "false"
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
         }
-       }
-      }
-     }
-    }
-   ],
-   "visualHeader": [
-    {
-     "properties": {
-      "show": {
-       "expr": {
-        "Literal": {
-         "Value": "false"
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
         }
-       }
-      }
-     }
-    }
-   ]
-  },
-  "drillFilterOtherVisuals": true
- }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
 }

@@ -4,7 +4,7 @@
   "position": {
     "x": 30,
     "y": 122,
-    "z": 6000,
+    "z": 5000,
     "height": 60,
     "width": 176,
     "tabOrder": 6000
@@ -202,7 +202,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'Junio 2026'"
+                                "Value": "'Julio 2026'"
                               }
                             }
                           ]

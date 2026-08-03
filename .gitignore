@@ -51,3 +51,7 @@ temp/
 # Artefactos locales de evidencia (no versionar ZIP duplicados)
 *.zip
 AUDITORIA_NS_MODELO_VIVO/
+
+# Backups locales TMDL
+_backup_*/
+
