@@ -40,15 +40,21 @@ relationship 53000000-0000-4000-8000-0000000000B1
 ## Los 53 FES sin manifiesto (candidatos de cierre)
 Composición: 28 pedidos NS (116xxxx, 27-may a 31-jul 2026) + 25 pedidos 4190xxxxxx.
 
-### Auditoría de reconexión pendiente
-El análisis fino de los 53 FES sin manifiesto contra PASO_WMS (por MAD_PEDIDO /
-MAD_ENTREGA / MAD_NRO_SAP) quedó **pendiente por caída de red**: el servidor
-128.1.3.60 no estaba accesible al momento de la auditoría. Al reconectar, ejecutar:
-- `auditoria_fes_sin_manifiesto.py` (script temporal en temp de OpenCode)
-  para confirmar si existe registro WMS por alguna clave alternativa.
+### Auditoría fina completada (red restablecida 2026-08-03)
+Los 53 FES sin manifiesto se auditaron contra PASO_WMS por las 3 claves:
 
-Decisión previa validada: NO cruzar por NRO_SAP/PEDIDO genérico del WMS porque
-suelen ser números internos (11, 111, 1...) que generan falsos positivos.
+| Clave de búsqueda en WMS | Resultado |
+|---|---|
+| MAD_PEDIDO | 0 encontrados |
+| MAD_NRO_SAP | 0 encontrados |
+| MAD_ENTREGA (63 entregas VBFA de los 27 pedidos NS) | 0 encontrados |
+
+**Conclusión**: los 53 FES sin manifiesto NO tienen ningún registro en el WMS por
+ninguna clave. Son casos legítimos sin transporte manual cargado — no hay
+manifiestos perdidos ni cruces incompletos. El universo de cierre FES está
+completo al 100%: todo lo que el WMS tiene se cruza.
+
+Script de auditoría: `auditoria_fes_sin_manifiesto.py` (temp OpenCode).
 
 ## Archivos modificados
 - `NS.SemanticModel/definition/relationships.tmdl`: agregada relación 0B1.
