@@ -5,7 +5,15 @@
  Objetivo: identificar pedidos originales FES con manifiesto manual (WMS)
  cruzando la cadena VBFA y el manifiesto del WMS.
 
+ NOTA IMPORTANTE: la query NO tiene filtro de FES. El VBFA C->J trae TODO el
+ universo de pedidos con entrega posterior, sin importar su clasificacion.
+ Esto es a proposito: puede haber pedidos NORMAL/SALDO con transporte manual
+ cargado en el WMS, y pedidos FES sin transporte. El filtro de clasificacion
+ se aplica DESPUES al cruzar con la master (Fact_Pedidos_Auditoria) por
+ PED_NUMERO_PEDIDO.
+
  Flujo (de arriba a abajo):
+   PASO 0 - VBFA C->J : pedido original -> entrega posterior (TODO EL UNIVERSO)
    PASO 1 - VBFA C->C : pedido original -> pedido posterior
    PASO 2 - VBFA C->J : pedido posterior -> entrega posterior
    PASO 3 - WMS       : entrega/pedido -> manifiesto manual (fecha min/max)
@@ -32,6 +40,28 @@
    - PASO_WMS    : usuario solo_lectura (lectura)
 ================================================================================
 */
+
+-- ============================================================================
+-- PASO 0: VBFA C->J - TODO EL UNIVERSO pedido original -> entrega posterior
+-- SIN filtro de FES. Esta es la primera consulta del flujo.
+-- ============================================================================
+SELECT DISTINCT
+    TRY_CONVERT(BIGINT, P1.VBELV) AS PEDIDO_ORIGINAL,
+    CONVERT(BIGINT, P2.VBELN)     AS ENTREGA_NUM,
+    CONVERT(VARCHAR(20), P2.VBELN) AS ENTREGA_RAW,
+    COALESCE(
+        TRY_CONVERT(DATE, CONVERT(VARCHAR(30), P2.ERDAT), 112),
+        TRY_CONVERT(DATE, CONVERT(VARCHAR(30), P2.ERDAT), 105),
+        TRY_CONVERT(DATE, CONVERT(VARCHAR(30), P2.ERDAT), 103),
+        TRY_CONVERT(DATE, CONVERT(VARCHAR(30), P2.ERDAT))
+    ) AS FECHA_ENTREGA
+FROM [DMF_VTA_PRD].[dbo].[VBFA_SAP] AS P1
+INNER JOIN [DMF_VTA_PRD].[dbo].[VBFA_SAP] AS P2
+    ON TRY_CONVERT(BIGINT, P2.VBELV) = TRY_CONVERT(BIGINT, P1.VBELN)
+   AND P2.VBTYP_V = 'C' AND P2.VBTYP_N = 'J'
+WHERE TRY_CONVERT(BIGINT, P1.VBELV) IS NOT NULL;
+-- NOTA: P1 sin filtro VBTYP_V/VBTYP_N -> trae todos los originales con entrega
+--       (FES, NORMAL, SALDO, FES+SALDO - todo el universo con C->J)
 
 -- ============================================================================
 -- PASO 1: VBFA C->C - pedidos originales con pedido posterior
