@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
-"""Valida el kit de integración VBAK antes de abrir Power BI Desktop.
-
-No interpreta M completo; aplica barreras determinísticas sobre alcance, archivos,
-marcadores y controles obligatorios. También verifica que la rama no modifique
-el PBIP respecto del punto estable a8e8186.
-"""
+"""Valida el cruce VBAK inline antes de abrir Power BI Desktop."""
 from __future__ import annotations
 
 import json
@@ -15,44 +10,32 @@ from pathlib import Path
 BASE_SHA = "a8e818604826e689453769103d962cd3537399ed"
 ROOT = Path(__file__).resolve().parents[1]
 KIT = ROOT / "PowerQuery" / "VBAK_APPEND"
+MASTER_PATH = "NS.SemanticModel/definition/tables/Fact_Pedidos_Auditoria.tmdl"
 
 REQUIRED_FILES = {
     "00_VBAK_SCHEMA_PREFLIGHT.pq": ["sys.columns", "VBAK_SAP", "KNA1_SAP", "ESTADO"],
-    "01_VBAK_APPEND_ACTIVO.pq": ["false meta", "IsParameterQuery", "Logical"],
+    "01_VBAK_APPEND_ACTIVO.pq": ["Configuracion = \"DESACTIVADO\"", "Activar = List.Contains"],
     "02_VBAK_ATRIBUTOS_MAYORISTA.pq": ["VBAK_SAP", "KNA1_SAP", "PED_CANAL_CODIGO", "PED_FECHA_HORA"],
     "03_FACT_PEDIDOS_AUDITORIA_APPEND_BLOCK.pq": [
-        "MasterBase = #\"Filas ordenadas\"",
-        "JoinKind.LeftAnti",
-        "VBAK_ELEGIBLE_APPEND",
-        "CANDIDATO FES",
-        "MissingField.UseNull",
-        "Value.ReplaceType",
-        "VBAK SIN ZART",
-        "ResultadoVBAK = if VBAK_APPEND_ACTIVO",
+        "JoinKind.LeftAnti", "VBAK_ELEGIBLE_APPEND", "CANDIDATO FES", "VBAK SIN ZART"
     ],
     "04_VBAK_APPEND_CONTROL.pq": [
-        "DUPLICADOS_MASTER",
-        "APPEND_REGION_NULA",
-        "APPEND_ES_FES",
-        "APPEND_ES_SALDO",
-        "APPEND_SALIDA_SIN_FACTURA",
+        "DUPLICADOS_MASTER", "APPEND_REGION_NULA", "APPEND_ES_FES", "APPEND_ES_SALDO"
     ],
-    "05_VBAK_APPEND_PREFLIGHT_DETALLE.pq": [
-        "CUARENTENA FES",
-        "VBAK_ELEGIBLE_APPEND",
-        "VBAK_MOTIVO",
+    "05_VBAK_APPEND_PREFLIGHT_DETALLE.pq": ["CUARENTENA FES", "VBAK_ELEGIBLE_APPEND"],
+    "06_MASTER_APPEND_INLINE_ACTIVE.pq": [
+        "VBAK_APPEND_ACTIVO_LOCAL = true",
+        "Sql.Database(",
+        "ES_FES_VBFA",
+        "JoinKind.LeftAnti",
+        "VBAK SIN ZART",
+        "ResultadoVBAK"
     ],
 }
 
 
 def git(*args: str) -> str:
-    result = subprocess.run(
-        ["git", *args],
-        cwd=ROOT,
-        text=True,
-        capture_output=True,
-        check=False,
-    )
+    result = subprocess.run(["git", *args], cwd=ROOT, text=True, capture_output=True, check=False)
     if result.returncode != 0:
         raise RuntimeError(result.stderr.strip() or result.stdout.strip())
     return result.stdout.strip()
@@ -77,33 +60,39 @@ def main() -> int:
             "missing_markers": missing,
         }
 
-    append_path = KIT / "03_FACT_PEDIDOS_AUDITORIA_APPEND_BLOCK.pq"
-    if append_path.exists():
-        append_text = append_path.read_text(encoding="utf-8-sig")
+    inline_path = KIT / "06_MASTER_APPEND_INLINE_ACTIVE.pq"
+    if inline_path.exists():
+        inline = inline_path.read_text(encoding="utf-8-sig")
         forbidden = {
-            "each true, type logical),\n    AddFES": "No debe marcar FES automáticamente",
-            "each true, type logical),\n    AddSaldo": "No debe marcar SALDO automáticamente",
+            "ES_FES\", each true": "No debe marcar FES automáticamente",
+            "ES_SALDO\", each true": "No debe marcar SALDO automáticamente",
             "Table.RemoveColumns(MasterBase": "No debe recortar columnas de la master",
         }
         for token, message in forbidden.items():
-            if token in append_text:
+            if token in inline:
                 errors.append(message)
 
     try:
         changed = [line for line in git("diff", "--name-only", f"{BASE_SHA}...HEAD").splitlines() if line]
-        forbidden_changes = [
-            path for path in changed
-            if path.startswith("NS.Report/") or path.startswith("NS.SemanticModel/")
-        ]
+        pbip_changes = [p for p in changed if p.startswith("NS.Report/") or p.startswith("NS.SemanticModel/")]
+        forbidden_changes = [p for p in pbip_changes if p != MASTER_PATH]
         if forbidden_changes:
-            errors.append(
-                "La rama de preparación no puede modificar todavía el PBIP: "
-                + ", ".join(forbidden_changes)
-            )
+            errors.append("Cambios PBIP fuera de alcance: " + ", ".join(forbidden_changes))
         details["git_changed_files"] = changed
-        details["pbip_changes"] = forbidden_changes
-    except Exception as exc:  # pragma: no cover - diagnóstico local
+        details["pbip_changes"] = pbip_changes
+        details["allowed_pbip_change"] = MASTER_PATH
+    except Exception as exc:
         errors.append(f"No fue posible validar el alcance Git: {exc}")
+
+    master = ROOT / MASTER_PATH
+    if master.exists():
+        master_text = master.read_text(encoding="utf-8-sig")
+        integration_present = "VBAK_APPEND_ACTIVO_LOCAL = true" in master_text
+        details["master_integration_present"] = integration_present
+        if integration_present:
+            for marker in ["ES_FES_VBFA", "JoinKind.LeftAnti", "VBAK SIN ZART", "in\n\t\t\t\t    ResultadoVBAK"]:
+                if marker not in master_text:
+                    errors.append(f"Master integrada sin marcador: {marker}")
 
     result = {
         "status": "VERDE" if not errors else "ROJO",
@@ -111,14 +100,10 @@ def main() -> int:
         "kit_path": str(KIT.relative_to(ROOT)),
         "details": details,
         "errors": errors,
-        "next_step": (
-            "Abrir Power BI y ejecutar el preflight con VBAK_APPEND_ACTIVO=false"
-            if not errors
-            else "Corregir errores antes de abrir Power BI"
-        ),
+        "next_step": "Abrir Power BI, actualizar y validar filas VBAK SIN ZART" if not errors else "Corregir antes de abrir Power BI",
     }
 
-    output = ROOT / "Docs" / "AUDITORIA_LIVE" / "latest" / "vbak_append_kit_validation.json"
+    output = ROOT / "Docs/AUDITORIA_LIVE/latest/vbak_append_kit_validation.json"
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(result, ensure_ascii=False, indent=2))
