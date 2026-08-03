@@ -1,0 +1,20 @@
+{
+  "status": "VERDE",
+  "changes": {
+    "master": 3,
+    "inline": 3,
+    "atributos": 3,
+    "preflight": 3
+  },
+  "schema_preserved_with_typed_nulls": true,
+  "removed_invalid_columns": [
+    "VBAK_SAP.VSBED",
+    "VBAK_SAP.CMGST",
+    "KNA1_SAP.ORT01"
+  ],
+  "preserved_existing_columns": [
+    "VBAK_SAP.LIFSK",
+    "KNA1_SAP.REGIO"
+  ],
+  "errors": []
+}
