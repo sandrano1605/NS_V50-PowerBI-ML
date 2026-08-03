@@ -12,7 +12,7 @@ jobs:
   apply:
     if: >-
       github.event.issue.pull_request == null &&
-      github.event.comment.body == '/apply-vbak-master-inline-v2' &&
+      github.event.comment.body == '/apply-vbak-master-inline-v3' &&
       github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
