@@ -12,7 +12,7 @@ jobs:
   apply:
     if: >-
       github.event.issue.pull_request == null &&
-      github.event.comment.body == '/apply-vbak-master-inline' &&
+      github.event.comment.body == '/apply-vbak-master-inline-v2' &&
       github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
@@ -28,18 +28,58 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Apply deterministic patch
-        run: python tools/apply_vbak_master_inline.py
-
-      - name: Validate scope
+      - name: Apply and validate
+        id: run
         shell: bash
         run: |
-          python tools/validate_vbak_append_kit.py
-          git diff --check
-          test "$(git diff --name-only | grep -E '^NS\.Report/' | wc -l)" -eq 0
-          test "$(git diff --name-only | grep -E '^NS\.SemanticModel/' | grep -v '^NS.SemanticModel/definition/tables/Fact_Pedidos_Auditoria.tmdl$' | wc -l)" -eq 0
+          set +e
+          {
+            echo '=== APPLY ==='
+            python tools/apply_vbak_master_inline.py
+            APPLY=$?
+            echo "APPLY=$APPLY"
+            if [ "$APPLY" -eq 0 ]; then
+              echo '=== KIT ==='
+              python tools/validate_vbak_append_kit.py
+              KIT=$?
+            else
+              KIT=99
+            fi
+            echo "KIT=$KIT"
+            echo '=== DIFF CHECK ==='
+            git diff --check
+            DIFF=$?
+            echo "DIFF=$DIFF"
+            echo '=== CHANGED ==='
+            git diff --name-only
+          } > /tmp/vbak_inline.log 2>&1
+          cat /tmp/vbak_inline.log
+          if [ "$APPLY" -ne 0 ] || [ "$KIT" -ne 0 ] || [ "$DIFF" -ne 0 ]; then
+            exit 1
+          fi
+          OTHER=$(git diff --name-only | grep -E '^NS\.SemanticModel/' | grep -v '^NS.SemanticModel/definition/tables/Fact_Pedidos_Auditoria.tmdl$' | wc -l)
+          REPORT=$(git diff --name-only | grep -E '^NS\.Report/' | wc -l)
+          if [ "$OTHER" -ne 0 ] || [ "$REPORT" -ne 0 ]; then
+            echo "Alcance inválido: OTHER=$OTHER REPORT=$REPORT" >> /tmp/vbak_inline.log
+            exit 1
+          fi
+
+      - name: Comment diagnostic on failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const raw = fs.existsSync('/tmp/vbak_inline.log') ? fs.readFileSync('/tmp/vbak_inline.log','utf8') : 'Sin log';
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `VBAK_MASTER_INLINE · ROJO\n\n\`\`\`text\n${raw.slice(0,7000)}\n\`\`\``
+            });
 
       - name: Commit and push
+        if: success()
         id: commit
         shell: bash
         run: |
@@ -50,19 +90,16 @@ jobs:
           git push origin HEAD:work/ns-vbak-master-append
           echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
-      - name: Report result
-        if: always()
+      - name: Report success
+        if: success()
         uses: actions/github-script@v7
         env:
           SHA: ${{ steps.commit.outputs.sha }}
         with:
           script: |
-            const ok = '${{ job.status }}' === 'success';
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              body: ok
-                ? `VBAK_MASTER_INLINE · VERDE · ${process.env.SHA}`
-                : 'VBAK_MASTER_INLINE · ROJO · revisar workflow'
+              body: `VBAK_MASTER_INLINE · VERDE · ${process.env.SHA}`
             });
