@@ -1,0 +1,95 @@
+table Dim_WMS_Manifiesto
+	lineageTag: ddd2782c-4f77-4072-b2a8-e571ff8a7230
+
+	column PEDIDO_WMS
+		dataType: string
+		lineageTag: f17e1770-a6fb-418e-a642-de04a7c8bf38
+		summarizeBy: none
+		sourceColumn: PEDIDO_WMS
+
+		annotation SummarizationSetBy = Automatic
+
+	column ENTREGA_WMS
+		dataType: int64
+		lineageTag: 72ff1d11-e8c2-4816-b11c-16331fbd5dfa
+		summarizeBy: none
+		sourceColumn: ENTREGA_WMS
+
+		annotation SummarizationSetBy = Automatic
+
+	column NRO_SAP_WMS
+		dataType: int64
+		lineageTag: 85ebb499-e09c-422c-942f-891ed0e07222
+		summarizeBy: none
+		sourceColumn: NRO_SAP_WMS
+
+		annotation SummarizationSetBy = Automatic
+
+	column MANIFIESTO_WMS_MIN
+		dataType: dateTime
+		lineageTag: ddf991b1-26f5-4a03-85ab-d6f87381ec1b
+		summarizeBy: none
+		sourceColumn: MANIFIESTO_WMS_MIN
+
+		annotation SummarizationSetBy = Automatic
+
+	column MANIFIESTO_WMS_MAX
+		dataType: dateTime
+		lineageTag: 74f68b85-a8ba-4cdd-b6ed-b7464511a557
+		summarizeBy: none
+		sourceColumn: MANIFIESTO_WMS_MAX
+
+		annotation SummarizationSetBy = Automatic
+
+	column CANTIDAD_DETALLE
+		dataType: int64
+		lineageTag: adffe2a8-d2c0-4290-a375-8e18fe8eb6fe
+		summarizeBy: sum
+		sourceColumn: CANTIDAD_DETALLE
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_WMS_Manifiesto = m
+		mode: import
+		source =
+				let
+				    Origen =
+				        Sql.Database(
+				            "128.1.3.60",
+				            "PASO_WMS",
+				            [
+				                Query = "SET NOCOUNT ON;#(lf)#(lf)SELECT#(lf)    CONVERT(BIGINT, MAD_PEDIDO)  AS PEDIDO_WMS,#(lf)    CONVERT(BIGINT, MAD_ENTREGA) AS ENTREGA_WMS,#(lf)    CONVERT(BIGINT, MAD_NRO_SAP) AS NRO_SAP_WMS,#(lf)    MIN(MAD_FECHA_EMISION) AS MANIFIESTO_WMS_MIN,#(lf)    MAX(MAD_FECHA_EMISION) AS MANIFIESTO_WMS_MAX,#(lf)    COUNT(*) AS CANTIDAD_DETALLE#(lf)FROM dbo.MANIFIESTO_D#(lf)WHERE (MAD_PEDIDO IS NOT NULL AND MAD_PEDIDO NOT IN (0,1))#(lf)   OR (MAD_ENTREGA IS NOT NULL AND MAD_ENTREGA NOT IN (0,1))#(lf)   OR (MAD_NRO_SAP IS NOT NULL AND MAD_NRO_SAP NOT IN (0,1))#(lf)GROUP BY CONVERT(BIGINT, MAD_PEDIDO), CONVERT(BIGINT, MAD_ENTREGA), CONVERT(BIGINT, MAD_NRO_SAP);"
+				            ]
+				        ),
+				    Tipos =
+				        Table.TransformColumnTypes(
+				            Origen,
+				            {
+				                {"PEDIDO_WMS", type text},
+				                {"ENTREGA_WMS", Int64.Type},
+				                {"NRO_SAP_WMS", Int64.Type},
+				                {"MANIFIESTO_WMS_MIN", type datetime},
+				                {"MANIFIESTO_WMS_MAX", type datetime},
+				                {"CANTIDAD_DETALLE", Int64.Type}
+				            }
+				        ),
+				    Limpios =
+				        Table.TransformColumns(
+				            Tipos,
+				            {
+				                {"PEDIDO_WMS", each if _ = null then null else Text.Trim(Number.ToText(_)), type nullable text},
+				                {"ENTREGA_WMS", each if _ = null then null else _, type nullable number},
+				                {"NRO_SAP_WMS", each if _ = null then null else _, type nullable number},
+				                {"MANIFIESTO_WMS_MIN", each if _ = null then null else _, type nullable datetime},
+				                {"MANIFIESTO_WMS_MAX", each if _ = null then null else _, type nullable datetime},
+				                {"CANTIDAD_DETALLE", each if _ = null then null else _, type nullable number}
+				            }
+				        ),
+				    Filtrados = Table.SelectRows(Limpios, each [CANTIDAD_DETALLE] <> null),
+				    Unicos = Table.Distinct(Filtrados, {"PEDIDO_WMS", "ENTREGA_WMS", "NRO_SAP_WMS"})
+				in
+				    Unicos
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
