@@ -1,165 +1,91 @@
-# Integración controlada VBAK → Fact_Pedidos_Auditoria
+# VBAK → Fact_Pedidos_Auditoria · cruce inline activo
 
-## Estado de partida
+## Estado
 
-- Rama base estable: `work/ns-lineage-audit`
-- SHA base: `a8e818604826e689453769103d962cd3537399ed`
-- Master observada: 1.973 pedidos
-- `Pedidos_Normal_VBAK`: 2.158 pedidos
-- Diferencia observada previamente: 257 pedidos
-- Relación vigente: `Fact_Pedidos_Auditoria[PED_NUMERO_PEDIDO]` ↔ `Pedidos_Normal_VBAK[VBELN]`
+El cruce ya está incorporado directamente en:
 
-Los 257 son **candidatos**, no una autorización para agregarlos sin controles. El append automático solo incorpora pedidos normales con canal 42–47, cliente, región, fecha de pedido y secuencia operativa coherente. Candidatos FES quedan en cuarentena hasta contar con clasificación VBFA.
+```text
+NS.SemanticModel/definition/tables/Fact_Pedidos_Auditoria.tmdl
+```
 
-## Archivos y nombres exactos de consultas
+No es necesario crear parámetros, consultas auxiliares ni pegar código en Power Query.
 
-| Orden | Archivo | Nombre que debe tener en Power Query | Carga |
-|---:|---|---|---|
-| 0 | `00_VBAK_SCHEMA_PREFLIGHT.pq` | `VBAK_SCHEMA_PREFLIGHT` | Desactivada |
-| 1 | `01_VBAK_APPEND_ACTIVO.pq` | `VBAK_APPEND_ACTIVO` | Parámetro lógico |
-| 2 | `02_VBAK_ATRIBUTOS_MAYORISTA.pq` | `VBAK_ATRIBUTOS_MAYORISTA` | Desactivada |
-| 3 | `05_VBAK_APPEND_PREFLIGHT_DETALLE.pq` | `VBAK_APPEND_PREFLIGHT_DETALLE` | Desactivada |
-| 4 | `03_FACT_PEDIDOS_AUDITORIA_APPEND_BLOCK.pq` | Bloque dentro de `Fact_Pedidos_Auditoria` | La master conserva su carga |
-| 5 | `04_VBAK_APPEND_CONTROL.pq` | `VBAK_APPEND_CONTROL` | Activar temporalmente para evidencia |
+La implementación activa corresponde a:
 
-## Barrera 1 · Validación del kit
+```text
+06_MASTER_APPEND_INLINE_ACTIVE.pq
+```
 
-Ejecutar desde la raíz del repositorio:
+Los archivos `00` a `05` se conservan como material de preflight y trazabilidad de las iteraciones anteriores; no deben crearse nuevamente en el modelo.
+
+## Regla de integración
+
+La master conserva su universo original y agrega solamente pedidos faltantes que cumplan simultáneamente:
+
+- pedido válido y no existente en la master, mediante `LeftAnti`;
+- fecha dentro de los últimos tres meses móviles;
+- clase de pedido permitida;
+- canal 42–47;
+- cliente informado;
+- región informada;
+- fecha de pedido válida;
+- no aparece como FES en VBFA `C→C`;
+- no tiene `fecha_fes` en `Pedidos_Normal_VBAK`;
+- entrega no anterior al pedido;
+- factura no anterior al pedido;
+- salida solo cuando existe factura y no es anterior a ella.
+
+## Fuentes
+
+- atributos de pedido: `VBAK_SAP`;
+- ciudad y región: `KNA1_SAP`;
+- clasificación FES: `VBFA_SAP`, flujo `C→C`;
+- fechas de entrega, factura y salida: `Pedidos_Normal_VBAK`.
+
+## Trazabilidad de filas agregadas
+
+Todas las filas nuevas quedan identificadas con:
+
+```text
+PED_TEXTO_ESTADO = VBAK SIN ZART
+AUD_ESTADO_GENERAL = REVISAR
+AUD_REQUIERE_REVISION = true
+ES_FES = false
+ES_SALDO = false
+```
+
+No se inventan manifiestos ni fechas FES. Tampoco se infiere SALDO a partir de una sola factura.
+
+## Validación local
 
 ```powershell
+git fetch origin
+git switch work/ns-vbak-master-append
+git pull --ff-only origin work/ns-vbak-master-append
 python tools/validate_vbak_append_kit.py
 ```
 
-Resultado obligatorio:
+Después abrir `NS.pbip`, ejecutar `Actualizar todo` y validar mediante MCP:
 
-```text
-status = VERDE
-pbip_changes = []
-```
+- total de filas de la master;
+- filas con marcador `VBAK SIN ZART`;
+- duplicados por pedido = 0;
+- claves nulas = 0;
+- canales fuera de 42–47 = 0;
+- regiones nulas = 0;
+- filas VBAK clasificadas FES o SALDO = 0;
+- salida sin factura = 0;
+- tablas derivadas y Python sin error;
+- pedidos `4190139455` y `1167577` sin regresión.
 
-La rama de preparación no modifica `NS.Report` ni `NS.SemanticModel` antes de trabajar en Power BI Desktop.
+El conteo `1.973` era un snapshot histórico. No debe utilizarse como total fijo porque la master trabaja con `GETDATE()` y una ventana móvil.
 
-## Barrera 2 · Preflight SQL
+## Rollback
 
-Crear `VBAK_SCHEMA_PREFLIGHT` y actualizarla. Todas las filas deben quedar `ESTADO = OK`.
-
-Si falta una columna, detener la implementación. No cambiar nombres ni adivinar equivalencias.
-
-## Barrera 3 · Candidatos con append desactivado
-
-1. Crear `VBAK_APPEND_ACTIVO` con valor `false`.
-2. Crear `VBAK_ATRIBUTOS_MAYORISTA`.
-3. Crear `VBAK_APPEND_PREFLIGHT_DETALLE`.
-4. Actualizar únicamente estas consultas.
-5. Exportar el detalle y revisar:
-   - pedidos únicos;
-   - canal 42–47;
-   - cliente y región informados;
-   - fecha de pedido;
-   - secuencia pedido → entrega → factura → salida;
-   - candidatos FES en cuarentena;
-   - motivo de cada fila no elegible.
-
-La cantidad elegible puede ser menor a 257. No se debe forzar la diferencia.
-
-## Inserción del bloque en la master
-
-Abrir el Editor avanzado de `Fact_Pedidos_Auditoria`.
-
-El final actual contiene:
+El interruptor está dentro de la master:
 
 ```powerquery
-    #"Filas ordenadas" = Table.Sort(FiltradoCanalesMayoristas,{{"PED_FECHA_HORA", Order.Descending}})
-in
-    #"Filas ordenadas"
+VBAK_APPEND_ACTIVO_LOCAL = true
 ```
 
-Realizar exactamente estos cambios:
-
-1. Agregar una coma al final del paso `#"Filas ordenadas"`.
-2. Pegar a continuación todo el contenido de `03_FACT_PEDIDOS_AUDITORIA_APPEND_BLOCK.pq`.
-3. Cambiar el resultado final por:
-
-```powerquery
-in
-    ResultadoVBAK
-```
-
-No modificar el SQL original, nombres de columnas ni pasos previos.
-
-## Prueba A · Parámetro FALSE
-
-Con `VBAK_APPEND_ACTIVO = false`:
-
-- refrescar `Fact_Pedidos_Auditoria`;
-- refrescar el modelo completo;
-- confirmar que la master mantiene el mismo conteo del snapshot;
-- confirmar que no cambian métricas ni casos de regresión;
-- ejecutar `VBAK_APPEND_CONTROL`;
-- `VBAK_APPEND_FILAS` debe ser 0;
-- `DUPLICADOS_MASTER` debe ser 0.
-
-Si el resultado cambia con `false`, revertir el bloque.
-
-## Prueba B · Parámetro TRUE
-
-Cambiar únicamente `VBAK_APPEND_ACTIVO` a `true` y refrescar.
-
-Controles obligatorios:
-
-- `DUPLICADOS_MASTER = 0`;
-- `APPEND_CLAVE_NULA = 0`;
-- `APPEND_CANAL_FUERA = 0`;
-- `APPEND_REGION_NULA = 0`;
-- `APPEND_ES_FES = 0`;
-- `APPEND_ES_SALDO = 0`;
-- `APPEND_SALIDA_SIN_FACTURA = 0`;
-- todas las filas agregadas tienen `PED_TEXTO_ESTADO = VBAK SIN ZART`;
-- todas las filas agregadas tienen `AUD_ESTADO_GENERAL = REVISAR` y `AUD_REQUIERE_REVISION = true`.
-
-## Tratamiento de fechas y cierre
-
-Para filas elegibles normales:
-
-- pedido: `VBAK_SAP.ERDAT + ERZET`;
-- entrega: `Pedidos_Normal_VBAK[fecha_entrega]`;
-- factura: `Pedidos_Normal_VBAK[fecha_factura]`;
-- despacho/cierre normal: `Pedidos_Normal_VBAK[fecha_salida]`;
-- primera y última fecha se igualan cuando VBAK solo dispone de una fecha;
-- no se crean fechas FES ni manifiestos;
-- no se infiere SALDO;
-- candidatos con `fecha_fes` quedan fuera del append.
-
-## Validación del modelo vivo
-
-Después del refresh con `true`:
-
-1. Confirmar que el proyecto abre sin error.
-2. Confirmar que `Fact_Tracking` incluye las nuevas filas como cartera viva.
-3. Los pedidos abiertos no deben entrar en la cohorte histórica cerrada.
-4. Los pedidos cerrados solo entran si tienen salida válida.
-5. Verificar `4190139455` y `1167577` sin regresión.
-6. Comparar páginas 00 y 01 con filtros equivalentes.
-7. Validar `Resultado`/Python sin errores.
-8. Registrar conteos nuevos; no exigir snapshots históricos fijos.
-
-## Rollback inmediato
-
-El append puede desactivarse sin borrar código:
-
-```text
-VBAK_APPEND_ACTIVO = false
-```
-
-Si el modelo no abre o el refresh falla:
-
-```powershell
-git restore NS.Report NS.SemanticModel
-git reset --hard a8e818604826e689453769103d962cd3537399ed
-```
-
-Usar `reset --hard` únicamente en la rama de trabajo y con el proyecto cerrado.
-
-## Regla de publicación
-
-El primer commit local debe contener únicamente los cambios normalizados por Power BI después de una prueba A y B verde. La evidencia debe ir en un segundo commit.
+Ante un error confirmado en modelo vivo, cambiarlo a `false` desde Power Query Desktop o restaurar la rama al punto estable `a8e818604826e689453769103d962cd3537399ed`. El LLM local no debe realizar ese cambio sin instrucción explícita.
