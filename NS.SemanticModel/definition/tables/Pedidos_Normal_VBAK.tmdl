@@ -1,0 +1,112 @@
+table Pedidos_Normal_VBAK
+	lineageTag: 5413ec7e-95cd-4e6f-a96a-9b41a47459fb
+
+	column VBELN
+		dataType: string
+		lineageTag: 8d01396a-151a-4499-af85-c0a90b48b182
+		summarizeBy: none
+		sourceColumn: VBELN
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha_pedido
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: d1a3527b-dd56-45c1-b9ee-32f3ccc8b6c5
+		summarizeBy: none
+		sourceColumn: fecha_pedido
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column fecha_entrega
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: d27f15ac-8cff-4500-aca3-00bb13103eb5
+		summarizeBy: none
+		sourceColumn: fecha_entrega
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column fecha_contabiliza
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 4d093a2a-0e28-45fc-afd7-c7bc7b1208c8
+		summarizeBy: none
+		sourceColumn: fecha_contabiliza
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column fecha_factura
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 609824b2-074d-455f-bf7c-d9ff2634b656
+		summarizeBy: none
+		sourceColumn: fecha_factura
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column fecha_fes
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 48337e28-be2e-46ca-942e-6c52457cf86b
+		summarizeBy: none
+		sourceColumn: fecha_fes
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column fecha_salida
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: ca702609-781b-4d76-b005-8c343fcc0292
+		summarizeBy: none
+		sourceColumn: fecha_salida
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Pedidos_Normal_VBAK = m
+		mode: import
+		queryGroup: Pedido_Normal
+		source =
+				let
+				    Origen =
+				        Sql.Database("128.1.3.21", "DMF_VTA_PRD", [Query=" --- pedidos NORMALES#(lf)SELECT *#(lf)FROM VBAK_SAP#(lf)WHERE  VBAK_SAP.AUART  IN (#(lf)'ZEDI',#(lf)'ZMAY',#(lf)'ZMAN',#(lf)'ZPDA',#(lf)'ZVGF',#(lf)'ZREL',#(lf)'ZVGM',#(lf)'ZTAN',#(lf)'TAN')#(lf)AND #(lf)  VBAK_SAP.ERDAT > GETDATE()-90"]),
+				    #"Filas agrupadas" = Table.Group(Origen, {"VBELN"}, {{"Recuento", each List.Min([ERDAT]), type nullable text}}),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Filas agrupadas",{{"VBELN", type text}}),
+				    #"Consultas combinadas" = Table.NestedJoin(#"Tipo cambiado", {"VBELN"}, Dim_Pedido_entrega_Normal_VBRP, {"AUBEL"}, "Dim_Pedido_entrega_Normal_VBRP", JoinKind.LeftOuter),
+				    #"Se expandió Dim_Pedido_entrega_Normal_VBRP" = Table.ExpandTableColumn(#"Consultas combinadas", "Dim_Pedido_entrega_Normal_VBRP", {"VBELN", "VGBEL", "FECHA"}, {"Dim_Pedido_entrega_Normal_VBRP.VBELN", "Dim_Pedido_entrega_Normal_VBRP.VGBEL", "Dim_Pedido_entrega_Normal_VBRP.FECHA"}),
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Se expandió Dim_Pedido_entrega_Normal_VBRP",{{"Dim_Pedido_entrega_Normal_VBRP.VBELN", "FACTURA"}, {"Dim_Pedido_entrega_Normal_VBRP.VGBEL", "ENTREGA_ORIGINAL"}, {"Dim_Pedido_entrega_Normal_VBRP.FECHA", "FECHA_FACTURA"}}),
+				    #"Consultas combinadas1" = Table.NestedJoin(#"Columnas con nombre cambiado", {"ENTREGA_ORIGINAL"}, Dim_Entrega_Normal_likp, {"VBELN"}, "Dim_Entrega_Normal_likp", JoinKind.LeftOuter),
+				    #"Se expandió Dim_Entrega_Normal_likp" = Table.ExpandTableColumn(#"Consultas combinadas1", "Dim_Entrega_Normal_likp", {"fecha_contabiliza", "fecha_creacion"}, {"Dim_Entrega_Normal_likp.fecha_contabiliza", "Dim_Entrega_Normal_likp.fecha_creacion"}),
+				    #"Columnas con nombre cambiado1" = Table.RenameColumns(#"Se expandió Dim_Entrega_Normal_likp",{{"Dim_Entrega_Normal_likp.fecha_contabiliza", "fecha_contabiliza"}, {"Dim_Entrega_Normal_likp.fecha_creacion", "fecha_crecion_entrega"}}),
+				    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Columnas con nombre cambiado1",{{"fecha_crecion_entrega", type date}, {"FECHA_FACTURA", type date}}),
+				    #"Columnas con nombre cambiado2" = Table.RenameColumns(#"Tipo cambiado1",{{"Recuento", "Fecha_creacion_pedido"}}),
+				    #"Columnas reordenadas" = Table.ReorderColumns(#"Columnas con nombre cambiado2",{"VBELN", "Fecha_creacion_pedido", "FACTURA", "ENTREGA_ORIGINAL", "fecha_crecion_entrega", "fecha_contabiliza", "FECHA_FACTURA"}),
+				    #"Tipo cambiado2" = Table.TransformColumnTypes(#"Columnas reordenadas",{{"Fecha_creacion_pedido", type date}}),
+				    #"Consultas combinadas2" = Table.NestedJoin(#"Tipo cambiado2", {"ENTREGA_ORIGINAL"}, Dim_Manifiesto_VTTP_NORMAL, {"VBELN"}, "Dim_Manifiesto_VTTP_NORMAL", JoinKind.LeftOuter),
+				    #"Se expandió Dim_Manifiesto_VTTP_NORMAL" = Table.ExpandTableColumn(#"Consultas combinadas2", "Dim_Manifiesto_VTTP_NORMAL", {"FECHA_MANI"}, {"Dim_Manifiesto_VTTP_NORMAL.FECHA_MANI"}),
+				    #"Tipo cambiado3" = Table.TransformColumnTypes(#"Se expandió Dim_Manifiesto_VTTP_NORMAL",{{"Dim_Manifiesto_VTTP_NORMAL.FECHA_MANI", type datetime}}),
+				    #"Consultas combinadas3" = Table.NestedJoin(#"Tipo cambiado3", {"ENTREGA_ORIGINAL"}, Dim_WMS_Manifiesto_NORMAL, {"ENTREGA_WMS"}, "Dim_WMS_Manifiesto_NORMAL", JoinKind.LeftOuter),
+				    #"Se expandió Dim_WMS_Manifiesto_NORMAL" = Table.ExpandTableColumn(#"Consultas combinadas3", "Dim_WMS_Manifiesto_NORMAL", {"Fecha_mani_manual"}, {"Dim_WMS_Manifiesto_NORMAL.Fecha_mani_manual"}),
+				    #"Consultas combinadas4" = Table.NestedJoin(#"Se expandió Dim_WMS_Manifiesto_NORMAL", {"ENTREGA_ORIGINAL"}, Dim_Pedidos_FES_DETALLE, {"Entrega_Original"}, "Dim_Pedidos_FES_DETALLE", JoinKind.LeftOuter),
+				    #"Se expandió Dim_Pedidos_FES_DETALLE" = Table.ExpandTableColumn(#"Consultas combinadas4", "Dim_Pedidos_FES_DETALLE", {"Fecha_pedido_posterior", "fecha_contabiliza", "Dim_Entrega_FES.fecha_creacion", "salida_sap", "Dim_WMS_Manifiesto_FES.Fecha_mani_manual"}, {"Dim_Pedidos_FES_DETALLE.Fecha_pedido_posterior", "Dim_Pedidos_FES_DETALLE.fecha_contabiliza", "Dim_Pedidos_FES_DETALLE.Dim_Entrega_FES.fecha_creacion", "Dim_Pedidos_FES_DETALLE.salida_sap", "Dim_Pedidos_FES_DETALLE.Dim_WMS_Manifiesto_FES.Fecha_mani_manual"}),
+				    #"Columnas con nombre cambiado3" = Table.RenameColumns(#"Se expandió Dim_Pedidos_FES_DETALLE",{{"Dim_Pedidos_FES_DETALLE.Dim_WMS_Manifiesto_FES.Fecha_mani_manual", "FES_Fecha_mani_manual"}, {"Dim_Pedidos_FES_DETALLE.salida_sap", "FES_salida_sap"}, {"Dim_Pedidos_FES_DETALLE.Dim_Entrega_FES.fecha_creacion", "Entrega_fecha_creacion_FES"}, {"Dim_Pedidos_FES_DETALLE.fecha_contabiliza", "Pedidos__fecha_creacion_FES"}, {"Dim_WMS_Manifiesto_NORMAL.Fecha_mani_manual", "NORMAL.Fecha_mani_manual"}, {"Dim_Manifiesto_VTTP_NORMAL.FECHA_MANI", "VTTP_NORMAL.FECHA_MANI"}}),
+				    #"Columna condicional agregada" = Table.AddColumn(#"Columnas con nombre cambiado3", "Fecha_manifiesto", each if [VTTP_NORMAL.FECHA_MANI] <> null then [VTTP_NORMAL.FECHA_MANI] else if [NORMAL.Fecha_mani_manual] <> null then [NORMAL.Fecha_mani_manual] else if [FES_salida_sap] <> null then [FES_salida_sap] else if [FES_Fecha_mani_manual] <> null then [FES_Fecha_mani_manual] else null),
+				    #"Tipo cambiado4" = Table.TransformColumnTypes(#"Columna condicional agregada",{{"Fecha_manifiesto", type datetime}}),
+				    #"Filas agrupadas1" = Table.Group(#"Tipo cambiado4", {"VBELN"}, {{"fecha_pedido", each List.Min([Fecha_creacion_pedido]), type nullable date}, {"fecha_entrega", each List.Min([fecha_crecion_entrega]), type nullable date}, {"fecha_contabiliza", each List.Min([fecha_contabiliza]), type nullable date}, {"fecha_factura", each List.Min([FECHA_FACTURA]), type nullable date}, {"fecha_fes", each List.Min([Pedidos__fecha_creacion_FES]), type nullable date}, {"fecha_salida", each List.Min([Fecha_manifiesto]), type nullable datetime}})
+				in
+				    #"Filas agrupadas1"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

@@ -106,10 +106,6 @@ relationship 26000000-0000-4000-8000-000000005005
 	fromColumn: Fact_Pedidos_Auditoria.PED_NUMERO_PEDIDO
 	toColumn: Dim_Pedido.PED_NUMERO_PEDIDO
 
-relationship 53000000-0000-4000-8000-0000000000A1
-	fromColumn: Dim_WMS_Manifiesto.PEDIDO_WMS
-	toColumn: Dim_Pedido.PED_NUMERO_PEDIDO
-
 relationship 39000000-0000-4000-8000-000000000021
 	fromColumn: Dim_Fecha.AnioMes
 	toColumn: Dim_Periodo_3M.AnioMes

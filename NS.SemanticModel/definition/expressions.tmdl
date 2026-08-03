@@ -1,0 +1,338 @@
+expression Dim_Entrega_Normal_FES =
+		let
+		    // 1. Origen: consulta a SQL
+		    Origen = Sql.Database("128.1.3.21", "DMF_VTA_PRD", [Query=" SELECT VGBEL,VGPOS,LIPS_SAP.MATNR,LIPS_SAP.POSNR,BWART,LIPS_SAP.VBELN,LFIMG,WADAT_IST,LIKP_SAP.ERDAT#(lf)#(lf)              FROM LIKP_SAP#(lf)              INNER JOIN LIPS_SAP #(lf)                  ON LIKP_SAP.VBELN = LIPS_SAP.VBELN#(lf)              WHERE #(lf)                  LIKP_SAP.ERDAT > GETDATE()-120"]),
+		
+		    // 3. Cambiar tipo de VGBEL a entero
+		    #"Tipo cambiado" = Table.TransformColumnTypes(
+		        Origen,
+		        {{"VGBEL", Int64.Type}}
+		    ),
+		
+		    // 5. Cambiar tipo de VGBEL a texto y WADAT_IST a fecha
+		    #"Tipo cambiado1" = Table.TransformColumnTypes(
+		        #"Tipo cambiado",
+		        {{"VGBEL", type text}, {"WADAT_IST", type date}}
+		    ),
+		    // 6. Reemplazar errores en WADAT_IST por null
+		    #"Errores reemplazados" = Table.ReplaceErrorValues(
+		        #"Tipo cambiado1",
+		        {{"WADAT_IST", null}}
+		    ),
+		
+		    // 8. Filtrar BWART <> '911'
+		    #"Filas filtradas" = Table.SelectRows(#"Errores reemplazados", each [BWART] = "911"),
+		
+		    // 9. Crear columna fecha_real: si hay WADAT_IST usarla, si no usar ERDAT
+		    #"Columna fecha_real agregada" = Table.AddColumn(
+		        #"Filas filtradas",
+		        "fecha_real",
+		        each if [WADAT_IST] <> null then [WADAT_IST] else [ERDAT],
+		        type date
+		    ),
+		
+		    // 10. Tabla agrupada por VGBEL para obtener la primera fecha de entrega
+		    //     (mínimo de fecha_real por pedido)
+		    #"TablaMinFechas" = Table.Group(
+		        #"Columna fecha_real agregada",
+		        {"VGBEL"},
+		        {
+		            {"fecha primera entrega", each List.Min([fecha_real]), type date}
+		        }
+		    ),
+		
+		    // 11. Hacer join para traer la fecha primera entrega a cada fila
+		    #"Unidas tablas" = Table.NestedJoin(
+		        #"Columna fecha_real agregada",
+		        {"VGBEL"},
+		        #"TablaMinFechas",
+		        {"VGBEL"},
+		        "tMin",
+		        JoinKind.LeftOuter
+		    ),
+		
+		    // 12. Expandir la columna anidada con la fecha primera entrega
+		    #"Columna fecha_primera_entrega expandida" = Table.ExpandTableColumn(
+		        #"Unidas tablas",
+		        "tMin",
+		        {"fecha primera entrega"},
+		        {"fecha primera entrega"}
+		    ),
+		    #"Filas agrupadas" = Table.Group(#"Columna fecha_primera_entrega expandida", {"VGBEL", "VGPOS", "BWART"}, {{"VBELN", each List.Min([VBELN]), type nullable number}, {"POANR", each List.Min([POSNR]), type nullable text}, {"LFIMG", each List.Min([VGBEL]), type nullable text}, {"WADAT_IST", each List.Min([WADAT_IST]), type nullable date}, {"ERDAT", each List.Min([ERDAT]), type text}, {"fecha primera entrega", each List.Min([fecha primera entrega]), type nullable date}}),
+		    #"Filas agrupadas1" = Table.Group(#"Filas agrupadas", {"VGBEL", "VBELN"}, {{"Recuento", each Table.RowCount(_), Int64.Type}, {"fecha_contabiliza", each List.Min([WADAT_IST]), type nullable date}, {"fecha_creacion", each List.Min([ERDAT]), type text}}),
+		    #"Tipo cambiado2" = Table.TransformColumnTypes(#"Filas agrupadas1",{{"VBELN", type text}}),
+		    #"Columnas reordenadas" = Table.ReorderColumns(#"Tipo cambiado2",{"VBELN", "VGBEL", "Recuento", "fecha_contabiliza", "fecha_creacion"})
+		in
+		    #"Columnas reordenadas"
+	lineageTag: 3ae156f0-2b81-4abd-aee8-623ac417d9ee
+	queryGroup: FES
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression Dim_Pedido_entrega_Normal_VBRP =
+		let
+		    // 1. Origen: consulta a SQL
+		    Origen = Sql.Database("128.1.3.21", "DMF_VTA_PRD", [Query=" select*#(lf)             from VBRP_SAP  #(lf)             inner join VBRK_SAP ON VBRK_SAP.VBELN = VBRP_SAP.VBELN#(lf)             where #(lf)                VBRK_SAP.ERDAT  > GETDATE()-120#(lf)                AND  VBRK_SAP.VBELN between '90000000' and '999999999'#(lf)                AND VBRK_SAP.VBTYP IN ('M')"]),
+		    #"Columnas quitadas" = Table.RemoveColumns(Origen,{"POSNR", "FKIMG", "FKLMG", "LMENG", "NTGEW", "BRGEW", "NETWR", "VGPOS", "VGTYP", "AUPOS", "MATNR", "ARKTX", "ERNAM", "ERZET", "MWSBP", "VSTEL", "WERKS", "VKBUR", "ERDAT_DATE", "WAVWR", "VBELN2", "FKART", "FKTYP", "VBTYP", "WAERK", "VKORG", "VTWEG", "KALSM", "FKDAT", "BELNR", "ZTERM", "BUKRS", "NETWR2", "ERNAM2", "ERZET2", "ERDAT2", "KUNRG", "KUNAG", "MWSBK", "FKSTO", "TSTP2"}),
+		    #"Filas agrupadas" = Table.Group(#"Columnas quitadas", {"VBELN", "VGBEL", "AUBEL"}, {{"Recuento", each List.Min([ERDAT]), type nullable text}}),
+		    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Filas agrupadas",{{"Recuento", "FECHA"}}),
+		    #"Tipo cambiado" = Table.TransformColumnTypes(#"Columnas con nombre cambiado",{{"VGBEL", type text}, {"AUBEL", type text}, {"VBELN", type text}}),
+		    #"Columnas reordenadas" = Table.ReorderColumns(#"Tipo cambiado",{"AUBEL", "VBELN", "VGBEL", "FECHA"})
+		in
+		    #"Columnas reordenadas"
+	lineageTag: 658dcd3c-ebc8-4fff-8a98-a8d28e299694
+	queryGroup: Pedido_Normal
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression Dim_Pedidos_FES_DETALLE =
+		let
+		    Origen = Pedidos_FES
+		in
+		    Origen
+	lineageTag: 78217d0a-be54-466f-90c6-bcbdf868bc82
+	queryGroup: Pedido_Normal
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression Dim_WMS_Manifiesto_NORMAL =
+		let
+		    Origen =
+		        Sql.Database("128.1.3.60", "PASO_WMS", [Query="SET NOCOUNT ON;#(lf)#(lf)SELECT#(lf)    CONVERT(BIGINT, MAD_PEDIDO)  AS PEDIDO_WMS,#(lf)    CONVERT(BIGINT, MAD_ENTREGA) AS ENTREGA_WMS,#(lf)    CONVERT(BIGINT, MAD_NRO_SAP) AS NRO_SAP_WMS,#(lf)    MIN(MAD_FECHA_EMISION) AS MANIFIESTO_WMS_MIN,#(lf)    MAX(MAD_FECHA_EMISION) AS MANIFIESTO_WMS_MAX,#(lf)    COUNT(*) AS CANTIDAD_DETALLE#(lf)FROM dbo.MANIFIESTO_D#(lf)GROUP BY CONVERT(BIGINT, MAD_PEDIDO), CONVERT(BIGINT, MAD_ENTREGA), CONVERT(BIGINT, MAD_NRO_SAP);"]),
+		    Tipos =
+		        Table.TransformColumnTypes(
+		            Origen,
+		            {
+		                {"PEDIDO_WMS", type text},
+		                {"ENTREGA_WMS", Int64.Type},
+		                {"NRO_SAP_WMS", Int64.Type},
+		                {"MANIFIESTO_WMS_MIN", type datetime},
+		                {"MANIFIESTO_WMS_MAX", type datetime},
+		                {"CANTIDAD_DETALLE", Int64.Type}
+		            }
+		        ),
+		    Limpios =
+		        Table.TransformColumns(
+		            Tipos,
+		            {
+		                {"PEDIDO_WMS", each if _ = null then null else Text.Trim(_), type nullable text},
+		                {"ENTREGA_WMS", each if _ = null then null else _, type nullable number},
+		                {"NRO_SAP_WMS", each if _ = null then null else _, type nullable number},
+		                {"MANIFIESTO_WMS_MIN", each if _ = null then null else _, type nullable datetime},
+		                {"MANIFIESTO_WMS_MAX", each if _ = null then null else _, type nullable datetime},
+		                {"CANTIDAD_DETALLE", each if _ = null then null else _, type nullable number}
+		            }
+		        ),
+		    Filtrados = Table.SelectRows(Limpios, each [CANTIDAD_DETALLE] <> null),
+		    Unicos = Table.Distinct(Filtrados, {"PEDIDO_WMS", "ENTREGA_WMS", "NRO_SAP_WMS"}),
+		    #"Tipo cambiado" = Table.TransformColumnTypes(Unicos,{{"ENTREGA_WMS", type text}, {"PEDIDO_WMS", type text}}),
+		    #"Filas agrupadas" = Table.Group(#"Tipo cambiado", {"ENTREGA_WMS"}, {{"Recuento", each List.Min([MANIFIESTO_WMS_MIN]), type nullable datetime}}),
+		    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Filas agrupadas",{{"Recuento", "Fecha_mani_manual"}}),
+		    #"Filas filtradas" = Table.SelectRows(#"Columnas con nombre cambiado", each ([ENTREGA_WMS] <> null and [ENTREGA_WMS] <> "0"))
+		in
+		    #"Filas filtradas"
+	lineageTag: de6f181b-a0c4-4010-9829-bac469455f79
+	queryGroup: Pedido_Normal
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression Dim_Manifiesto_VTTP_NORMAL =
+		let
+		    Origen =
+		        Sql.Database("128.1.3.21", "DMF_VTA_PRD", [Query="--- Manifiesto SAP#(lf) SELECT *#(lf)FROM VTTP_SAP"]),
+		    #"Filas agrupadas" = Table.Group(Origen, {"VBELN"}, {{"FECHA_MANI", each List.Min([ERDAT]), type nullable datetime}}),
+		    #"Tipo cambiado" = Table.TransformColumnTypes(#"Filas agrupadas",{{"VBELN", type text}})
+		in
+		    #"Tipo cambiado"
+	lineageTag: 48adbaaa-851c-4f68-a4b4-11c51387fb55
+	queryGroup: Pedido_Normal
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression Dim_Pedido_entrega_Original =
+		let
+		    // 1. Origen: consulta a SQL
+		    Origen = Sql.Database("128.1.3.21", "DMF_VTA_PRD", [Query=" select*#(lf)             from VBRP_SAP  #(lf)             inner join VBRK_SAP ON VBRK_SAP.VBELN = VBRP_SAP.VBELN#(lf)             where #(lf)                VBRK_SAP.ERDAT  > GETDATE()-120#(lf)                AND  VBRK_SAP.VBELN between '90000000' and '999999999'#(lf)                AND VBRK_SAP.VBTYP IN ('M')"]),
+		    #"Columnas quitadas" = Table.RemoveColumns(Origen,{"POSNR", "FKIMG", "FKLMG", "LMENG", "NTGEW", "BRGEW", "NETWR", "VGPOS", "VGTYP", "AUPOS", "MATNR", "ARKTX", "ERNAM", "ERZET", "MWSBP", "VSTEL", "WERKS", "VKBUR", "ERDAT_DATE", "WAVWR", "VBELN2", "FKART", "FKTYP", "VBTYP", "WAERK", "VKORG", "VTWEG", "KALSM", "FKDAT", "BELNR", "ZTERM", "BUKRS", "NETWR2", "ERNAM2", "ERZET2", "ERDAT2", "KUNRG", "KUNAG", "MWSBK", "FKSTO", "TSTP2"}),
+		    #"Filas agrupadas" = Table.Group(#"Columnas quitadas", {"VBELN", "VGBEL", "AUBEL"}, {{"Recuento", each List.Min([ERDAT]), type nullable text}}),
+		    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Filas agrupadas",{{"Recuento", "FECHA"}}),
+		    #"Tipo cambiado" = Table.TransformColumnTypes(#"Columnas con nombre cambiado",{{"VGBEL", type text}, {"AUBEL", type text}, {"VBELN", type text}})
+		in
+		    #"Tipo cambiado"
+	lineageTag: af8463c7-b90a-4e2b-937f-37fc3dcb65ec
+	queryGroup: FES
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression Pedidos_FES =
+		let
+		    Origen =
+		        Sql.Database("128.1.3.21", "DMF_VTA_PRD", [Query="#(lf)--- PEDIDOS_FES#(lf) SELECT *#(lf)FROM VBAK_SAP#(lf)WHERE  VBAK_SAP.AUART = 'ZPPO' AND #(lf)  VBAK_SAP.ERDAT > GETDATE()-120"]),
+		    #"Columnas reordenadas" = Table.ReorderColumns(Origen,{"VBELN", "ERDAT", "ERZET", "ZUONR", "VDATU", "ERNAM", "AUDAT", "VBTYP", "AUART", "AUGRU", "NETWR", "WAERK", "VKORG", "VTWEG", "SPART", "VKGRP", "VKBUR", "KNUMV", "KALSM", "XBLNR", "BSTNK", "BSTDK", "KUNNR", "LIFSK", "FAKSK", "CMFRE", "TSTP", "ERDAT_DATE", "AUDAT_DATE"}),
+		    #"Columnas quitadas" = Table.RemoveColumns(#"Columnas reordenadas",{"VDATU", "ERNAM", "AUDAT", "VBTYP", "AUART", "AUGRU", "NETWR", "WAERK", "VKORG", "VTWEG", "SPART", "VKGRP", "VKBUR", "KNUMV", "KALSM", "XBLNR", "BSTNK", "BSTDK", "KUNNR", "LIFSK", "FAKSK", "CMFRE", "TSTP", "ERDAT_DATE", "AUDAT_DATE"}),
+		    #"Tipo cambiado" = Table.TransformColumnTypes(#"Columnas quitadas",{{"VBELN", type text}}),
+		    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Tipo cambiado",{{"ZUONR", "Factura_Original"}}),
+		    #"Consultas combinadas" = Table.NestedJoin(#"Columnas con nombre cambiado", {"Factura_Original"}, Dim_Pedido_entrega_Original, {"VBELN"}, "Dim_PEDIDOS_FACTURA", JoinKind.LeftOuter),
+		    #"Se expandió Dim_PEDIDOS_FACTURA" = Table.ExpandTableColumn(#"Consultas combinadas", "Dim_PEDIDOS_FACTURA", {"VGBEL", "AUBEL", "FECHA"}, {"Dim_PEDIDOS_FACTURA.VGBEL", "Dim_PEDIDOS_FACTURA.AUBEL", "Dim_PEDIDOS_FACTURA.FECHA"}),
+		    #"Columnas con nombre cambiado1" = Table.RenameColumns(#"Se expandió Dim_PEDIDOS_FACTURA",{{"Dim_PEDIDOS_FACTURA.AUBEL", "Pedido Original"}, {"Dim_PEDIDOS_FACTURA.FECHA", "Fecha_Factura"}, {"Dim_PEDIDOS_FACTURA.VGBEL", "Entrega_Original"}, {"VBELN", "Pedido Posterior"}, {"ERDAT", "Fecha_pedido_posterior"}}),
+		    #"Consultas combinadas1" = Table.NestedJoin(#"Columnas con nombre cambiado1", {"Pedido Posterior"}, Dim_Entrega_Normal_FES, {"VGBEL"}, "Dim_Entrega_FES", JoinKind.LeftOuter),
+		    #"Se expandió Dim_Entrega_FES" = Table.ExpandTableColumn(#"Consultas combinadas1", "Dim_Entrega_FES", {"VBELN", "Recuento", "fecha_contabiliza", "fecha_creacion"}, {"Dim_Entrega_FES.VBELN", "Dim_Entrega_FES.Recuento", "Dim_Entrega_FES.fecha_contabiliza", "Dim_Entrega_FES.fecha_creacion"}),
+		    #"Filas filtradas" = Table.SelectRows(#"Se expandió Dim_Entrega_FES", each ([Dim_Entrega_FES.VBELN] <> null)),
+		    #"Consultas combinadas2" = Table.NestedJoin(#"Filas filtradas", {"Dim_Entrega_FES.VBELN"}, Dim_Manifiesto_VTTP_FES, {"VBELN"}, "Dim_Manifiesto_VTTP_FES", JoinKind.LeftOuter),
+		    #"Se expandió Dim_Manifiesto_VTTP_FES" = Table.ExpandTableColumn(#"Consultas combinadas2", "Dim_Manifiesto_VTTP_FES", {"FECHA_MANI"}, {"Dim_Manifiesto_VTTP_FES.FECHA_MANI"}),
+		    #"Columnas con nombre cambiado2" = Table.RenameColumns(#"Se expandió Dim_Manifiesto_VTTP_FES",{{"Dim_Manifiesto_VTTP_FES.FECHA_MANI", "salida_sap"}}),
+		    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Columnas con nombre cambiado2",{{"Fecha_Factura", type date}, {"Fecha_pedido_posterior", type date}, {"Dim_Entrega_FES.fecha_creacion", type date}}),
+		    #"Columnas reordenadas1" = Table.ReorderColumns(#"Tipo cambiado1",{"Entrega_Original", "Pedido Posterior", "Fecha_pedido_posterior", "ERZET", "Factura_Original", "Pedido Original", "Fecha_Factura", "Dim_Entrega_FES.VBELN", "Dim_Entrega_FES.Recuento", "Dim_Entrega_FES.fecha_contabiliza", "Dim_Entrega_FES.fecha_creacion", "salida_sap"}),
+		    #"Columnas con nombre cambiado3" = Table.RenameColumns(#"Columnas reordenadas1",{{"Dim_Entrega_FES.VBELN", "Dim_Entrega_FES"}}),
+		    #"Columnas quitadas1" = Table.RemoveColumns(#"Columnas con nombre cambiado3",{"Dim_Entrega_FES.Recuento"}),
+		    #"Columnas con nombre cambiado4" = Table.RenameColumns(#"Columnas quitadas1",{{"Dim_Entrega_FES.fecha_contabiliza", "fecha_contabiliza"}}),
+		    #"Consultas combinadas3" = Table.NestedJoin(#"Columnas con nombre cambiado4", {"Entrega_Original"}, Dim_WMS_Manifiesto_FES, {"ENTREGA_WMS"}, "Dim_WMS_Manifiesto_FES", JoinKind.LeftOuter),
+		    #"Se expandió Dim_WMS_Manifiesto_FES" = Table.ExpandTableColumn(#"Consultas combinadas3", "Dim_WMS_Manifiesto_FES", {"Fecha_mani_manual"}, {"Dim_WMS_Manifiesto_FES.Fecha_mani_manual"})
+		in
+		    #"Se expandió Dim_WMS_Manifiesto_FES"
+	lineageTag: e78354b6-a405-4214-90de-cdaffd06bef3
+	queryGroup: FES
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Exception
+
+expression Dim_WMS_Manifiesto_FES =
+		let
+		    Origen =
+		        Sql.Database("128.1.3.60", "PASO_WMS", [Query="SET NOCOUNT ON;#(lf)#(lf)SELECT#(lf)    CONVERT(BIGINT, MAD_PEDIDO)  AS PEDIDO_WMS,#(lf)    CONVERT(BIGINT, MAD_ENTREGA) AS ENTREGA_WMS,#(lf)    CONVERT(BIGINT, MAD_NRO_SAP) AS NRO_SAP_WMS,#(lf)    MIN(MAD_FECHA_EMISION) AS MANIFIESTO_WMS_MIN,#(lf)    MAX(MAD_FECHA_EMISION) AS MANIFIESTO_WMS_MAX,#(lf)    COUNT(*) AS CANTIDAD_DETALLE#(lf)FROM dbo.MANIFIESTO_D#(lf)GROUP BY CONVERT(BIGINT, MAD_PEDIDO), CONVERT(BIGINT, MAD_ENTREGA), CONVERT(BIGINT, MAD_NRO_SAP);"]),
+		    Tipos =
+		        Table.TransformColumnTypes(
+		            Origen,
+		            {
+		                {"PEDIDO_WMS", type text},
+		                {"ENTREGA_WMS", Int64.Type},
+		                {"NRO_SAP_WMS", Int64.Type},
+		                {"MANIFIESTO_WMS_MIN", type datetime},
+		                {"MANIFIESTO_WMS_MAX", type datetime},
+		                {"CANTIDAD_DETALLE", Int64.Type}
+		            }
+		        ),
+		    Limpios =
+		        Table.TransformColumns(
+		            Tipos,
+		            {
+		                {"PEDIDO_WMS", each if _ = null then null else Text.Trim(_), type nullable text},
+		                {"ENTREGA_WMS", each if _ = null then null else _, type nullable number},
+		                {"NRO_SAP_WMS", each if _ = null then null else _, type nullable number},
+		                {"MANIFIESTO_WMS_MIN", each if _ = null then null else _, type nullable datetime},
+		                {"MANIFIESTO_WMS_MAX", each if _ = null then null else _, type nullable datetime},
+		                {"CANTIDAD_DETALLE", each if _ = null then null else _, type nullable number}
+		            }
+		        ),
+		    Filtrados = Table.SelectRows(Limpios, each [CANTIDAD_DETALLE] <> null),
+		    Unicos = Table.Distinct(Filtrados, {"PEDIDO_WMS", "ENTREGA_WMS", "NRO_SAP_WMS"}),
+		    #"Tipo cambiado" = Table.TransformColumnTypes(Unicos,{{"ENTREGA_WMS", type text}, {"PEDIDO_WMS", type text}}),
+		    #"Filas agrupadas" = Table.Group(#"Tipo cambiado", {"ENTREGA_WMS"}, {{"Recuento", each List.Min([MANIFIESTO_WMS_MIN]), type nullable datetime}}),
+		    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Filas agrupadas",{{"Recuento", "Fecha_mani_manual"}})
+		in
+		    #"Columnas con nombre cambiado"
+	lineageTag: 47e3df7c-ff49-4acf-83a6-8f910e5a9b56
+	queryGroup: FES
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression Dim_Manifiesto_VTTP_FES =
+		let
+		    Origen =
+		        Sql.Database("128.1.3.21", "DMF_VTA_PRD", [Query="--- Manifiesto SAP#(lf) SELECT *#(lf)FROM VTTP_SAP"]),
+		    #"Filas agrupadas" = Table.Group(Origen, {"VBELN"}, {{"FECHA_MANI", each List.Min([ERDAT]), type nullable datetime}}),
+		    #"Tipo cambiado" = Table.TransformColumnTypes(#"Filas agrupadas",{{"VBELN", type text}})
+		in
+		    #"Tipo cambiado"
+	lineageTag: 93e53e38-e21a-493e-9f2a-4d256d4f42ae
+	queryGroup: FES
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression Dim_Entrega_Normal_likp =
+		let
+		    // 1. Origen: consulta a SQL
+		    Origen = Sql.Database("128.1.3.21", "DMF_VTA_PRD", [Query=" SELECT VGBEL,VGPOS,LIPS_SAP.MATNR,LIPS_SAP.POSNR,BWART,LIPS_SAP.VBELN,LFIMG,WADAT_IST,LIKP_SAP.ERDAT#(lf)#(lf)              FROM LIKP_SAP#(lf)              INNER JOIN LIPS_SAP #(lf)                  ON LIKP_SAP.VBELN = LIPS_SAP.VBELN#(lf)              WHERE #(lf)                  LIKP_SAP.ERDAT > GETDATE()-120"]),
+		
+		    // 3. Cambiar tipo de VGBEL a entero
+		    #"Tipo cambiado" = Table.TransformColumnTypes(
+		        Origen,
+		        {{"VGBEL", Int64.Type}}
+		    ),
+		
+		    // 5. Cambiar tipo de VGBEL a texto y WADAT_IST a fecha
+		    #"Tipo cambiado1" = Table.TransformColumnTypes(
+		        #"Tipo cambiado",
+		        {{"VGBEL", type text}, {"WADAT_IST", type date}}
+		    ),
+		    // 6. Reemplazar errores en WADAT_IST por null
+		    #"Errores reemplazados" = Table.ReplaceErrorValues(
+		        #"Tipo cambiado1",
+		        {{"WADAT_IST", null}}
+		    ),
+		
+		    // 9. Crear columna fecha_real: si hay WADAT_IST usarla, si no usar ERDAT
+		    #"Columna fecha_real agregada" = Table.AddColumn(
+		        #"Errores reemplazados",
+		        "fecha_real",
+		        each if [WADAT_IST] <> null then [WADAT_IST] else [ERDAT],
+		        type date
+		    ),
+		
+		    // 10. Tabla agrupada por VGBEL para obtener la primera fecha de entrega
+		    //     (mínimo de fecha_real por pedido)
+		    #"TablaMinFechas" = Table.Group(
+		        #"Columna fecha_real agregada",
+		        {"VGBEL"},
+		        {
+		            {"fecha primera entrega", each List.Min([fecha_real]), type date}
+		        }
+		    ),
+		
+		    // 11. Hacer join para traer la fecha primera entrega a cada fila
+		    #"Unidas tablas" = Table.NestedJoin(
+		        #"Columna fecha_real agregada",
+		        {"VGBEL"},
+		        #"TablaMinFechas",
+		        {"VGBEL"},
+		        "tMin",
+		        JoinKind.LeftOuter
+		    ),
+		
+		    // 12. Expandir la columna anidada con la fecha primera entrega
+		    #"Columna fecha_primera_entrega expandida" = Table.ExpandTableColumn(
+		        #"Unidas tablas",
+		        "tMin",
+		        {"fecha primera entrega"},
+		        {"fecha primera entrega"}
+		    ),
+		    #"Filas agrupadas" = Table.Group(#"Columna fecha_primera_entrega expandida", {"VGBEL", "VGPOS", "BWART"}, {{"VBELN", each List.Min([VBELN]), type nullable number}, {"POANR", each List.Min([POSNR]), type nullable text}, {"LFIMG", each List.Min([VGBEL]), type nullable text}, {"WADAT_IST", each List.Min([WADAT_IST]), type nullable date}, {"ERDAT", each List.Min([ERDAT]), type text}, {"fecha primera entrega", each List.Min([fecha primera entrega]), type nullable date}}),
+		    #"Filas agrupadas1" = Table.Group(#"Filas agrupadas", {"VGBEL", "VBELN"}, {{"Recuento", each Table.RowCount(_), Int64.Type}, {"fecha_contabiliza", each List.Min([WADAT_IST]), type nullable date}, {"fecha_creacion", each List.Min([ERDAT]), type text}}),
+		    #"Tipo cambiado2" = Table.TransformColumnTypes(#"Filas agrupadas1",{{"VBELN", type text}}),
+		    #"Columnas reordenadas" = Table.ReorderColumns(#"Tipo cambiado2",{"VBELN", "VGBEL", "Recuento", "fecha_contabiliza", "fecha_creacion"})
+		in
+		    #"Columnas reordenadas"
+	lineageTag: d840c3c5-3b36-4515-b7bf-4a9082a49686
+	queryGroup: Pedido_Normal
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
