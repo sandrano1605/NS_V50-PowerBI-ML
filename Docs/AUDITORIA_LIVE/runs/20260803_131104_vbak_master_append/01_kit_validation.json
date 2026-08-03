@@ -1,0 +1,51 @@
+{
+  "status": "VERDE",
+  "base_sha": "a8e818604826e689453769103d962cd3537399ed",
+  "kit_path": "PowerQuery\\VBAK_APPEND",
+  "details": {
+    "00_VBAK_SCHEMA_PREFLIGHT.pq": {
+      "bytes": 1632,
+      "lines": 61,
+      "missing_markers": []
+    },
+    "01_VBAK_APPEND_ACTIVO.pq": {
+      "bytes": 354,
+      "lines": 8,
+      "missing_markers": []
+    },
+    "02_VBAK_ATRIBUTOS_MAYORISTA.pq": {
+      "bytes": 5328,
+      "lines": 144,
+      "missing_markers": []
+    },
+    "03_FACT_PEDIDOS_AUDITORIA_APPEND_BLOCK.pq": {
+      "bytes": 13531,
+      "lines": 229,
+      "missing_markers": []
+    },
+    "04_VBAK_APPEND_CONTROL.pq": {
+      "bytes": 5233,
+      "lines": 66,
+      "missing_markers": []
+    },
+    "05_VBAK_APPEND_PREFLIGHT_DETALLE.pq": {
+      "bytes": 6376,
+      "lines": 129,
+      "missing_markers": []
+    },
+    "git_changed_files": [
+      "Docs/AUDITORIA_LIVE/LLM_LOCAL_EJECUTA_VBAK_APPEND.md",
+      "PowerQuery/VBAK_APPEND/00_VBAK_SCHEMA_PREFLIGHT.pq",
+      "PowerQuery/VBAK_APPEND/01_VBAK_APPEND_ACTIVO.pq",
+      "PowerQuery/VBAK_APPEND/02_VBAK_ATRIBUTOS_MAYORISTA.pq",
+      "PowerQuery/VBAK_APPEND/03_FACT_PEDIDOS_AUDITORIA_APPEND_BLOCK.pq",
+      "PowerQuery/VBAK_APPEND/04_VBAK_APPEND_CONTROL.pq",
+      "PowerQuery/VBAK_APPEND/05_VBAK_APPEND_PREFLIGHT_DETALLE.pq",
+      "PowerQuery/VBAK_APPEND/README.md",
+      "tools/validate_vbak_append_kit.py"
+    ],
+    "pbip_changes": []
+  },
+  "errors": [],
+  "next_step": "Abrir Power BI y ejecutar el preflight con VBAK_APPEND_ACTIVO=false"
+}
