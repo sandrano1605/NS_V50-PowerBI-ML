@@ -336,3 +336,293 @@ expression Dim_Entrega_Normal_likp =
 
 	annotation PBI_ResultType = Table
 
+/// Activa el append controlado de pedidos VBAK faltantes en Fact_Pedidos_Auditoria.
+expression VBAK_APPEND_ACTIVO = "false" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 9d5ea61c-09cd-4e4a-81d0-1f48d32fe7c9
+	queryGroup: Pedido_Normal
+
+	annotation IsParameterQuery = true
+
+	annotation ParameterKey = VBAK_APPEND_ACTIVO
+
+	annotation ParameterType = Logical
+
+	annotation ParameterIsRequired = true
+
+	annotation ParameterDefaultValue = false
+
+expression VBAK_SCHEMA_PREFLIGHT =
+		let
+		    Origen =
+		        Sql.Database(
+		            "128.1.3.21",
+		            "DMF_VTA_PRD",
+		            [
+		                Query = "SET NOCOUNT ON;#(lf)#(lf)WITH Requeridas AS#(lf)(#(lf)    SELECT 'VBAK_SAP' AS TABLA, 'VBELN' AS COLUMNA UNION ALL#(lf)    SELECT 'VBAK_SAP', 'KUNNR' UNION ALL#(lf)    SELECT 'VBAK_SAP', 'VTWEG' UNION ALL#(lf)    SELECT 'VBAK_SAP', 'AUART' UNION ALL#(lf)    SELECT 'VBAK_SAP', 'ERDAT' UNION ALL#(lf)    SELECT 'VBAK_SAP', 'ERZET' UNION ALL#(lf)    SELECT 'VBAK_SAP', 'VSBED' UNION ALL#(lf)    SELECT 'VBAK_SAP', 'BSTNK' UNION ALL#(lf)    SELECT 'VBAK_SAP', 'NETWR' UNION ALL#(lf)    SELECT 'VBAK_SAP', 'WAERK' UNION ALL#(lf)    SELECT 'VBAK_SAP', 'LIFSK' UNION ALL#(lf)    SELECT 'VBAK_SAP', 'CMGST' UNION ALL#(lf)    SELECT 'KNA1_SAP', 'KUNNR' UNION ALL#(lf)    SELECT 'KNA1_SAP', 'ORT01' UNION ALL#(lf)    SELECT 'KNA1_SAP', 'REGIO'#(lf))#(lf)SELECT#(lf)    R.TABLA,#(lf)    R.COLUMNA,#(lf)    CASE WHEN C.column_id IS NULL THEN 'FALTA' ELSE 'OK' END AS ESTADO,#(lf)    T.name AS TIPO_SQL,#(lf)    C.max_length AS LARGO#(lf)FROM Requeridas AS R#(lf)LEFT JOIN sys.tables AS TB#(lf)    ON TB.name = R.TABLA#(lf)LEFT JOIN sys.schemas AS S#(lf)    ON S.schema_id = TB.schema_id#(lf)   AND S.name = 'dbo'#(lf)LEFT JOIN sys.columns AS C#(lf)    ON C.object_id = TB.object_id#(lf)   AND C.name = R.COLUMNA#(lf)LEFT JOIN sys.types AS T#(lf)    ON T.user_type_id = C.user_type_id#(lf)ORDER BY R.TABLA, R.COLUMNA;"
+		            ]
+		        ),
+		    Tipos =
+		        Table.TransformColumnTypes(
+		            Origen,
+		            {
+		                {"TABLA", type text},
+		                {"COLUMNA", type text},
+		                {"ESTADO", type text},
+		                {"TIPO_SQL", type text},
+		                {"LARGO", Int64.Type}
+		            }
+		        )
+		in
+		    Tipos
+	lineageTag: 61ca1f61-144e-420a-88cf-f8d409a477ed
+	queryGroup: Pedido_Normal
+
+expression VBAK_ATRIBUTOS_MAYORISTA =
+		let
+		    Origen =
+		        Sql.Database(
+		            "128.1.3.21",
+		            "DMF_VTA_PRD",
+		            [
+		                Query = "SET NOCOUNT ON;#(lf)#(lf)DECLARE @FechaHasta DATE = CAST(GETDATE() AS DATE);#(lf)DECLARE @FechaDesde DATE = DATEADD(MONTH, -3, @FechaHasta);#(lf)#(lf);WITH Base AS#(lf)(#(lf)    SELECT#(lf)        LTRIM(RTRIM(CONVERT(VARCHAR(20), V.VBELN))) AS PED_NUMERO_PEDIDO,#(lf)        NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(30), V.KUNNR))), '') AS PED_CODIGO_CLIENTE,#(lf)        RIGHT('00' + LTRIM(RTRIM(CONVERT(VARCHAR(10), V.VTWEG))), 2) AS PED_CANAL_CODIGO,#(lf)        NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(10), V.VSBED))), '') AS PED_CONDICION_EXPEDICION_CODIGO,#(lf)        NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(100), V.BSTNK))), '') AS PED_ORDEN_COMPRA_CLIENTE,#(lf)        TRY_CONVERT(DECIMAL(18,2), V.NETWR) AS PED_VALOR_NETO,#(lf)        NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(10), V.WAERK))), '') AS PED_MONEDA,#(lf)        NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(10), V.LIFSK))), '') AS PED_BLOQUEO_ENTREGA,#(lf)        NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(10), V.CMGST))), '') AS PED_ESTADO_CREDITO,#(lf)        NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(10), V.AUART))), '') AS VBAK_CLASE_PEDIDO,#(lf)        NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(100), K.ORT01))), '') AS PED_CIUDAD,#(lf)        NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(20), K.REGIO))), '') AS PED_REGION,#(lf)        COALESCE#(lf)        (#(lf)            TRY_CONVERT(DATE, CONVERT(VARCHAR(30), V.ERDAT), 112),#(lf)            TRY_CONVERT(DATE, CONVERT(VARCHAR(30), V.ERDAT), 103),#(lf)            TRY_CONVERT(DATE, CONVERT(VARCHAR(30), V.ERDAT), 105),#(lf)            TRY_CONVERT(DATE, CONVERT(VARCHAR(30), V.ERDAT))#(lf)        ) AS PED_FECHA,#(lf)        COALESCE#(lf)        (#(lf)            TRY_CONVERT(TIME(0), CONVERT(VARCHAR(30), V.ERZET)),#(lf)            TRY_CONVERT#(lf)            (#(lf)                TIME(0),#(lf)                STUFF#(lf)                (#(lf)                    STUFF#(lf)                    (#(lf)                        RIGHT#(lf)                        (#(lf)                            '000000' + REPLACE(LTRIM(RTRIM(CONVERT(VARCHAR(30), V.ERZET))), ':', ''),#(lf)                            6#(lf)                        ),#(lf)                        3,#(lf)                        0,#(lf)                        ':'#(lf)                    ),#(lf)                    6,#(lf)                    0,#(lf)                    ':'#(lf)                )#(lf)            )#(lf)        ) AS PED_HORA#(lf)    FROM dbo.VBAK_SAP AS V#(lf)    LEFT JOIN dbo.KNA1_SAP AS K#(lf)        ON TRY_CONVERT(BIGINT, K.KUNNR) = TRY_CONVERT(BIGINT, V.KUNNR)#(lf)    WHERE V.AUART IN ('ZEDI','ZMAY','ZMAN','ZPDA','ZVGF','ZREL','ZVGM','ZTAN','TAN')#(lf)      AND RIGHT('00' + LTRIM(RTRIM(CONVERT(VARCHAR(10), V.VTWEG))), 2)#(lf)          IN ('42','43','44','45','46','47')#(lf)),#(lf)Filtrada AS#(lf)(#(lf)    SELECT#(lf)        *,#(lf)        ROW_NUMBER() OVER#(lf)        (#(lf)            PARTITION BY TRY_CONVERT(BIGINT, PED_NUMERO_PEDIDO)#(lf)            ORDER BY PED_FECHA DESC, PED_NUMERO_PEDIDO#(lf)        ) AS RN#(lf)    FROM Base#(lf)    WHERE PED_FECHA BETWEEN @FechaDesde AND @FechaHasta#(lf)      AND TRY_CONVERT(BIGINT, PED_NUMERO_PEDIDO) IS NOT NULL#(lf))#(lf)SELECT#(lf)    CONVERT(VARCHAR(20), TRY_CONVERT(BIGINT, PED_NUMERO_PEDIDO)) AS PED_NUMERO_PEDIDO,#(lf)    PED_CODIGO_CLIENTE,#(lf)    PED_CANAL_CODIGO,#(lf)    PED_CONDICION_EXPEDICION_CODIGO,#(lf)    PED_ORDEN_COMPRA_CLIENTE,#(lf)    PED_VALOR_NETO,#(lf)    PED_MONEDA,#(lf)    PED_BLOQUEO_ENTREGA,#(lf)    PED_ESTADO_CREDITO,#(lf)    VBAK_CLASE_PEDIDO,#(lf)    PED_CIUDAD,#(lf)    PED_REGION,#(lf)    CASE#(lf)        WHEN PED_FECHA IS NULL THEN NULL#(lf)        ELSE DATEADD#(lf)        (#(lf)            SECOND,#(lf)            CASE#(lf)                WHEN PED_HORA IS NULL THEN 0#(lf)                ELSE DATEDIFF(SECOND, CAST('00:00:00' AS TIME(0)), PED_HORA)#(lf)            END,#(lf)            CAST(PED_FECHA AS DATETIME2(0))#(lf)        )#(lf)    END AS PED_FECHA_HORA,#(lf)    CASE WHEN PED_HORA IS NULL THEN CONVERT(BIT, 0) ELSE CONVERT(BIT, 1) END AS HORA_PEDIDO_DISPONIBLE#(lf)FROM Filtrada#(lf)WHERE RN = 1#(lf)ORDER BY TRY_CONVERT(BIGINT, PED_NUMERO_PEDIDO);"
+		            ]
+		        ),
+		    Tipos =
+		        Table.TransformColumnTypes(
+		            Origen,
+		            {
+		                {"PED_NUMERO_PEDIDO", type text},
+		                {"PED_CODIGO_CLIENTE", type text},
+		                {"PED_CANAL_CODIGO", type text},
+		                {"PED_CONDICION_EXPEDICION_CODIGO", type text},
+		                {"PED_ORDEN_COMPRA_CLIENTE", type text},
+		                {"PED_VALOR_NETO", type number},
+		                {"PED_MONEDA", type text},
+		                {"PED_BLOQUEO_ENTREGA", type text},
+		                {"PED_ESTADO_CREDITO", type text},
+		                {"VBAK_CLASE_PEDIDO", type text},
+		                {"PED_CIUDAD", type text},
+		                {"PED_REGION", type text},
+		                {"PED_FECHA_HORA", type datetime},
+		                {"HORA_PEDIDO_DISPONIBLE", type logical}
+		            }
+		        ),
+		    Normalizados =
+		        Table.TransformColumns(
+		            Tipos,
+		            {
+		                {"PED_NUMERO_PEDIDO", each if _ = null then null else Text.From(Int64.FromText(Text.Trim(_))), type nullable text},
+		                {"PED_CODIGO_CLIENTE", each if _ = null then null else Text.Trim(_), type nullable text},
+		                {"PED_CANAL_CODIGO", each if _ = null then null else Text.PadStart(Text.Trim(_), 2, "0"), type nullable text},
+		                {"PED_REGION", each if _ = null then null else Text.Trim(_), type nullable text}
+		            }
+		        ),
+		    Unicos = Table.Distinct(Normalizados, {"PED_NUMERO_PEDIDO"})
+		in
+		    Unicos
+	lineageTag: eef7d1dd-8c66-4b36-b98c-dbf989e2e8fb
+	queryGroup: Pedido_Normal
+
+expression VBAK_APPEND_PREFLIGHT_DETALLE =
+		let
+		    FnNormalizaPedido = (Valor as any) as nullable text =>
+		        let
+		            Texto = try Text.Trim(Text.From(Valor)) otherwise null,
+		            Numero = if Texto = null or Texto = "" then null else try Int64.FromText(Texto) otherwise null
+		        in
+		            if Texto = null or Texto = "" then null
+		            else if Numero <> null then Text.From(Numero)
+		            else let SinCeros = Text.TrimStart(Texto, "0") in if SinCeros = "" then "0" else SinCeros,
+		
+		    MasterKeys =
+		        Table.Distinct(
+		            Table.TransformColumns(
+		                Table.SelectColumns(Fact_Pedidos_Auditoria, {"PED_NUMERO_PEDIDO"}),
+		                {{"PED_NUMERO_PEDIDO", each FnNormalizaPedido(_), type nullable text}}
+		            ),
+		            {"PED_NUMERO_PEDIDO"}
+		        ),
+		
+		    Atributos =
+		        Table.TransformColumns(
+		            VBAK_ATRIBUTOS_MAYORISTA,
+		            {{"PED_NUMERO_PEDIDO", each FnNormalizaPedido(_), type nullable text}}
+		        ),
+		
+		    OperacionBase =
+		        Table.SelectColumns(
+		            Pedidos_Normal_VBAK,
+		            {"VBELN", "fecha_pedido", "fecha_entrega", "fecha_contabiliza", "fecha_factura", "fecha_fes", "fecha_salida"},
+		            MissingField.UseNull
+		        ),
+		
+		    OperacionKey = Table.AddColumn(OperacionBase, "PED_NUMERO_PEDIDO", each FnNormalizaPedido([VBELN]), type nullable text),
+		
+		    OperacionUnica =
+		        Table.Group(
+		            Table.SelectRows(OperacionKey, each [PED_NUMERO_PEDIDO] <> null),
+		            {"PED_NUMERO_PEDIDO"},
+		            {
+		                {"VBAK_FECHA_PEDIDO", each try List.Min(List.RemoveNulls([fecha_pedido])) otherwise null, type nullable date},
+		                {"VBAK_FECHA_ENTREGA", each try List.Min(List.RemoveNulls([fecha_entrega])) otherwise null, type nullable date},
+		                {"VBAK_FECHA_CONTABILIZA", each try List.Min(List.RemoveNulls([fecha_contabiliza])) otherwise null, type nullable date},
+		                {"VBAK_FECHA_FACTURA", each try List.Min(List.RemoveNulls([fecha_factura])) otherwise null, type nullable date},
+		                {"VBAK_FECHA_FES", each try List.Min(List.RemoveNulls([fecha_fes])) otherwise null, type nullable date},
+		                {"VBAK_FECHA_SALIDA", each try List.Max(List.RemoveNulls([fecha_salida])) otherwise null, type nullable datetime}
+		            }
+		        ),
+		
+		    ConOperacionJoin = Table.NestedJoin(Atributos, {"PED_NUMERO_PEDIDO"}, OperacionUnica, {"PED_NUMERO_PEDIDO"}, "OPERACION", JoinKind.LeftOuter),
+		    ConOperacion =
+		        Table.ExpandTableColumn(
+		            ConOperacionJoin,
+		            "OPERACION",
+		            {"VBAK_FECHA_PEDIDO", "VBAK_FECHA_ENTREGA", "VBAK_FECHA_CONTABILIZA", "VBAK_FECHA_FACTURA", "VBAK_FECHA_FES", "VBAK_FECHA_SALIDA"}
+		        ),
+		
+		    Faltantes = Table.NestedJoin(ConOperacion, {"PED_NUMERO_PEDIDO"}, MasterKeys, {"PED_NUMERO_PEDIDO"}, "MASTER", JoinKind.LeftAnti),
+		
+		    ConElegibilidad =
+		        Table.AddColumn(
+		            Faltantes,
+		            "VBAK_ELEGIBLE_APPEND",
+		            each
+		                let
+		                    FechaPedido = [PED_FECHA_HORA],
+		                    FechaEntrega = [VBAK_FECHA_ENTREGA],
+		                    FechaFactura = [VBAK_FECHA_FACTURA],
+		                    FechaSalida = [VBAK_FECHA_SALIDA],
+		                    SecuenciaOK =
+		                        FechaPedido <> null
+		                        and (FechaEntrega = null or Date.From(FechaEntrega) >= Date.From(FechaPedido))
+		                        and (FechaFactura = null or Date.From(FechaFactura) >= Date.From(FechaPedido))
+		                        and (FechaSalida = null or (FechaFactura <> null and Date.From(FechaSalida) >= Date.From(FechaFactura)))
+		                in
+		                    [PED_NUMERO_PEDIDO] <> null
+		                    and List.Contains({"42", "43", "44", "45", "46", "47"}, [PED_CANAL_CODIGO])
+		                    and [PED_CODIGO_CLIENTE] <> null and Text.Trim([PED_CODIGO_CLIENTE]) <> ""
+		                    and [PED_REGION] <> null and Text.Trim([PED_REGION]) <> ""
+		                    and FechaPedido <> null
+		                    and [VBAK_FECHA_FES] = null
+		                    and SecuenciaOK,
+		            type logical
+		        ),
+		
+		    ConMotivo =
+		        Table.AddColumn(
+		            ConElegibilidad,
+		            "VBAK_MOTIVO",
+		            each
+		                if [VBAK_ELEGIBLE_APPEND] then "ELEGIBLE NORMAL"
+		                else if [PED_NUMERO_PEDIDO] = null then "PEDIDO INVALIDO"
+		                else if not List.Contains({"42", "43", "44", "45", "46", "47"}, [PED_CANAL_CODIGO]) then "CANAL FUERA DE MAYORISTA"
+		                else if [PED_CODIGO_CLIENTE] = null or Text.Trim([PED_CODIGO_CLIENTE]) = "" then "SIN CLIENTE"
+		                else if [PED_REGION] = null or Text.Trim([PED_REGION]) = "" then "SIN REGION; NO ASIGNAR SLA ZONAL"
+		                else if [PED_FECHA_HORA] = null then "SIN FECHA DE PEDIDO"
+		                else if [VBAK_FECHA_FES] <> null then "CUARENTENA FES; REQUIERE CLASIFICACION VBFA"
+		                else if [VBAK_FECHA_ENTREGA] <> null and Date.From([VBAK_FECHA_ENTREGA]) < Date.From([PED_FECHA_HORA]) then "ENTREGA ANTES DEL PEDIDO"
+		                else if [VBAK_FECHA_FACTURA] <> null and Date.From([VBAK_FECHA_FACTURA]) < Date.From([PED_FECHA_HORA]) then "FACTURA ANTES DEL PEDIDO"
+		                else if [VBAK_FECHA_SALIDA] <> null and [VBAK_FECHA_FACTURA] = null then "SALIDA SIN FACTURA"
+		                else if [VBAK_FECHA_SALIDA] <> null and Date.From([VBAK_FECHA_SALIDA]) < Date.From([VBAK_FECHA_FACTURA]) then "SALIDA ANTES DE FACTURA"
+		                else "REVISAR DATOS VBAK",
+		            type text
+		        ),
+		
+		    Seleccion =
+		        Table.SelectColumns(
+		            ConMotivo,
+		            {
+		                "PED_NUMERO_PEDIDO",
+		                "PED_CODIGO_CLIENTE",
+		                "PED_CANAL_CODIGO",
+		                "PED_REGION",
+		                "PED_CIUDAD",
+		                "VBAK_CLASE_PEDIDO",
+		                "PED_FECHA_HORA",
+		                "HORA_PEDIDO_DISPONIBLE",
+		                "VBAK_FECHA_ENTREGA",
+		                "VBAK_FECHA_FACTURA",
+		                "VBAK_FECHA_FES",
+		                "VBAK_FECHA_SALIDA",
+		                "VBAK_ELEGIBLE_APPEND",
+		                "VBAK_MOTIVO"
+		            },
+		            MissingField.UseNull
+		        ),
+		
+		    Orden = Table.Sort(Seleccion, {{"VBAK_ELEGIBLE_APPEND", Order.Descending}, {"PED_FECHA_HORA", Order.Descending}, {"PED_NUMERO_PEDIDO", Order.Ascending}})
+		in
+		    Orden
+	lineageTag: 9415d0ad-9554-4048-84b8-e5119c5227f1
+	queryGroup: Pedido_Normal
+
+expression VBAK_APPEND_CONTROL =
+		let
+		    FnNormalizaPedido = (Valor as any) as nullable text =>
+		        let
+		            Texto = try Text.Trim(Text.From(Valor)) otherwise null,
+		            Numero = if Texto = null or Texto = "" then null else try Int64.FromText(Texto) otherwise null
+		        in
+		            if Texto = null or Texto = "" then null
+		            else if Numero <> null then Text.From(Numero)
+		            else let SinCeros = Text.TrimStart(Texto, "0") in if SinCeros = "" then "0" else SinCeros,
+		
+		    Master = Fact_Pedidos_Auditoria,
+		    MasterConKey = Table.TransformColumns(Master, {{"PED_NUMERO_PEDIDO", each FnNormalizaPedido(_), type nullable text}}),
+		    MasterOriginal = Table.SelectRows(MasterConKey, each [PED_TEXTO_ESTADO] <> "VBAK SIN ZART" or [PED_TEXTO_ESTADO] = null),
+		    MasterAppend = Table.SelectRows(MasterConKey, each [PED_TEXTO_ESTADO] = "VBAK SIN ZART"),
+		
+		    Fuente = Table.TransformColumns(VBAK_ATRIBUTOS_MAYORISTA, {{"PED_NUMERO_PEDIDO", each FnNormalizaPedido(_), type nullable text}}),
+		    FuenteUnica = Table.Distinct(Table.SelectRows(Fuente, each [PED_NUMERO_PEDIDO] <> null), {"PED_NUMERO_PEDIDO"}),
+		
+		    DuplicadosMasterTabla =
+		        Table.SelectRows(
+		            Table.Group(MasterConKey, {"PED_NUMERO_PEDIDO"}, {{"FILAS", each Table.RowCount(_), Int64.Type}}),
+		            each [PED_NUMERO_PEDIDO] <> null and [FILAS] > 1
+		        ),
+		
+		    FuenteEnMaster =
+		        Table.NestedJoin(
+		            FuenteUnica,
+		            {"PED_NUMERO_PEDIDO"},
+		            Table.Distinct(Table.SelectColumns(MasterConKey, {"PED_NUMERO_PEDIDO"})),
+		            {"PED_NUMERO_PEDIDO"},
+		            "MASTER",
+		            JoinKind.Inner
+		        ),
+		
+		    FuenteFaltante =
+		        Table.NestedJoin(
+		            FuenteUnica,
+		            {"PED_NUMERO_PEDIDO"},
+		            Table.Distinct(Table.SelectColumns(MasterConKey, {"PED_NUMERO_PEDIDO"})),
+		            {"PED_NUMERO_PEDIDO"},
+		            "MASTER",
+		            JoinKind.LeftAnti
+		        ),
+		
+		    Controles =
+		        #table(
+		            type table [CONTROL = text, VALOR = Int64.Type, ESTADO = text, REGLA = text],
+		            {
+		                {"MASTER_TOTAL", Table.RowCount(MasterConKey), "INFO", "Conteo total luego del refresh"},
+		                {"MASTER_ORIGINAL", Table.RowCount(MasterOriginal), "INFO", "Filas distintas del marcador VBAK SIN ZART"},
+		                {"VBAK_APPEND_FILAS", Table.RowCount(MasterAppend), if VBAK_APPEND_ACTIVO then "REVISAR" else "INFO", "Debe ser 0 con parámetro FALSE; con TRUE debe coincidir con elegibles"},
+		                {"VBAK_FUENTE_UNICA", Table.RowCount(FuenteUnica), "INFO", "Universo VBAK mayorista 3M"},
+		                {"VBAK_FUENTE_EN_MASTER", Table.RowCount(FuenteEnMaster), "INFO", "Cobertura total de la relación por pedido"},
+		                {"VBAK_FUENTE_FALTANTE", Table.RowCount(FuenteFaltante), "INFO", "Incluye cuarentena FES y filas no elegibles"},
+		                {"DUPLICADOS_MASTER", Table.RowCount(DuplicadosMasterTabla), if Table.RowCount(DuplicadosMasterTabla) = 0 then "VERDE" else "ROJO", "Debe ser 0"},
+		                {"APPEND_CLAVE_NULA", Table.RowCount(Table.SelectRows(MasterAppend, each [PED_NUMERO_PEDIDO] = null)), if Table.RowCount(Table.SelectRows(MasterAppend, each [PED_NUMERO_PEDIDO] = null)) = 0 then "VERDE" else "ROJO", "Debe ser 0"},
+		                {"APPEND_CANAL_FUERA", Table.RowCount(Table.SelectRows(MasterAppend, each not List.Contains({"42","43","44","45","46","47"}, [PED_CANAL_CODIGO]))), if Table.RowCount(Table.SelectRows(MasterAppend, each not List.Contains({"42","43","44","45","46","47"}, [PED_CANAL_CODIGO]))) = 0 then "VERDE" else "ROJO", "Debe ser 0"},
+		                {"APPEND_REGION_NULA", Table.RowCount(Table.SelectRows(MasterAppend, each [PED_REGION] = null or Text.Trim(Text.From([PED_REGION])) = "")), if Table.RowCount(Table.SelectRows(MasterAppend, each [PED_REGION] = null or Text.Trim(Text.From([PED_REGION])) = "")) = 0 then "VERDE" else "ROJO", "Debe ser 0 para no asignar SLA zonal incorrecto"},
+		                {"APPEND_ES_FES", Table.RowCount(Table.SelectRows(MasterAppend, each [ES_FES] = true)), if Table.RowCount(Table.SelectRows(MasterAppend, each [ES_FES] = true)) = 0 then "VERDE" else "ROJO", "FES queda en cuarentena hasta clasificación VBFA"},
+		                {"APPEND_ES_SALDO", Table.RowCount(Table.SelectRows(MasterAppend, each [ES_SALDO] = true)), if Table.RowCount(Table.SelectRows(MasterAppend, each [ES_SALDO] = true)) = 0 then "VERDE" else "ROJO", "No inferir SALDO con una sola fecha"},
+		                {"APPEND_SALIDA_SIN_FACTURA", Table.RowCount(Table.SelectRows(MasterAppend, each [TRP_U_FECHA_HORA] <> null and [FAC_P_FECHA_HORA_REAL] = null)), if Table.RowCount(Table.SelectRows(MasterAppend, each [TRP_U_FECHA_HORA] <> null and [FAC_P_FECHA_HORA_REAL] = null)) = 0 then "VERDE" else "ROJO", "Debe ser 0"},
+		                {"APPEND_MARCADOS_REVISION", Table.RowCount(Table.SelectRows(MasterAppend, each [AUD_REQUIERE_REVISION] = true and [AUD_ESTADO_GENERAL] = "REVISAR")), if Table.RowCount(MasterAppend) = Table.RowCount(Table.SelectRows(MasterAppend, each [AUD_REQUIERE_REVISION] = true and [AUD_ESTADO_GENERAL] = "REVISAR")) then "VERDE" else "ROJO", "Toda fila VBAK debe quedar trazable y en revisión"}
+		            }
+		        )
+		in
+		    Controles
+	lineageTag: da7ac025-d3c2-4aff-bdc2-81abe4ac9449
+	queryGroup: Pedido_Normal
+

@@ -567,5 +567,121 @@
         }
       ]
     }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "d70dfbd3ea803eb12c0b",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim_Cliente"
+              }
+            },
+            "Property": "VENDEDOR_NOMBRE"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "6d6bafc86b5070378e62",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_Tracking"
+              }
+            },
+            "Property": "CLASIFICACION"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "28634510acdc548cc27c",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "FA Clientes Recurrentes 3M Visible"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "a4e0d81ae0d512ce82d4",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "FA Clientes Recurrentes 2M+ Visible"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "7a7d8054a5870c6c40b9",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "FA Pedidos Fuera SLA Vendedor Recurrente"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "8ed8b2e80a59a3b880a7",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "FA % Fuera SLA Vendedor Recurrente"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "39737bdb33db227460b9",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "FA DH Fuera SLA Vendedor Recurrente"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "6fddf48e635ce6ac9128",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "FA Líneas Fuera SLA Vendedor Recurrente"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

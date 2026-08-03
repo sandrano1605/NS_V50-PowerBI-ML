@@ -3,10 +3,10 @@
   "name": "header_panel",
   "position": {
     "x": 32,
-    "y": 16,
+    "y": 0,
     "z": 2000,
-    "height": 62,
-    "width": 1564,
+    "height": 80,
+    "width": 1568,
     "tabOrder": 2000
   },
   "visual": {
