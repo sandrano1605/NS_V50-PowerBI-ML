@@ -1,0 +1,4 @@
+﻿RAMA=work/ns-lienzo-02-ingreso-pedidos
+SHA_LOCAL=cd8b85ea553e2651c0e151e18a40eab3f646182e
+SHA_REMOTO=cd8b85ea553e2651c0e151e18a40eab3f646182e
+ESTADO_INICIAL=limpió tras stash de sesión anterior; queda ?? NS.Report/.../visuals/efad9a011060b80ec4b8/ (sin rastrear, parte de la rama)

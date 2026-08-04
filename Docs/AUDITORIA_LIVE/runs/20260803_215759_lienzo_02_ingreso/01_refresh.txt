@@ -1,0 +1,5 @@
+﻿FECHA=2026-08-03 21:57
+REFRESH=Iniciado (Full) via MCP - timeout MCP a los 30s; proceso PBIDesktop sigue respondiendo
+ERROR_EN_LOGS=Microsoft.Mashup.Engine.Interface.QueryPermissionException en proceso 27448
+DIAGNOSTICO=Dialogo modal de credenciales/permisos esperando en Power BI Desktop (no visible programaticamente)
+ESTADO=DETENIDA - requiere aceptacion manual de credenciales en pantalla

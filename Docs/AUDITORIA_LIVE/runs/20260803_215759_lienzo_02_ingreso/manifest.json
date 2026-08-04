@@ -1,0 +1,10 @@
+﻿{
+  "fecha": "2026-08-03",
+  "rama": "work/ns-lienzo-02-ingreso-pedidos",
+  "sha_local": "cd8b85ea553e2651c0e151e18a40eab3f646182e",
+  "sha_remoto": "cd8b85ea553e2651c0e151e18a40eab3f646182e",
+  "dictamen": "DETENIDA",
+  "motivo": "QueryPermissionException - dialogo de credenciales modal en Power BI Desktop",
+  "refresh": "iniciado, incompleto",
+  "archivos": ["00_git_before.txt", "01_refresh.txt", "RESULTADO.md"]
+}
