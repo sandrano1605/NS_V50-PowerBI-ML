@@ -1,0 +1,13 @@
+{
+  "status": "VERDE",
+  "checks": {
+    "lectura_hora_cobertura": true,
+    "lectura_despues_medibles": true,
+    "lectura_promedio_diario": true,
+    "lectura_pico_unidades": true,
+    "tracking_una_fila": true,
+    "tracking_sort_hora": true,
+    "instruccion_prueba_real": true
+  },
+  "errors": []
+}

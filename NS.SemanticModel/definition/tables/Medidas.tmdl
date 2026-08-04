@@ -3362,28 +3362,135 @@ table Medidas
 
 
 	/// Lectura ejecutiva dinámica del ingreso de pedidos en el contexto filtrado.
+	/// Q2 separa cobertura de hora y porcentaje posterior al corte sobre casos medibles.
+	/// Q3 compara promedios diarios de cierre y resto, no totales de períodos de distinta duración.
 	measure 'IN Lectura Ejecutiva' =
-			VAR TablaPedidos = ADDCOLUMNS(VALUES(Dim_Fecha[Dia_Semana]), "__Valor", CALCULATE([IN Pedidos]))
-			VAR TablaLineas = ADDCOLUMNS(VALUES(Dim_Fecha[Dia_Semana]), "__Valor", CALCULATE([IN Líneas]))
-			VAR TablaUnidades = ADDCOLUMNS(VALUES(Dim_Fecha[Dia_Semana]), "__Valor", CALCULATE([IN Unidades]))
-			VAR TopPedidos = TOPN(1, FILTER(TablaPedidos, NOT ISBLANK([__Valor])), [__Valor], DESC, Dim_Fecha[Dia_Semana], ASC)
-			VAR TopLineas = TOPN(1, FILTER(TablaLineas, NOT ISBLANK([__Valor])), [__Valor], DESC, Dim_Fecha[Dia_Semana], ASC)
-			VAR TopUnidades = TOPN(1, FILTER(TablaUnidades, NOT ISBLANK([__Valor])), [__Valor], DESC, Dim_Fecha[Dia_Semana], ASC)
+			VAR TablaPedidos =
+				ADDCOLUMNS(
+					VALUES(Dim_Fecha[Dia_Semana]),
+					"__Valor", CALCULATE([IN Pedidos])
+				)
+			VAR TablaLineas =
+				ADDCOLUMNS(
+					VALUES(Dim_Fecha[Dia_Semana]),
+					"__Valor", CALCULATE([IN Líneas])
+				)
+			VAR TablaUnidades =
+				ADDCOLUMNS(
+					VALUES(Dim_Fecha[Dia_Semana]),
+					"__Valor", CALCULATE([IN Unidades])
+				)
+			VAR TopPedidos =
+				TOPN(
+					1,
+					FILTER(TablaPedidos, NOT ISBLANK([__Valor])),
+					[__Valor], DESC,
+					Dim_Fecha[Dia_Semana], ASC
+				)
+			VAR TopLineas =
+				TOPN(
+					1,
+					FILTER(TablaLineas, NOT ISBLANK([__Valor])),
+					[__Valor], DESC,
+					Dim_Fecha[Dia_Semana], ASC
+				)
+			VAR TopUnidades =
+				TOPN(
+					1,
+					FILTER(TablaUnidades, NOT ISBLANK([__Valor])),
+					[__Valor], DESC,
+					Dim_Fecha[Dia_Semana], ASC
+				)
 			VAR DiaPedidos = MAXX(TopPedidos, Dim_Fecha[Dia_Semana])
-			VAR ValorPedidos = MAXX(TopPedidos, [__Valor])
 			VAR DiaLineas = MAXX(TopLineas, Dim_Fecha[Dia_Semana])
-			VAR ValorLineas = MAXX(TopLineas, [__Valor])
 			VAR DiaUnidades = MAXX(TopUnidades, Dim_Fecha[Dia_Semana])
+			VAR ValorPedidos = MAXX(TopPedidos, [__Valor])
+			VAR ValorLineas = MAXX(TopLineas, [__Valor])
 			VAR ValorUnidades = MAXX(TopUnidades, [__Valor])
+
 			VAR PedidosTotal = [IN Pedidos]
-			VAR PedidosDespues1430 = CALCULATE([IN Pedidos], KEEPFILTERS(Fact_Tracking[TRAMO_HORA_INGRESO] = "Después de 14:30"))
-			VAR PorcDespues1430 = DIVIDE(PedidosDespues1430, PedidosTotal)
-			VAR PromedioCierre = CALCULATE(AVERAGEX(VALUES(Dim_Fecha[Fecha]), [IN Pedidos]), KEEPFILTERS(Dim_Fecha[Momento_Mes] = "Cierre · últimos 7 DH"))
-			VAR PromedioResto = CALCULATE(AVERAGEX(VALUES(Dim_Fecha[Fecha]), [IN Pedidos]), KEEPFILTERS(Dim_Fecha[Momento_Mes] = "Resto del mes"))
+			VAR PedidosHasta1430 =
+				CALCULATE(
+					[IN Pedidos],
+					KEEPFILTERS(Fact_Tracking[TRAMO_HORA_INGRESO] = "Hasta 14:30")
+				)
+			VAR PedidosDespues1430 =
+				CALCULATE(
+					[IN Pedidos],
+					KEEPFILTERS(Fact_Tracking[TRAMO_HORA_INGRESO] = "Después de 14:30")
+				)
+			VAR PedidosSinHora =
+				CALCULATE(
+					[IN Pedidos],
+					KEEPFILTERS(Fact_Tracking[TRAMO_HORA_INGRESO] = "Sin hora válida")
+				)
+			VAR PedidosConHora = PedidosHasta1430 + PedidosDespues1430
+			VAR CoberturaHora = DIVIDE(PedidosConHora, PedidosTotal)
+			VAR PorcDespuesMedibles = DIVIDE(PedidosDespues1430, PedidosConHora)
+			VAR PorcSinHora = DIVIDE(PedidosSinHora, PedidosTotal)
+
+			VAR PedidosCierre =
+				CALCULATE(
+					[IN Pedidos],
+					REMOVEFILTERS(Dim_Fecha[Momento_Mes]),
+					Dim_Fecha[Momento_Mes] = "Cierre · últimos 7 DH"
+				)
+			VAR PedidosResto =
+				CALCULATE(
+					[IN Pedidos],
+					REMOVEFILTERS(Dim_Fecha[Momento_Mes]),
+					Dim_Fecha[Momento_Mes] = "Resto del mes"
+				)
+			VAR DiasCierre =
+				CALCULATE(
+					COUNTROWS(
+						FILTER(
+							VALUES(Dim_Fecha[Fecha]),
+							NOT ISBLANK(CALCULATE([IN Pedidos]))
+						)
+					),
+					REMOVEFILTERS(Dim_Fecha[Momento_Mes]),
+					Dim_Fecha[Momento_Mes] = "Cierre · últimos 7 DH"
+				)
+			VAR DiasResto =
+				CALCULATE(
+					COUNTROWS(
+						FILTER(
+							VALUES(Dim_Fecha[Fecha]),
+							NOT ISBLANK(CALCULATE([IN Pedidos]))
+						)
+					),
+					REMOVEFILTERS(Dim_Fecha[Momento_Mes]),
+					Dim_Fecha[Momento_Mes] = "Resto del mes"
+				)
+			VAR PromedioCierre = DIVIDE(PedidosCierre, DiasCierre)
+			VAR PromedioResto = DIVIDE(PedidosResto, DiasResto)
 			VAR DeltaCierre = DIVIDE(PromedioCierre - PromedioResto, PromedioResto)
-			VAR PedidosCierre = CALCULATE([IN Pedidos], KEEPFILTERS(Dim_Fecha[Momento_Mes] = "Cierre · últimos 7 DH"))
-			VAR PedidosFesSaldoCierre = CALCULATE([IN Pedidos], KEEPFILTERS(Dim_Fecha[Momento_Mes] = "Cierre · últimos 7 DH"), KEEPFILTERS(Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO", "SALDO"}))
+			VAR PedidosFesSaldoCierre =
+				CALCULATE(
+					[IN Pedidos],
+					REMOVEFILTERS(Dim_Fecha[Momento_Mes]),
+					Dim_Fecha[Momento_Mes] = "Cierre · últimos 7 DH",
+					KEEPFILTERS(Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO", "SALDO"})
+				)
 			VAR PorcFesSaldoCierre = DIVIDE(PedidosFesSaldoCierre, PedidosCierre)
+
+			VAR TablaDiaMesUnidades =
+				ADDCOLUMNS(
+					VALUES(Dim_Fecha[Dia_Mes]),
+					"__Unidades", CALCULATE([IN Unidades])
+				)
+			VAR TopDiaMesUnidades =
+				TOPN(
+					1,
+					FILTER(TablaDiaMesUnidades, NOT ISBLANK([__Unidades])),
+					[__Unidades], DESC,
+					Dim_Fecha[Dia_Mes], ASC
+				)
+			VAR DiaPicoUnidades = MAXX(TopDiaMesUnidades, Dim_Fecha[Dia_Mes])
+			VAR UnidadesPico = MAXX(TopDiaMesUnidades, [__Unidades])
+			VAR PorcUnidadesPico = DIVIDE(UnidadesPico, [IN Unidades])
+
 			RETURN
 				IF(
 					ISBLANK(PedidosTotal),
@@ -3391,22 +3498,20 @@ table Medidas
 					"Días líderes · Pedidos: " & DiaPedidos & " (" & FORMAT(ValorPedidos, "#,0") & ")"
 						& " · Líneas: " & DiaLineas & " (" & FORMAT(ValorLineas, "#,0") & ")"
 						& " · Unidades: " & DiaUnidades & " (" & FORMAT(ValorUnidades, "#,0") & ")"
-						& " | Después de 14:30: " & FORMAT(PorcDespues1430, "0.0%")
-						& " | Cierre vs resto: " & FORMAT(DeltaCierre, "+0.0%;-0.0%;0.0%")
-						& " · FES/Saldo en cierre: " & FORMAT(PorcFesSaldoCierre, "0.0%")
+						& UNICHAR(10)
+						& "Hora válida: " & FORMAT(CoberturaHora, "0.0%")
+						& " · Después de 14:30 sobre medibles: " & FORMAT(PorcDespuesMedibles, "0.0%")
+						& " · Sin hora: " & FORMAT(PorcSinHora, "0.0%")
+						& UNICHAR(10)
+						& "Cierre vs resto (promedio diario): " & FORMAT(PromedioCierre, "#,0.0")
+						& " vs " & FORMAT(PromedioResto, "#,0.0")
+						& " (" & FORMAT(DeltaCierre, "+0.0%;-0.0%;0.0%") & ")"
+						& " · FES/Saldo: " & FORMAT(PorcFesSaldoCierre, "0.0%")
+						& " · Día pico unidades: " & FORMAT(DiaPicoUnidades, "0")
+						& " (" & FORMAT(PorcUnidadesPico, "0.0%") & ")"
 				)
 		displayFolder: 04. Análisis Fuera SLA\Carga y SLA
 		lineageTag: 61000000-0000-4000-8000-000000000107
-
-	column __Medida
-		dataType: int64
-		isHidden
-		formatString: 0
-		lineageTag: a999e59e-35e3-4a38-82ae-fee350894158
-		summarizeBy: none
-		sourceColumn: __Medida
-
-		annotation SummarizationSetBy = User
 
 	partition Medidas = m
 		mode: import
