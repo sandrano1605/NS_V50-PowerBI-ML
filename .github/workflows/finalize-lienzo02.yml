@@ -1,0 +1,69 @@
+name: Finalize lienzo 02
+
+on:
+  push:
+    branches:
+      - work/ns-lienzo-02-ingreso-pedidos
+    paths:
+      - 'Docs/AUDITORIA_LIVE/FINALIZE_LIENZO02_RUN.md'
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: work/ns-lienzo-02-ingreso-pedidos
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Apply deterministic finalization
+        run: python tools/finalize_lienzo02_bookmarks.py
+
+      - name: Validate idempotence and JSON
+        shell: bash
+        run: |
+          python tools/finalize_lienzo02_bookmarks.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          paths = [Path('NS.Report/definition/report.json')]
+          paths += list(Path('NS.Report/definition/bookmarks').glob('*.bookmark.json'))
+          paths += [
+              Path('NS.Report/definition/pages/df1cb253a6314642a469/visuals/57f10ff400d0000bd6d2/visual.json'),
+              Path('NS.Report/definition/pages/df1cb253a6314642a469/visuals/8dab02c301ebb2810320/visual.json'),
+              Path('NS.Report/definition/pages/df1cb253a6314642a469/visuals/2155081fa518460cc812/visual.json'),
+              Path('Docs/AUDITORIA_LIVE/latest/lienzo_02_bookmark_validation.json'),
+          ]
+          for path in paths:
+              json.loads(path.read_text(encoding='utf-8-sig'))
+              print('OK', path)
+          result = json.loads(Path('Docs/AUDITORIA_LIVE/latest/lienzo_02_bookmark_validation.json').read_text(encoding='utf-8-sig'))
+          assert result['status'] == 'VERDE', result
+          PY
+          git diff --check
+
+      - name: Commit finalization
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            NS.Report/definition/report.json \
+            NS.Report/definition/bookmarks/*.bookmark.json \
+            NS.Report/definition/pages/df1cb253a6314642a469/visuals/57f10ff400d0000bd6d2/visual.json \
+            NS.Report/definition/pages/df1cb253a6314642a469/visuals/8dab02c301ebb2810320/visual.json \
+            NS.Report/definition/pages/df1cb253a6314642a469/visuals/2155081fa518460cc812/visual.json \
+            Docs/AUDITORIA_LIVE/latest/lienzo_02_bookmark_validation.json
+          git commit -m "fix(lienzo-02): cerrar bookmarks y retirar filtro global 43-45 [skip ci]"
+          git push origin HEAD:work/ns-lienzo-02-ingreso-pedidos
