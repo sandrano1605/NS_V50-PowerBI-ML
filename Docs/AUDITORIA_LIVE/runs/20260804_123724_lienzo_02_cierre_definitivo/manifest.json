@@ -1,0 +1,9 @@
+﻿{
+  "fecha": "2026-08-04",
+  "rama": "work/ns-lienzo-02-ingreso-pedidos",
+  "sha_local": "b64b000fa229c148718bb5be36144c357c7f932f",
+  "sha_remoto": "b64b000fa229c148718bb5be36144c357c7f932f",
+  "dictamen": "ROJO",
+  "motivo": "proyecto no abre: error motor M 'Se esperaba el token ,' por eliminacion de __Medida sin limpiar particion M ni cultura es-ES",
+  "archivos": ["00_git.txt", "RESULTADO.md", "manifest.json"]
+}
