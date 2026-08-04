@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Dim_Rango_Entrega"
+                      "Entity": "Fact_Tracking"
                     }
                   },
-                  "Property": "Zona"
+                  "Property": "ZONA"
                 }
               },
-              "queryRef": "Dim_Rango_Entrega.Zona",
-              "nativeQueryRef": "Zona",
+              "queryRef": "Fact_Tracking.ZONA",
+              "nativeQueryRef": "ZONA",
               "active": true
             }
           ]
@@ -291,10 +291,10 @@
           "Column": {
             "Expression": {
               "SourceRef": {
-                "Entity": "Dim_Rango_Entrega"
+                "Entity": "Fact_Tracking"
               }
             },
-            "Property": "Zona"
+            "Property": "ZONA"
           }
         },
         "type": "Categorical"
