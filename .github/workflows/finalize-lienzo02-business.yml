@@ -1,0 +1,63 @@
+name: Finalize lienzo 02 business
+
+on:
+  push:
+    branches:
+      - work/ns-lienzo-02-ingreso-pedidos
+    paths:
+      - 'Docs/AUDITORIA_LIVE/FINALIZE_LIENZO02_BUSINESS_RUN.md'
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: work/ns-lienzo-02-ingreso-pedidos
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Apply final corrections
+        run: |
+          python -m py_compile tools/finalize_lienzo_02_business.py
+          python tools/finalize_lienzo_02_business.py
+
+      - name: Validate correction
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('Docs/AUDITORIA_LIVE/latest/lienzo_02_business_fix_validation.json')
+          data = json.loads(p.read_text(encoding='utf-8-sig'))
+          assert data['status'] == 'VERDE', data
+          assert all(data['checks'].values()), data
+          print(json.dumps(data, ensure_ascii=False, indent=2))
+          PY
+          grep -F "Después de 14:30 sobre medibles" NS.SemanticModel/definition/tables/Medidas.tmdl
+          grep -F "Cierre vs resto (promedio diario)" NS.SemanticModel/definition/tables/Medidas.tmdl
+          grep -F 'ResultadoUnico = Table.Distinct(Resultado, {"PED_NUMERO_PEDIDO"})' NS.SemanticModel/definition/tables/Fact_Tracking.tmdl
+          grep -F "sortByColumn: ORDEN_TRAMO_HORA_INGRESO" NS.SemanticModel/definition/tables/Fact_Tracking.tmdl
+          git diff --check
+
+      - name: Commit functional correction and remove temporary automation
+        shell: bash
+        run: |
+          rm -f tools/finalize_lienzo_02_business.py
+          rm -f .github/workflows/finalize-lienzo02-business.yml
+          rm -f Docs/AUDITORIA_LIVE/FINALIZE_LIENZO02_BUSINESS_RUN.md
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "fix(lienzo-02): cerrar lectura horaria, promedio diario y tracking unico [skip ci]"
+          git push origin HEAD:work/ns-lienzo-02-ingreso-pedidos
