@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import csv
 import json
 import re
 from pathlib import Path
@@ -28,16 +29,13 @@ def walk_values(value: Any):
 
 def extract_fields(data: Any) -> list[str]:
     fields: set[str] = set()
-    entity = None
     for key, value in walk_values(data):
-        if key == "Entity" and isinstance(value, str):
-            entity = value
-        elif key in {"Property", "Measure"} and isinstance(value, str):
-            fields.add(f"{entity or '?'}[{value}]")
+        if key in {"queryRef", "nativeQueryRef"} and isinstance(value, str):
+            if "." in value and len(value) < 180:
+                fields.add(value)
     raw = json.dumps(data, ensure_ascii=False)
-    for match in re.findall(r"(?:'([^']+)'|([A-Za-z0-9_ ]+))\[([^\]]+)\]", raw):
-        table = match[0] or match[1]
-        fields.add(f"{table}[{match[2]}]")
+    for table, column in re.findall(r'"Entity"\s*:\s*"([^"]+)"[^{}]{0,250}"Property"\s*:\s*"([^"]+)"', raw):
+        fields.add(f"{table}.{column}")
     return sorted(fields)
 
 
@@ -48,31 +46,61 @@ def find_first(data: Any, wanted: str):
     return None
 
 
+def extract_title(data: Any) -> str | None:
+    visual = data.get("visual", {}) if isinstance(data, dict) else {}
+    objects = visual.get("visualContainerObjects", {}) if isinstance(visual, dict) else {}
+    title = objects.get("title", []) if isinstance(objects, dict) else []
+    raw = json.dumps(title, ensure_ascii=False)
+    match = re.search(r'"Value"\s*:\s*"\'([^\']*)\'"', raw)
+    return match.group(1) if match else None
+
+
 def visual_summary(path: Path, page_id: str, page_name: str) -> dict[str, Any]:
     data = load_json(path)
     visual = data.get("visual", {}) if isinstance(data, dict) else {}
     position = data.get("position", {}) if isinstance(data, dict) else {}
     visual_type = visual.get("visualType") or find_first(data, "visualType")
-    title_texts: list[str] = []
-    for key, value in walk_values(data):
-        if key in {"text", "expr"} and isinstance(value, str) and len(value) <= 250:
-            title_texts.append(value)
     return {
         "page_id": page_id,
         "page_name": page_name,
         "visual_id": path.parent.name,
         "path": path.relative_to(ROOT).as_posix(),
         "visual_type": visual_type,
+        "title": extract_title(data),
         "x": position.get("x"),
         "y": position.get("y"),
         "z": position.get("z"),
         "width": position.get("width"),
         "height": position.get("height"),
         "fields": extract_fields(data),
-        "possible_texts": sorted(set(title_texts))[:30],
         "has_query": bool(visual.get("query")),
         "schema": data.get("$schema") if isinstance(data, dict) else None,
     }
+
+
+def copy_visuals(visuals: list[dict[str, Any]], destination: Path) -> list[dict[str, Any]]:
+    destination.mkdir(parents=True, exist_ok=True)
+    manifest: list[dict[str, Any]] = []
+    for visual in visuals:
+        src = ROOT / visual["path"]
+        dst = destination / f"{visual['visual_id']}.json"
+        dst.write_text(src.read_text(encoding="utf-8-sig"), encoding="utf-8")
+        manifest.append({
+            "visual_id": visual["visual_id"],
+            "visual_type": visual["visual_type"],
+            "title": visual["title"],
+            "x": visual["x"],
+            "y": visual["y"],
+            "width": visual["width"],
+            "height": visual["height"],
+            "fields": visual["fields"],
+            "file": dst.relative_to(ROOT).as_posix(),
+        })
+    (destination / "manifest.json").write_text(
+        json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    return manifest
 
 
 def main() -> int:
@@ -101,51 +129,44 @@ def main() -> int:
         })
         all_visuals.extend(summaries)
         if page_id in TARGET_PAGES:
-            target_full[page_id] = {
-                "page": page,
-                "visuals": summaries,
-            }
+            target_full[page_id] = {"page": page, "visuals": summaries}
 
     template_index: dict[str, list[dict[str, Any]]] = {}
     for visual in all_visuals:
         template_index.setdefault(str(visual["visual_type"]), []).append(visual)
 
-    (OUT / "report_pages_inventory.json").write_text(
-        json.dumps({"pages": pages}, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-    )
-    (OUT / "page_00_02_inventory.json").write_text(
-        json.dumps(target_full, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-    )
-    (OUT / "report_visual_templates.json").write_text(
-        json.dumps(template_index, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-    )
+    (OUT / "report_pages_inventory.json").write_text(json.dumps({"pages": pages}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    (OUT / "page_00_02_inventory.json").write_text(json.dumps(target_full, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    (OUT / "report_visual_templates.json").write_text(json.dumps(template_index, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
-    # Copias completas de slicers de página 00 para reutilización exacta.
-    slicer_dir = OUT / "page00_slicer_templates"
-    slicer_dir.mkdir(parents=True, exist_ok=True)
-    page00 = [v for v in all_visuals if v["page_id"] == "71af1998e2cb472d9799" and v["visual_type"] == "slicer"]
-    manifest = []
-    for visual in page00:
-        src = ROOT / visual["path"]
-        dst = slicer_dir / f"{visual['visual_id']}.json"
-        dst.write_text(src.read_text(encoding="utf-8-sig"), encoding="utf-8")
-        manifest.append({"visual_id": visual["visual_id"], "fields": visual["fields"], "file": dst.relative_to(ROOT).as_posix()})
-    (slicer_dir / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    page00 = [v for v in all_visuals if v["page_id"] == "71af1998e2cb472d9799"]
+    page02 = [v for v in all_visuals if v["page_id"] == "df1cb253a6314642a469"]
+    page00_slicers = [v for v in page00 if v["visual_type"] == "slicer"]
+
+    copy_visuals(page00_slicers, OUT / "page00_slicer_templates")
+    page02_manifest = copy_visuals(page02, OUT / "page02_visual_templates")
+
+    with (OUT / "page02_visual_manifest.csv").open("w", encoding="utf-8-sig", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=["visual_id", "visual_type", "title", "x", "y", "width", "height", "fields"])
+        writer.writeheader()
+        for visual in page02_manifest:
+            row = dict(visual)
+            row["fields"] = " | ".join(visual["fields"])
+            row.pop("file", None)
+            writer.writerow(row)
+
+    # Copiar todas las plantillas de gráficos nativos existentes para selección segura.
+    native_types = {"clusteredColumnChart", "clusteredBarChart", "pivotTable", "tableEx", "cardVisual", "textbox", "shape", "slicer"}
+    native_templates = [v for v in all_visuals if v["visual_type"] in native_types]
+    copy_visuals(native_templates, OUT / "native_visual_templates")
 
     print(json.dumps({
         "status": "VERDE",
         "pages": len(pages),
         "visuals": len(all_visuals),
-        "page00_slicers": len(page00),
-        "outputs": [
-            "Docs/AUDITORIA_LIVE/latest/report_pages_inventory.json",
-            "Docs/AUDITORIA_LIVE/latest/page_00_02_inventory.json",
-            "Docs/AUDITORIA_LIVE/latest/report_visual_templates.json",
-            "Docs/AUDITORIA_LIVE/latest/page00_slicer_templates/manifest.json",
-        ],
+        "page00_slicers": len(page00_slicers),
+        "page02_visuals": len(page02),
+        "native_templates": len(native_templates),
     }, ensure_ascii=False, indent=2))
     return 0
 
