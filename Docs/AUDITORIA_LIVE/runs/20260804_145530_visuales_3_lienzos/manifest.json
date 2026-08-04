@@ -1,10 +1,27 @@
-﻿{
+{
   "fecha": "2026-08-04",
   "rama": "work/ns-lienzo-02-ingreso-pedidos",
   "sha": "0c5ea56ea34c66a7ac39f8eb2d42d6d1790c5d00",
   "cambios_usuario": "botones navegacion eliminados en lienzos 00/01/02",
-  "visuales": {"total": 62, "lienzo00": 25, "lienzo01": 13, "lienzo02": 24},
-  "kpis": {"00": {"evaluables": 1781, "ns": 0.87}, "01": {"fuera_sla": 232, "pct": 0.13}, "02": {"pedidos": 1950}},
+  "visuales": {
+    "total": 62,
+    "lienzo00": 25,
+    "lienzo01": 13,
+    "lienzo02": 24
+  },
+  "kpis": {
+    "00": {
+      "evaluables": 1781,
+      "ns": 0.87
+    },
+    "01": {
+      "fuera_sla": 232,
+      "pct": 0.13
+    },
+    "02": {
+      "pedidos": 1950
+    }
+  },
   "hallazgo_sla": {
     "descripcion": "54 pedidos fuera SLA en tabla 1 lienzo 01",
     "total_universo": 109,
@@ -12,5 +29,14 @@
     "conclusion": "pedidos reales cerrados fuera SLA, no son fantasmas; no se modifico el modelo",
     "accion": "decisión de exclusión corresponde a ChatGPT (cambio DAX)"
   },
-  "archivos": ["00_git.txt","01_inventario_visuales.csv","02_kpis_3_lienzos.csv","03_resumen_visuales.csv","RESULTADO.md","manifest.json"]
+  "archivos": [
+    "00_git.txt",
+    "01_inventario_visuales.csv",
+    "02_kpis_3_lienzos.csv",
+    "03_resumen_visuales.csv",
+    "RESULTADO.md",
+    "manifest.json",
+    "04_ADDENDUM_DECISION.md"
+  ],
+  "addendum": "Decision ChatGPT d8d250a2: no excluir los 54, no modificar DAX; 232/109/54 son contextos distintos"
 }
