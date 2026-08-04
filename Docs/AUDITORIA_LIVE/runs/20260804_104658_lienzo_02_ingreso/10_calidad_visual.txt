@@ -1,0 +1,11 @@
+﻿Elemento,Estado
+Tarjetas (3),OK - valores grandes y centrados
+Lectura ejecutiva,OK - responde Q1 Q2 Q3 en una linea
+Matriz dia semana,OK - 7 dias con 3 metricas
+Grafico 100% 14:30,OK - 3 tramos con etiquetas
+3 graficos mensuales,OK - alineados y a ancho completo
+Botones VER POR,OK - texto y hover correctos
+Tooltips,OK - Mostrar tendencia de...
+Linea promedio,OK - visible en los 3 graficos
+Sin superposiciones,OK - los 3 graficos usan display.hidden
+NOTA: Validacion visual final pendiente de confirmacion en pantalla por LLM

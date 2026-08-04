@@ -1,0 +1,5 @@
+﻿Pagina,Estado
+00 Resumen,OK - sin cambios funcionales
+01 Cuellos,OK - sin cambios funcionales
+01.1 Tracking,OK - sin cambios funcionales
+02 Ingreso de Pedidos,OK - carga y responde las 3 preguntas

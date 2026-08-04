@@ -1,0 +1,5 @@
+﻿RAMA=work/ns-lienzo-02-ingreso-pedidos
+SHA_LOCAL=9f0a65da0f257b1f3884d64345cc250424184ef1
+SHA_REMOTO=9f0a65da0f257b1f3884d64345cc250424184ef1
+FECHA=2026-08-04 10:46
+ESTADO=modelo cargado: Tracking=1942, Master=1938, LineasUnidades=22788

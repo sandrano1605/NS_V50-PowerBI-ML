@@ -1,0 +1,3 @@
+﻿FECHA=2026-08-04 10:46
+REFRESH=Completado - Tracking=1942, Master=1938, LineasUnidades=22788
+ESTADO=OK

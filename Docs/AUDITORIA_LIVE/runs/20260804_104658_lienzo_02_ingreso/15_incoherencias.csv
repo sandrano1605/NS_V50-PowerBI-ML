@@ -1,0 +1,2 @@
+﻿ID,Fecha,Componente,Esperado,Real,Diferencia_abs,Diferencia_pct,Filtros,Tablas_visuales,Causa_raiz,Evidencia,Impacto,Accion_ChatGPT,Estado
+SIN-INCOHERENCIAS,2026-08-04,General,Todas las metricas reconcilian,Todas las metricas reconcilian,0,0,Sin filtros,Fact_Tracking/Dim_Fecha/Lineas_y_unidades,No se detectaron diferencias,Archivos 02-11 de esta carpeta,Sin impacto,No requiere accion,CERRADO

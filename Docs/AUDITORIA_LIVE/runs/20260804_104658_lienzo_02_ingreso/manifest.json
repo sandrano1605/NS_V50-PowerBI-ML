@@ -1,0 +1,12 @@
+﻿{
+  "fecha": "2026-08-04",
+  "rama": "work/ns-lienzo-02-ingreso-pedidos",
+  "sha_local": "9f0a65da0f257b1f3884d64345cc250424184ef1",
+  "sha_remoto": "9f0a65da0f257b1f3884d64345cc250424184ef1",
+  "dictamen": "VERDE",
+  "q1": "Lunes pedidos 553 | Jueves lineas 5665 | Miercoles unidades 563221",
+  "q2": "Hasta 14:30 32.8% | Despues 14:30 26.7% | Sin hora 40.5%",
+  "q3": "Delta cierre vs resto +6.5% | FES/Saldo en cierre 24.8%",
+  "tarjetas": {"pedidos": 1942, "lineas": 20925, "unidades": 1931741},
+  "archivos": ["00_git_before.txt","01_refresh.txt","02_tarjetas.csv","03_lectura_ejecutiva.csv","04_q1_dia_semana.csv","05_q2_hora_1430.csv","06_q3_pedidos_dia_mes.csv","07_q3_lineas_dia_mes.csv","08_q3_unidades_dia_mes.csv","09_botones_y_filtros.csv","10_calidad_visual.txt","11_regresiones.txt","13_visual_inventory.csv","14_smoke_test_paginas.txt","15_incoherencias.csv","RESULTADO.md","manifest.json"]
+}

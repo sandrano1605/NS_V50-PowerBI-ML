@@ -1,0 +1,10 @@
+﻿METRICA,VALOR,DETALLE
+Dia_ lider_pedidos,Lunes,553 pedidos
+Dia_lider_lineas,Jueves,5665 lineas
+Dia_lider_unidades,Miercoles,563221 unidades
+Despues_1430_pct,26.7,519 de 1942 pedidos
+Cierre_pedidos,625,ultimos 7 DH
+Resto_pedidos,587,resto del mes
+Inicio_pedidos,730,primeros 7 DH
+Delta_cierre_vs_resto,6.5,625 vs 587 = +6.5%
+FES_Saldo_en_cierre,24.8,155 de 625 pedidos de cierre (FES+SALDO)

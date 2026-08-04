@@ -1,0 +1,4 @@
+﻿Pagina 00 Resumen: abre OK
+Pagina 01 Cuellos: abre OK
+Pagina 01.1 Tracking: abre OK
+Pagina 02 Ingreso de Pedidos: abre OK - 3 preguntas respondidas

@@ -1,0 +1,4 @@
+﻿Boton,Visible,Oculto_1,Oculto_2,Canal_antes,Canal_despues,Mes_antes,Mes_despues,Resultado
+VER POR PEDIDOS,in_chart_pedidos_dia_mes,in_chart_lineas_dia_mes,in_chart_unidades_dia_mes,TODOS,TODOS,SIN_CAMBIO,SIN_CAMBIO,OK_estructural
+VER POR LINEAS,in_chart_lineas_dia_mes,in_chart_pedidos_dia_mes,in_chart_unidades_dia_mes,TODOS,TODOS,SIN_CAMBIO,SIN_CAMBIO,OK_estructural
+VER POR UNIDADES,in_chart_unidades_dia_mes,in_chart_pedidos_dia_mes,in_chart_lineas_dia_mes,TODOS,TODOS,SIN_CAMBIO,SIN_CAMBIO,OK_estructural
