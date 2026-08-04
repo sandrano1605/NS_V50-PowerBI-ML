@@ -54,40 +54,249 @@ table Dim_Cliente
 		mode: import
 		source =
 				let
-				    Origen =
+				    // Universo oficial: exactamente los códigos presentes en la master
+				    // que alimenta Fact_Tracking. Evita la fila en blanco por cobertura parcial.
+				    BasePedidos =
+				        Table.SelectColumns(
+				            Fact_Pedidos_Auditoria,
+				            {"PED_CODIGO_CLIENTE", "PED_CIUDAD", "PED_REGION"},
+				            MissingField.UseNull
+				        ),
+				    Renombrados =
+				        Table.RenameColumns(
+				            BasePedidos,
+				            {
+				                {"PED_CODIGO_CLIENTE", "CLIENTE_CODIGO"},
+				                {"PED_CIUDAD", "CLIENTE_CIUDAD"},
+				                {"PED_REGION", "CLIENTE_REGION"}
+				            }
+				        ),
+				    TiposBase =
+				        Table.TransformColumnTypes(
+				            Renombrados,
+				            {
+				                {"CLIENTE_CODIGO", type text},
+				                {"CLIENTE_CIUDAD", type text},
+				                {"CLIENTE_REGION", type text}
+				            }
+				        ),
+				    LimpiosBase =
+				        Table.TransformColumns(
+				            TiposBase,
+				            {
+				                {
+				                    "CLIENTE_CODIGO",
+				                    each
+				                        let T = if _ = null then "" else Text.Trim(Text.From(_))
+				                        in if T = "" then "SIN_CLIENTE" else T,
+				                    type text
+				                },
+				                {
+				                    "CLIENTE_CIUDAD",
+				                    each if _ = null then null else Text.Trim(Text.From(_)),
+				                    type nullable text
+				                },
+				                {
+				                    "CLIENTE_REGION",
+				                    each if _ = null then null else Text.Trim(Text.From(_)),
+				                    type nullable text
+				                }
+				            }
+				        ),
+				    UniversoClientes =
+				        Table.Group(
+				            LimpiosBase,
+				            {"CLIENTE_CODIGO"},
+				            {
+				                {
+				                    "CLIENTE_CIUDAD",
+				                    each
+				                        let
+				                            Valores = List.Select(List.RemoveNulls([CLIENTE_CIUDAD]), each _ <> "")
+				                        in
+				                            if List.IsEmpty(Valores) then null else List.First(Valores),
+				                    type nullable text
+				                },
+				                {
+				                    "CLIENTE_REGION",
+				                    each
+				                        let
+				                            Valores = List.Select(List.RemoveNulls([CLIENTE_REGION]), each _ <> "")
+				                        in
+				                            if List.IsEmpty(Valores) then null else List.First(Valores),
+				                    type nullable text
+				                }
+				            }
+				        ),
+				    ConClaveNormalizada =
+				        Table.AddColumn(
+				            UniversoClientes,
+				            "CLIENTE_CLAVE_NORMALIZADA",
+				            each
+				                let
+				                    Codigo = [CLIENTE_CODIGO],
+				                    SinCeros =
+				                        if Codigo = null or Codigo = "SIN_CLIENTE"
+				                        then null
+				                        else
+				                            let T = Text.TrimStart(Codigo, "0")
+				                            in if T = "" then "0" else T
+				                in
+				                    if SinCeros = null
+				                    then null
+				                    else try Int64.From(Number.FromText(SinCeros, "en-US")) otherwise null,
+				            Int64.Type
+				        ),
+				    MaestroVendedor =
 				        Sql.Database(
 				            "128.1.3.21",
 				            "DMF_VTA_PRD",
 				            [
-				                Query = "SET NOCOUNT ON;#(lf)#(lf)DECLARE @FechaHasta DATE = CAST(GETDATE() AS DATE);#(lf)DECLARE @FechaDesde DATE = DATEADD(MONTH, -2, DATEFROMPARTS(YEAR(@FechaHasta), MONTH(@FechaHasta), 1));#(lf)#(lf);WITH PedidosClienteRaw AS#(lf)(#(lf)    SELECT#(lf)        LTRIM(RTRIM(CONVERT(VARCHAR(30), Z.ZKUNNR))) AS CLIENTE_CODIGO,#(lf)        TRY_CONVERT(BIGINT, Z.ZKUNNR) AS CLIENTE_CLAVE_NORMALIZADA,#(lf)        NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(200), Z.ZCITYC))), '') AS CLIENTE_CIUDAD,#(lf)        NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(100), Z.ZREGIO))), '') AS CLIENTE_REGION#(lf)    FROM dbo.ZART_TRACK_DATA_SAP AS Z#(lf)    WHERE Z.ZKUNNR IS NOT NULL#(lf)      AND LTRIM(RTRIM(CONVERT(VARCHAR(30), Z.ZKUNNR))) <> ''#(lf)      AND RIGHT('00' + LTRIM(RTRIM(CONVERT(VARCHAR(10), Z.ZVTGEW))), 2)#(lf)          IN ('42','43','44','45','46','47')#(lf)      AND COALESCE#(lf)          (#(lf)              TRY_CONVERT(DATE, NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(30), Z.ZERDAT_PED))), ''), 112),#(lf)              TRY_CONVERT(DATE, NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(30), Z.ZERDAT_PED))), ''), 103),#(lf)              TRY_CONVERT(DATE, NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(30), Z.ZERDAT_PED))), ''), 105),#(lf)              TRY_CONVERT(DATE, NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(30), Z.ZERDAT_PED))), ''))#(lf)          ) BETWEEN @FechaDesde AND @FechaHasta#(lf)),#(lf)PedidosCliente AS#(lf)(#(lf)    SELECT#(lf)        CLIENTE_CODIGO,#(lf)        CLIENTE_CLAVE_NORMALIZADA,#(lf)        MAX(CLIENTE_CIUDAD) AS CLIENTE_CIUDAD,#(lf)        MAX(CLIENTE_REGION) AS CLIENTE_REGION#(lf)    FROM PedidosClienteRaw#(lf)    GROUP BY CLIENTE_CODIGO, CLIENTE_CLAVE_NORMALIZADA#(lf)),#(lf)MaestroCliente AS#(lf)(#(lf)    SELECT#(lf)        TRY_CONVERT(BIGINT, K.KUNNR) AS CLIENTE_CLAVE_NORMALIZADA,#(lf)        MAX(NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(250), K.NAME1))), '')) AS CLIENTE_NOMBRE#(lf)    FROM dbo.KNA1_SAP AS K#(lf)    WHERE K.KUNNR IS NOT NULL#(lf)      AND TRY_CONVERT(BIGINT, K.KUNNR) IS NOT NULL#(lf)    GROUP BY TRY_CONVERT(BIGINT, K.KUNNR)#(lf)),#(lf)VendedorBase AS#(lf)(#(lf)    SELECT#(lf)        TRY_CONVERT(BIGINT, CV.VCLT_SUCURSAL) AS CLIENTE_CLAVE_NORMALIZADA,#(lf)        NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(250), V.VEN_NOMBRE))), '') AS VENDEDOR_NOMBRE,#(lf)        COALESCE#(lf)        (#(lf)            TRY_CONVERT(DATE, NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(30), CV.VCLT_DESDE))), ''), 112),#(lf)            TRY_CONVERT(DATE, NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(30), CV.VCLT_DESDE))), ''), 103),#(lf)            TRY_CONVERT(DATE, NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(30), CV.VCLT_DESDE))), ''), 105),#(lf)            TRY_CONVERT(DATE, NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(30), CV.VCLT_DESDE))), ''))#(lf)        ) AS DESDE_FECHA,#(lf)        COALESCE#(lf)        (#(lf)            TRY_CONVERT(DATE, NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(30), CV.VCLT_HASTA))), ''), 112),#(lf)            TRY_CONVERT(DATE, NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(30), CV.VCLT_HASTA))), ''), 103),#(lf)            TRY_CONVERT(DATE, NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(30), CV.VCLT_HASTA))), ''), 105),#(lf)            TRY_CONVERT(DATE, NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(30), CV.VCLT_HASTA))), ''))#(lf)        ) AS HASTA_FECHA#(lf)    FROM dbo.CLIENTE_VENDEDOR AS CV#(lf)    INNER JOIN dbo.VENDEDOR AS V#(lf)        ON V.VEN_COD = CV.VCLT_VEN_COD#(lf)    WHERE CV.VCLT_SUCURSAL IS NOT NULL#(lf)      AND TRY_CONVERT(BIGINT, CV.VCLT_SUCURSAL) IS NOT NULL#(lf)),#(lf)VendedorRank AS#(lf)(#(lf)    SELECT#(lf)        CLIENTE_CLAVE_NORMALIZADA,#(lf)        VENDEDOR_NOMBRE,#(lf)        ROW_NUMBER() OVER#(lf)        (#(lf)            PARTITION BY CLIENTE_CLAVE_NORMALIZADA#(lf)            ORDER BY#(lf)                CASE#(lf)                    WHEN (DESDE_FECHA IS NULL OR DESDE_FECHA <= @FechaHasta)#(lf)                     AND (HASTA_FECHA IS NULL OR HASTA_FECHA >= @FechaHasta)#(lf)                    THEN 0 ELSE 1#(lf)                END,#(lf)                COALESCE(HASTA_FECHA, CONVERT(DATE, '99991231', 112)) DESC,#(lf)                COALESCE(DESDE_FECHA, CONVERT(DATE, '19000101', 112)) DESC,#(lf)                VENDEDOR_NOMBRE ASC#(lf)        ) AS RN#(lf)    FROM VendedorBase#(lf))#(lf)SELECT#(lf)    P.CLIENTE_CODIGO,#(lf)    P.CLIENTE_CIUDAD,#(lf)    P.CLIENTE_REGION,#(lf)    COALESCE(M.CLIENTE_NOMBRE, P.CLIENTE_CODIGO) AS CLIENTE_NOMBRE,#(lf)    VR.VENDEDOR_NOMBRE,#(lf)    CASE#(lf)        WHEN M.CLIENTE_NOMBRE IS NULL OR M.CLIENTE_NOMBRE = '' THEN P.CLIENTE_CODIGO#(lf)        ELSE M.CLIENTE_NOMBRE + ' (' + P.CLIENTE_CODIGO + ')'#(lf)    END AS CLIENTE_ETIQUETA#(lf)FROM PedidosCliente AS P#(lf)LEFT JOIN MaestroCliente AS M#(lf)    ON M.CLIENTE_CLAVE_NORMALIZADA = P.CLIENTE_CLAVE_NORMALIZADA#(lf)LEFT JOIN VendedorRank AS VR#(lf)    ON VR.CLIENTE_CLAVE_NORMALIZADA = P.CLIENTE_CLAVE_NORMALIZADA#(lf)   AND VR.RN = 1#(lf)ORDER BY P.CLIENTE_CODIGO;"
+				                Query =
+				                    "SET NOCOUNT ON;#(lf)#(lf)"
+				                    & "DECLARE @FechaHasta DATE = CAST(GETDATE() AS DATE);#(lf)#(lf)"
+				                    & ";WITH MaestroCliente AS#(lf)"
+				                    & "(#(lf)"
+				                    & "    SELECT#(lf)"
+				                    & "        TRY_CONVERT(BIGINT, K.KUNNR) AS CLIENTE_CLAVE_NORMALIZADA,#(lf)"
+				                    & "        MAX(NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(250), K.NAME1))), '')) AS CLIENTE_NOMBRE#(lf)"
+				                    & "    FROM dbo.KNA1_SAP AS K#(lf)"
+				                    & "    WHERE K.KUNNR IS NOT NULL#(lf)"
+				                    & "      AND TRY_CONVERT(BIGINT, K.KUNNR) IS NOT NULL#(lf)"
+				                    & "    GROUP BY TRY_CONVERT(BIGINT, K.KUNNR)#(lf)"
+				                    & "),#(lf)"
+				                    & "VendedorBase AS#(lf)"
+				                    & "(#(lf)"
+				                    & "    SELECT#(lf)"
+				                    & "        TRY_CONVERT(BIGINT, CV.VCLT_SUCURSAL) AS CLIENTE_CLAVE_NORMALIZADA,#(lf)"
+				                    & "        NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(250), V.VEN_NOMBRE))), '') AS VENDEDOR_NOMBRE,#(lf)"
+				                    & "        COALESCE(#(lf)"
+				                    & "            TRY_CONVERT(DATE, NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(30), CV.VCLT_DESDE))), ''), 112),#(lf)"
+				                    & "            TRY_CONVERT(DATE, NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(30), CV.VCLT_DESDE))), ''), 103),#(lf)"
+				                    & "            TRY_CONVERT(DATE, NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(30), CV.VCLT_DESDE))), ''), 105),#(lf)"
+				                    & "            TRY_CONVERT(DATE, NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(30), CV.VCLT_DESDE))), ''))#(lf)"
+				                    & "        ) AS DESDE_FECHA,#(lf)"
+				                    & "        COALESCE(#(lf)"
+				                    & "            TRY_CONVERT(DATE, NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(30), CV.VCLT_HASTA))), ''), 112),#(lf)"
+				                    & "            TRY_CONVERT(DATE, NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(30), CV.VCLT_HASTA))), ''), 103),#(lf)"
+				                    & "            TRY_CONVERT(DATE, NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(30), CV.VCLT_HASTA))), ''), 105),#(lf)"
+				                    & "            TRY_CONVERT(DATE, NULLIF(LTRIM(RTRIM(CONVERT(VARCHAR(30), CV.VCLT_HASTA))), ''))#(lf)"
+				                    & "        ) AS HASTA_FECHA#(lf)"
+				                    & "    FROM dbo.CLIENTE_VENDEDOR AS CV#(lf)"
+				                    & "    INNER JOIN dbo.VENDEDOR AS V#(lf)"
+				                    & "        ON V.VEN_COD = CV.VCLT_VEN_COD#(lf)"
+				                    & "    WHERE CV.VCLT_SUCURSAL IS NOT NULL#(lf)"
+				                    & "      AND TRY_CONVERT(BIGINT, CV.VCLT_SUCURSAL) IS NOT NULL#(lf)"
+				                    & "),#(lf)"
+				                    & "VendedorRank AS#(lf)"
+				                    & "(#(lf)"
+				                    & "    SELECT#(lf)"
+				                    & "        CLIENTE_CLAVE_NORMALIZADA,#(lf)"
+				                    & "        VENDEDOR_NOMBRE,#(lf)"
+				                    & "        ROW_NUMBER() OVER#(lf)"
+				                    & "        (#(lf)"
+				                    & "            PARTITION BY CLIENTE_CLAVE_NORMALIZADA#(lf)"
+				                    & "            ORDER BY#(lf)"
+				                    & "                CASE#(lf)"
+				                    & "                    WHEN (DESDE_FECHA IS NULL OR DESDE_FECHA <= @FechaHasta)#(lf)"
+				                    & "                     AND (HASTA_FECHA IS NULL OR HASTA_FECHA >= @FechaHasta)#(lf)"
+				                    & "                    THEN 0 ELSE 1#(lf)"
+				                    & "                END,#(lf)"
+				                    & "                COALESCE(HASTA_FECHA, CONVERT(DATE, '99991231', 112)) DESC,#(lf)"
+				                    & "                COALESCE(DESDE_FECHA, CONVERT(DATE, '19000101', 112)) DESC,#(lf)"
+				                    & "                VENDEDOR_NOMBRE ASC#(lf)"
+				                    & "        ) AS RN#(lf)"
+				                    & "    FROM VendedorBase#(lf)"
+				                    & "),#(lf)"
+				                    & "VendedorActual AS#(lf)"
+				                    & "(#(lf)"
+				                    & "    SELECT CLIENTE_CLAVE_NORMALIZADA, VENDEDOR_NOMBRE#(lf)"
+				                    & "    FROM VendedorRank#(lf)"
+				                    & "    WHERE RN = 1#(lf)"
+				                    & ")#(lf)"
+				                    & "SELECT#(lf)"
+				                    & "    COALESCE(M.CLIENTE_CLAVE_NORMALIZADA, V.CLIENTE_CLAVE_NORMALIZADA) AS CLIENTE_CLAVE_NORMALIZADA,#(lf)"
+				                    & "    M.CLIENTE_NOMBRE,#(lf)"
+				                    & "    V.VENDEDOR_NOMBRE#(lf)"
+				                    & "FROM MaestroCliente AS M#(lf)"
+				                    & "FULL OUTER JOIN VendedorActual AS V#(lf)"
+				                    & "    ON V.CLIENTE_CLAVE_NORMALIZADA = M.CLIENTE_CLAVE_NORMALIZADA#(lf)"
+				                    & "WHERE COALESCE(M.CLIENTE_CLAVE_NORMALIZADA, V.CLIENTE_CLAVE_NORMALIZADA) IS NOT NULL;"
 				            ]
 				        ),
-				    Tipos =
+				    TiposLookup =
 				        Table.TransformColumnTypes(
-				            Origen,
+				            MaestroVendedor,
 				            {
-				                {"CLIENTE_CODIGO", type text},
-				                {"CLIENTE_CIUDAD", type text},
-				                {"CLIENTE_REGION", type text},
+				                {"CLIENTE_CLAVE_NORMALIZADA", Int64.Type},
 				                {"CLIENTE_NOMBRE", type text},
-				                {"VENDEDOR_NOMBRE", type text},
-				                {"CLIENTE_ETIQUETA", type text}
+				                {"VENDEDOR_NOMBRE", type text}
 				            }
 				        ),
-				    Limpios =
-				        Table.TransformColumns(
-				            Tipos,
+				    CruceMaestro =
+				        Table.NestedJoin(
+				            ConClaveNormalizada,
+				            {"CLIENTE_CLAVE_NORMALIZADA"},
+				            TiposLookup,
+				            {"CLIENTE_CLAVE_NORMALIZADA"},
+				            "MAESTRO",
+				            JoinKind.LeftOuter
+				        ),
+				    Expandido =
+				        Table.ExpandTableColumn(
+				            CruceMaestro,
+				            "MAESTRO",
+				            {"CLIENTE_NOMBRE", "VENDEDOR_NOMBRE"},
+				            {"CLIENTE_NOMBRE_MAESTRO", "VENDEDOR_NOMBRE_MAESTRO"}
+				        ),
+				    NombreFinal =
+				        Table.AddColumn(
+				            Expandido,
+				            "CLIENTE_NOMBRE",
+				            each
+				                let N = if [CLIENTE_NOMBRE_MAESTRO] = null then null else Text.Trim([CLIENTE_NOMBRE_MAESTRO])
+				                in
+				                    if [CLIENTE_CODIGO] = "SIN_CLIENTE"
+				                    then "SIN CLIENTE IDENTIFICADO"
+				                    else if N = null or N = ""
+				                    then [CLIENTE_CODIGO]
+				                    else N,
+				            type text
+				        ),
+				    VendedorFinal =
+				        Table.AddColumn(
+				            NombreFinal,
+				            "VENDEDOR_NOMBRE",
+				            each
+				                let V = if [VENDEDOR_NOMBRE_MAESTRO] = null then null else Text.Trim([VENDEDOR_NOMBRE_MAESTRO])
+				                in if V = null or V = "" then "SIN VENDEDOR ASIGNADO" else V,
+				            type text
+				        ),
+				    EtiquetaFinal =
+				        Table.AddColumn(
+				            VendedorFinal,
+				            "CLIENTE_ETIQUETA",
+				            each
+				                if [CLIENTE_CODIGO] = "SIN_CLIENTE"
+				                then "SIN CLIENTE IDENTIFICADO"
+				                else if [CLIENTE_NOMBRE] = [CLIENTE_CODIGO]
+				                then [CLIENTE_CODIGO]
+				                else [CLIENTE_NOMBRE] & " (" & [CLIENTE_CODIGO] & ")",
+				            type text
+				        ),
+				    Resultado =
+				        Table.SelectColumns(
+				            EtiquetaFinal,
 				            {
-				                {"CLIENTE_CODIGO", each if _ = null then null else Text.Trim(_), type nullable text},
-				                {"CLIENTE_CIUDAD", each if _ = null then null else Text.Trim(_), type nullable text},
-				                {"CLIENTE_REGION", each if _ = null then null else Text.Trim(_), type nullable text},
-				                {"CLIENTE_NOMBRE", each if _ = null then null else Text.Trim(_), type nullable text},
-				                {"VENDEDOR_NOMBRE", each if _ = null then null else Text.Trim(_), type nullable text},
-				                {"CLIENTE_ETIQUETA", each if _ = null then null else Text.Trim(_), type nullable text}
+				                "CLIENTE_CODIGO",
+				                "CLIENTE_CIUDAD",
+				                "CLIENTE_REGION",
+				                "CLIENTE_NOMBRE",
+				                "VENDEDOR_NOMBRE",
+				                "CLIENTE_ETIQUETA"
 				            }
 				        ),
-				    Filtrados = Table.SelectRows(Limpios, each [CLIENTE_CODIGO] <> null and [CLIENTE_CODIGO] <> ""),
-				    Unicos = Table.Distinct(Filtrados, {"CLIENTE_CODIGO"})
+				    Unicos = Table.Distinct(Resultado, {"CLIENTE_CODIGO"})
 				in
 				    Unicos
 
