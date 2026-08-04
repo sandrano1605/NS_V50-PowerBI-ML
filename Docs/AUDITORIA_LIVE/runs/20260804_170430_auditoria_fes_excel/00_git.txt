@@ -1,0 +1,4 @@
+﻿RAMA=work/ns-lienzo-02-ingreso-pedidos
+SHA=40602323b15fc722db27b2e917c16d8e03eb15bc
+FECHA=2026-08-04 17:04
+FUENTE=C:\Users\alonso.moya\OneDrive - ARTEL S.A\Escritorio\data_sap.xlsx (523 pedidos FES del negocio)
