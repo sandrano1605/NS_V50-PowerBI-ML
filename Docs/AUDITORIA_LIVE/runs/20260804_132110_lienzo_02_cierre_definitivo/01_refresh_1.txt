@@ -1,0 +1,6 @@
+﻿FECHA=2026-08-04
+REFRESH_1=Completado - Tracking=1948, Master=1938 (10 pedidos nuevos solo en Tracking)
+REFRESH_2=Completado - Tracking=1948, Master=1948 (reconciliados - la master absorvio los 10)
+EXCEPT_1er_refresh=Solo_Tracking=10, Solo_Master=0
+EXCEPT_2do_refresh=Solo_Tracking=0, Solo_Master=0
+DIFERENCIA=10 pedidos de hoy (04-08-2026, PENDIENTE FACTURA) - cambio de fuente durante refresh, no defecto

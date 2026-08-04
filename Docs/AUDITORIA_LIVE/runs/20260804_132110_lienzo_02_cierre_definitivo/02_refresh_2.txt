@@ -1,0 +1,3 @@
+﻿FECHA=2026-08-04
+REFRESH_2=Completado - Tracking=1948, Master=1948
+RESULTADO=EXCEPT ambos sentidos = 0 - universos identicos

@@ -3360,7 +3360,6 @@ table Medidas
 		displayFolder: 04. Análisis Fuera SLA\Carga y SLA
 		lineageTag: 61000000-0000-4000-8000-000000000106
 
-
 	/// Lectura ejecutiva dinámica del ingreso de pedidos en el contexto filtrado.
 	/// Q2 separa cobertura de hora y porcentaje posterior al corte sobre casos medibles.
 	/// Q3 compara promedios diarios de cierre y resto, no totales de períodos de distinta duración.
@@ -3407,7 +3406,7 @@ table Medidas
 			VAR ValorPedidos = MAXX(TopPedidos, [__Valor])
 			VAR ValorLineas = MAXX(TopLineas, [__Valor])
 			VAR ValorUnidades = MAXX(TopUnidades, [__Valor])
-
+			
 			VAR PedidosTotal = [IN Pedidos]
 			VAR PedidosHasta1430 =
 				CALCULATE(
@@ -3428,7 +3427,7 @@ table Medidas
 			VAR CoberturaHora = DIVIDE(PedidosConHora, PedidosTotal)
 			VAR PorcDespuesMedibles = DIVIDE(PedidosDespues1430, PedidosConHora)
 			VAR PorcSinHora = DIVIDE(PedidosSinHora, PedidosTotal)
-
+			
 			VAR PedidosCierre =
 				CALCULATE(
 					[IN Pedidos],
@@ -3474,7 +3473,7 @@ table Medidas
 					KEEPFILTERS(Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO", "SALDO"})
 				)
 			VAR PorcFesSaldoCierre = DIVIDE(PedidosFesSaldoCierre, PedidosCierre)
-
+			
 			VAR TablaDiaMesUnidades =
 				ADDCOLUMNS(
 					VALUES(Dim_Fecha[Dia_Mes]),
@@ -3490,7 +3489,7 @@ table Medidas
 			VAR DiaPicoUnidades = MAXX(TopDiaMesUnidades, Dim_Fecha[Dia_Mes])
 			VAR UnidadesPico = MAXX(TopDiaMesUnidades, [__Unidades])
 			VAR PorcUnidadesPico = DIVIDE(UnidadesPico, [IN Unidades])
-
+			
 			RETURN
 				IF(
 					ISBLANK(PedidosTotal),
@@ -3512,6 +3511,16 @@ table Medidas
 				)
 		displayFolder: 04. Análisis Fuera SLA\Carga y SLA
 		lineageTag: 61000000-0000-4000-8000-000000000107
+
+	column __Medida
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: a999e59e-35e3-4a38-82ae-fee350894158
+		summarizeBy: none
+		sourceColumn: __Medida
+
+		annotation SummarizationSetBy = User
 
 	partition Medidas = m
 		mode: import

@@ -1,0 +1,8 @@
+﻿Metrica,Valor,Formula
+Total_pedidos,1948,COUNTROWS
+Hasta_1430,637,TRAMO=Hasta 14:30
+Despues_1430,519,TRAMO=Despues de 14:30
+Sin_hora_valida,792,TRAMO=Sin hora valida
+Cobertura_hora_pct,59.3,(637+519)/1948
+Despues_sobre_medibles_pct,44.9,519/(637+519)
+Sin_hora_pct,40.7,792/1948

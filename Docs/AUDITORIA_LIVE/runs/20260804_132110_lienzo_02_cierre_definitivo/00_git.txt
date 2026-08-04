@@ -1,0 +1,6 @@
+﻿RAMA=work/ns-lienzo-02-ingreso-pedidos
+SHA_INICIAL=b64b000fa229c148718bb5be36144c357c7f932f
+SHA_CORRECCION=12a1d71dcd0e6dfdfd0635d1d48a85a34e518cfa (evidencia ROJO previa)
+FIX_APLICADO=coma faltante en Fact_Tracking Resultado + restauracion __Medida en Medidas
+FECHA=2026-08-04 13:21
+ESTADO=modelo reconciliado: Tracking=1948, Master=1948, EXCEPT=0/0

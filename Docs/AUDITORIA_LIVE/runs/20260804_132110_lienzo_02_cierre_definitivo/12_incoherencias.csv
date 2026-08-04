@@ -1,0 +1,2 @@
+﻿ID,Fecha,Componente,Esperado,Real,Diferencia_abs,Diferencia_pct,Filtros,Tablas,Causa_raiz,Evidencia,Impacto,Accion,Estado
+INC-001,2026-08-04,Tracking_vs_Master,EXCEPT=0 en ambos sentidos,1er refresh: 10 pedidos solo en Tracking,10,0.5,Sin filtros,Fact_Tracking/Fact_Pedidos_Auditoria,Pedidos de hoy 04-08 PENDIENTE FACTURA - cambio de fuente durante refresh,03_tracking_vs_master.csv,Ninguno - reconciliado en 2do refresh,EXPLICADO tras refresh 2,CERRADO

@@ -1,0 +1,14 @@
+﻿{
+  "fecha": "2026-08-04",
+  "rama": "work/ns-lienzo-02-ingreso-pedidos",
+  "sha_inicial": "b64b000fa229c148718bb5be36144c357c7f932f",
+  "sha_correccion": "12a1d71dcd0e6dfdfd0635d1d48a85a34e518cfa",
+  "dictamen": "VERDE",
+  "error_corregido": "coma faltante en Fact_Tracking Resultado + __Medida restaurada en Medidas",
+  "tracking": {"filas": 1948, "distintos": 1948, "duplicados": 0},
+  "except": {"solo_tracking": 0, "solo_master": 0},
+  "q1": {"pedidos": "Lunes 553", "lineas": "Jueves 5665", "unidades": "Miercoles 563221"},
+  "q2": {"cobertura": 0.593, "despues_medibles": 0.449, "sin_hora": 0.407},
+  "q3": {"prom_cierre": 24.04, "prom_resto": 21.74, "delta": 0.106, "fes_saldo": 0.248, "dia_pico": 29},
+  "archivos": ["00_git.txt","01_refresh_1.txt","02_refresh_2.txt","03_tracking_vs_master.csv","04_q1_dia_semana.csv","05_q2_cobertura_horaria.csv","06_q3_promedios_diarios.csv","07_q3_flujo_y_pico_unidades.csv","08_botones_prueba_real.csv","09_filtros_persistencia.csv","10_calidad_visual.txt","11_regresiones.txt","12_incoherencias.csv","RESULTADO.md","manifest.json"]
+}

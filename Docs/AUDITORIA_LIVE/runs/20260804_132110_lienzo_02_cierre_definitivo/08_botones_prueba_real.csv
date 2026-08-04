@@ -1,0 +1,4 @@
+﻿Boton,Visible,Ocultos,Filtros,Resultado
+VER POR PEDIDOS,in_chart_pedidos_dia_mes,lineas+unidades,sin cambio,OK_estructural
+VER POR LINEAS,in_chart_lineas_dia_mes,pedidos+unidades,sin cambio,OK_estructural
+VER POR UNIDADES,in_chart_unidades_dia_mes,pedidos+lineas,sin cambio,OK_estructural
