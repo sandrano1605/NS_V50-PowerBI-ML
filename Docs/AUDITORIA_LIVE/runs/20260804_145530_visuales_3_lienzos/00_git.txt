@@ -1,0 +1,4 @@
+﻿RAMA=work/ns-lienzo-02-ingreso-pedidos
+SHA=0c5ea56ea34c66a7ac39f8eb2d42d6d1790c5d00
+FECHA=2026-08-04 14:55
+CAMBIOS_USUARIO=botones navegacion eliminados en lienzos 00/01/02

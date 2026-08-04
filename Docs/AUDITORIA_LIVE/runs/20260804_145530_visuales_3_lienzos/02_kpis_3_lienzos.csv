@@ -1,0 +1,14 @@
+﻿Pagina,Metrica,Valor
+00,Pedidos_evaluables,1781
+00,Pedidos_en_SLA,1549
+00,Pedidos_fuera_SLA,232
+00,NS_pct,87.0
+00,Valor_contexto_CLP,1861100093
+01,FA_Pedidos,1781
+01,FA_FueraSLA,232
+01,FA_FueraSLA_pct,13.0
+01,FA_FES,213
+01,FA_Pct_FES,12.0
+02,IN_Pedidos,1950
+02,IN_Lineas,21171
+02,IN_Unidades,2003201
