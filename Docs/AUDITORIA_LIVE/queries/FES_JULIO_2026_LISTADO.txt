@@ -1,0 +1,60 @@
+DEFINE
+VAR FESJulio =
+    FILTER(
+        ADDCOLUMNS(
+            SELECTCOLUMNS(
+                Fact_Tracking,
+                "Pedido", Fact_Tracking[PED_NUMERO_PEDIDO],
+                "ClienteCodigo", Fact_Tracking[PED_CODIGO_CLIENTE],
+                "Clasificacion", Fact_Tracking[CLASIFICACION],
+                "FechaPedido", Fact_Tracking[PED_FECHA],
+                "FechaHoraPedido", Fact_Tracking[PED_FECHA_HORA],
+                "EsCerrado", Fact_Tracking[ES_CERRADO],
+                "EstadoActual", Fact_Tracking[ESTADO_ACTUAL],
+                "FechaPrimeraFactura", Fact_Tracking[FECHA_PRIMERA_FACTURA],
+                "FechaUltimaFactura", Fact_Tracking[FECHA_ULTIMA_FACTURA],
+                "FechaDespacho", Fact_Tracking[FECHA_DESPACHO],
+                "FechaManifiesto", Fact_Tracking[FECHA_MANIFIESTO],
+                "FechaCierre", Fact_Tracking[FECHA_CIERRE],
+                "PendienteFactura", Fact_Tracking[PENDIENTE_FACTURA],
+                "PendienteDespacho", Fact_Tracking[PENDIENTE_DESPACHO],
+                "PendienteManifiestoFES", Fact_Tracking[PENDIENTE_MANIFIESTO_FES],
+                "DiasInternosDH", Fact_Tracking[DIAS_INTERNOS_DH],
+                "SLAInternoDH", Fact_Tracking[SLA_INTERNO_DH],
+                "CumpleSLAInterno", Fact_Tracking[CUMPLE_SLA_INTERNO],
+                "ExcesoSLAInternoDH", Fact_Tracking[EXCESO_SLA_INTERNO_DH]
+            ),
+            "ClienteNombre", LOOKUPVALUE(Dim_Cliente[CLIENTE_NOMBRE], Dim_Cliente[CLIENTE_CODIGO], [ClienteCodigo]),
+            "VendedorNombre", LOOKUPVALUE(Dim_Cliente[VENDEDOR_NOMBRE], Dim_Cliente[CLIENTE_CODIGO], [ClienteCodigo])
+        ),
+        [FechaPedido] >= DATE(2026,7,1)
+            && [FechaPedido] < DATE(2026,8,1)
+            && [Clasificacion] IN {"FES","FES + SALDO"}
+    )
+EVALUATE
+SELECTCOLUMNS(
+    FESJulio,
+    "PED_NUMERO_PEDIDO", [Pedido],
+    "PED_CODIGO_CLIENTE", [ClienteCodigo],
+    "CLIENTE_NOMBRE", [ClienteNombre],
+    "VENDEDOR_NOMBRE", [VendedorNombre],
+    "CLASIFICACION", [Clasificacion],
+    "PED_FECHA", [FechaPedido],
+    "PED_FECHA_HORA", [FechaHoraPedido],
+    "ESTADO_CIERRE", IF([EsCerrado], "CERRADO", "NO CERRADO"),
+    "ES_CERRADO", [EsCerrado],
+    "ESTADO_ACTUAL", [EstadoActual],
+    "FECHA_PRIMERA_FACTURA", [FechaPrimeraFactura],
+    "FECHA_ULTIMA_FACTURA", [FechaUltimaFactura],
+    "FECHA_DESPACHO", [FechaDespacho],
+    "FECHA_MANIFIESTO", [FechaManifiesto],
+    "FECHA_CIERRE", [FechaCierre],
+    "PENDIENTE_FACTURA", [PendienteFactura],
+    "PENDIENTE_DESPACHO", [PendienteDespacho],
+    "PENDIENTE_MANIFIESTO_FES", [PendienteManifiestoFES],
+    "DIAS_INTERNOS_DH", [DiasInternosDH],
+    "SLA_INTERNO_DH", [SLAInternoDH],
+    "CUMPLE_SLA_INTERNO", [CumpleSLAInterno],
+    "EXCESO_SLA_INTERNO_DH", [ExcesoSLAInternoDH]
+)
+ORDER BY [ESTADO_CIERRE], [PED_FECHA], [PED_NUMERO_PEDIDO]
