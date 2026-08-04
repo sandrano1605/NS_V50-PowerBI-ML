@@ -1,0 +1,11 @@
+﻿Metrica,Valor
+Pedidos_totales_Tracking,1950
+Pedidos_sin_match_Dim_Cliente,635
+Pedidos_con_match_Dim_Cliente,1315
+Codigos_unicos_Fact_Tracking,706
+Codigos_unicos_Dim_Cliente,355
+Codigos_sin_cobertura,351
+Pct_codigos_sin_cobertura,49.7
+Fuera_SLA_totales,109
+Fuera_SLA_sin_match_dim,22
+Fuera_SLA_con_match_dim,87

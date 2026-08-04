@@ -1,0 +1,10 @@
+﻿{
+  "fecha": "2026-08-04",
+  "rama": "work/ns-lienzo-02-ingreso-pedidos",
+  "sha": "2fcd81dd67dfa7af80c7870bfb1df26c95ebcba9",
+  "dictamen": "ROJO_dimension",
+  "hallazgo": "Dim_Cliente cubre 355 de 706 codigos; 635 pedidos sin match; 22 fuera de SLA sin match",
+  "causa": "Dim_Cliente desde ZART_TRACK_DATA_SAP parcial vs Fact_Tracking desde master auditoria",
+  "correccion": "construir Dim_Cliente desde universo de pedidos (corresponde a ChatGPT)",
+  "archivos": ["00_git.txt","01_metricas_dim_cliente.csv","02_lista_pedidos_sin_match.csv","RESULTADO.md","manifest.json"]
+}

@@ -1,0 +1,4 @@
+﻿RAMA=work/ns-lienzo-02-ingreso-pedidos
+SHA=2fcd81dd67dfa7af80c7870bfb1df26c95ebcba9
+FECHA=2026-08-04 16:23
+PROBLEMA=Dim_Cliente cubre 355 de 706 codigos (49.7% sin cobertura) - 635 pedidos en fila en blanco
