@@ -232,7 +232,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'LIMPIAR FILTROS'"
+                  "Value": "'VER POR PEDIDOS'"
                 }
               }
             },
@@ -466,7 +466,7 @@
             "tooltip": {
               "expr": {
                 "Literal": {
-                  "Value": "'Restablecer filtros'"
+                  "Value": "'Mostrar tendencia de pedidos'"
                 }
               }
             },

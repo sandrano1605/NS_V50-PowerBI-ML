@@ -1,0 +1,85 @@
+{
+  "status": "VERDE",
+  "global_channel_filters_removed": 0,
+  "global_filters_remaining": 0,
+  "bookmarks": [
+    {
+      "bookmark": "b9128c5f202a5c05b8c6",
+      "targets": [
+        "in_chart_pedidos_dia_mes",
+        "in_chart_lineas_dia_mes",
+        "in_chart_unidades_dia_mes"
+      ],
+      "filters": {},
+      "states": {
+        "in_chart_pedidos_dia_mes": "visible",
+        "in_chart_lineas_dia_mes": "hidden",
+        "in_chart_unidades_dia_mes": "hidden"
+      },
+      "errors": []
+    },
+    {
+      "bookmark": "28bcc015c63284b1ea20",
+      "targets": [
+        "in_chart_pedidos_dia_mes",
+        "in_chart_lineas_dia_mes",
+        "in_chart_unidades_dia_mes"
+      ],
+      "filters": {},
+      "states": {
+        "in_chart_pedidos_dia_mes": "hidden",
+        "in_chart_lineas_dia_mes": "visible",
+        "in_chart_unidades_dia_mes": "hidden"
+      },
+      "errors": []
+    },
+    {
+      "bookmark": "0a642a9eca955eab8d61",
+      "targets": [
+        "in_chart_pedidos_dia_mes",
+        "in_chart_lineas_dia_mes",
+        "in_chart_unidades_dia_mes"
+      ],
+      "filters": {},
+      "states": {
+        "in_chart_pedidos_dia_mes": "hidden",
+        "in_chart_lineas_dia_mes": "hidden",
+        "in_chart_unidades_dia_mes": "visible"
+      },
+      "errors": []
+    }
+  ],
+  "buttons": [
+    {
+      "visual": "57f10ff400d0000bd6d2",
+      "texts": [
+        "'VER POR PEDIDOS'",
+        "'VER POR PEDIDOS'"
+      ],
+      "tooltip": "'Mostrar tendencia de pedidos'",
+      "bookmark": "'b9128c5f202a5c05b8c6'",
+      "errors": []
+    },
+    {
+      "visual": "8dab02c301ebb2810320",
+      "texts": [
+        "'VER POR LINEAS'",
+        "'VER POR LINEAS'"
+      ],
+      "tooltip": "'Mostrar tendencia de líneas'",
+      "bookmark": "'28bcc015c63284b1ea20'",
+      "errors": []
+    },
+    {
+      "visual": "2155081fa518460cc812",
+      "texts": [
+        "'VER POR UNIDADES'",
+        "'VER POR UNIDADES'"
+      ],
+      "tooltip": "'Mostrar tendencia de unidades'",
+      "bookmark": "'0a642a9eca955eab8d61'",
+      "errors": []
+    }
+  ],
+  "errors": []
+}
