@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "chart_924aca87b5094c",
   "position": {
-    "x": 590,
-    "y": 238,
+    "x": 592,
+    "y": 240,
     "z": 10000,
-    "height": 252,
-    "width": 986,
+    "height": 208,
+    "width": 992,
     "tabOrder": 10000
   },
   "visual": {
@@ -32,24 +32,6 @@
             }
           ]
         },
-        "Y": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Medidas"
-                    }
-                  },
-                  "Property": "IN Pedidos"
-                }
-              },
-              "queryRef": "Medidas.IN Pedidos",
-              "nativeQueryRef": "IN Pedidos"
-            }
-          ]
-        },
         "Series": {
           "projections": [
             {
@@ -66,6 +48,24 @@
               "queryRef": "Fact_Tracking.TRAMO_HORA_INGRESO",
               "nativeQueryRef": "TRAMO_HORA_INGRESO",
               "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "IN Pedidos"
+                }
+              },
+              "queryRef": "Medidas.IN Pedidos",
+              "nativeQueryRef": "IN Pedidos"
             }
           ]
         }

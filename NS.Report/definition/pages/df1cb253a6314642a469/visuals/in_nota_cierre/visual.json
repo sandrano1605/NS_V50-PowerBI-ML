@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "in_nota_cierre",
   "position": {
-    "x": 586,
-    "y": 150,
+    "x": 592,
+    "y": 144,
     "z": 7000,
-    "height": 72,
-    "width": 990,
+    "height": 96,
+    "width": 992,
     "tabOrder": 4151
   },
   "visual": {

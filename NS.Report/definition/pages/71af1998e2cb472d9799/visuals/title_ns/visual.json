@@ -3,10 +3,10 @@
   "name": "title_ns",
   "position": {
     "x": 160,
-    "y": 0,
+    "y": 16,
     "z": 7000,
-    "height": 64,
-    "width": 368,
+    "height": 48,
+    "width": 528,
     "tabOrder": 7000
   },
   "visual": {
@@ -22,7 +22,6 @@
                     "value": "NS MAYORISTA",
                     "textStyle": {
                       "fontWeight": "bold",
-                      "fontSize": "11pt",
                       "color": "#111111"
                     }
                   }
@@ -34,7 +33,6 @@
                     "value": "TIEMPOS INTERNOS-PEDIDOS CERRADOS",
                     "textStyle": {
                       "fontWeight": "bold",
-                      "fontSize": "11pt",
                       "color": "#111111"
                     }
                   }

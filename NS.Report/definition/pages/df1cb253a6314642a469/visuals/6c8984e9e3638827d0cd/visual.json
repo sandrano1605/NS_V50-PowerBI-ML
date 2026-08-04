@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
-  "name": "shape_d1e9fe2f962046",
+  "name": "6c8984e9e3638827d0cd",
   "position": {
     "x": 0,
     "y": 0,
-    "z": 2000,
-    "height": 66,
+    "z": 1500,
+    "height": 64,
     "width": 1600,
-    "tabOrder": 11000
+    "tabOrder": 26002
   },
   "visual": {
     "visualType": "shape",
@@ -22,10 +22,17 @@
                 }
               }
             },
+            "rectangleRoundedCurve": {
+              "expr": {
+                "Literal": {
+                  "Value": "10L"
+                }
+              }
+            },
             "roundEdge": {
               "expr": {
                 "Literal": {
-                  "Value": "0L"
+                  "Value": "10L"
                 }
               }
             }
@@ -53,7 +60,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#0B3558'"
+                      "Value": "'#FFFFFF'"
                     }
                   }
                 }
@@ -62,7 +69,7 @@
             "transparency": {
               "expr": {
                 "Literal": {
-                  "Value": "0D"
+                  "Value": "0L"
                 }
               }
             }
@@ -78,7 +85,25 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
+                }
+              }
+            },
+            "lineColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#1B365D'"
+                    }
+                  }
+                }
+              }
+            },
+            "weight": {
+              "expr": {
+                "Literal": {
+                  "Value": "1L"
                 }
               }
             }

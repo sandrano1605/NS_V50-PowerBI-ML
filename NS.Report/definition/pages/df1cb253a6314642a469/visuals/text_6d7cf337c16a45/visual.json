@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "text_6d7cf337c16a45",
   "position": {
-    "x": 24,
+    "x": 128,
     "y": 0,
     "z": 4000,
-    "height": 58,
-    "width": 840,
+    "height": 64,
+    "width": 848.00000000000011,
     "tabOrder": 4000
   },
   "visual": {
@@ -32,7 +32,6 @@
                   {
                     "value": "Cuándo entra la carga y en qué momento queda disponible para Logística",
                     "textStyle": {
-                      "fontWeight": "normal",
                       "fontSize": "9pt"
                     }
                   }
