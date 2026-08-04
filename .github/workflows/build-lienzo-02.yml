@@ -1,0 +1,65 @@
+name: Build lienzo 02 ingreso
+
+on:
+  push:
+    branches:
+      - work/ns-lienzo-02-ingreso-pedidos
+    paths:
+      - 'Docs/AUDITORIA_LIVE/BUILD_LIENZO_02_RUN.md'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: work/ns-lienzo-02-ingreso-pedidos
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Compile builder
+        run: python -m py_compile tools/build_lienzo_02.py
+
+      - name: Build model and page
+        run: python tools/build_lienzo_02.py
+
+      - name: Verify idempotence and JSON
+        shell: bash
+        run: |
+          python tools/build_lienzo_02.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root = Path('NS.Report/definition/pages/df1cb253a6314642a469')
+          json.loads((root / 'page.json').read_text(encoding='utf-8-sig'))
+          for path in root.glob('visuals/*/visual.json'):
+              json.loads(path.read_text(encoding='utf-8-sig'))
+          validation = json.loads(Path('Docs/AUDITORIA_LIVE/latest/lienzo_02_build_validation.json').read_text(encoding='utf-8-sig'))
+          assert validation['status'] == 'VERDE', validation
+          print('VALIDACION', validation['status'], 'VISUALES', validation['visual_count'])
+          PY
+          git diff --check
+
+      - name: Commit implementation
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            NS.SemanticModel/definition/tables/Fact_Pedidos_Auditoria.tmdl \
+            NS.SemanticModel/definition/tables/Fact_Tracking.tmdl \
+            NS.SemanticModel/definition/tables/Medidas.tmdl \
+            NS.Report/definition/pages/df1cb253a6314642a469 \
+            Docs/AUDITORIA_LIVE/latest/lienzo_02_build_validation.json
+          git commit -m "feat(lienzo-02): implementar analisis de ingreso de pedidos [skip ci]"
+          git push origin HEAD:work/ns-lienzo-02-ingreso-pedidos
