@@ -1,0 +1,22 @@
+DEFINE
+VAR FESJulio =
+    FILTER(
+        SELECTCOLUMNS(
+            Fact_Tracking,
+            "Pedido", Fact_Tracking[PED_NUMERO_PEDIDO],
+            "FechaPedido", Fact_Tracking[PED_FECHA],
+            "Clasificacion", Fact_Tracking[CLASIFICACION],
+            "EsCerrado", Fact_Tracking[ES_CERRADO]
+        ),
+        [FechaPedido] >= DATE(2026,7,1)
+            && [FechaPedido] < DATE(2026,8,1)
+            && [Clasificacion] IN {"FES","FES + SALDO"}
+    )
+EVALUATE
+ROW(
+    "FES_JULIO_TOTAL", COUNTROWS(FESJulio),
+    "FES_JULIO_CERRADOS", COUNTROWS(FILTER(FESJulio,[EsCerrado] = TRUE())),
+    "FES_JULIO_NO_CERRADOS", COUNTROWS(FILTER(FESJulio,NOT [EsCerrado])),
+    "CLASIFICACION_FES", COUNTROWS(FILTER(FESJulio,[Clasificacion] = "FES")),
+    "CLASIFICACION_FES_MAS_SALDO", COUNTROWS(FILTER(FESJulio,[Clasificacion] = "FES + SALDO"))
+)
