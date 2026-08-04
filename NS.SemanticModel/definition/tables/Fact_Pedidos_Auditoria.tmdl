@@ -4299,7 +4299,7 @@ table Fact_Pedidos_Auditoria
 				        ),
 				    #"Filas ordenadas" = Table.Sort(FiltradoCanalesMayoristas,{{"PED_FECHA_HORA", Order.Descending}}),
 				    VBAK_APPEND_ACTIVO_LOCAL = true,
-
+				
 				    FnNormalizaPedidoVBAK = (Valor as any) as nullable text =>
 				        let
 				            Texto = try Text.Trim(Text.From(Valor)) otherwise null,
@@ -4308,7 +4308,7 @@ table Fact_Pedidos_Auditoria
 				            if Texto = null or Texto = "" then null
 				            else if Numero <> null then Text.From(Numero)
 				            else let SinCeros = Text.TrimStart(Texto, "0") in if SinCeros = "" then "0" else SinCeros,
-
+				
 				    FnDHAppendVBAK = (Inicio as any, Fin as any) as nullable number =>
 				        let
 				            I = try Date.From(Inicio) otherwise null,
@@ -4318,7 +4318,7 @@ table Fact_Pedidos_Auditoria
 				            Habiles = List.Select(Fechas, each Date.DayOfWeek(_, Day.Monday) < 5 and not List.Contains(Feriados, _))
 				        in
 				            if I = null or F = null or F < I then null else List.Count(Habiles),
-
+				
 				    MasterBaseVBAK = #"Filas ordenadas",
 				    MasterKeysVBAK =
 				        Table.Distinct(
@@ -4328,7 +4328,7 @@ table Fact_Pedidos_Auditoria
 				            ),
 				            {"PED_NUMERO_PEDIDO"}
 				        ),
-
+				
 				    VBAKSqlOrigen =
 				        Sql.Database(
 				            "128.1.3.21",
@@ -4376,7 +4376,7 @@ table Fact_Pedidos_Auditoria
 				                    )
 				            ]
 				        ),
-
+				
 				    VBAKSqlTipos =
 				        Table.TransformColumnTypes(
 				            VBAKSqlOrigen,
@@ -4396,22 +4396,22 @@ table Fact_Pedidos_Auditoria
 				                {"ES_FES_VBFA", type logical}
 				            }
 				        ),
-
+				
 				    VBAKSqlKey =
 				        Table.TransformColumns(
 				            VBAKSqlTipos,
 				            {{"PED_NUMERO_PEDIDO", each FnNormalizaPedidoVBAK(_), type nullable text}}
 				        ),
-
+				
 				    VBAKSqlUnico = Table.Distinct(Table.SelectRows(VBAKSqlKey, each [PED_NUMERO_PEDIDO] <> null), {"PED_NUMERO_PEDIDO"}),
-
+				
 				    VBAKOperacionBase =
 				        Table.SelectColumns(
 				            Pedidos_Normal_VBAK,
 				            {"VBELN", "fecha_pedido", "fecha_entrega", "fecha_contabiliza", "fecha_factura", "fecha_fes", "fecha_salida"},
 				            MissingField.UseNull
 				        ),
-
+				
 				    VBAKOperacionKey =
 				        Table.AddColumn(
 				            VBAKOperacionBase,
@@ -4419,7 +4419,7 @@ table Fact_Pedidos_Auditoria
 				            each FnNormalizaPedidoVBAK([VBELN]),
 				            type nullable text
 				        ),
-
+				
 				    VBAKOperacionUnica =
 				        Table.Group(
 				            Table.SelectRows(VBAKOperacionKey, each [PED_NUMERO_PEDIDO] <> null),
@@ -4432,7 +4432,7 @@ table Fact_Pedidos_Auditoria
 				                {"VBAK_FECHA_SALIDA", each try List.Max(List.RemoveNulls([fecha_salida])) otherwise null, type nullable datetime}
 				            }
 				        ),
-
+				
 				    VBAKConOperacionJoin =
 				        Table.NestedJoin(
 				            VBAKSqlUnico,
@@ -4442,7 +4442,7 @@ table Fact_Pedidos_Auditoria
 				            "OPERACION",
 				            JoinKind.LeftOuter
 				        ),
-
+				
 				    VBAKConOperacion =
 				        Table.ExpandTableColumn(
 				            VBAKConOperacionJoin,
@@ -4450,7 +4450,7 @@ table Fact_Pedidos_Auditoria
 				            {"VBAK_FECHA_ENTREGA", "VBAK_FECHA_CONTABILIZA", "VBAK_FECHA_FACTURA", "VBAK_FECHA_FES", "VBAK_FECHA_SALIDA"},
 				            {"VBAK_FECHA_ENTREGA", "VBAK_FECHA_CONTABILIZA", "VBAK_FECHA_FACTURA", "VBAK_FECHA_FES", "VBAK_FECHA_SALIDA"}
 				        ),
-
+				
 				    VBAKFaltantes =
 				        Table.NestedJoin(
 				            VBAKConOperacion,
@@ -4460,7 +4460,7 @@ table Fact_Pedidos_Auditoria
 				            "MASTER",
 				            JoinKind.LeftAnti
 				        ),
-
+				
 				    VBAKElegibles =
 				        Table.SelectRows(
 				            VBAKFaltantes,
@@ -4476,7 +4476,7 @@ table Fact_Pedidos_Auditoria
 				                and ([VBAK_FECHA_FACTURA] = null or Date.From([VBAK_FECHA_FACTURA]) >= Date.From([PED_FECHA_HORA]))
 				                and ([VBAK_FECHA_SALIDA] = null or ([VBAK_FECHA_FACTURA] <> null and Date.From([VBAK_FECHA_SALIDA]) >= Date.From([VBAK_FECHA_FACTURA])))
 				        ),
-
+				
 				    VBAKAddResponsable = Table.AddColumn(VBAKElegibles, "PED_RESPONSABLE", each null, type nullable text),
 				    VBAKAddCentro = Table.AddColumn(VBAKAddResponsable, "PED_CENTRO", each null, type nullable text),
 				    VBAKAddCanal = Table.AddColumn(VBAKAddCentro, "PED_CANAL", each null, type nullable text),
@@ -4515,7 +4515,7 @@ table Fact_Pedidos_Auditoria
 				    VBAKAddAudCrit = Table.AddColumn(VBAKAddAudRevision, "AUD_TOTAL_CRITICAS", each 0, Int64.Type),
 				    VBAKAddAudAdv = Table.AddColumn(VBAKAddAudCrit, "AUD_TOTAL_ADVERTENCIAS", each 1, Int64.Type),
 				    VBAKAddAudTotal = Table.AddColumn(VBAKAddAudAdv, "AUD_TOTAL_INCONGRUENCIAS", each 1, Int64.Type),
-
+				
 				    ColumnasMasterVBAK = Table.ColumnNames(MasterBaseVBAK),
 				    VBAKProyectadoMaster = Table.SelectColumns(VBAKAddAudTotal, ColumnasMasterVBAK, MissingField.UseNull),
 				    VBAKTipadoMaster = Value.ReplaceType(VBAKProyectadoMaster, Value.Type(MasterBaseVBAK)),
