@@ -1,0 +1,11 @@
+﻿{
+  "fecha": "2026-08-04",
+  "rama": "work/ns-lienzo-02-ingreso-pedidos",
+  "sha": "40602323b15fc722db27b2e917c16d8e03eb15bc",
+  "dictamen": "ROJO",
+  "pedido": "4190139948",
+  "flujo_vbfa": "C 4190139948 -> C 0001168002 (existe)",
+  "modelo": "4190139948 no esta en master; 1168016 esta como NO FES / VBAK SIN ZART",
+  "causa": "etiqueta fija 'NO FES; VALIDADO VBFA C-C' en integracion VBAK (linea 4496) sin verificar VBFA",
+  "archivos": ["00_git.txt", "RESULTADO.md", "manifest.json"]
+}

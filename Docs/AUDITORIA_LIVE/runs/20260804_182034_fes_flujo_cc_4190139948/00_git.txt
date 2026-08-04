@@ -1,0 +1,4 @@
+﻿RAMA=work/ns-lienzo-02-ingreso-pedidos
+SHA=40602323b15fc722db27b2e917c16d8e03eb15bc
+FECHA=2026-08-04 18:20
+PEDIDO=4190139948 (original AUART=ZPDA) -> C-C -> 0001168002 (posterior AUART=ZPPO)
