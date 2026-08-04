@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "in_chart_unidades_dia_mes",
   "position": {
-    "x": 1056,
+    "x": 24,
     "y": 516,
     "z": 10000,
     "height": 392,
-    "width": 520,
+    "width": 1552,
     "tabOrder": 11002
   },
   "visual": {
@@ -115,7 +115,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
             }
@@ -137,7 +137,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Unidades por día del mes · tendencia de cierre'"
+                  "Value": "'Unidades por día del mes · barras por flujo · línea promedio'"
                 }
               }
             },
@@ -232,6 +232,19 @@
               "expr": {
                 "Literal": {
                   "Value": "8D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }

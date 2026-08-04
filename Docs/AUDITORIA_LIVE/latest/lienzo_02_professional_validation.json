@@ -1,0 +1,61 @@
+{
+  "measure": true,
+  "cards": {
+    "table_9601cabf413a41": "cardVisual",
+    "table_62c6c02944b14e": "cardVisual",
+    "table_bad13c26c1d64f": "cardVisual"
+  },
+  "charts": {
+    "chart_924aca87b5094c": {
+      "labels": "true",
+      "position": {
+        "x": 590,
+        "y": 238,
+        "z": 10000,
+        "height": 252,
+        "width": 986,
+        "tabOrder": 10000
+      }
+    },
+    "in_chart_pedidos_dia_mes": {
+      "labels": "true",
+      "position": {
+        "x": 24,
+        "y": 516,
+        "z": 12000,
+        "height": 392,
+        "width": 1552,
+        "tabOrder": 11000
+      }
+    },
+    "in_chart_lineas_dia_mes": {
+      "labels": "true",
+      "position": {
+        "x": 24,
+        "y": 516,
+        "z": 11000,
+        "height": 392,
+        "width": 1552,
+        "tabOrder": 11001
+      }
+    },
+    "in_chart_unidades_dia_mes": {
+      "labels": "true",
+      "position": {
+        "x": 24,
+        "y": 516,
+        "z": 10000,
+        "height": 392,
+        "width": 1552,
+        "tabOrder": 11002
+      }
+    }
+  },
+  "business_questions": {
+    "Q1": "Matriz + lectura ejecutiva con día líder para pedidos, líneas y unidades",
+    "Q2": "Gráfico 100% con etiquetas + porcentaje después de 14:30 en lectura ejecutiva",
+    "Q3": "Gráfico mensual con flujo/promedio + delta cierre vs resto y peso FES/Saldo"
+  },
+  "errors": [],
+  "status": "VERDE"
+}
