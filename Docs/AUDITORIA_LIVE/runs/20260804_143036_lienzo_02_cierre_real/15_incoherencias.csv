@@ -1,0 +1,2 @@
+﻿ID,Fecha,Componente,Esperado,Real,Diferencia,Causa,Estado
+INC-001,2026-08-04,Cobertura_lineas_unidades,Pedidos Tracking con detalle = 1950,1109 con detalle / 841 sin detalle,841 pedidos sin lineas VBAP,Pedidos VBAK integrados o sin posiciones VBAP; Lineas_y_unidades usa AEDAT>=730d (2 anos) fuera de ventana 3M,ABIERTO_INFORMATIVO

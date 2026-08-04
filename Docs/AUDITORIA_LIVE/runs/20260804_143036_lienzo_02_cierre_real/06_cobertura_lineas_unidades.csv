@@ -1,0 +1,7 @@
+﻿Metrica,Valor
+Pedidos_distintos_Tracking,1950
+Pedidos_distintos_detalle_VBAP,22806
+Pedidos_Tracking_con_detalle,1109
+Pedidos_Tracking_sin_detalle,841
+Pedidos_detalle_sin_tracking,21697
+Nota,Lineas_y_unidades usa AEDAT>=730d (2 anos historico); el lienzo usa TREATAS sobre contexto Tracking

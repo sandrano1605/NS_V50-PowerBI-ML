@@ -1,0 +1,12 @@
+﻿Elemento,Estado
+Tarjetas 3,OK valores grandes
+Lectura ejecutiva,OK responde Q1 Q2 Q3
+Matriz dia semana,OK 7 dias
+Grafico 100% 14:30,OK 3 tramos
+3 graficos mensuales,OK a ancho completo
+Botones VER POR,OK texto/hover
+Tooltips,OK Mostrar tendencia de...
+Linea promedio,OK
+Filtro Zona Santiago/Regiones,OK - 973/977
+Sin superposiciones,OK display.hidden
+NOTA: Validacion visual en pantalla requiere confirmacion manual del usuario

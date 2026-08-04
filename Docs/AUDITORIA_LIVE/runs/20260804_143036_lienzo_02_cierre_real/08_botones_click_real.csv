@@ -1,0 +1,5 @@
+﻿Boton,Visible,Oculto1,Oculto2,Tarjeta_pedidos_antes,Tarjeta_pedidos_despues,Filtros_antes,Filtros_despues,Resultado
+VER POR PEDIDOS,in_chart_pedidos,in_chart_lineas,in_chart_unidades,1950,1950,6 activos,6 activos,OK_un_grafico_visible
+VER POR LINEAS,in_chart_lineas,in_chart_pedidos,in_chart_unidades,1950,1950,6 activos,6 activos,OK_un_grafico_visible
+VER POR UNIDADES,in_chart_unidades,in_chart_pedidos,in_chart_lineas,1950,1950,6 activos,6 activos,OK_un_grafico_visible
+Nota,Validacion real en pantalla pendiente de confirmacion visual del usuario,,,,,,

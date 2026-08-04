@@ -1,0 +1,5 @@
+﻿Tabla,Filas,Pedidos_distintos,Duplicados
+Fact_Tracking,1950,1950,0
+Fact_Pedidos_Auditoria,1950,1950,0
+EXCEPT_Solo_Tracking,0,0,0
+EXCEPT_Solo_Master,0,0,0

@@ -1,0 +1,3 @@
+﻿Excepcion,Claves,Cantidad,Causa
+Tracking_sin_detalle,841 pedidos (766 NORMAL + 75 FES),841,Pedidos sin lineas en VBAP (posiblemente VBAK integrados o sin posiciones)
+Detalle_sin_tracking,21697 pedidos,21697,Detalle VBAP de 2 anos fuera de la ventana 3M del lienzo

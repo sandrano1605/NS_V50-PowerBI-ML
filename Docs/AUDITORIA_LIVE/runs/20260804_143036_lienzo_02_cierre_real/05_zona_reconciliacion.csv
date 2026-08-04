@@ -1,0 +1,5 @@
+﻿Zona,Pedidos,Lineas,Unidades
+Todos,1950,21224,1935518
+Santiago,973,,,
+Regiones,977,,,
+Reconciliacion,Todos = Santiago + Regiones = 1950,OK,OK,OK

@@ -1,0 +1,5 @@
+﻿RAMA=work/ns-lienzo-02-ingreso-pedidos
+SHA_LOCAL=31c5d73d1d598e09782d80def4f6a90597f01baf
+SHA_REMOTO=31c5d73d1d598e09782d80def4f6a90597f01baf
+FECHA=2026-08-04 14:30
+ESTADO=modelo reconciliado: Tracking=1950, Master=1950, EXCEPT=0/0

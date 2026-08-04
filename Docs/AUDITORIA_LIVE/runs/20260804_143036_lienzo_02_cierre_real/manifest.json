@@ -1,0 +1,15 @@
+﻿{
+  "fecha": "2026-08-04",
+  "rama": "work/ns-lienzo-02-ingreso-pedidos",
+  "sha_local": "31c5d73d1d598e09782d80def4f6a90597f01baf",
+  "sha_remoto": "31c5d73d1d598e09782d80def4f6a90597f01baf",
+  "dictamen": "VERDE",
+  "tracking_master": {"tracking": 1950, "master": 1950, "except": "0/0"},
+  "zona": {"santiago": 973, "regiones": 977, "total": 1950},
+  "cobertura_detalle": {"con_detalle": 1109, "sin_detalle": 841},
+  "q1": {"pedidos": "Lunes 553", "lineas": "Jueves 5665", "unidades": "Miercoles 563221"},
+  "q2": {"cobertura": 0.593, "despues_medibles": 0.449, "sin_hora": 0.407},
+  "q3": {"prom_cierre": 24.04, "prom_resto": 21.74, "delta": 0.106, "fes_saldo": 0.248, "dia_pico": 29},
+  "hallazgo": "841 pedidos sin detalle VBAP (43%) - informativo, TREATAS correcto",
+  "archivos": ["00_git.txt","01_refresh_1.txt","02_refresh_2.txt","03_tracking_vs_master.csv","04_mes_comparacion.csv","05_zona_reconciliacion.csv","06_cobertura_lineas_unidades.csv","07_excepciones_detalle.csv","08_botones_click_real.csv","09_filtros_antes_despues.csv","10_q1.csv","11_q2.csv","12_q3.csv","13_calidad_visual.txt","14_regresiones.txt","15_incoherencias.csv","RESULTADO.md","manifest.json"]
+}

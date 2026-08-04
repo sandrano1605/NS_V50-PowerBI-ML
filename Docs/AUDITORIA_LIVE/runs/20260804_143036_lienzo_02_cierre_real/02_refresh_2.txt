@@ -1,0 +1,4 @@
+﻿FECHA=2026-08-04
+REFRESH_2=Completado - Tracking=1950, Master=1950
+EXCEPT_Solo_Tracking=0, Solo_Master=0
+RECONCILIADO=SI
