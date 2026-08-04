@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "text_6d7cf337c16a45",
+  "position": {
+    "x": 32,
+    "y": 0,
+    "z": 3000,
+    "height": 48,
+    "width": 848,
+    "tabOrder": 17000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "ANALISIS COMPORTAMIENTO DE PEDIDO INGRESO Y CIERRE ",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "21pt"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

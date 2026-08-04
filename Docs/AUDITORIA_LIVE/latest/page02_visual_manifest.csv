@@ -1,0 +1,16 @@
+﻿visual_id,visual_type,title,x,y,width,height,fields
+chart_924aca87b5094c,clusteredColumnChart,"Cantidad de lineas y pedidos ingresados por dia chorrelacionada por promedio, 90 cerramos diario.",0,463.99999999999994,1552,400,Config_SLA_Hitos.HITO | Medidas.OP Días Exceso
+footer_actualizacion,cardVisual,,32,48,940,16,Medidas.U Estado datos
+nav_cuellos_v34,actionButton,,1232,10,164,42,
+nav_detalle_v34,actionButton,,1404,10,164,42,
+nav_resumen_v34,actionButton,,888,10,164,42,
+nav_tracking_v34,actionButton,,1060,10,164,42,
+shape_d1e9fe2f962046,shape,,0,0,1600,66,
+shape_ed7d494e768744,shape,,0,0,1600,900,
+sync_mes_3m_v39,slicer,,0,0,1,1,Dim_Periodo_3M.Etiqueta
+table_62c6c02944b14e,tableEx,Pedidos fuera KPI,415,82,270,95,Medidas.OP Pedidos Fuera KPI
+table_9601cabf413a41,tableEx,Cuello de botella,25,82,370,95,Medidas.OP Cuello de Botella
+table_bad13c26c1d64f,tableEx,Días acumulados de exceso,705,82,290,95,Medidas.OP Días Exceso
+table_cef7a98ad59848,tableEx,Cobertura,1305,82,270,95,Medidas.OP Cobertura Hitos %
+table_f0e8d63e5a444c,tableEx,Valor afectado,1015,82,270,95,Medidas.OP Valor Afectado
+text_6d7cf337c16a45,textbox,,32,0,848,48,

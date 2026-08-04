@@ -1,0 +1,1682 @@
+[
+  {
+    "visual_id": "309a51a96bc9d090ab43",
+    "visual_type": "tableEx",
+    "title": null,
+    "x": 352,
+    "y": 240,
+    "width": 315,
+    "height": 124,
+    "fields": [
+      "Medidas.RE KPI Valor SVG"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/309a51a96bc9d090ab43.json"
+  },
+  {
+    "visual_id": "40ac169dd89e96270ac9",
+    "visual_type": "tableEx",
+    "title": null,
+    "x": 688,
+    "y": 240,
+    "width": 336,
+    "height": 128,
+    "fields": [
+      "Medidas.RE KPI Pedidos SVG"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/40ac169dd89e96270ac9.json"
+  },
+  {
+    "visual_id": "84343c674ecddeb910c5",
+    "visual_type": "tableEx",
+    "title": null,
+    "x": 0,
+    "y": 240,
+    "width": 304,
+    "height": 128,
+    "fields": [
+      "Medidas.RE KPI NS SVG"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/84343c674ecddeb910c5.json"
+  },
+  {
+    "visual_id": "card_4db71e6e91c716",
+    "visual_type": "tableEx",
+    "title": "Contexto activo",
+    "x": 1032,
+    "y": 792,
+    "width": 552,
+    "height": 168,
+    "fields": [
+      "Medidas.TR Contexto ruta"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/card_4db71e6e91c716.json"
+  },
+  {
+    "visual_id": "card_cdce0b90a20e69",
+    "visual_type": "tableEx",
+    "title": "Cumplimiento del nivel de servicio",
+    "x": 1032,
+    "y": 624,
+    "width": 552,
+    "height": 144,
+    "fields": [
+      "Medidas.TR NS ruta SVG"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/card_cdce0b90a20e69.json"
+  },
+  {
+    "visual_id": "chart_clasificacion",
+    "visual_type": "tableEx",
+    "title": null,
+    "x": 1032,
+    "y": 976,
+    "width": 552,
+    "height": 160,
+    "fields": [
+      "Medidas.TR Clasificación SVG"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/chart_clasificacion.json"
+  },
+  {
+    "visual_id": "dd60148c4db229925749",
+    "visual_type": "tableEx",
+    "title": null,
+    "x": 1232,
+    "y": 1152,
+    "width": 352,
+    "height": 240,
+    "fields": [
+      "Medidas.RE Pedido Seleccionado SVG"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/dd60148c4db229925749.json"
+  },
+  {
+    "visual_id": "footer_actualizacion",
+    "visual_type": "cardVisual",
+    "title": null,
+    "x": 32,
+    "y": 48,
+    "width": 940,
+    "height": 16,
+    "fields": [
+      "Medidas.U Estado datos"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/footer_actualizacion.json"
+  },
+  {
+    "visual_id": "kpi_abiertos",
+    "visual_type": "tableEx",
+    "title": "Abiertos",
+    "x": 218,
+    "y": 150,
+    "width": 190,
+    "height": 82,
+    "fields": [
+      "Medidas.U Pedidos abiertos"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/kpi_abiertos.json"
+  },
+  {
+    "visual_id": "kpi_comp",
+    "visual_type": "tableEx",
+    "title": "NS meta",
+    "x": 1430,
+    "y": 150,
+    "width": 154,
+    "height": 82,
+    "fields": [
+      "Medidas.U NS comprometido interno"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/kpi_comp.json"
+  },
+  {
+    "visual_id": "kpi_despacho",
+    "visual_type": "tableEx",
+    "title": "Pendientes despacho",
+    "x": 642,
+    "y": 150,
+    "width": 210,
+    "height": 82,
+    "fields": [
+      "Medidas.U Pendientes despacho"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/kpi_despacho.json"
+  },
+  {
+    "visual_id": "kpi_factura",
+    "visual_type": "tableEx",
+    "title": "Pendientes factura",
+    "x": 408,
+    "y": 144,
+    "width": 215.99999999999997,
+    "height": 96,
+    "fields": [
+      "Medidas.U Pendientes factura"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/kpi_factura.json"
+  },
+  {
+    "visual_id": "kpi_ns",
+    "visual_type": "tableEx",
+    "title": "NS observado",
+    "x": 1066,
+    "y": 150,
+    "width": 190,
+    "height": 82,
+    "fields": [
+      "Medidas.U NS observado interno"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/kpi_ns.json"
+  },
+  {
+    "visual_id": "kpi_p90",
+    "visual_type": "tableEx",
+    "title": "P90 interno",
+    "x": 1268,
+    "y": 150,
+    "width": 150,
+    "height": 82,
+    "fields": [
+      "Medidas.U P90 interno DH"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/kpi_p90.json"
+  },
+  {
+    "visual_id": "kpi_universo",
+    "visual_type": "tableEx",
+    "title": "Universo",
+    "x": 16,
+    "y": 150,
+    "width": 190,
+    "height": 82,
+    "fields": [
+      "Medidas.U Pedidos universo"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/kpi_universo.json"
+  },
+  {
+    "visual_id": "kpi_vencidos",
+    "visual_type": "tableEx",
+    "title": "Vencidos",
+    "x": 863.9999999999999,
+    "y": 144,
+    "width": 168,
+    "height": 96,
+    "fields": [
+      "Medidas.U Pedidos vencidos"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/kpi_vencidos.json"
+  },
+  {
+    "visual_id": "route_40435689d94f81",
+    "visual_type": "tableEx",
+    "title": "Ruta interna · Santiago 4 DH / Regiones 5 DH · promesa cliente 5/7 DH",
+    "x": 16,
+    "y": 400,
+    "width": 1520,
+    "height": 208,
+    "fields": [
+      "Medidas.TR Ruta camión SVG"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/route_40435689d94f81.json"
+  },
+  {
+    "visual_id": "shape_177dbdfd59c6e7",
+    "visual_type": "shape",
+    "title": null,
+    "x": 0,
+    "y": 0,
+    "width": 1600,
+    "height": 66,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/shape_177dbdfd59c6e7.json"
+  },
+  {
+    "visual_id": "shape_3b275ceb9c8e9a",
+    "visual_type": "shape",
+    "title": null,
+    "x": 0,
+    "y": 0,
+    "width": 1600,
+    "height": 1400,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/shape_3b275ceb9c8e9a.json"
+  },
+  {
+    "visual_id": "sync_mes_3m_v39",
+    "visual_type": "slicer",
+    "title": null,
+    "x": 0,
+    "y": 0,
+    "width": 1,
+    "height": 1,
+    "fields": [
+      "Dim_Periodo_3M.Etiqueta"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/sync_mes_3m_v39.json"
+  },
+  {
+    "visual_id": "table_15b8b83ff48292",
+    "visual_type": "tableEx",
+    "title": "Mapa de calor de hitos · promedio, SLA y pendientes",
+    "x": 24,
+    "y": 624,
+    "width": 936,
+    "height": 504,
+    "fields": [
+      "Fact_Hitos_Operacionales.AREA_RESPONSABLE",
+      "Fact_Hitos_Operacionales.FECHA_FIN",
+      "Fact_Hitos_Operacionales.FECHA_INICIO",
+      "Fact_Hitos_Operacionales.HITO",
+      "Fact_Hitos_Operacionales.ORDEN_HITO",
+      "Medidas.AUD Semáforo SVG",
+      "Medidas.TR SLA ruta DH",
+      "Medidas.U Promedio hito DH"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/table_15b8b83ff48292.json"
+  },
+  {
+    "visual_id": "tbl_tracking",
+    "visual_type": "tableEx",
+    "title": "Cartera priorizada · exportable",
+    "x": 16,
+    "y": 1152,
+    "width": 1200,
+    "height": 240,
+    "fields": [
+      "Dim_Cliente.CLIENTE_NOMBRE",
+      "Dim_Cliente.VENDEDOR_NOMBRE",
+      "Dim_Pedido.PED_NUMERO_PEDIDO",
+      "Fact_Tracking.CLASIFICACION",
+      "Fact_Tracking.DIAS_INTERNOS_DH",
+      "Fact_Tracking.DIAS_RESTANTES_DH",
+      "Fact_Tracking.ESTADO_ACTUAL",
+      "Fact_Tracking.HITO_ACTUAL",
+      "Fact_Tracking.SEMAFORO"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/tbl_tracking.json"
+  },
+  {
+    "visual_id": "text_eb11dcfe2f2f1f",
+    "visual_type": "textbox",
+    "title": null,
+    "x": 16,
+    "y": 16,
+    "width": 752,
+    "height": 47.99999999999999,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/text_eb11dcfe2f2f1f.json"
+  },
+  {
+    "visual_id": "table_v22_tooltip",
+    "visual_type": "tableEx",
+    "title": "¿Qué pedidos están más atrasados y cuál es el motivo?",
+    "x": 12,
+    "y": 140,
+    "width": 676,
+    "height": 208,
+    "fields": [
+      "Fact_Tracking.PED_NUMERO_PEDIDO",
+      "Medidas.RE TT Cliente",
+      "Medidas.RE TT Días Top 10",
+      "Medidas.RE TT Exceso crítico DH",
+      "Medidas.RE TT Hito crítico",
+      "Medidas.RE TT Motivo operativo",
+      "Medidas.RE TT Vendedor"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/table_v22_tooltip.json"
+  },
+  {
+    "visual_id": "tt_accent",
+    "visual_type": "shape",
+    "title": null,
+    "x": 0,
+    "y": 0,
+    "width": 700,
+    "height": 5,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/tt_accent.json"
+  },
+  {
+    "visual_id": "tt_bg",
+    "visual_type": "shape",
+    "title": null,
+    "x": 0,
+    "y": 0,
+    "width": 700,
+    "height": 360,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/tt_bg.json"
+  },
+  {
+    "visual_id": "tt_context",
+    "visual_type": "cardVisual",
+    "title": null,
+    "x": 12,
+    "y": 34,
+    "width": 676,
+    "height": 28,
+    "fields": [
+      "Medidas.RE TT Título"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/tt_context.json"
+  },
+  {
+    "visual_id": "tt_kpi_1",
+    "visual_type": "cardVisual",
+    "title": null,
+    "x": 12,
+    "y": 68,
+    "width": 218.66666666666666,
+    "height": 64,
+    "fields": [
+      "Medidas.RE Pedidos contexto"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/tt_kpi_1.json"
+  },
+  {
+    "visual_id": "tt_kpi_2",
+    "visual_type": "cardVisual",
+    "title": null,
+    "x": 240.66666666666666,
+    "y": 68,
+    "width": 218.66666666666666,
+    "height": 64,
+    "fields": [
+      "Medidas.RE NS contexto"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/tt_kpi_2.json"
+  },
+  {
+    "visual_id": "tt_kpi_3",
+    "visual_type": "cardVisual",
+    "title": null,
+    "x": 469.3333333333333,
+    "y": 68,
+    "width": 218.66666666666666,
+    "height": 64,
+    "fields": [
+      "Medidas.RE P90 contexto DH"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/tt_kpi_3.json"
+  },
+  {
+    "visual_id": "tt_title",
+    "visual_type": "textbox",
+    "title": null,
+    "x": 12,
+    "y": 8,
+    "width": 676,
+    "height": 22,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/tt_title.json"
+  },
+  {
+    "visual_id": "table_v23_hito",
+    "visual_type": "tableEx",
+    "title": "Top 10 pedidos del hito · mayor exceso primero",
+    "x": 12,
+    "y": 140,
+    "width": 696,
+    "height": 388,
+    "fields": [
+      "Fact_Hitos_Operacionales.PED_NUMERO_PEDIDO",
+      "Medidas.HT Brecha facturas Top 10",
+      "Medidas.HT Cliente Top 10",
+      "Medidas.HT Creación Top 10",
+      "Medidas.HT Despacho Top 10",
+      "Medidas.HT Días hito Top 10",
+      "Medidas.HT Estado hito Top 10",
+      "Medidas.HT Exceso Top 10",
+      "Medidas.HT Fin hito Top 10",
+      "Medidas.HT Inicio hito Top 10",
+      "Medidas.HT Primera factura Top 10",
+      "Medidas.HT SLA Top 10",
+      "Medidas.HT Tipo pedido Top 10",
+      "Medidas.HT Validación saldo Top 10",
+      "Medidas.HT Vendedor Top 10",
+      "Medidas.HT Última factura Top 10"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/table_v23_hito.json"
+  },
+  {
+    "visual_id": "tt_accent",
+    "visual_type": "shape",
+    "title": null,
+    "x": 0,
+    "y": 0,
+    "width": 720,
+    "height": 5,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/tt_accent.json"
+  },
+  {
+    "visual_id": "tt_bg",
+    "visual_type": "shape",
+    "title": null,
+    "x": 0,
+    "y": 0,
+    "width": 720,
+    "height": 540,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/tt_bg.json"
+  },
+  {
+    "visual_id": "tt_context",
+    "visual_type": "cardVisual",
+    "title": null,
+    "x": 12,
+    "y": 34,
+    "width": 696,
+    "height": 28,
+    "fields": [
+      "Medidas.HT Resumen hito"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/tt_context.json"
+  },
+  {
+    "visual_id": "tt_kpi_1",
+    "visual_type": "cardVisual",
+    "title": null,
+    "x": 12,
+    "y": 68,
+    "width": 225.33333333333334,
+    "height": 64,
+    "fields": [
+      "Medidas.OP Pedidos con Dato"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/tt_kpi_1.json"
+  },
+  {
+    "visual_id": "tt_kpi_2",
+    "visual_type": "cardVisual",
+    "title": null,
+    "x": 247.33333333333334,
+    "y": 68,
+    "width": 225.33333333333334,
+    "height": 64,
+    "fields": [
+      "Medidas.OP % Cumplimiento Hito"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/tt_kpi_2.json"
+  },
+  {
+    "visual_id": "tt_kpi_3",
+    "visual_type": "cardVisual",
+    "title": null,
+    "x": 482.6666666666667,
+    "y": 68,
+    "width": 225.33333333333334,
+    "height": 64,
+    "fields": [
+      "Medidas.OP P90 Hito DH"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/tt_kpi_3.json"
+  },
+  {
+    "visual_id": "tt_title",
+    "visual_type": "textbox",
+    "title": null,
+    "x": 12,
+    "y": 8,
+    "width": 696,
+    "height": 22,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/tt_title.json"
+  },
+  {
+    "visual_id": "fes_diag_card",
+    "visual_type": "tableEx",
+    "title": null,
+    "x": -4,
+    "y": 0,
+    "width": 704,
+    "height": 360,
+    "fields": [
+      "Medidas.RE FES Diagnóstico SVG"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/fes_diag_card.json"
+  },
+  {
+    "visual_id": "tt_accent",
+    "visual_type": "shape",
+    "title": null,
+    "x": 0,
+    "y": 0,
+    "width": 700,
+    "height": 5,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/tt_accent.json"
+  },
+  {
+    "visual_id": "tt_bg",
+    "visual_type": "shape",
+    "title": null,
+    "x": 0,
+    "y": 0,
+    "width": 700,
+    "height": 360,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/tt_bg.json"
+  },
+  {
+    "visual_id": "tt_context",
+    "visual_type": "cardVisual",
+    "title": null,
+    "x": 12,
+    "y": 34,
+    "width": 676,
+    "height": 28,
+    "fields": [
+      "Medidas.RE Periodo contexto"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/tt_context.json"
+  },
+  {
+    "visual_id": "tt_detail",
+    "visual_type": "tableEx",
+    "title": "Lectura contextual",
+    "x": 12,
+    "y": 140,
+    "width": 676,
+    "height": 208,
+    "fields": [
+      "Medidas.UI Tooltip ejecutivo"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/tt_detail.json"
+  },
+  {
+    "visual_id": "tt_kpi_1",
+    "visual_type": "cardVisual",
+    "title": null,
+    "x": 232,
+    "y": 68,
+    "width": 145,
+    "height": 64,
+    "fields": [
+      "Medidas.RE Pedidos contexto"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/tt_kpi_1.json"
+  },
+  {
+    "visual_id": "tt_kpi_2",
+    "visual_type": "cardVisual",
+    "title": null,
+    "x": 387,
+    "y": 68,
+    "width": 145,
+    "height": 64,
+    "fields": [
+      "Medidas.RE NS contexto"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/tt_kpi_2.json"
+  },
+  {
+    "visual_id": "tt_kpi_3",
+    "visual_type": "cardVisual",
+    "title": null,
+    "x": 542,
+    "y": 68,
+    "width": 146,
+    "height": 64,
+    "fields": [
+      "Medidas.RE P90 contexto DH"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/tt_kpi_3.json"
+  },
+  {
+    "visual_id": "tt_status",
+    "visual_type": "tableEx",
+    "title": "¿Cuál es el estado general?",
+    "x": 12,
+    "y": 68,
+    "width": 210,
+    "height": 64,
+    "fields": [
+      "Medidas.UI Indicador ejecutivo SVG"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/tt_status.json"
+  },
+  {
+    "visual_id": "tt_title",
+    "visual_type": "textbox",
+    "title": null,
+    "x": 12,
+    "y": 8,
+    "width": 676,
+    "height": 22,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/tt_title.json"
+  },
+  {
+    "visual_id": "3b0d647a439385b325bd",
+    "visual_type": "pivotTable",
+    "title": "PROMEDIO DE DÍAS POR POR CANAL DE VENTA",
+    "x": 16,
+    "y": 640,
+    "width": 304,
+    "height": 128,
+    "fields": [
+      "Fact_Tracking.PED_CANAL_CODIGO",
+      "Medidas.RE P90 hito DH",
+      "Medidas.RE Pedidos hito con dato",
+      "Medidas.RE Promedio hito DH"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/3b0d647a439385b325bd.json"
+  },
+  {
+    "visual_id": "8b664941e6c072783070",
+    "visual_type": "pivotTable",
+    "title": "PROMEDIO DE DÍAS POR POR ZONA SANTIAGO Y REGIONES",
+    "x": 16,
+    "y": 480,
+    "width": 288,
+    "height": 128,
+    "fields": [
+      "Fact_Tracking.ZONA",
+      "Medidas.RE P90 hito DH",
+      "Medidas.RE Pedidos hito con dato",
+      "Medidas.RE Promedio hito DH"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/8b664941e6c072783070.json"
+  },
+  {
+    "visual_id": "bg_page",
+    "visual_type": "shape",
+    "title": null,
+    "x": 0,
+    "y": 16,
+    "width": 1600,
+    "height": 848,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/bg_page.json"
+  },
+  {
+    "visual_id": "chart_mensual_3m_v39",
+    "visual_type": "tableEx",
+    "title": null,
+    "x": 235,
+    "y": 220,
+    "width": 620,
+    "height": 260,
+    "fields": [
+      "Medidas.RE Evolución 3M SVG"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/chart_mensual_3m_v39.json"
+  },
+  {
+    "visual_id": "critical_table",
+    "visual_type": "tableEx",
+    "title": "PEDIDOS CRÍTICOS · HITO DOMINANTE Y MOTIVO OPERATIVO",
+    "x": 752,
+    "y": 480,
+    "width": 832,
+    "height": 304,
+    "fields": [
+      "Fact_Tracking.CLASIFICACION",
+      "Fact_Tracking.PED_NUMERO_PEDIDO",
+      "Medidas.RE TT Cierre",
+      "Medidas.RE TT Cliente",
+      "Medidas.RE TT Creación",
+      "Medidas.RE TT Días Top 10",
+      "Medidas.RE TT Estado SVG",
+      "Medidas.RE TT Exceso crítico DH",
+      "Medidas.RE TT Factura",
+      "Medidas.RE TT Hito crítico",
+      "Medidas.RE TT Motivo operativo",
+      "Medidas.RE TT Vendedor"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/critical_table.json"
+  },
+  {
+    "visual_id": "donut_flujo",
+    "visual_type": "tableEx",
+    "title": null,
+    "x": 1175.3731343283582,
+    "y": 220.52238805970148,
+    "width": 404.1044776119403,
+    "height": 259.7014925373134,
+    "fields": [
+      "Medidas.RE Distribución Flujo SVG"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/donut_flujo.json"
+  },
+  {
+    "visual_id": "f07bd2d60e407e2ddd01",
+    "visual_type": "tableEx",
+    "title": null,
+    "x": 592,
+    "y": 80,
+    "width": 320,
+    "height": 144,
+    "fields": [
+      "Medidas.RE KPI Pedidos SVG"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/f07bd2d60e407e2ddd01.json"
+  },
+  {
+    "visual_id": "filter_panel",
+    "visual_type": "shape",
+    "title": null,
+    "x": 16,
+    "y": 80,
+    "width": 208,
+    "height": 383.99999999999994,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/filter_panel.json"
+  },
+  {
+    "visual_id": "filter_title",
+    "visual_type": "textbox",
+    "title": null,
+    "x": 30.223880597014926,
+    "y": 86.19402985074628,
+    "width": 175.7462686567164,
+    "height": 31.34328358208955,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/filter_title.json"
+  },
+  {
+    "visual_id": "header_panel",
+    "visual_type": "shape",
+    "title": null,
+    "x": 32,
+    "y": 0,
+    "width": 1568,
+    "height": 80,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/header_panel.json"
+  },
+  {
+    "visual_id": "kpi_promesa",
+    "visual_type": "tableEx",
+    "title": null,
+    "x": 1248,
+    "y": 80,
+    "width": 336,
+    "height": 144,
+    "fields": [
+      "Medidas.RE KPI Promesa SVG"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/kpi_promesa.json"
+  },
+  {
+    "visual_id": "matrix_hitos_resumen",
+    "visual_type": "pivotTable",
+    "title": "PROMEDIO DE DÍAS POR MACROPROCESO Y HITO · MES SELECCIONADO",
+    "x": 336,
+    "y": 480,
+    "width": 400,
+    "height": 304,
+    "fields": [
+      "Dim_Vista_Ejecutiva.Flujo",
+      "Dim_Vista_Ejecutiva.Macroproceso",
+      "Dim_Vista_Ejecutiva.Subproceso",
+      "Medidas.RE P90 hito DH",
+      "Medidas.RE Pedidos hito con dato",
+      "Medidas.RE Promedio hito DH"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/matrix_hitos_resumen.json"
+  },
+  {
+    "visual_id": "sla_panel",
+    "visual_type": "tableEx",
+    "title": null,
+    "x": 912,
+    "y": 80,
+    "width": 336,
+    "height": 144,
+    "fields": [
+      "Medidas.RE SLA Panel SVG"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/sla_panel.json"
+  },
+  {
+    "visual_id": "slicer_clasif",
+    "visual_type": "slicer",
+    "title": null,
+    "x": 30,
+    "y": 352,
+    "width": 176,
+    "height": 56,
+    "fields": [
+      "Dim_Pedido.CLASIFICACION"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/slicer_clasif.json"
+  },
+  {
+    "visual_id": "slicer_flujo",
+    "visual_type": "slicer",
+    "title": null,
+    "x": 30,
+    "y": 290,
+    "width": 176,
+    "height": 56,
+    "fields": [
+      "Dim_Vista_Ejecutiva.Flujo"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/slicer_flujo.json"
+  },
+  {
+    "visual_id": "slicer_mes_3m_v39",
+    "visual_type": "slicer",
+    "title": null,
+    "x": 30,
+    "y": 122,
+    "width": 176,
+    "height": 60,
+    "fields": [
+      "Dim_Periodo_3M.Etiqueta"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/slicer_mes_3m_v39.json"
+  },
+  {
+    "visual_id": "slicer_zona",
+    "visual_type": "slicer",
+    "title": null,
+    "x": 30,
+    "y": 228,
+    "width": 176,
+    "height": 56,
+    "fields": [
+      "Dim_Rango_Entrega.Zona"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/slicer_zona.json"
+  },
+  {
+    "visual_id": "summary_month",
+    "visual_type": "tableEx",
+    "title": null,
+    "x": 864,
+    "y": 224,
+    "width": 304,
+    "height": 256,
+    "fields": [
+      "Medidas.RE Resumen Mes SVG"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/summary_month.json"
+  },
+  {
+    "visual_id": "title_ns",
+    "visual_type": "textbox",
+    "title": null,
+    "x": 160,
+    "y": 0,
+    "width": 368,
+    "height": 64,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/title_ns.json"
+  },
+  {
+    "visual_id": "update_label",
+    "visual_type": "textbox",
+    "title": null,
+    "x": 1360,
+    "y": 25,
+    "width": 170,
+    "height": 18,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/update_label.json"
+  },
+  {
+    "visual_id": "update_value",
+    "visual_type": "cardVisual",
+    "title": null,
+    "x": 1280,
+    "y": 16,
+    "width": 312.3134328358209,
+    "height": 52.61194029850746,
+    "fields": [
+      "Medidas.U Último pedido creado"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/update_value.json"
+  },
+  {
+    "visual_id": "window_note",
+    "visual_type": "tableEx",
+    "title": null,
+    "x": 944,
+    "y": 16,
+    "width": 336,
+    "height": 47.99999999999999,
+    "fields": [
+      "Medidas.RE Ventana análisis texto"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/window_note.json"
+  },
+  {
+    "visual_id": "0f1503043b792595e452",
+    "visual_type": "tableEx",
+    "title": null,
+    "x": 816,
+    "y": 32,
+    "width": 328,
+    "height": 48,
+    "fields": [
+      "Medidas.RE Ventana análisis texto"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/0f1503043b792595e452.json"
+  },
+  {
+    "visual_id": "bg_page",
+    "visual_type": "shape",
+    "title": null,
+    "x": 0,
+    "y": 0,
+    "width": 1376,
+    "height": 800.0000000000001,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/bg_page.json"
+  },
+  {
+    "visual_id": "critical_table",
+    "visual_type": "tableEx",
+    "title": "PEDIDOS CRÍTICOS DE LA SELECCIÓN · CLIC DERECHO O BOTÓN → AUDITORÍA INDIVIDUAL",
+    "x": 24,
+    "y": 536,
+    "width": 1344,
+    "height": 264,
+    "fields": [
+      "Fact_Tracking.CLASIFICACION",
+      "Fact_Tracking.PED_NUMERO_PEDIDO",
+      "Medidas.RE TT Cierre",
+      "Medidas.RE TT Cliente",
+      "Medidas.RE TT Creación",
+      "Medidas.RE TT Días Top 10",
+      "Medidas.RE TT Estado SVG",
+      "Medidas.RE TT Exceso crítico DH",
+      "Medidas.RE TT Factura",
+      "Medidas.RE TT Hito crítico",
+      "Medidas.RE TT Motivo operativo",
+      "Medidas.RE TT Vendedor"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/critical_table.json"
+  },
+  {
+    "visual_id": "fa_clientes_recurrentes",
+    "visual_type": "tableEx",
+    "title": "1. CLIENTES FUERA SLA · FRECUENCIA EN LOS Últimos 3 MESES",
+    "x": 22.999999999999986,
+    "y": 111.91048659901118,
+    "width": 696,
+    "height": 208,
+    "fields": [
+      "% f.SLA",
+      "Dim_Cliente.CLIENTE_NOMBRE",
+      "Dim_Cliente.VENDEDOR_NOMBRE",
+      "Fact_Tracking.CLASIFICACION",
+      "Medidas.FA % Fuera SLA Cliente Visible",
+      "Medidas.FA DH Fuera SLA Cliente Visible",
+      "Medidas.FA Meses Fuera SLA Cliente Visible",
+      "Medidas.FA Pedidos Fuera SLA Cliente Visible",
+      "Medidas.FA Recurrencia Cliente Visible",
+      "Meses f.SLA",
+      "Pedidos f.SLA",
+      "Prom. DH f.SLA"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/fa_clientes_recurrentes.json"
+  },
+  {
+    "visual_id": "fa_fes_carga_tiempo",
+    "visual_type": "tableEx",
+    "title": "4. FES VS CARGA · COHORTE CERRADA POR MOMENTO DEL MES",
+    "x": 647,
+    "y": 335.91048659901116,
+    "width": 720,
+    "height": 184,
+    "fields": [
+      "Dim_Fecha.AnioMes",
+      "Dim_Fecha.Momento_Mes",
+      "Lín./ped.",
+      "Medidas.FA Carga % FES",
+      "Medidas.FA Carga % del Mes",
+      "Medidas.FA Carga Líneas x Pedido",
+      "Medidas.FA Carga Pedidos Creados",
+      "Medidas.FA Carga Pedidos FES",
+      "Medidas.FA Carga Unidades x Pedido",
+      "Medidas.FA DH Promedio",
+      "Medidas.FA Delta NS vs Resto",
+      "Medidas.FA Lectura Carga SLA",
+      "Medidas.FA NS %",
+      "Prom. DH",
+      "Unid./ped."
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/fa_fes_carga_tiempo.json"
+  },
+  {
+    "visual_id": "fa_permanencia_cd",
+    "visual_type": "tableEx",
+    "title": "2. FACTURA → CIERRE OFICIAL >15 DH · COHORTE CERRADA · FES=MANIFIESTO",
+    "x": 728,
+    "y": 112,
+    "width": 640,
+    "height": 120,
+    "fields": [
+      "Dim_Cliente.CLIENTE_NOMBRE",
+      "Fact_Tracking.CLASIFICACION",
+      "Medidas.FA Días Factura Salida Promedio",
+      "Medidas.FA P90 Días Factura Salida",
+      "Medidas.FA Pedidos Facturados >15d",
+      "Medidas.FA Pedidos Facturados >20d",
+      "Medidas.FA Valor Retenido >15d",
+      "Prom. >15 DH"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/fa_permanencia_cd.json"
+  },
+  {
+    "visual_id": "fa_question_header",
+    "visual_type": "textbox",
+    "title": null,
+    "x": 22.999999999999986,
+    "y": 79.91048659901118,
+    "width": 1349,
+    "height": 24,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/fa_question_header.json"
+  },
+  {
+    "visual_id": "fa_vendedores_reincidentes",
+    "visual_type": "tableEx",
+    "title": "3. VENDEDORES · IMPACTO DE CLIENTES REINCIDENTES SEGÚN FLUJO",
+    "x": 22.999999999999986,
+    "y": 335.91048659901116,
+    "width": 616,
+    "height": 184,
+    "fields": [
+      "% f.SLA rec.",
+      "DH f.SLA rec.",
+      "Dim_Cliente.VENDEDOR_NOMBRE",
+      "Fact_Tracking.CLASIFICACION",
+      "Líneas f.SLA rec.",
+      "Medidas.FA % Fuera SLA Vendedor Recurrente",
+      "Medidas.FA Clientes Recurrentes 2M+ Visible",
+      "Medidas.FA Clientes Recurrentes 3M Visible",
+      "Medidas.FA DH Fuera SLA Vendedor Recurrente",
+      "Medidas.FA Líneas Fuera SLA Vendedor Recurrente",
+      "Medidas.FA Pedidos Fuera SLA Vendedor Recurrente",
+      "Ped. f.SLA rec."
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/fa_vendedores_reincidentes.json"
+  },
+  {
+    "visual_id": "header_panel",
+    "visual_type": "shape",
+    "title": null,
+    "x": 22.999999999999986,
+    "y": 7.910486599011186,
+    "width": 1352,
+    "height": 72,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/header_panel.json"
+  },
+  {
+    "visual_id": "title_ns",
+    "visual_type": "textbox",
+    "title": null,
+    "x": 199,
+    "y": 15.91048659901119,
+    "width": 384,
+    "height": 56,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/title_ns.json"
+  },
+  {
+    "visual_id": "update_value",
+    "visual_type": "cardVisual",
+    "title": null,
+    "x": 1144,
+    "y": 24,
+    "width": 208,
+    "height": 48,
+    "fields": [
+      "Medidas.U Último pedido creado"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/update_value.json"
+  },
+  {
+    "visual_id": "window_note",
+    "visual_type": "tableEx",
+    "title": null,
+    "x": 34,
+    "y": 78,
+    "width": 420,
+    "height": 30,
+    "fields": [
+      "Medidas.RE Ventana análisis texto"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/window_note.json"
+  },
+  {
+    "visual_id": "tt_accent",
+    "visual_type": "shape",
+    "title": null,
+    "x": 0,
+    "y": 0,
+    "width": 700,
+    "height": 5,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/tt_accent.json"
+  },
+  {
+    "visual_id": "tt_bg",
+    "visual_type": "shape",
+    "title": null,
+    "x": 0,
+    "y": 0,
+    "width": 700,
+    "height": 360,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/tt_bg.json"
+  },
+  {
+    "visual_id": "tt_context",
+    "visual_type": "cardVisual",
+    "title": null,
+    "x": 12,
+    "y": 34,
+    "width": 676,
+    "height": 28,
+    "fields": [
+      "Medidas.TT Contexto pedido"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/tt_context.json"
+  },
+  {
+    "visual_id": "tt_detail",
+    "visual_type": "tableEx",
+    "title": "Fechas y regla aplicada",
+    "x": 12,
+    "y": 140,
+    "width": 676,
+    "height": 208,
+    "fields": [
+      "Medidas.TT Detalle hito"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/tt_detail.json"
+  },
+  {
+    "visual_id": "tt_kpi_1",
+    "visual_type": "cardVisual",
+    "title": null,
+    "x": 232,
+    "y": 68,
+    "width": 145,
+    "height": 64,
+    "fields": [
+      "Medidas.AUD Días reales"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/tt_kpi_1.json"
+  },
+  {
+    "visual_id": "tt_kpi_2",
+    "visual_type": "cardVisual",
+    "title": null,
+    "x": 387,
+    "y": 68,
+    "width": 145,
+    "height": 64,
+    "fields": [
+      "Medidas.AUD SLA objetivo"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/tt_kpi_2.json"
+  },
+  {
+    "visual_id": "tt_kpi_3",
+    "visual_type": "cardVisual",
+    "title": null,
+    "x": 542,
+    "y": 68,
+    "width": 146,
+    "height": 64,
+    "fields": [
+      "Medidas.AUD Exceso sobre SLA"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/tt_kpi_3.json"
+  },
+  {
+    "visual_id": "tt_status",
+    "visual_type": "tableEx",
+    "title": "¿Cuál es el estado del hito?",
+    "x": 12,
+    "y": 68,
+    "width": 210,
+    "height": 64,
+    "fields": [
+      "Medidas.AUD Semáforo SVG"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/tt_status.json"
+  },
+  {
+    "visual_id": "tt_title",
+    "visual_type": "textbox",
+    "title": null,
+    "x": 12,
+    "y": 8,
+    "width": 676,
+    "height": 22,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/tt_title.json"
+  },
+  {
+    "visual_id": "chart_924aca87b5094c",
+    "visual_type": "clusteredColumnChart",
+    "title": "Cantidad de lineas y pedidos ingresados por dia chorrelacionada por promedio, 90 cerramos diario.",
+    "x": 0,
+    "y": 463.99999999999994,
+    "width": 1552,
+    "height": 400,
+    "fields": [
+      "Config_SLA_Hitos.HITO",
+      "Medidas.OP Días Exceso"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/chart_924aca87b5094c.json"
+  },
+  {
+    "visual_id": "footer_actualizacion",
+    "visual_type": "cardVisual",
+    "title": null,
+    "x": 32,
+    "y": 48,
+    "width": 940,
+    "height": 16,
+    "fields": [
+      "Medidas.U Estado datos"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/footer_actualizacion.json"
+  },
+  {
+    "visual_id": "shape_d1e9fe2f962046",
+    "visual_type": "shape",
+    "title": null,
+    "x": 0,
+    "y": 0,
+    "width": 1600,
+    "height": 66,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/shape_d1e9fe2f962046.json"
+  },
+  {
+    "visual_id": "shape_ed7d494e768744",
+    "visual_type": "shape",
+    "title": null,
+    "x": 0,
+    "y": 0,
+    "width": 1600,
+    "height": 900,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/shape_ed7d494e768744.json"
+  },
+  {
+    "visual_id": "sync_mes_3m_v39",
+    "visual_type": "slicer",
+    "title": null,
+    "x": 0,
+    "y": 0,
+    "width": 1,
+    "height": 1,
+    "fields": [
+      "Dim_Periodo_3M.Etiqueta"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/sync_mes_3m_v39.json"
+  },
+  {
+    "visual_id": "table_62c6c02944b14e",
+    "visual_type": "tableEx",
+    "title": "Pedidos fuera KPI",
+    "x": 415,
+    "y": 82,
+    "width": 270,
+    "height": 95,
+    "fields": [
+      "Medidas.OP Pedidos Fuera KPI"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/table_62c6c02944b14e.json"
+  },
+  {
+    "visual_id": "table_9601cabf413a41",
+    "visual_type": "tableEx",
+    "title": "Cuello de botella",
+    "x": 25,
+    "y": 82,
+    "width": 370,
+    "height": 95,
+    "fields": [
+      "Medidas.OP Cuello de Botella"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/table_9601cabf413a41.json"
+  },
+  {
+    "visual_id": "table_bad13c26c1d64f",
+    "visual_type": "tableEx",
+    "title": "Días acumulados de exceso",
+    "x": 705,
+    "y": 82,
+    "width": 290,
+    "height": 95,
+    "fields": [
+      "Medidas.OP Días Exceso"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/table_bad13c26c1d64f.json"
+  },
+  {
+    "visual_id": "table_cef7a98ad59848",
+    "visual_type": "tableEx",
+    "title": "Cobertura",
+    "x": 1305,
+    "y": 82,
+    "width": 270,
+    "height": 95,
+    "fields": [
+      "Medidas.OP Cobertura Hitos %"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/table_cef7a98ad59848.json"
+  },
+  {
+    "visual_id": "table_f0e8d63e5a444c",
+    "visual_type": "tableEx",
+    "title": "Valor afectado",
+    "x": 1015,
+    "y": 82,
+    "width": 270,
+    "height": 95,
+    "fields": [
+      "Medidas.OP Valor Afectado"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/table_f0e8d63e5a444c.json"
+  },
+  {
+    "visual_id": "text_6d7cf337c16a45",
+    "visual_type": "textbox",
+    "title": null,
+    "x": 32,
+    "y": 0,
+    "width": 848,
+    "height": 48,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/text_6d7cf337c16a45.json"
+  },
+  {
+    "visual_id": "bg_b86eed9c0f944c",
+    "visual_type": "shape",
+    "title": null,
+    "x": 0,
+    "y": 0,
+    "width": 1600,
+    "height": 900,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/bg_b86eed9c0f944c.json"
+  },
+  {
+    "visual_id": "card_2f12187a01fd4f",
+    "visual_type": "tableEx",
+    "title": "Cliente",
+    "x": 1120,
+    "y": 191.99999999999997,
+    "width": 464,
+    "height": 95.99999999999999,
+    "fields": [
+      "Medidas.AUD Cliente seleccionado"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/card_2f12187a01fd4f.json"
+  },
+  {
+    "visual_id": "card_4e4fe7d672d840",
+    "visual_type": "tableEx",
+    "title": "Estado general",
+    "x": 545,
+    "y": 82,
+    "width": 250,
+    "height": 96,
+    "fields": [
+      "Medidas.AUD Semáforo general SVG"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/card_4e4fe7d672d840.json"
+  },
+  {
+    "visual_id": "card_7456a230aecc4b",
+    "visual_type": "tableEx",
+    "title": "Vendedor responsable",
+    "x": 1120,
+    "y": 288,
+    "width": 464,
+    "height": 95.99999999999999,
+    "fields": [
+      "Medidas.AUD Vendedor seleccionado"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/card_7456a230aecc4b.json"
+  },
+  {
+    "visual_id": "card_a4c6bb42ec7e4b",
+    "visual_type": "tableEx",
+    "title": "Promesa y preparación",
+    "x": 1120,
+    "y": 383.99999999999994,
+    "width": 464,
+    "height": 110,
+    "fields": [
+      "Medidas.AUD Promesa del pedido"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/card_a4c6bb42ec7e4b.json"
+  },
+  {
+    "visual_id": "card_b4b787e0adcf44",
+    "visual_type": "tableEx",
+    "title": "Máximo exceso (DH)",
+    "x": 1155,
+    "y": 82,
+    "width": 200,
+    "height": 96,
+    "fields": [
+      "Medidas.AUD Máximo exceso DH"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/card_b4b787e0adcf44.json"
+  },
+  {
+    "visual_id": "card_b95415e0abff4b",
+    "visual_type": "tableEx",
+    "title": "Pedido seleccionado",
+    "x": 305,
+    "y": 82,
+    "width": 230,
+    "height": 96,
+    "fields": [
+      "Medidas.AUD Pedido seleccionado"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/card_b95415e0abff4b.json"
+  },
+  {
+    "visual_id": "card_bf5790c8c1194f",
+    "visual_type": "tableEx",
+    "title": "Hito más crítico",
+    "x": 805,
+    "y": 82,
+    "width": 340,
+    "height": 96,
+    "fields": [
+      "Medidas.AUD Hito crítico"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/card_bf5790c8c1194f.json"
+  },
+  {
+    "visual_id": "card_e506604c21704c",
+    "visual_type": "tableEx",
+    "title": "Hitos fuera de KPI",
+    "x": 1365,
+    "y": 82,
+    "width": 210,
+    "height": 96,
+    "fields": [
+      "Medidas.AUD Hitos fuera KPI"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/card_e506604c21704c.json"
+  },
+  {
+    "visual_id": "chart_fc031821591949",
+    "visual_type": "clusteredBarChart",
+    "title": "Detalle de subprocesos · cambie la medida con el selector izquierdo",
+    "x": 305,
+    "y": 195,
+    "width": 790,
+    "height": 280,
+    "fields": [
+      "Fact_Hitos_Operacionales.HITO",
+      "Medidas.AUD Valor métrica seleccionada"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/chart_fc031821591949.json"
+  },
+  {
+    "visual_id": "footer_actualizacion",
+    "visual_type": "cardVisual",
+    "title": null,
+    "x": 32,
+    "y": 48,
+    "width": 940,
+    "height": 16,
+    "fields": [
+      "Medidas.U Estado datos"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/footer_actualizacion.json"
+  },
+  {
+    "visual_id": "header_f7d683129fa84d",
+    "visual_type": "shape",
+    "title": null,
+    "x": 0,
+    "y": 0,
+    "width": 1600,
+    "height": 66,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/header_f7d683129fa84d.json"
+  },
+  {
+    "visual_id": "panel_e68971fdd4ed43",
+    "visual_type": "shape",
+    "title": null,
+    "x": 25,
+    "y": 392,
+    "width": 260,
+    "height": 463,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/panel_e68971fdd4ed43.json"
+  },
+  {
+    "visual_id": "slicer_b3b552ed5de540",
+    "visual_type": "slicer",
+    "title": null,
+    "x": 25,
+    "y": 82,
+    "width": 260,
+    "height": 108,
+    "fields": [
+      "Dim_Pedido.PED_NUMERO_PEDIDO"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/slicer_b3b552ed5de540.json"
+  },
+  {
+    "visual_id": "slicer_b9672eb4d21342",
+    "visual_type": "slicer",
+    "title": null,
+    "x": 25,
+    "y": 205,
+    "width": 260,
+    "height": 170,
+    "fields": [
+      "Dim_Metrica_Auditoria.Medida"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/slicer_b9672eb4d21342.json"
+  },
+  {
+    "visual_id": "sync_mes_3m_v39",
+    "visual_type": "slicer",
+    "title": null,
+    "x": 0,
+    "y": 0,
+    "width": 1,
+    "height": 1,
+    "fields": [
+      "Dim_Periodo_3M.Etiqueta"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/sync_mes_3m_v39.json"
+  },
+  {
+    "visual_id": "table_c57572c4abbe4d",
+    "visual_type": "tableEx",
+    "title": "CRONOLOGÍA AUDITABLE Y EXPORTABLE · MENÚ (…) → EXPORTAR DATOS",
+    "x": 305,
+    "y": 495,
+    "width": 1270,
+    "height": 360,
+    "fields": [
+      "Fact_Hitos_Operacionales.AREA_RESPONSABLE",
+      "Fact_Hitos_Operacionales.ESTADO_TRAZABILIDAD",
+      "Fact_Hitos_Operacionales.FECHA_FIN",
+      "Fact_Hitos_Operacionales.FECHA_INICIO",
+      "Fact_Hitos_Operacionales.FUENTE_FECHA",
+      "Fact_Hitos_Operacionales.HITO",
+      "Fact_Hitos_Operacionales.ORDEN_HITO",
+      "Fact_Hitos_Operacionales.REGLA_FECHA_FIN",
+      "Medidas.AUD Días reales",
+      "Medidas.AUD Exceso sobre SLA",
+      "Medidas.AUD SLA objetivo",
+      "Medidas.AUD Semáforo SVG"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/table_c57572c4abbe4d.json"
+  },
+  {
+    "visual_id": "text_0525f79da21148",
+    "visual_type": "textbox",
+    "title": null,
+    "x": 43,
+    "y": 445,
+    "width": 225,
+    "height": 380,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/text_0525f79da21148.json"
+  },
+  {
+    "visual_id": "text_272b8969e32647",
+    "visual_type": "textbox",
+    "title": null,
+    "x": 30,
+    "y": 8,
+    "width": 830,
+    "height": 38,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/text_272b8969e32647.json"
+  },
+  {
+    "visual_id": "text_879da652872d45",
+    "visual_type": "textbox",
+    "title": null,
+    "x": 43,
+    "y": 410,
+    "width": 225,
+    "height": 24,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/text_879da652872d45.json"
+  },
+  {
+    "visual_id": "text_b8949333e83642",
+    "visual_type": "textbox",
+    "title": null,
+    "x": 25,
+    "y": 875,
+    "width": 1540,
+    "height": 16,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/text_b8949333e83642.json"
+  },
+  {
+    "visual_id": "window_note",
+    "visual_type": "tableEx",
+    "title": null,
+    "x": 34,
+    "y": 68,
+    "width": 420,
+    "height": 30,
+    "fields": [
+      "Medidas.RE Ventana análisis texto"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/native_visual_templates/window_note.json"
+  }
+]

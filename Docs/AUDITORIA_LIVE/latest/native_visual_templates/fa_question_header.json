@@ -1,0 +1,48 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "fa_question_header",
+  "position": {
+    "x": 22.999999999999986,
+    "y": 79.910486599011179,
+    "z": 19000,
+    "height": 24,
+    "width": 1349,
+    "tabOrder": 19000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "PREGUNTAS DE NEGOCIO",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "10pt",
+                      "color": "#1B365D"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "1. ¿Qué clientes estuvieron fuera SLA en los últimos 3 meses, con qué frecuencia repitieron y cuáles requieren priorización?\n2. ¿Qué clientes tienen pedidos cerrados con más de 15 DH entre factura y cierre oficial?\n3. ¿Qué vendedores concentran clientes recurrentes fuera SLA?\n4. ¿El deterioro del NS coincide con mayor carga o participación FES al inicio o cierre del mes?",
+                    "textStyle": {
+                      "fontSize": "8pt",
+                      "color": "#111111"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

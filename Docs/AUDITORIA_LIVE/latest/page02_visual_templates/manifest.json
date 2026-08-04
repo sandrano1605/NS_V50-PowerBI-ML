@@ -1,0 +1,184 @@
+[
+  {
+    "visual_id": "chart_924aca87b5094c",
+    "visual_type": "clusteredColumnChart",
+    "title": "Cantidad de lineas y pedidos ingresados por dia chorrelacionada por promedio, 90 cerramos diario.",
+    "x": 0,
+    "y": 463.99999999999994,
+    "width": 1552,
+    "height": 400,
+    "fields": [
+      "Config_SLA_Hitos.HITO",
+      "Medidas.OP Días Exceso"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/page02_visual_templates/chart_924aca87b5094c.json"
+  },
+  {
+    "visual_id": "footer_actualizacion",
+    "visual_type": "cardVisual",
+    "title": null,
+    "x": 32,
+    "y": 48,
+    "width": 940,
+    "height": 16,
+    "fields": [
+      "Medidas.U Estado datos"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/page02_visual_templates/footer_actualizacion.json"
+  },
+  {
+    "visual_id": "nav_cuellos_v34",
+    "visual_type": "actionButton",
+    "title": null,
+    "x": 1232,
+    "y": 10,
+    "width": 164,
+    "height": 42,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/page02_visual_templates/nav_cuellos_v34.json"
+  },
+  {
+    "visual_id": "nav_detalle_v34",
+    "visual_type": "actionButton",
+    "title": null,
+    "x": 1404,
+    "y": 10,
+    "width": 164,
+    "height": 42,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/page02_visual_templates/nav_detalle_v34.json"
+  },
+  {
+    "visual_id": "nav_resumen_v34",
+    "visual_type": "actionButton",
+    "title": null,
+    "x": 888,
+    "y": 10,
+    "width": 164,
+    "height": 42,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/page02_visual_templates/nav_resumen_v34.json"
+  },
+  {
+    "visual_id": "nav_tracking_v34",
+    "visual_type": "actionButton",
+    "title": null,
+    "x": 1060,
+    "y": 10,
+    "width": 164,
+    "height": 42,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/page02_visual_templates/nav_tracking_v34.json"
+  },
+  {
+    "visual_id": "shape_d1e9fe2f962046",
+    "visual_type": "shape",
+    "title": null,
+    "x": 0,
+    "y": 0,
+    "width": 1600,
+    "height": 66,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/page02_visual_templates/shape_d1e9fe2f962046.json"
+  },
+  {
+    "visual_id": "shape_ed7d494e768744",
+    "visual_type": "shape",
+    "title": null,
+    "x": 0,
+    "y": 0,
+    "width": 1600,
+    "height": 900,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/page02_visual_templates/shape_ed7d494e768744.json"
+  },
+  {
+    "visual_id": "sync_mes_3m_v39",
+    "visual_type": "slicer",
+    "title": null,
+    "x": 0,
+    "y": 0,
+    "width": 1,
+    "height": 1,
+    "fields": [
+      "Dim_Periodo_3M.Etiqueta"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/page02_visual_templates/sync_mes_3m_v39.json"
+  },
+  {
+    "visual_id": "table_62c6c02944b14e",
+    "visual_type": "tableEx",
+    "title": "Pedidos fuera KPI",
+    "x": 415,
+    "y": 82,
+    "width": 270,
+    "height": 95,
+    "fields": [
+      "Medidas.OP Pedidos Fuera KPI"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/page02_visual_templates/table_62c6c02944b14e.json"
+  },
+  {
+    "visual_id": "table_9601cabf413a41",
+    "visual_type": "tableEx",
+    "title": "Cuello de botella",
+    "x": 25,
+    "y": 82,
+    "width": 370,
+    "height": 95,
+    "fields": [
+      "Medidas.OP Cuello de Botella"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/page02_visual_templates/table_9601cabf413a41.json"
+  },
+  {
+    "visual_id": "table_bad13c26c1d64f",
+    "visual_type": "tableEx",
+    "title": "Días acumulados de exceso",
+    "x": 705,
+    "y": 82,
+    "width": 290,
+    "height": 95,
+    "fields": [
+      "Medidas.OP Días Exceso"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/page02_visual_templates/table_bad13c26c1d64f.json"
+  },
+  {
+    "visual_id": "table_cef7a98ad59848",
+    "visual_type": "tableEx",
+    "title": "Cobertura",
+    "x": 1305,
+    "y": 82,
+    "width": 270,
+    "height": 95,
+    "fields": [
+      "Medidas.OP Cobertura Hitos %"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/page02_visual_templates/table_cef7a98ad59848.json"
+  },
+  {
+    "visual_id": "table_f0e8d63e5a444c",
+    "visual_type": "tableEx",
+    "title": "Valor afectado",
+    "x": 1015,
+    "y": 82,
+    "width": 270,
+    "height": 95,
+    "fields": [
+      "Medidas.OP Valor Afectado"
+    ],
+    "file": "Docs/AUDITORIA_LIVE/latest/page02_visual_templates/table_f0e8d63e5a444c.json"
+  },
+  {
+    "visual_id": "text_6d7cf337c16a45",
+    "visual_type": "textbox",
+    "title": null,
+    "x": 32,
+    "y": 0,
+    "width": 848,
+    "height": 48,
+    "fields": [],
+    "file": "Docs/AUDITORIA_LIVE/latest/page02_visual_templates/text_6d7cf337c16a45.json"
+  }
+]
