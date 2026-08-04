@@ -1,0 +1,6 @@
+﻿FECHA=2026-08-04
+REFRESH=Full via MCP - FALLIDO
+ERROR_1_DAX=The syntax for 'RETURN' is incorrect (RETURN 1 - [RE NS contexto])
+  -> measure 'RE Fuera SLA %' = RETURN 1 - [RE NS contexto] (Medidas.tmdl linea 2049)
+ERROR_2_SQL=Microsoft SQL: Could not open a connection (Named Pipes, error 40) - 128.1.3.21 no accesible
+ESTADO=DETENIDA - no se pudo refrescar el modelo

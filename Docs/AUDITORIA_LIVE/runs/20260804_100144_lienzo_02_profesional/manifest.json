@@ -1,0 +1,9 @@
+﻿{
+  "fecha": "2026-08-04",
+  "rama": "work/ns-lienzo-02-ingreso-pedidos",
+  "sha_local": "9c1df6e1ab78093f13427de5658bbdc910f1680b",
+  "sha_remoto": "9c1df6e1ab78093f13427de5658bbdc910f1680b",
+  "dictamen": "ROJO",
+  "motivo": "refresh falla por RETURN invalido en RE Fuera SLA % y SQL 128.1.3.21 no accesible",
+  "archivos": ["00_git_before.txt", "01_refresh.txt", "RESULTADO.md"]
+}

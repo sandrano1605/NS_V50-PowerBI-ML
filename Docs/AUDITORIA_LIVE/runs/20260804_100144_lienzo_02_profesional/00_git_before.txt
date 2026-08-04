@@ -1,0 +1,4 @@
+﻿RAMA=work/ns-lienzo-02-ingreso-pedidos
+SHA_LOCAL=9c1df6e1ab78093f13427de5658bbdc910f1680b
+SHA_REMOTO=9c1df6e1ab78093f13427de5658bbdc910f1680b
+ESTADO=limpio (stash aplicado de normalizaciones previas)
