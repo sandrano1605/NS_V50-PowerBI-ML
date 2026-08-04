@@ -175,7 +175,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Lectura ejecutiva del ingreso'"
+                  "Value": "'Lectura ejecutiva del ingreso · Q3 compara el mes completo'"
                 }
               }
             },
