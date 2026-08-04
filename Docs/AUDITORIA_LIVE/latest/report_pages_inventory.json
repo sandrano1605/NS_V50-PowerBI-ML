@@ -1,0 +1,156 @@
+{
+  "pages": [
+    {
+      "page_id": "19a0c7f8d6e54b3a9210",
+      "display_name": "05 Tracking Operativo",
+      "width": 1600,
+      "height": 1440,
+      "visibility": "HiddenInViewMode",
+      "visual_count": 33,
+      "visual_types": [
+        "actionButton",
+        "cardVisual",
+        "shape",
+        "slicer",
+        "tableEx",
+        "textFilter25A4896A83E0487089E2B90C9AE57C8A",
+        "textbox"
+      ]
+    },
+    {
+      "page_id": "22a1b2c3d4e5f6071829",
+      "display_name": "TT Top 10 Demoras Internas",
+      "width": 700,
+      "height": 360,
+      "visibility": "HiddenInViewMode",
+      "visual_count": 8,
+      "visual_types": [
+        "cardVisual",
+        "shape",
+        "tableEx",
+        "textbox"
+      ]
+    },
+    {
+      "page_id": "23a1b2c3d4e5f6071829",
+      "display_name": "TT Top 10 por Hito",
+      "width": 720,
+      "height": 540,
+      "visibility": "HiddenInViewMode",
+      "visual_count": 8,
+      "visual_types": [
+        "cardVisual",
+        "shape",
+        "tableEx",
+        "textbox"
+      ]
+    },
+    {
+      "page_id": "45f3e8a9c0124b67d89a",
+      "display_name": "TT Diagnóstico FES y Saldo",
+      "width": 700,
+      "height": 360,
+      "visibility": "HiddenInViewMode",
+      "visual_count": 1,
+      "visual_types": [
+        "tableEx"
+      ]
+    },
+    {
+      "page_id": "65238545e68f4c9884ca",
+      "display_name": "TT Indicador Ejecutivo",
+      "width": 700,
+      "height": 360,
+      "visibility": "HiddenInViewMode",
+      "visual_count": 9,
+      "visual_types": [
+        "cardVisual",
+        "shape",
+        "tableEx",
+        "textbox"
+      ]
+    },
+    {
+      "page_id": "71af1998e2cb472d9799",
+      "display_name": "00 Resumen Ejecutivo Mayorista",
+      "width": 1600,
+      "height": 800,
+      "visibility": null,
+      "visual_count": 26,
+      "visual_types": [
+        "actionButton",
+        "cardVisual",
+        "image",
+        "pivotTable",
+        "shape",
+        "slicer",
+        "tableEx",
+        "textbox"
+      ]
+    },
+    {
+      "page_id": "a1b2c3d4e5f6071829",
+      "display_name": "01 Análisis Fuera SLA",
+      "width": 1380,
+      "height": 800,
+      "visibility": null,
+      "visual_count": 14,
+      "visual_types": [
+        "actionButton",
+        "cardVisual",
+        "image",
+        "shape",
+        "tableEx",
+        "textbox"
+      ]
+    },
+    {
+      "page_id": "cb613066ebaf4e749a13",
+      "display_name": "TT Hito Operacional",
+      "width": 700,
+      "height": 360,
+      "visibility": "HiddenInViewMode",
+      "visual_count": 9,
+      "visual_types": [
+        "cardVisual",
+        "shape",
+        "tableEx",
+        "textbox"
+      ]
+    },
+    {
+      "page_id": "df1cb253a6314642a469",
+      "display_name": "02 Entrada y Cierre",
+      "width": 1600,
+      "height": 940,
+      "visibility": "HiddenInViewMode",
+      "visual_count": 15,
+      "visual_types": [
+        "actionButton",
+        "cardVisual",
+        "clusteredColumnChart",
+        "shape",
+        "slicer",
+        "tableEx",
+        "textbox"
+      ]
+    },
+    {
+      "page_id": "ed2a2fead6d24153bee1",
+      "display_name": "01.1 Auditoría por Pedido",
+      "width": 1600,
+      "height": 940,
+      "visibility": "HiddenInViewMode",
+      "visual_count": 27,
+      "visual_types": [
+        "actionButton",
+        "cardVisual",
+        "clusteredBarChart",
+        "shape",
+        "slicer",
+        "tableEx",
+        "textbox"
+      ]
+    }
+  ]
+}
