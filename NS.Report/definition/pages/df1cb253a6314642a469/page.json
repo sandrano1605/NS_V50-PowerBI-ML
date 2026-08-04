@@ -1,9 +1,8 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
   "name": "df1cb253a6314642a469",
-  "displayName": "02 Entrada y Cierre",
+  "displayName": "02 Ingreso de Pedidos",
   "displayOption": "FitToPage",
   "height": 940,
-  "width": 1600,
-  "visibility": "HiddenInViewMode"
+  "width": 1600
 }

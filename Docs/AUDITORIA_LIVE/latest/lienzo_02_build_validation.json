@@ -1,0 +1,41 @@
+{
+  "status": "VERDE",
+  "page": "df1cb253a6314642a469",
+  "display_name": "02 Ingreso de Pedidos",
+  "visual_count": 23,
+  "required_visuals": {
+    "sync_mes_3m_v39": "slicer",
+    "in_slicer_flujo": "slicer",
+    "in_slicer_zona": "slicer",
+    "in_slicer_responsable": "slicer",
+    "in_slicer_canal": "slicer",
+    "in_slicer_momento": "slicer",
+    "in_matrix_semana": "pivotTable",
+    "chart_924aca87b5094c": "hundredPercentStackedColumnChart",
+    "in_chart_pedidos_dia_mes": "lineStackedColumnComboChart",
+    "in_chart_lineas_dia_mes": "lineStackedColumnComboChart",
+    "in_chart_unidades_dia_mes": "lineStackedColumnComboChart"
+  },
+  "measures": [
+    "IN Pedidos",
+    "IN Líneas",
+    "IN Unidades",
+    "IN Promedio Pedidos Día",
+    "IN Promedio Líneas Día",
+    "IN Promedio Unidades Día"
+  ],
+  "filters": [
+    "Mes - Año",
+    "Flujo",
+    "Zona",
+    "Responsable",
+    "Canal",
+    "Momento del mes"
+  ],
+  "business_questions": {
+    "Q1": "Día de semana con mayor pedidos, líneas y unidades",
+    "Q2": "Disponibilidad hasta/después de 14:30 y sin hora válida",
+    "Q3": "Tendencia por día del mes y aporte por flujo para pedidos, líneas y unidades"
+  },
+  "errors": []
+}

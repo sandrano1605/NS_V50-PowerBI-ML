@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "table_9601cabf413a41",
   "position": {
-    "x": 25,
-    "y": 82,
-    "z": 4000,
-    "height": 95,
-    "width": 370,
-    "tabOrder": 1000
+    "x": 24,
+    "y": 150,
+    "z": 7000,
+    "height": 72,
+    "width": 170,
+    "tabOrder": 7024
   },
   "visual": {
     "visualType": "tableEx",
@@ -23,11 +23,12 @@
                       "Entity": "Medidas"
                     }
                   },
-                  "Property": "OP Cuello de Botella"
+                  "Property": "IN Pedidos"
                 }
               },
-              "queryRef": "Medidas.OP Cuello de Botella",
-              "nativeQueryRef": "OP Cuello de Botella"
+              "queryRef": "Medidas.IN Pedidos",
+              "nativeQueryRef": "Pedidos ingresados",
+              "displayName": "Pedidos ingresados"
             }
           ]
         }
@@ -47,7 +48,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Cuello de botella'"
+                  "Value": "'Pedidos ingresados'"
                 }
               }
             },
@@ -61,7 +62,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "12D"
+                  "Value": "10D"
                 }
               }
             },
@@ -77,7 +78,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#111111'"
+                      "Value": "'#1B365D'"
                     }
                   }
                 }
@@ -150,5 +151,23 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "table_9601cabf413a41_m",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "IN Pedidos"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

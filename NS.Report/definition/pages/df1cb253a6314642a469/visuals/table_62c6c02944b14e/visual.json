@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "table_62c6c02944b14e",
   "position": {
-    "x": 415,
-    "y": 82,
-    "z": 5000,
-    "height": 95,
-    "width": 270,
-    "tabOrder": 2000
+    "x": 206,
+    "y": 150,
+    "z": 7000,
+    "height": 72,
+    "width": 170,
+    "tabOrder": 7206
   },
   "visual": {
     "visualType": "tableEx",
@@ -23,11 +23,12 @@
                       "Entity": "Medidas"
                     }
                   },
-                  "Property": "OP Pedidos Fuera KPI"
+                  "Property": "IN Líneas"
                 }
               },
-              "queryRef": "Medidas.OP Pedidos Fuera KPI",
-              "nativeQueryRef": "OP Pedidos Fuera KPI"
+              "queryRef": "Medidas.IN Líneas",
+              "nativeQueryRef": "Líneas ingresadas",
+              "displayName": "Líneas ingresadas"
             }
           ]
         }
@@ -47,7 +48,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Pedidos fuera KPI'"
+                  "Value": "'Líneas ingresadas'"
                 }
               }
             },
@@ -61,7 +62,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "12D"
+                  "Value": "10D"
                 }
               }
             },
@@ -77,7 +78,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#111111'"
+                      "Value": "'#1B365D'"
                     }
                   }
                 }
@@ -150,5 +151,23 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "table_62c6c02944b14e_m",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "IN Líneas"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

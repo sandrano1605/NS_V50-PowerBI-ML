@@ -1,16 +1,16 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
-  "name": "chart_924aca87b5094c",
+  "name": "in_chart_pedidos_dia_mes",
   "position": {
-    "x": 590,
-    "y": 238,
+    "x": 24,
+    "y": 516,
     "z": 10000,
-    "height": 252,
-    "width": 986,
-    "tabOrder": 10000
+    "height": 392,
+    "width": 500,
+    "tabOrder": 11000
   },
   "visual": {
-    "visualType": "hundredPercentStackedColumnChart",
+    "visualType": "lineStackedColumnComboChart",
     "query": {
       "queryState": {
         "Category": {
@@ -23,11 +23,11 @@
                       "Entity": "Dim_Fecha"
                     }
                   },
-                  "Property": "Dia_Semana"
+                  "Property": "Dia_Mes"
                 }
               },
-              "queryRef": "Dim_Fecha.Dia_Semana",
-              "nativeQueryRef": "Dia_Semana",
+              "queryRef": "Dim_Fecha.Dia_Mes",
+              "nativeQueryRef": "Dia_Mes",
               "active": true
             }
           ]
@@ -60,12 +60,31 @@
                       "Entity": "Fact_Tracking"
                     }
                   },
-                  "Property": "TRAMO_HORA_INGRESO"
+                  "Property": "CLASIFICACION"
                 }
               },
-              "queryRef": "Fact_Tracking.TRAMO_HORA_INGRESO",
-              "nativeQueryRef": "TRAMO_HORA_INGRESO",
+              "queryRef": "Fact_Tracking.CLASIFICACION",
+              "nativeQueryRef": "CLASIFICACION",
               "active": true
+            }
+          ]
+        },
+        "Y2": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "IN Promedio Pedidos Día"
+                }
+              },
+              "queryRef": "Medidas.IN Promedio Pedidos Día",
+              "nativeQueryRef": "Promedio",
+              "displayName": "Promedio"
             }
           ]
         }
@@ -80,7 +99,7 @@
                     "Entity": "Dim_Fecha"
                   }
                 },
-                "Property": "Dia_Semana"
+                "Property": "Dia_Mes"
               }
             },
             "direction": "Ascending"
@@ -118,7 +137,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'¿Qué proporción queda disponible hasta o después de las 14:30?'"
+                  "Value": "'Pedidos por día del mes · tendencia de cierre'"
                 }
               }
             },
@@ -225,7 +244,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "chart_924aca87b5094c_cat",
+        "name": "in_chart_pedidos_dia_mes_cat",
         "field": {
           "Column": {
             "Expression": {
@@ -233,13 +252,13 @@
                 "Entity": "Dim_Fecha"
               }
             },
-            "Property": "Dia_Semana"
+            "Property": "Dia_Mes"
           }
         },
         "type": "Categorical"
       },
       {
-        "name": "chart_924aca87b5094c_val",
+        "name": "in_chart_pedidos_dia_mes_val",
         "field": {
           "Measure": {
             "Expression": {
@@ -253,7 +272,7 @@
         "type": "Advanced"
       },
       {
-        "name": "chart_924aca87b5094c_ser",
+        "name": "in_chart_pedidos_dia_mes_ser",
         "field": {
           "Column": {
             "Expression": {
@@ -261,10 +280,24 @@
                 "Entity": "Fact_Tracking"
               }
             },
-            "Property": "TRAMO_HORA_INGRESO"
+            "Property": "CLASIFICACION"
           }
         },
         "type": "Categorical"
+      },
+      {
+        "name": "in_chart_pedidos_dia_mes_line",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "IN Promedio Pedidos Día"
+          }
+        },
+        "type": "Advanced"
       }
     ]
   }

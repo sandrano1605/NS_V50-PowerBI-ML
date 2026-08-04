@@ -80,6 +80,20 @@ table Fact_Tracking
 		summarizeBy: none
 		sourceColumn: PED_FECHA_HORA
 
+	column TRAMO_HORA_INGRESO
+		dataType: string
+		lineageTag: 61000000-0000-4000-8000-000000000001
+		summarizeBy: none
+		sourceColumn: TRAMO_HORA_INGRESO
+		sortByColumn: ORDEN_TRAMO_HORA_INGRESO
+
+	column ORDEN_TRAMO_HORA_INGRESO
+		dataType: int64
+		formatString: 0
+		lineageTag: 61000000-0000-4000-8000-000000000002
+		summarizeBy: none
+		sourceColumn: ORDEN_TRAMO_HORA_INGRESO
+
 	column FECHA_PRIMERA_FACTURA
 		dataType: dateTime
 		formatString: General Date
@@ -314,7 +328,9 @@ table Fact_Tracking
 				    Clasificacion = Table.AddColumn(Seleccion, "CLASIFICACION", each if [ES_FES] = true and [ES_SALDO] = true then "FES + SALDO" else if [ES_FES] = true then "FES" else if [ES_SALDO] = true then "SALDO" else "NORMAL", type text),
 				    Zona = Table.AddColumn(Clasificacion, "ZONA", each if Text.TrimStart(Text.Trim(Text.From([PED_REGION])), "0") = "13" then "Santiago" else "Regiones", type text),
 				    PedFecha = Table.AddColumn(Zona, "PED_FECHA", each if [PED_FECHA_HORA]=null then null else Date.From([PED_FECHA_HORA]), type nullable date),
-				    Fact1 = Table.AddColumn(PedFecha, "FECHA_PRIMERA_FACTURA", each [FAC_P_FECHA_HORA_REAL], type nullable datetime),
+				    TramoHoraIngreso = Table.AddColumn(PedFecha, "TRAMO_HORA_INGRESO", each let H = try Time.From([PED_FECHA_HORA]) otherwise null in if H=null or H=#time(0,0,0) then "Sin hora válida" else if H<=#time(14,30,0) then "Hasta 14:30" else "Después de 14:30", type text),
+				    OrdenTramoHoraIngreso = Table.AddColumn(TramoHoraIngreso, "ORDEN_TRAMO_HORA_INGRESO", each if [TRAMO_HORA_INGRESO]="Hasta 14:30" then 1 else if [TRAMO_HORA_INGRESO]="Después de 14:30" then 2 else 3, Int64.Type),
+				    Fact1 = Table.AddColumn(OrdenTramoHoraIngreso, "FECHA_PRIMERA_FACTURA", each [FAC_P_FECHA_HORA_REAL], type nullable datetime),
 				    FactU = Table.AddColumn(Fact1, "FECHA_ULTIMA_FACTURA", each [FAC_U_FECHA_HORA], type nullable datetime),
 				    // Regla de salida física Santiago: cuando no existe TRP, la factura válida emitida
 				    // hasta las 16:00 puede actuar como proxy de despacho del mismo día. En SALDO se usa

@@ -3325,6 +3325,41 @@ table Medidas
 		displayFolder: 02. Resumen Ejecutivo\14. Ventana Temporal
 		lineageTag: a05dd22d-ee32-4c06-a3dd-b846de9f6c77
 
+	/// Pedidos ingresados en el contexto seleccionado, abiertos y cerrados.
+	measure 'IN Pedidos' = DISTINCTCOUNT(Fact_Tracking[PED_NUMERO_PEDIDO])
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\Carga y SLA
+		lineageTag: 61000000-0000-4000-8000-000000000101
+
+	measure 'IN Líneas' =
+			VAR PedidosContexto = VALUES(Fact_Tracking[PED_NUMERO_PEDIDO])
+			RETURN CALCULATE(SUM(Lineas_y_unidades_por_pedidos[Lineas]), TREATAS(PedidosContexto, Lineas_y_unidades_por_pedidos[Pedido]))
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\Carga y SLA
+		lineageTag: 61000000-0000-4000-8000-000000000102
+
+	measure 'IN Unidades' =
+			VAR PedidosContexto = VALUES(Fact_Tracking[PED_NUMERO_PEDIDO])
+			RETURN CALCULATE(SUM(Lineas_y_unidades_por_pedidos[Suma_Unidades]), TREATAS(PedidosContexto, Lineas_y_unidades_por_pedidos[Pedido]))
+		formatString: #,0
+		displayFolder: 04. Análisis Fuera SLA\Carga y SLA
+		lineageTag: 61000000-0000-4000-8000-000000000103
+
+	measure 'IN Promedio Pedidos Día' = AVERAGEX(ALLSELECTED(Dim_Fecha[Dia_Mes]), CALCULATE([IN Pedidos]))
+		formatString: #,0.0
+		displayFolder: 04. Análisis Fuera SLA\Carga y SLA
+		lineageTag: 61000000-0000-4000-8000-000000000104
+
+	measure 'IN Promedio Líneas Día' = AVERAGEX(ALLSELECTED(Dim_Fecha[Dia_Mes]), CALCULATE([IN Líneas]))
+		formatString: #,0.0
+		displayFolder: 04. Análisis Fuera SLA\Carga y SLA
+		lineageTag: 61000000-0000-4000-8000-000000000105
+
+	measure 'IN Promedio Unidades Día' = AVERAGEX(ALLSELECTED(Dim_Fecha[Dia_Mes]), CALCULATE([IN Unidades]))
+		formatString: #,0.0
+		displayFolder: 04. Análisis Fuera SLA\Carga y SLA
+		lineageTag: 61000000-0000-4000-8000-000000000106
+
 	column __Medida
 		dataType: int64
 		isHidden
