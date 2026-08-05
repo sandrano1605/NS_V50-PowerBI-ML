@@ -1,0 +1,32 @@
+name: PR fix lienzo 00 todos fuera SLA
+
+on:
+  pull_request:
+    branches:
+      - work/ns-lienzo-02-ingreso-pedidos
+    paths:
+      - Docs/AUDITORIA_LIVE/TRIGGER_PR_FIX_LIENZO_00.md
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout rama de trabajo
+        uses: actions/checkout@v4
+        with:
+          ref: work/ns-lienzo-02-ingreso-pedidos
+          fetch-depth: 0
+
+      - name: Aplicar y validar
+        run: python tools/fix_lienzo_00_todos_fuera_sla.py
+
+      - name: Commit y push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add NS.SemanticModel/definition/tables/Medidas.tmdl NS.Report/definition/pages/71af1998e2cb472d9799/visuals/critical_table/visual.json
+          git commit -m "fix(lienzo-00): mostrar todos los pedidos fuera SLA en tabla crítica"
+          git push origin HEAD:work/ns-lienzo-02-ingreso-pedidos
