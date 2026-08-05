@@ -351,6 +351,8 @@ expression VBAK_APPEND_ACTIVO = "false" meta [IsParameterQuery=true, Type="Text"
 
 	annotation ParameterDefaultValue = false
 
+	annotation PBI_ResultType = Text
+
 expression VBAK_SCHEMA_PREFLIGHT =
 		let
 		    Origen =

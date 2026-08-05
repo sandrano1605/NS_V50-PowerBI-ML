@@ -32,24 +32,6 @@
             }
           ]
         },
-        "Y": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Medidas"
-                    }
-                  },
-                  "Property": "IN Líneas"
-                }
-              },
-              "queryRef": "Medidas.IN Líneas",
-              "nativeQueryRef": "IN Líneas"
-            }
-          ]
-        },
         "Series": {
           "projections": [
             {
@@ -66,6 +48,24 @@
               "queryRef": "Fact_Tracking.CLASIFICACION",
               "nativeQueryRef": "CLASIFICACION",
               "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "IN Líneas"
+                }
+              },
+              "queryRef": "Medidas.IN Líneas",
+              "nativeQueryRef": "IN Líneas"
             }
           ]
         },
@@ -110,6 +110,45 @@
     },
     "objects": {
       "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "lineStyles": [
+        {
+          "properties": {
+            "areaShow": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dataPoint": [
+        {
+          "properties": {
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "81D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "totals": [
         {
           "properties": {
             "show": {
@@ -313,5 +352,6 @@
         "type": "Advanced"
       }
     ]
-  }
+  },
+  "isHidden": true
 }

@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "in_chart_unidades_dia_mes",
   "position": {
-    "x": 24,
-    "y": 516,
+    "x": 16,
+    "y": 507.99999999999994,
     "z": 10000,
-    "height": 392,
-    "width": 1552,
+    "height": 432,
+    "width": 1568,
     "tabOrder": 11002
   },
   "visual": {
@@ -32,24 +32,6 @@
             }
           ]
         },
-        "Y": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Medidas"
-                    }
-                  },
-                  "Property": "IN Unidades"
-                }
-              },
-              "queryRef": "Medidas.IN Unidades",
-              "nativeQueryRef": "IN Unidades"
-            }
-          ]
-        },
         "Series": {
           "projections": [
             {
@@ -66,6 +48,24 @@
               "queryRef": "Fact_Tracking.CLASIFICACION",
               "nativeQueryRef": "CLASIFICACION",
               "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "IN Unidades"
+                }
+              },
+              "queryRef": "Medidas.IN Unidades",
+              "nativeQueryRef": "IN Unidades"
             }
           ]
         },
@@ -116,6 +116,79 @@
               "expr": {
                 "Literal": {
                   "Value": "true"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "showSeries": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Medidas.IN Promedio Unidades Día"
+          }
+        }
+      ],
+      "lineStyles": [
+        {
+          "properties": {
+            "showMarker": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "areaShow": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "seriesLabels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "totals": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dataPoint": [
+        {
+          "properties": {
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "86D"
                 }
               }
             }
@@ -313,5 +386,6 @@
         "type": "Advanced"
       }
     ]
-  }
+  },
+  "isHidden": true
 }

@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "in_chart_pedidos_dia_mes",
   "position": {
-    "x": 24,
-    "y": 516,
+    "x": 16,
+    "y": 512,
     "z": 12000,
-    "height": 392,
-    "width": 1552,
+    "height": 416,
+    "width": 1568,
     "tabOrder": 11000
   },
   "visual": {
@@ -32,24 +32,6 @@
             }
           ]
         },
-        "Y": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Medidas"
-                    }
-                  },
-                  "Property": "IN Pedidos"
-                }
-              },
-              "queryRef": "Medidas.IN Pedidos",
-              "nativeQueryRef": "IN Pedidos"
-            }
-          ]
-        },
         "Series": {
           "projections": [
             {
@@ -66,6 +48,24 @@
               "queryRef": "Fact_Tracking.CLASIFICACION",
               "nativeQueryRef": "CLASIFICACION",
               "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "IN Pedidos"
+                }
+              },
+              "queryRef": "Medidas.IN Pedidos",
+              "nativeQueryRef": "IN Pedidos"
             }
           ]
         },
@@ -115,7 +115,46 @@
             "show": {
               "expr": {
                 "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "totals": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
                   "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "lineStyles": [
+        {
+          "properties": {
+            "areaShow": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dataPoint": [
+        {
+          "properties": {
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "84D"
                 }
               }
             }
