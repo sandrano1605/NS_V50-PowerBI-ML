@@ -1,0 +1,7 @@
+﻿Elemento,Estado
+Tarjetas 3,OK valores grandes
+Tabla 1 clientes,OK sin cliente vacio
+Tabla 3 vendedores,OK sin vendedor vacio
+SIN EJECUTIVO visible,OK etiquetado
+Sin fila en blanco,OK
+Total fuera SLA,232 sin cambio

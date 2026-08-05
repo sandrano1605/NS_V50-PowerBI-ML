@@ -1,0 +1,10 @@
+﻿Item,Valor
+Filtros_activos,Seis filtros (mes, zona, canal, flujo, responsable, momento)
+Rango_fechas_efectivo,04-05-2026 a 04-08-2026 (ventana 3M)
+Cohorte_RE_contexto,ES_CERRADO + DIAS_INTERNOS_DH no vacio
+Pedidos_distintos_fila_blanco_antes,54 (contexto tabla 1)
+Pedidos_sin_match_global_antes,635
+Fila_cliente_blanco_despues,INEXISTENTE
+Fila_vendedor_blanco_despues,INEXISTENTE
+Pedidos_sin_match_despues,0
+Nota,54 y 22 eran contextos distintos de la misma cohorte; despues del fix ambos quedan en 0

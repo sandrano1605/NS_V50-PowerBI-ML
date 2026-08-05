@@ -1,0 +1,10 @@
+﻿{
+  "fecha": "2026-08-04",
+  "rama": "work/ns-lienzo-02-ingreso-pedidos",
+  "sha": "cc147127dca944ff7a5423f36d76125842665fa3",
+  "dictamen": "AMARILLO",
+  "integral": {"pedidos_sin_match": 0, "codigos_sin_match": 0, "fuera_sla_sin_match": 0, "duplicados": 0},
+  "dim_cliente": {"filas": 706, "con_vendedor": 602, "sin_ejecutivo": 104},
+  "ns": {"fuera_sla": 232, "sin_cambio": true},
+  "archivos": ["00_git.txt","01_refresh_1.txt","02_refresh_2.txt","03_integridad_dim_cliente.csv","04_reconciliacion_22_pedidos.csv","05_reconciliacion_54_vs_22.csv","06_tabla_1_clientes.csv","07_tabla_3_vendedores.csv","08_kpis_antes_despues.csv","09_calidad_visual.txt","10_regresiones.txt","11_incoherencias.csv","RESULTADO.md","manifest.json"]
+}

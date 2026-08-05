@@ -1,0 +1,3 @@
+﻿Cliente,Vendedor,Flujo,Meses_fuera,Recurrencia,Pedidos_fueraSLA,Estado
+DISTRIBUIDO,DISTRIBUIDO,NORMAL,1-3,Reincidente/Puntual,Redistribuido,OK_no_blanco
+Nota,Ningun cliente vacio; vendedores SIN EJECUTIVO etiquetados,no en blanco

@@ -1,0 +1,5 @@
+﻿Pagina,Estado
+00 Resumen,OK
+01 Analisis Fuera SLA,OK - tablas 1 y 3 sin filas en blanco
+01.1 Tracking,OK
+02 Ingreso de Pedidos,OK

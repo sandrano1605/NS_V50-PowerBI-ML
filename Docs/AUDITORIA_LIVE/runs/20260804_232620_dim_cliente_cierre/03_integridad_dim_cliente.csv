@@ -1,0 +1,15 @@
+﻿Control,Valor,Estado
+Filas_Fact_Tracking,1952,OK
+Pedidos_distintos_Tracking,1952,OK
+Codigos_distintos_Fact,706,OK
+Filas_Dim_Cliente,706,OK
+Codigos_distintos_Dim,706,OK
+Duplicados_CLIENTE_CODIGO,0,OK
+Pedidos_sin_match,0,OK
+Codigos_sin_match,0,OK
+FueraSLA_sin_match,0,OK
+CLIENTE_NOMBRE_vacio,0,OK
+VENDEDOR_NOMBRE_vacio,0,OK
+SIN_VENDEDOR_ASIGNADO,0,OK
+SIN_EJECUTIVO,104,OK_etiquetado
+SIN_CLIENTE_IDENTIFICADO,0,OK

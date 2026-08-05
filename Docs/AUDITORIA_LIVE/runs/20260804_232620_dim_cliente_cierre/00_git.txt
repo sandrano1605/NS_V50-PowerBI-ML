@@ -1,0 +1,4 @@
+﻿RAMA=work/ns-lienzo-02-ingreso-pedidos
+SHA=cc147127dca944ff7a5423f36d76125842665fa3
+FECHA=2026-08-04 23:26
+ESTADO=modelo cargado: Tracking=1952, Master=1952, DimCliente=706

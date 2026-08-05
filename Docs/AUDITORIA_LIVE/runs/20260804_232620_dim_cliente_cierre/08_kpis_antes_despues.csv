@@ -1,0 +1,6 @@
+﻿KPI,Antes,Despues,Estado
+Pedidos_evaluables,1781,1805,OK_nuevos_pedidos
+Pedidos_en_SLA,1549,1573,OK
+Pedidos_fuera_SLA,232,232,SIN_CAMBIO
+NS,87.0,87.1,OK
+IN_Pedidos,1950,1952,OK_nuevos_pedidos
