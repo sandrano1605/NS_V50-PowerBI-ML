@@ -1,0 +1,4 @@
+﻿RAMA=work/ns-lienzo-02-ingreso-pedidos
+SHA=0ab7efb82bdba82b07611291576f4d4947793e4f
+FECHA=2026-08-04 22:41
+PROBLEMA=modelo colgado - Dim_Cliente desde master (commit 2d842e4) crea ciclo de carga

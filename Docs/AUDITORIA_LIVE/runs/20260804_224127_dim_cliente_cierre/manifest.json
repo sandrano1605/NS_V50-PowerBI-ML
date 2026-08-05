@@ -1,0 +1,10 @@
+﻿{
+  "fecha": "2026-08-04",
+  "rama": "work/ns-lienzo-02-ingreso-pedidos",
+  "sha": "0ab7efb82bdba82b07611291576f4d4947793e4f",
+  "dictamen": "ROJO",
+  "motivo": "modelo colgado: Dim_Cliente desde master en M (commit 2d842e4) crea ciclo de carga",
+  "sintoma": "refresh infinito, DAX sin respuesta tras 35 min",
+  "correccion": "revertir Dim_Cliente a Sql.Database ampliado o query SQL sin referenciar tabla del modelo",
+  "archivos": ["00_git.txt", "RESULTADO.md", "manifest.json"]
+}
