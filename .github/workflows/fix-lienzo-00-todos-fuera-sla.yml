@@ -1,0 +1,157 @@
+name: Fix lienzo 00 todos fuera SLA
+
+on:
+  push:
+    branches:
+      - work/ns-lienzo-02-ingreso-pedidos
+    paths:
+      - Docs/AUDITORIA_LIVE/RUN_FIX_LIENZO_00_TODOS_FUERA_SLA.md
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: work/ns-lienzo-02-ingreso-pedidos
+          fetch-depth: 0
+
+      - name: Aplicar correccion
+        shell: python
+        run: |
+          from pathlib import Path
+          import json
+          import re
+
+          medidas_path = Path("NS.SemanticModel/definition/tables/Medidas.tmdl")
+          visual_path = Path("NS.Report/definition/pages/71af1998e2cb472d9799/visuals/critical_table/visual.json")
+
+          medidas = medidas_path.read_text(encoding="utf-8")
+
+          nueva_medida = '''\t/// Tabla completa de pedidos fuera SLA. Conserva el nombre técnico por compatibilidad con los visuales existentes.
+\tmeasure 'RE TT Días Top 10' =
+\t\t\tVAR PedidoActual = SELECTEDVALUE(Fact_Tracking[PED_NUMERO_PEDIDO])
+\t\t\tVAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
+\t\t\tVAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
+\t\t\tVAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
+\t\t\tVAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
+\t\t\tVAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
+\t\t\tVAR EsPedidoFueraSLA =
+\t\t\t\tNOT ISBLANK(PedidoActual)
+\t\t\t\t\t&& CALCULATE(
+\t\t\t\t\t\tCOUNTROWS(Fact_Tracking),
+\t\t\t\t\t\tKEEPFILTERS(
+\t\t\t\t\t\t\tFILTER(
+\t\t\t\t\t\t\t\tFact_Tracking,
+\t\t\t\t\t\t\t\tFact_Tracking[ES_CERRADO] = TRUE()
+\t\t\t\t\t\t\t\t\t&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
+\t\t\t\t\t\t\t\t\t&& Fact_Tracking[CUMPLE_SLA_INTERNO] = FALSE()
+\t\t\t\t\t\t\t\t\t&& (
+\t\t\t\t\t\t\t\t\t\tISBLANK(FlujoSel)
+\t\t\t\t\t\t\t\t\t\t\t|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
+\t\t\t\t\t\t\t\t\t\t\t|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
+\t\t\t\t\t\t\t\t\t\t\t|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
+\t\t\t\t\t\t\t\t\t)
+\t\t\t\t\t\t\t\t\t&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+\t\t\t\t\t\t\t\t\t&& (
+\t\t\t\t\t\t\t\t\t\tNOT TieneRango
+\t\t\t\t\t\t\t\t\t\t\t|| (
+\t\t\t\t\t\t\t\t\t\t\t\tFact_Tracking[DIAS_INTERNOS_DH] >= MinDH
+\t\t\t\t\t\t\t\t\t\t\t\t\t&& (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH)
+\t\t\t\t\t\t\t\t\t\t\t)
+\t\t\t\t\t\t\t\t\t)
+\t\t\t\t\t\t\t)
+\t\t\t\t\t\t)
+\t\t\t\t\t) > 0
+\t\t\tRETURN
+\t\t\t\tIF(
+\t\t\t\t\tEsPedidoFueraSLA,
+\t\t\t\t\tMAX(Fact_Tracking[DIAS_INTERNOS_DH])
+\t\t\t\t)
+\t\tformatString: 0 "DH"'''
+
+          patron_medida = re.compile(
+              r"\t/// Tooltip compacto\.[\s\S]*?\tmeasure 'RE TT Días Top 10' =[\s\S]*?\n\t\tformatString: 0 \"DH\"",
+              re.MULTILINE,
+          )
+          medidas, n1 = patron_medida.subn(nueva_medida, medidas, count=1)
+          if n1 != 1:
+              raise RuntimeError(f"No se reemplazó la medida de tabla completa: {n1}")
+
+          nuevo_titulo = '''\tmeasure 'RE TT Título' =
+\t\t\tVAR Flujo = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
+\t\t\tVAR Zona = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
+\t\t\tVAR Rango = SELECTEDVALUE(Dim_Rango_Entrega[Rango])
+\t\t\tVAR Contexto = COALESCE(Flujo, IF(NOT ISBLANK(Zona), Zona & IF(NOT ISBLANK(Rango), " · " & Rango, ""), "Universo cerrado"))
+\t\t\tVAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
+\t\t\tVAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
+\t\t\tVAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
+\t\t\tVAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
+\t\t\tVAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
+\t\t\tVAR CohorteFuera =
+\t\t\t\tFILTER(
+\t\t\t\t\tFact_Tracking,
+\t\t\t\t\tFact_Tracking[ES_CERRADO] = TRUE()
+\t\t\t\t\t\t&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
+\t\t\t\t\t\t&& Fact_Tracking[CUMPLE_SLA_INTERNO] = FALSE()
+\t\t\t\t\t\t&& (
+\t\t\t\t\t\t\tISBLANK(FlujoSel)
+\t\t\t\t\t\t\t\t|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
+\t\t\t\t\t\t\t\t|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
+\t\t\t\t\t\t\t\t|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
+\t\t\t\t\t\t)
+\t\t\t\t\t\t&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+\t\t\t\t\t\t&& (NOT TieneRango || (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH)))
+\t\t\t\t)
+\t\t\tVAR MinCre = MINX(CohorteFuera, Fact_Tracking[PED_FECHA_HORA])
+\t\t\tVAR MaxCre = MAXX(CohorteFuera, Fact_Tracking[PED_FECHA_HORA])
+\t\t\tVAR PedidosFuera = [RE Pedidos fuera SLA contexto]
+\t\t\tRETURN
+\t\t\t\t"PEDIDOS FUERA SLA · "
+\t\t\t\t& FORMAT(PedidosFuera, "#,##0", "es-CL") & " pedidos mostrados"
+\t\t\t\t& " · " & COALESCE(FORMAT(MinCre, "dd-MM-yyyy"), "--") & " a " & COALESCE(FORMAT(MaxCre, "dd-MM-yyyy"), "--")
+\t\t\t\t& " · " & Contexto
+\t\tdisplayFolder: 02. Resumen Ejecutivo\\09. Tooltip'''
+
+          patron_titulo = re.compile(
+              r"\tmeasure 'RE TT Título' =[\s\S]*?\n\t\tdisplayFolder: 02\. Resumen Ejecutivo\\\\09\. Tooltip",
+              re.MULTILINE,
+          )
+          medidas, n2 = patron_titulo.subn(nuevo_titulo, medidas, count=1)
+          if n2 != 1:
+              raise RuntimeError(f"No se reemplazó el título dinámico: {n2}")
+
+          medidas_path.write_text(medidas, encoding="utf-8")
+
+          visual_text = visual_path.read_text(encoding="utf-8")
+          anterior = "PEDIDOS CRÍTICOS · HITO DOMINANTE Y MOTIVO OPERATIVO"
+          nuevo = "PEDIDOS FUERA SLA · HITO DOMINANTE Y MOTIVO OPERATIVO"
+          if anterior not in visual_text:
+              raise RuntimeError("No se encontró el título estático anterior")
+          visual_text = visual_text.replace(anterior, nuevo, 1)
+          visual_path.write_text(visual_text, encoding="utf-8")
+          json.loads(visual_text)
+
+          seccion = medidas.split("measure 'RE TT Días Top 10' =", 1)[1].split("measure 'RE TT Cliente' =", 1)[0]
+          if "TOPN(15" in seccion or "TopPedidos" in seccion:
+              raise RuntimeError("Persistió un límite Top N en la tabla")
+          if "CUMPLE_SLA_INTERNO] = FALSE()" not in seccion:
+              raise RuntimeError("La tabla no quedó restringida a fuera SLA")
+          if "PEDIDOS FUERA SLA ·" not in medidas:
+              raise RuntimeError("No quedó el título dinámico esperado")
+          if nuevo not in visual_text:
+              raise RuntimeError("No quedó el título estático esperado")
+
+          print("Validación estructural VERDE")
+
+      - name: Commit y push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add NS.SemanticModel/definition/tables/Medidas.tmdl NS.Report/definition/pages/71af1998e2cb472d9799/visuals/critical_table/visual.json
+          git commit -m "fix(lienzo-00): mostrar todos los pedidos fuera SLA en tabla crítica"
+          git push origin HEAD:work/ns-lienzo-02-ingreso-pedidos
