@@ -1,0 +1,56 @@
+﻿AUDITORIA FINAL DE NEGOCIO - SHA 87a954857c7a32f3108ae027c2afeb56ee43f84f
+Fecha auditoria: 2026-08-10 15:58:53
+Rama: work/ns-lienzo-02-ingreso-pedidos
+Modelo: Power BI Desktop local (localhost:57525) - refresh actual
+
+1. UNIVERSO
+Total pedidos Fact_Tracking: 2048
+Abiertos: 86
+Cerrados: 1962
+Cerrados con DIAS_INTERNOS_DH: 1898
+Cerrados sin DIAS_INTERNOS_DH: 64
+RE Pedidos contexto: 1898 = cerrados con DH (OK)
+
+2. SLA (dentro de 1898)
+CUMPLE_SLA_INTERNO=TRUE: 1547
+CUMPLE_SLA_INTERNO=FALSE: 351
+CUMPLE_SLA_INTERNO=BLANK: 0
+SLA_INTERNO_DH=BLANK: 0
+1547+351=1898 (OK)
+
+3. SLA POR ZONA (columnas reales Fact_Tracking)
+Santiago: SLA_INTERNO_DH=4 | SLA_CLIENTE_DH=5 | SLA_OPERACION_DH=3
+Regiones: SLA_INTERNO_DH=5 | SLA_CLIENTE_DH=7 | SLA_OPERACION_DH=4
+Cohorte 1898: Santiago 925 (cumple 779, fuera 146) | Regiones 973 (cumple 768, fuera 205)
+
+4. CLASIFICACION (dentro de 1898)
+NORMAL: 1459
+FES: 432
+FES + SALDO: 5
+SALDO: 2
+BLANK: 0 | otras: 0 | 1459+432+5+2=1898 (OK)
+
+5. FUERA SLA
+RE Pedidos fuera SLA contexto: 351
+Pedidos distintos tabla: 351
+Duplicados: 0
+Cumplen cerrado+DH+FALSE: 351/351 (OK)
+
+6. ZONA (351)
+Santiago: 146 | Regiones: 205 | blank: 0 | otras: 0 | 146+205=351 (OK)
+
+7. MULTISELECT FLUJO (tarjeta=tabla)
+Normal: 132=132 | FES: 218=218 | Saldo: 1=1 | Normal+FES: 350=350 | Normal+Saldo: 133=133 | FES+Saldo: 219=219 | Todos: 351=351 (OK)
+MULTISELECT ZONA
+Santiago: 146=146 | Regiones: 205=205 | S+R: 351=351 (OK)
+
+8. NARRATIVA
+Normal -> "1. Flujo Normal" (OK)
+FES -> "2. FES (incluye FES + Saldo)" (OK)
+Normal+FES -> "Universo cerrado" (HALLAZGO: no representa filtro real)
+Todos -> "Universo cerrado" (OK)
+
+9. CAMBIO DE BD
+Timestamp refresh: 2026-08-10 15:58:53 (sesion)
+Totales: Tracking 2048 | fuera SLA 351 | NS 81.5%
+ADVERTENCIA: 351 actual NO es comparable con historico 232 (diferente corte/período/filtros/version)
