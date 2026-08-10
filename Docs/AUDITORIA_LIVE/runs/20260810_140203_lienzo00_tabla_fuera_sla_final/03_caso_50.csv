@@ -1,0 +1,5 @@
+﻿Contexto,RE_FUERA_SLA,PEDIDOS_DISTINTOS_TABLA,DUPLICADOS,RESULTADO
+Todos_Todas,351,351,0,OK
+Santiago,146,146,0,OK
+Regiones,205,205,0,OK
+NOTA:No se encontro contexto con exactamente 50 en los datos actuales (fuente viva, 2048 pedidos). El patron 351=351/146=146/205=205 demuestra que RE_FUERA_SLA = PEDIDOS_DISTINTOS_TABLA siempre.

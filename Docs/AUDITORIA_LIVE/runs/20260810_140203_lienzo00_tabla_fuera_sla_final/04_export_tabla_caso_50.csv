@@ -1,0 +1,3 @@
+﻿PED_NUMERO_PEDIDO
+(export de tabla completa fuera SLA: 351 pedidos distintos - ver 02_casos_A_G.csv)
+NOTA: El caso 50 exacto depende de un contexto especifico no presente en los datos actuales; el patron de reconciliacion se valido en 351, 146 y 205.

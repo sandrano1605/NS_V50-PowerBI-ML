@@ -1,0 +1,6 @@
+﻿FECHA=2026-08-10
+REFRESH=Completado - Tracking=2048
+ERRORES_PQ=0
+ERRORES_DAX=0
+ERRORES_TMDL=0 (tras restaurar Medidas a 0dff10b; helpers de 759bf00 rompian carga)
+NOTA=El commit 759bf00 no cargaba (helpers multiselect con indentacion invalida). Se restauro Medidas a 0dff10b.

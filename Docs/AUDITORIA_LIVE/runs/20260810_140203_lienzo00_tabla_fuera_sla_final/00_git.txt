@@ -1,0 +1,5 @@
+﻿RAMA=work/ns-lienzo-02-ingreso-pedidos
+SHA_BASE=759bf00f119d1d9ffd08104704e7c227e71b4024
+SHA_VALIDADO=0dff10b34a08bd173bb8c6beb91734f4b4fc0d11 (restaurado tras helpers rotas en 759bf00)
+FECHA=2026-08-10 14:02
+ESTADO=modelo cargado: Tracking=2048, RE_FueraSLA=351, tabla=351

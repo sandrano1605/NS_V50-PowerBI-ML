@@ -1,0 +1,10 @@
+﻿CONTEXTO,RE_PEDIDOS_CONTEXTO,RE_EN_SLA,RE_FUERA_SLA,FILAS_TABLA,PEDIDOS_DISTINTOS,DUPLICADOS,RESULTADO
+A_Todos_Todas,1898,1547,351,351,351,0,OK_351_eq_351
+B_Flujo_Normal,,,,132,132,0,OK
+B_FES,,,,218,218,0,OK
+C_Multiselect_Normal_FES,,,,351,351,0,OK_union_correcta
+D_Zona_Santiago,,,,146,146,0,OK
+E_Zona_Regiones,,,,205,205,0,OK
+F_Multiselect_Zona_Santiago_Regiones,,,,351,351,0,OK
+G_Caso_50,CONTEXTO_VARIABLE,La fuente viva no produce exactamente 50 en los contextos probados,,,,,,
+NOTA,Multiselect: union Normal+FES=351 vs suma individual=350 (1 FES+SALDO) - requiere helpers para coherencia completa,,,,,,

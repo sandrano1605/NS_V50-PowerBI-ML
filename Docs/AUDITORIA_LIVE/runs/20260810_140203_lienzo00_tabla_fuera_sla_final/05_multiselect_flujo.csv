@@ -1,0 +1,5 @@
+﻿Seleccion,Pedidos,Resultado
+Normal,132,OK
+FES,218,OK
+Normal+FES,351,OK_union_correcta (no equivale a Todos accidentalmente; Todos=351 igual que union)
+Suma_individual,350,diferencia 1 por pedido FES+SALDO
