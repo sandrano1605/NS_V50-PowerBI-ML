@@ -565,7 +565,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'PEDIDOS CRÍTICOS · HITO DOMINANTE Y MOTIVO OPERATIVO'"
+                  "Value": "'PEDIDOS FUERA SLA · HITO DOMINANTE Y MOTIVO OPERATIVO'"
                 }
               }
             },

@@ -2,8 +2,8 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "in_chart_unidades_dia_mes",
   "position": {
-    "x": 16,
-    "y": 507.99999999999994,
+    "x": 32.755905511811022,
+    "y": 507.87401574803158,
     "z": 10000,
     "height": 432,
     "width": 1568,

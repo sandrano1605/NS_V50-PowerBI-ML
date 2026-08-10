@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "in_chart_pedidos_dia_mes",
   "position": {
-    "x": 16,
-    "y": 512,
+    "x": 0,
+    "y": 508,
     "z": 12000,
-    "height": 416,
-    "width": 1568,
+    "height": 432,
+    "width": 1600,
     "tabOrder": 11000
   },
   "visual": {
@@ -176,7 +176,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Pedidos por día del mes · barras por flujo · línea promedio'"
+                  "Value": "'Pedidos por día del mes · barras por flujo · Línea promedio'"
                 }
               }
             },
@@ -190,7 +190,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "10D"
+                  "Value": "14D"
                 }
               }
             },
@@ -209,6 +209,13 @@
                       "Value": "'#1B365D'"
                     }
                   }
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
                 }
               }
             }

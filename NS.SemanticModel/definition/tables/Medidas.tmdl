@@ -1136,9 +1136,46 @@ table Medidas
 
 	/// V27 · Cohorte única y auditable para el lienzo 00 Resumen Ejecutivo Mayorista.
 	/// Toda métrica parte de pedidos cerrados con días internos válidos en Fact_Tracking.
-	measure 'RE Pedidos contexto' =
-			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
-			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
+		/// Filtro de flujo multiselect sobre la jerarquia desconectada Dim_Vista_Ejecutiva.
+	/// Devuelve TRUE si el pedido actual pertenece a los flujos seleccionados (o a todos
+	/// cuando no hay seleccion). Reemplaza la semantica SELECTEDVALUE que falla con
+	/// seleccion multiple.
+	measure 'RE Filtro Flujo' =
+			VAR FlujosSel = VALUES(Dim_Vista_Ejecutiva[Flujo])
+			VAR FiltraFlujo = ISFILTERED(Dim_Vista_Ejecutiva[Flujo])
+			VAR IncluyeNormal =
+				NOT FiltraFlujo
+					|| CONTAINS(FlujosSel, Dim_Vista_Ejecutiva[Flujo], "1. Flujo Normal")
+			VAR IncluyeFES =
+				NOT FiltraFlujo
+					|| CONTAINS(FlujosSel, Dim_Vista_Ejecutiva[Flujo], "2. FES (incluye FES + Saldo)")
+			VAR IncluyeSaldo =
+				NOT FiltraFlujo
+					|| CONTAINS(FlujosSel, Dim_Vista_Ejecutiva[Flujo], "3. Saldos puros")
+			RETURN
+				(
+					(IncluyeNormal && Fact_Tracking[CLASIFICACION] = "NORMAL")
+					|| (IncluyeFES && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
+					|| (IncluyeSaldo && Fact_Tracking[CLASIFICACION] = "SALDO")
+				)
+		formatString: TRUE/FALSE
+		displayFolder: 02. Resumen Ejecutivo\01. Cohorte
+		lineageTag: 27000000-0000-4000-8000-000000000150
+
+	/// Filtro de zona multiselect sobre la jerarquia desconectada Dim_Rango_Entrega.
+	/// Devuelve TRUE si la zona del pedido esta entre las seleccionadas (o todas cuando
+	/// no hay seleccion). Reemplaza la semantica SELECTEDVALUE que falla con multiselect.
+	measure 'RE Filtro Zona' =
+			VAR ZonasSel = VALUES(Dim_Rango_Entrega[Zona])
+			VAR FiltraZona = ISFILTERED(Dim_Rango_Entrega[Zona])
+			RETURN
+				NOT FiltraZona
+					|| CONTAINS(ZonasSel, Dim_Rango_Entrega[Zona], Fact_Tracking[ZONA])
+		formatString: TRUE/FALSE
+		displayFolder: 02. Resumen Ejecutivo\01. Cohorte
+		lineageTag: 27000000-0000-4000-8000-000000000151
+
+measure 'RE Pedidos contexto' =
 			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
 			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
 			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
@@ -1150,13 +1187,8 @@ table Medidas
 							Fact_Tracking,
 							Fact_Tracking[ES_CERRADO] = TRUE()
 								&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
-								&& (
-									ISBLANK(FlujoSel)
-										|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
-										|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
-										|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
-								)
-								&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+								&& [RE Filtro Flujo]
+								&& [RE Filtro Zona]
 								&& (
 									NOT TieneRango
 										|| (
@@ -1172,8 +1204,6 @@ table Medidas
 		lineageTag: 27000000-0000-4000-8000-000000000101
 
 	measure 'RE Pedidos en SLA contexto' =
-			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
-			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
 			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
 			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
 			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
@@ -1186,13 +1216,8 @@ table Medidas
 							Fact_Tracking[ES_CERRADO] = TRUE()
 								&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
 								&& Fact_Tracking[CUMPLE_SLA_INTERNO] = TRUE()
-								&& (
-									ISBLANK(FlujoSel)
-										|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
-										|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
-										|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
-								)
-								&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+								&& [RE Filtro Flujo]
+								&& [RE Filtro Zona]
 								&& (
 									NOT TieneRango
 										|| (
@@ -1218,8 +1243,6 @@ table Medidas
 		lineageTag: 27000000-0000-4000-8000-000000000104
 
 	measure 'RE Valor contexto' =
-			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
-			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
 			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
 			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
 			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
@@ -1231,13 +1254,8 @@ table Medidas
 							Fact_Tracking,
 							Fact_Tracking[ES_CERRADO] = TRUE()
 								&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
-								&& (
-									ISBLANK(FlujoSel)
-										|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
-										|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
-										|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
-								)
-								&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+								&& [RE Filtro Flujo]
+								&& [RE Filtro Zona]
 								&& (NOT TieneRango || (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH)))
 						)
 					)
@@ -1263,8 +1281,6 @@ table Medidas
 		lineageTag: 27000000-0000-4000-8000-000000000107
 
 	measure 'RE Promedio contexto DH' =
-			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
-			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
 			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
 			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
 			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
@@ -1273,13 +1289,8 @@ table Medidas
 					Fact_Tracking,
 					Fact_Tracking[ES_CERRADO] = TRUE()
 						&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
-						&& (
-							ISBLANK(FlujoSel)
-								|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
-								|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
-								|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
-						)
-						&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+						&& [RE Filtro Flujo]
+						&& [RE Filtro Zona]
 						&& (NOT TieneRango || (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH)))
 				)
 			RETURN AVERAGEX(Cohorte, Fact_Tracking[DIAS_INTERNOS_DH])
@@ -1288,8 +1299,6 @@ table Medidas
 		lineageTag: 27000000-0000-4000-8000-000000000108
 
 	measure 'RE P90 contexto DH' =
-			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
-			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
 			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
 			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
 			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
@@ -1298,13 +1307,8 @@ table Medidas
 					Fact_Tracking,
 					Fact_Tracking[ES_CERRADO] = TRUE()
 						&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
-						&& (
-							ISBLANK(FlujoSel)
-								|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
-								|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
-								|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
-						)
-						&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+						&& [RE Filtro Flujo]
+						&& [RE Filtro Zona]
 						&& (NOT TieneRango || (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH)))
 				)
 			RETURN PERCENTILEX.INC(Cohorte, Fact_Tracking[DIAS_INTERNOS_DH], 0.9)
@@ -1417,8 +1421,6 @@ table Medidas
 	measure 'RE Pedidos hito con dato' =
 			VAR Codigo = [RE Código nivel matriz]
 			VAR EsNivelIntegral = NOT ISINSCOPE(Dim_Vista_Ejecutiva[Macroproceso])
-			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
-			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
 			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
 			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
 			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
@@ -1430,13 +1432,8 @@ table Medidas
 							Fact_Tracking,
 							Fact_Tracking[ES_CERRADO] = TRUE()
 								&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
-								&& (
-									ISBLANK(FlujoSel)
-										|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
-										|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
-										|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
-								)
-								&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+								&& [RE Filtro Flujo]
+								&& [RE Filtro Zona]
 								&& (NOT TieneRango || (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH)))
 						)
 					)
@@ -1465,8 +1462,6 @@ table Medidas
 	measure 'RE Pedidos hito cumplen' =
 			VAR Codigo = [RE Código nivel matriz]
 			VAR EsNivelIntegral = NOT ISINSCOPE(Dim_Vista_Ejecutiva[Macroproceso])
-			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
-			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
 			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
 			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
 			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
@@ -1478,13 +1473,8 @@ table Medidas
 							Fact_Tracking,
 							Fact_Tracking[ES_CERRADO] = TRUE()
 								&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
-								&& (
-									ISBLANK(FlujoSel)
-										|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
-										|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
-										|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
-								)
-								&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+								&& [RE Filtro Flujo]
+								&& [RE Filtro Zona]
 								&& (NOT TieneRango || (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH)))
 						)
 					)
@@ -1514,8 +1504,6 @@ table Medidas
 	measure 'RE Promedio hito DH' =
 			VAR Codigo = [RE Código nivel matriz]
 			VAR EsNivelIntegral = NOT ISINSCOPE(Dim_Vista_Ejecutiva[Macroproceso])
-			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
-			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
 			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
 			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
 			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
@@ -1527,13 +1515,8 @@ table Medidas
 							Fact_Tracking,
 							Fact_Tracking[ES_CERRADO] = TRUE()
 								&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
-								&& (
-									ISBLANK(FlujoSel)
-										|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
-										|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
-										|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
-								)
-								&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+								&& [RE Filtro Flujo]
+								&& [RE Filtro Zona]
 								&& (NOT TieneRango || (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH)))
 						)
 					)
@@ -1557,8 +1540,6 @@ table Medidas
 	measure 'RE P90 hito DH' =
 			VAR Codigo = [RE Código nivel matriz]
 			VAR EsNivelIntegral = NOT ISINSCOPE(Dim_Vista_Ejecutiva[Macroproceso])
-			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
-			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
 			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
 			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
 			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
@@ -1570,13 +1551,8 @@ table Medidas
 							Fact_Tracking,
 							Fact_Tracking[ES_CERRADO] = TRUE()
 								&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
-								&& (
-									ISBLANK(FlujoSel)
-										|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
-										|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
-										|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
-								)
-								&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+								&& [RE Filtro Flujo]
+								&& [RE Filtro Zona]
 								&& (NOT TieneRango || (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH)))
 						)
 					)
@@ -1604,8 +1580,6 @@ table Medidas
 		lineageTag: 27000000-0000-4000-8000-000000000120
 
 	measure 'RE Periodo contexto' =
-			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
-			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
 			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
 			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
 			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
@@ -1614,11 +1588,8 @@ table Medidas
 					Fact_Tracking,
 					Fact_Tracking[ES_CERRADO] = TRUE()
 						&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
-						&& (ISBLANK(FlujoSel)
-							|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
-							|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
-							|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO"))
-						&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+						&& [RE Filtro Flujo]
+						&& [RE Filtro Zona]
 						&& (NOT TieneRango || (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH)))
 				)
 			VAR MinCre = MINX(Cohorte, Fact_Tracking[PED_FECHA_HORA])
@@ -1678,8 +1649,6 @@ table Medidas
 			// Tabla completa de pedidos fuera SLA. El nombre técnico se conserva
 			// por compatibilidad con los visuales existentes.
 			VAR PedidoActual = SELECTEDVALUE(Fact_Tracking[PED_NUMERO_PEDIDO])
-			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
-			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
 			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
 			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
 			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
@@ -1689,11 +1658,8 @@ table Medidas
 					Fact_Tracking[ES_CERRADO] = TRUE()
 						&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
 						&& Fact_Tracking[CUMPLE_SLA_INTERNO] = FALSE()
-						&& (ISBLANK(FlujoSel)
-							|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
-							|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
-							|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO"))
-						&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+						&& [RE Filtro Flujo]
+						&& [RE Filtro Zona]
 						&& (NOT TieneRango || (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH)))
 				)
 			VAR PedidoPertenece =
@@ -1762,8 +1728,6 @@ table Medidas
 			VAR Zona = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
 			VAR Rango = SELECTEDVALUE(Dim_Rango_Entrega[Rango])
 			VAR Contexto = COALESCE(Flujo, IF(NOT ISBLANK(Zona), Zona & IF(NOT ISBLANK(Rango), " · " & Rango, ""), "Universo cerrado") )
-			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
-			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
 			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
 			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
 			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
@@ -1773,13 +1737,8 @@ table Medidas
 					Fact_Tracking[ES_CERRADO] = TRUE()
 						&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
 						&& Fact_Tracking[CUMPLE_SLA_INTERNO] = FALSE()
-						&& (
-							ISBLANK(FlujoSel)
-								|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
-								|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
-								|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
-						)
-						&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+						&& [RE Filtro Flujo]
+						&& [RE Filtro Zona]
 						&& (NOT TieneRango || (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH)))
 				)
 			VAR MinCre = MINX(Cohorte, Fact_Tracking[PED_FECHA_HORA])
@@ -2803,8 +2762,6 @@ table Medidas
 		lineageTag: 013e9096-b55e-4c8a-b52b-15045106881d
 
 	measure 'FA Líneas' =
-			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
-			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
 			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
 			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
 			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
@@ -2816,13 +2773,8 @@ table Medidas
 							Fact_Tracking,
 							Fact_Tracking[ES_CERRADO] = TRUE()
 								&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
-								&& (
-									ISBLANK(FlujoSel)
-										|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
-										|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
-										|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
-									)
-								&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+								&& [RE Filtro Flujo]
+								&& [RE Filtro Zona]
 								&& (
 									NOT TieneRango
 										|| (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH))
@@ -2840,8 +2792,6 @@ table Medidas
 		lineageTag: 705e4446-60a3-47f4-80fb-2c4a7a296ea5
 
 	measure 'FA Unidades' =
-			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
-			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
 			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
 			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
 			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
@@ -2853,13 +2803,8 @@ table Medidas
 							Fact_Tracking,
 							Fact_Tracking[ES_CERRADO] = TRUE()
 								&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
-								&& (
-									ISBLANK(FlujoSel)
-										|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
-										|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
-										|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
-									)
-								&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+								&& [RE Filtro Flujo]
+								&& [RE Filtro Zona]
 								&& (
 									NOT TieneRango
 										|| (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH))
@@ -2887,8 +2832,6 @@ table Medidas
 		lineageTag: f4582ff3-5b42-453f-a6bf-cdbeb2dc6fde
 
 	measure 'FA DH Promedio FES' =
-			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
-			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
 			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
 			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
 			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
@@ -2901,7 +2844,7 @@ table Medidas
 							Fact_Tracking[ES_CERRADO] = TRUE()
 								&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
 								&& Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"}
-								&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+								&& [RE Filtro Zona]
 								&& (
 									NOT TieneRango
 										|| (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH))
@@ -2914,8 +2857,6 @@ table Medidas
 		lineageTag: 6a1e76e2-399b-44d6-b9ee-f80dfce18c05
 
 	measure 'FA Líneas Fuera SLA' =
-			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
-			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
 			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
 			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
 			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
@@ -2928,13 +2869,8 @@ table Medidas
 							Fact_Tracking[ES_CERRADO] = TRUE()
 								&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
 								&& Fact_Tracking[CUMPLE_SLA_INTERNO] = FALSE()
-								&& (
-									ISBLANK(FlujoSel)
-										|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
-										|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
-										|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
-								)
-								&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+								&& [RE Filtro Flujo]
+								&& [RE Filtro Zona]
 								&& (NOT TieneRango || (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH)))
 						)
 					)
@@ -2949,8 +2885,6 @@ table Medidas
 		lineageTag: 7423c458-96f2-48a2-a002-4cb110f8f732
 
 	measure 'FA Unidades Fuera SLA' =
-			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
-			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
 			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
 			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
 			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
@@ -2963,13 +2897,8 @@ table Medidas
 							Fact_Tracking[ES_CERRADO] = TRUE()
 								&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
 								&& Fact_Tracking[CUMPLE_SLA_INTERNO] = FALSE()
-								&& (
-									ISBLANK(FlujoSel)
-										|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
-										|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
-										|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
-								)
-								&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+								&& [RE Filtro Flujo]
+								&& [RE Filtro Zona]
 								&& (NOT TieneRango || (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH)))
 						)
 					)
@@ -2984,8 +2913,6 @@ table Medidas
 		lineageTag: 9ddf42d0-ded2-47d7-9039-90d860797098
 
 	measure 'FA DH Promedio Normal' =
-			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
-			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
 			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
 			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
 			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
@@ -2998,7 +2925,7 @@ table Medidas
 							Fact_Tracking[ES_CERRADO] = TRUE()
 								&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
 								&& Fact_Tracking[CLASIFICACION] = "NORMAL"
-								&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+								&& [RE Filtro Zona]
 								&& (
 									NOT TieneRango
 										|| (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH))
@@ -3023,8 +2950,6 @@ table Medidas
 
 	/// Pedidos de la cohorte evaluada que poseen correspondencia en la tabla de líneas y unidades.
 	measure 'FA Pedidos con Volumen' =
-			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
-			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
 			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
 			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
 			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
@@ -3036,13 +2961,8 @@ table Medidas
 							Fact_Tracking,
 							Fact_Tracking[ES_CERRADO] = TRUE()
 								&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
-								&& (
-									ISBLANK(FlujoSel)
-										|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
-										|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
-										|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
-									)
-								&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+								&& [RE Filtro Flujo]
+								&& [RE Filtro Zona]
 								&& (
 									NOT TieneRango
 										|| (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH))
