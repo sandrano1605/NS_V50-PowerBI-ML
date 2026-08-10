@@ -1675,13 +1675,15 @@ table Medidas
 
 	/// Tooltip compacto. Respeta selección de flujo, zona/rango y filtros de cliente/vendedor. Muestra los 15 pedidos con mayor DH.
 	measure 'RE TT Días Top 10' =
+			// Tabla completa de pedidos fuera SLA. El nombre técnico se conserva
+			// por compatibilidad con los visuales existentes.
 			VAR PedidoActual = SELECTEDVALUE(Fact_Tracking[PED_NUMERO_PEDIDO])
 			VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
 			VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
 			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
 			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
 			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
-			VAR Base =
+			VAR BaseFueraSLA =
 				FILTER(
 					ALLSELECTED(Fact_Tracking),
 					Fact_Tracking[ES_CERRADO] = TRUE()
@@ -1694,11 +1696,17 @@ table Medidas
 						&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
 						&& (NOT TieneRango || (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH)))
 				)
-			VAR TopPedidos = TOPN(15, Base, Fact_Tracking[DIAS_INTERNOS_DH], DESC, Fact_Tracking[PED_NUMERO_PEDIDO], ASC)
+			VAR PedidoPertenece =
+				NOT ISBLANK(PedidoActual)
+					&& COUNTROWS(
+						FILTER(
+							BaseFueraSLA,
+							Fact_Tracking[PED_NUMERO_PEDIDO] = PedidoActual
+						)
+					) > 0
 			RETURN
 				IF(
-					NOT ISBLANK(PedidoActual)
-						&& CONTAINS(TopPedidos, Fact_Tracking[PED_NUMERO_PEDIDO], PedidoActual),
+					PedidoPertenece,
 					MAX(Fact_Tracking[DIAS_INTERNOS_DH])
 				)
 		formatString: 0 "DH"
@@ -1764,6 +1772,7 @@ table Medidas
 					Fact_Tracking,
 					Fact_Tracking[ES_CERRADO] = TRUE()
 						&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
+						&& Fact_Tracking[CUMPLE_SLA_INTERNO] = FALSE()
 						&& (
 							ISBLANK(FlujoSel)
 								|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
@@ -1775,11 +1784,10 @@ table Medidas
 				)
 			VAR MinCre = MINX(Cohorte, Fact_Tracking[PED_FECHA_HORA])
 			VAR MaxCre = MAXX(Cohorte, Fact_Tracking[PED_FECHA_HORA])
-			VAR PedidosContexto = [RE Pedidos contexto]
-			VAR FilasMostradas = MIN(10, PedidosContexto)
+			VAR PedidosFueraSLA = [RE Pedidos fuera SLA contexto]
 			RETURN
-				"TOP CRÍTICOS · "
-				& FORMAT(FilasMostradas, "#,##0", "es-CL") & " de " & FORMAT(PedidosContexto, "#,##0", "es-CL") & " pedidos"
+				"PEDIDOS FUERA SLA · "
+				& FORMAT(PedidosFueraSLA, "#,##0", "es-CL") & " PEDIDOS"
 				& " · " & COALESCE(FORMAT(MinCre, "dd-MM-yyyy"), "--") & " a " & COALESCE(FORMAT(MaxCre, "dd-MM-yyyy"), "--")
 				& " · " & Contexto
 		displayFolder: 02. Resumen Ejecutivo\09. Tooltip
@@ -2046,7 +2054,7 @@ table Medidas
 		displayFolder: 10. Tooltips\Contexto
 		lineageTag: 40000000-0000-4000-8000-000000000102
 
-	measure 'RE Fuera SLA %' = RETURN 1 - [RE NS contexto]
+	measure 'RE Fuera SLA %' = 1 - [RE NS contexto]
 		formatString: 0.0%
 		displayFolder: 02. Resumen Ejecutivo\10. Diseño 2026
 		lineageTag: a9386396-a0ab-4324-a968-dc0d62d08ec8
