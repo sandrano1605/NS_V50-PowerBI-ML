@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "in_chart_lineas_dia_mes",
   "position": {
-    "x": 24,
-    "y": 516,
+    "x": 0,
+    "y": 508,
     "z": 11000,
-    "height": 392,
-    "width": 1552,
+    "height": 432,
+    "width": 1600,
     "tabOrder": 11001
   },
   "visual": {
@@ -131,6 +131,20 @@
                   "Value": "true"
                 }
               }
+            },
+            "lineStyle": {
+              "expr": {
+                "Literal": {
+                  "Value": "'dashed'"
+                }
+              }
+            },
+            "strokeWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
             }
           }
         }
@@ -141,7 +155,7 @@
             "transparency": {
               "expr": {
                 "Literal": {
-                  "Value": "81D"
+                  "Value": "96D"
                 }
               }
             }
@@ -352,6 +366,5 @@
         "type": "Advanced"
       }
     ]
-  },
-  "isHidden": true
+  }
 }

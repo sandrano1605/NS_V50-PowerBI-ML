@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "in_chart_unidades_dia_mes",
   "position": {
-    "x": 32.755905511811022,
-    "y": 507.87401574803158,
+    "x": 0,
+    "y": 508,
     "z": 10000,
     "height": 432,
-    "width": 1568,
+    "width": 1600,
     "tabOrder": 11002
   },
   "visual": {
@@ -152,6 +152,27 @@
                   "Value": "true"
                 }
               }
+            },
+            "lineStyle": {
+              "expr": {
+                "Literal": {
+                  "Value": "'dashed'"
+                }
+              }
+            },
+            "strokeWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            },
+            "markerShape": {
+              "expr": {
+                "Literal": {
+                  "Value": "'diamond'"
+                }
+              }
             }
           }
         }
@@ -188,7 +209,7 @@
             "transparency": {
               "expr": {
                 "Literal": {
-                  "Value": "86D"
+                  "Value": "91D"
                 }
               }
             }
