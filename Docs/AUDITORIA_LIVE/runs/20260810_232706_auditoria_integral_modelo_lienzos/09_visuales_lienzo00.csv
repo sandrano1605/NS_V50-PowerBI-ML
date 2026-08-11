@@ -3,7 +3,7 @@ Medidas_RE_corregidas,14
 Patron_aplicado,[RE Filtro Flujo] + [RE Filtro Zona] en FILTER
 Patron_distribucion,VALUES/ISFILTERED/CONTAINS para display condicional
 Medidas_RE_con_SELECTEDVALUE_restantes,2 (SLA interno/cliente objetivo DH - display only, bajo impacto)
-Medidas_FA_con_SELECTEDVALUE,9 (pendiente lienzo 01)
+Medidas_FA_multiselect_status,CORREGIDO_ESTRUCTURAL (14 medidas; pendiente validacion viva Power BI)
 RE_Valor_contexto,CORREGIDO
 RE_Promedio_contexto_DH,CORREGIDO
 RE_P90_contexto_DH,CORREGIDO

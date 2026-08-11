@@ -2728,13 +2728,8 @@ table Medidas
 							Fact_Tracking,
 							Fact_Tracking[ES_CERRADO] = TRUE()
 								&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
-								&& (
-									ISBLANK(FlujoSel)
-										|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
-										|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
-										|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
-									)
-								&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+								&& [RE Filtro Flujo]
+								&& [RE Filtro Zona]
 								&& (
 									NOT TieneRango
 										|| (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH))
@@ -2763,13 +2758,8 @@ table Medidas
 							Fact_Tracking,
 							Fact_Tracking[ES_CERRADO] = TRUE()
 								&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
-								&& (
-									ISBLANK(FlujoSel)
-										|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
-										|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
-										|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
-									)
-								&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+								&& [RE Filtro Flujo]
+								&& [RE Filtro Zona]
 								&& (
 									NOT TieneRango
 										|| (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH))
@@ -2809,7 +2799,7 @@ table Medidas
 							Fact_Tracking[ES_CERRADO] = TRUE()
 								&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
 								&& Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"}
-								&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+								&& [RE Filtro Zona]
 								&& (
 									NOT TieneRango
 										|| (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH))
@@ -2890,7 +2880,7 @@ table Medidas
 							Fact_Tracking[ES_CERRADO] = TRUE()
 								&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
 								&& Fact_Tracking[CLASIFICACION] = "NORMAL"
-								&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+								&& [RE Filtro Zona]
 								&& (
 									NOT TieneRango
 										|| (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH))
@@ -2926,13 +2916,8 @@ table Medidas
 							Fact_Tracking,
 							Fact_Tracking[ES_CERRADO] = TRUE()
 								&& NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH])
-								&& (
-									ISBLANK(FlujoSel)
-										|| (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL")
-										|| (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"})
-										|| (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")
-									)
-								&& (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)
+								&& [RE Filtro Flujo]
+								&& [RE Filtro Zona]
 								&& (
 									NOT TieneRango
 										|| (Fact_Tracking[DIAS_INTERNOS_DH] >= MinDH && (ISBLANK(MaxDH) || Fact_Tracking[DIAS_INTERNOS_DH] <= MaxDH))
@@ -3002,27 +2987,27 @@ table Medidas
 		displayFolder: 04. Análisis Fuera SLA\Recurrencia 3M
 		lineageTag: 56000000-0000-4000-8000-000000000004
 
-	measure 'FA Días Factura Salida Promedio' = VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo]) VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona]) VAR BasePost = FILTER(Fact_Tracking, Fact_Tracking[ES_CERRADO] = TRUE() && NOT ISBLANK(Fact_Tracking[DIAS_POSTFACTURA_DH]) && (ISBLANK(FlujoSel) || (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL") || (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"}) || (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")) && (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)) VAR Criticos15 = FILTER(BasePost, Fact_Tracking[DIAS_POSTFACTURA_DH] > 15) RETURN IF(COUNTROWS(Criticos15)=0, BLANK(), AVERAGEX(Criticos15, Fact_Tracking[DIAS_POSTFACTURA_DH]))
+	measure 'FA Días Factura Salida Promedio' = VAR BasePost = FILTER(Fact_Tracking, Fact_Tracking[ES_CERRADO] = TRUE() && NOT ISBLANK(Fact_Tracking[DIAS_POSTFACTURA_DH]) && [RE Filtro Flujo] && [RE Filtro Zona]) VAR Criticos15 = FILTER(BasePost, Fact_Tracking[DIAS_POSTFACTURA_DH] > 15) RETURN IF(COUNTROWS(Criticos15)=0, BLANK(), AVERAGEX(Criticos15, Fact_Tracking[DIAS_POSTFACTURA_DH]))
 		formatString: 0.0
 		displayFolder: 04. Análisis Fuera SLA\Permanencia CD
 		lineageTag: 56000000-0000-4000-8000-000000000005
 
-	measure 'FA P90 Días Factura Salida' = VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo]) VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona]) VAR BasePost = FILTER(Fact_Tracking, Fact_Tracking[ES_CERRADO] = TRUE() && NOT ISBLANK(Fact_Tracking[DIAS_POSTFACTURA_DH]) && (ISBLANK(FlujoSel) || (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL") || (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"}) || (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")) && (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)) VAR Criticos15 = FILTER(BasePost, Fact_Tracking[DIAS_POSTFACTURA_DH] > 15) RETURN IF(COUNTROWS(Criticos15)=0, BLANK(), PERCENTILEX.INC(Criticos15, Fact_Tracking[DIAS_POSTFACTURA_DH], 0.9))
+	measure 'FA P90 Días Factura Salida' = VAR BasePost = FILTER(Fact_Tracking, Fact_Tracking[ES_CERRADO] = TRUE() && NOT ISBLANK(Fact_Tracking[DIAS_POSTFACTURA_DH]) && [RE Filtro Flujo] && [RE Filtro Zona]) VAR Criticos15 = FILTER(BasePost, Fact_Tracking[DIAS_POSTFACTURA_DH] > 15) RETURN IF(COUNTROWS(Criticos15)=0, BLANK(), PERCENTILEX.INC(Criticos15, Fact_Tracking[DIAS_POSTFACTURA_DH], 0.9))
 		formatString: 0.0
 		displayFolder: 04. Análisis Fuera SLA\Permanencia CD
 		lineageTag: 56000000-0000-4000-8000-000000000006
 
-	measure 'FA Pedidos Facturados >15d' = VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo]) VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona]) VAR BasePost = FILTER(Fact_Tracking, Fact_Tracking[ES_CERRADO] = TRUE() && NOT ISBLANK(Fact_Tracking[DIAS_POSTFACTURA_DH]) && (ISBLANK(FlujoSel) || (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL") || (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"}) || (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")) && (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)) VAR Criticos15 = FILTER(BasePost, Fact_Tracking[DIAS_POSTFACTURA_DH] > 15) VAR Resultado = COUNTROWS(Criticos15) RETURN IF(Resultado=0, BLANK(), Resultado)
+	measure 'FA Pedidos Facturados >15d' = VAR BasePost = FILTER(Fact_Tracking, Fact_Tracking[ES_CERRADO] = TRUE() && NOT ISBLANK(Fact_Tracking[DIAS_POSTFACTURA_DH]) && [RE Filtro Flujo] && [RE Filtro Zona]) VAR Criticos15 = FILTER(BasePost, Fact_Tracking[DIAS_POSTFACTURA_DH] > 15) VAR Resultado = COUNTROWS(Criticos15) RETURN IF(Resultado=0, BLANK(), Resultado)
 		formatString: #,0
 		displayFolder: 04. Análisis Fuera SLA\Permanencia CD
 		lineageTag: 56000000-0000-4000-8000-000000000007
 
-	measure 'FA Pedidos Facturados >20d' = VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo]) VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona]) VAR BasePost = FILTER(Fact_Tracking, Fact_Tracking[ES_CERRADO] = TRUE() && NOT ISBLANK(Fact_Tracking[DIAS_POSTFACTURA_DH]) && (ISBLANK(FlujoSel) || (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL") || (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"}) || (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")) && (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)) VAR Criticos20 = FILTER(BasePost, Fact_Tracking[DIAS_POSTFACTURA_DH] > 20) VAR Resultado = COUNTROWS(Criticos20) RETURN IF(Resultado=0, BLANK(), Resultado)
+	measure 'FA Pedidos Facturados >20d' = VAR BasePost = FILTER(Fact_Tracking, Fact_Tracking[ES_CERRADO] = TRUE() && NOT ISBLANK(Fact_Tracking[DIAS_POSTFACTURA_DH]) && [RE Filtro Flujo] && [RE Filtro Zona]) VAR Criticos20 = FILTER(BasePost, Fact_Tracking[DIAS_POSTFACTURA_DH] > 20) VAR Resultado = COUNTROWS(Criticos20) RETURN IF(Resultado=0, BLANK(), Resultado)
 		formatString: #,0
 		displayFolder: 04. Análisis Fuera SLA\Permanencia CD
 		lineageTag: 56000000-0000-4000-8000-000000000008
 
-	measure 'FA Valor Retenido >15d' = VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo]) VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona]) VAR BasePost = FILTER(Fact_Tracking, Fact_Tracking[ES_CERRADO] = TRUE() && NOT ISBLANK(Fact_Tracking[DIAS_POSTFACTURA_DH]) && (ISBLANK(FlujoSel) || (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL") || (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"}) || (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")) && (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)) VAR Criticos15 = FILTER(BasePost, Fact_Tracking[DIAS_POSTFACTURA_DH] > 15) RETURN IF(COUNTROWS(Criticos15)=0, BLANK(), SUMX(Criticos15, Fact_Tracking[PED_VALOR_NETO]))
+	measure 'FA Valor Retenido >15d' = VAR BasePost = FILTER(Fact_Tracking, Fact_Tracking[ES_CERRADO] = TRUE() && NOT ISBLANK(Fact_Tracking[DIAS_POSTFACTURA_DH]) && [RE Filtro Flujo] && [RE Filtro Zona]) VAR Criticos15 = FILTER(BasePost, Fact_Tracking[DIAS_POSTFACTURA_DH] > 15) RETURN IF(COUNTROWS(Criticos15)=0, BLANK(), SUMX(Criticos15, Fact_Tracking[PED_VALOR_NETO]))
 		formatString: "$"#,0;("$"#,0);"$"#,0
 		displayFolder: 04. Análisis Fuera SLA\Permanencia CD
 		lineageTag: 56000000-0000-4000-8000-000000000009
@@ -3071,7 +3056,7 @@ table Medidas
 		displayFolder: 04. Análisis Fuera SLA\Recurrencia 3M
 		lineageTag: 57000000-0000-4000-8000-000000000106
 
-	measure 'FA Pedidos Postfactura Abiertos >15d' = VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo]) VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona]) VAR BasePost = FILTER(Fact_Tracking, Fact_Tracking[POSTFACTURA_ABIERTO] = TRUE() && NOT ISBLANK(Fact_Tracking[DIAS_POSTFACTURA_DH]) && Fact_Tracking[DIAS_POSTFACTURA_DH] > 15 && (ISBLANK(FlujoSel) || (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL") || (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"}) || (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")) && (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)) VAR Resultado = COUNTROWS(BasePost) RETURN IF(Resultado=0, BLANK(), Resultado)
+	measure 'FA Pedidos Postfactura Abiertos >15d' = VAR BasePost = FILTER(Fact_Tracking, Fact_Tracking[POSTFACTURA_ABIERTO] = TRUE() && NOT ISBLANK(Fact_Tracking[DIAS_POSTFACTURA_DH]) && Fact_Tracking[DIAS_POSTFACTURA_DH] > 15 && [RE Filtro Flujo] && [RE Filtro Zona]) VAR Resultado = COUNTROWS(BasePost) RETURN IF(Resultado=0, BLANK(), Resultado)
 		formatString: #,0
 		displayFolder: 04. Análisis Fuera SLA\Permanencia CD
 		lineageTag: 57000000-0000-4000-8000-000000000107
@@ -3108,7 +3093,7 @@ table Medidas
 
 	/// Pedidos de la cohorte histórica cerrada (equivalente a TRACKING analítico = TRUE).
 	/// Incluye todos los flujos, pero excluye pedidos abiertos o sin cierre oficial.
-	measure 'FA Carga Pedidos Creados' = VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo]) VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona]) RETURN CALCULATE(DISTINCTCOUNT(Fact_Tracking[PED_NUMERO_PEDIDO]), KEEPFILTERS(FILTER(Fact_Tracking, Fact_Tracking[ES_CERRADO] = TRUE() && NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH]) && (ISBLANK(FlujoSel) || (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL") || (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"}) || (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")) && (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel))))
+	measure 'FA Carga Pedidos Creados' = RETURN CALCULATE(DISTINCTCOUNT(Fact_Tracking[PED_NUMERO_PEDIDO]), KEEPFILTERS(FILTER(Fact_Tracking, Fact_Tracking[ES_CERRADO] = TRUE() && NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH]) && [RE Filtro Flujo] && [RE Filtro Zona])))
 		formatString: #,0
 		displayFolder: 04. Análisis Fuera SLA\Carga y SLA
 		lineageTag: 58000000-0000-4000-8000-000000000201
@@ -3128,12 +3113,12 @@ table Medidas
 		displayFolder: 04. Análisis Fuera SLA\Carga y SLA
 		lineageTag: 58000000-0000-4000-8000-000000000204
 
-	measure 'FA Carga Líneas' = VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo]) VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona]) VAR PedidosCarga = CALCULATETABLE(VALUES(Fact_Tracking[PED_NUMERO_PEDIDO]), KEEPFILTERS(FILTER(Fact_Tracking, Fact_Tracking[ES_CERRADO] = TRUE() && NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH]) && (ISBLANK(FlujoSel) || (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL") || (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"}) || (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")) && (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)))) RETURN CALCULATE(SUM(Lineas_y_unidades_por_pedidos[Lineas]), TREATAS(PedidosCarga, Lineas_y_unidades_por_pedidos[Pedido]))
+	measure 'FA Carga Líneas' = VAR PedidosCarga = CALCULATETABLE(VALUES(Fact_Tracking[PED_NUMERO_PEDIDO]), KEEPFILTERS(FILTER(Fact_Tracking, Fact_Tracking[ES_CERRADO] = TRUE() && NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH]) && [RE Filtro Flujo] && [RE Filtro Zona]))) RETURN CALCULATE(SUM(Lineas_y_unidades_por_pedidos[Lineas]), TREATAS(PedidosCarga, Lineas_y_unidades_por_pedidos[Pedido]))
 		formatString: #,0
 		displayFolder: 04. Análisis Fuera SLA\Carga y SLA
 		lineageTag: 58000000-0000-4000-8000-000000000205
 
-	measure 'FA Carga Unidades' = VAR FlujoSel = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo]) VAR ZonaSel = SELECTEDVALUE(Dim_Rango_Entrega[Zona]) VAR PedidosCarga = CALCULATETABLE(VALUES(Fact_Tracking[PED_NUMERO_PEDIDO]), KEEPFILTERS(FILTER(Fact_Tracking, Fact_Tracking[ES_CERRADO] = TRUE() && NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH]) && (ISBLANK(FlujoSel) || (CONTAINSSTRING(FlujoSel, "Flujo Normal") && Fact_Tracking[CLASIFICACION] = "NORMAL") || (CONTAINSSTRING(FlujoSel, "FES") && Fact_Tracking[CLASIFICACION] IN {"FES", "FES + SALDO"}) || (CONTAINSSTRING(FlujoSel, "Saldos") && Fact_Tracking[CLASIFICACION] = "SALDO")) && (ISBLANK(ZonaSel) || Fact_Tracking[ZONA] = ZonaSel)))) RETURN CALCULATE(SUM(Lineas_y_unidades_por_pedidos[Suma_Unidades]), TREATAS(PedidosCarga, Lineas_y_unidades_por_pedidos[Pedido]))
+	measure 'FA Carga Unidades' = VAR PedidosCarga = CALCULATETABLE(VALUES(Fact_Tracking[PED_NUMERO_PEDIDO]), KEEPFILTERS(FILTER(Fact_Tracking, Fact_Tracking[ES_CERRADO] = TRUE() && NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH]) && [RE Filtro Flujo] && [RE Filtro Zona]))) RETURN CALCULATE(SUM(Lineas_y_unidades_por_pedidos[Suma_Unidades]), TREATAS(PedidosCarga, Lineas_y_unidades_por_pedidos[Pedido]))
 		formatString: #,0
 		displayFolder: 04. Análisis Fuera SLA\Carga y SLA
 		lineageTag: 58000000-0000-4000-8000-000000000206
