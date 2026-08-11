@@ -6,21 +6,21 @@ param(
 $ErrorActionPreference = "Stop"
 
 function Invoke-GitText {
-    param([Parameter(ValueFromRemainingArguments = $true)][string[]]$Args)
-    $out = & git @Args 2>&1
+    param([string[]]$GitArgs)
+    $out = & git @GitArgs 2>&1
     if ($LASTEXITCODE -ne 0) {
-        throw "git $($Args -join ' ') fallo: $($out -join [Environment]::NewLine)"
+        throw "git $($GitArgs -join ' ') fallo: $($out -join [Environment]::NewLine)"
     }
     return ($out -join [Environment]::NewLine).Trim()
 }
 
-$repoRoot = Invoke-GitText rev-parse --show-toplevel
+$repoRoot = Invoke-GitText -GitArgs @("rev-parse", "--show-toplevel")
 Set-Location $repoRoot
 
-$branch = Invoke-GitText branch --show-current
-$sha = Invoke-GitText rev-parse HEAD
-$shortSha = Invoke-GitText rev-parse --short=7 HEAD
-$remoteUrl = Invoke-GitText remote get-url origin
+$branch = Invoke-GitText -GitArgs @("branch", "--show-current")
+$sha = Invoke-GitText -GitArgs @("rev-parse", "HEAD")
+$shortSha = Invoke-GitText -GitArgs @("rev-parse", "--short=7", "HEAD")
+$remoteUrl = Invoke-GitText -GitArgs @("remote", "get-url", "origin")
 $remoteRaw = (& git ls-remote origin "refs/heads/$branch" 2>&1) -join [Environment]::NewLine
 $remoteSha = if ($LASTEXITCODE -eq 0 -and $remoteRaw.Trim()) { ($remoteRaw -split "\s+")[0] } else { $null }
 $timestamp = Get-Date -Format "yyyyMMdd_HHmmss"
@@ -73,7 +73,9 @@ $envLines = @(
     "PBIDESKTOP_PROCESS_COUNT=$($pbis.Count)"
 )
 foreach ($p in $pbis) {
-    $envLines += "PBIDESKTOP_PID=$($p.Id);START=$($p.StartTime.ToString('s'));PATH=$($p.Path)"
+    $processPath = try { $p.Path } catch { $null }
+    $processStart = try { $p.StartTime.ToString('s') } catch { "NO_DISPONIBLE" }
+    $envLines += "PBIDESKTOP_PID=$($p.Id);START=$processStart;PATH=$processPath"
 }
 $envLines += "POWERBI_PORT=POR_RESOLVER_POR_AUDITOR"
 $envLines += "POWERBI_DATABASE=POR_RESOLVER_POR_AUDITOR"
