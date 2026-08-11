@@ -155,6 +155,25 @@ Debe permitir que un agente remoto responda estas preguntas sin volver a adivina
 7. ¿Qué decisiones dependen del negocio?
 8. ¿Qué evidencia viva respalda cada conclusión?
 
+## Cierre del paquete antes de validar
+
+Antes de ejecutar el validador:
+
+1. En `00_manifest.json` deja:
+   - `status = "READY_FOR_CHATGPT"` o `"COMPLETED"`;
+   - `validation_status = "READY"`;
+   - contadores de hallazgos actualizados;
+   - datos Power BI actualizados.
+2. En `READY_FOR_CHATGPT.md` elimina todos los `PENDIENTE` y `EN_PROCESO`.
+   - El campo de commit puede decir `POR_PUBLICAR_TRAS_VALIDACION`, porque el SHA todavía no existe.
+3. En `RESULTADO.md` deja un estado final y conclusiones concretas.
+4. En cada CSV debe existir al menos una fila explícita. Si algo no pudo ejecutarse, registra una fila `NO_EJECUTADO` con el motivo.
+5. En `LOCAL_LATEST.json` deja:
+   - `status = "READY_FOR_CHATGPT"`;
+   - `audited_sha` correcto;
+   - `run_path` y `ready_for_chatgpt` correctos;
+   - `evidence_commit_sha = null` hasta publicar.
+
 ## Validación final
 
 Ejecuta:
@@ -163,7 +182,11 @@ Ejecuta:
 python Scripts/audit_local/validate_local_evidence.py "<RUN_DIR>"
 ```
 
-Corrige únicamente archivos de evidencia hasta que el validador termine con `VALIDACION_EVIDENCIA=OK`.
+Corrige únicamente archivos de evidencia hasta que el validador termine con:
+
+```text
+VALIDACION_EVIDENCIA=OK
+```
 
 Luego revisa `git status` y verifica que solo se hayan generado/modificado:
 
@@ -178,6 +201,15 @@ git commit -m "audit(local): evidencia integral <RUN_ID>"
 git push origin work/ns-lienzo-02-ingreso-pedidos
 ```
 
-Verifica que SHA local = SHA remoto y registra el SHA publicado.
+Verifica:
 
-Tu salida final al usuario debe ser solo un resumen del paquete generado y del SHA del commit de evidencia. No implementes fixes.
+```powershell
+git rev-parse HEAD
+git ls-remote origin refs/heads/work/ns-lienzo-02-ingreso-pedidos
+```
+
+Deben coincidir.
+
+**No modifiques de nuevo el paquete solo para insertar su propio SHA de commit.** El SHA publicado se informa en tu salida final y ChatGPT remoto puede resolverlo directamente desde la rama. Así se evita un segundo commit circular de metadatos.
+
+Tu salida final al usuario debe ser solo un resumen del paquete generado, `RUN_ID`, SHA auditado y SHA del commit de evidencia publicado. No implementes fixes.
