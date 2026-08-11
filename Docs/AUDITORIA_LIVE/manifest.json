@@ -1,63 +1,62 @@
 {
+  "schema_version": 2,
   "project": "NS_V50-PowerBI-ML",
-  "run_id": "20260731_040000_req002_preguntas_fechas_svg",
-  "timestamp_local": "2026-07-31T04:00:00-04:00",
-  "branch": "work/ns-live-audit",
-  "base_commit": "311afcdfdbca830c104c01f16a40dee08ffd83cd",
-  "result_commit": "b8099d9673d8c1cad52dd07eccd79fc0f56d6cf2",
+  "manifest_type": "LOCAL_AUDIT_HANDOFF",
+  "status": "READY_FOR_LOCAL_AUDITOR",
+  "timestamp_local": "2026-08-11T09:06:00-04:00",
+  "branch": "work/ns-lienzo-02-ingreso-pedidos",
+  "baseline_before_handoff": "352fb33dc65938232a55003b7fe54fc1de61699e",
+  "actual_sha_rule": "RUN git rev-parse HEAD at audit start; never assume this manifest SHA is current",
   "power_bi_model": "NS",
   "pbip_path": "NS.pbip",
-  "model_live_access": true,
-  "mcp_connected": true,
-  "refresh_executed": true,
-  "refresh_result": "OK",
-  "structural_validation": "OK",
-  "semantic_validation": "OK",
-  "visual_validation": "OK",
-  "business_rule_validation": "OK",
-  "status": "VERDE",
-  "changed_files": [
-    "NS.SemanticModel/definition/tables/Medidas.tmdl",
-    "NS.Report/definition/pages/71af1998e2cb472d9799/visuals/window_note/visual.json",
-    "NS.Report/definition/pages/71af1998e2cb472d9799/visuals/chart_mensual_3m_v39/visual.json",
-    "NS.Report/definition/pages/71af1998e2cb472d9799/visuals/summary_month/visual.json",
-    "NS.Report/definition/pages/71af1998e2cb472d9799/visuals/bq_preguntas_negocio/visual.json",
-    "NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/fa_question_header/visual.json",
-    "NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/window_note/visual.json",
-    "NS.Report/definition/pages/ed2a2fead6d24153bee1/visuals/window_note/visual.json",
-    "NS.Report/definition/pages/ed2a2fead6d24153bee1/visuals/card_4e4fe7d672d840/visual.json",
-    "NS.Report/definition/pages/ed2a2fead6d24153bee1/visuals/table_c57572c4abbe4d/visual.json",
-    "NS.Report/definition/pages/ed2a2fead6d24153bee1/visuals/text_272b8969e32647/visual.json",
-    "Docs/AUDITORIA_LIVE/runs/20260731_040000_req002_preguntas_fechas_svg/*",
-    "Docs/AUDITORIA_LIVE/latest/*"
+  "audit_mode": "READ_ONLY_FUNCTIONAL_EVIDENCE_WRITER",
+  "protocol": "Docs/AUDITORIA_LIVE/LOCAL_LLM_AUDIT_PROTOCOL.md",
+  "prompt": "Docs/AUDITORIA_LIVE/LOCAL_LLM_PROMPT.md",
+  "config": "Docs/AUDITORIA_LIVE/local_audit_config.json",
+  "latest_pointer": "Docs/AUDITORIA_LIVE/LOCAL_LATEST.json",
+  "bootstrap": "Scripts/audit_local/bootstrap_local_audit.ps1",
+  "validator": "Scripts/audit_local/validate_local_evidence.py",
+  "source_code_write_allowed_for_local_llm": false,
+  "allowed_local_llm_writes": [
+    "Docs/AUDITORIA_LIVE/local_runs/<RUN_ID>/**",
+    "Docs/AUDITORIA_LIVE/LOCAL_LATEST.json"
   ],
-  "changed_measures": [
-    "RE Fecha mínima contexto",
-    "RE Fecha máxima contexto",
-    "RE Estado último mes",
-    "RE Ventana análisis texto"
+  "priority_incs": [
+    {
+      "id": "INC-007B",
+      "reference_status": "RED_STRUCTURAL",
+      "task": "confirm TRP fallback in FECHA_MANIFIESTO and quantify current impact"
+    },
+    {
+      "id": "INC-011",
+      "reference_status": "ORANGE",
+      "task": "identify exact U vs RE denominator delta orders and root causes"
+    },
+    {
+      "id": "INC-013",
+      "reference_status": "ORANGE",
+      "task": "determine whether regional holidays have measurable current impact or require external business data"
+    },
+    {
+      "id": "INC-015",
+      "reference_status": "ORANGE",
+      "task": "quantify VBAP/volume coverage and impacted KPIs"
+    }
   ],
-  "changed_visuals": [
-    "window_note (00/01/01.1)",
-    "bq_preguntas_negocio (00)",
-    "fa_question_header (01)",
-    "text_272b8969e32647 (01.1)",
-    "chart_mensual_3m_v39",
-    "summary_month",
-    "card_4e4fe7d672d840",
-    "table_c57572c4abbe4d"
+  "regression_revalidation_required": [
+    "INC-005",
+    "INC-006",
+    "INC-007A",
+    "INC-008",
+    "INC-009",
+    "INC-010",
+    "INC-012",
+    "INC-014"
   ],
-  "executed_dax_queries": [
-    "ROW Ventana temporal (min/max/texto/estado)",
-    "ROW lienzos 00 vs 01 (1616/360/77.72%)",
-    "SUMMARIZE recurrencia (251/3/27/221)",
-    "FILTER pedidos clave 4190139455 y 1167577"
-  ],
-  "known_limitations": [
-    "Power BI Desktop sobrescribio TMDL desde memoria al abrir (incidente resuelto cerrando PBI antes de editar)",
-    "Medidas duplicadas transitoriamente en TMDL (resuelto)",
-    "formatString vacio en 2 medidas (corregido a 0)",
-    "La verificacion visual de hover SVG requiere prueba manual en Power BI Desktop"
-  ],
-  "critical_findings": []
+  "historical_reference": {
+    "audit_run": "Docs/AUDITORIA_LIVE/runs/20260810_232706_auditoria_integral_modelo_lienzos",
+    "fa_live_validation_commit": "abc5de3382b774046787e90b07dbdc2f50b0896e",
+    "inc006_reevaluation_commit": "352fb33dc65938232a55003b7fe54fc1de61699e"
+  },
+  "next_action": "Run bootstrap, complete evidence package, validate it, commit/push evidence only, then remote ChatGPT consumes LOCAL_LATEST.json and READY_FOR_CHATGPT.md"
 }
