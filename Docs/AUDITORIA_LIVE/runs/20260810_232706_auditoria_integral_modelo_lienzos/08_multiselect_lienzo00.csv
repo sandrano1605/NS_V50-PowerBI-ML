@@ -1,0 +1,8 @@
+﻿COMBINACION,RE_Pedidos,RE_Valor,RE_PromDH,RE_P90
+Todos,1898,2274130561,3.50,8
+Normal,1459,1203838328,2.58,5
+FES,437,1067918295,6.57,14
+Saldo,2,2373938,5.0,6.6
+Normal_FES_PEDIDOS,1896,,,
+Normal_FES_VALOR,,2274130561,3.50,8
+ERROR,Valor/PromDH/P90 con multiselect Normal+FES devuelven universo completo (2274M=Todos). SELECTEDVALUE(Flujo) devuelve BLANK y no filtra. Solo Pedidos funciona (1896=1459+437).

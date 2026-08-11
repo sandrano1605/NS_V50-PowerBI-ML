@@ -1,0 +1,5 @@
+﻿PROXY FACTURA -> DESPACHO SANTIAGO
+Fact_Tracking: FECHA_DESPACHO usa TRP_U/TRP_P como proxy para Normal y Saldo. Para FES usa FECHA_MANIFIESTO.
+Fact_Hitos_Operacionales: tiene FECHA_INICIO/FECHA_FIN por hito con REGLA_FECHA_FIN.
+Diferencia estructural: Fact_Tracking exige corte horario actual cumplido para factura del dia; Fact_Hitos no.
+Pedidos Santiago con factura sin TRP (proxy activo): requiere consulta viva para cuantificar.

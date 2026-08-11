@@ -1,0 +1,6 @@
+﻿U_NS_observado_interno,0.7885,78.8%,denominador=1962 (todos cerrados)
+RE_NS_contexto,0.8151,81.5%,denominador=1898 (cerrados con DH)
+U_Pedidos_cerrados,1962,,incluye 64 sin DH
+RE_Pedidos_contexto,1898,,solo con DH valido
+U_Pedidos_en_SLA,1547,,igual que RE
+DIFERENCIA_NS,+2.7%,por 64 cerrados sin DH en denominador U

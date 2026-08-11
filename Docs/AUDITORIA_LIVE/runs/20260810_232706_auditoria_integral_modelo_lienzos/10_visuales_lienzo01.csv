@@ -1,0 +1,7 @@
+﻿LIENZO 01 - VALIDACION
+Tabla_clientes: frecuencia 3M, clasifica Puntual 1M / Recurrente 2M / Recurrente 3M. Correcto.
+Vendedores_reincidentes: usa SELECTEDVALUE incompleto para multiselect.
+FES_carga_tiempo: usa SELECTEDVALUE incompleto.
+Permanencia_postfactura: usa SELECTEDVALUE incompleto.
+Tabla_detalle: usa SELECTEDVALUE incompleto.
+Medidas_FA_afectadas: 9 medidas FA con SELECTEDVALUE de Flujo/Zona.

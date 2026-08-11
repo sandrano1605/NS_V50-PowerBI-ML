@@ -1,0 +1,7 @@
+﻿TEST,RESULTADO
+SLA_legacy_5_DH_en_visuales,NO (no hay visuales NS que usen ESTADO_SLA_NORMAL ni DH_LEAD_NORMAL)
+SLA_legacy_en_audit_SQL,SI (@SLA_Normal_Dias=5 en Fact_Pedidos_Auditoria - query auditoria legacy)
+SLA_legacy_en_Python_ML,SI (SLA_DEFAULT_DH=5 en Resultado.tmdl - modelo ML)
+Feriados_nacionales,50 (Dim_Feriados_Chile)
+Feriados_regionales,NO implementados
+Corte_14:30_lienzo02,Es umbral de analisis de carga logistica, NO corte SLA. Correcto si no se presenta como cumplimiento SLA.

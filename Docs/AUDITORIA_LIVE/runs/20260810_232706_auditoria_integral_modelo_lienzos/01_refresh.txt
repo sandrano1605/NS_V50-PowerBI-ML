@@ -1,0 +1,9 @@
+﻿REFRESH
+Fecha/hora: 2026-08-10 23:26:42
+SHA: 1866f3f39da0238398af112acb23a50b664d0cf1
+Power BI Desktop: PID 52172, puerto 57525
+
+Fact_Tracking: 2048 filas, 2048 pedidos
+Fact_Pedidos_Auditoria: 2048 filas, 2048 pedidos
+Fact_Hitos_Operacionales: 23845 filas, 2048 pedidos
+Errores M/DAX/TMDL: 0 (sin errores en este refresh)

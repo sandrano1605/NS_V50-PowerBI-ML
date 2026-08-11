@@ -1,0 +1,4 @@
+﻿Pedidos_diferidos_corte_Hitos,946
+Columnas_Fact_Hitos,FECHA_INGRESO_SLA|REGLA_CORTE_INGRESO|DIFERIDO_POR_CORTE|PREPARACION_SLA_DH
+Columnas_Fact_Tracking,PED_FECHA_HORA|DIAS_INTERNOS_DH (sin corte)
+CONCLUSION,Fact_Hitos implementa corte 14:00 L-J / 12:00 Viernes. Fact_Tracking NO. 946 pedidos diferidos por corte. Dos relojes distintos sin decision de negocio formal.

@@ -1,0 +1,7 @@
+﻿LIENZO 02 - VALIDACION
+IN_Pedidos: incluye abiertos + cerrados. Correcto.
+IN_Lineas: via TREATAS desde VBAP. Cobertura pendiente de verificar.
+IN_Unidades: via TREATAS desde VBAP.
+Slicers: mes, flujo, zona, responsable, canal, momento del mes. Correctos.
+Botones: Pedidos, Lineas, Unidades con bookmarks. Correctos.
+Corte_14:30: TRAMO_HORA_INGRESO clasifica hasta/despues 14:30. Es umbral de analisis de carga, NO corte SLA.

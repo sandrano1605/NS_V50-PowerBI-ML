@@ -1,0 +1,5 @@
+﻿FES_cerrados,437
+FES_con_manifiesto_VBFA,437
+FES_solo_TRP_sin_manifesto,0
+FES_abiertos,2
+CONCLUSION,Ningun FES cierra sin manifiesto VBFA real. FECHA_MANIFIESTO solo usa ULTIMA/PRIMERA_FECHA_MANIFIESTO. TRP es fallback de FECHA_DESPACHO (no FES cierre). EL concern del auditor NO se materializa.

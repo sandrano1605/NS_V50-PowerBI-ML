@@ -1,0 +1,13 @@
+﻿PUNTO,VALOR,OBSERVACION
+Total_pedidos_distintos,2048,
+Canal_42_47,2048,
+Duplicados_PED,0,
+NORMAL,1607,Fact_Pedidos_Auditoria
+FES_puro,434,
+SALDO_puro,2,
+FES_SALDO,5,
+Fecha_min,11-05-2026,
+Fecha_max,10-08-2026,
+AUD_REVISAR,338,pedidos VBAK append
+AUD_CRITICO,1431,
+AUD_OK,279,

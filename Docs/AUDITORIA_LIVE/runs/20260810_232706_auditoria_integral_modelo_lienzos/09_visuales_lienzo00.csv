@@ -1,0 +1,16 @@
+﻿Medidas_RE_con_SELECTEDVALUE,14
+RE_Valor_contexto,SI_afectado
+RE_Promedio_contexto_DH,SI_afectado
+RE_P90_contexto_DH,SI_afectado
+RE_Pedidos_hito_con_dato,SI_afectado
+RE_Pedidos_hito_cumplen,SI_afectado
+RE_Promedio_hito_DH,SI_afectado
+RE_P90_hito_DH,SI_afectado
+RE_Periodo_contexto,SI_afectado
+RE_Tooltip_seleccionado_texto,SI_afectado
+RE_Distribucion_Flujo_SVG,SI_afectado
+RE_Pedido_Seleccionado_SVG,SI_afectado
+RE_Evolucion_3M_SVG,SI_afectado
+RE_SLA_interno_objetivo_DH,BAJO_impacto (display only)
+RE_SLA_cliente_objetivo_DH,BAJO_impacto (display only)
+Medidas_FA_con_SELECTEDVALUE,9
