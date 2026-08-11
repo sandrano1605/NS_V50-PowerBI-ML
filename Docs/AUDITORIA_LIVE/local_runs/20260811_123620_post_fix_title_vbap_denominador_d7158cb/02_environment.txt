@@ -1,0 +1,3 @@
+﻿POWERBI_PORT=50439
+POWERBI_DATABASE=4e1ee97f-23e2-4ba3-85c1-0471784a5077
+POWERBI_STATE=Unprocessed (metadatos OK, DAX query tool MCP falla)

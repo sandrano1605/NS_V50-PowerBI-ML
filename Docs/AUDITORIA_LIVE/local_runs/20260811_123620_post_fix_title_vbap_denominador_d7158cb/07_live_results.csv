@@ -1,0 +1,20 @@
+﻿TEST_ID,CATEGORY,METRIC,DIMENSION,SELECTION,VALUE,EXPECTED,STATUS,EVIDENCE,NOTES
+LIVE-001,BASELINE,Total_pedidos,Universo,Todos,2048,2048,OK,06_live_queries.md,
+LIVE-002,BASELINE,Cerrados_con_DH,Universo,Todos,1898,1898,OK,06_live_queries.md,
+LIVE-003,BASELINE,En_SLA,Universo,Todos,1547,1547,OK,06_live_queries.md,
+LIVE-004,BASELINE,Fuera_SLA,Universo,Todos,351,351,OK,06_live_queries.md,
+LIVE-005,BASELINE,NS_pct,Universo,Todos,0.815,0.815,OK,06_live_queries.md,
+LIVE-006,FIND002A,RE_TT_Titulo,Flujo,Normal+FES,ERROR_DAX,Texto con flujos,FAIL,06_live_queries.md,CONCATENATEX OrdenRango falla
+LIVE-007,INC005,RE_Pedidos,Flujo,Normal+FES,1896,1896,OK,06_live_queries.md,
+LIVE-008,INC005,RE_Valor,Flujo,Normal+FES,2271756623,MENOR_que_Todos,OK,06_live_queries.md,
+LIVE-009,INC005,RE_PromDH,Flujo,Normal+FES,3.5005,MENOR_que_Todos,OK,06_live_queries.md,
+LIVE-010,INC005,RE_Pedidos,Zona,Santiago+Regiones,1898,1898,OK,06_live_queries.md,
+LIVE-011,INC006,Pedidos_diferidos_corte,Fact_Hitos,Todos,946,946,OK,06_live_queries.md,
+LIVE-012,INC007A,FES_con_manifiesto,Fact_Tracking,FES cerrados,437,437,OK,06_live_queries.md,
+LIVE-013,INC007A,FES_abiertos,Fact_Tracking,FES,2,2,OK,06_live_queries.md,
+LIVE-014,INC009,FA_Pedidos,Flujo,Normal+FES,1896,1896,OK,06_live_queries.md,
+LIVE-015,INC009,FA_Lineas,Flujo,Normal+FES,22801,MENOR_que_Todos,OK,06_live_queries.md,
+LIVE-016,INC009,FA_Unidades,Flujo,Normal+FES,2420479,MENOR_que_Todos,OK,06_live_queries.md,
+LIVE-017,INC015,Con_match_VBAP,VBAP,Todos,1107,1107,OK,06_live_queries.md,
+LIVE-018,INC015,Sin_match_VBAP,VBAP,Todos,791,791,OK,06_live_queries.md,
+LIVE-019,INC015,Cobertura_pct,VBAP,Todos,0.583,MENOR_que_0.90,WARN,06_live_queries.md,58.3%

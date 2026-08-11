@@ -1,0 +1,6 @@
+﻿PAGE,VISUAL,OBJECT_PATH,MEASURES_FIELDS,FILTERS,SORT,SLICER_INTERACTION,STATUS,EVIDENCE,NOTES
+00 Resumen Ejecutivo,critical_table,visual.json/Values,RE TT Cliente RE TT Vendedor CLASIFICACION RE TT Días Top 10 RE TT Hito crítico RE TT Exceso crítico DH RE TT Motivo operativo RE TT Estado SVG,slicer_flujo slicer_zona,DIAS_INTERNOS_DH DESC,RE Filtro Flujo + RE Filtro Zona,OK,07_live_results.csv,351 filas
+00 Resumen Ejecutivo,sla_panel,visual.json/Values,RE SLA Panel SVG,slicer_flujo slicer_zona,,RE Filtro Flujo + RE Filtro Zona,OK,07_live_results.csv,SVG OK
+00 Resumen Ejecutivo,donut_flujo,visual.json/Values,RE Distribución Flujo SVG,slicer_flujo slicer_zona,,VALUES/ISFILTERED/CONTAINS,OK,07_live_results.csv,Multiselect display OK
+01 Análisis Fuera SLA,critical_table,visual.json/Values,RE TT Cliente RE TT Vendedor CLASIFICACION RE TT Días Top 10,slicer_flujo slicer_zona,,RE Filtro Flujo + RE Filtro Zona,OK,07_live_results.csv,
+00 Resumen Ejecutivo,title_ns,visual.json/Values,RE TT Título,slicer_flujo slicer_zona,,CONCATENATEX con OrdenRango,ERROR,07_live_results.csv LIVE-006,Error DAX en multiselect

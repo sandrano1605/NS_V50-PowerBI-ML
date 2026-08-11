@@ -1,0 +1,12 @@
+﻿LAYER,OBJECT_TYPE,OBJECT_NAME,FILE_PATH,STATUS,DETAIL
+SEMANTIC,MEASURE,RE TT Título,Medidas.tmdl,ERROR,CONCATENATEX con OrdenRango falla con multiselect
+SEMANTIC,MEASURE,RE Filtro Flujo,Medidas.tmdl,OK,helper multiselect flujo
+SEMANTIC,MEASURE,RE Filtro Zona,Medidas.tmdl,OK,helper multiselect zona
+SEMANTIC,MEASURE,RE Pedidos contexto,Medidas.tmdl,OK,usa helpers
+SEMANTIC,MEASURE,RE Valor contexto,Medidas.tmdl,OK,usa helpers
+SEMANTIC,MEASURE,RE Promedio contexto DH,Medidas.tmdl,OK,usa helpers
+SEMANTIC,MEASURE,RE P90 contexto DH,Medidas.tmdl,OK,usa helpers
+SEMANTIC,TABLE,Fact_Tracking,Fact_Tracking.tmdl,OK,2048 pedidos
+SEMANTIC,TABLE,Fact_Hitos_Operacionales,Fact_Hitos_Operacionales.tmdl,OK,23845 filas
+SEMANTIC,TABLE,Lineas_y_unidades_por_pedidos,Lineas_y_unidades_por_pedidos.tmdl,OK,22779 pedidos VBAP
+SEMANTIC,COLUMN,FECHA_MANIFIESTO,Fact_Tracking.tmdl,WARN,fallback TRP en Power Query M

@@ -1,0 +1,5 @@
+﻿PRIORITY,FINDING_ID,TARGET_FILE,TARGET_OBJECT,RECOMMENDED_CHANGE,WHY,EXPECTED_IMPACT,VALIDATION_REQUIRED,BUSINESS_DECISION_REQUIRED
+P0,FIND-002A,Medidas.tmdl,RE TT Título,Reemplazar Dim_Rango_Entrega[OrdenRango] por MIN(Dim_Rango_Entrega[OrdenRango]) o usar el texto como sort by,Fix cdeda8bb introduce error DAX con multiselect,RE TT Título funciona de nuevo,SI,NO
+P1,FIND-001,Fact_Tracking.tmdl,FECHA_MANIFIESTO,Eliminar fallback TRP en Power Query M,FES debe cerrar solo con manifiesto VBFA,Previene violacion futura,SI,SI
+P1,FIND-003,Lineas_y_unidades_por_pedidos,VBAP,Probar normalizacion de ceros a la izquierda en clave Pedido,58.3% cobertura puede ser bug de padding,Recuperar pedidos sin match,SI,NO
+P1,FIND-004,Medidas.tmdl,U NS observado interno,Documentar NS oficial 81.5% sobre 1898 evaluables,Dos NS con denominadores distintos,Diferenciar U vs RE,SI,SI

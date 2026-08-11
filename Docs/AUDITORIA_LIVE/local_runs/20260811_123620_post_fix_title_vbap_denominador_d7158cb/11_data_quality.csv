@@ -1,0 +1,8 @@
+﻿CHECK_ID,CATEGORY,OBJECT,METRIC,VALUE,EXPECTED,STATUS,EVIDENCE,NOTES
+DQ-001,DENOMINADOR,RE NS vs U NS,Diferencia,64 pedidos,0,ORANGE,07_live_results.csv,64 cerrados sin DH
+DQ-002,FERIADOS,Dim_Feriados_Chile,Feriados regionales,NECESITA_DATOS,0 o documentado,ORANGE,06_live_queries.md,No hay fuente confiable
+DQ-003,COBERTURA,VBAP,Match pedidos,1107/1898 (58.3%),90%,ORANGE,07_live_results.csv,791 sin match
+DQ-004,FES_CIERRE,FECHA_MANIFIESTO,TRP fallback,0 afectados,0,OK,07_live_results.csv,Riesgo estructural
+DQ-005,REGRESION,4190139455,Clasificacion,NORMAL,FES,FAIL,08_regression_cases_results.csv,Cambio de datos
+DQ-006,TITULO,RE TT Título,Error DAX,ERROR_OrdenRango,Texto multiselect,FAIL,07_live_results.csv,Fix cdeda8bb introdujo error
+DQ-007,SLA,Fact_Tracking vs Fact_Hitos,Reloj,Tracking sin corte Hitos con corte,Diferente,ORANGE,06_live_queries.md,946 diferidos

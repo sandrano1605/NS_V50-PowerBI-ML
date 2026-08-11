@@ -1,0 +1,13 @@
+﻿PEDIDO,CASO,HISTORICAL_EXPECTED,CURRENT_ACTUAL,STATUS,EVIDENCE,NOTES
+1167307,Santiago exactamente 4 DH,NORMAL,NORMAL,OK,06_live_queries.md,DH=4 SLA=4 Cumple=True
+1167339,Regiones exactamente 5 DH,NORMAL,NORMAL,OK,06_live_queries.md,DH=5 SLA=5 Cumple=True
+4190139455,Clave oficial FES,FES,NORMAL,FAIL,06_live_queries.md,Cambio de datos no error modelo
+1167577,Clave oficial FES,FES,FES,OK,06_live_queries.md,DH=2 SLA=4 Cumple=True
+1167307,Santiago exactamente 4 DH,NORMAL,NORMAL,OK,06_live_queries.md,
+1168045,Santiago 5 DH,NORMAL,NORMAL,OK,06_live_queries.md,DH=5 SLA=4 Cumple=False
+1167926,FES cerrado,FES,FES,OK,06_live_queries.md,DH=5 SLA=4 Cumple=False
+1166696,FES + SALDO cerrado,FES + SALDO,FES + SALDO,OK,06_live_queries.md,DH=6 SLA=4 Cumple=False
+1167581,Factura y manifiesto mismo dia,FES,FES,OK,06_live_queries.md,DH=8 SLA=4 Cumple=False
+1167658,Pedido con multiples despachos,FES,FES,OK,06_live_queries.md,DH=12 SLA=5 Cumple=False
+4190139759,Regiones 6 DH,NORMAL,NORMAL,OK,06_live_queries.md,DH=6 SLA=5 Cumple=False
+4190139760,Pedido con multiples facturas,SALDO,SALDO,OK,06_live_queries.md,DH=7 SLA=5 Cumple=False

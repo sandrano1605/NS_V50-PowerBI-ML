@@ -1,0 +1,6 @@
+﻿RULE_ID,RULE,EXPECTED_CURRENT_RULE,CODE_IMPLEMENTATION,DATA_RESULT,STATUS,EVIDENCE,NOTES
+BR-001,FES cierra por manifiesto VBFA,FES cerrado=manifiesto real,FECHA_MANIFIESTO con fallback TRP,0 FES sin manifiesto,DECISION_NEGOCIO,07_live_results.csv,Regla permite violacion futura
+BR-002,NS desde PED_FECHA_HORA sin corte,NS 4/5 DH desde creacion,DIAS_INTERNOS_DH=FnDH(PED_FECHA_HORA FECHA_CIERRE),1898 evaluables 1547 en SLA,CONFIRMADO,07_live_results.csv,Hitos usan FECHA_INGRESO_SLA
+BR-003,Multiselect filtra correctamente,Normal+FES excluye Saldo,helpers VALUES/CONTAINS,NF_Ped=1896 NF_V=2271756623,CONFIRMADO,07_live_results.csv,Diferente de Todos
+BR-004,Titulo tooltip respeta multiselect,Fix cdeda8bb,CONCATENATEX con OrdenRango,ERROR DAX,ROJO,07_live_results.csv,Regresion introducida
+BR-005,Cobertura VBAP,Alta cobertura,TREATAS VBAP,58.3% (1107/1898),CONFIRMADO,07_live_results.csv,791 sin match

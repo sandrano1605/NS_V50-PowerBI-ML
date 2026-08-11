@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
   "status": "READY_FOR_CHATGPT",
-  "run_id": "20260811_115352_auditoria_integral_cbcff02",
+  "run_id": "20260811_123620_post_fix_title_vbap_denominador_d7158cb",
   "audit_branch": "work/ns-lienzo-02-ingreso-pedidos",
-  "audited_sha": "cbcff026432f6bd3e5d5bfb3072688ad95039077",
+  "audited_sha": "d7158cbf16db385c012d114676d1c5f047997a41",
   "evidence_commit_sha": null,
-  "run_path": "Docs/AUDITORIA_LIVE/local_runs/20260811_115352_auditoria_integral_cbcff02",
-  "ready_for_chatgpt": "Docs/AUDITORIA_LIVE/local_runs/20260811_115352_auditoria_integral_cbcff02/READY_FOR_CHATGPT.md",
-  "updated_at_local": "2026-08-11T12:15:00-04:00",
-  "note": "Auditoría integral completada. 2 RED, 3 ORANGE. Multiselect RE y FA validado. Publicar evidencia y consumir READY_FOR_CHATGPT.md."
+  "run_path": "Docs/AUDITORIA_LIVE/local_runs/20260811_123620_post_fix_title_vbap_denominador_d7158cb",
+  "ready_for_chatgpt": "Docs/AUDITORIA_LIVE/local_runs/20260811_123620_post_fix_title_vbap_denominador_d7158cb/READY_FOR_CHATGPT.md",
+  "updated_at_local": "2026-08-11T19:50:00-04:00",
+  "note": "Auditoría dirigida post-fix FIND-002. Hallazgo RED: RE TT Título introdujo error DAX (OrdenRango). Multiselect RE/FA sin regresión. INC-015/INC-011 pendientes por limitación tool DAX."
 }

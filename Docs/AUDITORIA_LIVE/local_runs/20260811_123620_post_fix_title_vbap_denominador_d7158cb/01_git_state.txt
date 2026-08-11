@@ -1,0 +1,3 @@
+﻿RUN_ID=20260811_123620_post_fix_title_vbap_denominador_d7158cb
+SHA=d7158cbf16db385c012d114676d1c5f047997a41
+BRANCH=work/ns-lienzo-02-ingreso-pedidos
