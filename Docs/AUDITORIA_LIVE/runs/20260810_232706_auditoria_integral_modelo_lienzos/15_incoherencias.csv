@@ -1,13 +1,13 @@
 ﻿ID,HALLAZGO,IMPACTO,CAPA,ESTADO
-INC-005,Multiselect: RE Valor/PromDH/P90 devuelven universo completo con Normal+FES,ROJO - numeros incorrectos en lienzo 00,Medidas,CORREGIDO (RE 14 medidas con helpers)
-INC-006,Reloj SLA: 946 pedidos diferidos por corte en Hitos vs Tracking sin corte,ROJO - dos relojes distintos sin decision negocio,Facts,PENDIENTE comparativo
+INC-005,Multiselect RE (14 medidas),VERDE - prueba viva confirma filtros correctos con multiselect,Medidas,CONFIRMADO
+INC-006,Corte SLA: 946 pedidos diferidos en Hitos,VERDE - afecta preparacion/promesa pero NO el NS interno; ambos KPI integrales parten desde PED_FECHA_HORA,Facts,CONFIRMADO SIN IMPACTO NS
 INC-007A,FES cierra sin manifiesto VBFA: 0 pedidos en datos actuales,VERDE,Facts,CONFIRMADO
 INC-007B,FES permite TRP fallback en FECHA_MANIFIESTO (regla, no datos),ROJO - riesgo estructural,Facts,PENDIENTE decision negocio
-INC-008,Proxy factura Santiago: FECHA_DESPACHO se calcula para todos los flujos, no solo Normal/Saldo,AMARILLO - redaccion incorrecta corregida,Facts,CORREGIDO documentacion
-INC-009,Medidas FA: filtros Flujo/Zona multiselect con patron SELECTEDVALUE,AMARILLO - lienzos 01/02,Medidas,CORREGIDO_ESTRUCTURAL (14 medidas; pendiente validacion viva Power BI)
-INC-010,14 medidas RE con SELECTEDVALUE (multiselect incompleto),ROJO - visuales lienzo 00,Medidas,CORREGIDO
-INC-011,U NS vs RE NS: denominadores distintos (1962 vs 1898),AMARILLO - dos indicadores NS distintos,Medidas,PENDIENTE documentar
+INC-008,Proxy factura Santiago: FECHA_DESPACHO se calcula para todos los flujos,AMARILLO - documentacion corregida; sin bloqueo numerico probado,Facts,CORREGIDO documentacion
+INC-009,Multiselect FA (14 medidas),VERDE - 10 combinaciones validadas en Power BI Desktop; Lineas/Unidades/Pedidos/Zona correctos,Medidas,CONFIRMADO commit abc5de3
+INC-010,Multiselect RE (cubierto por INC-005),VERDE - prueba viva confirmada,Medidas,CONFIRMADO
+INC-011,U NS vs RE NS: denominadores distintos (1962 vs 1898),AMARILLO - dos indicadores NS distintos,Medidas,PENDIENTE documentar NS oficial
 INC-012,SLA legacy 5 DH hardcode: solo en audit SQL y ML Python, no en visuales NS oficiales,VERDE,Facts,CONFIRMADO
 INC-013,Feriados regionales: no implementados,AMARILLO - si operacion regional usa feriados,Facts,PENDIENTE
 INC-014,Corte 14:30 lienzo 02: correcto como analisis de carga, no corte SLA,VERDE,Facts,CONFIRMADO
-INC-015,Cobertura VBAP lienzo 02: no cuantificada pedidos con/sin match,AMARILLO - lineas/unidades subestimadas,Facts,PENDIENTE
+INC-015,Cobertura VBAP lienzo 02: no cuantificada pedidos con/sin match,AMARILLO - lineas/unidades potencialmente subestimadas,Facts,PENDIENTE cuantificar
