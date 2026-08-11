@@ -3093,7 +3093,7 @@ table Medidas
 
 	/// Pedidos de la cohorte histórica cerrada (equivalente a TRACKING analítico = TRUE).
 	/// Incluye todos los flujos, pero excluye pedidos abiertos o sin cierre oficial.
-	measure 'FA Carga Pedidos Creados' = RETURN CALCULATE(DISTINCTCOUNT(Fact_Tracking[PED_NUMERO_PEDIDO]), KEEPFILTERS(FILTER(Fact_Tracking, Fact_Tracking[ES_CERRADO] = TRUE() && NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH]) && [RE Filtro Flujo] && [RE Filtro Zona])))
+	measure 'FA Carga Pedidos Creados' = CALCULATE(DISTINCTCOUNT(Fact_Tracking[PED_NUMERO_PEDIDO]), KEEPFILTERS(FILTER(Fact_Tracking, Fact_Tracking[ES_CERRADO] = TRUE() && NOT ISBLANK(Fact_Tracking[DIAS_INTERNOS_DH]) && [RE Filtro Flujo] && [RE Filtro Zona])))
 		formatString: #,0
 		displayFolder: 04. Análisis Fuera SLA\Carga y SLA
 		lineageTag: 58000000-0000-4000-8000-000000000201
