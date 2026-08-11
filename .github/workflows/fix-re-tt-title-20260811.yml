@@ -1,0 +1,59 @@
+name: fix-re-tt-title-20260811
+
+on:
+  push:
+    branches:
+      - work/ns-lienzo-02-ingreso-pedidos
+    paths:
+      - .github/workflows/fix-re-tt-title-20260811.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch-title:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: work/ns-lienzo-02-ingreso-pedidos
+          fetch-depth: 0
+
+      - name: Patch RE TT Título
+        shell: python
+        run: |
+          from pathlib import Path
+
+          path = Path("NS.SemanticModel/definition/tables/Medidas.tmdl")
+          text = path.read_text(encoding="utf-8-sig")
+
+          old = '''\tmeasure 'RE TT Título' =\n\t\t\tVAR Flujo = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])\n\t\t\tVAR Zona = SELECTEDVALUE(Dim_Rango_Entrega[Zona])\n\t\t\tVAR Rango = SELECTEDVALUE(Dim_Rango_Entrega[Rango])\n\t\t\tVAR Contexto = COALESCE(Flujo, IF(NOT ISBLANK(Zona), Zona & IF(NOT ISBLANK(Rango), " · " & Rango, ""), "Universo cerrado") )\n'''
+
+          new = '''\tmeasure 'RE TT Título' =\n\t\t\tVAR TieneFlujo = ISFILTERED(Dim_Vista_Ejecutiva[Flujo])\n\t\t\tVAR TieneZona = ISFILTERED(Dim_Rango_Entrega[Zona])\n\t\t\tVAR TieneRangoFiltro = ISFILTERED(Dim_Rango_Entrega[Rango])\n\t\t\tVAR FlujoTexto = CONCATENATEX(VALUES(Dim_Vista_Ejecutiva[Flujo]), Dim_Vista_Ejecutiva[Flujo], " + ", Dim_Vista_Ejecutiva[Flujo], ASC)\n\t\t\tVAR ZonaTexto = CONCATENATEX(VALUES(Dim_Rango_Entrega[Zona]), Dim_Rango_Entrega[Zona], " + ", Dim_Rango_Entrega[Zona], ASC)\n\t\t\tVAR RangoTexto = CONCATENATEX(VALUES(Dim_Rango_Entrega[Rango]), Dim_Rango_Entrega[Rango], " + ", Dim_Rango_Entrega[OrdenRango], ASC)\n\t\t\tVAR Contexto =\n\t\t\t\tIF(\n\t\t\t\t\tNOT (TieneFlujo || TieneZona || TieneRangoFiltro),\n\t\t\t\t\t"Universo cerrado",\n\t\t\t\t\tIF(TieneFlujo, FlujoTexto, "")\n\t\t\t\t\t\t& IF(TieneZona, IF(TieneFlujo, " · ", "") & ZonaTexto, "")\n\t\t\t\t\t\t& IF(TieneRangoFiltro, IF(TieneFlujo || TieneZona, " · ", "") & RangoTexto, "")\n\t\t\t\t)\n'''
+
+          if text.count(old) != 1:
+              raise SystemExit(f"Patrón esperado encontrado {text.count(old)} veces; se esperaba 1")
+
+          text = text.replace(old, new, 1)
+          path.write_text(text, encoding="utf-8")
+
+          block_start = text.index("\tmeasure 'RE TT Título' =")
+          block_end = text.index("\n\tmeasure 'RE Subtítulo gráfico'", block_start)
+          block = text[block_start:block_end]
+          assert "SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])" not in block
+          assert "CONCATENATEX(VALUES(Dim_Vista_Ejecutiva[Flujo])" in block
+          assert "[RE Filtro Flujo]" in block
+          assert "[RE Filtro Zona]" in block
+
+      - name: Validate diff
+        run: |
+          git diff --check
+          git diff -- NS.SemanticModel/definition/tables/Medidas.tmdl
+
+      - name: Commit functional fix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add NS.SemanticModel/definition/tables/Medidas.tmdl
+          git commit -m "fix(lienzo-00): título tooltip respeta multiselect"
+          git push origin HEAD:work/ns-lienzo-02-ingreso-pedidos
