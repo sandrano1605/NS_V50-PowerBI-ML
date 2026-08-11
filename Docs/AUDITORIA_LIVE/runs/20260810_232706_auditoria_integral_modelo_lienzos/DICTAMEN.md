@@ -1,6 +1,7 @@
 # DICTAMEN — AUDITORÍA INTEGRAL MODELO Y LIENZOS
 
-**SHA:** 1866f3f39da0238398af112acb23a50b664d0cf1
+**SHA base:** 1866f3f39da0238398af112acb23a50b664d0cf1
+**SHA corrección:** [pendiente commit]
 **Fecha:** 2026-08-10 23:26:42
 **Modelo:** Power BI Desktop local, puerto 57525
 
@@ -16,12 +17,14 @@
 | SLA zonal | 🟢 | Santiago 4/3/5 · Regiones 5/4/7 (verificado contra columnas reales) |
 | Tabla fuera SLA | 🟢 | 351 = 351, 0 duplicados |
 | Cliente/Dimensiones | 🟢 | sin match = 0, region blank = 0, region inválido = 0 |
-| Cierre FES | 🟢 | 437 cerrados = 437 con manifiesto VBFA. 0 cierran por TRP solo. INC-007 no se materializa. |
-| Multiselect lienzo 00 | 🔴 | 14 medidas RE usan SELECTEDVALUE. Valor/PromDH/P90 devuelven universo completo con multiselect |
+| Cierre FES datos | 🟢 | 437 cerrados = 437 con manifiesto VBFA. 0 cierran por TRP solo. |
+| Cierre FES regla | 🔴 | FECHA_MANIFIESTO permite TRP fallback (riesgo estructural,0 casos actuales) |
+| Multiselect lienzo 00 RE | 🟢 | 14 medidas RE corregidas con helpers [RE Filtro Flujo]/[RE Filtro Zona] |
+| Multiselect lienzo 00 distribución | 🟢 | RE Distribución Flujo SVG corregida con VALUES/ISFILTERED/CONTAINS |
 | Reloj SLA | 🔴 | 946 pedidos diferidos por corte en Hitos vs Tracking sin corte |
 | Denominador NS | 🟠 | U NS = 78.8% (1.962 denom) vs RE NS = 81.5% (1.898 denom) |
 | Lienzo 01 multiselect | 🟠 | 9 medidas FA con SELECTEDVALUE |
-| Lienzo 02 | 🟢 | Corte 14:30 es análisis carga logística, no corte SLA |
+| Lienzo 02 cobertura | 🟠 | VBAP coverage no cuantificada |
 | SLA legacy | 🟢 | 5 DH hardcode solo en audit SQL y ML Python, no en visuales NS oficiales |
 | Feriados | 🟠 | 50 nacionales. No contempla regionales |
 
@@ -29,32 +32,23 @@
 
 ## DICTAMEN: 🔴 ROJO
 
-Existen **3 contradicciones materiales** que afectan números o interpretación:
+Existen **2 contradicciones materiales** que afectan números o interpretación:
 
-### 1. Multiselect incompleto (INC-005, INC-010)
-**14 medidas RE** todavía usan `SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])`:
-- RE Valor contexto
-- RE Promedio contexto DH
-- RE P90 contexto DH
-- RE Pedidos hito con dato / cumplen
-- RE Promedio hito DH / P90 hito DH
-- RE Periodo contexto
-- RE Distribución Flujo SVG
-- RE Tooltip seleccionado texto
-- RE Pedido Seleccionado SVG
-- RE Evolución 3M SVG
-
-**Consecuencia probada**: con selección Normal+FES (1.896 pedidos), los filtros de Pedidos y Fuera SLA funcionan correctamente, pero **Valor = 2.274M (universo completo), PromDH = 3.5 (universo completo), P90 = 8 (universo completo)**. Los visuales muestran datos mezclados.
-
-**9 medidas FA** del lienzo 01 tienen el mismo problema.
-
-### 2. Dos relojes SLA distintos (INC-006)
+### 1. Dos relojes SLA distintos (INC-006) — ROJO
 - **Fact_Tracking**: reloj desde `PED_FECHA_HORA` (sin corte)
 - **Fact_Hitos_Operacionales**: reloj desde `FECHA_INGRESO_SLA` con corte 14:00 L-J / 12:00 Viernes
 
 **946 pedidos** están diferidos por corte en Fact_Hitos. Fact_Tracking los cuenta desde la hora de creación. Sin decisión de negocio formal, estos dos hechos entregan NS diferentes para el mismo pedido.
 
-### 3. Dos denominadores para "NS interno" (INC-011)
+**Pendiente**: ejecutar comparativo de los 946 pedidos (DH actual vs DH con corte, NS impact).
+
+### 2. Cierre FES permite TRP fallback (INC-007B) — ROJO
+- **DATA**: 0 FES cierran sin manifiesto VBFA en datos actuales. VERDE.
+- **REGLA**: `FECHA_MANIFIESTO` en Fact_Tracking.tmdl tiene fallback `TRP_U_FECHA_HORA` / `TRP_P_FECHA_HORA`. Si un FES llega sin manifiesto VBFA pero con TRP, el tracking lo cerraría sin manifiesto real. Fact_Hitos NO lo cerraría.
+
+**Decisión requerida**: si FES debe cerrar exclusivamente con manifiesto VBFA/VTTP, eliminar el fallback TRP de FECHA_MANIFIESTO.
+
+### 3. Dos denominadores para "NS interno" (INC-011) — AMARILLO
 - **U NS observado interno** = 1.547 / 1.962 = **78.8%**
 - **RE NS contexto** = 1.547 / 1.898 = **81.5%**
 
@@ -62,24 +56,38 @@ Los 64 cerrados sin DH válidos están en U pero no en RE. Ambos se llaman "NS i
 
 ---
 
-## Hallazgos NO bloqueantes
+## Correcciones aplicadas en este commit
 
-| ID | Hallazgo | Estado |
-|----|----------|--------|
-| INC-007 | FES cierra sin manifiesto: **0 pedidos**. FECHA_MANIFIESTO no usa TRP fallback. | 🟢 |
-| INC-008 | Proxy factura→despacho Santiago: diferencia estructural menor (ventana temporal). | 🟠 |
-| INC-009 | Lienzo 01 FA medidas con SELECTEDVALUE (9 medidas). | 🟠 |
-| INC-012 | SLA legacy 5 DH hardcode: solo en audit SQL y ML Python, no en visuales NS oficiales. | 🟢 |
-| INC-013 | Feriados regionales no implementados. | 🟠 |
-| INC-014 | Corte 14:30 lienzo 02: correcto como análisis de carga, no corte SLA. | 🟢 |
+### Multiselect RE (INC-005, INC-010) — CORREGIDO
+14 medidas RE corregidas usando `[RE Filtro Flujo]` / `[RE Filtro Zona]` (helpers con VALUES/ISFILTERED/CONTAINS que ya funcionan en Pedidos contexto):
+
+- RE Valor contexto
+- RE Promedio contexto DH
+- RE P90 contexto DH
+- RE Pedidos hito con dato / cumplen
+- RE Promedio hito DH / P90 hito DH
+- RE Periodo contexto
+- RE Tooltip seleccionado texto
+- RE Pedido Seleccionado SVG
+- RE FES Brecha facturación promedio DH
+
+**RE Distribución Flujo SVG**: corregida con VALUES/ISFILTERED/CONTAINS para display condicional (no helpers, porque usa FlujoSel para decidir qué segmentos mostrar, no para filtrar filas).
+
+### Proxy factura (INC-008) — CORREGIDO documentación
+FECHA_DESPACHO se calcula para TODOS los flujos (no solo Normal/Saldo). Lo diferente es que FES usa FECHA_MANIFIESTO para FECHA_CIERRE.
+
+### FES DATA/REGLA (INC-007) — CORREGIDO documentación
+Separado INC-007A (datos: VERDE) de INC-007B (regla: ROJO).
 
 ---
 
 ## Pendientes antes de declarar VERDE
 
-1. **Corregir 14 medidas RE + 9 medidas FA** para usar helpers multiselect (mismo fix MAX() que se aplicó a Pedidos contexto).
-2. **Decisión de negocio**: ¿NS se mide desde PED_FECHA_HORA o desde FECHA_INGRESO_SLA con corte?
-3. **Unificar denominadores U vs RE**: documentar explícitamente cuál es el NS oficial y en qué universo.
+1. **Eliminar fallback TRP de FECHA_MANIFIESTO** si mantenemos la regla "FES solo cierra por manifiesto VBFA/VTTP".
+2. **Comparativo 946 pedidos diferidos**: cuántos cambian DH, cuántos FUERA→EN SLA, cuántos EN→FUERA SLA, NS actual vs NS con corte.
+3. **Corregir 9 medidas FA** del lienzo 01 con el mismo patrón helpers.
+4. **Unificar denominadores U vs RE**: documentar NS oficial 81.5% sobre 1.898 evaluables.
+5. **Cuantificar cobertura VBAP** lienzo 02: pedidos con/sin match líneas/unidades.
 
 ---
 

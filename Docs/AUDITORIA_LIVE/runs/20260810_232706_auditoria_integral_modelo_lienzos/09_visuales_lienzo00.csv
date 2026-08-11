@@ -1,16 +1,20 @@
-﻿Medidas_RE_con_SELECTEDVALUE,14
-RE_Valor_contexto,SI_afectado
-RE_Promedio_contexto_DH,SI_afectado
-RE_P90_contexto_DH,SI_afectado
-RE_Pedidos_hito_con_dato,SI_afectado
-RE_Pedidos_hito_cumplen,SI_afectado
-RE_Promedio_hito_DH,SI_afectado
-RE_P90_hito_DH,SI_afectado
-RE_Periodo_contexto,SI_afectado
-RE_Tooltip_seleccionado_texto,SI_afectado
-RE_Distribucion_Flujo_SVG,SI_afectado
-RE_Pedido_Seleccionado_SVG,SI_afectado
-RE_Evolucion_3M_SVG,SI_afectado
+﻿Multiselect_RE_status,CORREGIDO
+Medidas_RE_corregidas,14
+Patron_aplicado,[RE Filtro Flujo] + [RE Filtro Zona] en FILTER
+Patron_distribucion,VALUES/ISFILTERED/CONTAINS para display condicional
+Medidas_RE_con_SELECTEDVALUE_restantes,2 (SLA interno/cliente objetivo DH - display only, bajo impacto)
+Medidas_FA_con_SELECTEDVALUE,9 (pendiente lienzo 01)
+RE_Valor_contexto,CORREGIDO
+RE_Promedio_contexto_DH,CORREGIDO
+RE_P90_contexto_DH,CORREGIDO
+RE_Pedidos_hito_con_dato,CORREGIDO
+RE_Pedidos_hito_cumplen,CORREGIDO
+RE_Promedio_hito_DH,CORREGIDO
+RE_P90_hito_DH,CORREGIDO
+RE_Periodo_contexto,CORREGIDO
+RE_Tooltip_seleccionado_texto,CORREGIDO
+RE_Pedido_Seleccionado_SVG,CORREGIDO
+RE_Distribucion_Flujo_SVG,CORREGIDO (VALUES/ISFILTERED/CONTAINS)
+RE_FES_Brecha_facturacion_promedio_DH,CORREGIDO
 RE_SLA_interno_objetivo_DH,BAJO_impacto (display only)
 RE_SLA_cliente_objetivo_DH,BAJO_impacto (display only)
-Medidas_FA_con_SELECTEDVALUE,9

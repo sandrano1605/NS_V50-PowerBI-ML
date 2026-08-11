@@ -2,4 +2,8 @@
 FES_con_manifiesto_VBFA,437
 FES_solo_TRP_sin_manifesto,0
 FES_abiertos,2
-CONCLUSION,Ningun FES cierra sin manifiesto VBFA real. FECHA_MANIFIESTO solo usa ULTIMA/PRIMERA_FECHA_MANIFIESTO. TRP es fallback de FECHA_DESPACHO (no FES cierre). EL concern del auditor NO se materializa.
+INC-007A_DATA,0 FES cierran sin manifiesto VBFA real en datos actuales. VERDE.
+INC-007B_REGLA,Fact_Tracking.tmdl permite TRP fallback en FECHA_MANIFIESTO: else if [ULTIMA_FECHA_MANIFIESTO]<>null then ... else if [PRIMERA_FECHA_MANIFIESTO]<>null then ... else if [TRP_U_FECHA_HORA]<>null then [TRP_U_FECHA_HORA] else [TRP_P_FECHA_HORA]. ROJO: la regla permite que un FES cierre sin manifiesto real si tiene TRP.
+IMPACTO_ACTUAL,0 pedidos afectados.
+RIESGO_FUTURO,si un FES llega sin manifiesto VBFA pero con TRP, el tracking lo cerraria sin manifiesto. Fact_Hitos_Operacionales NO lo cerraria (usa FECHA_FIN por hito con REGLA_FECHA_FIN).
+DECISION_REQUERIDA,si FES debe cerrar exclusivamente con manifiesto VBFA/VTTP, eliminar el fallback TRP_U/TRP_P de FECHA_MANIFIESTO en Fact_Tracking.tmdl.

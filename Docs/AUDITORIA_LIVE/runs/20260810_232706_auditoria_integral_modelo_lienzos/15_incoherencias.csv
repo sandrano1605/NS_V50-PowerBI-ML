@@ -1,10 +1,13 @@
-﻿ID,HALLAZGO,IMPACTO,CAPA
-INC-005,Multiselect: RE Valor/PromDH/P90 devuelven universo completo con Normal+FES,ROJO - numeros incorrectos en lienzo 00,Medidas
-INC-006,Reloj SLA: 946 pedidos diferidos por corte en Hitos vs Tracking sin corte,ROJO - dos relojes distintos sin decision negocio,Facts
-INC-007,Cierre FES: 0 pedidos cierran sin manifiesto VBFA,VERDE - concern del auditor no se materializa,Facts
-INC-008,Proxy factura Santiago: diferencia estructural Tracking vs Hitos,ORANGE - ventana temporal pequeña,Facts
-INC-009,Medidas FA lienzo 01: 9 medidas con SELECTEDVALUE (multiselect incompleto),AMARILLO - lienzos 01/02,Medidas
-INC-010,14 medidas RE con SELECTEDVALUE (multiselect incompleto),ROJO - visuales lienzo 00,Medidas
-INC-011,U NS vs RE NS: denominadores distintos (1962 vs 1898),AMARILLO - dos indicadores NS distintos,Medidas
-INC-012,SLA legacy 5 DH: solo en audit SQL y ML Python, NO en visuales NS oficiales,VERDE - no afecta NS,Facts
-INC-013,Feriados regionales: no implementados,AMARILLO - si operacion regional usa feriados,Facts
+﻿ID,HALLAZGO,IMPACTO,CAPA,ESTADO
+INC-005,Multiselect: RE Valor/PromDH/P90 devuelven universo completo con Normal+FES,ROJO - numeros incorrectos en lienzo 00,Medidas,CORREGIDO (RE 14 medidas con helpers)
+INC-006,Reloj SLA: 946 pedidos diferidos por corte en Hitos vs Tracking sin corte,ROJO - dos relojes distintos sin decision negocio,Facts,PENDIENTE comparativo
+INC-007A,FES cierra sin manifiesto VBFA: 0 pedidos en datos actuales,VERDE,Facts,CONFIRMADO
+INC-007B,FES permite TRP fallback en FECHA_MANIFIESTO (regla, no datos),ROJO - riesgo estructural,Facts,PENDIENTE decision negocio
+INC-008,Proxy factura Santiago: FECHA_DESPACHO se calcula para todos los flujos, no solo Normal/Saldo,AMARILLO - redaccion incorrecta corregida,Facts,CORREGIDO documentacion
+INC-009,Medidas FA lienzo 01: 9 medidas con SELECTEDVALUE (multiselect incompleto),AMARIL - lienzos 01/02,Medidas,PENDIENTE
+INC-010,14 medidas RE con SELECTEDVALUE (multiselect incompleto),ROJO - visuales lienzo 00,Medidas,CORREGIDO
+INC-011,U NS vs RE NS: denominadores distintos (1962 vs 1898),AMARILLO - dos indicadores NS distintos,Medidas,PENDIENTE documentar
+INC-012,SLA legacy 5 DH hardcode: solo en audit SQL y ML Python, no en visuales NS oficiales,VERDE,Facts,CONFIRMADO
+INC-013,Feriados regionales: no implementados,AMARILLO - si operacion regional usa feriados,Facts,PENDIENTE
+INC-014,Corte 14:30 lienzo 02: correcto como analisis de carga, no corte SLA,VERDE,Facts,CONFIRMADO
+INC-015,Cobertura VBAP lienzo 02: no cuantificada pedidos con/sin match,AMARILLO - lineas/unidades subestimadas,Facts,PENDIENTE
