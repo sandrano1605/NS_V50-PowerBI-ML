@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "project": "NS_V50-PowerBI-ML",
+  "repository": "sandrano1605/NS_V50-PowerBI-ML",
+  "audit_branch": "work/ns-lienzo-02-ingreso-pedidos",
+  "baseline_before_local_audit_handoff": "352fb33dc65938232a55003b7fe54fc1de61699e",
+  "pbip_path": "NS.pbip",
+  "mode": "READ_ONLY_FUNCTIONAL_EVIDENCE_WRITER",
+  "role_separation": {
+    "local_llm": "recover_inspect_test_diagnose_generate_evidence",
+    "remote_chatgpt": "interpret_evidence_decide_and_implement_changes"
+  },
+  "allowed_write_prefixes": [
+    "Docs/AUDITORIA_LIVE/local_runs/",
+    "Docs/AUDITORIA_LIVE/LOCAL_LATEST.json"
+  ],
+  "forbidden_write_prefixes": [
+    "NS.SemanticModel/",
+    "NS.Report/",
+    ".github/",
+    "Scripts/"
+  ],
+  "forbidden_write_files": [
+    "NS.pbip",
+    "Docs/AUDITORIA_LIVE/regression_cases.csv",
+    "Docs/AUDITORIA_LIVE/runs/20260810_232706_auditoria_integral_modelo_lienzos/DICTAMEN.md",
+    "Docs/AUDITORIA_LIVE/runs/20260810_232706_auditoria_integral_modelo_lienzos/15_incoherencias.csv"
+  ],
+  "authoritative_protocol": "Docs/AUDITORIA_LIVE/LOCAL_LLM_AUDIT_PROTOCOL.md",
+  "local_prompt": "Docs/AUDITORIA_LIVE/LOCAL_LLM_PROMPT.md",
+  "regression_cases": "Docs/AUDITORIA_LIVE/regression_cases.csv",
+  "known_state_to_revalidate": {
+    "INC-005": "GREEN_RE_MULTISELECT",
+    "INC-006": "GREEN_CUTOFF_AFFECTS_PROMISE_NOT_INTERNAL_NS",
+    "INC-007A": "GREEN_CURRENT_DATA_NO_FES_CLOSE_WITHOUT_REAL_MANIFEST",
+    "INC-007B": "RED_STRUCTURAL_TRP_FALLBACK_PENDING",
+    "INC-008": "DOCUMENTATION_CORRECTED_REVALIDATE_IMPLEMENTATION",
+    "INC-009": "GREEN_FA_MULTISELECT_14_MEASURES_LIVE_VALIDATED",
+    "INC-010": "GREEN_COVERED_BY_INC005",
+    "INC-011": "ORANGE_DENOMINATOR_U_VS_RE_PENDING",
+    "INC-012": "GREEN_LEGACY_5DH_NOT_OFFICIAL_VISUAL_NS",
+    "INC-013": "ORANGE_REGIONAL_HOLIDAYS_PENDING_BUSINESS_DATA",
+    "INC-014": "GREEN_1430_LOAD_ANALYSIS_NOT_SLA",
+    "INC-015": "ORANGE_VBAP_COVERAGE_PENDING_QUANTIFICATION"
+  },
+  "priority_questions": [
+    "Which exact orders explain the U vs RE denominator difference and why are they non-evaluable?",
+    "What is the exact VBAP/volume coverage of the current lienzo 02 universe and which KPIs are affected?",
+    "Does Fact_Tracking.FECHA_MANIFIESTO still allow TRP fallback and what is its current-data impact?",
+    "Do regional holidays create a measurable SLA difference in the current analysis window?",
+    "Did any previously green multiselect or SLA behavior regress in the current SHA?",
+    "Are there new structural, semantic, visual-binding or data-quality errors not present in the previous audit?"
+  ],
+  "required_run_files": [
+    "00_manifest.json",
+    "01_git_state.txt",
+    "02_environment.txt",
+    "03_model_inventory.csv",
+    "04_code_findings.csv",
+    "05_business_rule_matrix.csv",
+    "06_live_queries.md",
+    "07_live_results.csv",
+    "08_regression_cases_results.csv",
+    "09_inc_status.csv",
+    "10_visual_bindings.csv",
+    "11_data_quality.csv",
+    "12_recommendations.csv",
+    "READY_FOR_CHATGPT.md",
+    "RESULTADO.md"
+  ],
+  "publish_evidence": {
+    "enabled": true,
+    "commit_message_pattern": "audit(local): evidencia integral <RUN_ID>",
+    "same_branch_only": true,
+    "source_code_changes_allowed": false
+  }
+}
