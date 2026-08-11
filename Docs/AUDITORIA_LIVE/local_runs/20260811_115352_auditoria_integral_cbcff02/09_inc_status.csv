@@ -1,0 +1,13 @@
+﻿INC_ID,PREVIOUS_STATUS,CURRENT_STATUS,SEVERITY,IMPACT_CURRENT,EVIDENCE,REQUIRES_BUSINESS_DECISION,RECOMMENDATION
+INC-005,GREEN_RE_MULTISELECT,GREEN,INFO,0,07_live_results.csv LIVE-006 a LIVE-009,NO,Sin cambio necesario
+INC-006,GREEN_CUTOFF_AFFECTS_PROMISE_NOT_INTERNAL_NS,GREEN,INFO,0,07_live_results.csv LIVE-010,NO,Corte afecta preparación/promesa no NS interno
+INC-007A,GREEN_CURRENT_DATA,GREEN,INFO,0,07_live_results.csv LIVE-011 LIVE-012,NO,0 FES sin manifiesto
+INC-007B,RED_STRUCTURAL_TRP_FALLBACK,RED,RED,0,04_code_findings.csv FIND-001,SI,Eliminar fallback TRP de FECHA_MANIFIESTO
+INC-008,DOC_CORRECTED,GREEN,INFO,0,07_live_results.csv,NO,FECHA_DESPACHO se calcula para todos los flujos
+INC-009,GREEN_FA_MULTISELECT,GREEN,INFO,0,07_live_results.csv LIVE-013 a LIVE-015,NO,14 medidas FA multiselect correctas
+INC-010,GREEN_COVERED_BY_INC005,GREEN,INFO,0,07_live_results.csv,NO,Cubierto por INC-005
+INC-011,ORANGE_DENOMINATOR_U_VS_RE,ORANGE,ORANGE,64 pedidos,11_data_quality.csv DQ-001,SI,Documentar NS oficial 81.5% vs 78.8%
+INC-012,GREEN_LEGACY_5DH_NOT_OFFICIAL,GREEN,INFO,0,07_live_results.csv,NO,SLA 5 DH solo en ML Python
+INC-013,ORANGE_REGIONAL_HOLIDAYS,ORANGE,ORANGE,NECESITA_DATOS,11_data_quality.csv DQ-002,SI,Confirmar feriados regionales con fuente oficial
+INC-014,GREEN_1430_LOAD_ANALYSIS,GREEN,INFO,0,07_live_results.csv,NO,14:30 es análisis carga no corte SLA
+INC-015,ORANGE_VBAP_COVERAGE,ORANGE,ORANGE,791 pedidos sin match,11_data_quality.csv DQ-003,NO,Cobertura 58.3% requiere cuantificar impacto

@@ -1,0 +1,7 @@
+﻿PAGE,VISUAL,OBJECT_PATH,MEASURES_FIELDS,FILTERS,SORT,SLICER_INTERACTION,STATUS,EVIDENCE,NOTES
+00 Resumen Ejecutivo,critical_table,visual.json/query/queryState/Values,RE TT Cliente RE TT Vendedor CLASIFICACION RE TT Días Top 10 RE TT Hito crítico RE TT Exceso crítico DH RE TT Motivo operativo RE TT Estado SVG RE TT Creación RE TT Factura RE TT Cierre,slicer_flujo slicer_zona slicer_clasif,DIAS_INTERNOS_DH DESC,RE Filtro Flujo + RE Filtro Zona,OK,,Tabla fuera SLA 351 filas
+00 Resumen Ejecutivo,sla_panel,visual.json/query/queryState/Values,RE SLA Panel SVG,slicer_flujo slicer_zona,,RE Filtro Flujo + RE Filtro Zona,OK,,SVG genera correctamente
+00 Resumen Ejecutivo,donut_flujo,visual.json/query/queryState/Values,RE Distribución Flujo SVG,slicer_flujo slicer_zona,,VALUES/ISFILTERED/CONTAINS,OK,,Multiselect display correcto
+00 Resumen Ejecutivo,summary_month,visual.json/query/queryState/Values,RE Resumen Mes SVG,slicer_flujo slicer_zona,,RE Filtro Flujo + RE Filtro Zona,OK,,SVG genera correctamente
+01 Análisis Fuera SLA,critical_table,visual.json/query/queryState/Values,RE TT Cliente RE TT Vendedor CLASIFICACION RE TT Días Top 10,slicer_flujo slicer_zona,,RE Filtro Flujo + RE Filtro Zona,OK,,Misma tabla que lienzo 00
+01 Análisis Fuera SLA,fa_clientes_recurrentes,visual.json/query/queryState/Values,FA Cliente FES FA Vendedor FA Meses FES Cliente FA Pedidos Fuera SLA x Cliente FA % Fuera SLA x Vendedor FA DH Promedio Fuera SLA,slicer_flujo slicer_zona,,RE Filtro Flujo + RE Filtro Zona,OK,,Multiselect FA

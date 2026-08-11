@@ -1,0 +1,13 @@
+﻿PEDIDO,CASO,HISTORICAL_EXPECTED,CURRENT_ACTUAL,STATUS,EVIDENCE,NOTES
+4190139455,Clave oficial FES,FES,NORMAL,FAIL,,Pedido cambio de FES a NORMAL en datos actuales - verificar fuente
+1167577,Clave oficial FES,FES,FES,OK,,FES Santiago DH=2 SLA=4 Cumple=True
+1167307,Santiago exactamente 4 DH,NORMAL,NORMAL,OK,,NORMAL Santiago DH=4 SLA=4 Cumple=True
+1168045,Santiago 5 DH,NORMAL,NORMAL,OK,,NORMAL Santiago DH=5 SLA=4 Cumple=False
+1167339,Regiones exactamente 5 DH,NORMAL,NORMAL,OK,,NORMAL Regiones DH=5 SLA=5 Cumple=True
+4190139759,Regiones 6 DH,NORMAL,NORMAL,OK,,NORMAL Regiones DH=6 SLA=5 Cumple=False
+1167926,FES cerrado,FES,FES,OK,,FES Santiago DH=5 SLA=4 Cumple=False
+4190139760,Pedido con multiples facturas,SALDO,SALDO,OK,,SALDO Regiones DH=7 SLA=5 Cumple=False
+1166696,FES + SALDO cerrado,FES + SALDO,FES + SALDO,OK,,FES+SALDO Santiago DH=6 SLA=4 Cumple=False
+1167581,Factura y manifiesto mismo dia,FES,FES,OK,,FES Santiago DH=8 SLA=4 Cumple=False
+1167926,Primer y ultimo transporte diferentes,FES,FES,OK,,FES Santiago DH=5 SLA=4
+1167658,Pedido con multiples despachos,FES,FES,OK,,FES Regiones DH=12 SLA=5 Cumple=False

@@ -1,0 +1,15 @@
+﻿LAYER,OBJECT_TYPE,OBJECT_NAME,FILE_PATH,STATUS,DETAIL
+SEMANTIC,MEASURE,RE Filtro Flujo,NS.SemanticModel/definition/tables/Medidas.tmdl,OK,helper multiselect flujo
+SEMANTIC,MEASURE,RE Filtro Zona,NS.SemanticModel/definition/tables/Medidas.tmdl,OK,helper multiselect zona
+SEMANTIC,MEASURE,RE Pedidos contexto,NS.SemanticModel/definition/tables/Medidas.tmdl,OK,usa helpers
+SEMANTIC,MEASURE,RE Valor contexto,NS.SemanticModel/definition/tables/Medidas.tmdl,OK,usa helpers
+SEMANTIC,MEASURE,RE Promedio contexto DH,NS.SemanticModel/definition/tables/Medidas.tmdl,OK,usa helpers
+SEMANTIC,MEASURE,RE P90 contexto DH,NS.SemanticModel/definition/tables/Medidas.tmdl,OK,usa helpers
+SEMANTIC,MEASURE,RE Distribución Flujo SVG,NS.SemanticModel/definition/tables/Medidas.tmdl,OK,VALUES/ISFILTERED/CONTAINS
+SEMANTIC,MEASURE,FA Carga Pedidos Creados,NS.SemanticModel/definition/tables/Medidas.tmdl,OK,RETURN corregido a CALCULATE
+SEMANTIC,TABLE,Fact_Tracking,NS.SemanticModel/definition/tables/Fact_Tracking.tmdl,OK,2048 pedidos
+SEMANTIC,TABLE,Fact_Hitos_Operacionales,NS.SemanticModel/definition/tables/Fact_Hitos_Operacionales.tmdl,OK,23845 filas 2048 pedidos
+SEMANTIC,TABLE,Fact_Pedidos_Auditoria,NS.SemanticModel/definition/tables/Fact_Pedidos_Auditoria.tmdl,OK,2048 pedidos
+SEMANTIC,TABLE,Lineas_y_unidades_por_pedidos,NS.SemanticModel/definition/tables/Lineas_y_unidades_por_pedidos.tmdl,OK,match VBAP
+SEMANTIC,COLUMN,FECHA_MANIFIESTO,Fact_Tracking.tmdl,WARN,fallback TRP_U/TRP_P en Power Query M
+SEMANTIC,COLUMN,DIAS_INTERNOS_DH,Fact_Tracking.tmdl,OK,calculado desde PED_FECHA_HORA

@@ -1,0 +1,13 @@
+﻿RUN_ID=20260811_115352_auditoria_integral_cbcff02
+TIMESTAMP_LOCAL=2026-08-11T11:53:52-04:00
+BRANCH=work/ns-lienzo-02-ingreso-pedidos
+LOCAL_SHA=cbcff026432f6bd3e5d5bfb3072688ad95039077
+REMOTE_SHA=cbcff026432f6bd3e5d5bfb3072688ad95039077
+WORKTREE_DIRTY=True
+
+--- git log -5 ---
+cbcff02 (HEAD -> work/ns-lienzo-02-ingreso-pedidos, origin/work/ns-lienzo-02-ingreso-pedidos) docs(audit): alinear puntero LOCAL_LATEST con manifest vigente
+5342d50 docs(audit): aclarar cierre y publicacion de evidencia local
+598936c docs(audit): actualizar manifest raiz al handoff local vigente
+a46196a fix(audit): robustecer argumentos git del bootstrap local
+6045b34 docs(audit): actualizar CURRENT para handoff al LLM local

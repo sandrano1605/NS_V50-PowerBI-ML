@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "status": "PENDING_LOCAL_RUN",
-  "run_id": null,
+  "status": "READY_FOR_CHATGPT",
+  "run_id": "20260811_115352_auditoria_integral_cbcff02",
   "audit_branch": "work/ns-lienzo-02-ingreso-pedidos",
-  "audited_sha": null,
+  "audited_sha": "cbcff026432f6bd3e5d5bfb3072688ad95039077",
   "evidence_commit_sha": null,
-  "run_path": null,
-  "ready_for_chatgpt": null,
-  "updated_at_local": "2026-08-11T09:06:00-04:00",
-  "note": "El LLM local debe reemplazar este puntero al publicar una corrida validada. manifest.json define el handoff/protocolo vigente; LOCAL_LATEST.json es el puntero autoritativo al ultimo paquete local generado."
+  "run_path": "Docs/AUDITORIA_LIVE/local_runs/20260811_115352_auditoria_integral_cbcff02",
+  "ready_for_chatgpt": "Docs/AUDITORIA_LIVE/local_runs/20260811_115352_auditoria_integral_cbcff02/READY_FOR_CHATGPT.md",
+  "updated_at_local": "2026-08-11T12:15:00-04:00",
+  "note": "Auditoría integral completada. 2 RED, 3 ORANGE. Multiselect RE y FA validado. Publicar evidencia y consumir READY_FOR_CHATGPT.md."
 }

@@ -1,0 +1,7 @@
+﻿CHECK_ID,CATEGORY,OBJECT,METRIC,VALUE,EXPECTED,STATUS,EVIDENCE,NOTES
+DQ-001,DENOMINADOR,RE NS vs U NS,Diferencia,64 pedidos,0,ORANGE,07_live_results.csv,64 cerrados sin DH en U pero no en RE
+DQ-002,FERIADOS,Dim_Feriados_Chile,Feriados regionales,NECESITA_DATOS,0 o documentado,ORANGE,07_live_results.csv,No hay fuente confiable de feriados regionales
+DQ-003,COBERTURA,VBAP,Match pedidos,1107/1898 (58.3%),90%,ORANGE,07_live_results.csv,791 pedidos sin match líneas/unidades
+DQ-004,FES_CIERRE,FECHA_MANIFIESTO,TRP fallback,0 afectados actualmente,0,OK,07_live_results.csv,Riesgo estructural documentado en FIND-001
+DQ-005,REGRESION,4190139455,Clasificación,NORMAL,FES,FAIL,08_regression_cases_results.csv,Pedido cambio de FES a NORMAL en datos actuales
+DQ-006,SLA,Fact_Tracking vs Fact_Hitos,Reloj,Tracking sin corte Hitos con corte,Diferente,ORANGE,07_live_results.csv,946 pedidos diferidos en Hitos

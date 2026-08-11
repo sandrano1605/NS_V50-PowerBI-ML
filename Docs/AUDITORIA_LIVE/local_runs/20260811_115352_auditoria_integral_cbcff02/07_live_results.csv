@@ -1,0 +1,24 @@
+﻿TEST_ID,CATEGORY,METRIC,DIMENSION,SELECTION,VALUE,EXPECTED,STATUS,EVIDENCE,NOTES
+LIVE-001,BASELINE,Total_pedidos,Universo,Todos,2048,2048,OK,,Baseline
+LIVE-002,BASELINE,Cerrados_con_DH,Universo,Todos,1898,1898,OK,,Baseline
+LIVE-003,BASELINE,En_SLA,Universo,Todos,1547,1547,OK,,Baseline
+LIVE-004,BASELINE,Fuera_SLA,Universo,Todos,351,351,OK,,Baseline
+LIVE-005,BASELINE,NS_pct,Universo,Todos,0.815,0.815,OK,,Baseline
+LIVE-006,INC005,RE_Pedidos,Flujo,Normal+FES,1896,1896,OK,,Multiselect RE
+LIVE-007,INC005,RE_Valor,Flujo,Normal+FES,2271756623,MENOR_que_Todos,OK,,Multiselect RE - antes devolvia Todos
+LIVE-008,INC005,RE_PromDH,Flujo,Normal+FES,3.5005,MENOR_que_Todos,OK,,Multiselect RE
+LIVE-009,INC005,RE_Pedidos,Zona,Santiago+Regiones,1898,1898,OK,,Multiselect zona
+LIVE-010,INC006,Pedidos_diferidos_corte,Fact_Hitos,Todos,946,946,OK,,Corte SLA
+LIVE-011,INC007A,FES_con_manifiesto,Fact_Tracking,FES+FES+SALDO cerrados,437,437,OK,,FES manifest
+LIVE-012,INC007A,FES_abiertos,Fact_Tracking,FES+FES+SALDO,2,2,OK,,FES manifest
+LIVE-013,INC009,FA_Pedidos,Flujo,Normal+FES,1896,1896,OK,,Multiselect FA
+LIVE-014,INC009,FA_Lineas,Flujo,Normal+FES,22801,MENOR_que_Todos,OK,,Multiselect FA
+LIVE-015,INC009,FA_Unidades,Flujo,Normal+FES,2420479,MENOR_que_Todos,OK,,Multiselect FA
+LIVE-016,INC011,U_cerrados,Universo,Todos,1962,1962,OK,,U denominador
+LIVE-017,INC011,RE_evaluables,Universo,Todos,1898,1898,OK,,RE denominador
+LIVE-018,INC011,Diferencia,Universo,Todos,64,64,OK,,64 cerrados sin DH
+LIVE-019,INC015,Evaluables,VBAP,Todos,1898,1898,OK,,Base VBAP
+LIVE-020,INC015,Con_match_VBAP,VBAP,Todos,1107,1107,OK,,Match VBAP
+LIVE-021,INC015,Sin_match_VBAP,VBAP,Todos,791,791,OK,,Sin match VBAP
+LIVE-022,INC015,Cobertura_pct,VBAP,Todos,0.583,MENOR_que_0.90,WARN,,58.3% cobertura
+LIVE-023,INC013,Feriados_nacionales,Dim_Feriados_Chile,Todos,50,50,OK,,Calendario
