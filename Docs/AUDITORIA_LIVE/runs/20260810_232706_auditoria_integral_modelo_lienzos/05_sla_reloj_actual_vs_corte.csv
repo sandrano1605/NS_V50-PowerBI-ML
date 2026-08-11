@@ -1,4 +1,9 @@
-﻿Pedidos_diferidos_corte_Hitos,946
-Columnas_Fact_Hitos,FECHA_INGRESO_SLA|REGLA_CORTE_INGRESO|DIFERIDO_POR_CORTE|PREPARACION_SLA_DH
-Columnas_Fact_Tracking,PED_FECHA_HORA|DIAS_INTERNOS_DH (sin corte)
-CONCLUSION,Fact_Hitos implementa corte 14:00 L-J / 12:00 Viernes. Fact_Tracking NO. 946 pedidos diferidos por corte. Dos relojes distintos sin decision de negocio formal.
+﻿INC-006_REEVALUACION,VERDE
+Pedidos_diferidos_corte_Hitos,946
+Uso_FECHA_INGRESO_SLA,PREPARACION_SLA_DH|FECHA_PROMETIDA_MIN|FECHA_PROMETIDA_MAX|CUMPLE_PREPARACION
+NS_Tracking,"DIAS_INTERNOS_DH = FnDH(PED_FECHA_HORA, FECHA_CIERRE); CUMPLE_SLA_INTERNO compara contra SLA_INTERNO_DH"
+NS_Hitos,"DIAS_HABILES = FnDiasHabiles(FECHA_INICIO, FECHA_FIN); MAYORISTA_CIERRE_TOTAL y FES_CIERRE_TOTAL parten desde PED_FECHA_HORA"
+Impacto_corte_sobre_NS_interno,0
+Afecta_preparacion_promesa,SI
+Afecta_NS_interno,NO
+CONCLUSION,"Los 946 pedidos diferidos por corte son reales, pero el corte 14:00 L-J / 12:00 viernes se usa para preparacion/promesa y no para el calculo del NS interno. Fact_Tracking y el KPI integral de Fact_Hitos miden el lead desde PED_FECHA_HORA. El supuesto de dos relojes para NS interno era un falso positivo; impacto del corte sobre NS interno = 0."
