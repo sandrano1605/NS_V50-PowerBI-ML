@@ -1686,10 +1686,20 @@ table Medidas
 		lineageTag: 27000000-0000-4000-8000-000000000135
 
 	measure 'RE TT Título' =
-			VAR Flujo = SELECTEDVALUE(Dim_Vista_Ejecutiva[Flujo])
-			VAR Zona = SELECTEDVALUE(Dim_Rango_Entrega[Zona])
-			VAR Rango = SELECTEDVALUE(Dim_Rango_Entrega[Rango])
-			VAR Contexto = COALESCE(Flujo, IF(NOT ISBLANK(Zona), Zona & IF(NOT ISBLANK(Rango), " · " & Rango, ""), "Universo cerrado") )
+			VAR TieneFlujo = ISFILTERED(Dim_Vista_Ejecutiva[Flujo])
+			VAR TieneZona = ISFILTERED(Dim_Rango_Entrega[Zona])
+			VAR TieneRangoFiltro = ISFILTERED(Dim_Rango_Entrega[Rango])
+			VAR FlujoTexto = CONCATENATEX(VALUES(Dim_Vista_Ejecutiva[Flujo]), Dim_Vista_Ejecutiva[Flujo], " + ", Dim_Vista_Ejecutiva[Flujo], ASC)
+			VAR ZonaTexto = CONCATENATEX(VALUES(Dim_Rango_Entrega[Zona]), Dim_Rango_Entrega[Zona], " + ", Dim_Rango_Entrega[Zona], ASC)
+			VAR RangoTexto = CONCATENATEX(VALUES(Dim_Rango_Entrega[Rango]), Dim_Rango_Entrega[Rango], " + ", Dim_Rango_Entrega[OrdenRango], ASC)
+			VAR Contexto =
+				IF(
+					NOT (TieneFlujo || TieneZona || TieneRangoFiltro),
+					"Universo cerrado",
+					IF(TieneFlujo, FlujoTexto, "")
+						& IF(TieneZona, IF(TieneFlujo, " · ", "") & ZonaTexto, "")
+						& IF(TieneRangoFiltro, IF(TieneFlujo || TieneZona, " · ", "") & RangoTexto, "")
+				)
 			VAR MinDH = SELECTEDVALUE(Dim_Rango_Entrega[MinDH])
 			VAR MaxDH = SELECTEDVALUE(Dim_Rango_Entrega[MaxDH])
 			VAR TieneRango = HASONEVALUE(Dim_Rango_Entrega[Rango])
