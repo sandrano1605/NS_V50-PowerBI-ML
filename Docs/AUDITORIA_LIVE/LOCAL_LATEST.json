@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "status": "PENDING_LOCAL_RUN",
+  "run_id": null,
+  "audit_branch": "work/ns-lienzo-02-ingreso-pedidos",
+  "audited_sha": null,
+  "evidence_commit_sha": null,
+  "run_path": null,
+  "ready_for_chatgpt": null,
+  "updated_at_local": "2026-08-11T09:06:00-04:00",
+  "note": "El LLM local debe reemplazar este puntero al publicar una corrida validada. No usar Docs/AUDITORIA_LIVE/manifest.json historico como estado actual."
+}
