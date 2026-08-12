@@ -1,0 +1,9 @@
+﻿TEST_ID,CATEGORY,METRIC,DIMENSION,SELECTION,VALUE,EXPECTED,STATUS,EVIDENCE,NOTES
+T01,IN02,Sin hora valida 43/45,Modelo,Canal 43+45,184,44,FAIL,raw/in02_bug_hora_vbak.md,Fix no aplica por bug conversion
+T02,IN02,Sin hora canal 43,Modelo,Canal 43,149,~29,FAIL,raw/in02_bug_hora_vbak.md,Se esperaban ~28 despues de recuperar 120
+T03,IN02,Sin hora canal 45,Modelo,Canal 45,35,~2,FAIL,raw/in02_bug_hora_vbak.md,Se esperaban ~3 despues de recuperar 33
+T04,IN02,ERZET type,SQL,VBAK_SAP,varchar(8),time o varchar(8),DIAGNOSTICO,raw/in02_bug_hora_vbak.md,
+T05,IN02,CONVERT VARCHAR(6),SQL,ERZET='16:03:02','16:03:','160302',DIAGNOSTICO,raw/in02_bug_hora_vbak.md,Trunca con ':' final
+T06,IN02,TRY_CONVERT directo,SQL,ERZET='16:03:02',16:03:02,16:03:02,GREEN,raw/in02_bug_hora_vbak.md,Fix correcto funciona
+T07,IN02,HORA_VBAK fix actual,SQL,Pedido 1166551,NULL,16:03:02,FAIL,raw/in02_bug_hora_vbak.md,
+T08,IN02,Join PED_KEY,SQL,VBAK 43/45,Matchea,Matchea,GREEN,raw/in02_bug_hora_vbak.md,El join no es el problema

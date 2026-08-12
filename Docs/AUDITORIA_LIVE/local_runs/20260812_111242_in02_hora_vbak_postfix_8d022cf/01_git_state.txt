@@ -1,0 +1,31 @@
+﻿RUN_ID=20260812_111242_in02_hora_vbak_postfix_8d022cf
+TIMESTAMP_LOCAL=2026-08-12T11:12:42-04:00
+REPO_ROOT=C:/Users/alonso.moya/OneDrive - ARTEL S.A/Escritorio/💼 Proyectos/Modelo datos power BI/NS/NS_V50_v15_Error_Python_ndarray_Corregido/NS_V50
+BRANCH=work/ns-lienzo-02-ingreso-pedidos
+EXPECTED_BRANCH=work/ns-lienzo-02-ingreso-pedidos
+BRANCH_CHECK=OK
+LOCAL_SHA=8d022cf1f322e4fb4f5867084170de0e40836424
+REMOTE_SHA=8d022cf1f322e4fb4f5867084170de0e40836424
+REMOTE_SHA_CHECK=OK
+REMOTE_URL=https://github.com/sandrano1605/NS_V50-PowerBI-ML.git
+WORKTREE_DIRTY=True
+
+--- git status --porcelain=v1 ---
+?? scripts/audit_local/in02_run.py
+?? scripts/audit_local/inc015_check_auart.py
+?? scripts/audit_local/inc015_run_discovery.py
+?? scripts/audit_local/inc015_run_queries.py
+?? scripts/audit_local/inc015_sap_prd_check.py
+
+--- git log -8 --oneline --decorate ---
+8d022cf (HEAD -> work/ns-lienzo-02-ingreso-pedidos, origin/work/ns-lienzo-02-ingreso-pedidos) audit(in02): validar fallback hora VBAK post-fix
+eb07b64 fix(in02): recuperar hora ingreso desde VBAK canales 43 45
+fbc0922 audit(local): IN02 hora ingreso 43/45 - 153/154 recuperables VBAK
+549fea2 audit(in02): dirigir consistencia hora ingreso canales 43 45
+91fbf22 audit(in02): agregar diagnóstico hora ingreso canales 43 45
+b826fed docs(audit): pausar INC-015 hasta nueva fuente YV01
+98f9ac7 docs(inc015): definir contrato fuente posiciones YV01
+1ec81ad audit(local): INC-015 SIN_FUENTE_YV01 - discovery SQL 33 bases
+
+--- git diff --name-status ---
+<none>

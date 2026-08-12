@@ -1,0 +1,3 @@
+﻿LAYER,OBJECT_TYPE,OBJECT_NAME,FILE_PATH,STATUS,DETAIL
+MODELO,TABLE,Fact_Tracking,NS.SemanticModel/definition/tables/Fact_Tracking.tmdl,DIAGNOSTICADO,Fix eb07b64 con bug conversion ERZET
+SQL,TABLE,VBAK_SAP,DMF_VTA_PRD,REVISADO,ERZET varchar(8) formato 'HH:MM:SS'
