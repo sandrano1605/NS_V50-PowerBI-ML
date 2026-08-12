@@ -1,0 +1,2 @@
+﻿PRIORITY,FINDING_ID,TARGET_FILE,TARGET_OBJECT,RECOMMENDED_CHANGE,WHY,EXPECTED_IMPACT,VALIDATION_REQUIRED,BUSINESS_DECISION_REQUIRED
+P1,IN02-001,NS.SemanticModel/definition/tables/Fact_Tracking.tmdl,TRAMO_HORA_INGRESO,Agregar fallback VBAK.ERZET cuando ZERZET_PED=000000,153/154 ZART_000000 (99.35%) tienen hora valida en VBAK,Recupera 153 pedidos 43/45 de Sin hora valida a franja horaria correcta,Refresh Power BI y revisar grafico 14:30,NO

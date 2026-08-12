@@ -1,0 +1,30 @@
+﻿RUN_ID=20260812_100137_in02_hora_ingreso_43_45_549fea2
+TIMESTAMP_LOCAL=2026-08-12T10:01:37-04:00
+REPO_ROOT=C:/Users/alonso.moya/OneDrive - ARTEL S.A/Escritorio/💼 Proyectos/Modelo datos power BI/NS/NS_V50_v15_Error_Python_ndarray_Corregido/NS_V50
+BRANCH=work/ns-lienzo-02-ingreso-pedidos
+EXPECTED_BRANCH=work/ns-lienzo-02-ingreso-pedidos
+BRANCH_CHECK=OK
+LOCAL_SHA=549fea224d7fa36b3c5d7d0addd87633c2684ea6
+REMOTE_SHA=549fea224d7fa36b3c5d7d0addd87633c2684ea6
+REMOTE_SHA_CHECK=OK
+REMOTE_URL=https://github.com/sandrano1605/NS_V50-PowerBI-ML.git
+WORKTREE_DIRTY=True
+
+--- git status --porcelain=v1 ---
+?? scripts/audit_local/inc015_check_auart.py
+?? scripts/audit_local/inc015_run_discovery.py
+?? scripts/audit_local/inc015_run_queries.py
+?? scripts/audit_local/inc015_sap_prd_check.py
+
+--- git log -8 --oneline --decorate ---
+549fea2 (HEAD -> work/ns-lienzo-02-ingreso-pedidos, origin/work/ns-lienzo-02-ingreso-pedidos) audit(in02): dirigir consistencia hora ingreso canales 43 45
+91fbf22 audit(in02): agregar diagnóstico hora ingreso canales 43 45
+b826fed docs(audit): pausar INC-015 hasta nueva fuente YV01
+98f9ac7 docs(inc015): definir contrato fuente posiciones YV01
+1ec81ad audit(local): INC-015 SIN_FUENTE_YV01 - discovery SQL 33 bases
+c3031e0 audit(handoff): buscar fuente de posiciones YV01
+6d141d7 audit(sql): descubrir fuente posiciones YV01
+a55afbf audit(local): cierre INC-015 - SQL ejecutado, YV01 excluido de VBAP_SAP
+
+--- git diff --name-status ---
+<none>
