@@ -1,12 +1,12 @@
 ﻿{
   "schema_version": 1,
   "status": "READY_FOR_CHATGPT",
-  "run_id": "20260811_235057_inc015_vbap_direct_sql_2f3c0f9",
+  "run_id": "20260812_084605_inc015_yv01_source_discovery_c3031e0",
   "audit_branch": "work/ns-lienzo-02-ingreso-pedidos",
-  "audited_sha": "2f3c0f9bfb384ca2928242467bec1de827486309",
+  "audited_sha": "c3031e04bbff51fc0e4298f83cc28cc55e10accd",
   "evidence_commit_sha": null,
-  "run_path": "Docs/AUDITORIA_LIVE/local_runs/20260811_235057_inc015_vbap_direct_sql_2f3c0f9",
-  "ready_for_chatgpt": "Docs/AUDITORIA_LIVE/local_runs/20260811_235057_inc015_vbap_direct_sql_2f3c0f9/READY_FOR_CHATGPT.md",
-  "updated_at_local": "2026-08-12T00:15:00-04:00",
-  "note": "INC-015 CERRADO. SQL ejecutado contra DMF_VTA_PRD (A_MOYA). VBAP_SAP=USER_TABLE, dbo.VBAP no existe, YV01=349K headers con 0 posiciones. Cobertura 58.3% es estructural. Requiere fuente de posiciones YV01."
+  "run_path": "Docs/AUDITORIA_LIVE/local_runs/20260812_084605_inc015_yv01_source_discovery_c3031e0",
+  "ready_for_chatgpt": "Docs/AUDITORIA_LIVE/local_runs/20260812_084605_inc015_yv01_source_discovery_c3031e0/READY_FOR_CHATGPT.md",
+  "updated_at_local": "2026-08-12T08:50:00-04:00",
+  "note": "INC-015: SIN_FUENTE_YV01_EN_DMF_VTA_PRD. 7 candidatos en 33 bases, 0 con hits YV01. VBAP_SAP=USER_TABLE, dbo.VBAP no existe en SAP_PRD. Se requiere replicacion SAP con AUART=YV01 o fuente externa."
 }

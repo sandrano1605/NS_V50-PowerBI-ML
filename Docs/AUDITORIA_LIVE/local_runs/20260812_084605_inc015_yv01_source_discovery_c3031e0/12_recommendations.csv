@@ -1,0 +1,2 @@
+﻿PRIORITY,FINDING_ID,TARGET_FILE,TARGET_OBJECT,RECOMMENDED_CHANGE,WHY,EXPECTED_IMPACT,VALIDATION_REQUIRED,BUSINESS_DECISION_REQUIRED
+P0,INC-015,N/A (fuente externa),VBAP SAP,Replicar VBAP desde SAP filtrando AUART=YV01 hacia DMF_VTA_PRD o conectar directo via RFC,349K headers YV01 sin posiciones en 7 candidatos de 33 bases,Cobertura 58.3% -> ~95%+,Refresh y validacion de cobertura,SI

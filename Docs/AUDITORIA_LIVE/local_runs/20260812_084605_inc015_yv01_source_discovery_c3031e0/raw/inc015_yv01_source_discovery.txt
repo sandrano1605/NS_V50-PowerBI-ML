@@ -1,0 +1,70 @@
+database_name	server_now	sql_server_version
+DMF_VTA_PRD	2026-08-12 08:46:22.887000	Microsoft SQL Server 2012 (SP1) - 11.0.3128.0 (X64) 
+	Dec 28 2012 20:23:12 
+	Copyright (c) Microsoft Corporation
+	Standard Edition (64-bit) on Windows NT 6.2 <X64> (Build 9200: ) (Hypervisor)
+
+---
+name	state_desc	compatibility_level
+B2B_DEV	ONLINE	110
+B2B_PRD	ONLINE	110
+DEMAFRONT_PRD	ONLINE	110
+DEMAFRONT_QAS	ONLINE	110
+DMF_VTA_PRD	ONLINE	110
+DMF_VTA_QAS	ONLINE	110
+INF_PRD	ONLINE	110
+INF_QAS	ONLINE	110
+INVENTARIO	ONLINE	90
+LCE_ONVISION_ARTEL	ONLINE	90
+master	ONLINE	110
+model	ONLINE	110
+msdb	ONLINE	110
+PASO_POS3	ONLINE	90
+PASO_SII_PRD	ONLINE	110
+paso_web_nl	ONLINE	110
+POS_FAC_E	ONLINE	110
+PRESUPUESTO_DEV	ONLINE	110
+PRESUPUESTO_PRD	ONLINE	110
+PRICE_LIST_PRD	ONLINE	110
+RENDICION_PRD	ONLINE	110
+RENDICION_QAS	ONLINE	110
+RRHH	ONLINE	110
+SAP_PRD	ONLINE	110
+SAP_QAS	ONLINE	110
+SUPER_ARQUEO_PRD	ONLINE	110
+SUPER_ARQUEO_QAS	ONLINE	110
+tempdb	ONLINE	110
+TEST	ONLINE	110
+TEST_PASO_POS3	ONLINE	90
+TESTINVENTARIO	ONLINE	90
+VISOFF_DEV	ONLINE	90
+VISOFF_PRD	ONLINE	90
+---
+schema_name	object_name	type_desc
+dbo	CANAL_COMPOSICION	USER_TABLE
+dbo	PEDIDO_COMPOSICION	USER_TABLE
+dbo	PEDIDOS_DETALLE	USER_TABLE
+dbo	VBAP_SAP	USER_TABLE
+---
+schema_name	object_name	object_type	has_posnr	has_kwmeng	has_matnr
+dbo	LIPS_SAP	USER_TABLE	True	False	True
+dbo	VBAP_SAP	USER_TABLE	True	True	True
+dbo	VBBE_SAP	USER_TABLE	True	False	True
+dbo	VBPA2_SAP	USER_TABLE	True	False	False
+dbo	VBRP_SAP	USER_TABLE	True	False	True
+dbo	VBRP_SAP_2	USER_TABLE	True	False	True
+dbo	VISTA_PEDIDO	VIEW	True	True	True
+---
+yv01_recent_headers	min_erdat	max_erdat
+349215	01-06-2026	31-07-2026
+---
+schema_name	object_name	object_type	has_posnr	has_kwmeng	has_matnr	sample_headers	matched_sample_headers	matched_rows	sample_coverage_pct	error_message
+dbo	LIPS_SAP	USER_TABLE	True	False	True	200	0	0	0.00	NULL
+dbo	VBBE_SAP	USER_TABLE	True	False	True	200	0	0	0.00	NULL
+dbo	VBPA2_SAP	USER_TABLE	True	False	False	200	0	0	0.00	NULL
+dbo	VBRP_SAP	USER_TABLE	True	False	True	200	0	0	0.00	NULL
+dbo	VBRP_SAP_2	USER_TABLE	True	False	True	200	0	0	0.00	NULL
+dbo	VISTA_PEDIDO	VIEW	True	True	True	200	0	0	0.00	NULL
+---
+schema_name	object_name	object_type	has_posnr	has_kwmeng	has_matnr	yv01_recent_headers	matched_yv01_headers	matched_rows	full_coverage_pct	error_message
+---

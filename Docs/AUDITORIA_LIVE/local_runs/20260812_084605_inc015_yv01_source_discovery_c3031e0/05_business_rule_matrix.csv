@@ -1,0 +1,2 @@
+﻿RULE_ID,RULE,EXPECTED_CURRENT_RULE,CODE_IMPLEMENTATION,DATA_RESULT,STATUS,EVIDENCE,NOTES
+BR-10,Cobertura VBAP,>90%,Lineas_y_unidades_por_pedidos VBAP_SAP,58.3% maximo sin fuente YV01,ORANGE,,Requiere replicacion SAP
