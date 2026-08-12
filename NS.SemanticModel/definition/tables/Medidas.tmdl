@@ -1691,7 +1691,7 @@ table Medidas
 			VAR TieneRangoFiltro = ISFILTERED(Dim_Rango_Entrega[Rango])
 			VAR FlujoTexto = CONCATENATEX(VALUES(Dim_Vista_Ejecutiva[Flujo]), Dim_Vista_Ejecutiva[Flujo], " + ", Dim_Vista_Ejecutiva[Flujo], ASC)
 			VAR ZonaTexto = CONCATENATEX(VALUES(Dim_Rango_Entrega[Zona]), Dim_Rango_Entrega[Zona], " + ", Dim_Rango_Entrega[Zona], ASC)
-			VAR RangoTexto = CONCATENATEX(VALUES(Dim_Rango_Entrega[Rango]), Dim_Rango_Entrega[Rango], " + ", Dim_Rango_Entrega[OrdenRango], ASC)
+			VAR RangoTexto = CONCATENATEX(VALUES(Dim_Rango_Entrega[Rango]), Dim_Rango_Entrega[Rango], " + ", Dim_Rango_Entrega[Rango], ASC)
 			VAR Contexto =
 				IF(
 					NOT (TieneFlujo || TieneZona || TieneRangoFiltro),
