@@ -1,0 +1,55 @@
+name: fix-re-tt-rango-order-20260811
+
+on:
+  push:
+    branches:
+      - work/ns-lienzo-02-ingreso-pedidos
+    paths:
+      - .github/workflows/fix-re-tt-rango-order-20260811.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch-title:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: work/ns-lienzo-02-ingreso-pedidos
+          fetch-depth: 0
+
+      - name: Patch RE TT Título RangoTexto
+        shell: python
+        run: |
+          from pathlib import Path
+
+          path = Path("NS.SemanticModel/definition/tables/Medidas.tmdl")
+          text = path.read_text(encoding="utf-8-sig")
+          old = 'VAR RangoTexto = CONCATENATEX(VALUES(Dim_Rango_Entrega[Rango]), Dim_Rango_Entrega[Rango], " + ", Dim_Rango_Entrega[OrdenRango], ASC)'
+          new = 'VAR RangoTexto = CONCATENATEX(VALUES(Dim_Rango_Entrega[Rango]), Dim_Rango_Entrega[Rango], " + ", Dim_Rango_Entrega[Rango], ASC)'
+          if text.count(old) != 1:
+              raise SystemExit(f"Patrón esperado encontrado {text.count(old)} veces; se esperaba 1")
+          text = text.replace(old, new, 1)
+          path.write_text(text, encoding="utf-8")
+
+          start = text.index("\tmeasure 'RE TT Título' =")
+          end = text.index("\n\tmeasure 'RE Subtítulo gráfico'", start)
+          block = text[start:end]
+          assert "Dim_Rango_Entrega[OrdenRango]" not in block
+          assert 'CONCATENATEX(VALUES(Dim_Rango_Entrega[Rango])' in block
+          assert "[RE Filtro Flujo]" in block
+          assert "[RE Filtro Zona]" in block
+
+      - name: Validate diff
+        run: |
+          git diff --check
+          git diff -- NS.SemanticModel/definition/tables/Medidas.tmdl
+
+      - name: Commit functional fix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add NS.SemanticModel/definition/tables/Medidas.tmdl
+          git commit -m "fix(lienzo-00): corregir orden título multiselect"
+          git push origin HEAD:work/ns-lienzo-02-ingreso-pedidos
