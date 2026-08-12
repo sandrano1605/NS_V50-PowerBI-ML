@@ -1,0 +1,31 @@
+﻿TEST_ID,CATEGORY,METRIC,DIMENSION,SELECTION,VALUE,EXPECTED,STATUS,EVIDENCE,NOTES
+T01,FIND-002A,RE TT Título,Flujo/Zona,1_Todos,Sin error / Universo cerrado,Sin error,GREEN,raw/find002_titulo_12.csv,Título renderiza; 361 PEDIDOS · 11-05 a 03-08
+T02,FIND-002A,RE TT Título,Flujo,2_Normal,Sin error / 1. Flujo Normal,Sin error,GREEN,raw/find002_titulo_12.csv,134 fuera SLA
+T03,FIND-002A,RE TT Título,Flujo,3_FES,Sin error / 2. FES...,Sin error,GREEN,raw/find002_titulo_12.csv,226 fuera SLA
+T04,FIND-002A,RE TT Título,Flujo,4_Saldo,Sin error / 3. Saldos puros,Sin error,GREEN,raw/find002_titulo_12.csv,
+T05,FIND-002A,RE TT Título,Flujo,5_Normal+FES,Sin error / Flujo Normal + FES,Sin error,GREEN,raw/find002_titulo_12.csv,Multiselect OK: 360 fuera SLA
+T06,FIND-002A,RE TT Título,Flujo,6_Normal+Saldo,Sin error / Flujo Normal + Saldos,Sin error,GREEN,raw/find002_titulo_12.csv,
+T07,FIND-002A,RE TT Título,Flujo,7_FES+Saldo,Sin error / FES + Saldos,Sin error,GREEN,raw/find002_titulo_12.csv,
+T08,FIND-002A,RE TT Título,Zona,8_Santiago,Sin error / Santiago,Sin error,GREEN,raw/find002_titulo_12.csv,
+T09,FIND-002A,RE TT Título,Zona,9_Regiones,Sin error / Regiones,Sin error,GREEN,raw/find002_titulo_12.csv,
+T10,FIND-002A,RE TT Título,Zona,10_Santiago+Regiones,Sin error / Regiones + Santiago,Sin error,GREEN,raw/find002_titulo_12.csv,
+T11,FIND-002A,RE TT Título,Flujo+Zona,11_NF+Santiago,Sin error / NF · Santiago,Sin error,GREEN,raw/find002_titulo_12.csv,
+T12,FIND-002A,RE TT Título,Flujo+Zona,12_NF+S+R,Sin error / NF · R+S,Sin error,GREEN,raw/find002_titulo_12.csv,
+T13,INC-011,Cerrados sin DH,Universo,Post-fix,0,0,GREEN,,Anterior: 55 con fecha centinela. Ahora TRP<PED->null->no cierra.
+T14,INC-011,Estado centinela (muestra 10),Pedido,1168525/1168315/etc,ES_CERRADO=FALSE / FECHA_DESPACHO=null / PENDIENTE FACTURA,ES_CERRADO=FALSE,GREEN,07_live_results.csv,Fix confirmado: los 55 ahora son abiertos
+T15,INC-011,Pedidos evaluables,Universo,Post-fix,1941,1934,GREEN,,+7 por refresh + fix (55 excluidos, otros incluidos)
+T16,INC-007B,FES total,Flujo,FES,439,439,GREEN,,
+T17,INC-007B,FES cerrados,Flujo,FES,437,437,GREEN,,
+T18,INC-007B,FES cerrados con manifiesto real,Flujo,FES,437,437,GREEN,,100% VBFA/VTTP
+T19,INC-007B,FES cerrados sin manifiesto,Flujo,FES,0,0,GREEN,,Sin fallback TRP
+T20,INC-007B,FES pendiente manifiesto,Flujo,FES,0,0,GREEN,,
+T21,INC-015,Evaluables VBAP,Universo,RE sin filtro,1941,1941,GREEN,,
+T22,INC-015,Match exacto VBAP,Universo,RE sin filtro,1131,1131,GREEN,,58.3%
+T23,INC-015,Cobertura VBAP,Universo,RE sin filtro,0.5827,0.5827,GREEN,,Sin cambio; pendiente AEDAT
+T24,BASELINE,Total Fact_Tracking,,,2097,,INFO,,Post-refresh 2026-08-11 22:21
+T25,BASELINE,Evaluables RE,Universo,Sin filtro,1941,,INFO,,
+T26,BASELINE,En SLA,Universo,Sin filtro,1580,,INFO,,
+T27,BASELINE,Fuera SLA,Universo,Sin filtro,361,,INFO,,
+T28,BASELINE,RE NS,Universo,Sin filtro,0.8140,,INFO,,81.40%
+T29,BASELINE,PromDH,Universo,Sin filtro,3.49,,INFO,,
+T30,BASELINE,P90DH,Universo,Sin filtro,8,,INFO,,

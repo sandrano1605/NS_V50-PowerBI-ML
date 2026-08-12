@@ -1,0 +1,3 @@
+﻿PRIORITY,FINDING_ID,TARGET_FILE,TARGET_OBJECT,RECOMMENDED_CHANGE,WHY,EXPECTED_IMPACT,VALIDATION_REQUIRED,BUSINESS_DECISION_REQUIRED
+P1,INC-015,Consultar VBAP_SAP sin filtro AEDAT,Origen SQL,Comparar COUNT DISTINCT VBELN con y sin WHERE AEDAT>=GETDATE()-730,Determinar si los 810 sin match son por filtro AEDAT o por contenido de la vista VBAP_SAP,Aislar CAUSA_AEDAT vs CAUSA_VISTA para decidir fix,Corrida local con consulta SQL directa,SI
+P2,INC-013,Dim_Feriados_Chile,Feriados regionales,Definir regla con fuente confiable,Falta fuente de feriados regionales/comunales,Impacto en SLA regional medible,Validación de casos,SI

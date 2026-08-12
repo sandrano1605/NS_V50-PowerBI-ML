@@ -1,0 +1,13 @@
+﻿INC_ID,PREVIOUS_STATUS,CURRENT_STATUS,SEVERITY,IMPACT_CURRENT,EVIDENCE,REQUIRES_BUSINESS_DECISION,RECOMMENDATION
+INC-005,GREEN_RE_MULTISELECT,GREEN,INFO,Ninguna; validado en 12 combinaciones,07_live_results.csv,NO,Continuar monitoreo
+INC-006,GREEN_CUTOFF,GREEN,INFO,Ninguna; sin cambio,07_live_results.csv,NO,Revalidar si cambia código
+INC-007A,GREEN,GREEN,INFO,0 FES sin manifiesto real,07_live_results.csv,NO,
+INC-007B,RED_STRUCTURAL,GREEN,GREEN,Fallback TRP eliminado; 437/437 con manifiesto VBFA/VTTP; 0 cierre por TRP,07_live_results.csv,NO,Fix 89bfee5 validado
+INC-008,DOC_CORRECTED,GREEN,INFO,Proxy factura Santiago no cierra FES,04_code_findings.csv,NO,
+INC-009,GREEN_FA,GREEN,INFO,Multiselect FA sin regresion,07_live_results.csv,NO,
+INC-010,GREEN,GREEN,INFO,Cubierto por INC-005,07_live_results.csv,NO,
+INC-011,CAUSA_IDENTIFICADA,GREEN,GREEN,0 cerrados sin DH; los 55 centinela ahora ES_CERRADO=FALSE,07_live_results.csv,NO,Fix 89bfee5 validado
+INC-012,GREEN,GREEN,INFO,SLA legacy sin impacto,10_visual_bindings.csv,NO,
+INC-013,NECESITA_DATOS,NECESITA_DATOS,ORANGE,Sin fuente confiable de feriados regionales,09_inc_status.csv,SI,Definir regla
+INC-014,GREEN,GREEN,INFO,14:30 solo carga,05_business_rule_matrix.csv,NO,
+INC-015,CAUSA_IDENTIFICADA,PENDIENTE_AEDAT,ORANGE,Cobertura 58.3% constante; pendiente prueba sin filtro AEDAT,07_live_results.csv,SI,Ejecutar consulta VBAP_SAP sin AEDAT>=GETDATE()-730
