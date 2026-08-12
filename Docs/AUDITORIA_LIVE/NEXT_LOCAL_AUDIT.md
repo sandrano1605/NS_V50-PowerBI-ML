@@ -1,30 +1,24 @@
-# Próxima auditoría local — cierre dirigido INC-015
+# Próxima auditoría local — INC-015 origen SQL VBAP_SAP
 
 ## Objetivo único
 
-Cerrar técnicamente `INC-015` sin modificar el modelo desde el LLM local.
+Cerrar la causa raíz física de `INC-015` en `DMF_VTA_PRD` sin modificar Power BI ni objetos SQL.
 
-Los fixes anteriores ya quedaron validados en vivo y NO necesitan repetirse salvo una comprobación corta de regresión:
+Estado ya confirmado por evidencia `20260811_232642_post_fix_tracking_inc015_18f0baa`:
 
-- FIND-002A = GREEN
-- INC-011 = GREEN
-- INC-007B = GREEN
-
-Baseline vivo de referencia del último paquete:
-
-- `Fact_Tracking`: 2.097
 - RE evaluables: 1.941
-- RE en SLA: 1.580
-- RE fuera SLA: 361
-- RE NS: 81,4%
-- Match exacto VBAP: 1.131 / 1.941 = 58,3%
-- Sin match actual: 810
+- Match actual en `Lineas_y_unidades_por_pedidos`: 1.131 / 1.941 = 58,3%
+- Sin match: 810
+- 782/810 existen como cabeceras recientes en `VBAK_SAP`
+- 0 casos atribuibles al filtro externo `AEDAT >= GETDATE()-730`
+- hipótesis padding/ceros: descartada
+- dictamen actual: `CAUSA_VISTA_VBAP_SAP`
 
-Paquete fuente: `20260811_225907_post_fix_validacion_viva_00756db`.
+Los fixes FIND-002A, INC-011 e INC-007B ya están GREEN y no deben reauditarse salvo sanidad mínima.
 
 ---
 
-## Regla de rol
+## Rol
 
 El LLM local sigue siendo auditor read-only funcional.
 
@@ -33,15 +27,16 @@ No modificar:
 - `NS.SemanticModel/**`
 - `NS.Report/**`
 - `NS.pbip`
+- vistas, tablas, procedimientos o sinónimos SQL
 
-Solo generar evidencia bajo:
+Solo puede generar evidencia bajo:
 
 - `Docs/AUDITORIA_LIVE/local_runs/<RUN_ID>/**`
 - `Docs/AUDITORIA_LIVE/LOCAL_LATEST.json`
 
 ---
 
-## Preflight obligatorio
+## Preflight
 
 ```powershell
 git fetch origin
@@ -52,264 +47,142 @@ git ls-remote origin refs/heads/work/ns-lienzo-02-ingreso-pedidos
 
 LOCAL y REMOTO deben coincidir.
 
-Conectar al modelo Power BI post-refresh y registrar puerto, database id, `lastSchemaUpdate` y `FECHA_ACTUALIZACION`.
+---
+
+# P0 — Ejecutar auditoría SQL de fuente
+
+Usar exclusivamente el script versionado:
+
+`Scripts/audit_local/inc015_vbap_source_audit.sql`
+
+Ejecutarlo contra:
+
+- servidor usado por el modelo: `128.1.3.21`
+- base: `DMF_VTA_PRD`
+
+El script es read-only respecto de objetos persistentes. Solo usa `#RecentHeaders` temporal de sesión.
+
+Guardar la salida íntegra en:
+
+`raw/inc015_vbap_source_audit.txt`
+
+Si alguna sección falla por permisos, registrar el error exacto y continuar con las siguientes secciones posibles.
 
 ---
 
-# P0 — Construir universo exacto de los 810 sin match
+# P0 — Dictamen sobre el tipo de objeto
 
-Desde el modelo vivo obtener los 1.941 RE evaluables y generar la lista exacta de pedidos que NO existen en `Lineas_y_unidades_por_pedidos[Pedido]`.
+Determinar exactamente qué es `VBAP_SAP`:
+
+- `VIEW`
+- `USER_TABLE`
+- `SYNONYM`
+- otro
 
 Guardar:
 
-`raw/inc015_missing_orders.csv`
+- schema;
+- `type_desc`;
+- `create_date` / `modify_date` cuando aplique;
+- `base_object_name` si es synonym;
+- `OBJECT_DEFINITION` si es view y existe permiso;
+- dependencias devueltas por `sys.sql_expression_dependencies`.
 
-Columnas mínimas:
-
-- Pedido
-- Flujo
-- Zona
-- Canal
-- PED_FECHA_HORA
-- largo_clave
-- existe_en_Pedidos_Normal_VBAK
-
-Validar que el conteo sea exactamente el del refresh actual. Si ya no son 810 por un refresh posterior, usar el nuevo conteo y explicar la diferencia.
+Si la definición contiene filtros, joins, mandante, sociedad, canal, centro, fecha u otra condición, copiar esas condiciones literalmente en la evidencia y explicar cuáles pueden excluir pedidos recientes.
 
 ---
 
-# P0 — Prueba SQL discriminante directa sobre VBAP_SAP
+# P0 — Gap directo VBAK_SAP → VBAP_SAP
 
-La consulta M actual de `Lineas_y_unidades_por_pedidos` es:
+El script construye el universo reciente usando los mismos AUART de `Pedidos_Normal_VBAK` y `ERDAT > GETDATE()-90`.
 
-```sql
-SELECT
-    VBAP.VBELN AS Pedido,
-    COUNT(*) AS Lineas,
-    SUM(ISNULL(VBAP.KWMENG, 0)) AS Suma_Unidades
-FROM VBAP_SAP AS VBAP
-WHERE VBAP.AEDAT >= GETDATE() - 730
-GROUP BY VBAP.VBELN;
-```
+Reportar:
 
-La hipótesis de padding/ceros ya está descartada. La prueba pendiente debe separar fuente, filtro e import.
+1. `headers_recent`;
+2. `headers_with_vbap_sap`;
+3. `headers_missing_vbap_sap`;
+4. cobertura %;
+5. gap por `AUART`;
+6. gap por mes `ERDAT`;
+7. muestra de 100 pedidos ausentes.
 
-## Paso 1 — cargar los faltantes en temporal SQL
-
-Usar una tabla temporal de sesión, no una tabla persistente:
-
-```sql
-CREATE TABLE #Missing (
-    VBELN varchar(20) NOT NULL PRIMARY KEY
-);
-
-INSERT INTO #Missing (VBELN)
-VALUES
-    ('<pedido_1>'),
-    ('<pedido_2>');
--- completar con toda la lista del refresh actual
-```
-
-La lista completa cabe en un único INSERT de hasta 1.000 filas si el faltante sigue alrededor de 810.
-
-## Paso 2 — clasificar cada pedido
-
-Ejecutar:
-
-```sql
-SELECT
-    M.VBELN,
-    COUNT(V.VBELN) AS FILAS_VBAP_TOTAL,
-    SUM(CASE WHEN V.AEDAT >= GETDATE() - 730 THEN 1 ELSE 0 END) AS FILAS_VBAP_730,
-    MIN(V.AEDAT) AS MIN_AEDAT,
-    MAX(V.AEDAT) AS MAX_AEDAT,
-    CASE
-        WHEN COUNT(V.VBELN) = 0
-            THEN 'AUSENTE_VBAP_SAP'
-        WHEN SUM(CASE WHEN V.AEDAT >= GETDATE() - 730 THEN 1 ELSE 0 END) = 0
-            THEN 'EXCLUIDO_AEDAT'
-        ELSE 'EXISTE_DENTRO_730'
-    END AS CAUSA_INC015
-FROM #Missing AS M
-LEFT JOIN VBAP_SAP AS V
-    ON CONVERT(varchar(20), V.VBELN) = M.VBELN
-GROUP BY M.VBELN
-ORDER BY CAUSA_INC015, M.VBELN;
-```
-
-Guardar resultado completo en:
-
-`raw/inc015_vbap_classification.csv`
-
-### Interpretación obligatoria
-
-- `AUSENTE_VBAP_SAP`: el problema está en la vista/contenido de `VBAP_SAP` o en que el documento no tiene posiciones allí.
-- `EXCLUIDO_AEDAT`: el pedido sí está en la vista pero el filtro `AEDAT >= GETDATE()-730` lo elimina.
-- `EXISTE_DENTRO_730`: el pedido debería haber sido importado por la consulta M. Si aparece esta categoría, investigar refresh/import/modelo antes de tocar SQL.
+Comparar el patrón con los 782 faltantes ya detectados en el modelo.
 
 ---
 
-# P0 — Resumen cuantitativo por causa
+# P0 — Comparación con fuente base VBAP
 
-Ejecutar y guardar:
+Si existe y es accesible `dbo.VBAP`, el mismo script compara cobertura.
 
-```sql
-WITH Clasificacion AS (
-    SELECT
-        M.VBELN,
-        CASE
-            WHEN COUNT(V.VBELN) = 0
-                THEN 'AUSENTE_VBAP_SAP'
-            WHEN SUM(CASE WHEN V.AEDAT >= GETDATE() - 730 THEN 1 ELSE 0 END) = 0
-                THEN 'EXCLUIDO_AEDAT'
-            ELSE 'EXISTE_DENTRO_730'
-        END AS CAUSA_INC015
-    FROM #Missing AS M
-    LEFT JOIN VBAP_SAP AS V
-        ON CONVERT(varchar(20), V.VBELN) = M.VBELN
-    GROUP BY M.VBELN
-)
-SELECT
-    CAUSA_INC015,
-    COUNT(*) AS PEDIDOS
-FROM Clasificacion
-GROUP BY CAUSA_INC015
-ORDER BY PEDIDOS DESC;
-```
+Emitir uno de estos resultados:
 
-Guardar en:
+### A. `BASE_VBAP_COMPLETA_VISTA_INCOMPLETA`
 
-`raw/inc015_vbap_summary.csv`
+Si `dbo.VBAP` recupera materialmente los pedidos que faltan en `VBAP_SAP`.
 
----
+Recomendación para ChatGPT:
 
-# P0 — Cruzar con VBAK_SAP
+- migrar `Lineas_y_unidades_por_pedidos` a la fuente base `VBAP`, preservando solamente las columnas necesarias (`VBELN`, `KWMENG`, fecha adecuada) y el universo temporal requerido;
+- antes de implementar, cuantificar cobertura esperada y volumen de filas.
 
-Para todos los faltantes, obtener cabecera SAP:
+### B. `BASE_VBAP_TAMBIEN_INCOMPLETA`
 
-```sql
-SELECT
-    M.VBELN,
-    K.AUART,
-    K.ERDAT,
-    C.CAUSA_INC015
-FROM #Missing AS M
-LEFT JOIN VBAK_SAP AS K
-    ON CONVERT(varchar(20), K.VBELN) = M.VBELN
-LEFT JOIN (
-    SELECT
-        M2.VBELN,
-        CASE
-            WHEN COUNT(V2.VBELN) = 0
-                THEN 'AUSENTE_VBAP_SAP'
-            WHEN SUM(CASE WHEN V2.AEDAT >= GETDATE() - 730 THEN 1 ELSE 0 END) = 0
-                THEN 'EXCLUIDO_AEDAT'
-            ELSE 'EXISTE_DENTRO_730'
-        END AS CAUSA_INC015
-    FROM #Missing AS M2
-    LEFT JOIN VBAP_SAP AS V2
-        ON CONVERT(varchar(20), V2.VBELN) = M2.VBELN
-    GROUP BY M2.VBELN
-) AS C
-    ON C.VBELN = M.VBELN
-ORDER BY C.CAUSA_INC015, K.AUART, M.VBELN;
-```
+Si `dbo.VBAP` tiene el mismo gap.
 
-Guardar en:
+Recomendación:
 
-`raw/inc015_vbak_crosscheck.csv`
+- no cambiar Power BI;
+- investigar proceso de réplica/carga SAP que alimenta DMF_VTA_PRD.
 
-Resumir por:
+### C. `VBAP_BASE_NO_DISPONIBLE`
 
-- `CAUSA_INC015`
-- `AUART`
-- mes de `ERDAT`
-- flujo
-- canal
-- largo de pedido
+Si `dbo.VBAP` no existe o no es visible.
+
+Recomendación:
+
+- usar definición/dependencias de `VBAP_SAP` para identificar el origen físico real;
+- si falta permiso `VIEW DEFINITION`, registrar que se requiere al DBA la definición de la vista/sinónimo.
+
+### D. `VBAP_SAP_ES_TABLA_REPLICADA`
+
+Si `VBAP_SAP` es `USER_TABLE`, no llamarla vista en el dictamen.
+
+Recomendación:
+
+- investigar ETL/replicación y fecha máxima/cobertura de carga;
+- no reemplazar la fuente del modelo hasta identificar una tabla de posiciones más completa.
 
 ---
 
-# P0 — Verificar los casos EXISTE_DENTRO_730
+# P0 — AEDAT como control, no como hipótesis principal
 
-Si `EXISTE_DENTRO_730 > 0`, comparar esos pedidos contra la misma agregación exacta usada por Power BI:
+Para pedidos que sí existen en `VBAP_SAP`, registrar:
 
-```sql
-SELECT
-    V.VBELN AS Pedido,
-    COUNT(*) AS Lineas,
-    SUM(ISNULL(V.KWMENG, 0)) AS Suma_Unidades,
-    MIN(V.AEDAT) AS MIN_AEDAT,
-    MAX(V.AEDAT) AS MAX_AEDAT
-FROM VBAP_SAP AS V
-INNER JOIN #Missing AS M
-    ON CONVERT(varchar(20), V.VBELN) = M.VBELN
-WHERE V.AEDAT >= GETDATE() - 730
-GROUP BY V.VBELN
-ORDER BY V.VBELN;
-```
+- cuántos tienen posiciones dentro de 730 días;
+- cuántos presentan `AEDAT` antiguo o nulo.
 
-Si devuelve filas que Power BI no tiene en `Lineas_y_unidades_por_pedidos`, marcar:
-
-`CAUSA_IMPORT_REFRESH_MODEL`
-
-y NO modificar el SQL fuente hasta aislar por qué el import no coincide con la consulta.
+El objetivo es confirmar que `AEDAT` no explica el gap principal. No volver a proponer eliminación del filtro salvo evidencia nueva contradictoria.
 
 ---
 
-# P0 — Diagnóstico final obligatorio
-
-Emitir exactamente uno de estos dictámenes o una combinación cuantificada:
-
-- `CAUSA_AEDAT`
-- `CAUSA_VISTA_VBAP_SAP`
-- `CAUSA_IMPORT_REFRESH_MODEL`
-- `CAUSA_MIXTA`
-
-El dictamen debe incluir:
-
-1. total evaluables;
-2. con match actual;
-3. sin match actual;
-4. cantidad `AUSENTE_VBAP_SAP`;
-5. cantidad `EXCLUIDO_AEDAT`;
-6. cantidad `EXISTE_DENTRO_730`;
-7. cobertura potencial si se elimina solo el filtro AEDAT;
-8. cobertura potencial si se usa una fuente de posiciones que sí contenga los ausentes;
-9. lista de AUART predominantes de los faltantes;
-10. recomendación técnica concreta para ChatGPT.
-
-No implementar el fix localmente.
-
----
-
-# P1 — Sanidad mínima de regresión
-
-Sin repetir toda la auditoría anterior, confirmar:
-
-- `RE TT Título` sin SemanticError;
-- cerrados sin DH = 0;
-- FES cerrado sin manifiesto real = 0;
-- baseline RE del refresh actual;
-- cobertura VBAP actual antes de cualquier cambio.
-
----
-
-# Salida
+# Entregables
 
 Crear corrida:
 
 ```powershell
-./Scripts/audit_local/bootstrap_local_audit.ps1 -RunName "inc015_vbap_direct_sql"
+./Scripts/audit_local/bootstrap_local_audit.ps1 -RunName "inc015_vbap_source_rootcause"
 ```
 
-Completar paquete normal y agregar en `raw/`:
+Además del paquete normal, guardar en `raw/`:
 
-- `inc015_missing_orders.csv`
-- `inc015_vbap_classification.csv`
-- `inc015_vbap_summary.csv`
-- `inc015_vbak_crosscheck.csv`
-- `inc015_sql_queries.sql`
+- `inc015_vbap_source_audit.txt`
+- `inc015_vbap_object_definition.sql` si la definición está disponible
+- `inc015_vbap_missing_sample.csv`
+- `inc015_vbap_gap_by_auart.csv`
+- `inc015_vbap_gap_by_month.csv`
+- `inc015_vbap_base_comparison.csv` si existe `dbo.VBAP`
+
+Actualizar `09_inc_status.csv` con el dictamen físico exacto.
 
 Validar:
 
@@ -319,3 +192,12 @@ git diff --check
 ```
 
 Publicar solo evidencia y actualizar `LOCAL_LATEST.json` a `READY_FOR_CHATGPT`.
+
+## Criterio de cierre
+
+No marcar `INC-015` GREEN todavía. Solo puede cerrarse después de:
+
+1. identificar la fuente física correcta de posiciones;
+2. implementar el cambio remoto si corresponde;
+3. refresh del modelo;
+4. comprobar cobertura y líneas/unidades post-fix en vivo.
