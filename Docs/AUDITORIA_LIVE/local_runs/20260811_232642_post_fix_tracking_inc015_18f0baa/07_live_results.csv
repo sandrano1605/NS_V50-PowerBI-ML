@@ -1,0 +1,11 @@
+﻿TEST_ID,CATEGORY,METRIC,DIMENSION,SELECTION,VALUE,EXPECTED,STATUS,EVIDENCE,NOTES
+T01,INC-015,Evaluables RE,Universo,Sin filtro,1941,1941,OK,,Post-refresh
+T02,INC-015,Match VBAP,Universo,Sin filtro,1131,1131,OK,,58.3%
+T03,INC-015,Sin match total,Universo,Sin filtro,810,810,OK,,
+T04,INC-015,DENTRO_730_EN_VBAK,Universo,Sin filtro,782,782,DIAGNOSTICO,raw/inc015_vbap_diagnostico.md,CAUSA_VISTA_VBAP_SAP
+T05,INC-015,AUSENTE_VBAK,Universo,Sin filtro,28,28,DIAGNOSTICO,raw/inc015_vbap_diagnostico.md,
+T06,INC-015,EXCLUIDO_AEDAT,Universo,Sin filtro,0,0,DIAGNOSTICO,,Hipotesis AEDAT descartada
+T07,INC-015,Cob potencial con VBAK,Universo,Sin filtro,98.6,>90,ESTIMADO,,1913/1941
+T08,FIND-002A,RE TT Titulo,Flujo,Todos,Sin SemanticError,Sin error,GREEN,,
+T09,INC-011,Cerrados sin DH,Universo,Sin filtro,0,0,GREEN,,
+T10,INC-007B,FES sin manifiesto,Flujo,FES,0,0,GREEN,,

@@ -1,0 +1,3 @@
+﻿CHECK_ID,CATEGORY,OBJECT,METRIC,VALUE,EXPECTED,STATUS,EVIDENCE,NOTES
+DQ-01,VOLUMEN,VBAP_SAP,Cobertura lineas/unidades,58.3%,>90%,ORANGE,raw/inc015_vbap_diagnostico.md,CAUSA_VISTA_VBAP_SAP
+DQ-02,VOLUMEN,VBAP_SAP,Pedidos en VBAK sin lineas VBAP,782,0,ORANGE,raw/inc015_vbap_diagnostico.md,96.5% de sin match

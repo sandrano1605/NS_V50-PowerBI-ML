@@ -1,0 +1,2 @@
+﻿PRIORITY,FINDING_ID,TARGET_FILE,TARGET_OBJECT,RECOMMENDED_CHANGE,WHY,EXPECTED_IMPACT,VALIDATION_REQUIRED,BUSINESS_DECISION_REQUIRED
+P0,INC-015,NS.SemanticModel/definition/tables/Lineas_y_unidades_por_pedidos.tmdl,VBAP_SAP origen,Revisar vista VBAP_SAP en DMF_VTA_PRD; comparar VBELN vs VBAK,782 pedidos con fecha reciente en VBAK no estan en VBAP_SAP -> CAUSA_VISTA_VBAP_SAP,Cobertura de 58.3% a ~98.6%,SQL directo comparando VBAP_SAP vs VBAK,SI

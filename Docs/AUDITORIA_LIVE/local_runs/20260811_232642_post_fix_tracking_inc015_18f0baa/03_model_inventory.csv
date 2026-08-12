@@ -1,0 +1,4 @@
+﻿LAYER,OBJECT_TYPE,OBJECT_NAME,FILE_PATH,STATUS,DETAIL
+MODELO,TABLE,Fact_Tracking,NS.SemanticModel/definition/tables/Fact_Tracking.tmdl,POST_FIX,FECHA_DESPACHO con validacion TRP<PED->null; FECHA_MANIFIESTO sin TRP
+MODELO,TABLE,Lineas_y_unidades_por_pedidos,NS.SemanticModel/definition/tables/Lineas_y_unidades_por_pedidos.tmdl,DIAGNOSTICADO,Origen VBAP_SAP; CAUSA_VISTA_VBAP_SAP
+MODELO,TABLE,Pedidos_Normal_VBAK,NS.SemanticModel/definition/tables/Pedidos_Normal_VBAK.tmdl,REFERENCIA,2152 pedidos; usado para diagnostico INC-015

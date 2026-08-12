@@ -1,0 +1,161 @@
+﻿RUN_ID=20260811_232642_post_fix_tracking_inc015_18f0baa
+TIMESTAMP_LOCAL=2026-08-11T23:26:42-04:00
+REPO_ROOT=C:/Users/alonso.moya/OneDrive - ARTEL S.A/Escritorio/💼 Proyectos/Modelo datos power BI/NS/NS_V50_v15_Error_Python_ndarray_Corregido/NS_V50
+BRANCH=work/ns-lienzo-02-ingreso-pedidos
+EXPECTED_BRANCH=work/ns-lienzo-02-ingreso-pedidos
+BRANCH_CHECK=OK
+LOCAL_SHA=18f0baa24089742dab35f00300506cb8ce10856f
+REMOTE_SHA=18f0baa24089742dab35f00300506cb8ce10856f
+REMOTE_SHA_CHECK=OK
+REMOTE_URL=https://github.com/sandrano1605/NS_V50-PowerBI-ML.git
+WORKTREE_DIRTY=True
+
+--- git status --porcelain=v1 ---
+ M NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/309a51a96bc9d090ab43/visual.json
+ M NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/40ac169dd89e96270ac9/visual.json
+ M NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/47a4fa002331b23249c5/visual.json
+ M NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/84343c674ecddeb910c5/visual.json
+ M NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/dd60148c4db229925749/visual.json
+ M NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/kpi_factura/visual.json
+ M NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/sync_mes_3m_v39/visual.json
+ M NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/table_15b8b83ff48292/visual.json
+ M NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/tbl_tracking/visual.json
+ M NS.Report/definition/pages/71af1998e2cb472d9799/visuals/3b0d647a439385b325bd/visual.json
+ M NS.Report/definition/pages/71af1998e2cb472d9799/visuals/8b664941e6c072783070/visual.json
+ M NS.Report/definition/pages/71af1998e2cb472d9799/visuals/btn_reset_resumen/visual.json
+ M NS.Report/definition/pages/71af1998e2cb472d9799/visuals/chart_mensual_3m_v39/visual.json
+ M NS.Report/definition/pages/71af1998e2cb472d9799/visuals/critical_table/visual.json
+ M NS.Report/definition/pages/71af1998e2cb472d9799/visuals/f07bd2d60e407e2ddd01/visual.json
+ M NS.Report/definition/pages/71af1998e2cb472d9799/visuals/filter_panel/visual.json
+ M NS.Report/definition/pages/71af1998e2cb472d9799/visuals/flow_operativo/visual.json
+ M NS.Report/definition/pages/71af1998e2cb472d9799/visuals/logo_artel/visual.json
+ M NS.Report/definition/pages/71af1998e2cb472d9799/visuals/matrix_hitos_resumen/visual.json
+ M NS.Report/definition/pages/71af1998e2cb472d9799/visuals/sla_panel/visual.json
+ M NS.Report/definition/pages/71af1998e2cb472d9799/visuals/slicer_clasif/visual.json
+ M NS.Report/definition/pages/71af1998e2cb472d9799/visuals/slicer_flujo/visual.json
+ M NS.Report/definition/pages/71af1998e2cb472d9799/visuals/slicer_mes_3m_v39/visual.json
+ M NS.Report/definition/pages/71af1998e2cb472d9799/visuals/slicer_zona/visual.json
+ M NS.Report/definition/pages/71af1998e2cb472d9799/visuals/summary_month/visual.json
+ M NS.Report/definition/pages/71af1998e2cb472d9799/visuals/title_ns/visual.json
+ M NS.Report/definition/pages/71af1998e2cb472d9799/visuals/update_label/visual.json
+ M NS.Report/definition/pages/71af1998e2cb472d9799/visuals/update_value/visual.json
+ M NS.Report/definition/pages/71af1998e2cb472d9799/visuals/window_note/visual.json
+ M NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/0f1503043b792595e452/visual.json
+ M NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/404f2d93ca5a3787d85b/visual.json
+ M NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/critical_table/visual.json
+ M NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/fa_clientes_recurrentes/visual.json
+ M NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/fa_fes_carga_tiempo/visual.json
+ M NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/fa_permanencia_cd/visual.json
+ M NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/fa_question_header/visual.json
+ M NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/fa_vendedores_reincidentes/visual.json
+ M NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/header_panel/visual.json
+ M NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/title_ns/visual.json
+ M NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/update_value/visual.json
+ M NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/window_note/visual.json
+ M NS.Report/definition/pages/df1cb253a6314642a469/visuals/128939765c77060c0329/visual.json
+ M NS.Report/definition/pages/df1cb253a6314642a469/visuals/2155081fa518460cc812/visual.json
+ M NS.Report/definition/pages/df1cb253a6314642a469/visuals/57f10ff400d0000bd6d2/visual.json
+ M NS.Report/definition/pages/df1cb253a6314642a469/visuals/6c8984e9e3638827d0cd/visual.json
+ M NS.Report/definition/pages/df1cb253a6314642a469/visuals/8dab02c301ebb2810320/visual.json
+ M NS.Report/definition/pages/df1cb253a6314642a469/visuals/chart_924aca87b5094c/visual.json
+ M NS.Report/definition/pages/df1cb253a6314642a469/visuals/ed66dbc00d2909038e40/visual.json
+ M NS.Report/definition/pages/df1cb253a6314642a469/visuals/f4bba81fb89445b90585/visual.json
+ M NS.Report/definition/pages/df1cb253a6314642a469/visuals/in_chart_lineas_dia_mes/visual.json
+ M NS.Report/definition/pages/df1cb253a6314642a469/visuals/in_chart_pedidos_dia_mes/visual.json
+ M NS.Report/definition/pages/df1cb253a6314642a469/visuals/in_chart_unidades_dia_mes/visual.json
+ M NS.Report/definition/pages/df1cb253a6314642a469/visuals/in_matrix_semana/visual.json
+ M NS.Report/definition/pages/df1cb253a6314642a469/visuals/in_nota_cierre/visual.json
+ M NS.Report/definition/pages/df1cb253a6314642a469/visuals/in_slicer_canal/visual.json
+ M NS.Report/definition/pages/df1cb253a6314642a469/visuals/in_slicer_flujo/visual.json
+ M NS.Report/definition/pages/df1cb253a6314642a469/visuals/in_slicer_momento/visual.json
+ M NS.Report/definition/pages/df1cb253a6314642a469/visuals/in_slicer_responsable/visual.json
+ M NS.Report/definition/pages/df1cb253a6314642a469/visuals/in_slicer_zona/visual.json
+ M NS.Report/definition/pages/df1cb253a6314642a469/visuals/shape_ed7d494e768744/visual.json
+ M NS.Report/definition/pages/df1cb253a6314642a469/visuals/sync_mes_3m_v39/visual.json
+ M NS.Report/definition/pages/df1cb253a6314642a469/visuals/table_62c6c02944b14e/visual.json
+ M NS.Report/definition/pages/df1cb253a6314642a469/visuals/table_9601cabf413a41/visual.json
+ M NS.Report/definition/pages/df1cb253a6314642a469/visuals/table_bad13c26c1d64f/visual.json
+ M NS.Report/definition/pages/df1cb253a6314642a469/visuals/text_6d7cf337c16a45/visual.json
+ M NS.Report/definition/pages/ed2a2fead6d24153bee1/visuals/sync_mes_3m_v39/visual.json
+ M NS.Report/definition/pages/pages.json
+ M NS.Report/definition/report.json
+
+--- git log -8 --oneline --decorate ---
+18f0baa (HEAD -> work/ns-lienzo-02-ingreso-pedidos, origin/work/ns-lienzo-02-ingreso-pedidos) audit(handoff): dirigir cierre INC-015 por VBAP
+c1977ea audit(local): evidencia integral 20260811_225907_post_fix_validacion_viva_00756db
+00756db audit(handoff): dirigir validación post fixes tracking
+33a3ab9 chore(ci): retirar workflow temporal INC-011 INC-007B
+89bfee5 fix(tracking): validar despacho y cierre FES oficial
+f4623de ci(audit): aplicar fixes temporales INC-011 e INC-007B
+0614604 audit(local): evidencia integral 20260811_181759_post_fix_inc011_inc015_evidencia_viva_085bfec
+8184db0 chore(ci): retirar workflow temporal fix RE TT Título
+
+--- git diff --name-status ---
+M	NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/309a51a96bc9d090ab43/visual.json
+M	NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/40ac169dd89e96270ac9/visual.json
+M	NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/47a4fa002331b23249c5/visual.json
+M	NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/84343c674ecddeb910c5/visual.json
+M	NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/dd60148c4db229925749/visual.json
+M	NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/kpi_factura/visual.json
+M	NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/sync_mes_3m_v39/visual.json
+M	NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/table_15b8b83ff48292/visual.json
+M	NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/tbl_tracking/visual.json
+M	NS.Report/definition/pages/71af1998e2cb472d9799/visuals/3b0d647a439385b325bd/visual.json
+M	NS.Report/definition/pages/71af1998e2cb472d9799/visuals/8b664941e6c072783070/visual.json
+M	NS.Report/definition/pages/71af1998e2cb472d9799/visuals/btn_reset_resumen/visual.json
+M	NS.Report/definition/pages/71af1998e2cb472d9799/visuals/chart_mensual_3m_v39/visual.json
+M	NS.Report/definition/pages/71af1998e2cb472d9799/visuals/critical_table/visual.json
+M	NS.Report/definition/pages/71af1998e2cb472d9799/visuals/f07bd2d60e407e2ddd01/visual.json
+M	NS.Report/definition/pages/71af1998e2cb472d9799/visuals/filter_panel/visual.json
+M	NS.Report/definition/pages/71af1998e2cb472d9799/visuals/flow_operativo/visual.json
+M	NS.Report/definition/pages/71af1998e2cb472d9799/visuals/logo_artel/visual.json
+M	NS.Report/definition/pages/71af1998e2cb472d9799/visuals/matrix_hitos_resumen/visual.json
+M	NS.Report/definition/pages/71af1998e2cb472d9799/visuals/sla_panel/visual.json
+M	NS.Report/definition/pages/71af1998e2cb472d9799/visuals/slicer_clasif/visual.json
+M	NS.Report/definition/pages/71af1998e2cb472d9799/visuals/slicer_flujo/visual.json
+M	NS.Report/definition/pages/71af1998e2cb472d9799/visuals/slicer_mes_3m_v39/visual.json
+M	NS.Report/definition/pages/71af1998e2cb472d9799/visuals/slicer_zona/visual.json
+M	NS.Report/definition/pages/71af1998e2cb472d9799/visuals/summary_month/visual.json
+M	NS.Report/definition/pages/71af1998e2cb472d9799/visuals/title_ns/visual.json
+M	NS.Report/definition/pages/71af1998e2cb472d9799/visuals/update_label/visual.json
+M	NS.Report/definition/pages/71af1998e2cb472d9799/visuals/update_value/visual.json
+M	NS.Report/definition/pages/71af1998e2cb472d9799/visuals/window_note/visual.json
+M	NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/0f1503043b792595e452/visual.json
+M	NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/404f2d93ca5a3787d85b/visual.json
+M	NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/critical_table/visual.json
+M	NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/fa_clientes_recurrentes/visual.json
+M	NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/fa_fes_carga_tiempo/visual.json
+M	NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/fa_permanencia_cd/visual.json
+M	NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/fa_question_header/visual.json
+M	NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/fa_vendedores_reincidentes/visual.json
+M	NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/header_panel/visual.json
+M	NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/title_ns/visual.json
+M	NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/update_value/visual.json
+M	NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/window_note/visual.json
+M	NS.Report/definition/pages/df1cb253a6314642a469/visuals/128939765c77060c0329/visual.json
+M	NS.Report/definition/pages/df1cb253a6314642a469/visuals/2155081fa518460cc812/visual.json
+M	NS.Report/definition/pages/df1cb253a6314642a469/visuals/57f10ff400d0000bd6d2/visual.json
+M	NS.Report/definition/pages/df1cb253a6314642a469/visuals/6c8984e9e3638827d0cd/visual.json
+M	NS.Report/definition/pages/df1cb253a6314642a469/visuals/8dab02c301ebb2810320/visual.json
+M	NS.Report/definition/pages/df1cb253a6314642a469/visuals/chart_924aca87b5094c/visual.json
+M	NS.Report/definition/pages/df1cb253a6314642a469/visuals/ed66dbc00d2909038e40/visual.json
+M	NS.Report/definition/pages/df1cb253a6314642a469/visuals/f4bba81fb89445b90585/visual.json
+M	NS.Report/definition/pages/df1cb253a6314642a469/visuals/in_chart_lineas_dia_mes/visual.json
+M	NS.Report/definition/pages/df1cb253a6314642a469/visuals/in_chart_pedidos_dia_mes/visual.json
+M	NS.Report/definition/pages/df1cb253a6314642a469/visuals/in_chart_unidades_dia_mes/visual.json
+M	NS.Report/definition/pages/df1cb253a6314642a469/visuals/in_matrix_semana/visual.json
+M	NS.Report/definition/pages/df1cb253a6314642a469/visuals/in_nota_cierre/visual.json
+M	NS.Report/definition/pages/df1cb253a6314642a469/visuals/in_slicer_canal/visual.json
+M	NS.Report/definition/pages/df1cb253a6314642a469/visuals/in_slicer_flujo/visual.json
+M	NS.Report/definition/pages/df1cb253a6314642a469/visuals/in_slicer_momento/visual.json
+M	NS.Report/definition/pages/df1cb253a6314642a469/visuals/in_slicer_responsable/visual.json
+M	NS.Report/definition/pages/df1cb253a6314642a469/visuals/in_slicer_zona/visual.json
+M	NS.Report/definition/pages/df1cb253a6314642a469/visuals/shape_ed7d494e768744/visual.json
+M	NS.Report/definition/pages/df1cb253a6314642a469/visuals/sync_mes_3m_v39/visual.json
+M	NS.Report/definition/pages/df1cb253a6314642a469/visuals/table_62c6c02944b14e/visual.json
+M	NS.Report/definition/pages/df1cb253a6314642a469/visuals/table_9601cabf413a41/visual.json
+M	NS.Report/definition/pages/df1cb253a6314642a469/visuals/table_bad13c26c1d64f/visual.json
+M	NS.Report/definition/pages/df1cb253a6314642a469/visuals/text_6d7cf337c16a45/visual.json
+M	NS.Report/definition/pages/ed2a2fead6d24153bee1/visuals/sync_mes_3m_v39/visual.json
+M	NS.Report/definition/pages/pages.json
+M	NS.Report/definition/report.json
