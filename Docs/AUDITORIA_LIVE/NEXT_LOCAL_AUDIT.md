@@ -1,40 +1,26 @@
-# Próxima auditoría local — INC-015 origen SQL VBAP_SAP
+# Próxima auditoría local — descubrir fuente de posiciones YV01
+
+## Estado confirmado
+
+`INC-015` ya tiene causa raíz técnica confirmada por evidencia `a55afbf`:
+
+- `VBAP_SAP` = `USER_TABLE` física.
+- `dbo.VBAP` no existe en `DMF_VTA_PRD`.
+- `YV01` = 349.215 headers recientes y 0 posiciones en `VBAP_SAP`.
+- La cobertura 58,3% de `Lineas_y_unidades_por_pedidos` es estructural.
+- Hipótesis `AEDAT`, ceros/padding y refresh quedan descartadas.
+
+No repetir la auditoría anterior.
 
 ## Objetivo único
 
-Cerrar la causa raíz física de `INC-015` en `DMF_VTA_PRD` sin modificar Power BI ni objetos SQL.
+Determinar si `DMF_VTA_PRD` ya contiene **otra tabla o vista** que tenga posiciones de pedidos `YV01` y que pueda abastecer:
 
-Estado ya confirmado por evidencia `20260811_232642_post_fix_tracking_inc015_18f0baa`:
+- `Pedido` (`VBELN`)
+- `Lineas` (idealmente `POSNR` o granularidad equivalente)
+- `Suma_Unidades` (idealmente `KWMENG` o cantidad equivalente)
 
-- RE evaluables: 1.941
-- Match actual en `Lineas_y_unidades_por_pedidos`: 1.131 / 1.941 = 58,3%
-- Sin match: 810
-- 782/810 existen como cabeceras recientes en `VBAK_SAP`
-- 0 casos atribuibles al filtro externo `AEDAT >= GETDATE()-730`
-- hipótesis padding/ceros: descartada
-- dictamen actual: `CAUSA_VISTA_VBAP_SAP`
-
-Los fixes FIND-002A, INC-011 e INC-007B ya están GREEN y no deben reauditarse salvo sanidad mínima.
-
----
-
-## Rol
-
-El LLM local sigue siendo auditor read-only funcional.
-
-No modificar:
-
-- `NS.SemanticModel/**`
-- `NS.Report/**`
-- `NS.pbip`
-- vistas, tablas, procedimientos o sinónimos SQL
-
-Solo puede generar evidencia bajo:
-
-- `Docs/AUDITORIA_LIVE/local_runs/<RUN_ID>/**`
-- `Docs/AUDITORIA_LIVE/LOCAL_LATEST.json`
-
----
+El auditor local es read-only funcional. No modificar Power BI ni objetos SQL.
 
 ## Preflight
 
@@ -47,157 +33,83 @@ git ls-remote origin refs/heads/work/ns-lienzo-02-ingreso-pedidos
 
 LOCAL y REMOTO deben coincidir.
 
----
+## P0 — Ejecutar descubrimiento SQL
 
-# P0 — Ejecutar auditoría SQL de fuente
+Ejecutar contra `DMF_VTA_PRD` el script versionado:
 
-Usar exclusivamente el script versionado:
-
-`Scripts/audit_local/inc015_vbap_source_audit.sql`
-
-Ejecutarlo contra:
-
-- servidor usado por el modelo: `128.1.3.21`
-- base: `DMF_VTA_PRD`
-
-El script es read-only respecto de objetos persistentes. Solo usa `#RecentHeaders` temporal de sesión.
-
-Guardar la salida íntegra en:
-
-`raw/inc015_vbap_source_audit.txt`
-
-Si alguna sección falla por permisos, registrar el error exacto y continuar con las siguientes secciones posibles.
-
----
-
-# P0 — Dictamen sobre el tipo de objeto
-
-Determinar exactamente qué es `VBAP_SAP`:
-
-- `VIEW`
-- `USER_TABLE`
-- `SYNONYM`
-- otro
-
-Guardar:
-
-- schema;
-- `type_desc`;
-- `create_date` / `modify_date` cuando aplique;
-- `base_object_name` si es synonym;
-- `OBJECT_DEFINITION` si es view y existe permiso;
-- dependencias devueltas por `sys.sql_expression_dependencies`.
-
-Si la definición contiene filtros, joins, mandante, sociedad, canal, centro, fecha u otra condición, copiar esas condiciones literalmente en la evidencia y explicar cuáles pueden excluir pedidos recientes.
-
----
-
-# P0 — Gap directo VBAK_SAP → VBAP_SAP
-
-El script construye el universo reciente usando los mismos AUART de `Pedidos_Normal_VBAK` y `ERDAT > GETDATE()-90`.
-
-Reportar:
-
-1. `headers_recent`;
-2. `headers_with_vbap_sap`;
-3. `headers_missing_vbap_sap`;
-4. cobertura %;
-5. gap por `AUART`;
-6. gap por mes `ERDAT`;
-7. muestra de 100 pedidos ausentes.
-
-Comparar el patrón con los 782 faltantes ya detectados en el modelo.
-
----
-
-# P0 — Comparación con fuente base VBAP
-
-Si existe y es accesible `dbo.VBAP`, el mismo script compara cobertura.
-
-Emitir uno de estos resultados:
-
-### A. `BASE_VBAP_COMPLETA_VISTA_INCOMPLETA`
-
-Si `dbo.VBAP` recupera materialmente los pedidos que faltan en `VBAP_SAP`.
-
-Recomendación para ChatGPT:
-
-- migrar `Lineas_y_unidades_por_pedidos` a la fuente base `VBAP`, preservando solamente las columnas necesarias (`VBELN`, `KWMENG`, fecha adecuada) y el universo temporal requerido;
-- antes de implementar, cuantificar cobertura esperada y volumen de filas.
-
-### B. `BASE_VBAP_TAMBIEN_INCOMPLETA`
-
-Si `dbo.VBAP` tiene el mismo gap.
-
-Recomendación:
-
-- no cambiar Power BI;
-- investigar proceso de réplica/carga SAP que alimenta DMF_VTA_PRD.
-
-### C. `VBAP_BASE_NO_DISPONIBLE`
-
-Si `dbo.VBAP` no existe o no es visible.
-
-Recomendación:
-
-- usar definición/dependencias de `VBAP_SAP` para identificar el origen físico real;
-- si falta permiso `VIEW DEFINITION`, registrar que se requiere al DBA la definición de la vista/sinónimo.
-
-### D. `VBAP_SAP_ES_TABLA_REPLICADA`
-
-Si `VBAP_SAP` es `USER_TABLE`, no llamarla vista en el dictamen.
-
-Recomendación:
-
-- investigar ETL/replicación y fecha máxima/cobertura de carga;
-- no reemplazar la fuente del modelo hasta identificar una tabla de posiciones más completa.
-
----
-
-# P0 — AEDAT como control, no como hipótesis principal
-
-Para pedidos que sí existen en `VBAP_SAP`, registrar:
-
-- cuántos tienen posiciones dentro de 730 días;
-- cuántos presentan `AEDAT` antiguo o nulo.
-
-El objetivo es confirmar que `AEDAT` no explica el gap principal. No volver a proponer eliminación del filtro salvo evidencia nueva contradictoria.
-
----
-
-# Entregables
-
-Crear corrida:
-
-```powershell
-./Scripts/audit_local/bootstrap_local_audit.ps1 -RunName "inc015_vbap_source_rootcause"
+```text
+Scripts/audit_local/inc015_yv01_source_discovery.sql
 ```
 
-Además del paquete normal, guardar en `raw/`:
+El script solo usa `SELECT` y tablas temporales de sesión.
 
-- `inc015_vbap_source_audit.txt`
-- `inc015_vbap_object_definition.sql` si la definición está disponible
-- `inc015_vbap_missing_sample.csv`
-- `inc015_vbap_gap_by_auart.csv`
-- `inc015_vbap_gap_by_month.csv`
-- `inc015_vbap_base_comparison.csv` si existe `dbo.VBAP`
+Guardar salida completa en:
 
-Actualizar `09_inc_status.csv` con el dictamen físico exacto.
-
-Validar:
-
-```powershell
-python Scripts/audit_local/validate_local_evidence.py "<RUN_DIR>"
-git diff --check
+```text
+raw/inc015_yv01_source_discovery.txt
 ```
 
-Publicar solo evidencia y actualizar `LOCAL_LATEST.json` a `READY_FOR_CHATGPT`.
+## P0 — Resultado obligatorio
 
-## Criterio de cierre
+Reportar las siguientes secciones:
 
-No marcar `INC-015` GREEN todavía. Solo puede cerrarse después de:
+1. `OBJETOS CON NOMBRE RELACIONADO A VBAP / YV01 / POSICION`
+2. `CANDIDATOS POR FIRMA DE COLUMNAS`
+3. `PROBE MUESTRA YV01 (200 HEADERS)`
+4. `COBERTURA COMPLETA PARA CANDIDATOS CON HITS`
 
-1. identificar la fuente física correcta de posiciones;
-2. implementar el cambio remoto si corresponde;
-3. refresh del modelo;
-4. comprobar cobertura y líneas/unidades post-fix en vivo.
+Para cada candidato con `matched_sample_headers > 0`, informar:
+
+- schema / objeto / tipo;
+- si tiene `POSNR`;
+- si tiene `KWMENG`;
+- si tiene `MATNR`;
+- cobertura de la muestra;
+- cobertura completa YV01 reciente;
+- cantidad de filas encontradas.
+
+## Dictamen
+
+Emitir exactamente una de estas salidas:
+
+### `FUENTE_YV01_COMPLETA_ENCONTRADA`
+Existe un objeto con cobertura YV01 material y columnas suficientes para calcular líneas y unidades.
+
+Recomendación: entregar nombre exacto del objeto y SQL agregado equivalente a:
+
+```sql
+SELECT
+    VBELN AS Pedido,
+    COUNT(*) AS Lineas,
+    SUM(ISNULL(KWMENG,0)) AS Suma_Unidades
+FROM <FUENTE>
+GROUP BY VBELN;
+```
+
+No modificar el modelo localmente.
+
+### `FUENTE_YV01_PARCIAL_ENCONTRADA`
+Existe cobertura material, pero faltan `KWMENG` o granularidad fiable para líneas/unidades.
+
+Recomendación: documentar qué sí permite calcular y qué columna/fuente falta.
+
+### `SIN_FUENTE_YV01_EN_DMF_VTA_PRD`
+Ningún objeto con firma de posición tiene hits YV01 relevantes.
+
+Recomendación: no modificar `Lineas_y_unidades_por_pedidos`; solicitar/exponer nueva réplica o vista desde SAP/BW para posiciones YV01.
+
+## Sanidad mínima
+
+No repetir la regresión integral. Solo registrar que siguen vigentes como baseline:
+
+- RE evaluables: 1.941 (salvo refresh nuevo documentado)
+- match actual: 1.131 / 1.941 = 58,3%
+- FIND-002A GREEN
+- INC-011 GREEN
+- INC-007B GREEN
+
+## Entrega
+
+Crear paquete de evidencia normal, incluir la salida SQL y actualizar `LOCAL_LATEST.json` a `READY_FOR_CHATGPT`.
+
+No implementar cambios funcionales en `NS.SemanticModel/**` ni `NS.Report/**`.
