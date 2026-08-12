@@ -1,12 +1,12 @@
-{
+﻿{
   "schema_version": 1,
   "status": "READY_FOR_CHATGPT",
-  "run_id": "20260811_123620_post_fix_title_vbap_denominador_d7158cb",
+  "run_id": "20260811_181759_post_fix_inc011_inc015_evidencia_viva_085bfec",
   "audit_branch": "work/ns-lienzo-02-ingreso-pedidos",
-  "audited_sha": "d7158cbf16db385c012d114676d1c5f047997a41",
+  "audited_sha": "085bfec7531f57bd5894641e397a0ce99938680d",
   "evidence_commit_sha": null,
-  "run_path": "Docs/AUDITORIA_LIVE/local_runs/20260811_123620_post_fix_title_vbap_denominador_d7158cb",
-  "ready_for_chatgpt": "Docs/AUDITORIA_LIVE/local_runs/20260811_123620_post_fix_title_vbap_denominador_d7158cb/READY_FOR_CHATGPT.md",
-  "updated_at_local": "2026-08-11T19:50:00-04:00",
-  "note": "Auditoría dirigida post-fix FIND-002. Hallazgo RED: RE TT Título introdujo error DAX (OrdenRango). Multiselect RE/FA sin regresión. INC-015/INC-011 pendientes por limitación tool DAX."
+  "run_path": "Docs/AUDITORIA_LIVE/local_runs/20260811_181759_post_fix_inc011_inc015_evidencia_viva_085bfec",
+  "ready_for_chatgpt": "Docs/AUDITORIA_LIVE/local_runs/20260811_181759_post_fix_inc011_inc015_evidencia_viva_085bfec/READY_FOR_CHATGPT.md",
+  "updated_at_local": "2026-08-11T18:45:00-04:00",
+  "note": "Corrida complementaria con MCP DAX funcional. FIND-002A confirmado (RE TT Titulo sigue roto, numeros sin regresion). INC-011: 55 cerrados sin DH por fecha centinela 2020-09-24. INC-015: hipotesis ceros descartada; 806 sin match (778 en VBAK); causa fuente VBAP_SAP. INC-007B: fallback TRP impacto 0. VALIDACION_EVIDENCIA=OK."
 }

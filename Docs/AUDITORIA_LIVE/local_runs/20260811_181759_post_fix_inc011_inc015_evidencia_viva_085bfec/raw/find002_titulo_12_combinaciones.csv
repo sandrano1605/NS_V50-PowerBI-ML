@@ -1,0 +1,13 @@
+CASO,SELECCION,TITULO,RE_TT_ERROR,PEDIDOS,VALOR,PROM_DH,P90_DH,FUERA_SLA
+1_Todos,Sin filtro,ERROR_OrdenRango,DAX_CalculationError,1934,2297641301,3.5036194415718716,8,361
+2_Normal,Flujo Normal,ERROR_OrdenRango,DAX_CalculationError,1495,1227349068,2.557190635451505,5,134
+3_FES,FES (incluye FES + Saldo),ERROR_OrdenRango,DAX_CalculationError,437,1067918295,6.7345537757437075,14,226
+4_Saldo,Saldos puros,ERROR_OrdenRango,DAX_CalculationError,2,2373938,5,6.6,1
+5_Normal+FES,Normal+FES,ERROR_OrdenRango,DAX_CalculationError,1932,2295267363,3.502070393374741,8,360
+6_Normal+Saldo,Normal+Saldo,ERROR_OrdenRango,DAX_CalculationError,1497,1229723006,2.5604542418169673,5,135
+7_FES+Saldo,FES+Saldo,ERROR_OrdenRango,DAX_CalculationError,439,1070292233,6.7266514806378135,14,227
+8_Santiago,Zona Santiago,ERROR_OrdenRango,DAX_CalculationError,939,1153536578,2.891373801916933,6,149
+9_Regiones,Zona Regiones,ERROR_OrdenRango,DAX_CalculationError,995,1144104723,4.0814070351758795,9,212
+10_Santiago+Regiones,Santiago+Regiones,ERROR_OrdenRango,DAX_CalculationError,1934,2297641301,3.5036194415718716,8,361
+11_Normal+FES+Santiago,Flujo NF + Zona SGO,ERROR_OrdenRango,DAX_CalculationError,938,1151991608,2.8912579957356077,6,149
+12_Normal+FES+Santiago+Regiones,Flujo NF + Zonas,ERROR_OrdenRango,DAX_CalculationError,1932,2295267363,3.502070393374741,8,360

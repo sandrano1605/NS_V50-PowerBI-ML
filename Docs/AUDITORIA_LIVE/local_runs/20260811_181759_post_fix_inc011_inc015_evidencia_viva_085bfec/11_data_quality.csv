@@ -1,0 +1,10 @@
+﻿CHECK_ID,CATEGORY,OBJECT,METRIC,VALUE,EXPECTED,STATUS,EVIDENCE,NOTES
+DQ-01,Secuencia inválida,Fact_Tracking,Cerrados con FECHA_CIERRE < PED_FECHA_HORA,55,0,RED,raw/inc011_cerrados_sin_dh.md,Fecha centinela 2020-09-24 22:47 en 55 pedidos
+DQ-02,Claves sin match,Lineas_y_unidades_por_pedidos,Pedidos evaluables sin match VBAP,806,0,ORANGE,raw/inc015_cobertura_vbap.md,58,3% cobertura; 778 existen en VBAK
+DQ-03,Formato de clave,Lineas_y_unidades_por_pedidos,Claves con ceros a la izquierda,0,0,OK,raw/inc015_cobertura_vbap.md,Hipótesis padding descartada
+DQ-04,Formato de clave,Fact_Tracking,Claves con ceros a la izquierda,0,0,OK,raw/inc015_cobertura_vbap.md,
+DQ-05,Duplicados,Fact_Tracking,Filas por pedido,1,1,OK,Fact_Tracking.tmdl linea 397,Table.Distinct por PED_NUMERO_PEDIDO
+DQ-06,FES incompletos,Fact_Pedidos_Auditoria,FES sin manifiesto ni TRP,2,0,ORANGE,raw/inc007b_fes_trp.md,1167574 y 4190139472 INCOMPLETO; no cierran
+DQ-07,Clasificación inconsistente,Fact_Pedidos_Auditoria,4190139455 marcado FES en CSV histórico,False,False,OK,raw/regresion_viva.md,Implementación actual NORMAL consistente con regla
+DQ-08,Refresh,Fecha actualización Fact_Tracking,FECHA_ACTUALIZACION,2026-08-11 15:04,Mayor o igual al run,OK,07_live_results.csv,Modelo cargado con datos al momento del run
+DQ-09,Cobertura de periodo,Dim_Periodo_3M,Ventana activa,2026-06 a 2026-08,3 meses,OK,06_live_queries.md,Ventana 3M vigente

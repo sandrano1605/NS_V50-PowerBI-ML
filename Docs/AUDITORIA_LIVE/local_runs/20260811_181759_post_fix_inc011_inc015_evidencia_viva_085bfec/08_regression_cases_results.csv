@@ -1,0 +1,12 @@
+﻿PEDIDO,CASO,HISTORICAL_EXPECTED,CURRENT_ACTUAL,STATUS,EVIDENCE,NOTES
+4190139455,Clave oficial FES,FES/Regiones/28-05-2026/SLA5/CumpleTrue/MANIFIESTO,NORMAL/Regiones/28-05-2026/DH2/SLA5/CumpleTrue/DESPACHO,DISCREPANTE_FLUJO,raw/regresion_viva.md,CSV histórico marcaba FES; implementación actual NORMAL por regla pedido posterior C-C
+1167577,Clave oficial FES,FES/Santiago/02-07-2026/SLA4/CumpleTrue,FES/Santiago/02-07-2026/DH2/SLA4/CumpleTrue,OK,raw/regresion_viva.md,
+1167307,Santiago exactamente 4 DH,NORMAL/Santiago/30-06-2026/SLA4/CumpleTrue,NORMAL/Santiago/30-06-2026/DH4/SLA4/CumpleTrue,OK,raw/regresion_viva.md,
+1168045,Santiago 5 DH,NORMAL/Santiago/13-07-2026/SLA4/CumpleFalse,NORMAL/Santiago/13-07-2026/DH5/SLA4/CumpleFalse,OK,raw/regresion_viva.md,
+1167339,Regiones exactamente 5 DH,NORMAL/Regiones/02-07-2026/SLA5/CumpleTrue,NORMAL/Regiones/02-07-2026/DH5/SLA5/CumpleTrue,OK,raw/regresion_viva.md,
+4190139759,Regiones 6 DH,NORMAL/Regiones/26-06-2026/SLA5/CumpleFalse,NORMAL/Regiones/26-06-2026/DH6/SLA5/CumpleFalse,OK,raw/regresion_viva.md,
+1167926,FES cerrado,FES/Santiago/08-07-2026/SLA4/CumpleFalse,FES/Santiago/08-07-2026/DH5/SLA4/CumpleFalse,OK,raw/regresion_viva.md,
+4190139760,Pedido con multiples facturas,SALDO/Regiones/30-06-2026/SLA5/CumpleFalse,SALDO/Regiones/30-06-2026/DH7/SLA5/CumpleFalse,OK,raw/regresion_viva.md,
+1166696,FES + SALDO cerrado,FES+SALDO/Santiago/05-06-2026/SLA4/CumpleFalse,FES+SALDO/Santiago/05-06-2026/DH6/SLA4/CumpleFalse,OK,raw/regresion_viva.md,
+1167581,Factura y manifiesto mismo dia,FES/Santiago/10-07-2026/SLA4/CumpleFalse,FES/Santiago/10-07-2026/DH8/SLA4/CumpleFalse,OK,raw/regresion_viva.md,
+1167658,Pedido con multiples despachos,FES/Regiones/20-07-2026/SLA5/CumpleFalse,FES/Regiones/20-07-2026/DH12/SLA5/CumpleFalse,OK,raw/regresion_viva.md,

@@ -1,0 +1,13 @@
+﻿INC_ID,PREVIOUS_STATUS,CURRENT_STATUS,SEVERITY,IMPACT_CURRENT,EVIDENCE,REQUIRES_BUSINESS_DECISION,RECOMMENDATION
+INC-005,GREEN_RE_MULTISELECT,VERDE_SIN_REGRESION,INFO,Ninguna; multiselect RE funciona en 12 combinaciones,07_live_results.csv,NO,Continuar monitoreo
+INC-006,GREEN_CUTOFF_AFFECTS_PROMISE_NOT_INTERNAL_NS,VERDE_SIN_CAMBIO,INFO,Ninguna en esta corrida; no se modificó corte,09_inc_status.csv,NO,Revalidar si cambia código
+INC-007A,GREEN_CURRENT_DATA_NO_FES_CLOSE_WITHOUT_REAL_MANIFEST,VERDE,INFO,0 FES cerrados sin manifiesto real,raw/inc007b_fes_trp.md,NO,Confirmado 437/437
+INC-007B,RED_STRUCTURAL_TRP_FALLBACK_PENDING,ROJO_ESTRUCTURAL_IMPACTO_CERO,ORANGE,Fallback TRP existe en código pero 0 casos lo usan para cerrar,raw/inc007b_fes_trp.md,SI,Eliminar o condicionar fallback TRP
+INC-008,DOCUMENTATION_CORRECTED_REVALIDATE_IMPLEMENTATION,VERDE_SIN_CAMBIO,INFO,Proxy factura Santiago no cierra FES (comentario en código),05_business_rule_matrix.csv,NO,Implementación coherente
+INC-009,GREEN_FA_MULTISELECT_14_MEASURES_LIVE_VALIDATED,VERDE_SIN_REGRESION,INFO,Multiselect FA sin regresión,07_live_results.csv,NO,Continuar monitoreo
+INC-010,GREEN_COVERED_BY_INC005,VERDE_SIN_REGRESION,INFO,Cubierto por INC-005,07_live_results.csv,NO,Continuar monitoreo
+INC-011,ORANGE_DENOMINATOR_U_VS_RE_PENDING,CAUSA_IDENTIFICADA,ORANGE,55 cerrados sin DH por fecha centinela 2020-09-24 22:47; quedan fuera de NS,raw/inc011_cerrados_sin_dh.md,SI,Decidir filtro/corrección de fecha centinela en origen
+INC-012,GREEN_LEGACY_5DH_NOT_OFFICIAL_VISUAL_NS,VERDE_SIN_CAMBIO,INFO,No se encontró visual NS oficial usando SLA legacy,10_visual_bindings.csv,NO,Continuar monitoreo
+INC-013,ORANGE_REGIONAL_HOLIDAYS_PENDING_BUSINESS_DATA,NECESITA_DATOS,ORANGE,Sin fuente confiable de feriados regionales en esta corrida,09_inc_status.csv,SI,Definir regla de feriados regionales
+INC-014,GREEN_1430_LOAD_ANALYSIS_NOT_SLA,VERDE_SIN_CAMBIO,INFO,TRAMO_HORA_INGRESO 14:30 solo clasifica carga,05_business_rule_matrix.csv,NO,Continuar monitoreo
+INC-015,ORANGE_VBAP_COVERAGE_PENDING_QUANTIFICATION,CAUSA_IDENTIFICADA,ORANGE,Cobertura 58,3%; 806 sin match (778 existen en VBAK); hipótesis ceros descartada; causa fuente VBAP_SAP/AEDAT,raw/inc015_cobertura_vbap.md,SI,Revisar fuente VBAP_SAP / evaluar join con VBAK

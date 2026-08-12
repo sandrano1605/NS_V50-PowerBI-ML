@@ -1,0 +1,13 @@
+﻿RULE_ID,RULE,EXPECTED_CURRENT_RULE,CODE_IMPLEMENTATION,DATA_RESULT,STATUS,EVIDENCE,NOTES
+BR-01,Universo Mayorista canales 42-47,Fact_Tracking filtra canales 42-47 en cohorte,RE Filtro Flujo/Zona sobre Fact_Tracking,1934 evaluables sin filtro; canales sin match 42/43/45/46,OK,07_live_results.csv,Canales de los sin match VBAP están dentro del universo
+BR-02,Clasificación exclusiva NORMAL/FES/SALDO/FES+SALDO,Clasificación mutuamente excluyente,CLASIFICACION en Fact_Tracking,1934: NORMAL+FES=1932 (2 son SALDO); clasificación consistente,OK,07_live_results.csv,Multiselect suma correcta: Normal+FES+Santiago+Regiones=1932
+BR-03,Cierre NORMAL/SALDO por despacho válido,FECHA_CIERRE=FECHA_DESPACHO para no FES,Desp + Cierre en Fact_Tracking,Casos regresión NORMAL/SALDO con despacho como cierre,OK,raw/regresion_viva.md,4190139760 SALDO cierra por despacho
+BR-04,Cierre FES/FES+SALDO por manifiesto oficial,Último manifiesto VBFA/VTTP,FECHA_MANIFIESTO prioriza ULTIMA/PRIMERA_FECHA_MANIFIESTO,437/437 FES cerrados con manifiesto real; 0 por TRP,OK,raw/inc007b_fes_trp.md,Fallback TRP presente en código pero sin impacto actual
+BR-05,SLA interno Santiago 4 DH / Regiones 5 DH,SLA_INTERNO_DH=1+operación,Fact_Tracking SLA_INTERNO_DH,Regresiones: Santiago 4 / Regiones 5 en todos los casos,OK,raw/regresion_viva.md,1168045 DH=5 SLA=4 cumple False; 1167339 DH=5 SLA=5 cumple True
+BR-06,Operación Santiago 3 / Regiones 4,SLA_OPERACION_DH,SLA_OPERACION_DH en Fact_Tracking,Confirmado en esquema,OK,03_model_inventory.csv,Se usa como base del SLA interno
+BR-07,Cliente Santiago 5 / Regiones 7,SLA_CLIENTE_DH,SLA_CLIENTE_DH en Fact_Tracking,Confirmado en esquema,OK,03_model_inventory.csv,No afecta NS interno
+BR-08,Días hábiles calendario nacional,FnDH con Dim_Feriados_Chile,Fact_Tracking FnDH,Usado en DIAS_INTERNOS_DH; retorna null si Fin<Inicio,OK,raw/inc011_cerrados_sin_dh.md,Explica los 55 cerrados sin DH
+BR-09,Filtro multiselect flujo y zona,Multiselect RE/FA,RE Filtro Flujo / RE Filtro Zona,12 combinaciones: sumas consistentes,OK,07_live_results.csv,Sin regresión
+BR-10,Líneas/unidades cobertura VBAP,Cobertura esperada >90%,Lineas_y_unidades_por_pedidos con TREATAS,58,3% cobertura; 806 sin match,ORANGE,raw/inc015_cobertura_vbap.md,778/806 existen en VBAK; causa fuente
+BR-11,Corte ingreso 14:00/12:00 viernes,Corte oficial SLA,TRAMO_HORA_INGRESO en Fact_Tracking,Sin cambio en esta corrida,OK,09_inc_status.csv,Revalidado INC-006
+BR-12,Corte 14:30 lienzo 02 = análisis carga,No es SLA,TRAMO_HORA_INGRESO con 14:30,Sin cambio en esta corrida,OK,09_inc_status.csv,Revalidado INC-014

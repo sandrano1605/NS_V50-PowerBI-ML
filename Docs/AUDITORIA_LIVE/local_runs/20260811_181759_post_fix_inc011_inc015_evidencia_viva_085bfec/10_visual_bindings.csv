@@ -1,0 +1,5 @@
+﻿PAGE,VISUAL,OBJECT_PATH,MEASURES_FIELDS,FILTERS,SORT,SLICER_INTERACTION,STATUS,EVIDENCE,NOTES
+22a1b2c3d4e5f6071829,tt_context,NS.Report/definition/pages/22a1b2c3d4e5f6071829/visuals/tt_context/visual.json,Medidas.RE TT Título,Sin filtro de página definido,Sin sort,Responde a slicers de flujo/zona del lienzo 00,ROTO,raw/find002_titulo_12_combinaciones.csv,cardVisual enlazado a medida con SemanticError; renderiza error en todos los contextos
+19a0c7f8d6e54b3a9210,multiple,lienzo 02 (varios visuales),IN*/FA*,Slicers canal/flujo/zona/momento/responsable,Según visual,Interacción con slicers del lienzo 02,OK_NO_AUDITADO_EN_PROFUNDIDAD,10_visual_bindings.csv,Cambios preexistentes en working tree sin auditar por límite de la corrida
+71af1998e2cb472d9799,multiple,lienzo 00 (varios visuales),RE*,Slicers flujo/zona/mes,Sin cambio,Normal,OK_RE_MULTISELECT,07_live_results.csv,Multiselect validado vía medidas no vía JSON
+a1b2c3d4e5f6071829,fa_clientes_recurrentes,lienzo 01 FA,FA Meses Fuera SLA Cliente Visible,FA Recurrencia Cliente Visible,etc,Sin cambio,Normal,OK_SIN_REGRESION,07_live_results.csv,Medidas Visible ya usan >=1

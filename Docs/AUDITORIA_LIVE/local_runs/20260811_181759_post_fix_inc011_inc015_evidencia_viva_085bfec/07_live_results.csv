@@ -1,0 +1,43 @@
+﻿TEST_ID,CATEGORY,METRIC,DIMENSION,SELECTION,VALUE,EXPECTED,STATUS,EVIDENCE,NOTES
+T01,FIND-002A,RE TT Título,Flujo/Zona,1_Todos,ERROR_OrdenRango,Titulo sin error,FAIL,raw/find002_titulo_12_combinaciones.csv,SemanticError en todos los contextos
+T02,FIND-002A,RE Pedidos contexto,Flujo/Zona,1_Todos,1934,1934,OK,raw/find002_titulo_12_combinaciones.csv,Valores no afectados por el fix
+T03,FIND-002A,RE Pedidos contexto,Flujo,2_Normal,1495,1495,OK,raw/find002_titulo_12_combinaciones.csv,Suma consistente
+T04,FIND-002A,RE Pedidos contexto,Flujo,3_FES,437,437,OK,raw/find002_titulo_12_combinaciones.csv,
+T05,FIND-002A,RE Pedidos contexto,Flujo,4_Saldo,2,2,OK,raw/find002_titulo_12_combinaciones.csv,
+T06,FIND-002A,RE Pedidos contexto,Flujo,5_Normal+FES,1932,1932,OK,raw/find002_titulo_12_combinaciones.csv,Multiselect sin regresión
+T07,FIND-002A,RE Pedidos contexto,Flujo,6_Normal+Saldo,1497,1497,OK,raw/find002_titulo_12_combinaciones.csv,
+T08,FIND-002A,RE Pedidos contexto,Flujo,7_FES+Saldo,439,439,OK,raw/find002_titulo_12_combinaciones.csv,
+T09,FIND-002A,RE Pedidos contexto,Zona,8_Santiago,939,939,OK,raw/find002_titulo_12_combinaciones.csv,
+T10,FIND-002A,RE Pedidos contexto,Zona,9_Regiones,995,995,OK,raw/find002_titulo_12_combinaciones.csv,
+T11,FIND-002A,RE Pedidos contexto,Zona,10_Santiago+Regiones,1934,1934,OK,raw/find002_titulo_12_combinaciones.csv,
+T12,FIND-002A,RE Pedidos contexto,Flujo+Zona,11_NF+ZonaSGO,938,938,OK,raw/find002_titulo_12_combinaciones.csv,
+T13,FIND-002A,RE Pedidos contexto,Flujo+Zona,12_NF+Zonas,1932,1932,OK,raw/find002_titulo_12_combinaciones.csv,
+T14,FIND-002A,RE Pedidos fuera SLA contexto,Flujo/Zona,Todos,361,361,OK,raw/find002_titulo_12_combinaciones.csv,
+T15,INC-011,Cerrados sin DH,Universo,Sin filtro,55,55,OK,raw/inc011_cerrados_sin_dh.md,Antes eran 64 en corte previo; ahora 55 por refresh
+T16,INC-011,Con cierre centinela 2020-09-24,Cerrados sin DH,Sin filtro,55,55,OK,raw/inc011_cerrados_sin_dh.md,100% de los cerrados sin DH
+T17,INC-011,Cierre antes de creación,Cerrados sin DH,Sin filtro,55,55,OK,raw/inc011_cerrados_sin_dh.md,Fin<Inicio -> FnDH null
+T18,INC-011,Con factura/manifiesto,Cerrados sin DH,Sin filtro,0,0,OK,raw/inc011_cerrados_sin_dh.md,Sin factura ni manifiesto
+T19,INC-015,Evaluables,Universo,RE sin filtro,1934,1934,OK,raw/inc015_cobertura_vbap.md,
+T20,INC-015,Match exacto VBAP,Universo,RE sin filtro,1128,1128,OK,raw/inc015_cobertura_vbap.md,58,3%
+T21,INC-015,Match normalizado numérico,Universo,RE sin filtro,1128,1128,OK,raw/inc015_cobertura_vbap.md,Hipótesis ceros descartada
+T22,INC-015,Cobertura por mes,2026-05,RE sin filtro,57.7,57.7,OK,raw/inc015_cobertura_vbap.md,262/454
+T23,INC-015,Cobertura por mes,2026-06,RE sin filtro,60.8,60.8,OK,raw/inc015_cobertura_vbap.md,461/758
+T24,INC-015,Cobertura por mes,2026-07,RE sin filtro,54.9,54.9,OK,raw/inc015_cobertura_vbap.md,329/599
+T25,INC-015,Cobertura por mes,2026-08,RE sin filtro,61.8,61.8,OK,raw/inc015_cobertura_vbap.md,76/123
+T26,INC-015,Sin match en VBAK,Universo,RE sin filtro,778,778,OK,raw/inc015_cobertura_vbap.md,96,5% de los sin match
+T27,INC-007B,FES total,Flujo,FES,439,439,OK,raw/inc007b_fes_trp.md,
+T28,INC-007B,FES cerrados,Flujo,FES,437,437,OK,raw/inc007b_fes_trp.md,
+T29,INC-007B,FES con manifiesto real,Flujo,FES,437,437,OK,raw/inc007b_fes_trp.md,100% de cerrados
+T30,INC-007B,FES sin manifiesto con TRP,Flujo,FES,0,0,OK,raw/inc007b_fes_trp.md,Impacto fallback actual = 0
+T31,INC-007B,FES sin manifiesto ni TRP,Flujo,FES,2,2,OK,raw/inc007b_fes_trp.md,1167574 y 4190139472 INCOMPLETO
+T32,REGRESION,4190139455 flujo,Clave FES,4190139455,NORMAL,FES,FAIL,raw/regresion_viva.md,CSV histórico vs clasificación actual; regla no cumple pedido posterior C-C
+T33,REGRESION,1167577 flujo,Clave FES,1167577,FES,FES,OK,raw/regresion_viva.md,
+T34,REGRESION,1167307 DH,4 DH,1167307,4,4,OK,raw/regresion_viva.md,
+T35,REGRESION,1168045 cumple,5 DH,1168045,False,False,OK,raw/regresion_viva.md,
+T36,REGRESION,1167339 cumple,5 DH,1167339,True,True,OK,raw/regresion_viva.md,
+T37,REGRESION,4190139759 cumple,6 DH,4190139759,False,False,OK,raw/regresion_viva.md,
+T38,REGRESION,1167926 cumple,FES cerrado,1167926,False,False,OK,raw/regresion_viva.md,
+T39,REGRESION,4190139760 flujo,Multiples facturas,4190139760,SALDO,SALDO,OK,raw/regresion_viva.md,
+T40,REGRESION,1166696 flujo,FES+SALDO,1166696,FES + SALDO,FES + SALDO,OK,raw/regresion_viva.md,
+T41,REGRESION,1167581 flujo,Factura/manifiesto mismo dia,1167581,FES,FES,OK,raw/regresion_viva.md,
+T42,REGRESION,1167658 flujo,Multiples despachos,1167658,FES,FES,OK,raw/regresion_viva.md,
