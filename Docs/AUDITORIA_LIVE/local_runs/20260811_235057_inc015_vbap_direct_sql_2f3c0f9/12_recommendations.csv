@@ -1,0 +1,2 @@
+﻿PRIORITY,FINDING_ID,TARGET_FILE,TARGET_OBJECT,RECOMMENDED_CHANGE,WHY,EXPECTED_IMPACT,VALIDATION_REQUIRED,BUSINESS_DECISION_REQUIRED
+P0,INC-015,Scripts/audit_local/inc015_vbap_source_audit.sql,VBAP_SAP, Ejecutar SQL manualmente contra DMF_VTA_PRD,LLM local no pudo autenticar (error SSPI),Determinar naturaleza de VBAP_SAP y decidir fix,SQL directo,SI

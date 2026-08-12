@@ -1,0 +1,9 @@
+﻿TEST_ID,CATEGORY,METRIC,DIMENSION,SELECTION,VALUE,EXPECTED,STATUS,EVIDENCE,NOTES
+T01,REGRESION,RE TT Titulo,Flujo,Todos,Sin SemanticError,Sin error,GREEN,,Fix FIND-002A OK
+T02,REGRESION,Cerrados sin DH,Universo,Sin filtro,0,0,GREEN,,Fix INC-011 OK
+T03,REGRESION,FES sin manifiesto,Flujo,FES,0,0,GREEN,,Fix INC-007B OK
+T04,REGRESION,Evaluables RE,Universo,Sin filtro,1941,1941,OK,,
+T05,INC-015,Match VBAP,Universo,Sin filtro,1131,1131,OK,,58.3%
+T06,INC-015,Sin match total,Universo,Sin filtro,810,810,OK,,
+T07,INC-015,En VBAK con fecha reciente,Universo,Sin filtro,782,782,DIAGNOSTICO,,
+T08,INC-015,SQL ejecutado,SQL,DMF_VTA_PRD,NO,SI,NO_EJECUTADO,,Error SSPI
