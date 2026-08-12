@@ -1,2 +1,2 @@
 ﻿CHECK_ID,CATEGORY,OBJECT,METRIC,VALUE,EXPECTED,STATUS,EVIDENCE,NOTES
-DQ-01,HORA,VBAK_SAP,ERZET formato,varchar(8) HH:MM:SS,convertible,HORA_VBAK=NULL,raw/in02_bug_hora_vbak.md,Bug CONVERT(VARCHAR(6))
+DQ-01,VOLUMEN,VBAP_SAP,AEDAT como fecha de pedido,FALSO,AEDAT=actualizacion,ORANGE,raw/inc015_aedat_rootcause.md,No usar AEDAT para ventana temporal

@@ -1,3 +1,5 @@
 ﻿LAYER,OBJECT_TYPE,OBJECT_NAME,FILE_PATH,STATUS,DETAIL
-MODELO,TABLE,Fact_Tracking,NS.SemanticModel/definition/tables/Fact_Tracking.tmdl,DIAGNOSTICADO,Fix eb07b64 con bug conversion ERZET
-SQL,TABLE,VBAK_SAP,DMF_VTA_PRD,REVISADO,ERZET varchar(8) formato 'HH:MM:SS'
+MODELO,TABLE,Lineas_y_unidades_por_pedidos,NS.SemanticModel/definition/tables/Lineas_y_unidades_por_pedidos.tmdl,DIAGNOSTICADO,Filtro AEDAT>=730d causa 58.3%; sin filtro 99.9%
+MODELO,TABLE,Fact_Tracking,NS.SemanticModel/definition/tables/Fact_Tracking.tmdl,POST_FIX,Parser ERZET corregido efbfda7
+SQL,TABLE,VBAP_SAP,DMF_VTA_PRD,REVISADO,8.8M pedidos; AEDAT no refleja fecha del pedido
+SQL,TABLE,ZART_TRACK_DATA_SAP,DMF_VTA_PRD,REFERENCIA,2.055 pedidos 3M; universo real

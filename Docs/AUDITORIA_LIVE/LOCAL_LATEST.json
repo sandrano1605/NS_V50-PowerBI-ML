@@ -5,6 +5,6 @@
   "audited_sha": "8d022cf1f322e4fb4f5867084170de0e40836424",
   "evidence_commit_sha": null,
   "run_path": "Docs/AUDITORIA_LIVE/local_runs/20260812_111242_in02_hora_vbak_postfix_8d022cf",
-  "updated_at_local": "2026-08-12T15:30:00-04:00",
-  "note": "IN02-002 BUG: ERZET varchar(8) con ':' rompe CONVERT(VARCHAR(6)) -> HORA_VBAK NULL. Fix eb07b64 no recupera pedidos. Solucion: TRY_CONVERT(TIME(0), ERZET). Sin hora 43/45 sigue 184."
+  "updated_at_local": "2026-08-12T17:30:00-04:00",
+  "note": "INC-015 ROOT CAUSE: filtro AEDAT>=730d elimina 99.74% posiciones. Quitar filtro -> cobertura 99.9% (2053/2055). IN02-002 parser ERZET corregido efbfda7."
 }

@@ -1,2 +1,2 @@
 ﻿PRIORITY,FINDING_ID,TARGET_FILE,TARGET_OBJECT,RECOMMENDED_CHANGE,WHY,EXPECTED_IMPACT,VALIDATION_REQUIRED,BUSINESS_DECISION_REQUIRED
-P0,IN02-002,NS.SemanticModel/definition/tables/Fact_Tracking.tmdl,VBAKHoraOrigen,Reemplazar conversion por TRY_CONVERT(TIME(0), V.ERZET),ERZET varchar(8) con ':' rompe CONVERT(VARCHAR(6)),153 pedidos 43/45 salen de Sin hora,Refresh y validacion,NO
+P0,INC-015-ROOTCAUSE,NS.SemanticModel/definition/tables/Lineas_y_unidades_por_pedidos.tmdl,VBAP_SAP query,Quitar WHERE AEDAT >= GETDATE()-730,AEDAT es fecha de actualizacion no del pedido; elimina 99.74% de posiciones,Cobertura 58.3% -> 99.9%,Refresh y validacion de cobertura,NO

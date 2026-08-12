@@ -1,46 +1,51 @@
-﻿# READY FOR CHATGPT — IN02 fallback VBAK post-fix
+﻿# READY FOR CHATGPT — Root cause INC-015 (filtro AEDAT)
 
 RUN_ID: 20260812_111242_in02_hora_vbak_postfix_8d022cf
 SHA: 8d022cf1f322e4fb4f5867084170de0e40836424
-Power BI: puerto 63977, modelo con fix eb07b64 cargado
+Power BI: puerto 63977
 
 ## Resumen
 
-El fix `eb07b64` (fallback VBAK.ERZET para canales 43/45) fue aplicado y cargado en Power BI, pero **NO recupera ningún pedido**: los 184 "Sin hora válida" (43:149, 45:35) siguen igual.
+Se identificó la causa raíz definitiva de la baja cobertura de líneas/unidades (58,3%):
+el filtro `AEDAT >= GETDATE() - 730` en la query M de `Lineas_y_unidades_por_pedidos`.
 
-## Hallazgo principal: IN02-002 BUG_CONVERSION_ERZET (RED)
+VBAP_SAP tiene 8,8M pedidos con posiciones, pero solo 22.799 tienen AEDAT reciente.
+Al quitar el filtro, la cobertura sube de 58,3% a 99,9% (2.053/2.055).
 
-`VBAK_SAP.ERZET` es **varchar(8)** con formato texto `'16:03:02'` (con `:`).
+## Hallazgo principal: INC-015 = CAUSA_FILTRO_AEDAT (RED)
 
-El SQL del fix hace `CONVERT(VARCHAR(6), ERZET)` que trunca a `'16:03:'` (deja `:` al final). El `RIGHT('000000' + '16:03:', 6)` = `'16:03:'` y el `STUFF/STUFF` produce formato inválido → `TRY_CONVERT(TIME(0))` = **NULL**.
+Evidencia (comparación coherente, sin TOP ni filtros distorsionantes):
+- VBAP_SAP SIN filtro AEDAT: 8.858.283 pedidos
+- VBAP_SAP CON AEDAT>=730d: 22.799 (0,26%)
+- ZART_TRACK 3M: 2.055 pedidos
+- En VBAP sin filtro (clave exacta): 2.053 (99,9%)
+- 7 dígitos: 1.045/1.047 (99,8%) | 10 dígitos: 1.008/1.008 (100%)
 
-Evidencia SQL:
-```
-ERZET       conv6      right6     hora_vbak
-'16:03:02'  '16:03:'   '16:03:'   NULL
-```
-
-Solución correcta: `TRY_CONVERT(TIME(0), V.ERZET)` directo (parsea `'16:03:02'` a TIME correctamente) o `TRY_CONVERT(TIME(0), CONVERT(VARCHAR(8), ERZET, 108))`.
+AEDAT es la fecha de actualización de la posición, NO la fecha del pedido.
+La mayoría de posiciones tienen AEDAT >730d aunque el pedido siga vigente.
 
 ## Hallazgos RED confirmados
-IN02-002: bug conversion ERZET. Fix eb07b64 no recupera ningun pedido.
+INC-015-ROOTCAUSE: filtro AEDAT elimina 99,74% de posiciones.
+IN02-002: bug parser ERZET (ya corregido en efbfda7).
 
 ## Hallazgos ORANGE confirmados
-IN02-003: tras corregir conversion, ~153 pedidos 43/45 deberian salir de Sin hora.
+Ninguno pendiente.
 
 ## Falsos positivos relevantes
-El join PED_KEY funciona correctamente (los pedidos estan en VBAK con VTWEG 43/45). El unico problema es la conversion de formato.
+- "SIN_FUENTE_YV01" (corrida previa): FALSO_POSITIVO para 43/45. YV01 no existe
+  en canales 43/45; el universo real es ZPDA/ZPPO/ZMAY/YPA que SÍ están en VBAP.
+- Prefijo 1221: falso positivo de LIKE. 1221168066 es pedido distinto (YV01, 2023).
 
 ## Decisiones de negocio necesarias
-Ninguna.
+Ninguna. El fix es quitar un filtro incorrecto.
 
 ## Cambios recomendados para implementación remota
-En Fact_Tracking.tmdl, reemplazar el bloque HORA_VBAK por:
-TRY_CONVERT(TIME(0), V.ERZET) AS HORA_VBAK
+En Lineas_y_unidades_por_pedidos.tmdl: quitar WHERE VBAP.AEDAT >= GETDATE() - 730.
+Cobertura resultante: 99,9%.
 
 ## Evidencia principal
-- raw/in02_bug_hora_vbak.md — causa raiz con evidencia SQL
-- 07_live_results.csv — 8 pruebas
+- raw/inc015_aedat_rootcause.md — diagnóstico completo con números
+- raw/in02_bug_hora_vbak.md — bug parser ERZET (corregido)
 
 ## No resuelto
-- ~44 pedidos residuales tras corregir el bug (diferencia Power BI 197 vs ZART 154 + 20 VBAK)
+- 2 pedidos (1168066, 1168568) sin posiciones en VBAP por clave — calidad de dato.

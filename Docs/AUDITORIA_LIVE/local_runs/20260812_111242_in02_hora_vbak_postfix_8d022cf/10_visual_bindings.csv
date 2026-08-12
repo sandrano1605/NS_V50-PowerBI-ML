@@ -1,2 +1,2 @@
 ﻿PAGE,VISUAL,OBJECT_PATH,MEASURES_FIELDS,FILTERS,SORT,SLICER_INTERACTION,STATUS,EVIDENCE,NOTES
-Lienzo02,Grafico 14:30,IN_chart*,TRAMO_HORA_INGRESO,Slicers canal/mes,,DIAGNOSTICADO,,Fix no aplica por bug
+Lienzo02,Grafico 14:30,IN_chart*,TRAMO_HORA_INGRESO + IN Lineas/Unidades,Slicers canal/mes,,DIAGNOSTICADO,,Lineas/unidades afectadas por filtro AEDAT

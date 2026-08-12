@@ -1,2 +1,2 @@
 ﻿RULE_ID,RULE,EXPECTED_CURRENT_RULE,CODE_IMPLEMENTATION,DATA_RESULT,STATUS,EVIDENCE,NOTES
-BR-11,Hora ingreso,fallback VBAK cuando ZART=000000,Fact_Tracking VBAKHoraOrigen,No aplica por bug conversion ERZET,FAIL,raw/in02_bug_hora_vbak.md,Corregir a TRY_CONVERT(TIME(0), ERZET)
+BR-10,Cobertura lineas/unidades,>90%,Lineas_y_unidades_por_pedidos con AEDAT>=730d,58.3% por filtro AEDAT,FAIL,raw/inc015_aedat_rootcause.md,Quitar filtro -> 99.9%
