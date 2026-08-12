@@ -1,47 +1,59 @@
-# Próxima auditoría local — IN02 post-fix hora ingreso 43/45
+# Próxima auditoría local — IN02 post-fix parser ERZET 43/45
 
 ## Estado de referencia
 
-Fix funcional implementado por ChatGPT en:
+Bug confirmado por auditoría local en `a98e485c46524e7fb343f0801c57c407d3222e38`:
 
-`eb07b64a709348661459c9195c2a30d8c56f2a5c`
+- `VBAK_SAP.ERZET` es `varchar(8)` con formato `HH:MM:SS` (ej. `16:03:02`).
+- El fix anterior `eb07b64` truncaba a `VARCHAR(6)` y generaba textos como `16:03:`.
+- Por eso `TRY_CONVERT(TIME(0), ...)` devolvía `NULL` y el fallback no recuperaba los pedidos.
+- El join por pedido estaba correcto; el defecto era exclusivamente la conversión de `ERZET`.
 
-Archivo funcional modificado:
+Fix funcional corregido por ChatGPT:
+
+`efbfda74f8fba2bfe5219219c09aa0cef94876b7`
+
+Archivo modificado:
 
 `NS.SemanticModel/definition/tables/Fact_Tracking.tmdl`
 
-Cambio:
+Cambio exacto:
 
-- `PED_FECHA_HORA` permanece intacto para SLA, fechas y trazabilidad.
-- Solo `TRAMO_HORA_INGRESO` incorpora fallback de hora desde `VBAK_SAP.ERZET`.
-- El fallback aplica únicamente a canales `43` y `45`.
-- Solo se activa cuando la hora original de `PED_FECHA_HORA` es exactamente `00:00:00` y VBAK contiene una hora válida distinta de `00:00:00`.
-- No cambia SLA, FES, despacho, cierre ni días hábiles.
+```sql
+TRY_CONVERT(TIME(0), NULLIF(LTRIM(RTRIM(V.ERZET)), '')) AS HORA_VBAK
+```
 
-Evidencia pre-fix:
+El fix sigue limitado a la clasificación `TRAMO_HORA_INGRESO` para canales `43` y `45`. No modifica `PED_FECHA_HORA`, SLA, FES, despacho, cierre ni días hábiles.
 
-- modelo vivo: 197 pedidos `Sin hora válida` en 43/45;
-- SQL ZART: 154 pedidos con `ZERZET_PED=000000`;
-- recuperables desde `VBAK.ERZET`: 153/154 = 99,35%;
-- residual ZART conocido: pedido `1168066` sin VBAK;
-- existe además una diferencia pre-fix de 43 pedidos entre Power BI (197) y ZART (154), que debe explicarse post-fix y no asumirse resuelta.
+## Baseline inmediatamente anterior
+
+Modelo vivo antes del fix correcto:
+
+- `Sin hora válida`: **184**
+  - canal 43: **149**
+  - canal 45: **35**
+- `Hasta 14:30`: **687**
+- `Después de 14:30`: **692**
+- recuperables probados desde `VBAK.ERZET`: **153** pedidos.
+
+Si el universo no cambia entre refreshes, el residual teórico sería aproximadamente `184 - 153 = 31`; el número real post-refresh es la fuente de verdad.
 
 ## Decisiones de negocio cerradas
 
-No reabrir en esta corrida:
+No reabrir:
 
-- `INC-015`: **NO APLICA al alcance del reporte**, cuyo análisis efectivo se restringe a canales 43 y 45.
-- `INC-013`: **CERRADO POR REGLA DE NEGOCIO**; usar solo feriados nacionales de Chile ya contenidos en `Dim_Feriados_Chile`.
+- `INC-015`: NO APLICA al alcance de este reporte; se trabaja con canales 43 y 45.
+- `INC-013`: CERRADO POR REGLA DE NEGOCIO; usar únicamente feriados nacionales de Chile ya cargados.
 
-No buscar YV01 ni feriados regionales/comunales.
+No auditar YV01 ni feriados regionales.
 
 ---
 
 # Objetivo único
 
-Validar en Power BI vivo que el fallback VBAK corrige la clasificación horaria de `02 Ingreso de Pedidos` sin alterar otros indicadores.
+Validar que el parser corregido de `VBAK_SAP.ERZET` permite que el fallback horario funcione realmente en `02 Ingreso de Pedidos`.
 
-El auditor local continúa en rol read-only funcional: no modificar TMDL/JSON/PBIP. Solo refrescar, consultar y publicar evidencia.
+El auditor local es read-only funcional: refresca, consulta y publica evidencia; no modifica TMDL/JSON/PBIP.
 
 ---
 
@@ -54,65 +66,70 @@ git rev-parse HEAD
 git ls-remote origin refs/heads/work/ns-lienzo-02-ingreso-pedidos
 ```
 
-LOCAL y REMOTO deben coincidir en:
-
-`eb07b64a709348661459c9195c2a30d8c56f2a5c`
-
-Si no coinciden, detener la corrida.
+LOCAL y REMOTO deben coincidir en el HEAD que contenga `efbfda74f8fba2bfe5219219c09aa0cef94876b7` y este handoff. Si no coinciden, detener la corrida.
 
 ---
 
 # P1 — Refresh obligatorio
 
-Abrir/refrescar el modelo Power BI con el código `eb07b64`.
+Refrescar Power BI con el código nuevo.
 
 Registrar:
 
-- fecha/hora de refresh;
+- fecha/hora;
 - puerto;
 - resultado del refresh;
-- cualquier error M/SQL/TMDL.
+- errores M/SQL/TMDL si existen.
 
-Si el refresh falla, no continuar con resultados pre-fix. Publicar el error exacto.
+Si falla el refresh, dictamen RED y no usar resultados antiguos.
 
 ---
 
 # P2 — Recuento post-fix del gráfico 14:30
 
-Restringir explícitamente a canales `43` y `45` y obtener:
+Restringir a canales `43` y `45` y obtener:
 
 1. total `[IN Pedidos]`;
 2. `Hasta 14:30`;
 3. `Después de 14:30`;
 4. `Sin hora válida`;
-5. cobertura hora válida = `(Hasta + Después) / Total`;
-6. `% Después de 14:30` sobre medibles.
+5. cobertura hora válida;
+6. `% Después de 14:30` sobre medibles;
+7. desglose por canal.
 
 Guardar:
 
-`raw/in02_postfix_resumen.csv`
+`raw/in02_parser_postfix_resumen.csv`
 
-Comparar contra pre-fix:
+Comparar explícitamente contra baseline:
 
-- `Sin hora válida` pre-fix = 197.
-- recuperables probados = 153.
+```text
+Sin hora válida = 184
+Hasta 14:30     = 687
+Después 14:30   = 692
+```
 
-No exigir que el post-fix termine en 1. El resultado esperado aproximado es una reducción cercana a 153 casos, pero el residual exacto debe salir del refresh y ser explicado.
+La reducción esperada de `Sin hora válida` es cercana a 153 si el mismo universo permanece presente.
 
 ---
 
-# P3 — Validación de los 153 recuperables
+# P3 — Validar recuperables pedido a pedido
 
-Tomar la evidencia SQL pre-fix de los 153 pedidos recuperables y comprobar en el modelo post-fix que:
+Para los pedidos previamente identificados con:
 
-- ninguno siga en `Sin hora válida` si su `VBAK.ERZET` es válido;
-- cada pedido quede en la franja correcta según `VBAK.ERZET`:
-  - `<= 14:30:00` → `Hasta 14:30`;
-  - `> 14:30:00` → `Después de 14:30`.
+- ZART `ZERZET_PED = 000000`;
+- `VBAK.ERZET` válido;
+
+comprobar:
+
+- `VBAK.ERZET` parsea a TIME;
+- ya no quedan en `Sin hora válida`;
+- `<= 14:30:00` => `Hasta 14:30`;
+- `> 14:30:00` => `Después de 14:30`.
 
 Guardar:
 
-`raw/in02_postfix_153_validacion.csv`
+`raw/in02_parser_postfix_recuperables.csv`
 
 Columnas mínimas:
 
@@ -120,82 +137,51 @@ Columnas mínimas:
 - canal;
 - ZERZET_PED;
 - ERZET_VBAK;
+- TIME_VBAK;
 - tramo esperado;
-- tramo Power BI post-fix;
+- tramo Power BI;
 - status.
 
-Criterio GREEN:
-
-`153/153 MATCH`
-
-Si el universo cambió por ventana móvil, documentar exactamente qué pedido salió/entró y validar todos los que sigan dentro del modelo.
+Criterio GREEN: todos los recuperables presentes en el universo actual deben hacer MATCH.
 
 ---
 
-# P4 — Explicar todos los residuales `Sin hora válida`
+# P4 — Explicar residuales
 
-Exportar la lista completa post-fix de pedidos 43/45 que todavía queden como `Sin hora válida`.
+Exportar todos los pedidos 43/45 que aún queden `Sin hora válida` y clasificarlos.
 
 Guardar:
 
-`raw/in02_postfix_residuales.csv`
+`raw/in02_parser_postfix_residuales.csv`
 
-Para cada uno determinar:
-
-- pedido;
-- canal;
-- origen `ZART` / `VBAK_APPEND` / otro;
-- `ZERZET_PED` si aplica;
-- `VBAK.ERZET`;
-- causa final.
-
-Causas esperadas:
+Causas permitidas:
 
 - `SIN_VBAK`;
 - `VBAK_ERZET_000000`;
 - `VBAK_ERZET_NULL_BLANK`;
 - `VBAK_ERZET_INVALIDA`;
-- `FUERA_COHORTE_SQL_PREVIO`;
+- `FUERA_VENTANA_VBAK_FALLBACK`;
 - `INCONSISTENCIA_MODELO_SQL`;
-- `OTRA_CAUSA` solo con explicación concreta.
+- `OTRA_CAUSA` solo con evidencia concreta.
 
-Validar específicamente el pedido conocido:
-
-`1168066`
-
-Debe permanecer `Sin hora válida` salvo que la fuente haya cambiado desde la corrida anterior.
+Validar especialmente el pedido `1168066`, que históricamente no tenía VBAK.
 
 ---
 
-# P5 — Regresión mínima obligatoria
+# P5 — Regresión mínima
 
-Comprobar que el fix no modificó métricas ajenas al tramo horario:
+Comprobar que el cambio no alteró otros procesos:
 
-1. total de pedidos 43/45 antes vs después, salvo cambio justificable por ventana/refresh;
-2. `PED_FECHA_HORA` de una muestra de >=20 pedidos recuperados permanece igual a pre-fix (`00:00:00` en el campo original); el fallback solo modifica la clasificación de tramo;
+1. total pedidos 43/45 estable salvo variación explicada por refresh/ventana;
+2. `PED_FECHA_HORA` no cambia en muestra >=20 recuperados;
 3. cerrados sin DH = 0;
 4. FES cerrados sin manifiesto real = 0;
-5. FIND-002A título sin SemanticError.
+5. FIND-002A sin SemanticError;
+6. binding del visual sigue siendo `Fact_Tracking[TRAMO_HORA_INGRESO]` + `[IN Pedidos]`.
 
 Guardar:
 
-`raw/in02_postfix_regresion.csv`
-
----
-
-# P6 — Binding del visual
-
-Confirmar que el visual:
-
-`02 Ingreso de Pedidos > Disponibilidad para Logística por día · % hasta/después de 14:30`
-
-continúa usando:
-
-- categoría `Dim_Fecha[Dia_Semana]`;
-- serie `Fact_Tracking[TRAMO_HORA_INGRESO]`;
-- valor `[IN Pedidos]`.
-
-No modificar el título en esta corrida.
+`raw/in02_parser_postfix_regresion.csv`
 
 ---
 
@@ -203,36 +189,18 @@ No modificar el título en esta corrida.
 
 Emitir exactamente uno:
 
-## `IN02_HORA_FALLBACK_GREEN`
-
-Usar si:
-
-- refresh OK;
-- todos los recuperables presentes quedan correctamente reclasificados;
-- no aparecen regresiones;
-- residuales están explicados por ausencia/calidad de fuente y no por defecto del fallback.
-
-## `IN02_HORA_FALLBACK_PARTIAL`
-
-Usar si el fallback recupera una parte material pero quedan pedidos con VBAK.ERZET válido aún marcados `Sin hora válida`.
-
-## `IN02_HORA_FALLBACK_RED`
-
-Usar si hay error de refresh, error de M/SQL o regresión funcional.
+- `IN02_ERZET_PARSER_GREEN`: refresh OK, recuperables correctamente reclasificados y sin regresiones.
+- `IN02_ERZET_PARSER_PARTIAL`: parser funciona pero quedan casos con `VBAK.ERZET` válido aún sin clasificar.
+- `IN02_ERZET_PARSER_RED`: refresh/error SQL/M o regresión funcional.
 
 ---
 
 # Salida
 
-Crear corrida, por ejemplo:
+Crear una nueva corrida y validar el paquete normal:
 
 ```powershell
-./Scripts/audit_local/bootstrap_local_audit.ps1 -RunName "in02_hora_fallback_postfix"
-```
-
-Completar paquete normal y validar:
-
-```powershell
+./Scripts/audit_local/bootstrap_local_audit.ps1 -RunName "in02_erzet_parser_postfix"
 $env:PYTHONIOENCODING="utf-8"
 python Scripts/audit_local/validate_local_evidence.py "<RUN_DIR>"
 git diff --check
