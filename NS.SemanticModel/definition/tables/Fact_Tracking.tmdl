@@ -338,7 +338,10 @@ table Fact_Tracking
 				    FacturaCierre = Table.AddColumn(FactU, "FACTURA_CIERRE_BASE", each if [ES_SALDO]=true and [FECHA_ULTIMA_FACTURA]<>null then [FECHA_ULTIMA_FACTURA] else [FECHA_PRIMERA_FACTURA], type nullable datetime),
 				    Desp = Table.AddColumn(FacturaCierre, "FECHA_DESPACHO", each
 				        let
-				            Real = if [TRP_U_FECHA_HORA]<>null then [TRP_U_FECHA_HORA] else [TRP_P_FECHA_HORA],
+				            RealRaw = if [TRP_U_FECHA_HORA]<>null then [TRP_U_FECHA_HORA] else [TRP_P_FECHA_HORA],
+				            // Un despacho no puede ser anterior a la creación del pedido.
+				            // Fechas imposibles/sentinela se tratan como ausencia de despacho real.
+				            Real = if RealRaw<>null and [PED_FECHA_HORA]<>null and RealRaw < [PED_FECHA_HORA] then null else RealRaw,
 				            Factura = [FACTURA_CIERRE_BASE],
 				            FechaFactura = if Factura=null then null else Date.From(Factura),
 				            HoraFactura = if Factura=null then null else Time.From(Factura),
@@ -347,15 +350,13 @@ table Fact_Tracking
 				        in
 				            if Real<>null then Real else if AplicaSantiago then Factura else null,
 				        type nullable datetime),
-				    // Manifiesto FES: prioridad al último manifiesto obtenido por VBFA/VTTP.
-				    // Cuando el enlace VBFA/VTTP no devuelve fecha pero el tracking sí contiene TRP,
-				    // se usa TRP_U/TRP_P como respaldo operacional del manifiesto.
+				    // Manifiesto FES oficial: exclusivamente VBFA/VTTP.
+				    // TRP representa salida física y no reemplaza el manifiesto documental de cierre FES.
 				    Man = Table.AddColumn(Desp, "FECHA_MANIFIESTO", each
 				        if [ES_FES]<>true then null
 				        else if [ULTIMA_FECHA_MANIFIESTO]<>null then DateTime.From([ULTIMA_FECHA_MANIFIESTO])
 				        else if [PRIMERA_FECHA_MANIFIESTO]<>null then DateTime.From([PRIMERA_FECHA_MANIFIESTO])
-				        else if [TRP_U_FECHA_HORA]<>null then [TRP_U_FECHA_HORA]
-				        else [TRP_P_FECHA_HORA],
+				        else null,
 				        type nullable datetime),
 				    // Cierre oficial: FES y FES + SALDO cierran con el manifiesto consolidado anterior.
 				    // NORMAL y SALDO cierran con el último despacho válido.
