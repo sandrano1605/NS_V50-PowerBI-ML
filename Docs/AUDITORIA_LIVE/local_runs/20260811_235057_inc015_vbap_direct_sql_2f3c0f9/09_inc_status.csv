@@ -10,4 +10,4 @@ INC-011,CAUSA_IDENTIFICADA,GREEN,INFO,0 cerrados sin DH,,NO,
 INC-012,GREEN,GREEN,INFO,Ninguna,,NO,
 INC-013,NECESITA_DATOS,NECESITA_DATOS,ORANGE,Feriados regionales,,SI,
 INC-014,GREEN,GREEN,INFO,Ninguna,,NO,
-INC-015,CAUSA_VISTA_VBAP_SAP,SQL_PENDIENTE,ORANGE,SQL generado pero no ejecutado (error SSPI),raw/inc015_sql_queries.sql,SI,Ejecutar manualmente contra DMF_VTA_PRD
+INC-015,CAUSA_VISTA_VBAP_SAP,YV01_EXCLUIDO_DE_VBAP_SAP,ORANGE,"VBAP_SAP es USER_TABLE; dbo.VBAP no existe; 349.215 YV01 headers con 0 posiciones en VBAP_SAP (95,4% del universo)",raw/inc015_vbap_diagnostico_final.md,SI,Buscar fuente de posiciones YV01 (VBAP estandar SAP o alternativa)

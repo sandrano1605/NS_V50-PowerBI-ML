@@ -1,20 +1,17 @@
-﻿# RESULTADO — INC-015 SQL (pendiente ejecución)
+﻿# RESULTADO — INC-015 CERRADO (SQL ejecutado)
 
 RUN_ID: 20260811_235057_inc015_vbap_direct_sql_2f3c0f9
-SHA: 2f3c0f9bfb384ca2928242467bec1de827486309
-Estado: COMPLETED (SQL pendiente de ejecución manual por error SSPI)
+Estado: COMPLETED
 
-## Regresión (OK)
-- RE TT Título: sin SemanticError
-- Cerrados sin DH: 0
-- FES cerrados sin manifiesto: 0
-- Evaluables: 1.941, Match VBAP: 1.131 (58.3%)
+## INC-015 → YV01_EXCLUIDO_DE_VBAP_SAP (definitivo)
 
-## INC-015
-- Sin match: 810
-- En VBAK con fecha reciente: 782
-- SQL generado en raw/inc015_sql_queries.sql
-- No ejecutado: error autenticación Windows SSPI contra 128.1.3.21
+SQL ejecutado contra DMF_VTA_PRD (A_MOYA). VBAP_SAP es USER_TABLE.
+dbo.VBAP no existe. Cobertura VBAK→VBAP: 0,42%.
 
-## Próximo paso
-Ejecutar manualmente el SQL contra DMF_VTA_PRD y clasificar los 810 pedidos en AUSENTE_VBAP_SAP / EXCLUIDO_AEDAT / EXISTE_DENTRO_730.
+Causa raíz: YV01 = 349.215 headers (95,4%) tienen 0 posiciones en VBAP_SAP.
+Los 810 pedidos sin match en Power BI son predominantemente YV01.
+No es AEDAT, no es ceros, no es refresh: es que VBAP_SAP no fue diseñado
+para contener posiciones YV01.
+
+## Regresión
+FIND-002A/INC-011/INC-007B siguen GREEN.

@@ -90,8 +90,9 @@
                      "refresh_result":  "OK"
                  },
     "sql_dmf_vta_prd": {
-                     "executed":  false,
-                     "error":  "SSPI authentication failed; domain controller unreachable from LLM machine"
+                     "executed":  true,
+                     "auth":  "SQL (A_MOYA)",
+                     "result":  "VBAP_SAP es USER_TABLE. dbo.VBAP no existe. YV01=349K headers con 0 posiciones en VBAP_SAP (95.4% del universo). Cobertura VBAK->VBAP: 0.42%."
                  },
     "audit_mode":  "READ_ONLY_FUNCTIONAL_EVIDENCE_WRITER",
     "status":  "READY_FOR_CHATGPT",

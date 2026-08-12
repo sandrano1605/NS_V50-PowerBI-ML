@@ -7,6 +7,6 @@
   "evidence_commit_sha": null,
   "run_path": "Docs/AUDITORIA_LIVE/local_runs/20260811_235057_inc015_vbap_direct_sql_2f3c0f9",
   "ready_for_chatgpt": "Docs/AUDITORIA_LIVE/local_runs/20260811_235057_inc015_vbap_direct_sql_2f3c0f9/READY_FOR_CHATGPT.md",
-  "updated_at_local": "2026-08-11T23:55:00-04:00",
-  "note": "INC-015 SQL listo para ejecucion manual contra DMF_VTA_PRD (error autenticacion SSPI desde LLM local). Script completo en raw/inc015_sql_queries.sql. Regresion OK."
+  "updated_at_local": "2026-08-12T00:15:00-04:00",
+  "note": "INC-015 CERRADO. SQL ejecutado contra DMF_VTA_PRD (A_MOYA). VBAP_SAP=USER_TABLE, dbo.VBAP no existe, YV01=349K headers con 0 posiciones. Cobertura 58.3% es estructural. Requiere fuente de posiciones YV01."
 }
