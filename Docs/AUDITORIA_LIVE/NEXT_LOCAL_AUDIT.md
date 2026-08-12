@@ -1,12 +1,47 @@
-# Próxima auditoría local dirigida
+# Próxima auditoría local — cierre dirigido INC-015
 
-## Objetivo
+## Objetivo único
 
-Validar en vivo los fixes remotos aplicados después de la evidencia `0614604` y cerrar técnicamente INC-015 sin modificar el modelo desde el LLM local.
+Cerrar técnicamente `INC-015` sin modificar el modelo desde el LLM local.
 
-## Regla de SHA
+Los fixes anteriores ya quedaron validados en vivo y NO necesitan repetirse salvo una comprobación corta de regresión:
 
-El auditor debe ejecutar al inicio:
+- FIND-002A = GREEN
+- INC-011 = GREEN
+- INC-007B = GREEN
+
+Baseline vivo de referencia del último paquete:
+
+- `Fact_Tracking`: 2.097
+- RE evaluables: 1.941
+- RE en SLA: 1.580
+- RE fuera SLA: 361
+- RE NS: 81,4%
+- Match exacto VBAP: 1.131 / 1.941 = 58,3%
+- Sin match actual: 810
+
+Paquete fuente: `20260811_225907_post_fix_validacion_viva_00756db`.
+
+---
+
+## Regla de rol
+
+El LLM local sigue siendo auditor read-only funcional.
+
+No modificar:
+
+- `NS.SemanticModel/**`
+- `NS.Report/**`
+- `NS.pbip`
+
+Solo generar evidencia bajo:
+
+- `Docs/AUDITORIA_LIVE/local_runs/<RUN_ID>/**`
+- `Docs/AUDITORIA_LIVE/LOCAL_LATEST.json`
+
+---
+
+## Preflight obligatorio
 
 ```powershell
 git fetch origin
@@ -15,114 +50,272 @@ git rev-parse HEAD
 git ls-remote origin refs/heads/work/ns-lienzo-02-ingreso-pedidos
 ```
 
-LOCAL y REMOTO deben coincidir. No usar como HEAD los SHA históricos de los paquetes anteriores.
+LOCAL y REMOTO deben coincidir.
 
-## Rol
-
-El LLM local sigue siendo auditor read-only funcional. No modificar `NS.SemanticModel/**`, `NS.Report/**` ni `NS.pbip`. Solo generar evidencia bajo `Docs/AUDITORIA_LIVE/local_runs/<RUN_ID>/**` y actualizar `LOCAL_LATEST.json`.
+Conectar al modelo Power BI post-refresh y registrar puerto, database id, `lastSchemaUpdate` y `FECHA_ACTUALIZACION`.
 
 ---
 
-## P0 — Validar RE TT Título
+# P0 — Construir universo exacto de los 810 sin match
 
-El HEAD remoto ya contiene el fix que elimina la referencia inválida a `Dim_Rango_Entrega[OrdenRango]` dentro de `RangoTexto`.
+Desde el modelo vivo obtener los 1.941 RE evaluables y generar la lista exacta de pedidos que NO existen en `Lineas_y_unidades_por_pedidos[Pedido]`.
 
-Validar que `RE TT Título` ya NO esté en `SemanticError` y ejecutar las mismas 12 combinaciones usadas en `raw/find002_titulo_12_combinaciones.csv`.
+Guardar:
 
-Para cada combinación guardar:
+`raw/inc015_missing_orders.csv`
 
-- `RE TT Título`;
-- `RE Pedidos contexto`;
-- `RE Valor contexto`;
-- `RE Promedio contexto DH`;
-- `RE P90 contexto DH`;
-- `RE Pedidos fuera SLA contexto`.
+Columnas mínimas:
 
-Criterio: título correcto para multiselect y métricas sin regresión frente al mismo refresh.
+- Pedido
+- Flujo
+- Zona
+- Canal
+- PED_FECHA_HORA
+- largo_clave
+- existe_en_Pedidos_Normal_VBAK
 
----
-
-## P0 — Validar INC-011 después del fix de despacho imposible
-
-El modelo remoto ahora trata como inválido cualquier `TRP_U/TRP_P` anterior a `PED_FECHA_HORA`; no existe hardcode de la fecha `2020-09-24`.
-
-Después de refresh completo, medir:
-
-1. cantidad de filas con `FECHA_DESPACHO < PED_FECHA_HORA`;
-2. cantidad de `ES_CERRADO=TRUE` con `DIAS_INTERNOS_DH=BLANK()`;
-3. cantidad de pedidos que conservan la fecha centinela `2020-09-24 22:47` en las columnas TRP crudas;
-4. para esos pedidos, confirmar que `FECHA_DESPACHO` queda BLANK y `ES_CERRADO=FALSE` salvo que exista otra fuente de cierre válida;
-5. denominadores actuales de `U NS observado interno` y `RE NS contexto`;
-6. explicar cualquier diferencia restante pedido a pedido.
-
-Criterio esperado: los 55 casos identificados en la corrida anterior dejan de contarse como cierres válidos y no generan `FnDH=null` por cierre anterior a creación.
+Validar que el conteo sea exactamente el del refresh actual. Si ya no son 810 por un refresh posterior, usar el nuevo conteo y explicar la diferencia.
 
 ---
 
-## P0 — Validar INC-007B / cierre FES oficial
+# P0 — Prueba SQL discriminante directa sobre VBAP_SAP
 
-El modelo remoto ahora define `FECHA_MANIFIESTO` exclusivamente desde `ULTIMA_FECHA_MANIFIESTO` / `PRIMERA_FECHA_MANIFIESTO` provenientes de VBFA/VTTP. TRP ya no puede reemplazar el manifiesto.
+La consulta M actual de `Lineas_y_unidades_por_pedidos` es:
 
-Después de refresh medir:
-
-- FES cerrados;
-- FES cerrados con manifiesto real;
-- FES sin manifiesto real + TRP;
-- FES sin manifiesto ni TRP;
-- FES cuyo `FECHA_CIERRE` provenga de TRP: debe ser 0;
-- comparación con `Fact_Hitos_Operacionales` para los casos sin manifiesto.
-
-Criterio: ningún FES debe quedar `ES_CERRADO=TRUE` sin manifiesto VBFA/VTTP.
-
----
-
-## P0 — Resolver definitivamente INC-015 / VBAP
-
-La corrida anterior descartó padding/ceros: cobertura exacta = normalizada = 1.128/1.934. Hay 806 evaluables sin match; 778 existen en `Pedidos_Normal_VBAK`.
-
-La prueba discriminante pendiente es consultar `VBAP_SAP` directamente sin depender de la tabla Power BI agregada.
-
-Para el conjunto de 806 pedidos sin match, obtener:
-
-1. cuántos existen en `VBAP_SAP` SIN filtro `AEDAT`;
-2. cuántos existen en `VBAP_SAP` CON `AEDAT >= GETDATE()-730`;
-3. para los encontrados sin filtro pero excluidos con filtro: `MIN(AEDAT)`, `MAX(AEDAT)`, cantidad por mes/año de `AEDAT`;
-4. para los ausentes incluso sin filtro: comprobar si existe una tabla/vista base alternativa de posiciones SAP y documentar cuál;
-5. separar los 28 que tampoco existen en `Pedidos_Normal_VBAK`;
-6. calcular cobertura potencial si se elimina/corrige solo el filtro `AEDAT`;
-7. NO modificar la consulta M localmente.
-
-Diagnóstico final obligatorio:
-
-- `CAUSA_AEDAT` si los pedidos están en `VBAP_SAP` sin filtro pero desaparecen con el filtro;
-- `CAUSA_VISTA_VBAP_SAP` si faltan incluso sin filtro;
-- `CAUSA_MIXTA` si ocurren ambas cosas.
-
-Guardar SQL, conteos y muestras en `raw/inc015_vbap_direct_sql.md`.
-
----
-
-## P1 — Regresión general
-
-Revalidar INC-005 a INC-015, especialmente:
-
-- multiselect RE/FA;
-- baseline del refresh actual;
-- 4190139455 como cambio de datos/regla C-C, no error del modelo;
-- que los fixes de tracking no cambien clasificación NORMAL/FES/SALDO salvo el estado de cierre derivado de fechas inválidas;
-- que no aparezcan nuevas secuencias cierre < creación;
-- bindings de visuales U vs RE.
-
-## Salida
-
-```powershell
-./Scripts/audit_local/bootstrap_local_audit.ps1 -RunName "post_fix_tracking_inc015"
+```sql
+SELECT
+    VBAP.VBELN AS Pedido,
+    COUNT(*) AS Lineas,
+    SUM(ISNULL(VBAP.KWMENG, 0)) AS Suma_Unidades
+FROM VBAP_SAP AS VBAP
+WHERE VBAP.AEDAT >= GETDATE() - 730
+GROUP BY VBAP.VBELN;
 ```
 
-Completar evidencia, ejecutar:
+La hipótesis de padding/ceros ya está descartada. La prueba pendiente debe separar fuente, filtro e import.
+
+## Paso 1 — cargar los faltantes en temporal SQL
+
+Usar una tabla temporal de sesión, no una tabla persistente:
+
+```sql
+CREATE TABLE #Missing (
+    VBELN varchar(20) NOT NULL PRIMARY KEY
+);
+
+INSERT INTO #Missing (VBELN)
+VALUES
+    ('<pedido_1>'),
+    ('<pedido_2>');
+-- completar con toda la lista del refresh actual
+```
+
+La lista completa cabe en un único INSERT de hasta 1.000 filas si el faltante sigue alrededor de 810.
+
+## Paso 2 — clasificar cada pedido
+
+Ejecutar:
+
+```sql
+SELECT
+    M.VBELN,
+    COUNT(V.VBELN) AS FILAS_VBAP_TOTAL,
+    SUM(CASE WHEN V.AEDAT >= GETDATE() - 730 THEN 1 ELSE 0 END) AS FILAS_VBAP_730,
+    MIN(V.AEDAT) AS MIN_AEDAT,
+    MAX(V.AEDAT) AS MAX_AEDAT,
+    CASE
+        WHEN COUNT(V.VBELN) = 0
+            THEN 'AUSENTE_VBAP_SAP'
+        WHEN SUM(CASE WHEN V.AEDAT >= GETDATE() - 730 THEN 1 ELSE 0 END) = 0
+            THEN 'EXCLUIDO_AEDAT'
+        ELSE 'EXISTE_DENTRO_730'
+    END AS CAUSA_INC015
+FROM #Missing AS M
+LEFT JOIN VBAP_SAP AS V
+    ON CONVERT(varchar(20), V.VBELN) = M.VBELN
+GROUP BY M.VBELN
+ORDER BY CAUSA_INC015, M.VBELN;
+```
+
+Guardar resultado completo en:
+
+`raw/inc015_vbap_classification.csv`
+
+### Interpretación obligatoria
+
+- `AUSENTE_VBAP_SAP`: el problema está en la vista/contenido de `VBAP_SAP` o en que el documento no tiene posiciones allí.
+- `EXCLUIDO_AEDAT`: el pedido sí está en la vista pero el filtro `AEDAT >= GETDATE()-730` lo elimina.
+- `EXISTE_DENTRO_730`: el pedido debería haber sido importado por la consulta M. Si aparece esta categoría, investigar refresh/import/modelo antes de tocar SQL.
+
+---
+
+# P0 — Resumen cuantitativo por causa
+
+Ejecutar y guardar:
+
+```sql
+WITH Clasificacion AS (
+    SELECT
+        M.VBELN,
+        CASE
+            WHEN COUNT(V.VBELN) = 0
+                THEN 'AUSENTE_VBAP_SAP'
+            WHEN SUM(CASE WHEN V.AEDAT >= GETDATE() - 730 THEN 1 ELSE 0 END) = 0
+                THEN 'EXCLUIDO_AEDAT'
+            ELSE 'EXISTE_DENTRO_730'
+        END AS CAUSA_INC015
+    FROM #Missing AS M
+    LEFT JOIN VBAP_SAP AS V
+        ON CONVERT(varchar(20), V.VBELN) = M.VBELN
+    GROUP BY M.VBELN
+)
+SELECT
+    CAUSA_INC015,
+    COUNT(*) AS PEDIDOS
+FROM Clasificacion
+GROUP BY CAUSA_INC015
+ORDER BY PEDIDOS DESC;
+```
+
+Guardar en:
+
+`raw/inc015_vbap_summary.csv`
+
+---
+
+# P0 — Cruzar con VBAK_SAP
+
+Para todos los faltantes, obtener cabecera SAP:
+
+```sql
+SELECT
+    M.VBELN,
+    K.AUART,
+    K.ERDAT,
+    C.CAUSA_INC015
+FROM #Missing AS M
+LEFT JOIN VBAK_SAP AS K
+    ON CONVERT(varchar(20), K.VBELN) = M.VBELN
+LEFT JOIN (
+    SELECT
+        M2.VBELN,
+        CASE
+            WHEN COUNT(V2.VBELN) = 0
+                THEN 'AUSENTE_VBAP_SAP'
+            WHEN SUM(CASE WHEN V2.AEDAT >= GETDATE() - 730 THEN 1 ELSE 0 END) = 0
+                THEN 'EXCLUIDO_AEDAT'
+            ELSE 'EXISTE_DENTRO_730'
+        END AS CAUSA_INC015
+    FROM #Missing AS M2
+    LEFT JOIN VBAP_SAP AS V2
+        ON CONVERT(varchar(20), V2.VBELN) = M2.VBELN
+    GROUP BY M2.VBELN
+) AS C
+    ON C.VBELN = M.VBELN
+ORDER BY C.CAUSA_INC015, K.AUART, M.VBELN;
+```
+
+Guardar en:
+
+`raw/inc015_vbak_crosscheck.csv`
+
+Resumir por:
+
+- `CAUSA_INC015`
+- `AUART`
+- mes de `ERDAT`
+- flujo
+- canal
+- largo de pedido
+
+---
+
+# P0 — Verificar los casos EXISTE_DENTRO_730
+
+Si `EXISTE_DENTRO_730 > 0`, comparar esos pedidos contra la misma agregación exacta usada por Power BI:
+
+```sql
+SELECT
+    V.VBELN AS Pedido,
+    COUNT(*) AS Lineas,
+    SUM(ISNULL(V.KWMENG, 0)) AS Suma_Unidades,
+    MIN(V.AEDAT) AS MIN_AEDAT,
+    MAX(V.AEDAT) AS MAX_AEDAT
+FROM VBAP_SAP AS V
+INNER JOIN #Missing AS M
+    ON CONVERT(varchar(20), V.VBELN) = M.VBELN
+WHERE V.AEDAT >= GETDATE() - 730
+GROUP BY V.VBELN
+ORDER BY V.VBELN;
+```
+
+Si devuelve filas que Power BI no tiene en `Lineas_y_unidades_por_pedidos`, marcar:
+
+`CAUSA_IMPORT_REFRESH_MODEL`
+
+y NO modificar el SQL fuente hasta aislar por qué el import no coincide con la consulta.
+
+---
+
+# P0 — Diagnóstico final obligatorio
+
+Emitir exactamente uno de estos dictámenes o una combinación cuantificada:
+
+- `CAUSA_AEDAT`
+- `CAUSA_VISTA_VBAP_SAP`
+- `CAUSA_IMPORT_REFRESH_MODEL`
+- `CAUSA_MIXTA`
+
+El dictamen debe incluir:
+
+1. total evaluables;
+2. con match actual;
+3. sin match actual;
+4. cantidad `AUSENTE_VBAP_SAP`;
+5. cantidad `EXCLUIDO_AEDAT`;
+6. cantidad `EXISTE_DENTRO_730`;
+7. cobertura potencial si se elimina solo el filtro AEDAT;
+8. cobertura potencial si se usa una fuente de posiciones que sí contenga los ausentes;
+9. lista de AUART predominantes de los faltantes;
+10. recomendación técnica concreta para ChatGPT.
+
+No implementar el fix localmente.
+
+---
+
+# P1 — Sanidad mínima de regresión
+
+Sin repetir toda la auditoría anterior, confirmar:
+
+- `RE TT Título` sin SemanticError;
+- cerrados sin DH = 0;
+- FES cerrado sin manifiesto real = 0;
+- baseline RE del refresh actual;
+- cobertura VBAP actual antes de cualquier cambio.
+
+---
+
+# Salida
+
+Crear corrida:
+
+```powershell
+./Scripts/audit_local/bootstrap_local_audit.ps1 -RunName "inc015_vbap_direct_sql"
+```
+
+Completar paquete normal y agregar en `raw/`:
+
+- `inc015_missing_orders.csv`
+- `inc015_vbap_classification.csv`
+- `inc015_vbap_summary.csv`
+- `inc015_vbak_crosscheck.csv`
+- `inc015_sql_queries.sql`
+
+Validar:
 
 ```powershell
 python Scripts/audit_local/validate_local_evidence.py "<RUN_DIR>"
+git diff --check
 ```
 
-Publicar solo evidencia y dejar `LOCAL_LATEST.json` en `READY_FOR_CHATGPT`.
+Publicar solo evidencia y actualizar `LOCAL_LATEST.json` a `READY_FOR_CHATGPT`.
