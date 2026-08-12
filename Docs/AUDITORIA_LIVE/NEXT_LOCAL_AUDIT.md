@@ -1,115 +1,69 @@
-# Próxima auditoría local — descubrir fuente de posiciones YV01
+# Próxima auditoría local — STOP hasta nueva fuente YV01
 
-## Estado confirmado
+## Estado
 
-`INC-015` ya tiene causa raíz técnica confirmada por evidencia `a55afbf`:
+No ejecutar una nueva auditoría INC-015 todavía.
 
-- `VBAP_SAP` = `USER_TABLE` física.
-- `dbo.VBAP` no existe en `DMF_VTA_PRD`.
-- `YV01` = 349.215 headers recientes y 0 posiciones en `VBAP_SAP`.
-- La cobertura 58,3% de `Lineas_y_unidades_por_pedidos` es estructural.
-- Hipótesis `AEDAT`, ceros/padding y refresh quedan descartadas.
+La evidencia publicada en `1ec81ad` confirmó:
 
-No repetir la auditoría anterior.
+- `INC-015 = SIN_FUENTE_YV01_EN_DMF_VTA_PRD`;
+- `VBAP_SAP` es `USER_TABLE` física;
+- `dbo.VBAP` no existe;
+- 7 candidatos con firma de posiciones SAP fueron probados;
+- 33 bases visibles fueron inspeccionadas;
+- 0 candidatos tuvieron cobertura YV01;
+- la cobertura actual 58,3% de líneas/unidades es estructural mientras no exista una fuente YV01.
 
-## Objetivo único
+No repetir búsquedas de objetos ni auditorías del modelo con el mismo estado de fuentes.
 
-Determinar si `DMF_VTA_PRD` ya contiene **otra tabla o vista** que tenga posiciones de pedidos `YV01` y que pueda abastecer:
+## Dependencia externa
 
-- `Pedido` (`VBELN`)
-- `Lineas` (idealmente `POSNR` o granularidad equivalente)
-- `Suma_Unidades` (idealmente `KWMENG` o cantidad equivalente)
+Se requiere que SAP / ETL / datos exponga una fuente de posiciones YV01 conforme al contrato:
 
-El auditor local es read-only funcional. No modificar Power BI ni objetos SQL.
+`Docs/AUDITORIA_LIVE/INC015_YV01_SOURCE_CONTRACT.md`
 
-## Preflight
+Preferencia:
 
-```powershell
-git fetch origin
-git pull --ff-only origin work/ns-lienzo-02-ingreso-pedidos
-git rev-parse HEAD
-git ls-remote origin refs/heads/work/ns-lienzo-02-ingreso-pedidos
-```
+- fuente única completa de posiciones SAP, o
+- tabla/vista específica YV01 con `VBELN`, `POSNR`, `KWMENG` y, de ser posible, `AEDAT`, `MATNR`, `WERKS`.
 
-LOCAL y REMOTO deben coincidir.
+## Condición para reactivar auditoría
 
-## P0 — Ejecutar descubrimiento SQL
+Solo ejecutar una nueva corrida cuando exista al menos una de estas novedades:
 
-Ejecutar contra `DMF_VTA_PRD` el script versionado:
+1. un nuevo objeto SQL accesible desde Power BI que contenga posiciones YV01;
+2. una réplica/ETL SAP actualizada para incluir YV01;
+3. una conexión autorizada a otra fuente (SAP/BW/RFC/otra base) que exponga `VBELN + POSNR + KWMENG`;
+4. evidencia del equipo de datos de que un objeto existente cambió su cobertura.
+
+## Primera prueba al desbloquear
+
+Antes de modificar Power BI:
+
+1. medir cobertura YV01 reciente contra `VBAK_SAP`;
+2. exigir >=98% para considerarla fuente apta, salvo explicación documentada del residual;
+3. validar una muestra >=50 pedidos contra el origen autorizado;
+4. comprobar unicidad `VBELN + POSNR`;
+5. comparar `COUNT(DISTINCT POSNR)` y `SUM(KWMENG)`.
+
+Si la fuente pasa estas pruebas, publicar evidencia `READY_FOR_CHATGPT` con:
+
+- nombre exacto del objeto;
+- schema/base/servidor;
+- columnas disponibles;
+- cobertura total y por AUART;
+- duplicados `VBELN + POSNR`;
+- muestra validada;
+- recomendación de fuente única vs unión con `VBAP_SAP`.
+
+## Implementación posterior
+
+ChatGPT realizará el cambio remoto de `Lineas_y_unidades_por_pedidos` solo después de esa validación y luego se hará refresh + auditoría post-fix.
+
+Hasta entonces:
 
 ```text
-Scripts/audit_local/inc015_yv01_source_discovery.sql
+INC-015 = BLOCKED_SOURCE / SIN_FUENTE_YV01
 ```
 
-El script solo usa `SELECT` y tablas temporales de sesión.
-
-Guardar salida completa en:
-
-```text
-raw/inc015_yv01_source_discovery.txt
-```
-
-## P0 — Resultado obligatorio
-
-Reportar las siguientes secciones:
-
-1. `OBJETOS CON NOMBRE RELACIONADO A VBAP / YV01 / POSICION`
-2. `CANDIDATOS POR FIRMA DE COLUMNAS`
-3. `PROBE MUESTRA YV01 (200 HEADERS)`
-4. `COBERTURA COMPLETA PARA CANDIDATOS CON HITS`
-
-Para cada candidato con `matched_sample_headers > 0`, informar:
-
-- schema / objeto / tipo;
-- si tiene `POSNR`;
-- si tiene `KWMENG`;
-- si tiene `MATNR`;
-- cobertura de la muestra;
-- cobertura completa YV01 reciente;
-- cantidad de filas encontradas.
-
-## Dictamen
-
-Emitir exactamente una de estas salidas:
-
-### `FUENTE_YV01_COMPLETA_ENCONTRADA`
-Existe un objeto con cobertura YV01 material y columnas suficientes para calcular líneas y unidades.
-
-Recomendación: entregar nombre exacto del objeto y SQL agregado equivalente a:
-
-```sql
-SELECT
-    VBELN AS Pedido,
-    COUNT(*) AS Lineas,
-    SUM(ISNULL(KWMENG,0)) AS Suma_Unidades
-FROM <FUENTE>
-GROUP BY VBELN;
-```
-
-No modificar el modelo localmente.
-
-### `FUENTE_YV01_PARCIAL_ENCONTRADA`
-Existe cobertura material, pero faltan `KWMENG` o granularidad fiable para líneas/unidades.
-
-Recomendación: documentar qué sí permite calcular y qué columna/fuente falta.
-
-### `SIN_FUENTE_YV01_EN_DMF_VTA_PRD`
-Ningún objeto con firma de posición tiene hits YV01 relevantes.
-
-Recomendación: no modificar `Lineas_y_unidades_por_pedidos`; solicitar/exponer nueva réplica o vista desde SAP/BW para posiciones YV01.
-
-## Sanidad mínima
-
-No repetir la regresión integral. Solo registrar que siguen vigentes como baseline:
-
-- RE evaluables: 1.941 (salvo refresh nuevo documentado)
-- match actual: 1.131 / 1.941 = 58,3%
-- FIND-002A GREEN
-- INC-011 GREEN
-- INC-007B GREEN
-
-## Entrega
-
-Crear paquete de evidencia normal, incluir la salida SQL y actualizar `LOCAL_LATEST.json` a `READY_FOR_CHATGPT`.
-
-No implementar cambios funcionales en `NS.SemanticModel/**` ni `NS.Report/**`.
+Los fixes FIND-002A, INC-011 e INC-007B permanecen GREEN.
