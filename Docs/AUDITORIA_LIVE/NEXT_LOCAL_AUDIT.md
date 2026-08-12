@@ -1,223 +1,243 @@
-# Próxima auditoría local — 02 Ingreso de Pedidos / consistencia hora 14:30
+# Próxima auditoría local — IN02 post-fix hora ingreso 43/45
+
+## Estado de referencia
+
+Fix funcional implementado por ChatGPT en:
+
+`eb07b64a709348661459c9195c2a30d8c56f2a5c`
+
+Archivo funcional modificado:
+
+`NS.SemanticModel/definition/tables/Fact_Tracking.tmdl`
+
+Cambio:
+
+- `PED_FECHA_HORA` permanece intacto para SLA, fechas y trazabilidad.
+- Solo `TRAMO_HORA_INGRESO` incorpora fallback de hora desde `VBAK_SAP.ERZET`.
+- El fallback aplica únicamente a canales `43` y `45`.
+- Solo se activa cuando la hora original de `PED_FECHA_HORA` es exactamente `00:00:00` y VBAK contiene una hora válida distinta de `00:00:00`.
+- No cambia SLA, FES, despacho, cierre ni días hábiles.
+
+Evidencia pre-fix:
+
+- modelo vivo: 197 pedidos `Sin hora válida` en 43/45;
+- SQL ZART: 154 pedidos con `ZERZET_PED=000000`;
+- recuperables desde `VBAK.ERZET`: 153/154 = 99,35%;
+- residual ZART conocido: pedido `1168066` sin VBAK;
+- existe además una diferencia pre-fix de 43 pedidos entre Power BI (197) y ZART (154), que debe explicarse post-fix y no asumirse resuelta.
 
 ## Decisiones de negocio cerradas
 
-No volver a bloquear el trabajo por estos puntos:
+No reabrir en esta corrida:
 
-- `INC-015`: **NO APLICA al alcance de este reporte**. El análisis operativo solicitado se restringe a canales **43 y 45**; no se requiere resolver posiciones YV01 para avanzar en este lienzo.
-- `INC-013`: **CERRADO POR REGLA DE NEGOCIO**. Para este reporte se consideran únicamente los feriados nacionales de Chile ya cargados en `Dim_Feriados_Chile`. No se requieren feriados regionales/comunales.
+- `INC-015`: **NO APLICA al alcance del reporte**, cuyo análisis efectivo se restringe a canales 43 y 45.
+- `INC-013`: **CERRADO POR REGLA DE NEGOCIO**; usar solo feriados nacionales de Chile ya contenidos en `Dim_Feriados_Chile`.
 
-No repetir auditorías YV01 ni búsqueda de feriados regionales en esta corrida.
-
----
-
-## Objetivo único
-
-Auditar la consistencia del visual del lienzo **`02 Ingreso de Pedidos`**:
-
-> `Disponibilidad para Logística por día · % hasta/después de 14:30`
-
-Explicar y cuantificar por qué existen pedidos clasificados como:
-
-`Sin hora válida`
-
-El alcance obligatorio es **solo canales 43 y 45**.
-
-No modificar el modelo. El LLM local sigue siendo auditor read-only funcional y solo publica evidencia.
+No buscar YV01 ni feriados regionales/comunales.
 
 ---
 
-## Implementación actual ya confirmada
+# Objetivo único
 
-El visual usa:
+Validar en Power BI vivo que el fallback VBAK corrige la clasificación horaria de `02 Ingreso de Pedidos` sin alterar otros indicadores.
 
-- categoría: `Dim_Fecha[Dia_Semana]`;
-- serie: `Fact_Tracking[TRAMO_HORA_INGRESO]`;
-- valor: `[IN Pedidos]`.
+El auditor local continúa en rol read-only funcional: no modificar TMDL/JSON/PBIP. Solo refrescar, consultar y publicar evidencia.
 
-`Fact_Tracking[TRAMO_HORA_INGRESO]` clasifica la hora de `PED_FECHA_HORA` así:
+---
 
-```m
-if H=null or H=#time(0,0,0) then "Sin hora válida"
-else if H<=#time(14,30,0) then "Hasta 14:30"
-else "Después de 14:30"
+# P0 — Preflight
+
+```powershell
+git fetch origin
+git pull --ff-only origin work/ns-lienzo-02-ingreso-pedidos
+git rev-parse HEAD
+git ls-remote origin refs/heads/work/ns-lienzo-02-ingreso-pedidos
 ```
 
-La hora utilizada actualmente es **hora de creación del pedido**, no un hito posterior de liberación logística.
+LOCAL y REMOTO deben coincidir en:
 
-Fuentes:
+`eb07b64a709348661459c9195c2a30d8c56f2a5c`
 
-1. Fuente principal ZART:
-   - fecha: `ZART_TRACK_DATA_SAP.ZERDAT_PED`
-   - hora: `ZART_TRACK_DATA_SAP.ZERZET_PED`
-2. Complemento VBAK para pedidos ausentes del master ZART:
-   - fecha: `VBAK_SAP.ERDAT`
-   - hora: `VBAK_SAP.ERZET`
-
-Hallazgo de código a comprobar en datos: si la fecha es válida pero la hora no se puede convertir, el parser actual puede construir `PED_FECHA_HORA` con `00:00:00`; después `Fact_Tracking` lo clasifica como `Sin hora válida`.
+Si no coinciden, detener la corrida.
 
 ---
 
-# P0 — Conciliación con modelo Power BI vivo
+# P1 — Refresh obligatorio
 
-Conectar al modelo Power BI post-refresh y restringir explícitamente a canales `43` y `45`.
+Abrir/refrescar el modelo Power BI con el código `eb07b64`.
 
-Obtener:
+Registrar:
+
+- fecha/hora de refresh;
+- puerto;
+- resultado del refresh;
+- cualquier error M/SQL/TMDL.
+
+Si el refresh falla, no continuar con resultados pre-fix. Publicar el error exacto.
+
+---
+
+# P2 — Recuento post-fix del gráfico 14:30
+
+Restringir explícitamente a canales `43` y `45` y obtener:
 
 1. total `[IN Pedidos]`;
-2. pedidos `Hasta 14:30`;
-3. pedidos `Después de 14:30`;
-4. pedidos `Sin hora válida`;
-5. cobertura de hora válida = `(Hasta + Después) / Total`;
-6. `% Después de 14:30` sobre pedidos con hora medible;
-7. distribución de `Sin hora válida` por:
-   - canal 43/45;
-   - día de semana;
-   - mes;
-8. lista completa de pedidos `Sin hora válida` con al menos:
-   - `PED_NUMERO_PEDIDO`;
-   - `PED_CANAL_CODIGO`;
-   - `PED_FECHA_HORA`;
-   - `CLASIFICACION`;
-   - `ZONA`.
+2. `Hasta 14:30`;
+3. `Después de 14:30`;
+4. `Sin hora válida`;
+5. cobertura hora válida = `(Hasta + Después) / Total`;
+6. `% Después de 14:30` sobre medibles.
 
 Guardar:
 
-- `raw/in02_model_hora_resumen.csv`
-- `raw/in02_model_sin_hora_pedidos.csv`
+`raw/in02_postfix_resumen.csv`
 
-Si el refresh cambió respecto de corridas anteriores, usar los números actuales y registrar fecha/hora del refresh.
+Comparar contra pre-fix:
 
----
+- `Sin hora válida` pre-fix = 197.
+- recuperables probados = 153.
 
-# P0 — Auditoría SQL de la hora fuente
-
-Ejecutar contra `DMF_VTA_PRD` el script versionado:
-
-```text
-Scripts/audit_local/in02_hora_ingreso_audit.sql
-```
-
-Usar el método de autenticación SQL ya operativo en corridas anteriores. No escribir credenciales en evidencia ni en Git.
-
-Guardar salida completa en:
-
-`raw/in02_hora_ingreso_audit.txt`
-
-El script separa estas causas:
-
-### ZART
-
-- `ZART_HORA_NULL_BLANK`
-- `ZART_HORA_000000`
-- `ZART_HORA_INVALIDA`
-- `ZART_HORA_VALIDA`
-
-### VBAK
-
-- `VBAK_HORA_NULL_BLANK`
-- `VBAK_HORA_000000`
-- `VBAK_HORA_INVALIDA`
-- `VBAK_HORA_VALIDA`
-
-Además cuantifica si un pedido con hora ZART no válida tiene una hora VBAK válida recuperable.
+No exigir que el post-fix termine en 1. El resultado esperado aproximado es una reducción cercana a 153 casos, pero el residual exacto debe salir del refresh y ser explicado.
 
 ---
 
-# P0 — Conciliar modelo vs SQL pedido a pedido
+# P3 — Validación de los 153 recuperables
 
-Para la lista exacta `raw/in02_model_sin_hora_pedidos.csv` determinar para cada pedido:
+Tomar la evidencia SQL pre-fix de los 153 pedidos recuperables y comprobar en el modelo post-fix que:
 
-- si existe en ZART;
-- `ZERDAT_PED` raw;
-- `ZERZET_PED` raw;
-- clasificación de la hora ZART;
-- si existe en VBAK;
-- `ERDAT` raw;
-- `ERZET` raw;
-- clasificación de la hora VBAK;
+- ninguno siga en `Sin hora válida` si su `VBAK.ERZET` es válido;
+- cada pedido quede en la franja correcta según `VBAK.ERZET`:
+  - `<= 14:30:00` → `Hasta 14:30`;
+  - `> 14:30:00` → `Después de 14:30`.
+
+Guardar:
+
+`raw/in02_postfix_153_validacion.csv`
+
+Columnas mínimas:
+
+- pedido;
+- canal;
+- ZERZET_PED;
+- ERZET_VBAK;
+- tramo esperado;
+- tramo Power BI post-fix;
+- status.
+
+Criterio GREEN:
+
+`153/153 MATCH`
+
+Si el universo cambió por ventana móvil, documentar exactamente qué pedido salió/entró y validar todos los que sigan dentro del modelo.
+
+---
+
+# P4 — Explicar todos los residuales `Sin hora válida`
+
+Exportar la lista completa post-fix de pedidos 43/45 que todavía queden como `Sin hora válida`.
+
+Guardar:
+
+`raw/in02_postfix_residuales.csv`
+
+Para cada uno determinar:
+
+- pedido;
+- canal;
+- origen `ZART` / `VBAK_APPEND` / otro;
+- `ZERZET_PED` si aplica;
+- `VBAK.ERZET`;
 - causa final.
 
+Causas esperadas:
+
+- `SIN_VBAK`;
+- `VBAK_ERZET_000000`;
+- `VBAK_ERZET_NULL_BLANK`;
+- `VBAK_ERZET_INVALIDA`;
+- `FUERA_COHORTE_SQL_PREVIO`;
+- `INCONSISTENCIA_MODELO_SQL`;
+- `OTRA_CAUSA` solo con explicación concreta.
+
+Validar específicamente el pedido conocido:
+
+`1168066`
+
+Debe permanecer `Sin hora válida` salvo que la fuente haya cambiado desde la corrida anterior.
+
+---
+
+# P5 — Regresión mínima obligatoria
+
+Comprobar que el fix no modificó métricas ajenas al tramo horario:
+
+1. total de pedidos 43/45 antes vs después, salvo cambio justificable por ventana/refresh;
+2. `PED_FECHA_HORA` de una muestra de >=20 pedidos recuperados permanece igual a pre-fix (`00:00:00` en el campo original); el fallback solo modifica la clasificación de tramo;
+3. cerrados sin DH = 0;
+4. FES cerrados sin manifiesto real = 0;
+5. FIND-002A título sin SemanticError.
+
 Guardar:
 
-`raw/in02_sin_hora_causa_pedido.csv`
-
-Valores esperados de `CAUSA_FINAL`:
-
-- `ZART_HORA_NULL_BLANK`
-- `ZART_HORA_000000`
-- `ZART_HORA_INVALIDA`
-- `ZART_NO_VALIDA_VBAK_RECUPERABLE`
-- `VBAK_SIN_ZART_HORA_NULL_BLANK`
-- `VBAK_SIN_ZART_HORA_000000`
-- `VBAK_SIN_ZART_HORA_INVALIDA`
-- `OTRA_CAUSA` solo si se documenta exactamente.
-
-No agrupar causas diferentes bajo un mismo rótulo.
+`raw/in02_postfix_regresion.csv`
 
 ---
 
-# P0 — Diagnóstico obligatorio
+# P6 — Binding del visual
 
-El `READY_FOR_CHATGPT.md` debe responder claramente:
+Confirmar que el visual:
 
-1. ¿Cuántos pedidos 43/45 aparecen como `Sin hora válida`?
-2. ¿Qué porcentaje representan?
-3. ¿Cuántos vienen de ZART y cuántos del append VBAK?
-4. Dentro de ZART, ¿cuántos son vacío, `000000` e inválidos?
-5. Dentro de VBAK, ¿cuántos son vacío, `000000` e inválidos?
-6. ¿Cuántos pedidos ZART sin hora pueden recuperar una hora válida desde VBAK?
-7. ¿Existe algún caso que Power BI marque `Sin hora válida` aunque SQL tenga una hora válida?
-8. ¿Hay diferencias entre canal 43 y canal 45?
-9. ¿Hay concentración por día/mes?
-10. Recomendación técnica exacta, sin implementar localmente.
+`02 Ingreso de Pedidos > Disponibilidad para Logística por día · % hasta/después de 14:30`
 
----
+continúa usando:
 
-## Posibles decisiones posteriores para ChatGPT
+- categoría `Dim_Fecha[Dia_Semana]`;
+- serie `Fact_Tracking[TRAMO_HORA_INGRESO]`;
+- valor `[IN Pedidos]`.
 
-No implementar aún; solo recomendar según evidencia:
-
-### A. Recuperación desde VBAK
-Si ZART no tiene hora pero VBAK sí tiene una hora válida para el mismo pedido, proponer fallback controlado solo para esos casos.
-
-### B. Corregir parser
-Si horas vacías/inválidas están siendo transformadas artificialmente a `00:00:00`, proponer preservar `NULL` y no fabricar medianoche.
-
-### C. Mantener como calidad de dato
-Si tanto ZART como VBAK traen `000000`/vacío, mantener el pedido fuera del denominador medible de 14:30 y considerar renombrar la categoría a `Hora no informada`.
-
-### D. Inconsistencia modelo vs SQL
-Si SQL tiene hora válida y Power BI dice `Sin hora válida`, tratarlo como defecto de transformación/import y aislarlo antes de cambiar reglas de negocio.
+No modificar el título en esta corrida.
 
 ---
 
-## Nota semántica — no cambiar sin decisión del usuario
+# Dictamen requerido
 
-El título actual dice `Disponibilidad para Logística`, pero el código usa `PED_FECHA_HORA` (creación del pedido).
+Emitir exactamente uno:
 
-Registrar esta diferencia como observación semántica.
+## `IN02_HORA_FALLBACK_GREEN`
 
-- Si el objetivo del negocio es **hora de ingreso/creación del pedido**, la fuente conceptual actual es correcta.
-- Si el objetivo fuese realmente **hora de liberación para que Logística pueda trabajar**, habría que definir otro hito; no cambiarlo en esta corrida.
+Usar si:
+
+- refresh OK;
+- todos los recuperables presentes quedan correctamente reclasificados;
+- no aparecen regresiones;
+- residuales están explicados por ausencia/calidad de fuente y no por defecto del fallback.
+
+## `IN02_HORA_FALLBACK_PARTIAL`
+
+Usar si el fallback recupera una parte material pero quedan pedidos con VBAK.ERZET válido aún marcados `Sin hora válida`.
+
+## `IN02_HORA_FALLBACK_RED`
+
+Usar si hay error de refresh, error de M/SQL o regresión funcional.
 
 ---
 
-## Salida
+# Salida
 
-Crear una corrida nueva, por ejemplo:
+Crear corrida, por ejemplo:
 
 ```powershell
-./Scripts/audit_local/bootstrap_local_audit.ps1 -RunName "in02_hora_ingreso_43_45"
+./Scripts/audit_local/bootstrap_local_audit.ps1 -RunName "in02_hora_fallback_postfix"
 ```
 
-Completar el paquete normal, agregar los tres archivos `raw/` indicados, validar:
+Completar paquete normal y validar:
 
 ```powershell
+$env:PYTHONIOENCODING="utf-8"
 python Scripts/audit_local/validate_local_evidence.py "<RUN_DIR>"
 git diff --check
 ```
 
-Publicar únicamente evidencia y actualizar `LOCAL_LATEST.json` a `READY_FOR_CHATGPT`.
+Publicar únicamente evidencia y `LOCAL_LATEST.json`.
 
 No modificar `NS.SemanticModel/**`, `NS.Report/**` ni `NS.pbip`.
