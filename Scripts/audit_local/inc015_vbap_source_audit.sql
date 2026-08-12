@@ -64,7 +64,7 @@ FROM sys.sql_expression_dependencies AS d
 WHERE OBJECT_NAME(d.referencing_id) = 'VBAP_SAP'
 ORDER BY d.referenced_database_name, d.referenced_schema_name, d.referenced_entity_name;
 
-PRINT '=== COLUMNAS CLAVE VBAP_SAP ===';
+PRINT '=== COLUMNAS VBAP_SAP ===';
 SELECT
     c.column_id,
     c.name AS column_name,
@@ -74,12 +74,11 @@ SELECT
 FROM sys.columns AS c
 INNER JOIN sys.types AS t
     ON t.user_type_id = c.user_type_id
-WHERE c.object_id = OBJECT_ID('dbo.VBAP_SAP')
-   OR c.object_id IN (
-       SELECT o.object_id
-       FROM sys.objects AS o
-       WHERE o.name = 'VBAP_SAP'
-   )
+WHERE c.object_id IN (
+    SELECT o.object_id
+    FROM sys.objects AS o
+    WHERE o.name = 'VBAP_SAP'
+)
 ORDER BY c.column_id;
 
 /*
@@ -101,18 +100,15 @@ GROUP BY CONVERT(varchar(20), K.VBELN);
 PRINT '=== COBERTURA RECENT HEADERS -> VBAP_SAP ===';
 SELECT
     COUNT(*) AS headers_recent,
-    SUM(CASE WHEN X.has_vbap_sap = 1 THEN 1 ELSE 0 END) AS headers_with_vbap_sap,
-    SUM(CASE WHEN X.has_vbap_sap = 0 THEN 1 ELSE 0 END) AS headers_missing_vbap_sap,
-    CAST(100.0 * SUM(CASE WHEN X.has_vbap_sap = 1 THEN 1 ELSE 0 END) / NULLIF(COUNT(*),0) AS decimal(6,2)) AS coverage_pct
+    SUM(CASE WHEN A.has_vbap_sap = 1 THEN 1 ELSE 0 END) AS headers_with_vbap_sap,
+    SUM(CASE WHEN A.has_vbap_sap IS NULL THEN 1 ELSE 0 END) AS headers_missing_vbap_sap,
+    CAST(100.0 * SUM(CASE WHEN A.has_vbap_sap = 1 THEN 1 ELSE 0 END) / NULLIF(COUNT(*),0) AS decimal(6,2)) AS coverage_pct
 FROM #RecentHeaders AS H
 OUTER APPLY (
     SELECT TOP (1) 1 AS has_vbap_sap
     FROM VBAP_SAP AS V
     WHERE CONVERT(varchar(20), V.VBELN) = H.VBELN
-) AS A
-CROSS APPLY (
-    SELECT CASE WHEN A.has_vbap_sap = 1 THEN 1 ELSE 0 END AS has_vbap_sap
-) AS X;
+) AS A;
 
 PRINT '=== GAP POR AUART ===';
 SELECT
@@ -170,7 +166,7 @@ INNER JOIN VBAP_SAP AS V
 
 /*
 Si existe una tabla o vista accesible llamada dbo.VBAP, comparar cobertura.
-Esto no asume que exista: el bloque se ejecuta solo si OBJECT_ID resuelve.
+El bloque es opcional y no asume que esa fuente exista.
 */
 IF OBJECT_ID('dbo.VBAP') IS NOT NULL
 BEGIN
@@ -179,10 +175,15 @@ BEGIN
     EXEC (
     'SELECT
         COUNT(*) AS headers_recent,
-        SUM(CASE WHEN EXISTS (SELECT 1 FROM dbo.VBAP AS B WHERE CONVERT(varchar(20), B.VBELN) = H.VBELN) THEN 1 ELSE 0 END) AS headers_with_base_vbap,
-        SUM(CASE WHEN NOT EXISTS (SELECT 1 FROM dbo.VBAP AS B WHERE CONVERT(varchar(20), B.VBELN) = H.VBELN) THEN 1 ELSE 0 END) AS headers_missing_base_vbap,
-        CAST(100.0 * SUM(CASE WHEN EXISTS (SELECT 1 FROM dbo.VBAP AS B WHERE CONVERT(varchar(20), B.VBELN) = H.VBELN) THEN 1 ELSE 0 END) / NULLIF(COUNT(*),0) AS decimal(6,2)) AS base_coverage_pct
-     FROM #RecentHeaders AS H;'
+        SUM(CASE WHEN B.has_base_vbap = 1 THEN 1 ELSE 0 END) AS headers_with_base_vbap,
+        SUM(CASE WHEN B.has_base_vbap IS NULL THEN 1 ELSE 0 END) AS headers_missing_base_vbap,
+        CAST(100.0 * SUM(CASE WHEN B.has_base_vbap = 1 THEN 1 ELSE 0 END) / NULLIF(COUNT(*),0) AS decimal(6,2)) AS base_coverage_pct
+     FROM #RecentHeaders AS H
+     OUTER APPLY (
+         SELECT TOP (1) 1 AS has_base_vbap
+         FROM dbo.VBAP AS X
+         WHERE CONVERT(varchar(20), X.VBELN) = H.VBELN
+     ) AS B;'
     );
 
     EXEC (
@@ -190,10 +191,20 @@ BEGIN
         H.VBELN,
         H.AUART,
         H.ERDAT,
-        CASE WHEN EXISTS (SELECT 1 FROM dbo.VBAP AS B WHERE CONVERT(varchar(20), B.VBELN) = H.VBELN) THEN 1 ELSE 0 END AS exists_base_vbap,
-        CASE WHEN EXISTS (SELECT 1 FROM dbo.VBAP_SAP AS V WHERE CONVERT(varchar(20), V.VBELN) = H.VBELN) THEN 1 ELSE 0 END AS exists_vbap_sap
+        CASE WHEN B.has_base_vbap = 1 THEN 1 ELSE 0 END AS exists_base_vbap,
+        CASE WHEN S.has_vbap_sap = 1 THEN 1 ELSE 0 END AS exists_vbap_sap
      FROM #RecentHeaders AS H
-     WHERE NOT EXISTS (SELECT 1 FROM dbo.VBAP_SAP AS V WHERE CONVERT(varchar(20), V.VBELN) = H.VBELN)
+     OUTER APPLY (
+         SELECT TOP (1) 1 AS has_base_vbap
+         FROM dbo.VBAP AS X
+         WHERE CONVERT(varchar(20), X.VBELN) = H.VBELN
+     ) AS B
+     OUTER APPLY (
+         SELECT TOP (1) 1 AS has_vbap_sap
+         FROM VBAP_SAP AS V
+         WHERE CONVERT(varchar(20), V.VBELN) = H.VBELN
+     ) AS S
+     WHERE S.has_vbap_sap IS NULL
      ORDER BY H.ERDAT DESC, H.VBELN;'
     );
 END
