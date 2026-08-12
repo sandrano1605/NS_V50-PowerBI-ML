@@ -2,47 +2,34 @@
 
 ## Objetivo
 
-Validar el fix remoto de `RE TT Título` y resolver técnicamente los pendientes cuantificables sin implementar reglas de negocio.
+Validar en vivo los fixes remotos aplicados después de la evidencia `0614604` y cerrar técnicamente INC-015 sin modificar el modelo desde el LLM local.
 
-## Estado de partida
+## Regla de SHA
 
-- Último paquete local validado: `20260811_115352_auditoria_integral_cbcff02`
-- SHA auditado por ese paquete: `cbcff026432f6bd3e5d5bfb3072688ad95039077`
-- SHA evidencia: `8eb969789cd98fc8accebf7ff8a87827f07f2d3c`
-- Fix remoto posterior: `cdeda8bb9ad242f95944997ef660a35ae1e49489`
-  - `fix(lienzo-00): título tooltip respeta multiselect`
-- El auditor debe usar `git rev-parse HEAD` al iniciar. No asumir que los SHA anteriores siguen siendo HEAD.
+El auditor debe ejecutar al inicio:
 
-## Regla de rol
+```powershell
+git fetch origin
+git pull --ff-only origin work/ns-lienzo-02-ingreso-pedidos
+git rev-parse HEAD
+git ls-remote origin refs/heads/work/ns-lienzo-02-ingreso-pedidos
+```
 
-El LLM local sigue siendo auditor read-only funcional: no modifica `NS.SemanticModel/**`, `NS.Report/**` ni `NS.pbip`. Solo genera evidencia bajo `Docs/AUDITORIA_LIVE/local_runs/<RUN_ID>/**` y actualiza `LOCAL_LATEST.json`.
+LOCAL y REMOTO deben coincidir. No usar como HEAD los SHA históricos de los paquetes anteriores.
+
+## Rol
+
+El LLM local sigue siendo auditor read-only funcional. No modificar `NS.SemanticModel/**`, `NS.Report/**` ni `NS.pbip`. Solo generar evidencia bajo `Docs/AUDITORIA_LIVE/local_runs/<RUN_ID>/**` y actualizar `LOCAL_LATEST.json`.
 
 ---
 
-## P0 — Validar FIND-002 corregido
+## P0 — Validar RE TT Título
 
-### Objeto
+El HEAD remoto ya contiene el fix que elimina la referencia inválida a `Dim_Rango_Entrega[OrdenRango]` dentro de `RangoTexto`.
 
-`Medidas.tmdl` → medida `RE TT Título`.
+Validar que `RE TT Título` ya NO esté en `SemanticError` y ejecutar las mismas 12 combinaciones usadas en `raw/find002_titulo_12_combinaciones.csv`.
 
-### Pruebas vivas mínimas
-
-Evaluar el texto del título y las métricas RE con estas selecciones:
-
-1. Todos / sin filtro de flujo → debe conservar `Universo cerrado`.
-2. Normal.
-3. FES.
-4. Saldo.
-5. Normal + FES → el título debe contener ambos flujos y NO `Universo cerrado`.
-6. Normal + Saldo.
-7. FES + Saldo.
-8. Santiago.
-9. Regiones.
-10. Santiago + Regiones.
-11. Normal + FES + Santiago.
-12. Normal + FES + Santiago + Regiones.
-
-Para cada caso guardar:
+Para cada combinación guardar:
 
 - `RE TT Título`;
 - `RE Pedidos contexto`;
@@ -51,129 +38,88 @@ Para cada caso guardar:
 - `RE P90 contexto DH`;
 - `RE Pedidos fuera SLA contexto`.
 
-Los valores numéricos deben permanecer consistentes con la cohorte filtrada; el fix solo debe cambiar el texto contextual.
+Criterio: título correcto para multiselect y métricas sin regresión frente al mismo refresh.
 
 ---
 
-## P0 — Resolver causa de INC-015 / cobertura VBAP
+## P0 — Validar INC-011 después del fix de despacho imposible
 
-La auditoría anterior midió 1.107/1.898 pedidos con match exacto (58,3%) y 791 sin match. No asumir que falta información en VBAP: probar primero incompatibilidad de formato de clave.
+El modelo remoto ahora trata como inválido cualquier `TRP_U/TRP_P` anterior a `PED_FECHA_HORA`; no existe hardcode de la fecha `2020-09-24`.
 
-### Hipótesis obligatoria a probar
+Después de refresh completo, medir:
 
-`Lineas_y_unidades_por_pedidos[Pedido]` proviene de `VBAP.VBELN` como texto, mientras el universo usa `Fact_Tracking[PED_NUMERO_PEDIDO]` derivado de `ZVBELN_PED`. Verificar si una fuente conserva ceros a la izquierda y la otra no.
+1. cantidad de filas con `FECHA_DESPACHO < PED_FECHA_HORA`;
+2. cantidad de `ES_CERRADO=TRUE` con `DIAS_INTERNOS_DH=BLANK()`;
+3. cantidad de pedidos que conservan la fecha centinela `2020-09-24 22:47` en las columnas TRP crudas;
+4. para esos pedidos, confirmar que `FECHA_DESPACHO` queda BLANK y `ES_CERRADO=FALSE` salvo que exista otra fuente de cierre válida;
+5. denominadores actuales de `U NS observado interno` y `RE NS contexto`;
+6. explicar cualquier diferencia restante pedido a pedido.
 
-### Comparaciones obligatorias
-
-Para los 1.898 evaluables construir evidencia pedido a pedido con:
-
-- `PED_NUMERO_PEDIDO` original;
-- longitud original;
-- clave normalizada removiendo ceros a la izquierda;
-- `VBAP Pedido` exacto si existe;
-- longitud VBAP;
-- clave VBAP normalizada;
-- `MATCH_EXACTO`;
-- `MATCH_NORMALIZADO`;
-- flujo;
-- zona;
-- mes;
-- responsable;
-- líneas;
-- unidades.
-
-Calcular:
-
-1. cobertura por match exacto;
-2. cobertura por match normalizado;
-3. cantidad recuperada solo por normalización;
-4. pedidos que siguen sin match después de normalizar;
-5. cobertura normalizada por flujo, zona y mes;
-6. líneas/unidades actuales vs líneas/unidades usando match normalizado;
-7. impacto porcentual en `IN Líneas`, `IN Unidades`, `FA Líneas`, `FA Unidades` y cualquier KPI derivado.
-
-### Criterio de diagnóstico
-
-- Si la cobertura normalizada sube materialmente (idealmente >90%), registrar root cause como incompatibilidad de formato/ceros a la izquierda y proponer normalización de claves antes de `TREATAS` o en la tabla de volumen.
-- Si no sube, identificar la verdadera causa de los no-match restantes (pedido inexistente en VBAP, fecha/filtro AEDAT, tipo de documento, otra fuente, etc.).
-- No implementar el fix localmente.
-
-Guardar la lista completa de faltantes y recuperados por normalización en `raw/`.
+Criterio esperado: los 55 casos identificados en la corrida anterior dejan de contarse como cierres válidos y no generan `FnDH=null` por cierre anterior a creación.
 
 ---
 
-## P0 — Resolver causa exacta de INC-011 / 64 cerrados sin DH
+## P0 — Validar INC-007B / cierre FES oficial
 
-No basta con reportar 1.962 vs 1.898. Para cada cerrado con `DIAS_INTERNOS_DH = BLANK()` generar:
+El modelo remoto ahora define `FECHA_MANIFIESTO` exclusivamente desde `ULTIMA_FECHA_MANIFIESTO` / `PRIMERA_FECHA_MANIFIESTO` provenientes de VBFA/VTTP. TRP ya no puede reemplazar el manifiesto.
 
-- pedido;
-- flujo;
-- zona;
-- `PED_FECHA_HORA`;
-- `FECHA_CIERRE`;
-- `FECHA_DESPACHO`;
-- `FECHA_MANIFIESTO`;
-- `ES_CERRADO`;
-- `DIAS_INTERNOS_DH`;
-- `CUMPLE_SLA_INTERNO`;
-- fuente de cierre;
-- TRP_P/TRP_U;
-- manifiesto primero/último;
-- factura primera/última;
-- diferencia calendario entre creación y cierre;
-- causa técnica de BLANK.
+Después de refresh medir:
 
-Clasificar cada caso en una causa mutuamente exclusiva, por ejemplo:
-
-- `CIERRE_ANTES_DE_CREACION`;
-- `CREACION_NULA`;
-- `CIERRE_INVALIDO`;
-- `OTRA_CAUSA`.
-
-Recordatorio estructural: `Fact_Tracking.FnDH` devuelve `null` si Inicio/Fin es nulo o si Fin < Inicio. Como `ES_CERRADO = TRUE` implica `FECHA_CIERRE` no nula, comprobar explícitamente si los 64 corresponden a cierres anteriores a creación o a otra anomalía.
-
-También mapear qué visuales/medidas usan:
-
-- `U NS observado interno`;
-- `RE NS contexto`.
-
-No cambiar denominadores hasta decisión de negocio.
-
----
-
-## P1 — INC-007B FES TRP
-
-Solo revalidar y cuantificar:
-
-- FES con manifiesto real;
+- FES cerrados;
+- FES cerrados con manifiesto real;
 - FES sin manifiesto real + TRP;
 - FES sin manifiesto ni TRP;
-- diferencias `Fact_Tracking.FECHA_CIERRE` vs `Fact_Hitos_Operacionales` para esos casos.
+- FES cuyo `FECHA_CIERRE` provenga de TRP: debe ser 0;
+- comparación con `Fact_Hitos_Operacionales` para los casos sin manifiesto.
 
-No eliminar fallback localmente. Sigue siendo decisión de negocio.
+Criterio: ningún FES debe quedar `ES_CERRADO=TRUE` sin manifiesto VBFA/VTTP.
 
 ---
 
-## P1 — Incidencias adicionales
+## P0 — Resolver definitivamente INC-015 / VBAP
 
-Revalidar todos los INC-005 a INC-015 y buscar regresiones nuevas. En particular:
+La corrida anterior descartó padding/ceros: cobertura exacta = normalizada = 1.128/1.934. Hay 806 evaluables sin match; 778 existen en `Pedidos_Normal_VBAK`.
 
-- que el fix de título no cambie números;
-- que no aparezcan nuevas variables DAX huérfanas;
-- bindings de visuales que usen U vs RE;
-- relaciones/TREATAS de volumen;
-- discrepancias de clave por padding/ceros;
-- secuencias cierre < creación.
+La prueba discriminante pendiente es consultar `VBAP_SAP` directamente sin depender de la tabla Power BI agregada.
+
+Para el conjunto de 806 pedidos sin match, obtener:
+
+1. cuántos existen en `VBAP_SAP` SIN filtro `AEDAT`;
+2. cuántos existen en `VBAP_SAP` CON `AEDAT >= GETDATE()-730`;
+3. para los encontrados sin filtro pero excluidos con filtro: `MIN(AEDAT)`, `MAX(AEDAT)`, cantidad por mes/año de `AEDAT`;
+4. para los ausentes incluso sin filtro: comprobar si existe una tabla/vista base alternativa de posiciones SAP y documentar cuál;
+5. separar los 28 que tampoco existen en `Pedidos_Normal_VBAK`;
+6. calcular cobertura potencial si se elimina/corrige solo el filtro `AEDAT`;
+7. NO modificar la consulta M localmente.
+
+Diagnóstico final obligatorio:
+
+- `CAUSA_AEDAT` si los pedidos están en `VBAP_SAP` sin filtro pero desaparecen con el filtro;
+- `CAUSA_VISTA_VBAP_SAP` si faltan incluso sin filtro;
+- `CAUSA_MIXTA` si ocurren ambas cosas.
+
+Guardar SQL, conteos y muestras en `raw/inc015_vbap_direct_sql.md`.
+
+---
+
+## P1 — Regresión general
+
+Revalidar INC-005 a INC-015, especialmente:
+
+- multiselect RE/FA;
+- baseline del refresh actual;
+- 4190139455 como cambio de datos/regla C-C, no error del modelo;
+- que los fixes de tracking no cambien clasificación NORMAL/FES/SALDO salvo el estado de cierre derivado de fechas inválidas;
+- que no aparezcan nuevas secuencias cierre < creación;
+- bindings de visuales U vs RE.
 
 ## Salida
 
-Ejecutar el protocolo normal:
-
 ```powershell
-./Scripts/audit_local/bootstrap_local_audit.ps1 -RunName "post_fix_title_vbap_denominador"
+./Scripts/audit_local/bootstrap_local_audit.ps1 -RunName "post_fix_tracking_inc015"
 ```
 
-Completar toda la evidencia, ejecutar:
+Completar evidencia, ejecutar:
 
 ```powershell
 python Scripts/audit_local/validate_local_evidence.py "<RUN_DIR>"
