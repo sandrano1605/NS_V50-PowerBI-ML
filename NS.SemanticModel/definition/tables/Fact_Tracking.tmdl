@@ -338,16 +338,7 @@ table Fact_Tracking
 				            [Query="SET NOCOUNT ON;
 				SELECT
 				    CONVERT(VARCHAR(20), TRY_CONVERT(BIGINT, V.VBELN)) AS PED_KEY,
-				    TRY_CONVERT(
-				        TIME(0),
-				        STUFF(
-				            STUFF(
-				                RIGHT('000000' + LTRIM(RTRIM(CONVERT(VARCHAR(6), V.ERZET))), 6),
-				                3, 0, ':'
-				            ),
-				            6, 0, ':'
-				        )
-				    ) AS HORA_VBAK
+				    TRY_CONVERT(TIME(0), NULLIF(LTRIM(RTRIM(V.ERZET)), '')) AS HORA_VBAK
 				FROM dbo.VBAK_SAP AS V
 				WHERE RIGHT('00' + LTRIM(RTRIM(CONVERT(VARCHAR(10), V.VTWEG))), 2) IN ('43','45')
 				  AND COALESCE(
