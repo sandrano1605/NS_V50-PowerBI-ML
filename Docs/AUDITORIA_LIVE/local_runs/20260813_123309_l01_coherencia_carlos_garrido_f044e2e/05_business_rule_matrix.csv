@@ -1,0 +1,3 @@
+﻿RULE_ID,RULE,EXPECTED_CURRENT_RULE,CODE_IMPLEMENTATION,DATA_RESULT,STATUS,EVIDENCE,NOTES
+BR-13,Seleccion vendedor,filtra solo vendedor,Tabla 3 cruza VENDEDOR_NOMBRE+CLASIFICACION,arrastra flujo -> distorsiona tabla 4,FAIL,raw/l01_diagnostico.md,Interaccion UX no DAX
+BR-14,Semantica vendedor,responsable historico,Dim_Cliente.VENDEDOR_NOMBRE (actual),0% coincide con PED_RESPONSABLE,ORANGE,raw/l01_diagnostico.md,Decision negocio

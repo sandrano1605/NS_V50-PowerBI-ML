@@ -1,0 +1,3 @@
+﻿CHECK_ID,CATEGORY,OBJECT,METRIC,VALUE,EXPECTED,STATUS,EVIDENCE,NOTES
+DQ-01,VENDEDOR,Dim_Cliente,coincidencia VENDEDOR_NOMBRE vs PED_RESPONSABLE,0%,>0%,ORANGE,raw/l01_diagnostico.md,Carlos Garrido: 0/81 pedidos
+DQ-02,INTERACCION,Tabla 3,arrastre de flujo a tabla 4,SI,NO,RED,raw/l01_diagnostico.md,%FES salta 0->100

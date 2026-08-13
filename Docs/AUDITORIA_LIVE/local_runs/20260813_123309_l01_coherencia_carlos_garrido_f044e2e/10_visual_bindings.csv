@@ -1,0 +1,5 @@
+﻿PAGE,VISUAL,OBJECT_PATH,MEASURES_FIELDS,FILTERS,SORT,SLICER_INTERACTION,STATUS,EVIDENCE,NOTES
+01,fa_vendedores_reincidentes,tabla 3,VENDEDOR_NOMBRE+CLASIFICACION+FA Recurrentes,,,Seleccion arrastra flujo,RED,raw/l01_diagnostico.md,
+01,fa_fes_carga_tiempo,tabla 4,FA Carga % FES+FA NS%+FA DH,,,Responde a flujo heredado,RED,raw/l01_diagnostico.md,Distorsion 0%/100%
+01,fa_clientes_recurrentes,tabla 1,FA Meses Fuera SLA Cliente Visible,,,Responde a vendedor+flujo,AMBIGUO,,
+01,critical_table,Pedidos criticos,FA pedidos fuera SLA,,,Responde a vendedor+flujo,AMBIGUO,,

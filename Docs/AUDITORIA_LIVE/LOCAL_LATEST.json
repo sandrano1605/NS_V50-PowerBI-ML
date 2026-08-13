@@ -1,10 +1,10 @@
 ﻿{
   "schema_version": 1, "status": "READY_FOR_CHATGPT",
-  "run_id": "20260813_094039_inc015_in02_postfix_94133e0",
-  "audit_branch": "work/ns-lienzo-02-ingreso-pedidos",
-  "audited_sha": "94133e023205698d89e34458b32e10abdc48598a",
+  "run_id": "20260813_123309_l01_coherencia_carlos_garrido_f044e2e",
+  "audit_branch": "work/ns-lienzo-01-analisis-fuera-sla",
+  "audited_sha": "f044e2e8965a477340d96f6a3352d9b8a24ff9d2",
   "evidence_commit_sha": null,
-  "run_path": "Docs/AUDITORIA_LIVE/local_runs/20260813_094039_inc015_in02_postfix_94133e0",
-  "updated_at_local": "2026-08-13T10:30:00-04:00",
-  "note": "CIERRE CONJUNTO: INC015_AEDAT_GREEN (99.9% cobertura, 2075 filas) e IN02_ERZET_PARSER_GREEN (Sin hora 184->1). Fixes 2205859 y efbfda7 validados."
+  "run_path": "Docs/AUDITORIA_LIVE/local_runs/20260813_123309_l01_coherencia_carlos_garrido_f044e2e",
+  "updated_at_local": "2026-08-13T12:40:00-04:00",
+  "note": "L01_COHERENCIA_RED: clic en Carlos Garrido de tabla 3 filtra Carlos+Flujo (no solo Carlos). Tabla 4 %FES distorsiona 0%/100%. Vendedor actual difiere 100% de PED_RESPONSABLE. Es interaccion UX, no DAX."
 }

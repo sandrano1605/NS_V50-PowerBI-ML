@@ -1,0 +1,4 @@
+﻿LAYER,OBJECT_TYPE,OBJECT_NAME,FILE_PATH,STATUS,DETAIL
+REPORTE,VISUAL,fa_vendedores_reincidentes,NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/fa_vendedores_reincidentes/visual.json,DIAGNOSTICADO,Tabla 3: VENDEDOR_NOMBRE + CLASIFICACION (cruce)
+REPORTE,VISUAL,fa_fes_carga_tiempo,NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/fa_fes_carga_tiempo/visual.json,DIAGNOSTICADO,Tabla 4: FES vs Carga (distorsion por flujo)
+MODELO,DIMENSION,Dim_Cliente.VENDEDOR_NOMBRE,NS.SemanticModel/definition/tables/Dim_Cliente.tmdl,DIAGNOSTICADO,Vendedor actual maestro; difiere de PED_RESPONSABLE

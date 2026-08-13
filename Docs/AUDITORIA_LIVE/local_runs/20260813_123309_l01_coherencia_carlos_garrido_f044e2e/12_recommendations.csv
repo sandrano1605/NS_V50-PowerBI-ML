@@ -1,0 +1,3 @@
+﻿PRIORITY,FINDING_ID,TARGET_FILE,TARGET_OBJECT,RECOMMENDED_CHANGE,WHY,EXPECTED_IMPACT,VALIDATION_REQUIRED,BUSINESS_DECISION_REQUIRED
+P1,L01-001,NS.Report,lienzo 01 tabla 3,Deshabilitar interaccion de tabla 3 sobre tabla 4 o filtrar solo vendedor,Clic en fila arrastra flujo y distorsiona %FES (0%/100%),Tabla 4 deja de distorsionarse,Prueba clic en Carlos,SI
+P2,L01-002,NS.SemanticModel,Dim_Cliente.VENDEDOR_NOMBRE,Definir semantica vendedor actual vs historico,0% coincide con PED_RESPONSABLE,Claridad de filtro vendedor,Comparar visuales,SI

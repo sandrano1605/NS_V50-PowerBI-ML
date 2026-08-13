@@ -1,0 +1,11 @@
+﻿TEST_ID,CATEGORY,METRIC,DIMENSION,SELECTION,VALUE,EXPECTED,STATUS,EVIDENCE,NOTES
+T01,L01,Clientes de Carlos,Cliente,Carlos Garrido,25,,INFO,,
+T02,L01,Pedidos clientes Carlos,Cliente,Carlos Garrido,81,,INFO,,
+T03,L01,Pedidos fuera SLA Carlos,Cliente,Carlos Garrido,20,,INFO,,
+T04,L01,PED_RESPONSABLE Carlos,Cliente,Carlos Garrido,0,,INFO,,0 pedidos con responsable "Carlos Garrido"
+T05,L01,Responsables reales,Cliente,Carlos Garrido,V610/V650/V550,,DIAGNOSTICO,,72/6/3 pedidos
+T06,L01,Flujos Carlos,Flujo,Carlos Garrido,NORMAL(45)+FES(36),,INFO,,
+T07,L01,Carlos SOLO pctFES,Flujo,Carlos SOLO,48%,,DIAGNOSTICO,,
+T08,L01,Carlos+NORMAL pctFES,Flujo,Carlos+NORMAL,blank/0,DEFECT,FAIL,raw/l01_diagnostico.md,Distorsion H3
+T09,L01,Carlos+FES pctFES,Flujo,Carlos+FES,100%,DEFECT,FAIL,raw/l01_diagnostico.md,Distorsion H3
+T10,L01,Carlos SOLO FES pedidos,Flujo,Carlos SOLO,36,,DIAGNOSTICO,,
