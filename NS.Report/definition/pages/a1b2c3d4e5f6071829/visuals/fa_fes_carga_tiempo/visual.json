@@ -211,7 +211,7 @@
                 "Property": "AnioMes"
               }
             },
-            "direction": "Descending"
+            "direction": "Ascending"
           }
         ]
       }
@@ -411,7 +411,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'4. FES VS CARGA · COHORTE CERRADA POR MOMENTO DEL MES'"
+                  "Value": "'4. NS POR MOMENTO DEL MES · CARGA Y PESO FES · COHORTE CERRADA'"
                 }
               }
             },

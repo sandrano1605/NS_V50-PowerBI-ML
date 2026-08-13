@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "critical_table",
   "position": {
-    "x": 752,
+    "x": 736,
     "y": 480,
     "z": 21000,
     "height": 304,
-    "width": 832,
+    "width": 848,
     "tabOrder": 20000
   },
   "visual": {

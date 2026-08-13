@@ -6,7 +6,7 @@
     "y": 480,
     "z": 20000,
     "height": 304,
-    "width": 424,
+    "width": 416,
     "tabOrder": 19000
   },
   "visual": {
@@ -43,7 +43,7 @@
               },
               "queryRef": "Dim_Vista_Ejecutiva.Macroproceso",
               "nativeQueryRef": "Macroproceso",
-              "active": true
+              "active": false
             },
             {
               "field": {
@@ -209,20 +209,7 @@
             "isPinned": true
           }
         ],
-        "root": {
-          "children": [
-            {
-              "identityValues": [
-                {
-                  "Literal": {
-                    "Value": "'1. Flujo Normal'"
-                  }
-                }
-              ],
-              "isToggled": true
-            }
-          ]
-        }
+        "root": {}
       }
     ],
     "objects": {

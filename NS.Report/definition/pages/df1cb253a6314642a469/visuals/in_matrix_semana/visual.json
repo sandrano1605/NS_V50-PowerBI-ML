@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "in_matrix_semana",
   "position": {
-    "x": 24,
-    "y": 238,
+    "x": 32,
+    "y": 240,
     "z": 9000,
-    "height": 252,
-    "width": 552,
+    "height": 256,
+    "width": 528,
     "tabOrder": 9000
   },
   "visual": {

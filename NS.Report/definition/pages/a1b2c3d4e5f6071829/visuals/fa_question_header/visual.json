@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "fa_question_header",
   "position": {
-    "x": 22.999999999999986,
-    "y": 79.910486599011179,
+    "x": 1008.0000000000001,
+    "y": 536,
     "z": 19000,
-    "height": 24,
-    "width": 1349,
+    "height": 256,
+    "width": 360,
     "tabOrder": 19000
   },
   "visual": {
@@ -19,11 +19,11 @@
               {
                 "textRuns": [
                   {
-                    "value": "PREGUNTAS DE NEGOCIO",
+                    "value": "PREGUNTAS DE NEGOCIO   ",
                     "textStyle": {
                       "fontWeight": "bold",
                       "fontSize": "10pt",
-                      "color": "#1B365D"
+                      "color": "#1b365d"
                     }
                   }
                 ]
@@ -31,7 +31,40 @@
               {
                 "textRuns": [
                   {
-                    "value": "1. ¿Qué clientes estuvieron fuera SLA en los últimos 3 meses, con qué frecuencia repitieron y cuáles requieren priorización?\n2. ¿Qué clientes tienen pedidos cerrados con más de 15 DH entre factura y cierre oficial?\n3. ¿Qué vendedores concentran clientes recurrentes fuera SLA?\n4. ¿El deterioro del NS coincide con mayor carga o participación FES al inicio o cierre del mes?",
+                    "value": "1. ¿Qué clientes estuvieron fuera SLA en los últimos 3 meses, con qué frecuencia repitieron y cuáles requieren priorización?",
+                    "textStyle": {
+                      "fontSize": "8pt",
+                      "color": "#111111"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "2. ¿Qué clientes tienen pedidos cerrados con más de 15 DH entre factura y cierre oficial?",
+                    "textStyle": {
+                      "fontSize": "8pt",
+                      "color": "#111111"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "3. ¿Qué vendedores concentran clientes recurrentes fuera SLA?",
+                    "textStyle": {
+                      "fontSize": "8pt",
+                      "color": "#111111"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "4. ¿El deterioro del NS coincide con mayor carga o participación FES al inicio o cierre del mes?",
                     "textStyle": {
                       "fontSize": "8pt",
                       "color": "#111111"
