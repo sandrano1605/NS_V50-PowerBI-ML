@@ -1,219 +1,379 @@
-# Próxima auditoría local — cierre final INC-015 + IN02
+# Próxima auditoría local — Lienzo 01 / coherencia de filtros e interacción
 
-## Estado funcional a validar
+## Alcance
 
-### INC-015 — líneas y unidades
+Página objetivo:
 
-Fix definitivo implementado en:
+`01 Análisis Fuera SLA`
 
-`2205859fbc37dcc63102f5b94dfb975b70801b13`
+Page ID:
 
-Archivo:
+`a1b2c3d4e5f6071829`
 
-`NS.SemanticModel/definition/tables/Lineas_y_unidades_por_pedidos.tmdl`
+El reporte tiene filtro global obligatorio:
 
-La consulta ya NO usa `VBAP.AEDAT`. El universo se acota mediante semi-join al tracking real de los últimos 3 meses:
+- `Fact_Tracking[PED_CANAL_CODIGO] IN {"43","45"}`
 
-```sql
-SELECT
-    VBAP.VBELN AS Pedido,
-    COUNT(*) AS Lineas,
-    SUM(ISNULL(VBAP.KWMENG,0)) AS Suma_Unidades
-FROM VBAP_SAP AS VBAP
-WHERE VBAP.VBELN IN (
-    SELECT DISTINCT CONVERT(BIGINT, ZVBELN_PED)
-    FROM ZART_TRACK_DATA_SAP
-    WHERE ZERDAT_PED >= DATEADD(MONTH,-3,CAST(GETDATE() AS DATE))
-)
-GROUP BY VBAP.VBELN
-```
+No reabrir INC-015 ni IN02; ambos quedaron GREEN en la evidencia anterior.
 
-SQL prevalidado por auditor local:
-
-- sin filtro AEDAT: ~8,858,821 pedidos agregados / ~154,9 s;
-- semi-join VBAK 6M: 9.454 / ~5,2 s / 93,4% cobertura;
-- **semi-join ZART 3M: 2.053 / ~10,1 s / 99,9% cobertura**;
-- universo ZART 3M: 2.055 pedidos;
-- residuales conocidos: `1168066`, `1168568`.
-
-El commit anterior `41c0f2b` (sin AEDAT pero sin semi-join) queda SUPERSEDIDO por `2205859`.
-
-### IN02 — hora 14:30
-
-Parser `VBAK_SAP.ERZET` corregido en:
-
-`efbfda74f8fba2bfe5219219c09aa0cef94876b7`
-
-Código:
-
-```sql
-TRY_CONVERT(TIME(0), NULLIF(LTRIM(RTRIM(V.ERZET)), '')) AS HORA_VBAK
-```
-
-Baseline previo al parser correcto:
-
-- `Sin hora válida`: 184;
-- `Hasta 14:30`: 687;
-- `Después de 14:30`: 692;
-- recuperables VBAK comprobados: 153.
+El auditor local mantiene rol **READ_ONLY_FUNCTIONAL_EVIDENCE_WRITER**. No modificar TMDL, JSON/PBIR ni PBIP.
 
 ---
 
-## Reglas de negocio cerradas
+# Objetivo principal
 
-- Alcance operativo del reporte: canales 43 y 45.
-- INC-013: usar solo feriados nacionales de Chile.
-- No reabrir YV01 ni feriados regionales.
-- Auditor local read-only funcional: no modificar TMDL, report JSON ni PBIP.
+Auditar la coherencia funcional del Lienzo 01 cuando el usuario selecciona un vendedor en:
+
+`3. VENDEDORES · IMPACTO DE CLIENTES REINCIDENTES SEGÚN FLUJO`
+
+Caso obligatorio de prueba:
+
+`Carlos Garrido`
+
+Responder exactamente cómo se comportan el resto de las tablas/visuales y si la interacción representa lo que el usuario cree estar filtrando.
+
+---
+
+# Hallazgos estáticos que deben validarse en vivo
+
+## H1 — La tabla 3 no usa vendedor histórico del pedido
+
+`fa_vendedores_reincidentes` usa como primera dimensión:
+
+`Dim_Cliente[VENDEDOR_NOMBRE]`
+
+Ese campo proviene del maestro `CLIENTE_VENDEDOR` y representa el **vendedor actualmente asignado al cliente** a la fecha de refresh.
+
+No es necesariamente igual a:
+
+`Fact_Tracking[PED_RESPONSABLE]`
+
+Por lo tanto hay que cuantificar la diferencia entre:
+
+- `VENDEDOR_ACTUAL_CLIENTE` = `Dim_Cliente[VENDEDOR_NOMBRE]`
+- `RESPONSABLE_PEDIDO` = `Fact_Tracking[PED_RESPONSABLE]`
+
+No decidir todavía cuál concepto debe quedar en el visual; primero medir la discrepancia.
+
+## H2 — Una fila seleccionada de la tabla 3 contiene Vendedor + Flujo
+
+La tabla 3 proyecta conjuntamente:
+
+- `Dim_Cliente[VENDEDOR_NOMBRE]`
+- `Fact_Tracking[CLASIFICACION]`
+
+Por lo tanto una selección de fila puede equivaler a:
+
+`Carlos Garrido + Flujo específico`
+
+no solamente a:
+
+`Carlos Garrido`
+
+Esto debe probarse porque puede cambiar materialmente los otros visuales.
+
+## H3 — La tabla 4 puede distorsionarse bajo un filtro de flujo
+
+Visual:
+
+`4. FES VS CARGA · COHORTE CERRADA POR MOMENTO DEL MES`
+
+Usa medidas como:
+
+- `FA Carga Pedidos Creados`
+- `FA Carga % FES`
+- `FA NS %`
+- `FA DH Promedio`
+
+Estas medidas respetan el contexto de `Fact_Tracking`.
+
+Si una fila de tabla 3 impone además `CLASIFICACION=NORMAL`, la métrica `% FES` puede caer a 0/blank por intersección de filtros; si impone `CLASIFICACION=FES`, puede tender a 100%. Hay que demostrar si esto ocurre en vivo.
 
 ---
 
 # P0 — Preflight
 
+Trabajar en:
+
+`work/ns-lienzo-01-analisis-fuera-sla`
+
+Ejecutar:
+
 ```powershell
 git fetch origin
-git pull --ff-only origin work/ns-lienzo-02-ingreso-pedidos
+git switch work/ns-lienzo-01-analisis-fuera-sla
+git pull --ff-only origin work/ns-lienzo-01-analisis-fuera-sla
 git rev-parse HEAD
-git ls-remote origin refs/heads/work/ns-lienzo-02-ingreso-pedidos
+git ls-remote origin refs/heads/work/ns-lienzo-01-analisis-fuera-sla
 ```
 
-LOCAL y REMOTO deben coincidir en el HEAD actual y contener `2205859` y `efbfda7`.
+LOCAL y REMOTO deben coincidir.
+
+No hacer refresh salvo que el modelo vivo no corresponda al HEAD actual. Si el modelo ya está post-refresh y coincide con el código actual, registrar `REFRESH_REUTILIZADO` con `lastProcessed`.
 
 ---
 
-# P1 — Refresh completo obligatorio
+# P1 — Inventario funcional del Lienzo 01
 
-Ejecutar refresh completo del PBIP.
+Auditar al menos estos visuales:
 
-Registrar en `raw/final_refresh_resumen.md`:
-
-- inicio y término;
-- duración total;
-- puerto/database;
-- resultado global;
-- errores M/SQL/memoria/timeout;
-- `lastProcessed` post-refresh.
-
-Si falla, no usar resultados anteriores.
-
----
-
-# P2 — Cierre INC-015
-
-En modelo vivo, universo efectivo canales 43/45 y ventana operativa equivalente:
-
-1. total pedidos;
-2. pedidos con match en `Lineas_y_unidades_por_pedidos`;
-3. pedidos sin match;
-4. cobertura %;
-5. lista exacta de residuales;
-6. filas de `Lineas_y_unidades_por_pedidos` post-refresh;
-7. tiempo de consulta/refresh de esa tabla si es observable.
+1. `fa_clientes_recurrentes`
+   - título: `1. CLIENTES FUERA SLA · FRECUENCIA EN LOS Últimos 3 MESES`
+2. `fa_vendedores_reincidentes`
+   - título: `3. VENDEDORES · IMPACTO DE CLIENTES REINCIDENTES SEGÚN FLUJO`
+3. `fa_fes_carga_tiempo`
+   - título: `4. FES VS CARGA · COHORTE CERRADA POR MOMENTO DEL MES`
+4. `critical_table`
+   - título: `PEDIDOS CRÍTICOS DE LA SELECCIÓN · ...`
+5. cualquier otro visual visible que cambie al seleccionar una fila de la tabla 3.
 
 Guardar:
 
-- `raw/inc015_final_cobertura.csv`
-- `raw/inc015_final_residuales.csv`
-- `raw/inc015_final_rendimiento.csv`
+`raw/l01_visual_inventory.csv`
 
-Validar muestra mínima 50 pedidos SQL vs modelo:
+Columnas mínimas:
 
-- `COUNT(*)` posiciones = `Lineas`;
-- `SUM(ISNULL(KWMENG,0))` = `Suma_Unidades`.
-
-Guardar `raw/inc015_final_muestra.csv`.
-
-Criterio GREEN:
-
-- cobertura >= 99%;
-- filas importadas del orden del universo ZART (no millones);
-- todos los matches de muestra correctos;
-- residuales explicados.
-
-Dictamen: `INC015_GREEN` / `INC015_PARTIAL` / `INC015_RED`.
+- visual
+- título
+- campos dimensión
+- medidas
+- filtros visual
+- filtro reporte efectivo
+- responde a selección tabla3 esperado
 
 ---
 
-# P3 — Cierre IN02 hora 14:30
+# P2 — Baseline sin selección de vendedor
 
-Canales 43/45:
+Canales 43/45, sin selección adicional.
 
-- total `[IN Pedidos]`;
-- `Hasta 14:30`;
-- `Después de 14:30`;
-- `Sin hora válida`;
-- cobertura hora válida;
-- desglose por canal.
+Guardar resultados completos de los cuatro visuales principales.
 
-Guardar `raw/in02_final_resumen.csv`.
+Archivos:
 
-Validar todos los pedidos presentes con ZART `000000` + VBAK.ERZET válido:
+- `raw/l01_baseline_clientes.csv`
+- `raw/l01_baseline_vendedores.csv`
+- `raw/l01_baseline_fes_carga.csv`
+- `raw/l01_baseline_criticos.csv`
 
-- TIME parseado;
-- tramo esperado;
-- tramo modelo;
-- MATCH.
+Además registrar:
 
-Guardar `raw/in02_final_recuperables.csv`.
-
-Exportar y explicar todos los residuales `Sin hora válida` en `raw/in02_final_residuales.csv`.
-
-Criterio GREEN:
-
-- todos los recuperables presentes hacen MATCH;
-- no quedan casos con `VBAK.ERZET` válido mal clasificados;
-- `PED_FECHA_HORA` original no cambia.
-
-Dictamen: `IN02_GREEN` / `IN02_PARTIAL` / `IN02_RED`.
+- total pedidos cohorte cerrada;
+- pedidos fuera SLA;
+- NS contexto;
+- cantidad de clientes recurrentes 2M+;
+- cantidad clientes recurrentes 3M.
 
 ---
 
-# P4 — Regresión mínima
+# P3 — Caso Carlos Garrido: vendedor SOLO
 
-Comprobar:
+Construir contexto DAX equivalente a:
 
-1. total pedidos 43/45 sin variación injustificada;
-2. cerrados sin DH = 0;
-3. FES cerrados sin manifiesto real = 0;
-4. FIND-002A sin SemanticError;
-5. visual 02 sigue usando `Fact_Tracking[TRAMO_HORA_INGRESO]` + `[IN Pedidos]`;
-6. líneas/unidades no alteran SLA ni clasificación operativa.
+`Dim_Cliente[VENDEDOR_NOMBRE] = "Carlos Garrido"`
 
-Guardar `raw/final_regresion.csv`.
+sin imponer manualmente `Fact_Tracking[CLASIFICACION]`.
+
+Obtener nuevamente:
+
+- tabla 1 clientes;
+- tabla 3 vendedores;
+- tabla 4 FES vs carga;
+- pedidos críticos;
+- KPIs generales relevantes.
+
+Guardar:
+
+- `raw/l01_carlos_solo_clientes.csv`
+- `raw/l01_carlos_solo_vendedores.csv`
+- `raw/l01_carlos_solo_fes_carga.csv`
+- `raw/l01_carlos_solo_criticos.csv`
+- `raw/l01_carlos_solo_resumen.csv`
+
+Responder:
+
+1. ¿Cuántos clientes quedan?
+2. ¿Cuántos pedidos cerrados quedan?
+3. ¿Cuántos fuera SLA?
+4. ¿Qué NS queda?
+5. ¿Qué flujos tiene Carlos?
+6. ¿Qué pedidos críticos aparecen?
 
 ---
 
-# Dictamen final
+# P4 — Caso Carlos Garrido: selección REAL por fila de tabla 3
 
-`READY_FOR_CHATGPT.md` debe incluir:
+Obtener las filas actuales de Carlos en `fa_vendedores_reincidentes`.
 
-```text
-INC015_STATUS=<INC015_GREEN|INC015_PARTIAL|INC015_RED>
-IN02_STATUS=<IN02_GREEN|IN02_PARTIAL|IN02_RED>
-```
+Para cada flujo presente de Carlos, simular la selección completa de fila:
 
-Y reportar:
+- `Dim_Cliente[VENDEDOR_NOMBRE] = "Carlos Garrido"`
+- `Fact_Tracking[CLASIFICACION] = <FLUJO_DE_LA_FILA>`
 
-- cobertura final líneas/unidades;
-- filas finales de `Lineas_y_unidades_por_pedidos`;
-- tiempo final de refresh/consulta;
-- residuales sin líneas;
-- Sin hora antes vs después;
-- cantidad recuperada por VBAK.ERZET;
-- residuales de hora y causa;
-- resultado de regresión.
+Probar por separado, según existan:
+
+- NORMAL
+- FES
+- SALDO
+- FES + SALDO
+
+Para cada escenario capturar tabla 1, tabla 4 y critical_table.
+
+Guardar:
+
+`raw/l01_carlos_por_flujo.csv`
+
+Debe incluir como mínimo:
+
+- flujo
+- pedidos
+- pedidos fuera SLA
+- NS
+- clientes recurrentes 2M+
+- clientes recurrentes 3M
+- FA Carga Pedidos Creados
+- FA Carga Pedidos FES
+- FA Carga % FES
+- FA DH Promedio
+- número de filas critical_table
+
+Comparar explícitamente contra `Carlos SOLO`.
+
+---
+
+# P5 — Coherencia semántica vendedor actual vs responsable del pedido
+
+Para todos los pedidos 43/45 asociados a clientes cuyo `Dim_Cliente[VENDEDOR_NOMBRE] = "Carlos Garrido"`, exportar:
+
+- pedido
+- cliente código
+- cliente nombre
+- vendedor actual cliente
+- `Fact_Tracking[PED_RESPONSABLE]`
+- flujo
+- fecha pedido
+- estado SLA
+- DH
+
+Guardar:
+
+`raw/l01_carlos_vendedor_vs_responsable.csv`
+
+Calcular:
+
+- total pedidos de clientes actualmente asignados a Carlos;
+- pedidos donde `PED_RESPONSABLE` coincide con Carlos;
+- pedidos donde difiere;
+- porcentaje de discrepancia;
+- lista de responsables distintos encontrados.
+
+Repetir el mismo control a nivel global para todos los vendedores:
+
+`raw/l01_vendedor_actual_vs_responsable_resumen.csv`
+
+No corregir nada aún.
+
+---
+
+# P6 — Prueba de coherencia de cada visual
+
+Clasificar cada visual bajo selección de Carlos como:
+
+- `COHERENTE_VENDEDOR_SOLO`
+- `COHERENTE_VENDEDOR_Y_FLUJO`
+- `NO_RESPONDE_AL_FILTRO`
+- `RESPONDE_PERO_SEMANTICA_AMBIGUA`
+- `INCONSISTENTE`
+
+Evaluar especialmente:
+
+## Tabla 1 — clientes recurrentes
+Debe mostrar únicamente clientes compatibles con el contexto de Carlos y, si la selección real incluye flujo, solo ese flujo.
+
+## Tabla 4 — FES vs carga
+Debe determinarse si tiene sentido de negocio que una selección de fila vendedor+flujo la filtre.
+
+Marcar RED si ocurre algo conceptualmente engañoso, por ejemplo:
+
+- seleccionar Carlos + NORMAL provoca `% FES = 0%` y el usuario interpreta que Carlos no tiene FES;
+- seleccionar Carlos + FES provoca `% FES = 100%` y el usuario interpreta que toda su cartera es FES;
+- la tabla deja de servir para comparar FES vs carga por haber heredado el flujo de la fila.
+
+## Pedidos críticos
+Deben corresponder exactamente al contexto seleccionado. Verificar que la columna mostrada `Vendedor` no oculte discrepancias con `PED_RESPONSABLE`.
+
+---
+
+# P7 — Auditoría de DAX que rompe filtros
+
+Revisar todas las medidas usadas por los visuales del Lienzo 01 y detectar:
+
+- `ALL(...)`
+- `ALLSELECTED(...)`
+- `REMOVEFILTERS(...)`
+- `TREATAS(...)`
+
+Determinar si alguno elimina accidentalmente:
+
+- vendedor;
+- cliente;
+- flujo;
+- canales 43/45;
+- ventana 3M.
+
+Guardar:
+
+`raw/l01_filter_semantics_measures.csv`
+
+No marcar como error un `REMOVEFILTERS` intencional de `Dim_Fecha[Momento_Mes]` o del mes si la medida documenta que calcula denominador mensual/ventana 3M; explicar el propósito.
+
+---
+
+# Dictamen requerido
+
+`READY_FOR_CHATGPT.md` debe responder claramente:
+
+1. ¿Qué significa técnicamente hacer clic en la fila de Carlos Garrido de la tabla 3?
+2. ¿Filtra solo Carlos o Carlos + flujo?
+3. ¿Cómo cambia exactamente la tabla 1?
+4. ¿Cómo cambia exactamente la tabla 4?
+5. ¿Cómo cambia critical_table?
+6. ¿Cuántos pedidos de clientes asignados actualmente a Carlos tienen otro `PED_RESPONSABLE`?
+7. ¿La palabra “Vendedor” en el lienzo es semánticamente correcta o ambigua?
+8. ¿Qué interacciones deberían mantenerse?
+9. ¿Qué interacciones deberían deshabilitarse o reemplazarse por slicer?
+10. ¿Hay algún cambio DAX necesario o basta un cambio de interacción/UX?
+
+Emitir:
+
+- `L01_COHERENCIA_GREEN`
+- `L01_COHERENCIA_PARTIAL`
+- `L01_COHERENCIA_RED`
+
+No implementar fixes localmente.
 
 ---
 
 # Salida
 
-Crear nueva corrida, validar y publicar solo evidencia:
+Crear una corrida nueva:
 
 ```powershell
-./Scripts/audit_local/bootstrap_local_audit.ps1 -RunName "inc015_in02_final"
+./Scripts/audit_local/bootstrap_local_audit.ps1 -RunName "l01_coherencia_carlos_garrido"
+```
+
+Completar evidencia normal, validar y publicar solo evidencia:
+
+```powershell
 $env:PYTHONIOENCODING="utf-8"
 python Scripts/audit_local/validate_local_evidence.py "<RUN_DIR>"
 git diff --check
 ```
 
-No modificar `NS.SemanticModel/**`, `NS.Report/**` ni `NS.pbip`.
+Actualizar `Docs/AUDITORIA_LIVE/LOCAL_LATEST.json`.
+
+No modificar:
+
+- `NS.SemanticModel/**`
+- `NS.Report/**`
+- `NS.pbip`
