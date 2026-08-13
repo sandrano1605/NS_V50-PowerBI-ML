@@ -1,47 +1,70 @@
-# Próxima auditoría local — validación conjunta INC-015 + IN02
+# Próxima auditoría local — cierre final INC-015 + IN02
 
-## Cambios funcionales a validar
+## Estado funcional a validar
 
-### 1. IN02 — parser ERZET
-Commit funcional:
+### INC-015 — líneas y unidades
+
+Fix definitivo implementado en:
+
+`2205859fbc37dcc63102f5b94dfb975b70801b13`
+
+Archivo:
+
+`NS.SemanticModel/definition/tables/Lineas_y_unidades_por_pedidos.tmdl`
+
+La consulta ya NO usa `VBAP.AEDAT`. El universo se acota mediante semi-join al tracking real de los últimos 3 meses:
+
+```sql
+SELECT
+    VBAP.VBELN AS Pedido,
+    COUNT(*) AS Lineas,
+    SUM(ISNULL(VBAP.KWMENG,0)) AS Suma_Unidades
+FROM VBAP_SAP AS VBAP
+WHERE VBAP.VBELN IN (
+    SELECT DISTINCT CONVERT(BIGINT, ZVBELN_PED)
+    FROM ZART_TRACK_DATA_SAP
+    WHERE ZERDAT_PED >= DATEADD(MONTH,-3,CAST(GETDATE() AS DATE))
+)
+GROUP BY VBAP.VBELN
+```
+
+SQL prevalidado por auditor local:
+
+- sin filtro AEDAT: ~8,858,821 pedidos agregados / ~154,9 s;
+- semi-join VBAK 6M: 9.454 / ~5,2 s / 93,4% cobertura;
+- **semi-join ZART 3M: 2.053 / ~10,1 s / 99,9% cobertura**;
+- universo ZART 3M: 2.055 pedidos;
+- residuales conocidos: `1168066`, `1168568`.
+
+El commit anterior `41c0f2b` (sin AEDAT pero sin semi-join) queda SUPERSEDIDO por `2205859`.
+
+### IN02 — hora 14:30
+
+Parser `VBAK_SAP.ERZET` corregido en:
 
 `efbfda74f8fba2bfe5219219c09aa0cef94876b7`
 
-En `Fact_Tracking.tmdl`, `VBAK_SAP.ERZET` se convierte directamente desde su formato real `varchar(8) HH:MM:SS`:
+Código:
 
 ```sql
 TRY_CONVERT(TIME(0), NULLIF(LTRIM(RTRIM(V.ERZET)), '')) AS HORA_VBAK
 ```
 
-Objetivo: recuperar los pedidos 43/45 con ZART `ZERZET_PED=000000` y VBAK.ERZET válido.
+Baseline previo al parser correcto:
 
-Baseline anterior:
+- `Sin hora válida`: 184;
+- `Hasta 14:30`: 687;
+- `Después de 14:30`: 692;
+- recuperables VBAK comprobados: 153.
 
-- `Sin hora válida`: 184
-- `Hasta 14:30`: 687
-- `Después de 14:30`: 692
-- recuperables probados desde VBAK: 153
+---
 
-### 2. INC-015 — líneas/unidades
-Commit funcional:
+## Reglas de negocio cerradas
 
-`41c0f2b478ebe6bf87732e72561e7b94bba28133`
-
-En `Lineas_y_unidades_por_pedidos.tmdl` se eliminó:
-
-```sql
-WHERE VBAP.AEDAT >= GETDATE() - 730
-```
-
-Razón confirmada por evidencia local:
-
-- `AEDAT` es fecha de actualización de posición, no fecha del pedido;
-- el filtro dejaba solo 22.799 de 8.858.283 pedidos VBAP distintos (0,26%);
-- ZART 3M: 2.055 pedidos;
-- ZART 3M presentes en VBAP sin filtro AEDAT: 2.053 = 99,9%;
-- únicos residuales conocidos: `1168066` y `1168568`.
-
-No modificar funcionalmente el modelo durante esta corrida. El auditor local sigue siendo read-only y publica solo evidencia.
+- Alcance operativo del reporte: canales 43 y 45.
+- INC-013: usar solo feriados nacionales de Chile.
+- No reabrir YV01 ni feriados regionales.
+- Auditor local read-only funcional: no modificar TMDL, report JSON ni PBIP.
 
 ---
 
@@ -54,211 +77,143 @@ git rev-parse HEAD
 git ls-remote origin refs/heads/work/ns-lienzo-02-ingreso-pedidos
 ```
 
-LOCAL y REMOTO deben coincidir en el HEAD actual de la rama y contener ambos commits funcionales anteriores.
+LOCAL y REMOTO deben coincidir en el HEAD actual y contener `2205859` y `efbfda7`.
 
 ---
 
 # P1 — Refresh completo obligatorio
 
-Abrir el PBIP y ejecutar refresh completo.
+Ejecutar refresh completo del PBIP.
 
-Registrar:
+Registrar en `raw/final_refresh_resumen.md`:
 
-- fecha/hora inicio y término del refresh;
+- inicio y término;
 - duración total;
-- puerto y database del modelo vivo;
-- resultado por tabla si está disponible;
-- cualquier error M/SQL/memoria/timeout.
+- puerto/database;
+- resultado global;
+- errores M/SQL/memoria/timeout;
+- `lastProcessed` post-refresh.
 
-Si el refresh falla, no usar resultados antiguos. Publicar error exacto y dictamen RED.
-
-Guardar:
-
-`raw/refresh_postfix_resumen.md`
+Si falla, no usar resultados anteriores.
 
 ---
 
-# P2 — INC-015 cobertura líneas/unidades en modelo vivo
+# P2 — Cierre INC-015
 
-Restringir el análisis al universo efectivo del reporte: canales 43 y 45 y la misma ventana temporal usada por el modelo.
+En modelo vivo, universo efectivo canales 43/45 y ventana operativa equivalente:
 
-Obtener:
-
-1. pedidos del universo;
+1. total pedidos;
 2. pedidos con match en `Lineas_y_unidades_por_pedidos`;
 3. pedidos sin match;
 4. cobertura %;
-5. lista completa de pedidos sin match;
-6. cantidad de filas importadas en `Lineas_y_unidades_por_pedidos`;
-7. tamaño aproximado de la tabla si DMV permite obtenerlo.
-
-Esperado SQL de referencia:
-
-- 2.055 pedidos ZART 3M;
-- 2.053 con posiciones;
-- cobertura 99,9%;
-- residuales conocidos: `1168066`, `1168568`.
+5. lista exacta de residuales;
+6. filas de `Lineas_y_unidades_por_pedidos` post-refresh;
+7. tiempo de consulta/refresh de esa tabla si es observable.
 
 Guardar:
 
-- `raw/inc015_postfix_cobertura.csv`
-- `raw/inc015_postfix_sin_lineas.csv`
-- `raw/inc015_postfix_model_size.csv`
+- `raw/inc015_final_cobertura.csv`
+- `raw/inc015_final_residuales.csv`
+- `raw/inc015_final_rendimiento.csv`
 
-Dictamen INC-015:
-
-- `INC015_AEDAT_GREEN`: cobertura >=99% y residuales explicados;
-- `INC015_AEDAT_PARTIAL`: mejora material pero <99% o aparecen pedidos con VBAP existente sin match en modelo;
-- `INC015_AEDAT_RED`: refresh falla, cobertura no mejora o hay regresión.
-
-## Control de rendimiento obligatorio
-
-El fix funcional actual elimina AEDAT de forma literal para validar primero la consistencia.
-
-Como la consulta sin filtro puede devolver millones de pedidos históricos, medir obligatoriamente:
-
-- filas importadas en `Lineas_y_unidades_por_pedidos`;
-- duración del refresh de esa tabla si es observable;
-- impacto de memoria/tamaño.
-
-Si la cobertura queda GREEN pero el volumen es excesivo, recomendar como siguiente optimización un semi-join SQL al universo real 43/45, **sin volver a usar AEDAT como filtro temporal**. No implementar localmente.
-
----
-
-# P3 — Validación de líneas y unidades pedido a pedido
-
-Tomar muestra mínima de 50 pedidos 43/45 con posiciones VBAP, incluyendo:
-
-- pedidos de 7 dígitos;
-- pedidos de 10 dígitos;
-- ZMAY;
-- ZPDA/ZPPO si están presentes;
-- distintos meses de la ventana.
-
-Comparar SQL vs modelo:
+Validar muestra mínima 50 pedidos SQL vs modelo:
 
 - `COUNT(*)` posiciones = `Lineas`;
 - `SUM(ISNULL(KWMENG,0))` = `Suma_Unidades`.
 
-Guardar:
+Guardar `raw/inc015_final_muestra.csv`.
 
-`raw/inc015_postfix_muestra_lineas_unidades.csv`
+Criterio GREEN:
 
-Criterio GREEN: 50/50 MATCH o todos los pedidos presentes si el universo disponible fuera menor.
+- cobertura >= 99%;
+- filas importadas del orden del universo ZART (no millones);
+- todos los matches de muestra correctos;
+- residuales explicados.
+
+Dictamen: `INC015_GREEN` / `INC015_PARTIAL` / `INC015_RED`.
 
 ---
 
-# P4 — IN02 parser ERZET post-fix
+# P3 — Cierre IN02 hora 14:30
 
-Para canales 43 y 45 obtener:
+Canales 43/45:
 
-1. total `[IN Pedidos]`;
-2. `Hasta 14:30`;
-3. `Después de 14:30`;
-4. `Sin hora válida`;
-5. cobertura de hora válida;
-6. desglose por canal.
+- total `[IN Pedidos]`;
+- `Hasta 14:30`;
+- `Después de 14:30`;
+- `Sin hora válida`;
+- cobertura hora válida;
+- desglose por canal.
 
-Guardar:
+Guardar `raw/in02_final_resumen.csv`.
 
-`raw/in02_parser_postfix_resumen.csv`
+Validar todos los pedidos presentes con ZART `000000` + VBAK.ERZET válido:
 
-Comparar con baseline:
-
-```text
-Sin hora válida = 184
-Hasta 14:30     = 687
-Después 14:30   = 692
-```
-
-Validar los recuperables conocidos con ZART `000000` + VBAK.ERZET válido.
-
-Guardar:
-
-`raw/in02_parser_postfix_recuperables.csv`
-
-Para cada pedido:
-
-- pedido;
-- canal;
-- `ZERZET_PED`;
-- `ERZET_VBAK`;
-- TIME convertido;
+- TIME parseado;
 - tramo esperado;
 - tramo modelo;
-- status.
+- MATCH.
 
-Criterio GREEN: todos los recuperables presentes hacen MATCH.
+Guardar `raw/in02_final_recuperables.csv`.
 
-Dictamen IN02:
+Exportar y explicar todos los residuales `Sin hora válida` en `raw/in02_final_residuales.csv`.
 
-- `IN02_ERZET_PARSER_GREEN`
-- `IN02_ERZET_PARSER_PARTIAL`
-- `IN02_ERZET_PARSER_RED`
+Criterio GREEN:
 
----
+- todos los recuperables presentes hacen MATCH;
+- no quedan casos con `VBAK.ERZET` válido mal clasificados;
+- `PED_FECHA_HORA` original no cambia.
 
-# P5 — Explicar residuales de hora
-
-Exportar todos los pedidos 43/45 que sigan como `Sin hora válida` y determinar causa exacta.
-
-Guardar:
-
-`raw/in02_parser_postfix_residuales.csv`
-
-Validar específicamente `1168066`.
+Dictamen: `IN02_GREEN` / `IN02_PARTIAL` / `IN02_RED`.
 
 ---
 
-# P6 — Regresión mínima
+# P4 — Regresión mínima
 
 Comprobar:
 
-1. total pedidos 43/45 estable salvo variación explicada por ventana móvil;
-2. `PED_FECHA_HORA` no fue modificado por fallback ERZET;
-3. cerrados sin DH = 0;
-4. FES cerrados sin manifiesto real = 0;
-5. FIND-002A sin SemanticError;
-6. visual 02 continúa usando `Fact_Tracking[TRAMO_HORA_INGRESO]` + `[IN Pedidos]`;
-7. líneas/unidades no modifican clasificación SLA ni estado de pedidos.
+1. total pedidos 43/45 sin variación injustificada;
+2. cerrados sin DH = 0;
+3. FES cerrados sin manifiesto real = 0;
+4. FIND-002A sin SemanticError;
+5. visual 02 sigue usando `Fact_Tracking[TRAMO_HORA_INGRESO]` + `[IN Pedidos]`;
+6. líneas/unidades no alteran SLA ni clasificación operativa.
 
-Guardar:
-
-`raw/postfix_regresion_conjunta.csv`
+Guardar `raw/final_regresion.csv`.
 
 ---
 
-# Dictamen final requerido
+# Dictamen final
 
-El `READY_FOR_CHATGPT.md` debe declarar por separado:
+`READY_FOR_CHATGPT.md` debe incluir:
 
 ```text
-INC015_STATUS=<INC015_AEDAT_GREEN|INC015_AEDAT_PARTIAL|INC015_AEDAT_RED>
-IN02_STATUS=<IN02_ERZET_PARSER_GREEN|IN02_ERZET_PARSER_PARTIAL|IN02_ERZET_PARSER_RED>
+INC015_STATUS=<INC015_GREEN|INC015_PARTIAL|INC015_RED>
+IN02_STATUS=<IN02_GREEN|IN02_PARTIAL|IN02_RED>
 ```
 
-Y responder:
+Y reportar:
 
-- cobertura líneas/unidades antes vs después;
-- número y causa de residuales sin líneas;
-- cantidad de filas/tamaño de `Lineas_y_unidades_por_pedidos` post-fix;
-- `Sin hora válida` antes vs después;
-- número de pedidos recuperados por VBAK.ERZET;
-- cualquier impacto de rendimiento del refresh.
+- cobertura final líneas/unidades;
+- filas finales de `Lineas_y_unidades_por_pedidos`;
+- tiempo final de refresh/consulta;
+- residuales sin líneas;
+- Sin hora antes vs después;
+- cantidad recuperada por VBAK.ERZET;
+- residuales de hora y causa;
+- resultado de regresión.
 
 ---
 
 # Salida
 
-Crear una corrida nueva, por ejemplo:
+Crear nueva corrida, validar y publicar solo evidencia:
 
 ```powershell
-./Scripts/audit_local/bootstrap_local_audit.ps1 -RunName "inc015_in02_postfix"
+./Scripts/audit_local/bootstrap_local_audit.ps1 -RunName "inc015_in02_final"
 $env:PYTHONIOENCODING="utf-8"
 python Scripts/audit_local/validate_local_evidence.py "<RUN_DIR>"
 git diff --check
 ```
-
-Publicar únicamente evidencia y `LOCAL_LATEST.json`.
 
 No modificar `NS.SemanticModel/**`, `NS.Report/**` ni `NS.pbip`.
