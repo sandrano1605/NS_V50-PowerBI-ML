@@ -1,0 +1,3 @@
+﻿RULE_ID,RULE,EXPECTED_CURRENT_RULE,CODE_IMPLEMENTATION,DATA_RESULT,STATUS,EVIDENCE,NOTES
+BR-10,Cobertura lineas/unidades,>99%,Lineas_y_unidades semi-join ZART,99.9% (2075 filas),GREEN,07_live_results.csv,Fix 2205859
+BR-11,Hora ingreso 43/45,fallback VBAK,ZART 000000 -> VBAK.ERZET,184 -> 1 sin hora,GREEN,07_live_results.csv,Fix efbfda7

@@ -1,0 +1,58 @@
+﻿RUN_ID=20260812_223212_inc015_in02_conjunto_defc55e
+TIMESTAMP_LOCAL=2026-08-12T22:32:12-04:00
+REPO_ROOT=C:/Users/alonso.moya/OneDrive - ARTEL S.A/Escritorio/💼 Proyectos/Modelo datos power BI/NS/NS_V50_v15_Error_Python_ndarray_Corregido/NS_V50
+BRANCH=work/ns-lienzo-02-ingreso-pedidos
+EXPECTED_BRANCH=work/ns-lienzo-02-ingreso-pedidos
+BRANCH_CHECK=OK
+LOCAL_SHA=defc55e585630f39fbeb5afc868794b5628a2572
+REMOTE_SHA=defc55e585630f39fbeb5afc868794b5628a2572
+REMOTE_SHA_CHECK=OK
+REMOTE_URL=https://github.com/sandrano1605/NS_V50-PowerBI-ML.git
+WORKTREE_DIRTY=True
+
+--- git status --porcelain=v1 ---
+ M NS.Report/definition/report.json
+?? Docs/AUDITORIA_LIVE/local_runs/20260812_171047_in02_hora_fallback_postfix_536c3d4/
+?? scripts/audit_local/in02_aedat_analysis.py
+?? scripts/audit_local/in02_cobertura_10d.py
+?? scripts/audit_local/in02_cobertura_4345.py
+?? scripts/audit_local/in02_cobertura_auart.py
+?? scripts/audit_local/in02_cobertura_exacta.py
+?? scripts/audit_local/in02_debug_erzet.py
+?? scripts/audit_local/in02_debug_vbak.py
+?? scripts/audit_local/in02_faltantes.py
+?? scripts/audit_local/in02_lips_check.py
+?? scripts/audit_local/in02_perf_bench.py
+?? scripts/audit_local/in02_perf_diag.py
+?? scripts/audit_local/in02_perf_diag2.py
+?? scripts/audit_local/in02_prefijo_vbeln.py
+?? scripts/audit_local/in02_reconciliar_clave.py
+?? scripts/audit_local/in02_run.py
+?? scripts/audit_local/in02_verify_fix.py
+?? scripts/audit_local/in02_vista_pedido.py
+?? scripts/audit_local/in02_vista_pedido_auart.py
+?? scripts/audit_local/in02_vp_cobertura.py
+?? scripts/audit_local/in02_vp_cols.py
+?? scripts/audit_local/in02_vp_defn.py
+?? scripts/audit_local/in02_vp_defn2.py
+?? scripts/audit_local/in02_yv01_explain.py
+?? scripts/audit_local/in02_zart_vbap_cobertura.py
+?? scripts/audit_local/in02_zart_vbap_full.py
+?? scripts/audit_local/in02_zart_vbap_temp.py
+?? scripts/audit_local/inc015_check_auart.py
+?? scripts/audit_local/inc015_run_discovery.py
+?? scripts/audit_local/inc015_run_queries.py
+?? scripts/audit_local/inc015_sap_prd_check.py
+
+--- git log -8 --oneline --decorate ---
+defc55e (HEAD -> work/ns-lienzo-02-ingreso-pedidos, origin/work/ns-lienzo-02-ingreso-pedidos) audit(handoff): validar INC015 AEDAT e IN02 ERZET
+41c0f2b fix(inc015): quitar filtro AEDAT de posiciones VBAP
+c145e7c audit(local): INC-015 root cause filtro AEDAT - cobertura 99.9% sin filtro
+536c3d4 audit(handoff): validar parser ERZET post-fix IN02
+efbfda7 fix(in02): corregir parseo ERZET varchar con hora
+a98e485 audit(local): IN02 bug conversion ERZET - fix eb07b64 no aplica
+8d022cf audit(in02): validar fallback hora VBAK post-fix
+eb07b64 fix(in02): recuperar hora ingreso desde VBAK canales 43 45
+
+--- git diff --name-status ---
+M	NS.Report/definition/report.json

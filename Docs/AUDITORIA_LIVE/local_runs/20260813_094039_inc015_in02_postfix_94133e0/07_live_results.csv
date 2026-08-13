@@ -1,0 +1,13 @@
+﻿TEST_ID,CATEGORY,METRIC,DIMENSION,SELECTION,VALUE,EXPECTED,STATUS,EVIDENCE,NOTES
+T01,INC-015,Filas Lineas_y_unidades,Modelo,todo,2075,2075,GREEN,,
+T02,INC-015,Cobertura,Modelo,ZART 3M,99.9,99.9,GREEN,,
+T03,INC-015,Residuales sin lineas,Modelo,todo,1168066+1168568,2,GREEN,,
+T04,INC-015,Tiempo SQL semi-join,SQL,ZART 3M,0.98s,<30s,GREEN,,
+T05,IN02,Sin hora 43,Modelo,canal 43,1,1,GREEN,,
+T06,IN02,Sin hora 45,Modelo,canal 45,0,0,GREEN,,
+T07,IN02,Sin hora total 43/45,Modelo,43+45,1,31,GREEN,,
+T08,IN02,Residual hora,Modelo,43/45,1168066,1168066,GREEN,,
+T09,REGRESION,Cerrados sin DH,Modelo,todo,0,0,GREEN,,
+T10,REGRESION,FES sin manifiesto,Modelo,todo,0,0,GREEN,,
+T11,REGRESION,RE TT Titulo,Modelo,todo,Sin SemanticError,Sin error,GREEN,,
+T12,REGRESION,RE Pedidos contexto,Modelo,todo,1953,,INFO,,ventana movil

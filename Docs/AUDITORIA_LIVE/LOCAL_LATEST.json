@@ -1,10 +1,10 @@
 ﻿{
   "schema_version": 1, "status": "READY_FOR_CHATGPT",
-  "run_id": "20260812_111242_in02_hora_vbak_postfix_8d022cf",
+  "run_id": "20260813_094039_inc015_in02_postfix_94133e0",
   "audit_branch": "work/ns-lienzo-02-ingreso-pedidos",
-  "audited_sha": "8d022cf1f322e4fb4f5867084170de0e40836424",
+  "audited_sha": "94133e023205698d89e34458b32e10abdc48598a",
   "evidence_commit_sha": null,
-  "run_path": "Docs/AUDITORIA_LIVE/local_runs/20260812_111242_in02_hora_vbak_postfix_8d022cf",
-  "updated_at_local": "2026-08-12T17:30:00-04:00",
-  "note": "INC-015 ROOT CAUSE: filtro AEDAT>=730d elimina 99.74% posiciones. Quitar filtro -> cobertura 99.9% (2053/2055). IN02-002 parser ERZET corregido efbfda7."
+  "run_path": "Docs/AUDITORIA_LIVE/local_runs/20260813_094039_inc015_in02_postfix_94133e0",
+  "updated_at_local": "2026-08-13T10:30:00-04:00",
+  "note": "CIERRE CONJUNTO: INC015_AEDAT_GREEN (99.9% cobertura, 2075 filas) e IN02_ERZET_PARSER_GREEN (Sin hora 184->1). Fixes 2205859 y efbfda7 validados."
 }
