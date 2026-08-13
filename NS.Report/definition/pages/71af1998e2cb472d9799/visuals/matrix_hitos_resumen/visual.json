@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "matrix_hitos_resumen",
   "position": {
-    "x": 336,
+    "x": 320,
     "y": 480,
     "z": 20000,
     "height": 304,
-    "width": 400,
+    "width": 424,
     "tabOrder": 19000
   },
   "visual": {
@@ -43,7 +43,7 @@
               },
               "queryRef": "Dim_Vista_Ejecutiva.Macroproceso",
               "nativeQueryRef": "Macroproceso",
-              "active": false
+              "active": true
             },
             {
               "field": {
@@ -209,7 +209,20 @@
             "isPinned": true
           }
         ],
-        "root": {}
+        "root": {
+          "children": [
+            {
+              "identityValues": [
+                {
+                  "Literal": {
+                    "Value": "'1. Flujo Normal'"
+                  }
+                }
+              ],
+              "isToggled": true
+            }
+          ]
+        }
       }
     ],
     "objects": {

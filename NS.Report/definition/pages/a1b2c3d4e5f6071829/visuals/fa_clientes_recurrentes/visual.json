@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "fa_clientes_recurrentes",
   "position": {
-    "x": 22.999999999999986,
-    "y": 111.91048659901118,
+    "x": 24,
+    "y": 112,
     "z": 22023,
     "height": 208,
-    "width": 696,
+    "width": 736,
     "tabOrder": 22023
   },
   "visual": {
@@ -140,32 +140,6 @@
       },
       "sortDefinition": {
         "sort": [
-          {
-            "field": {
-              "Measure": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "Medidas"
-                  }
-                },
-                "Property": "FA Meses Fuera SLA Cliente Visible"
-              }
-            },
-            "direction": "Descending"
-          },
-          {
-            "field": {
-              "Measure": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "Medidas"
-                  }
-                },
-                "Property": "FA Pedidos Fuera SLA Cliente Visible"
-              }
-            },
-            "direction": "Descending"
-          },
           {
             "field": {
               "Measure": {
