@@ -1,0 +1,46 @@
+/// Tabla de parámetros editables — SLA por hito.
+/// Modificar SOLO la columna SLA_DH cuando el negocio ajuste la meta.
+/// Reemplazar los valores de ejemplo por los de tu dominio.
+table Config_SLA_Hitos
+    column METRICA_CODIGO
+        dataType: string
+    column HITO
+        dataType: string
+    column MACROETAPA
+        dataType: string
+    column AREA_RESPONSABLE
+        dataType: string
+    column ORDEN_HITO
+        dataType: int64
+    column SLA_DH
+        dataType: int64
+    column TIPO_KPI
+        dataType: string
+    column ACTIVO_CUELLO
+        dataType: boolean
+    column OBSERVACION
+        dataType: string
+
+    partition Config_SLA_Hitos = m
+        mode: import
+        source =
+            let
+                Origen = #table(
+                    type table [
+                        METRICA_CODIGO=text,
+                        HITO=text,
+                        MACROETAPA=text,
+                        AREA_RESPONSABLE=text,
+                        ORDEN_HITO=Int64.Type,
+                        SLA_DH=Int64.Type,
+                        TIPO_KPI=text,
+                        ACTIVO_CUELLO=logical,
+                        OBSERVACION=text
+                    ],
+                    {
+                        {"EJEMPLO_HITO_1", "Hito ejemplo 1", "Etapa", "Área", 10, 1, "KPI", true, "Meta editable"},
+                        {"EJEMPLO_HITO_2", "Hito ejemplo 2", "Etapa", "Área", 20, 3, "KPI", true, "Meta editable"}
+                    }
+                )
+            in
+                Origen

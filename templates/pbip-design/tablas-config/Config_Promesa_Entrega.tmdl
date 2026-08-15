@@ -1,0 +1,39 @@
+/// Tabla de parámetros editables — Promesa de entrega por zona.
+/// Reemplazar los valores de ejemplo por los de tu dominio.
+table Config_Promesa_Entrega
+    column Zona
+        dataType: string
+    column 'Preparación mínima DH'
+        dataType: int64
+    column 'Preparación máxima DH'
+        dataType: int64
+    column 'Tránsito mínimo DH'
+        dataType: int64
+    column 'Tránsito máximo DH'
+        dataType: int64
+    column 'Promesa mínima DH'
+        dataType: int64
+    column 'Promesa máxima DH'
+        dataType: int64
+
+    partition Config_Promesa_Entrega = m
+        mode: import
+        source =
+            let
+                Origen = #table(
+                    type table [
+                        Zona=text,
+                        'Preparación mínima DH'=Int64.Type,
+                        'Preparación máxima DH'=Int64.Type,
+                        'Tránsito mínimo DH'=Int64.Type,
+                        'Tránsito máximo DH'=Int64.Type,
+                        'Promesa mínima DH'=Int64.Type,
+                        'Promesa máxima DH'=Int64.Type
+                    ],
+                    {
+                        {"Santiago", 1, 2, 1, 2, 4, 5},
+                        {"Regiones", 1, 2, 2, 3, 5, 7}
+                    }
+                )
+            in
+                Origen
