@@ -1,0 +1,13 @@
+﻿TEST_ID,CATEGORY,METRIC,DIMENSION,SELECTION,VALUE,EXPECTED,STATUS,EVIDENCE,NOTES
+T01,P0,VBFA total filas,SQL,todo,34925607,,INFO,,
+T02,P0,VBFA C->J filas,SQL,todo,6339038,,INFO,,join pesado
+T03,P0,VBFA C->J con ERDAT>=3m,SQL,todo,976560,<1M,GREEN,,
+T04,P0,Pedidos universo C->C ERDAT<3m,SQL,ZART 3M,0,0,GREEN,,no pierde
+T05,P0,Pedidos universo C->J ERDAT<3m,SQL,ZART 3M,0,0,GREEN,,no pierde
+T06,P1,Columnas totales,TMDL,Fact_Pedidos_Auditoria,181,,INFO,,
+T07,P1,Columnas conservar,TMDL,Fact_Pedidos_Auditoria,68,,INFO,,
+T08,P1,Columnas eliminables,TMDL,Fact_Pedidos_Auditoria,113,,DIAGNOSTICO,,
+T09,P2,VBFA VBELV no convertible,SQL,todo,0,0,GREEN,,
+T10,P2,VTTP VBELN no convertible,SQL,todo,0,0,GREEN,,
+T11,P2,VBAK KUNNR no convertible,SQL,todo,7824316,,ORANGE,,alfanumerico
+T12,P2,Duplicados VBFA C->C,SQL,todo,4300 grupos,,INFO,,deduplicado por DISTINCT

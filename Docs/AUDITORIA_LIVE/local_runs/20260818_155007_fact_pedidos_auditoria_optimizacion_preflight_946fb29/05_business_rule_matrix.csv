@@ -1,0 +1,3 @@
+﻿RULE_ID,RULE,EXPECTED_CURRENT_RULE,CODE_IMPLEMENTATION,DATA_RESULT,STATUS,EVIDENCE,NOTES
+BR-16,Universo FES VBFA,filtro 3 meses equivalente,VBFA C->C/C->J sin filtro fecha,0 perdidas con ERDAT>=3m,GREEN,raw/fact_pedidos_auditoria_preflight.md,P0 seguro
+BR-17,Columnas minimas,68 necesarias,181 columnas en SELECT,113 eliminables,GREEN,raw/fact_pedidos_auditoria_preflight.md,P1 viable

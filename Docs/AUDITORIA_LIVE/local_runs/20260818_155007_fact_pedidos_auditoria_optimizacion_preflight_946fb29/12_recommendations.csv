@@ -1,0 +1,4 @@
+﻿PRIORITY,FINDING_ID,TARGET_FILE,TARGET_OBJECT,RECOMMENDED_CHANGE,WHY,EXPECTED_IMPACT,VALIDATION_REQUIRED,BUSINESS_DECISION_REQUIRED
+P0,FA-P0-001,NS.SemanticModel/definition/tables/Fact_Pedidos_Auditoria.tmdl,VBFA_SAP joins,Aplicar ERDAT>=DATEADD(MONTH,-3) en joins VBFA C->C/C->J y VTTP,C->J 6.3M filas sin filtro; equivalencia demostrada 0 perdidas,Refresh 6.5x mas rapido en ese join,Refresh + comparacion negocio,NO
+P1,FA-P1-001,NS.SemanticModel/definition/tables/Fact_Pedidos_Auditoria.tmdl,SELECT final,Eliminar 113 columnas no usadas,181 columnas vs 68 necesarias,Modelo mas liviano,Refresh + regresion,NO
+P2,FA-P2-001,NS.SemanticModel/definition/tables/Fact_Pedidos_Auditoria.tmdl,KNA1 join,Documentar o corregir join de cliente,Join BIGINT no matchea KUNNR alfanumerico,Cliente correcto (ya se resuelve por Dim_Cliente),Verificar PED_REGION,SI

@@ -1,0 +1,4 @@
+﻿LAYER,OBJECT_TYPE,OBJECT_NAME,FILE_PATH,STATUS,DETAIL
+MODELO,TABLE,Fact_Pedidos_Auditoria,NS.SemanticModel/definition/tables/Fact_Pedidos_Auditoria.tmdl,PREFLIGHT,181 columnas; 68 conservar/113 eliminar; 3 joins VBFA sin filtro fecha
+SQL,TABLE,VBFA_SAP,DMF_VTA_PRD,PREFLIGHT,34.9M filas; C->J 6.3M es el join pesado
+SQL,TABLE,VTTP_SAP,DMF_VTA_PRD,PREFLIGHT,735K filas; 100% convertible

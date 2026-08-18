@@ -1,0 +1,87 @@
+﻿RUN_ID=20260818_155007_fact_pedidos_auditoria_optimizacion_preflight_946fb29
+TIMESTAMP_LOCAL=2026-08-18T15:50:07-04:00
+REPO_ROOT=C:/Users/alonso.moya/OneDrive - ARTEL S.A/Escritorio/💼 Proyectos/Modelo datos power BI/NS/NS_V50_v15_Error_Python_ndarray_Corregido/NS_V50
+BRANCH=work/ns-lienzo-01-analisis-fuera-sla
+EXPECTED_BRANCH=work/ns-lienzo-02-ingreso-pedidos
+BRANCH_CHECK=WARNING_BRANCH_MISMATCH expected=work/ns-lienzo-02-ingreso-pedidos actual=work/ns-lienzo-01-analisis-fuera-sla
+LOCAL_SHA=946fb29db50b3fbf5caa01c38fb0f6d2643af16e
+REMOTE_SHA=946fb29db50b3fbf5caa01c38fb0f6d2643af16e
+REMOTE_SHA_CHECK=OK
+REMOTE_URL=https://github.com/sandrano1605/NS_V50-PowerBI-ML.git
+WORKTREE_DIRTY=True
+
+--- git status --porcelain=v1 ---
+ M NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/47a4fa002331b23249c5/visual.json
+ M NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/sync_mes_3m_v39/visual.json
+ M NS.Report/definition/pages/71af1998e2cb472d9799/visuals/bg_page/visual.json
+ M NS.Report/definition/pages/71af1998e2cb472d9799/visuals/matrix_hitos_resumen/visual.json
+ M NS.Report/definition/pages/71af1998e2cb472d9799/visuals/slicer_mes_3m_v39/visual.json
+ M NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/fa_clientes_recurrentes/visual.json
+ M NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/fa_permanencia_cd/visual.json
+ M NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/fa_question_header/visual.json
+ M NS.Report/definition/pages/df1cb253a6314642a469/visuals/in_chart_pedidos_dia_mes/visual.json
+ M NS.Report/definition/pages/df1cb253a6314642a469/visuals/in_chart_unidades_dia_mes/visual.json
+ M NS.Report/definition/pages/df1cb253a6314642a469/visuals/sync_mes_3m_v39/visual.json
+ M NS.Report/definition/pages/ed2a2fead6d24153bee1/visuals/sync_mes_3m_v39/visual.json
+ M NS.SemanticModel/definition/tables/Fact_Tracking.tmdl
+?? Docs/AUDITORIA_LIVE/local_runs/20260813_123309_l01_coherencia_carlos_garrido_f044e2e/raw/fact_pedidos_auditoria_mapeo_columnas.md
+?? scripts/audit_local/audit_logistica_py.py
+?? scripts/audit_local/audit_semijoin_final.py
+?? scripts/audit_local/in02_aedat_analysis.py
+?? scripts/audit_local/in02_cobertura_10d.py
+?? scripts/audit_local/in02_cobertura_4345.py
+?? scripts/audit_local/in02_cobertura_auart.py
+?? scripts/audit_local/in02_cobertura_exacta.py
+?? scripts/audit_local/in02_debug_erzet.py
+?? scripts/audit_local/in02_debug_vbak.py
+?? scripts/audit_local/in02_faltantes.py
+?? scripts/audit_local/in02_filas_agg.py
+?? scripts/audit_local/in02_lips_check.py
+?? scripts/audit_local/in02_opt_semijoin.py
+?? scripts/audit_local/in02_opt_zart.py
+?? scripts/audit_local/in02_perf_bench.py
+?? scripts/audit_local/in02_perf_diag.py
+?? scripts/audit_local/in02_perf_diag2.py
+?? scripts/audit_local/in02_prefijo_vbeln.py
+?? scripts/audit_local/in02_reconciliar_clave.py
+?? scripts/audit_local/in02_run.py
+?? scripts/audit_local/in02_verify_fix.py
+?? scripts/audit_local/in02_vista_pedido.py
+?? scripts/audit_local/in02_vista_pedido_auart.py
+?? scripts/audit_local/in02_vp_cobertura.py
+?? scripts/audit_local/in02_vp_cols.py
+?? scripts/audit_local/in02_vp_defn.py
+?? scripts/audit_local/in02_vp_defn2.py
+?? scripts/audit_local/in02_yv01_explain.py
+?? scripts/audit_local/in02_zart_vbap_cobertura.py
+?? scripts/audit_local/in02_zart_vbap_full.py
+?? scripts/audit_local/in02_zart_vbap_temp.py
+?? scripts/audit_local/inc015_check_auart.py
+?? scripts/audit_local/inc015_run_discovery.py
+?? scripts/audit_local/inc015_run_queries.py
+?? scripts/audit_local/inc015_sap_prd_check.py
+
+--- git log -8 --oneline --decorate ---
+946fb29 (HEAD -> work/ns-lienzo-01-analisis-fuera-sla, origin/work/ns-lienzo-01-analisis-fuera-sla) docs(plantilla): design system + patrones DAX reutilizables PBIP
+08eeaf5 feat(lienzo-01): preguntas de negocio y titulos NS por momento del mes
+bc70e8d audit(local): lienzo 01 coherencia filtros Carlos Garrido
+f044e2e audit(lienzo-01): preparar coherencia filtros Carlos Garrido
+ac796ab (origin/work/ns-lienzo-02-ingreso-pedidos, work/ns-lienzo-02-ingreso-pedidos) audit(local): cierre conjunto INC015+IN02 - cobertura 99.9% y hora 14:30 GREEN
+4fa020b feat(lienzo-02): ajustar visuales y filtro de pagina canales 43-45
+94133e0 audit: validar cierre INC015 optimizado e IN02
+2205859 perf(inc015): acotar VBAP al universo ZART 3M
+
+--- git diff --name-status ---
+M	NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/47a4fa002331b23249c5/visual.json
+M	NS.Report/definition/pages/19a0c7f8d6e54b3a9210/visuals/sync_mes_3m_v39/visual.json
+M	NS.Report/definition/pages/71af1998e2cb472d9799/visuals/bg_page/visual.json
+M	NS.Report/definition/pages/71af1998e2cb472d9799/visuals/matrix_hitos_resumen/visual.json
+M	NS.Report/definition/pages/71af1998e2cb472d9799/visuals/slicer_mes_3m_v39/visual.json
+M	NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/fa_clientes_recurrentes/visual.json
+M	NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/fa_permanencia_cd/visual.json
+M	NS.Report/definition/pages/a1b2c3d4e5f6071829/visuals/fa_question_header/visual.json
+M	NS.Report/definition/pages/df1cb253a6314642a469/visuals/in_chart_pedidos_dia_mes/visual.json
+M	NS.Report/definition/pages/df1cb253a6314642a469/visuals/in_chart_unidades_dia_mes/visual.json
+M	NS.Report/definition/pages/df1cb253a6314642a469/visuals/sync_mes_3m_v39/visual.json
+M	NS.Report/definition/pages/ed2a2fead6d24153bee1/visuals/sync_mes_3m_v39/visual.json
+M	NS.SemanticModel/definition/tables/Fact_Tracking.tmdl

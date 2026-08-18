@@ -1,0 +1,4 @@
+﻿CHECK_ID,CATEGORY,OBJECT,METRIC,VALUE,EXPECTED,STATUS,EVIDENCE,NOTES
+DQ-01,RENDIMIENTO,VBFA_SAP,C->J filas escaneadas,6339038,<1M,GREEN con filtro,raw/fact_pedidos_auditoria_preflight.md,Filtro 3m baja a 976K
+DQ-02,CALIDAD,VBFA_SAP,VBELV no convertible,0,0,GREEN,,
+DQ-03,CALIDAD,VBAK_SAP,KUNNR alfanumerico,7824316,0,ORANGE,,Join KNA1 no matchea
