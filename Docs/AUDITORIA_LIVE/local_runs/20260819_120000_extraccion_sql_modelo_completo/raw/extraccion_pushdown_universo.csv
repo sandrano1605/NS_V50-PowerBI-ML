@@ -1,0 +1,9 @@
+tabla_modelo,puede_filtrar_43_45,puede_filtrar_3m,puede_semijoin_zart,filas_actual,filas_propuesta,cobertura_actual,cobertura_propuesta,perdidos,dictamen
+Fact_Pedidos_Auditoria (master ZART),SI,SI (ya tiene),SI (ya tiene),~2M ZART + ~0.5M VBAK append,~1.5M,100%,100%,0,GREEN - VBAK append hereda filtro master
+Fact_Pedidos_Auditoria (VBFA C->C FES),NO (no tiene),SI (prevalidado),NO (ya es por pedido),6.3M,~976K,100%,100%,0,GREEN - ventana 3M prevalidada con 0 pedidos perdidos
+Fact_Pedidos_Auditoria (VBFA C->J FES),NO (no tiene),SI (prevalidado),NO (ya es por pedido),6.3M,~976K,100%,100%,0,GREEN - ventana 3M prevalidada con 0 pedidos perdidos
+Fact_Pedidos_Auditoria (VTTP manifiestos),NO (ya filtrado por VBFA),NO (ya filtrado),NO (ya es por entrega),~500K,~500K,100%,100%,0,GREEN - ya optimizado por join
+Pedidos_Normal_VBAK,SI,SI,SI,~500K VBAK 90D,~200K,100%?,95-100%?,~0-5%?,AMARILLO - necesita validación de cobertura
+Dim_Cliente (lookup KNA1),SI,SI (clientes 3M),SI (clientes 3M),~100K clientes,~5K clientes,100%?,95-100%?,~0-5%?,AMARILLO - necesita semi-join a ZART 3M
+Dim_Cliente (lookup CLIENTE_VENDEDOR),SI,SI (clientes 3M),SI (clientes 3M),~200K registros,~10K registros,100%?,95-100%?,~0-5%?,AMARILLO - necesita semi-join a ZART 3M
+Bloque_comercial (API),NO (no tiene),NO (no tiene),SI (por pedido),ALL (sin filtro),~2K registros,100%?,80-90%?,~10-20%?,AMARILLO - necesita filtro por universo activo

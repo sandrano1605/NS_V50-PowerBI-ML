@@ -1,0 +1,30 @@
+tabla_modelo,modo,tipo_fuente,origen_principal,objetos_sql,ventana_actual,filtros_sql_actuales,columnas_fuente_estimadas,columnas_modelo,consumidor_visual_directo,consumidor_medida,consumidor_relacion,consumidor_tabla_hija,candidata_optimizacion,prioridad
+Fact_Pedidos_Auditoria,import,SQL_DIRECTA,ZART_TRACK_DATA_SAP+VBFA+VTTP+VBAK+KNA1,"ZART_TRACK_DATA_SAP,VBFA_SAP,VTTP_SAP,VBAK_SAP,KNA1_SAP",3M,"AUART IN ZEDI/ZMAY/ZMAN/ZPDA/ZVGF/ZREL/ZVGM/ZTAN/TAN; ERDAT>=DATEADD(MONTH,-3)",181,130+,(multiple),(multiple),(multiple),"Fact_Pedidos,Fact_Tracking,Fact_Hitos_Operacionales,Fact_Tiempos_Hitos,Resultado,auditoria",SI,P0
+Fact_Pedidos,import,DERIVADA_DE_MASTER,Fact_Pedidos_Auditoria,,,(M: SELECTCOLUMNS de Fact_Pedidos_Auditoria),130+,48,(multiple),(multiple),Dim_Fecha,"Fact_Tracking,Fact_Hitos_Operacionales,Fact_Tiempos_Hitos,Dim_Responsable,Dim_Canal,Dim_Condicion_Expedicion,Dim_Fecha",NO,0
+Fact_Tracking,import,DERIVADA_DE_MASTER+SQL,VBAK_SAP (hora tramo),"ZART_TRACK_DATA_SAP,VBFA_SAP,VTTP_SAP,VBAK_SAP",3M,"Filtros heredados de Fact_Pedidos_Auditoria",130+,42,(multiple),(multiple),Dim_Pedido,"Dim_Pedido,Resultado",SI,P1
+Fact_Hitos_Operacionales,import,DERIVADA_DE_MASTER+CONFIG,"Fact_Pedidos_Auditoria,Config_Promesa_Entrega,Config_SLA_Hitos,Dim_Feriados_Chile",,,"Config hardcodeada + universo heredado",130+,44,(multiple),(multiple),,Resultado,NO,0
+Fact_Tiempos_Hitos,import,DERIVADA_DE_MASTER,Fact_Pedidos_Auditoria,,,"Unpivot de ~25 columnas DH",130+,12,(multiple),(multiple),,NO,0
+Resultado,import,DERIVADA_DE_MASTER+PYTHON,"Fact_Pedidos_Auditoria,Fact_Tracking,Dim_Cliente,Python.Execute","ZART_TRACK_DATA_SAP (via master)",3M,"Universo heredado",130+,60+,(multiple),Medidas,,NO,0
+Lineas_y_unidades_por_pedidos,import,SQL_DIRECTA,ZART_TRACK_DATA_SAP+VBAP_SAP,"ZART_TRACK_DATA_SAP,VBAP_SAP",3M,"ZERDAT_PED>=DATEADD(MONTH,-3); semi-join a ZART 3M",~50,3,(multiple),(multiple),,NO,0
+Pedidos_Normal_VBAK,import,SQL_DIRECTA,VBAK_SAP,"VBAK_SAP,Dim_Pedido_entrega_Normal_VBRP,Dim_Entrega_Normal_likp,Dim_Manifiesto_VTTP_NORMAL,Dim_WMS_Manifiesto_NORMAL,Dim_Pedidos_FES_DETALLE",90D,"AUART IN ZEDI/ZMAY/ZMAN/ZPDA/ZVGF/ZREL/ZVGM/ZTAN/TAN; ERDAT>GETDATE()-90",SELECT *,7,(multiple),,,"Dim_Pedido_entrega_Normal_VBRP,Dim_Entrega_Normal_likp,Dim_Manifiesto_VTTP_NORMAL,Dim_WMS_Manifiesto_NORMAL,Dim_Pedidos_FES_DETALLE",SI,P1
+Dim_Cliente,import,SQL_DIRECTA+DERIVADA,"Fact_Pedidos_Auditoria,KNA1_SAP,CLIENTE_VENDEDOR,VENDEDOR","KNA1_SAP,CLIENTE_VENDEDOR,VENDEDOR",3M (universo ZART),"LOOKUP: KUNNR→NAME1; CLIENTE_VENDEDOR→VENDEDOR por vigencia",~20,6,(multiple),(multiple),Cliente_Vendedor,,SI,P2
+Dim_Fecha,import,DERIVADA,"Fact_Pedidos,Dim_Feriados_Chile",,,"Calendar generation desde fechas de Fact_Pedidos",~50,21,(multiple),(multiple),,NO,0
+Dim_Hito,import,ESTATICA_CONFIG,,,"Hardcoded 27 registros","Catálogo de métricas NS",27,8,(multiple),(multiple),,NO,0
+Dim_Pedido,import,DERIVADA_DE_MASTER,Fact_Tracking,,,"Buffer de Fact_Tracking, 6 columnas",42,6,(multiple),(multiple),,NO,0
+Dim_Canal,import,DERIVADA,Fact_Pedidos,,,"GroupBy canónico de Fact_Pedidos",~10,5,(multiple),(multiple),,NO,0
+Dim_Condicion_Expedicion,import,DERIVADA,Fact_Pedidos,,,"GroupBy de Fact_Pedidos",~10,2,(multiple),(multiple),,NO,0
+Dim_Periodo_3M,import,ESTATICA_CONFIG,,,"Dynamic from DateTime.LocalNow","Selector 3 meses calendario",3,6,(multiple),(multiple),,NO,0
+Dim_Rango_Entrega,import,ESTATICA_CONFIG,,,"Hardcoded 6 registros","Segmentación ejecutiva SLA",6,7,(multiple),(multiple),,NO,0
+Dim_Vista_Ejecutiva,import,ESTATICA_CONFIG,,,"Hardcoded 16 registros","Jerarquía matriz ejecutiva",16,8,(multiple),(multiple),,NO,0
+Dim_Responsable,import,DERIVADA,Fact_Pedidos,,,"Distinct de Fact_Pedidos",~100,1,(multiple),(multiple),,NO,0
+Dim_Indicador_Ejecutivo,import,ESTATICA_CONFIG,,,"Hardcoded ~10 registros","Catálogo indicadores ejecutivos",10,3,(multiple),(multiple),,NO,0
+Dim_Mes_Trend,import,ESTATICA_CONFIG,,,"Dynamic from DateTime.LocalNow","Eje 3 meses para trends",3,4,(multiple),(multiple),,NO,0
+Dim_Metrica_Auditoria,import,ESTATICA_CONFIG,,,"Hardcoded ~10 registros","Catálogo métricas auditoría",10,2,(multiple),(multiple),,NO,0
+Dim_Feriados_Chile,import,ESTATICA_CONFIG,,,"Hardcoded 2025-2027","Calendario feriados Chile",~55,5,(multiple),(multiple),,NO,0
+Bloque_comercial,import,API_EXTERNA,apis.nacional.cl,"API: STP_GET_ESTADO_PEDIDO.php",ALL,"POST con credenciales; agrupación por Pedido+Estado",~7,4,(multiple),,,"SI de optimización",P2
+Cliente_Vendedor,import,DERIVADA,Dim_Cliente,,,"Lookup de Dim_Cliente, 4 columnas",6,4,,,(usado por Pedidos_Normal_VBAK via M join),NO,0
+Config_Promesa_Entrega,import,ESTATICA_CONFIG,,,"Hardcoded 2 registros","Config SLA zonal",2,9,(multiple),(multiple),,NO,0
+Config_SLA_Hitos,import,ESTATICA_CONFIG,,,"Hardcoded 15 registros","Config SLA por hito",15,9,(multiple),(multiple),,NO,0
+auditoria,import,DERIVADA,Fact_Pedidos_Auditoria,,,"Table.Schema de Fact_Pedidos_Auditoria",130+,5,(multiple),,,"Diagnóstico de esquema",NO,0
+Parámetro Agrupación SLA,import,ESTATICA_CONFIG,,,"Hardcoded 5 registros","Field parameter agrupación matriz",5,3,(multiple),(multiple),,NO,0
+Parámetro Indicadores SLA,import,ESTATICA_CONFIG,,,"Hardcoded 8 registros","Field parameter indicadores matriz",8,3,(multiple),(multiple),,NO,0

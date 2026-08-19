@@ -1,0 +1,10 @@
+prioridad,tabla_modelo,cambio,capa,filas_antes,filas_despues,columnas_antes,columnas_despues,tiempo_antes,tiempo_despues_estimado_o_medido,riesgo,validacion_requerida
+P0,Fact_Pedidos_Auditoria,Ventana 3M en VBFA C->C y C->J,SQL_WHERE,6300000,976000,181,181,~155s,~30-40s,BAJO - prevalidado con 0 pedidos perdidos,Refresh + regresión métricas NS/FES/SLA
+P1,Fact_Pedidos_Auditoria,Reducir columnas 181→~79,SQL_SELECT+M_SELECTCOLUMNS,~2M,~2M,181,79,~40s,~20-25s,BAJO - columnas no consumidas por ninguna tabla hija,Refresh + regresión completa
+P1,Pedidos_Normal_VBAK,Reducir SELECT * a columnas necesarias,SQL_SELECT,~500K,~500K,~100+,7,~15s,~3-5s,BAJO - solo usa VBELN y fechas,Refresh + regresión
+P2,Fact_Pedidos_Auditoria,Filtrar canales 43/45 en SQL,SQL_WHERE,~2M,~1.5M,79,79,~20s,~15s,BAJO - ya se filtra en M,Refresh + validación canales
+P2,Dim_Cliente,Filtrar KNA1 y CLIENTE_VENDEDOR a clientes ZART 3M,SEMI_JOIN,~100K+~200K,~5K+~10K,6,6,~5s,~1-2s,BAJO - ya se hace semi-join en M,Refresh + validación lookup
+P2,Bloque_comercial,Filtrar API por universo activo,API_FILTER,ALL,~2K,4,4,variable,~30-60% reducción,MEDIO - depende de API,Refresh + validación estados
+P3,Pedidos_Normal_VBAK,Consolidar en Fact_Pedidos si es posible,ELIMINAR_TABLA,~500K,0,7,0,~15s,0s,MEDIO - verificar que measures no lo usen,Regresión completa antes de eliminar
+P3,Cliente_Vendedor,DISABLE_LOAD o eliminar,DISABLE_LOAD,~5K,0,4,0,<1s,0s,BAJO - staging derivada de Dim_Cliente,Verificar que Pedidos_Normal_VBAK no lo necesite
+P4,Fact_Pedidos_Auditoria,TRY_CONVERT→CONVERT en joins de FES,SQL_JOIN,~2M,~2M,79,79,~20s,~15-18s,BAJO - si datos son consistentes,Medir tiempo de ejecución SQL antes/después

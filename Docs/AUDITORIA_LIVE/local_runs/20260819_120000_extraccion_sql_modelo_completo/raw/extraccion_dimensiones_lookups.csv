@@ -1,0 +1,5 @@
+tabla_modelo,opcion_lookup,maestro_completo_necesario,dos_consultas_duplicadas,consolidar_en_una,eliminar_columnas_no_consumidas,observacion
+Dim_Cliente (KNA1),KNA1_SAP completo con TRY_CONVERT en join,SI - KNA1 tiene ~100K registros,NO,NO (ya es una sola),SI - solo CLIENTE_NOMBRE needed,"Puede filtrarse KNA1 a clientes presentes en ZART 3M (~5K). Eliminar TRY_CONVERT si datos son consistentes."
+Dim_Cliente (CLIENTE_VENDEDOR),CLIENTE_VENDEDOR + VENDEDOR completo,SI - CLIENTE_VENDEDOR tiene ~200K registros,NO,NO (ya es una sola),SI - solo VENDEDOR_NOMBRE needed,"Puede filtrarse a clientes de ZART 3M. Optimizar ROW_NUMBER por vigencia."
+Cliente_Vendedor,Derivada de Dim_Cliente,NO (ya derivada),SI - duplica lookup de Dim_Cliente,SI - eliminar si no se usa independientemente,NO,"Tabla staging que replica info de Dim_Cliente. Candidata a DISABLE_LOAD."
+Pedidos_Normal_VBAK,VBAK_SAP con SELECT *,SI - VBAK completo ~2M,SI - duplica funcionalidad de Fact_Pedidos,SI - consolidar en Fact_Pedidos si es posible,SI - SELECT * trae ~100+ columnas innecesarias,"Evaluar si puede eliminarse. Si se mantiene, reducir SELECT a columnas usadas."
