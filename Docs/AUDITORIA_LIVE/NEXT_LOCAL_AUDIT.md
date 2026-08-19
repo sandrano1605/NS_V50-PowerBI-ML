@@ -1,6 +1,6 @@
-# Próxima auditoría local — Lienzo 01 / coherencia de filtros e interacción
+# Próxima auditoría local — Lienzo 01 / FASE B2 coherencia Carlos vs flujo
 
-## Alcance
+## Estado previo ya formalizado
 
 Página objetivo:
 
@@ -10,84 +10,75 @@ Page ID:
 
 `a1b2c3d4e5f6071829`
 
-El reporte tiene filtro global obligatorio:
+Filtro global obligatorio del reporte:
 
-- `Fact_Tracking[PED_CANAL_CODIGO] IN {"43","45"}`
+`Fact_Tracking[PED_CANAL_CODIGO] IN {"43","45"}`
 
-No reabrir INC-015 ni IN02; ambos quedaron GREEN en la evidencia anterior.
+Evidencia formal previa:
 
-El auditor local mantiene rol **READ_ONLY_FUNCTIONAL_EVIDENCE_WRITER**. No modificar TMDL, JSON/PBIR ni PBIP.
+`bc70e8dc4ad809a4f5b10a3a55c826068f7cd29c`
+
+Dictamen previo:
+
+`L01_COHERENCIA_RED`
+
+Hallazgos ya demostrados:
+
+1. una fila de `fa_vendedores_reincidentes` combina `Dim_Cliente[VENDEDOR_NOMBRE]` + `Fact_Tracking[CLASIFICACION]`;
+2. por tanto, el clic de fila representa **Vendedor + Flujo**, no Vendedor solamente;
+3. `fa_fes_carga_tiempo` puede quedar conceptualmente distorsionado porque `% FES` tiende a 0/blank bajo NORMAL y a 100% bajo FES;
+4. `critical_table` hereda también el flujo de la fila;
+5. el visual usa vendedor actual del cliente (`Dim_Cliente[VENDEDOR_NOMBRE]`), no responsable histórico del pedido (`PED_RESPONSABLE`).
+
+No duplicar esa auditoría. Esta corrida debe **revalidar el comportamiento sobre el HEAD actual** y profundizar la coherencia entre tabla 1, tabla 3, tabla 4 y Pedidos críticos.
+
+El auditor local sigue siendo `READ_ONLY_FUNCTIONAL_EVIDENCE_WRITER`.
+
+No modificar:
+
+- `NS.SemanticModel/**`
+- `NS.Report/**`
+- `NS.pbip`
 
 ---
 
-# Objetivo principal
+# Baseline funcional vigente a contrastar
 
-Auditar la coherencia funcional del Lienzo 01 cuando el usuario selecciona un vendedor en:
+Modelo vivo reportado:
 
-`3. VENDEDORES · IMPACTO DE CLIENTES REINCIDENTES SEGÚN FLUJO`
+## Global 43/45
 
-Caso obligatorio de prueba:
+- Pedidos: `2.097`
+- Clientes: `745`
+- Reincidentes 2M+: `22`
+- Fuera SLA: `372`
+- NS: `80,8%`
 
-`Carlos Garrido`
+## Carlos Garrido — vendedor actual del cliente
 
-Responder exactamente cómo se comportan el resto de las tablas/visuales y si la interacción representa lo que el usuario cree estar filtrando.
+- Clientes: `25`
+- Pedidos Fact_Tracking: `78`
+- Pedidos Fact_Hitos_Operacionales: `78`
+- Fuera SLA: `24`
+- Reincidentes 2M+: `3`
+- NS: `68,4%`
+
+La equivalencia `78 = 78` entre hechos ya se considera señal positiva de propagación por cliente; revalidar solo si el universo cambió por refresh.
 
 ---
 
-# Hallazgos estáticos que deben validarse en vivo
+# Objetivo de esta corrida
 
-## H1 — La tabla 3 no usa vendedor histórico del pedido
+Responder una pregunta concreta de experiencia de usuario:
 
-`fa_vendedores_reincidentes` usa como primera dimensión:
+> Si el usuario quiere analizar a Carlos Garrido, ¿las otras tablas muestran a Carlos completo o únicamente a Carlos dentro del flujo de la fila seleccionada?
 
-`Dim_Cliente[VENDEDOR_NOMBRE]`
+Y determinar si cada interacción del visual 3 debe:
 
-Ese campo proviene del maestro `CLIENTE_VENDEDOR` y representa el **vendedor actualmente asignado al cliente** a la fecha de refresh.
-
-No es necesariamente igual a:
-
-`Fact_Tracking[PED_RESPONSABLE]`
-
-Por lo tanto hay que cuantificar la diferencia entre:
-
-- `VENDEDOR_ACTUAL_CLIENTE` = `Dim_Cliente[VENDEDOR_NOMBRE]`
-- `RESPONSABLE_PEDIDO` = `Fact_Tracking[PED_RESPONSABLE]`
-
-No decidir todavía cuál concepto debe quedar en el visual; primero medir la discrepancia.
-
-## H2 — Una fila seleccionada de la tabla 3 contiene Vendedor + Flujo
-
-La tabla 3 proyecta conjuntamente:
-
-- `Dim_Cliente[VENDEDOR_NOMBRE]`
-- `Fact_Tracking[CLASIFICACION]`
-
-Por lo tanto una selección de fila puede equivaler a:
-
-`Carlos Garrido + Flujo específico`
-
-no solamente a:
-
-`Carlos Garrido`
-
-Esto debe probarse porque puede cambiar materialmente los otros visuales.
-
-## H3 — La tabla 4 puede distorsionarse bajo un filtro de flujo
-
-Visual:
-
-`4. FES VS CARGA · COHORTE CERRADA POR MOMENTO DEL MES`
-
-Usa medidas como:
-
-- `FA Carga Pedidos Creados`
-- `FA Carga % FES`
-- `FA NS %`
-- `FA DH Promedio`
-
-Estas medidas respetan el contexto de `Fact_Tracking`.
-
-Si una fila de tabla 3 impone además `CLASIFICACION=NORMAL`, la métrica `% FES` puede caer a 0/blank por intersección de filtros; si impone `CLASIFICACION=FES`, puede tender a 100%. Hay que demostrar si esto ocurre en vivo.
+- mantenerse;
+- deshabilitarse;
+- reemplazarse por un filtro/slicer de vendedor independiente;
+- o requerir un rediseño del visual 3.
 
 ---
 
@@ -109,248 +100,284 @@ git ls-remote origin refs/heads/work/ns-lienzo-01-analisis-fuera-sla
 
 LOCAL y REMOTO deben coincidir.
 
-No hacer refresh salvo que el modelo vivo no corresponda al HEAD actual. Si el modelo ya está post-refresh y coincide con el código actual, registrar `REFRESH_REUTILIZADO` con `lastProcessed`.
+Registrar HEAD exacto auditado.
+
+Usar modelo Power BI vivo correspondiente al HEAD actual. Si hace falta refresh, ejecutarlo y documentarlo. No mezclar resultados de un modelo anterior.
 
 ---
 
-# P1 — Inventario funcional del Lienzo 01
+# P1 — Verificar semántica actual de los cuatro visuales
 
-Auditar al menos estos visuales:
+Auditar bindings actuales de:
 
 1. `fa_clientes_recurrentes`
-   - título: `1. CLIENTES FUERA SLA · FRECUENCIA EN LOS Últimos 3 MESES`
+   - `1. CLIENTES FUERA SLA · FRECUENCIA EN LOS ÚLTIMOS 3 MESES`
 2. `fa_vendedores_reincidentes`
-   - título: `3. VENDEDORES · IMPACTO DE CLIENTES REINCIDENTES SEGÚN FLUJO`
+   - `3. VENDEDORES · IMPACTO DE CLIENTES REINCIDENTES SEGÚN FLUJO`
 3. `fa_fes_carga_tiempo`
-   - título: `4. FES VS CARGA · COHORTE CERRADA POR MOMENTO DEL MES`
+   - `4. FES VS CARGA · COHORTE CERRADA POR MOMENTO DEL MES`
 4. `critical_table`
-   - título: `PEDIDOS CRÍTICOS DE LA SELECCIÓN · ...`
-5. cualquier otro visual visible que cambie al seleccionar una fila de la tabla 3.
+   - `PEDIDOS CRÍTICOS DE LA SELECCIÓN ...`
 
 Guardar:
 
-`raw/l01_visual_inventory.csv`
+`raw/l01_b2_visual_bindings.csv`
 
-Columnas mínimas:
+Columnas:
 
 - visual
-- título
-- campos dimensión
+- dimensiones
 - medidas
 - filtros visual
-- filtro reporte efectivo
-- responde a selección tabla3 esperado
+- interaction_source
+- expected_business_scope
+- status
+
+Confirmar especialmente que tabla 3 sigue proyectando simultáneamente:
+
+- `Dim_Cliente[VENDEDOR_NOMBRE]`
+- `Fact_Tracking[CLASIFICACION]`
 
 ---
 
-# P2 — Baseline sin selección de vendedor
+# P2 — Carlos SOLO
 
-Canales 43/45, sin selección adicional.
+Construir contexto equivalente exclusivamente a:
 
-Guardar resultados completos de los cuatro visuales principales.
+```text
+Dim_Cliente[VENDEDOR_NOMBRE] = "Carlos Garrido"
+```
 
-Archivos:
+No imponer `CLASIFICACION`.
 
-- `raw/l01_baseline_clientes.csv`
-- `raw/l01_baseline_vendedores.csv`
-- `raw/l01_baseline_fes_carga.csv`
-- `raw/l01_baseline_criticos.csv`
+Obtener:
 
-Además registrar:
-
-- total pedidos cohorte cerrada;
-- pedidos fuera SLA;
-- NS contexto;
-- cantidad de clientes recurrentes 2M+;
-- cantidad clientes recurrentes 3M.
-
----
-
-# P3 — Caso Carlos Garrido: vendedor SOLO
-
-Construir contexto DAX equivalente a:
-
-`Dim_Cliente[VENDEDOR_NOMBRE] = "Carlos Garrido"`
-
-sin imponer manualmente `Fact_Tracking[CLASIFICACION]`.
-
-Obtener nuevamente:
-
-- tabla 1 clientes;
-- tabla 3 vendedores;
-- tabla 4 FES vs carga;
-- pedidos críticos;
-- KPIs generales relevantes.
+- pedidos;
+- clientes;
+- fuera SLA;
+- NS;
+- recurrentes 2M+;
+- recurrentes 3M;
+- distribución por `CLASIFICACION`;
+- tabla 1 completa;
+- tabla 4 completa;
+- critical_table completa.
 
 Guardar:
 
-- `raw/l01_carlos_solo_clientes.csv`
-- `raw/l01_carlos_solo_vendedores.csv`
-- `raw/l01_carlos_solo_fes_carga.csv`
-- `raw/l01_carlos_solo_criticos.csv`
-- `raw/l01_carlos_solo_resumen.csv`
+- `raw/l01_b2_carlos_solo_resumen.csv`
+- `raw/l01_b2_carlos_solo_clientes.csv`
+- `raw/l01_b2_carlos_solo_fes_carga.csv`
+- `raw/l01_b2_carlos_solo_criticos.csv`
 
-Responder:
-
-1. ¿Cuántos clientes quedan?
-2. ¿Cuántos pedidos cerrados quedan?
-3. ¿Cuántos fuera SLA?
-4. ¿Qué NS queda?
-5. ¿Qué flujos tiene Carlos?
-6. ¿Qué pedidos críticos aparecen?
+Comparar con baseline esperado 25 clientes / 78 pedidos / 24 fuera SLA / 3 recurrentes 2M+ / NS 68,4%, admitiendo variación explicable por ventana móvil.
 
 ---
 
-# P4 — Caso Carlos Garrido: selección REAL por fila de tabla 3
+# P3 — Carlos + cada flujo real de tabla 3
 
-Obtener las filas actuales de Carlos en `fa_vendedores_reincidentes`.
+Obtener las filas visibles de Carlos en `fa_vendedores_reincidentes`.
 
-Para cada flujo presente de Carlos, simular la selección completa de fila:
+Para cada flujo realmente presente, ejecutar el contexto equivalente a la selección completa de fila:
 
-- `Dim_Cliente[VENDEDOR_NOMBRE] = "Carlos Garrido"`
-- `Fact_Tracking[CLASIFICACION] = <FLUJO_DE_LA_FILA>`
+```text
+Dim_Cliente[VENDEDOR_NOMBRE] = "Carlos Garrido"
+Fact_Tracking[CLASIFICACION] = <FLUJO>
+```
 
-Probar por separado, según existan:
+Evaluar por separado según existan:
 
 - NORMAL
 - FES
 - SALDO
 - FES + SALDO
 
-Para cada escenario capturar tabla 1, tabla 4 y critical_table.
-
 Guardar:
 
-`raw/l01_carlos_por_flujo.csv`
+`raw/l01_b2_carlos_por_flujo.csv`
 
-Debe incluir como mínimo:
+Columnas mínimas:
 
 - flujo
 - pedidos
-- pedidos fuera SLA
-- NS
-- clientes recurrentes 2M+
-- clientes recurrentes 3M
-- FA Carga Pedidos Creados
-- FA Carga Pedidos FES
-- FA Carga % FES
-- FA DH Promedio
-- número de filas critical_table
-
-Comparar explícitamente contra `Carlos SOLO`.
+- clientes
+- fuera_sla
+- ns
+- recurrentes_2m_mas
+- recurrentes_3m
+- carga_pedidos
+- carga_fes
+- pct_fes
+- dh_promedio
+- filas_tabla1
+- filas_critical_table
 
 ---
 
-# P5 — Coherencia semántica vendedor actual vs responsable del pedido
+# P4 — Prueba específica de Tabla 1
 
-Para todos los pedidos 43/45 asociados a clientes cuyo `Dim_Cliente[VENDEDOR_NOMBRE] = "Carlos Garrido"`, exportar:
+Para `fa_clientes_recurrentes` comparar:
 
-- pedido
-- cliente código
-- cliente nombre
-- vendedor actual cliente
-- `Fact_Tracking[PED_RESPONSABLE]`
-- flujo
-- fecha pedido
-- estado SLA
-- DH
+A. sin filtro vendedor;
+B. Carlos SOLO;
+C. Carlos + NORMAL;
+D. Carlos + FES;
+E. otros flujos si existen.
+
+Validar:
+
+1. todos los clientes pertenecen al vendedor actual seleccionado;
+2. el flujo mostrado coincide con el filtro heredado cuando hay selección de fila;
+3. `FA Meses Fuera SLA Cliente` sigue midiendo meses de incumplimiento dentro de la ventana 3M;
+4. explicar si la reincidencia se recalcula dentro del flujo o conserva la definición transversal de 3 meses.
+
+Este punto es crítico: no asumir. Demostrar con DAX/modelo vivo si el contexto `CLASIFICACION` afecta o no el conteo de meses fuera SLA.
 
 Guardar:
 
-`raw/l01_carlos_vendedor_vs_responsable.csv`
-
-Calcular:
-
-- total pedidos de clientes actualmente asignados a Carlos;
-- pedidos donde `PED_RESPONSABLE` coincide con Carlos;
-- pedidos donde difiere;
-- porcentaje de discrepancia;
-- lista de responsables distintos encontrados.
-
-Repetir el mismo control a nivel global para todos los vendedores:
-
-`raw/l01_vendedor_actual_vs_responsable_resumen.csv`
-
-No corregir nada aún.
+`raw/l01_b2_tabla1_semantica_reincidencia.csv`
 
 ---
 
-# P6 — Prueba de coherencia de cada visual
+# P5 — Prueba específica de Tabla 4 FES vs carga
 
-Clasificar cada visual bajo selección de Carlos como:
+Comparar los mismos escenarios A-E.
 
-- `COHERENTE_VENDEDOR_SOLO`
-- `COHERENTE_VENDEDOR_Y_FLUJO`
-- `NO_RESPONDE_AL_FILTRO`
-- `RESPONDE_PERO_SEMANTICA_AMBIGUA`
-- `INCONSISTENTE`
+Registrar por mes/momento:
 
-Evaluar especialmente:
-
-## Tabla 1 — clientes recurrentes
-Debe mostrar únicamente clientes compatibles con el contexto de Carlos y, si la selección real incluye flujo, solo ese flujo.
-
-## Tabla 4 — FES vs carga
-Debe determinarse si tiene sentido de negocio que una selección de fila vendedor+flujo la filtre.
-
-Marcar RED si ocurre algo conceptualmente engañoso, por ejemplo:
-
-- seleccionar Carlos + NORMAL provoca `% FES = 0%` y el usuario interpreta que Carlos no tiene FES;
-- seleccionar Carlos + FES provoca `% FES = 100%` y el usuario interpreta que toda su cartera es FES;
-- la tabla deja de servir para comparar FES vs carga por haber heredado el flujo de la fila.
-
-## Pedidos críticos
-Deben corresponder exactamente al contexto seleccionado. Verificar que la columna mostrada `Vendedor` no oculte discrepancias con `PED_RESPONSABLE`.
-
----
-
-# P7 — Auditoría de DAX que rompe filtros
-
-Revisar todas las medidas usadas por los visuales del Lienzo 01 y detectar:
-
-- `ALL(...)`
-- `ALLSELECTED(...)`
-- `REMOVEFILTERS(...)`
-- `TREATAS(...)`
-
-Determinar si alguno elimina accidentalmente:
-
-- vendedor;
-- cliente;
-- flujo;
-- canales 43/45;
-- ventana 3M.
+- `FA Carga Pedidos Creados`
+- `FA Carga Pedidos FES`
+- `FA Carga % FES`
+- `FA NS %`
+- `FA DH Promedio`
+- `FA Delta NS vs Resto`
 
 Guardar:
 
-`raw/l01_filter_semantics_measures.csv`
+`raw/l01_b2_tabla4_carlos_vs_flujo.csv`
 
-No marcar como error un `REMOVEFILTERS` intencional de `Dim_Fecha[Momento_Mes]` o del mes si la medida documenta que calcula denominador mensual/ventana 3M; explicar el propósito.
+Dictamen esperado:
+
+- si Carlos SOLO entrega un mix de flujo razonable pero Carlos+NORMAL fuerza `%FES=0/blank`, marcar la interacción como `SEMANTICAMENTE_ENGANOSA`;
+- si Carlos+FES fuerza `%FES=100%`, marcar `SEMANTICAMENTE_ENGANOSA`;
+- si la tabla deja de poder comparar carga/FES por heredar el flujo de tabla 3, confirmar `L01-001`.
 
 ---
 
-# Dictamen requerido
+# P6 — Pedidos críticos
 
-`READY_FOR_CHATGPT.md` debe responder claramente:
+Comparar:
 
-1. ¿Qué significa técnicamente hacer clic en la fila de Carlos Garrido de la tabla 3?
-2. ¿Filtra solo Carlos o Carlos + flujo?
-3. ¿Cómo cambia exactamente la tabla 1?
-4. ¿Cómo cambia exactamente la tabla 4?
-5. ¿Cómo cambia critical_table?
-6. ¿Cuántos pedidos de clientes asignados actualmente a Carlos tienen otro `PED_RESPONSABLE`?
-7. ¿La palabra “Vendedor” en el lienzo es semánticamente correcta o ambigua?
-8. ¿Qué interacciones deberían mantenerse?
-9. ¿Qué interacciones deberían deshabilitarse o reemplazarse por slicer?
-10. ¿Hay algún cambio DAX necesario o basta un cambio de interacción/UX?
+- Carlos SOLO;
+- Carlos + cada flujo.
 
-Emitir:
+Validar:
 
-- `L01_COHERENCIA_GREEN`
-- `L01_COHERENCIA_PARTIAL`
-- `L01_COHERENCIA_RED`
+1. cantidad de pedidos;
+2. pedido más crítico;
+3. vendedor mostrado por `RE TT Vendedor`;
+4. `PED_RESPONSABLE` real del pedido;
+5. clasificación/flujo.
 
-No implementar fixes localmente.
+Guardar:
+
+`raw/l01_b2_criticos_vendedor_vs_responsable.csv`
+
+No confundir:
+
+- vendedor actual del cliente;
+- responsable histórico/código del pedido.
+
+---
+
+# P7 — Dictamen UX / interacción
+
+Construir matriz final:
+
+`raw/l01_b2_interacciones_recomendadas.csv`
+
+Columnas:
+
+- source_visual
+- target_visual
+- current_effect
+- business_reading
+- semantic_risk
+- recommendation
+
+Para `fa_vendedores_reincidentes` evaluar al menos:
+
+### -> Tabla 1
+
+Posibles dictámenes:
+
+- `MANTENER_VENDEDOR_Y_FLUJO`
+- `CAMBIAR_A_VENDEDOR_SOLO`
+
+### -> Tabla 4
+
+Posibles dictámenes:
+
+- `DESHABILITAR_INTERACCION`
+- `CAMBIAR_A_VENDEDOR_SOLO`
+- `MANTENER`
+
+### -> critical_table
+
+Posibles dictámenes:
+
+- `MANTENER_VENDEDOR_Y_FLUJO`
+- `CAMBIAR_A_VENDEDOR_SOLO`
+- `DESHABILITAR_INTERACCION`
+
+Justificar cada uno con números.
+
+---
+
+# P8 — Semántica de la palabra Vendedor
+
+No volver a descubrir la estructura; ya está conocida.
+
+Cuantificar en el universo actual:
+
+- pedidos de clientes cuyo vendedor actual es Carlos;
+- distribución de `PED_RESPONSABLE` para esos pedidos;
+- porcentaje de pedidos donde vendedor actual y responsable histórico representan conceptos diferentes.
+
+Guardar:
+
+`raw/l01_b2_vendedor_actual_vs_responsable.csv`
+
+Emitir uno de:
+
+- `VENDEDOR_ACTUAL_ES_INTENCIONAL`
+- `VENDEDOR_HISTORICO_REQUERIDO`
+- `DECISION_NEGOCIO_PENDIENTE`
+
+No implementar cambio funcional localmente.
+
+---
+
+# Dictamen final requerido
+
+`READY_FOR_CHATGPT.md` debe declarar:
+
+```text
+L01_B2_STATUS=<GREEN|PARTIAL|RED>
+L01_001_INTERACCION=<CONFIRMADO|NO_REPRODUCIDO>
+VENDEDOR_SEMANTICA=<ACTUAL|HISTORICO|DECISION_NEGOCIO>
+```
+
+Y responder de forma explícita:
+
+1. Carlos SOLO: pedidos/clientes/fuera SLA/NS/reincidentes.
+2. Flujos reales de Carlos.
+3. Qué ocurre en tabla 1 al seleccionar una fila de tabla 3.
+4. Qué ocurre en tabla 4 y cuánto cambia `%FES`.
+5. Qué ocurre en Pedidos críticos.
+6. Qué interacciones deben mantenerse y cuáles no.
+7. Si se necesita DAX o únicamente UX/interacciones.
+8. Si la definición de reincidencia se ve alterada por el filtro de flujo.
 
 ---
 
@@ -359,10 +386,10 @@ No implementar fixes localmente.
 Crear una corrida nueva:
 
 ```powershell
-./Scripts/audit_local/bootstrap_local_audit.ps1 -RunName "l01_coherencia_carlos_garrido"
+./Scripts/audit_local/bootstrap_local_audit.ps1 -RunName "l01_b2_carlos_vs_flujo"
 ```
 
-Completar evidencia normal, validar y publicar solo evidencia:
+Validar y publicar únicamente evidencia:
 
 ```powershell
 $env:PYTHONIOENCODING="utf-8"
@@ -372,8 +399,4 @@ git diff --check
 
 Actualizar `Docs/AUDITORIA_LIVE/LOCAL_LATEST.json`.
 
-No modificar:
-
-- `NS.SemanticModel/**`
-- `NS.Report/**`
-- `NS.pbip`
+No realizar cambios funcionales durante esta corrida.
