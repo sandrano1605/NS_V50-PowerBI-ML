@@ -1671,6 +1671,7 @@ table Fact_Pedidos_Auditoria
 				    WHERE P1.VBTYP_V = 'C'
 				      AND P1.VBTYP_N = 'C'
 				      AND TRY_CONVERT(BIGINT, P1.VBELV) IS NOT NULL
+				      AND P1.ERDAT >= @FechaDesde
 				),
 				ResumenPedidos AS
 				(
@@ -1700,6 +1701,7 @@ table Fact_Pedidos_Auditoria
 				         = TRY_CONVERT(BIGINT, PP.PEDIDO_POSTERIOR)
 				       AND P2.VBTYP_V = 'C'
 				       AND P2.VBTYP_N = 'J'
+				       AND P2.ERDAT >= @FechaDesde
 				),
 				ResumenEntregas AS
 				(
@@ -4367,6 +4369,7 @@ table Fact_Pedidos_Auditoria
 				                            "        WHERE F.VBTYP_V = 'C'",
 				                            "          AND F.VBTYP_N = 'C'",
 				                            "          AND TRY_CONVERT(BIGINT, F.VBELV) = TRY_CONVERT(BIGINT, V.VBELN)",
+				                            "          AND F.ERDAT >= DATEADD(MONTH, -3, CAST(GETDATE() AS DATE))",
 				                            "    ) THEN 1 ELSE 0 END) AS ES_FES_VBFA",
 				                            "FROM dbo.VBAK_SAP AS V",
 				                            "LEFT JOIN dbo.KNA1_SAP AS K",
