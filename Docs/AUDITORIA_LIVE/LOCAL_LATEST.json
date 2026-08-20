@@ -1,10 +1,10 @@
 ﻿{
-  "schema_version": 1, "status": "READY_FOR_CHATGPT",
-  "run_id": "20260819_200000_p0_p1_certificacion",
+  "schema_version": 1, "status": "RED",
+  "run_id": "20260820_194000_p1_sql_post_refresh",
   "audit_branch": "work/ns-lienzo-01-analisis-fuera-sla",
   "audited_sha": "321be39",
-  "evidence_commit_sha": "321be39",
-  "run_path": "Docs/AUDITORIA_LIVE/local_runs/20260819_200000_p0_p1_certificacion",
-  "updated_at_local": "2026-08-19T20:15:00-04:00",
-  "note": "P0+P1 certificados contra modelo vivo. 0 regresiones funcionales. P1_SQL_PROJECTION implementado: SELECT * → 88 columnas explícitas. SHA: 321be39. Pendiente refresh para confirmar reducción de transferencia SQL→PQ."
+  "evidence_commit_sha": "64c25dd",
+  "run_path": "Docs/AUDITORIA_LIVE/local_runs/20260820_194000_p1_sql_post_refresh",
+  "updated_at_local": "2026-08-20T19:40:00-04:00",
+  "note": "P1_SQL post-refresh: 0 regresiones funcionales, pero tabla sigue en 182 columnas. SELECTCOLUMNS no se reflejó en modelo vivo. Acción: cerrar y reabrir PBI Desktop para recarga TMDL."
 }

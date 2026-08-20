@@ -1,0 +1,14 @@
+metrica,baseline_pre_p0,post_refresh,delta_abs,delta_pct,esperado_igual,estado,observacion
+Pedidos,2087,2098,+11,+0.53%,NO_DATOS_NUEVOS,AMARILLO,Datos incrementales frescos
+FES,455,460,+5,+1.10%,NO_DATOS_NUEVOS,AMARILLO,Datos incrementales frescos
+Fuera_SLA,369,370,+1,+0.27%,NO_DATOS_NUEVOS,AMARILLO,Datos incrementales frescos
+NS_Interno_Pct,0.8073,0.8106,+0.0033,+0.41%,NO_DATOS_NUEVOS,AMARILLO,NS mejoró levemente
+Cerrados,1915,1954,+39,+2.04%,NO_DATOS_NUEVOS,AMARILLO,Datos incrementales frescos
+Cerrados_en_SLA,1546,1584,+38,+2.46%,NO_DATOS_NUEVOS,AMARILLO,Datos incrementales frescos
+Lineas,40932,41752,+820,+2.00%,NO_DATOS_NUEVOS,AMARILLO,Datos incrementales frescos
+Unidades,3214960,3240776,+25816,+0.80%,NO_DATOS_NUEVOS,AMARILLO,Datos incrementales frescos
+DH_Promedio,4.604,4.477,-0.127,-2.76%,NO_DATOS_NUEVOS,AMARILLO,DH bajó con nuevos pedidos
+P90_Interno,8,8,0,0%,SI,VERDE,Sin cambio
+Cobertura_Hitos,1.0,1.0,0,0%,SI,VERDE,100%
+Normal_Eval,1915,1954,+39,+2.04%,NO_DATOS_NUEVOS,AMARILLO,Same que Cerrados
+Columnas_Modelo,182,182,0,0%,NO_P1,ROJO,SELECTCOLUMNS no se reflejó
