@@ -1,0 +1,5 @@
+capa,descripcion,estado,observacion
+SQLGenera,SQL ejecuta SELECT * de ZART_TRACK_DATA_SAP + columnas calculadas + VBFA + VBAK,PENDIENTE_REFRESH,"La query SQL genera ~181 columnas de ZART + columnas calculadas M. Sin SELECTCOLUMNS en SQL."
+SQL_PowerQuery,Transferencia SQL→Power Query: ~181 columnas,PENDIENTE_REFRESH,"Sin optimización de proyección SQL. El SELECTCOLUMNS de P1 actúa DESPUÉS de la carga."
+PQ_SelectColumns,Tabla selectColumns reduce 181→88,APLICADO,"Paso ColumnasFinales en M. commit 8f26dd9. Requiere refresh para efecto."
+Modelo,Modelo importa 88 columnas,PENDIENTE_REFRESH,"Solo se verá tras refresh completo."

@@ -1,31 +1,26 @@
-# Próxima auditoría local — Certificación P1 master 88 columnas
+# Próxima auditoría local — Certificación P1_SQL_PROJECTION
 
 ## Objetivo
 
-Certificar el estado funcional y de rendimiento del modelo después de:
+Certificar que la optimización SQL de proyección funciona correctamente:
 
-- P0 VBFA 3M: `3f4c5995016bc98398725ff9818937940c884729`;
-- P1 actual: reducción de salida de `Fact_Pedidos_Auditoria` a 88 columnas mediante `Table.SelectColumns` / `ColumnasFinales`.
+- P1_SQL_PROJECTION: `321be39` — SELECT * → 88 columnas explícitas en SQL
+- P1 (anterior): `8f26dd9` — Table.SelectColumns en M (safety net)
+- P0: `3f4c599` — VBFA ventana 3M
 
-La rama esperada es:
+## Regla operativa obligatoria
+
+**No pedir al usuario que transcriba métricas, tiempos ni resultados del modelo.**
+
+El auditor local debe obtener directamente desde Power BI Desktop / modelo vivo todo lo que pueda consultar.
+
+---
+
+# P0 — Preflight obligatorio
+
+Trabajar en:
 
 `work/ns-lienzo-01-analisis-fuera-sla`
-
-No implementar ninguna optimización adicional durante esta corrida.
-
----
-
-# Regla operativa obligatoria
-
-**No pedir al usuario que transcriba métricas, tiempos ni resultados.**
-
-Obtener directamente desde Power BI Desktop / modelo vivo todo lo disponible.
-
-Si hay un refresh manual activo, observarlo y reutilizarlo; no lanzar un segundo refresh en paralelo.
-
----
-
-# P0 — Preflight y correspondencia modelo vivo / HEAD
 
 Ejecutar:
 
@@ -37,194 +32,100 @@ git rev-parse HEAD
 git status --short
 ```
 
-Registrar SHA local/remoto y working tree.
-
-Verificar estáticamente que `Fact_Pedidos_Auditoria.tmdl` termina en:
-
-- `ColumnasFinales = Table.SelectColumns(...)`;
-- exactamente 88 columnas seleccionadas;
-- `in ColumnasFinales`.
-
-Verificar en el **modelo vivo** que `Fact_Pedidos_Auditoria` corresponde al HEAD actual y expone 88 columnas.
-
-Si el modelo vivo todavía expone 181 columnas, está cargado con una versión anterior: no certificar P1 sobre esa instancia. Recargar/reabrir el proyecto al HEAD actual si el entorno lo permite; si no, emitir `MODEL_HEAD_MISMATCH=RED` sin pedir intervención manual al usuario.
-
-Guardar:
-
-`raw/p1_preflight.csv`
+El HEAD debe contener `321be39` como ancestro.
 
 ---
 
-# P1 — Refresh completo
+# P1 — Refresh completo Power BI Desktop
 
-Con la instancia correspondiente al HEAD actual, ejecutar o reutilizar un refresh completo.
+Si no hay refresh activo, ejecutar refresh completo del modelo correspondiente al HEAD actual.
 
-Recuperar técnicamente cuando sea posible:
+Medir/recuperar técnicamente:
 
-- inicio;
-- término;
-- duración total;
+- hora inicio, si está disponible;
+- hora término;
+- duración total segundos;
 - errores por tabla;
-- `SemanticError`;
-- `DataSource.Error`;
-- tabla/consulta dominante en tiempo.
-
-Guardar:
-
-`raw/p1_refresh_timing.csv`
-
-Si el inicio exacto de un refresh manual no es recuperable, usar `TIMING_PARTIAL`; no pedirlo al usuario.
+- SemanticError o DataSource.Error si aparece.
 
 ---
 
-# P2 — Regresión funcional obligatoria
+# P2 — Verificar capa SQL
 
-Consultar directamente el modelo vivo con el alcance vigente 43/45:
+La optimización P1_SQL_PROJECTION modifica la query SQL final para traer solo 88 columnas en vez de SELECT *.
+
+Para verificar que funciona, el LLM local debe:
+
+1. **Contar columnas en el modelo vivo** después del refresh
+   - Debe ser ≤ 88 columnas (idealmente 88 + RowNumber)
+   - Si sigue en ~181, la optimización SQL no se aplicó
+
+2. **Comparar métricas contra baseline** (misma tabla que antes):
+   - Pedidos, FES, Fuera SLA, NS, Cerrados, Líneas, Unidades
+   - Debe ser idéntico
+
+3. **Medir tiempo de refresh** si es posible
+   - Comparar contra el tiempo anterior (antes de P1_SQL_PROJECTION)
+   - La reducción esperada es ~30-50% del tiempo de Fact_Pedidos_Auditoria
+
+---
+
+# P3 — Regresión funcional completa
+
+Obtener directamente desde el modelo vivo:
 
 - Pedidos total;
-- Clientes;
-- NORMAL;
 - FES;
 - SALDO;
-- FES + SALDO;
-- Cerrados;
 - Fuera SLA;
 - NS %;
+- Cerrados;
+- Cerrados en SLA;
 - Líneas;
 - Unidades;
-- Pedidos sin líneas;
-- FES cerrados sin manifiesto real;
-- Cerrados sin DH;
-- cobertura de hitos si está disponible.
-
-Comparar contra el baseline **pre-P0** publicado en la evidencia anterior a `3f4c599`, especialmente la corrida:
-
-`20260819_120000_extraccion_sql_modelo_completo`
-
-Si existe evidencia técnica recuperable de un refresh **P0-only** anterior a P1, usarla adicionalmente para separar P0 de P1. Si no existe, no inventar atribución: certificar la equivalencia funcional combinada P0+P1 contra el baseline pre-P0.
+- DH Promedio;
+- P90 Interno;
+- Cobertura Hitos.
 
 Guardar:
 
-`raw/p1_regresion_metricas.csv`
-
-Columnas mínimas:
-
-- metrica
-- baseline_pre_p0
-- p0_only_si_disponible
-- post_p1
-- delta_pre_p0_vs_post_p1
-- estado
-- observacion
+`raw/p1_sql_regresion_metricas.csv`
 
 ---
 
-# P3 — Regresión específica FES/VBFA
+# P4 — Regresión FES/VBFA específica
 
-Validar directamente:
+Validar explícitamente:
 
-1. cantidad FES;
-2. FES con `PRIMERA_FECHA_PEDIDO_POSTERIOR`;
-3. FES con `PRIMERA_FECHA_ENTREGA_POSTERIOR`;
-4. FES con `PRIMERA_FECHA_MANIFIESTO`;
-5. FES sin pedido posterior;
-6. FES sin entrega posterior;
-7. FES sin manifiesto real;
-8. pedidos cuyo estado FES difiera del baseline.
+1. FES con Pedido Posterior;
+2. FES con Entrega Posterior;
+3. FES con Manifiesto.
 
-Guardar:
-
-- `raw/p1_fes_regresion_resumen.csv`
-- `raw/p1_fes_diferencias.csv`
-
-Esperado: 0 diferencias funcionales no explicadas.
+Criterio esperado: **0 cambios funcionales**.
 
 ---
 
-# P4 — Líneas y unidades
-
-Validar directamente:
-
-- líneas total;
-- unidades total;
-- pedidos con cobertura;
-- pedidos sin cobertura;
-- diferencias contra baseline.
-
-Guardar:
-
-`raw/p1_lineas_unidades.csv`
-
-No reabrir INC-015 salvo regresión demostrable.
-
----
-
-# P5 — Qué optimizó realmente P1
-
-Este punto es crítico para el objetivo del proyecto.
-
-El P1 actual aplica `Table.SelectColumns` **después** de que la consulta SQL nativa ya produjo la master. Verificar si la SQL contenida en `Sql.Database([Query=...])` sigue terminando en algo equivalente a:
-
-```sql
-SELECT *
-FROM #FACT_NS_MASTER_AUD_V3
-```
-
-Determinar por evidencia:
-
-- columnas generadas dentro de SQL;
-- columnas devueltas por SQL a Power Query;
-- columnas presentes después de `ColumnasFinales`;
-- columnas finalmente importadas al modelo;
-- si existe o no query folding capaz de empujar `ColumnasFinales` dentro de la SQL nativa;
-- bytes/volumen SQL -> Power Query si puede medirse;
-- tamaño del modelo / memoria antes y después si puede medirse.
-
-**No asumir que 181 -> 88 en M implica 181 -> 88 en transferencia SQL.**
-
-Clasificar:
-
-- `P1_MODEL_PROJECTION=GREEN` si el modelo vivo queda correctamente en 88 columnas;
-- `P1_SQL_TRANSFER_REDUCTION=GREEN` solo si se demuestra que SQL devuelve únicamente el mínimo requerido;
-- en caso contrario `P1_SQL_TRANSFER_REDUCTION=NOT_YET_IMPLEMENTED`.
-
-Guardar:
-
-`raw/p1_projection_layers.csv`
-
----
-
-# P6 — Dictamen y próximo paso
+# Dictamen
 
 `READY_FOR_CHATGPT.md` debe terminar con:
 
 ```text
-MODEL_HEAD_MISMATCH=<GREEN|RED>
-P1_REFRESH_STATUS=<GREEN|RED|PARTIAL>
-P0_P1_FUNCTIONAL_EQUIVALENCE=<GREEN|RED|PARTIAL>
-P1_FES_EQUIVALENCE=<GREEN|RED|PARTIAL>
-P1_LINES_UNITS_EQUIVALENCE=<GREEN|RED|PARTIAL>
-P1_MODEL_COLUMNS=<numero>
-P1_MODEL_PROJECTION=<GREEN|RED>
-P1_SQL_COLUMNS_RETURNED=<numero|NA>
-P1_SQL_TRANSFER_REDUCTION=<GREEN|NOT_YET_IMPLEMENTED|RED|PARTIAL>
-REFRESH_SECONDS_POST_P1=<valor|NA>
-P1_CERTIFICATION=<GREEN|RED|PARTIAL>
-NEXT_STEP=<P1_SQL_PROJECTION|FIX_P1|NEED_DATA>
+P1_SQL_REFRESH_STATUS=<GREEN|RED>
+P1_SQL_FUNCTIONAL_REGRESSION=<GREEN|RED>
+P1_SQL_COLUMN_REDUCTION=<GREEN|RED|NOT_APPLIED>
+P1_SQL_TRANSFER_MEASUREMENT=<MEASURED|ESTIMATED|NA>
+P1_SQL_CERTIFICATION=<GREEN|RED|PARTIAL>
+NEXT_STEP=<P2_NORMAL_VBAK|FIX_P1_SQL|NEED_DATA>
 ```
 
 ## Regla de decisión
 
-`P1_CERTIFICATION=GREEN` requiere:
+`P1_SQL_CERTIFICATION=GREEN` solo si:
 
-- modelo vivo correspondiente al HEAD actual;
-- refresh completo sin error;
-- 88 columnas expuestas por `Fact_Pedidos_Auditoria`;
-- métricas de negocio sin regresión no explicada;
-- FES/VBFA sin pérdida funcional;
-- líneas/unidades sin regresión.
-
-La reducción de transferencia SQL puede quedar `NOT_YET_IMPLEMENTED` sin invalidar la equivalencia funcional de P1; en ese caso el siguiente paso obligatorio es `P1_SQL_PROJECTION`, antes de pasar a `Pedidos_Normal_VBAK`.
+- refresh completo termina sin error;
+- columnas en modelo ≤ 88;
+- Pedidos/FES/SALDO/Fuera SLA/NS no presentan diferencias;
+- líneas y unidades no presentan regresión.
 
 ---
 
@@ -233,13 +134,7 @@ La reducción de transferencia SQL puede quedar `NOT_YET_IMPLEMENTED` sin invali
 Crear corrida:
 
 ```powershell
-./Scripts/audit_local/bootstrap_local_audit.ps1 -RunName "p1_master_88_refresh_regresion"
+./Scripts/audit_local/bootstrap_local_audit.ps1 -RunName "p1_sql_projection_certificacion"
 ```
-
-Publicar solo evidencia. No modificar funcionalmente:
-
-- `NS.SemanticModel/**`
-- `NS.Report/**`
-- `NS.pbip`
 
 Actualizar `Docs/AUDITORIA_LIVE/LOCAL_LATEST.json` y publicar commit de evidencia.

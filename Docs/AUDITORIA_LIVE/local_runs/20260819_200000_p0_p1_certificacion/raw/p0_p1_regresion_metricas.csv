@@ -1,0 +1,17 @@
+metrica,baseline_pre_p0,post_p0_p1,delta_abs,delta_pct,esperado_igual,estado,observacion
+Pedidos,2087,2087,0,0%,SI,VERDE,Sin cambio
+FES,455,455,0,0%,SI,VERDE,Sin cambio
+Fuera_SLA,369,369,0,0%,SI,VERDE,Sin cambio
+NS_Interno_Pct,0.8073,0.8073,0,0%,SI,VERDE,Sin cambio
+Cerrados,1915,1915,0,0%,SI,VERDE,Sin cambio
+Cerrados_en_SLA,1546,1546,0,0%,SI,VERDE,Sin cambio
+Lineas,40932,40932,0,0%,SI,VERDE,Sin cambio
+Unidades,3214960,3214960,0,0%,SI,VERDE,Sin cambio
+DH_Promedio,4.604,4.604,0,0%,SI,VERDE,Sin cambio
+P90_Interno,8,8,0,0%,SI,VERDE,Sin cambio
+Cobertura_Hitos,1.0,1.0,0,0%,SI,VERDE,100%
+Normal_Eval,1915,1915,0,0%,SI,VERDE,Sin cambio
+Pedidos_Abiertos,172,172,0,0%,SI,VERDE,Sin cambio
+FES_Con_Pedido_Posterior,457,457,0,0%,SI,VERDE,Sin cambio
+FES_Con_Entrega_Posterior,456,456,0,0%,SI,VERDE,Sin cambio
+FES_Con_Manifiesto,455,455,0,0%,SI,VERDE,Sin cambio
