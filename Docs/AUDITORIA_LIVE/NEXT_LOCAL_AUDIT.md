@@ -16,6 +16,24 @@ Cambio aplicado únicamente:
 
 No implementar P1 de columnas ni ninguna otra optimización durante esta corrida.
 
+## Regla operativa obligatoria
+
+**No pedir al usuario que transcriba métricas, tiempos ni resultados del modelo.**
+
+El auditor local debe obtener directamente desde Power BI Desktop / modelo vivo todo lo que pueda consultar:
+
+- estado del refresh;
+- `lastProcessed` / timestamps disponibles;
+- errores de procesamiento;
+- Pedidos, Clientes, NORMAL, FES, SALDO, FES+SALDO;
+- Cerrados, Fuera SLA, NS;
+- Líneas y Unidades;
+- métricas específicas FES/VBFA.
+
+Si el usuario ya inició manualmente el refresh, no iniciar un segundo refresh en paralelo: detectar/esperar su término mediante el modelo/instancia activa y, apenas finalice, consultar directamente las métricas post-refresh.
+
+Si el tiempo exacto de inicio del refresh manual no puede recuperarse desde la instancia/telemetría disponible, registrar `TIMING_PARTIAL` y usar los timestamps técnicos disponibles; **no pedir al usuario que mida o copie el tiempo**.
+
 ---
 
 # P0 — Preflight obligatorio
@@ -42,19 +60,21 @@ Registrar:
 - SHA remoto;
 - estado working tree;
 - instancia/puerto/database de Power BI Desktop;
-- timestamp de inicio y término del refresh.
+- timestamp de inicio y término del refresh cuando sea recuperable técnicamente.
 
 ---
 
 # P1 — Refresh completo Power BI Desktop
 
-Ejecutar refresh completo del modelo correspondiente al HEAD actual.
+Si no hay refresh activo, ejecutar refresh completo del modelo correspondiente al HEAD actual.
 
-Medir:
+Si el usuario ya inició un refresh manual, observar la instancia activa y reutilizar ese refresh; no lanzar otro.
 
-- hora inicio;
+Medir/recuperar técnicamente:
+
+- hora inicio, si está disponible;
 - hora término;
-- duración total segundos;
+- duración total segundos, si puede derivarse;
 - errores por tabla;
 - `SemanticError` o `DataSource.Error` si aparece;
 - tabla o consulta que más demora si puede obtenerse.
@@ -71,6 +91,7 @@ Columnas mínimas:
 - estado
 - error
 - tabla_error
+- fuente_timing
 
 No considerar P0 GREEN si el refresh no termina correctamente.
 
@@ -78,7 +99,7 @@ No considerar P0 GREEN si el refresh no termina correctamente.
 
 # P2 — Regresión funcional después del refresh
 
-Obtener desde el modelo vivo, con el alcance vigente del reporte 43/45, como mínimo:
+Obtener **directamente desde el modelo vivo**, con el alcance vigente del reporte 43/45, como mínimo:
 
 - Pedidos total;
 - Clientes;
@@ -119,13 +140,13 @@ Usar como autoridad el baseline pre-P0 publicado en la corrida de extracción in
 
 Si una métrica no está disponible en ese run, buscar la última evidencia pre-P0 equivalente y registrar exactamente qué archivo/SHA se usó.
 
-No inventar baseline.
+No inventar baseline y no pedir al usuario que lo complete manualmente.
 
 ---
 
 # P3 — Regresión específica FES/VBFA
 
-P0 modifica exclusivamente el universo VBFA, por lo que validar explícitamente:
+P0 modifica exclusivamente el universo VBFA, por lo que validar explícitamente desde el modelo vivo:
 
 1. cantidad de pedidos FES;
 2. pedidos con `PRIMERA_FECHA_PEDIDO_POSTERIOR`;
@@ -147,7 +168,7 @@ Criterio esperado: **0 cambios funcionales atribuibles a P0**.
 
 # P4 — Líneas y unidades
 
-Confirmar que las medidas/tabla de líneas y unidades permanecen iguales al baseline pre-P0.
+Confirmar directamente en el modelo que las medidas/tabla de líneas y unidades permanecen iguales al baseline pre-P0.
 
 Guardar:
 
