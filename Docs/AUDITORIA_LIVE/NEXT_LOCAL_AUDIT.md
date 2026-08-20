@@ -1,46 +1,31 @@
-# Próxima auditoría local — Certificación P0 VBFA 3M
+# Próxima auditoría local — Certificación P1 master 88 columnas
 
 ## Objetivo
 
-Certificar funcional y técnicamente el cambio P0 ya implementado en `Fact_Pedidos_Auditoria`.
+Certificar el estado funcional y de rendimiento del modelo después de:
 
-Commit funcional a certificar:
+- P0 VBFA 3M: `3f4c5995016bc98398725ff9818937940c884729`;
+- P1 actual: reducción de salida de `Fact_Pedidos_Auditoria` a 88 columnas mediante `Table.SelectColumns` / `ColumnasFinales`.
 
-`3f4c5995016bc98398725ff9818937940c884729`
+La rama esperada es:
 
-Cambio aplicado únicamente:
+`work/ns-lienzo-01-analisis-fuera-sla`
 
-- `P1.ERDAT >= @FechaDesde` en VBFA C→C;
-- `P2.ERDAT >= @FechaDesde` en VBFA C→J;
-- `F.ERDAT >= DATEADD(MONTH,-3,CAST(GETDATE() AS DATE))` en el EXISTS VBFA del append VBAK.
-
-No implementar P1 de columnas ni ninguna otra optimización durante esta corrida.
-
-## Regla operativa obligatoria
-
-**No pedir al usuario que transcriba métricas, tiempos ni resultados del modelo.**
-
-El auditor local debe obtener directamente desde Power BI Desktop / modelo vivo todo lo que pueda consultar:
-
-- estado del refresh;
-- `lastProcessed` / timestamps disponibles;
-- errores de procesamiento;
-- Pedidos, Clientes, NORMAL, FES, SALDO, FES+SALDO;
-- Cerrados, Fuera SLA, NS;
-- Líneas y Unidades;
-- métricas específicas FES/VBFA.
-
-Si el usuario ya inició manualmente el refresh, no iniciar un segundo refresh en paralelo: detectar/esperar su término mediante el modelo/instancia activa y, apenas finalice, consultar directamente las métricas post-refresh.
-
-Si el tiempo exacto de inicio del refresh manual no puede recuperarse desde la instancia/telemetría disponible, registrar `TIMING_PARTIAL` y usar los timestamps técnicos disponibles; **no pedir al usuario que mida o copie el tiempo**.
+No implementar ninguna optimización adicional durante esta corrida.
 
 ---
 
-# P0 — Preflight obligatorio
+# Regla operativa obligatoria
 
-Trabajar en:
+**No pedir al usuario que transcriba métricas, tiempos ni resultados.**
 
-`work/ns-lienzo-01-analisis-fuera-sla`
+Obtener directamente desde Power BI Desktop / modelo vivo todo lo disponible.
+
+Si hay un refresh manual activo, observarlo y reutilizarlo; no lanzar un segundo refresh en paralelo.
+
+---
+
+# P0 — Preflight y correspondencia modelo vivo / HEAD
 
 Ejecutar:
 
@@ -52,54 +37,49 @@ git rev-parse HEAD
 git status --short
 ```
 
-El HEAD debe contener `3f4c599` como ancestro y no debe existir ningún cambio funcional adicional sin documentar.
+Registrar SHA local/remoto y working tree.
 
-Registrar:
+Verificar estáticamente que `Fact_Pedidos_Auditoria.tmdl` termina en:
 
-- SHA local;
-- SHA remoto;
-- estado working tree;
-- instancia/puerto/database de Power BI Desktop;
-- timestamp de inicio y término del refresh cuando sea recuperable técnicamente.
+- `ColumnasFinales = Table.SelectColumns(...)`;
+- exactamente 88 columnas seleccionadas;
+- `in ColumnasFinales`.
 
----
+Verificar en el **modelo vivo** que `Fact_Pedidos_Auditoria` corresponde al HEAD actual y expone 88 columnas.
 
-# P1 — Refresh completo Power BI Desktop
-
-Si no hay refresh activo, ejecutar refresh completo del modelo correspondiente al HEAD actual.
-
-Si el usuario ya inició un refresh manual, observar la instancia activa y reutilizar ese refresh; no lanzar otro.
-
-Medir/recuperar técnicamente:
-
-- hora inicio, si está disponible;
-- hora término;
-- duración total segundos, si puede derivarse;
-- errores por tabla;
-- `SemanticError` o `DataSource.Error` si aparece;
-- tabla o consulta que más demora si puede obtenerse.
+Si el modelo vivo todavía expone 181 columnas, está cargado con una versión anterior: no certificar P1 sobre esa instancia. Recargar/reabrir el proyecto al HEAD actual si el entorno lo permite; si no, emitir `MODEL_HEAD_MISMATCH=RED` sin pedir intervención manual al usuario.
 
 Guardar:
 
-`raw/p0_refresh_timing.csv`
-
-Columnas mínimas:
-
-- inicio
-- termino
-- duracion_segundos
-- estado
-- error
-- tabla_error
-- fuente_timing
-
-No considerar P0 GREEN si el refresh no termina correctamente.
+`raw/p1_preflight.csv`
 
 ---
 
-# P2 — Regresión funcional después del refresh
+# P1 — Refresh completo
 
-Obtener **directamente desde el modelo vivo**, con el alcance vigente del reporte 43/45, como mínimo:
+Con la instancia correspondiente al HEAD actual, ejecutar o reutilizar un refresh completo.
+
+Recuperar técnicamente cuando sea posible:
+
+- inicio;
+- término;
+- duración total;
+- errores por tabla;
+- `SemanticError`;
+- `DataSource.Error`;
+- tabla/consulta dominante en tiempo.
+
+Guardar:
+
+`raw/p1_refresh_timing.csv`
+
+Si el inicio exacto de un refresh manual no es recuperable, usar `TIMING_PARTIAL`; no pedirlo al usuario.
+
+---
+
+# P2 — Regresión funcional obligatoria
+
+Consultar directamente el modelo vivo con el alcance vigente 43/45:
 
 - Pedidos total;
 - Clientes;
@@ -117,117 +97,134 @@ Obtener **directamente desde el modelo vivo**, con el alcance vigente del report
 - Cerrados sin DH;
 - cobertura de hitos si está disponible.
 
-Guardar:
-
-`raw/p0_regresion_metricas.csv`
-
-Columnas:
-
-- metrica
-- baseline_pre_p0
-- post_p0
-- delta_abs
-- delta_pct
-- esperado_igual
-- estado
-- observacion
-
-## Baseline
-
-Usar como autoridad el baseline pre-P0 publicado en la corrida de extracción inmediatamente anterior a `3f4c599`, incluyendo los artefactos del run:
+Comparar contra el baseline **pre-P0** publicado en la evidencia anterior a `3f4c599`, especialmente la corrida:
 
 `20260819_120000_extraccion_sql_modelo_completo`
 
-Si una métrica no está disponible en ese run, buscar la última evidencia pre-P0 equivalente y registrar exactamente qué archivo/SHA se usó.
+Si existe evidencia técnica recuperable de un refresh **P0-only** anterior a P1, usarla adicionalmente para separar P0 de P1. Si no existe, no inventar atribución: certificar la equivalencia funcional combinada P0+P1 contra el baseline pre-P0.
 
-No inventar baseline y no pedir al usuario que lo complete manualmente.
+Guardar:
+
+`raw/p1_regresion_metricas.csv`
+
+Columnas mínimas:
+
+- metrica
+- baseline_pre_p0
+- p0_only_si_disponible
+- post_p1
+- delta_pre_p0_vs_post_p1
+- estado
+- observacion
 
 ---
 
 # P3 — Regresión específica FES/VBFA
 
-P0 modifica exclusivamente el universo VBFA, por lo que validar explícitamente desde el modelo vivo:
+Validar directamente:
 
-1. cantidad de pedidos FES;
-2. pedidos con `PRIMERA_FECHA_PEDIDO_POSTERIOR`;
-3. pedidos con `PRIMERA_FECHA_ENTREGA_POSTERIOR`;
-4. pedidos con `PRIMERA_FECHA_MANIFIESTO`;
-5. pedidos FES sin pedido posterior;
-6. pedidos FES sin entrega posterior;
-7. pedidos FES sin manifiesto real;
-8. lista de pedidos cuyo estado FES difiera del baseline, si existe alguno.
+1. cantidad FES;
+2. FES con `PRIMERA_FECHA_PEDIDO_POSTERIOR`;
+3. FES con `PRIMERA_FECHA_ENTREGA_POSTERIOR`;
+4. FES con `PRIMERA_FECHA_MANIFIESTO`;
+5. FES sin pedido posterior;
+6. FES sin entrega posterior;
+7. FES sin manifiesto real;
+8. pedidos cuyo estado FES difiera del baseline.
 
 Guardar:
 
-- `raw/p0_fes_regresion_resumen.csv`
-- `raw/p0_fes_diferencias.csv`
+- `raw/p1_fes_regresion_resumen.csv`
+- `raw/p1_fes_diferencias.csv`
 
-Criterio esperado: **0 cambios funcionales atribuibles a P0**.
+Esperado: 0 diferencias funcionales no explicadas.
 
 ---
 
 # P4 — Líneas y unidades
 
-Confirmar directamente en el modelo que las medidas/tabla de líneas y unidades permanecen iguales al baseline pre-P0.
-
-Guardar:
-
-`raw/p0_lineas_unidades.csv`
-
-Incluir:
+Validar directamente:
 
 - líneas total;
 - unidades total;
-- pedidos con cobertura de líneas/unidades;
+- pedidos con cobertura;
 - pedidos sin cobertura;
 - diferencias contra baseline.
 
-No reabrir INC-015 salvo que P0 produzca una regresión demostrable.
+Guardar:
+
+`raw/p1_lineas_unidades.csv`
+
+No reabrir INC-015 salvo regresión demostrable.
 
 ---
 
-# P5 — Rendimiento
+# P5 — Qué optimizó realmente P1
 
-Comparar, cuando exista medición pre-P0:
+Este punto es crítico para el objetivo del proyecto.
 
-- tiempo refresh total pre vs post;
-- tiempo SQL de `Fact_Pedidos_Auditoria` pre vs post;
-- filas VBFA C→C / C→J procesadas si puede medirse sin alterar el modelo.
+El P1 actual aplica `Table.SelectColumns` **después** de que la consulta SQL nativa ya produjo la master. Verificar si la SQL contenida en `Sql.Database([Query=...])` sigue terminando en algo equivalente a:
 
-Registrar por separado **medido** vs **estimado**.
+```sql
+SELECT *
+FROM #FACT_NS_MASTER_AUD_V3
+```
+
+Determinar por evidencia:
+
+- columnas generadas dentro de SQL;
+- columnas devueltas por SQL a Power Query;
+- columnas presentes después de `ColumnasFinales`;
+- columnas finalmente importadas al modelo;
+- si existe o no query folding capaz de empujar `ColumnasFinales` dentro de la SQL nativa;
+- bytes/volumen SQL -> Power Query si puede medirse;
+- tamaño del modelo / memoria antes y después si puede medirse.
+
+**No asumir que 181 -> 88 en M implica 181 -> 88 en transferencia SQL.**
+
+Clasificar:
+
+- `P1_MODEL_PROJECTION=GREEN` si el modelo vivo queda correctamente en 88 columnas;
+- `P1_SQL_TRANSFER_REDUCTION=GREEN` solo si se demuestra que SQL devuelve únicamente el mínimo requerido;
+- en caso contrario `P1_SQL_TRANSFER_REDUCTION=NOT_YET_IMPLEMENTED`.
 
 Guardar:
 
-`raw/p0_performance_comparison.csv`
+`raw/p1_projection_layers.csv`
 
 ---
 
-# Dictamen
+# P6 — Dictamen y próximo paso
 
 `READY_FOR_CHATGPT.md` debe terminar con:
 
 ```text
-P0_REFRESH_STATUS=<GREEN|RED>
-P0_FUNCTIONAL_REGRESSION=<GREEN|RED|PARTIAL>
-P0_FES_EQUIVALENCE=<GREEN|RED|PARTIAL>
-P0_LINES_UNITS_EQUIVALENCE=<GREEN|RED|PARTIAL>
-P0_PERFORMANCE_SECONDS_PRE=<valor|NA>
-P0_PERFORMANCE_SECONDS_POST=<valor|NA>
-P0_PERFORMANCE_IMPROVEMENT_PCT=<valor|NA>
-P0_CERTIFICATION=<GREEN|RED|PARTIAL>
-NEXT_STEP=<P1_MASTER_COLUMNS|FIX_P0|NEED_DATA>
+MODEL_HEAD_MISMATCH=<GREEN|RED>
+P1_REFRESH_STATUS=<GREEN|RED|PARTIAL>
+P0_P1_FUNCTIONAL_EQUIVALENCE=<GREEN|RED|PARTIAL>
+P1_FES_EQUIVALENCE=<GREEN|RED|PARTIAL>
+P1_LINES_UNITS_EQUIVALENCE=<GREEN|RED|PARTIAL>
+P1_MODEL_COLUMNS=<numero>
+P1_MODEL_PROJECTION=<GREEN|RED>
+P1_SQL_COLUMNS_RETURNED=<numero|NA>
+P1_SQL_TRANSFER_REDUCTION=<GREEN|NOT_YET_IMPLEMENTED|RED|PARTIAL>
+REFRESH_SECONDS_POST_P1=<valor|NA>
+P1_CERTIFICATION=<GREEN|RED|PARTIAL>
+NEXT_STEP=<P1_SQL_PROJECTION|FIX_P1|NEED_DATA>
 ```
 
 ## Regla de decisión
 
-`P0_CERTIFICATION=GREEN` solo si:
+`P1_CERTIFICATION=GREEN` requiere:
 
-- refresh completo termina sin error;
-- Pedidos/FES/SALDO/NORMAL/FES+SALDO/NS no presentan diferencias no explicadas;
-- líneas y unidades no presentan regresión;
-- no aparecen nuevas pérdidas de hitos FES/manifiesto atribuibles a la ventana VBFA.
+- modelo vivo correspondiente al HEAD actual;
+- refresh completo sin error;
+- 88 columnas expuestas por `Fact_Pedidos_Auditoria`;
+- métricas de negocio sin regresión no explicada;
+- FES/VBFA sin pérdida funcional;
+- líneas/unidades sin regresión.
 
-Una mejora de tiempo **no compensa** una diferencia funcional.
+La reducción de transferencia SQL puede quedar `NOT_YET_IMPLEMENTED` sin invalidar la equivalencia funcional de P1; en ese caso el siguiente paso obligatorio es `P1_SQL_PROJECTION`, antes de pasar a `Pedidos_Normal_VBAK`.
 
 ---
 
@@ -236,10 +233,10 @@ Una mejora de tiempo **no compensa** una diferencia funcional.
 Crear corrida:
 
 ```powershell
-./Scripts/audit_local/bootstrap_local_audit.ps1 -RunName "p0_vbfa_3m_refresh_regresion"
+./Scripts/audit_local/bootstrap_local_audit.ps1 -RunName "p1_master_88_refresh_regresion"
 ```
 
-Publicar solamente evidencia de certificación. No modificar funcionalmente:
+Publicar solo evidencia. No modificar funcionalmente:
 
 - `NS.SemanticModel/**`
 - `NS.Report/**`
