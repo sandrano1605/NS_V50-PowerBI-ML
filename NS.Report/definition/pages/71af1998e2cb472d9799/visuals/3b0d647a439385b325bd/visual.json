@@ -261,7 +261,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'PROMEDIO DE DÍAS POR POR CANAL DE VENTA'"
+                  "Value": "'PROMEDIO DE DÍAS POR CANAL DE VENTA'"
                 }
               }
             },
