@@ -82,4 +82,6 @@ table Medidas_Resumen_UI
 				    Origen
 
 	annotation PBI_NavigationStepName = Navegación
+
 	annotation PBI_ResultType = Table
+

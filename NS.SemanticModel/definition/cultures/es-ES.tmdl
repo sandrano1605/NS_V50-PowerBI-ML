@@ -20300,6 +20300,69 @@ cultureInfo es-ES
 			          }
 			        }
 			      ]
+			    },
+			    "medidas_resumen_ui.re_ui_promesa_svg": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Medidas_Resumen_UI",
+			          "ConceptualProperty": "RE UI Promesa SVG"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "RE UI Promesa SVG": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "medidas_resumen_ui.re_ui_sla_panel_svg": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Medidas_Resumen_UI",
+			          "ConceptualProperty": "RE UI SLA Panel SVG"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "RE UI SLA Panel SVG": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "medidas_resumen_ui.re_ui_resumen_mes_svg": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Medidas_Resumen_UI",
+			          "ConceptualProperty": "RE UI Resumen Mes SVG"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "RE UI Resumen Mes SVG": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
 			    }
 			  },
 			  "Relationships": {
