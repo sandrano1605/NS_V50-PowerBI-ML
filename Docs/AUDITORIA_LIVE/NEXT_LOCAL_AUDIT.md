@@ -1,140 +1,169 @@
-# Próxima auditoría local — Certificación P1_SQL_PROJECTION
+# Próxima auditoría local — Lienzo 00 SLA zonal + tooltip Flujo Operativo
 
 ## Objetivo
 
-Certificar que la optimización SQL de proyección funciona correctamente:
+Validar en Power BI Desktop los cambios aplicados sobre el checkpoint local rescatado `f798586b1a4882be15618bbcc0e6435d108b8fc7`.
 
-- P1_SQL_PROJECTION: `321be39` — SELECT * → 88 columnas explícitas en SQL
-- P1 (anterior): `8f26dd9` — Table.SelectColumns en M (safety net)
-- P0: `3f4c599` — VBFA ventana 3M
+Rama a validar:
+
+`fix/resumen-ejecutivo-sla-tooltip`
+
+Los cambios son exclusivamente de presentación/UX del lienzo `00 Resumen Ejecutivo Mayorista` y de una etiqueta de jerarquía. **No se modificó la lógica de cálculo del NS ni ninguna consulta SQL.**
 
 ## Regla operativa obligatoria
 
-**No pedir al usuario que transcriba métricas, tiempos ni resultados del modelo.**
-
-El auditor local debe obtener directamente desde Power BI Desktop / modelo vivo todo lo que pueda consultar.
+- No pedir al usuario que transcriba métricas ni resultados.
+- Obtener todo lo posible directamente desde Power BI Desktop / modelo vivo.
+- No hacer `merge`, `reset`, `restore` ni aplicar cambios de otra rama.
+- No implementar `Pedidos_Normal_VBAK` ni optimizaciones de performance en esta corrida.
 
 ---
 
-# P0 — Preflight obligatorio
-
-Trabajar en:
-
-`work/ns-lienzo-01-analisis-fuera-sla`
-
-Ejecutar:
+## P0 — Sincronizar exactamente esta rama
 
 ```powershell
 git fetch origin
-git switch work/ns-lienzo-01-analisis-fuera-sla
-git pull --ff-only origin work/ns-lienzo-01-analisis-fuera-sla
+git switch fix/resumen-ejecutivo-sla-tooltip
+git pull --ff-only origin fix/resumen-ejecutivo-sla-tooltip
 git rev-parse HEAD
 git status --short
 ```
 
-El HEAD debe contener `321be39` como ancestro.
+El working tree debe quedar limpio antes de abrir Power BI.
 
 ---
 
-# P1 — Refresh completo Power BI Desktop
+## P1 — Cargar el PBIP y validar modelo
 
-Si no hay refresh activo, ejecutar refresh completo del modelo correspondiente al HEAD actual.
+1. Cerrar cualquier instancia anterior del proyecto si mantiene una definición vieja en memoria.
+2. Abrir el PBIP desde esta rama.
+3. Esperar que el modelo termine de cargar.
+4. No ejecutar refresh completo salvo que Power BI lo requiera para materializar `Medidas_Resumen_UI`.
+5. Registrar cualquier `SemanticError`, error TMDL, visual roto o referencia de medida no resuelta.
 
-Medir/recuperar técnicamente:
-
-- hora inicio, si está disponible;
-- hora término;
-- duración total segundos;
-- errores por tabla;
-- SemanticError o DataSource.Error si aparece.
+Criterio: `MODEL_LOAD=GREEN` solamente con 0 errores.
 
 ---
 
-# P2 — Verificar capa SQL
+## P2 — Validación semántica del SLA
 
-La optimización P1_SQL_PROJECTION modifica la query SQL final para traer solo 88 columnas en vez de SELECT *.
+Confirmar directamente en el modelo vivo que la lógica sigue siendo:
 
-Para verificar que funciona, el LLM local debe:
+- Santiago: `SLA_INTERNO_DH = 4`.
+- Regiones: `SLA_INTERNO_DH = 5`.
+- `CUMPLE_SLA_INTERNO = DIAS_INTERNOS_DH <= SLA_INTERNO_DH`.
+- Promesa cliente estimada: Santiago 5 DH y Regiones 7 DH.
 
-1. **Contar columnas en el modelo vivo** después del refresh
-   - Debe ser ≤ 88 columnas (idealmente 88 + RowNumber)
-   - Si sigue en ~181, la optimización SQL no se aplicó
+Consultar las mismas medidas antes/después del cambio de UI:
 
-2. **Comparar métricas contra baseline** (misma tabla que antes):
-   - Pedidos, FES, Fuera SLA, NS, Cerrados, Líneas, Unidades
-   - Debe ser idéntico
+- `RE Pedidos contexto`
+- `RE Pedidos en SLA contexto`
+- `RE Pedidos fuera SLA contexto`
+- `RE NS contexto`
+- `RE Promedio contexto DH`
+- `RE P90 contexto DH`
 
-3. **Medir tiempo de refresh** si es posible
-   - Comparar contra el tiempo anterior (antes de P1_SQL_PROJECTION)
-   - La reducción esperada es ~30-50% del tiempo de Fact_Pedidos_Auditoria
-
----
-
-# P3 — Regresión funcional completa
-
-Obtener directamente desde el modelo vivo:
-
-- Pedidos total;
-- FES;
-- SALDO;
-- Fuera SLA;
-- NS %;
-- Cerrados;
-- Cerrados en SLA;
-- Líneas;
-- Unidades;
-- DH Promedio;
-- P90 Interno;
-- Cobertura Hitos.
-
-Guardar:
-
-`raw/p1_sql_regresion_metricas.csv`
+No exigir igualdad contra números históricos si la fuente avanzó; sí exigir que no exista diferencia atribuible a las nuevas medidas UI, porque éstas reutilizan las medidas RE anteriores.
 
 ---
 
-# P4 — Regresión FES/VBFA específica
+## P3 — Validación visual del lienzo 00
 
-Validar explícitamente:
+Abrir `00 Resumen Ejecutivo Mayorista` y verificar:
 
-1. FES con Pedido Posterior;
-2. FES con Entrega Posterior;
-3. FES con Manifiesto.
+### Panel Indicadores SLA
 
-Criterio esperado: **0 cambios funcionales**.
+Debe mostrar explícitamente:
+
+- `INDICADORES SLA ZONAL`
+- `EN SLA`
+- `STGO ≤4 · REG ≤5 DH`
+- `FUERA DE SLA`
+- `STGO >4 · REG >5 DH`
+
+Los porcentajes y cantidades deben coincidir con `RE NS contexto`, `RE Pedidos en SLA contexto` y `RE Pedidos fuera SLA contexto`.
+
+### Resumen mensual
+
+Debe mostrar:
+
+- `Valor neto evaluado`
+- `NS interno · SLA zonal`
+- `En SLA · Stgo ≤4 / Reg ≤5 DH`
+- `Fuera SLA · Stgo >4 / Reg >5 DH`
+
+### Promesa cliente
+
+Debe verse completa, sin texto cortado:
+
+- `Santiago: 4 DH internos + 1 DH = 5 DH cliente`
+- `Regiones: 5 DH internos + 2 DH = 7 DH cliente`
+- Debe quedar claro que es estimada / sin POD.
+
+### Matriz macroproceso
+
+La fila de Operaciones debe decir:
+
+`2. Operaciones · SLA zonal 3/4 DH`
+
+Administrativo conserva `SLA total 1 DH`.
+
+### Títulos inferiores
+
+Confirmar:
+
+- `PROMEDIO DE DÍAS POR CANAL DE VENTA`
+- `PROMEDIO DE DÍAS POR ZONA · SANTIAGO Y REGIONES`
+
+No debe quedar ningún `POR POR`.
 
 ---
 
-# Dictamen
+## P4 — Tooltip de Flujo Operativo Referencial
 
-`READY_FOR_CHATGPT.md` debe terminar con:
+El visual `flow_operativo` debe reutilizar la página tooltip existente:
 
-```text
-P1_SQL_REFRESH_STATUS=<GREEN|RED>
-P1_SQL_FUNCTIONAL_REGRESSION=<GREEN|RED>
-P1_SQL_COLUMN_REDUCTION=<GREEN|RED|NOT_APPLIED>
-P1_SQL_TRANSFER_MEASUREMENT=<MEASURED|ESTIMATED|NA>
-P1_SQL_CERTIFICATION=<GREEN|RED|PARTIAL>
-NEXT_STEP=<P2_NORMAL_VBAK|FIX_P1_SQL|NEED_DATA>
-```
+- página: `TT Flujo Operativo Referencial`
+- page id: `cb613066ebaf4e749a13`
 
-## Regla de decisión
+Prueba obligatoria:
 
-`P1_SQL_CERTIFICATION=GREEN` solo si:
+1. Pasar el mouse por encima de `FLUJO OPERATIVO (REFERENCIA)` en el lienzo 00.
+2. Debe abrirse el tooltip de página con el flujo ampliado.
+3. Verificar que el tooltip no requiere clic y no navega fuera del lienzo.
+4. Verificar que no bloquea filtros ni interacciones del resto de la página.
 
-- refresh completo termina sin error;
-- columnas en modelo ≤ 88;
-- Pedidos/FES/SALDO/Fuera SLA/NS no presentan diferencias;
-- líneas y unidades no presentan regresión.
+Si Power BI no dispara un report-page tooltip directamente sobre el visual tipo `image`, **no crear otro tooltip**. Registrar `IMAGE_TOOLTIP_UNSUPPORTED` y como única corrección permitida agregar una capa transparente exactamente sobre el visual que apunte a la misma página `cb613066ebaf4e749a13`; conservar el SVG original debajo. Publicar esa corrección en la misma rama y volver a probar.
 
 ---
 
-# Salida
+## P5 — Evidencia y dictamen
 
 Crear corrida:
 
 ```powershell
-./Scripts/audit_local/bootstrap_local_audit.ps1 -RunName "p1_sql_projection_certificacion"
+./Scripts/audit_local/bootstrap_local_audit.ps1 -RunName "l00_sla_zonal_tooltip"
 ```
 
-Actualizar `Docs/AUDITORIA_LIVE/LOCAL_LATEST.json` y publicar commit de evidencia.
+Guardar como mínimo:
+
+- captura o evidencia textual de los textos SLA corregidos;
+- resultado del hover tooltip;
+- métricas RE de control;
+- errores de modelo/visuales = 0;
+- SHA validado.
+
+`READY_FOR_CHATGPT.md` debe terminar con:
+
+```text
+L00_MODEL_LOAD=<GREEN|RED>
+L00_SLA_TEXTS=<GREEN|RED>
+L00_SLA_SEMANTICS=<GREEN|RED>
+L00_PROMESA_CLIENTE=<GREEN|RED>
+L00_FLOW_TOOLTIP=<GREEN|RED>
+L00_METRIC_REGRESSION=<GREEN|RED>
+L00_CERTIFICATION=<GREEN|RED|PARTIAL>
+NEXT_STEP=<DONE|FIX_TOOLTIP_OVERLAY|FIX_MODEL|FIX_TEXT>
+```
+
+Actualizar `Docs/AUDITORIA_LIVE/LOCAL_LATEST.json`, crear commit de evidencia y hacer push a `origin/fix/resumen-ejecutivo-sla-tooltip`.
