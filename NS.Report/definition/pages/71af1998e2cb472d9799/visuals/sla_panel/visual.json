@@ -20,15 +20,15 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Medidas"
+                      "Entity": "Medidas_Resumen_UI"
                     }
                   },
-                  "Property": "RE SLA Panel SVG"
+                  "Property": "RE UI SLA Panel SVG"
                 }
               },
-              "queryRef": "Medidas.RE SLA Panel SVG",
-              "nativeQueryRef": "RE SLA Panel SVG",
-              "displayName": "RE SLA Panel SVG"
+              "queryRef": "Medidas_Resumen_UI.RE UI SLA Panel SVG",
+              "nativeQueryRef": "RE UI SLA Panel SVG",
+              "displayName": "RE UI SLA Panel SVG"
             }
           ]
         }
@@ -55,7 +55,7 @@
             "imageWidth": {
               "expr": {
                 "Literal": {
-                  "Value": "399D"
+                  "Value": "330D"
                 }
               }
             }
