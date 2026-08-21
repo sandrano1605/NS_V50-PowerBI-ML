@@ -1,7 +1,7 @@
 # READY FOR CHATGPT — L00 SLA Zonal + Tooltip
 **Fecha:** 2026-08-20T23:35:00-04:00
 **Rama:** fix/resumen-ejecutivo-sla-tooltip
-**SHA:** f9e9f95d9f1388218e7561954b4762bd11abf105
+**SHA funcional auditado:** f9e9f95d9f1388218e7561954b4762bd11abf105
 **Base:** f798586b1a4882be15618bbcc0e6435d108b8fc7
 
 ---
@@ -64,7 +64,10 @@ Lógica SLA verificada:
 | tooltip.type | Canvas ✅ |
 | tooltip.section | cb613066ebaf4e749a13 ✅ |
 | Página tooltip | TT Flujo Operativo Referencial ✅ |
-| Configuración | Correcta en visual.json ✅ |
+| Configuración PBIP | Correcta en visual.json ✅ |
+| Hover real en Power BI Desktop | ⏳ PENDIENTE PRUEBA MANUAL |
+
+La configuración está correctamente cableada, pero no se certifica `GREEN` funcional hasta comprobar que Power BI Desktop dispara efectivamente el report-page tooltip al pasar el mouse por el visual `image`.
 
 ---
 
@@ -74,7 +77,7 @@ Lógica SLA verificada:
 - Modelo cargado: NS
 - Errores TMDL: 0
 - Errores de medidas: 0
-- Tabla Medidas_Resumen_UI: Creada y funcionando
+- Tabla Medidas_Resumen_UI: creada y funcionando
 
 ### Validación TMDL
 - Medidas_Resumen_UI.tmdl: 3 measures (SLA Panel SVG, Resumen Mes SVG, Promesa SVG)
@@ -83,29 +86,29 @@ Lógica SLA verificada:
 
 ---
 
-## Dictamen Final
+## Dictamen Actual
 
-```
+```text
 L00_MODEL_LOAD=GREEN
 L00_SLA_TEXTS=GREEN
 L00_SLA_SEMANTICS=GREEN
 L00_PROMESA_CLIENTE=GREEN
-L00_FLOW_TOOLTIP=GREEN (configurado, requiere prueba manual hover)
+L00_FLOW_TOOLTIP=CONFIGURED_PENDING_MANUAL
 L00_METRIC_REGRESSION=GREEN
-L00_CERTIFICATION=GREEN
-NEXT_STEP=DONE (requiere prueba manual hover tooltip en PBI Desktop)
+L00_CERTIFICATION=PARTIAL
+NEXT_STEP=TEST_HOVER
 ```
+
+`L00_CERTIFICATION=GREEN` únicamente después de que el hover real sea confirmado en Power BI Desktop. Si no aparece, aplicar la capa transparente de fallback sobre `flow_operativo`, reutilizando la misma página tooltip `cb613066ebaf4e749a13`, y volver a validar.
 
 ---
 
-## Instrucciones para Prueba Manual
+## Prueba manual pendiente
 
-1. Abrir `00 Resumen Ejecutivo Mayorista` en PBI Desktop
-2. Verificar textos SLA en panel superior
-3. Verificar que Promesa no tiene texto cortado
-4. Pasar mouse sobre FLUJO OPERATIVO (REFERENCIA)
-5. Confirmar que aparece tooltip con flujo ampliado
-6. Si tooltip no aparece, aplicar capa transparente de fallback
+1. Abrir `00 Resumen Ejecutivo Mayorista` en PBI Desktop.
+2. Pasar el mouse sobre `FLUJO OPERATIVO (REFERENCIA)`.
+3. Si aparece `TT Flujo Operativo Referencial`, registrar `L00_FLOW_TOOLTIP=GREEN` y `L00_CERTIFICATION=GREEN`.
+4. Si no aparece, registrar `IMAGE_TOOLTIP_UNSUPPORTED` y aplicar exclusivamente el fallback de capa transparente definido en `NEXT_LOCAL_AUDIT.md`.
 
 ---
 
