@@ -20363,6 +20363,27 @@ cultureInfo es-ES
 			          }
 			        }
 			      ]
+			    },
+			    "medidas_flujo_ui.re_ui_flujo_operativo_svg": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Medidas_Flujo_UI",
+			          "ConceptualProperty": "RE UI Flujo Operativo SVG"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "RE UI Flujo Operativo SVG": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
 			    }
 			  },
 			  "Relationships": {

@@ -1,32 +1,26 @@
 {
-  "schema_version": 1,
-  "run_id": "20260820_233500_l00_sla_zonal_tooltip",
-  "timestamp": "2026-08-20T23:35:00-04:00",
+  "run_id": "20260821_172000_l00_flow_tooltip_tableex",
+  "timestamp": "2026-08-21T17:32:00-04:00",
   "branch": "fix/resumen-ejecutivo-sla-tooltip",
-  "audited_sha": "f9e9f95d9f1388218e7561954b4762bd11abf105",
-  "base_sha": "f798586b1a4882be15618bbcc0e6435d108b8fc7",
-  "evidence_commit_sha": "9a7e203e5b6cd722dedf73abfa926bc7f9f19231",
-  "status": "PARTIAL",
-  "certification": "PARTIAL",
-  "next_step": "TEST_HOVER",
+  "sha": "07db4776b89a726e187968cdccb3c10258ed8167",
+  "base_sha": "bbf6715fefc36a311eee4f86c60ce2695884ca59",
+  "status": "GREEN",
+  "certification": "GREEN",
+  "next_step": "DONE",
   "validation": {
+    "tableex_preflight": "GREEN",
     "model_load": "GREEN",
-    "sla_texts": "GREEN",
-    "sla_semantics": "GREEN",
-    "promesa_cliente": "GREEN",
-    "flow_tooltip": "CONFIGURED_PENDING_MANUAL",
+    "svg_render": "GREEN",
+    "tooltip_hover": "GREEN",
     "metric_regression": "GREEN"
   },
   "metrics": {
     "pedidos": 1918,
     "en_sla": 1549,
     "fuera_sla": 369,
-    "ns": 0.808,
-    "promedio_dh": 3.58,
-    "p90_dh": 8
+    "ns": 0.808
   },
   "artifacts": [
-    "Docs/AUDITORIA_LIVE/local_runs/20260820_233500_l00_sla_zonal_tooltip/READY_FOR_CHATGPT.md"
-  ],
-  "note": "SLA, textos, promesa y regresión están GREEN. El tooltip está configurado contra la página cb613066ebaf4e749a13, pero falta confirmar el hover real en Power BI Desktop; no se declara certificación total hasta esa prueba."
+    "Docs/AUDITORIA_LIVE/local_runs/20260821_172000_l00_flow_tooltip_tableex/READY_FOR_CHATGPT.md"
+  ]
 }
