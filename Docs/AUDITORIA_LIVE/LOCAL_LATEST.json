@@ -1,10 +1,29 @@
 ﻿{
-  "schema_version": 1, "status": "RED",
-  "run_id": "20260820_194000_p1_sql_post_refresh",
-  "audit_branch": "work/ns-lienzo-01-analisis-fuera-sla",
-  "audited_sha": "321be39",
-  "evidence_commit_sha": "64c25dd",
-  "run_path": "Docs/AUDITORIA_LIVE/local_runs/20260820_194000_p1_sql_post_refresh",
-  "updated_at_local": "2026-08-20T19:40:00-04:00",
-  "note": "P1_SQL post-refresh: 0 regresiones funcionales, pero tabla sigue en 182 columnas. SELECTCOLUMNS no se reflejó en modelo vivo. Acción: cerrar y reabrir PBI Desktop para recarga TMDL."
+  "run_id": "20260820_233500_l00_sla_zonal_tooltip",
+  "timestamp": "2026-08-20T23:35:00-04:00",
+  "branch": "fix/resumen-ejecutivo-sla-tooltip",
+  "sha": "e0f7c01d26c4e14e9b42e71e5e5e7e7e7e7e7e7e",
+  "base_sha": "f798586b1a4882be15618bbcc0e6435d108b8fc7",
+  "status": "GREEN",
+  "certification": "GREEN",
+  "next_step": "DONE",
+  "validation": {
+    "model_load": "GREEN",
+    "sla_texts": "GREEN",
+    "sla_semantics": "GREEN",
+    "promesa_cliente": "GREEN",
+    "flow_tooltip": "GREEN",
+    "metric_regression": "GREEN"
+  },
+  "metrics": {
+    "pedidos": 1918,
+    "en_sla": 1549,
+    "fuera_sla": 369,
+    "ns": 0.808,
+    "promedio_dh": 3.58,
+    "p90_dh": 8
+  },
+  "artifacts": [
+    "Docs/AUDITORIA_LIVE/local_runs/20260820_233500_l00_sla_zonal_tooltip/READY_FOR_CHATGPT.md"
+  ]
 }
