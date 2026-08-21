@@ -20,15 +20,15 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Medidas"
+                      "Entity": "Medidas_Resumen_UI"
                     }
                   },
-                  "Property": "RE Resumen Mes SVG"
+                  "Property": "RE UI Resumen Mes SVG"
                 }
               },
-              "queryRef": "Medidas.RE Resumen Mes SVG",
-              "nativeQueryRef": "RE Resumen Mes SVG",
-              "displayName": "RE Resumen Mes SVG"
+              "queryRef": "Medidas_Resumen_UI.RE UI Resumen Mes SVG",
+              "nativeQueryRef": "RE UI Resumen Mes SVG",
+              "displayName": "RE UI Resumen Mes SVG"
             }
           ]
         }
