@@ -20,15 +20,15 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Medidas"
+                      "Entity": "Medidas_Resumen_UI"
                     }
                   },
-                  "Property": "RE KPI Promesa SVG"
+                  "Property": "RE UI Promesa SVG"
                 }
               },
-              "queryRef": "Medidas.RE KPI Promesa SVG",
-              "nativeQueryRef": "RE KPI Promesa SVG",
-              "displayName": "RE KPI Promesa SVG"
+              "queryRef": "Medidas_Resumen_UI.RE UI Promesa SVG",
+              "nativeQueryRef": "RE UI Promesa SVG",
+              "displayName": "RE UI Promesa SVG"
             }
           ]
         }
@@ -55,7 +55,7 @@
             "imageWidth": {
               "expr": {
                 "Literal": {
-                  "Value": "350L"
+                  "Value": "330L"
                 }
               }
             }
