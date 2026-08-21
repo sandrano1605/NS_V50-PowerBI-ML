@@ -260,7 +260,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'PROMEDIO DE DÍAS POR POR ZONA SANTIAGO Y REGIONES'"
+                  "Value": "'PROMEDIO DE DÍAS POR ZONA · SANTIAGO Y REGIONES'"
                 }
               }
             },
