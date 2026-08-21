@@ -1,0 +1,85 @@
+/// Medidas exclusivamente visuales para el lienzo 00 Resumen Ejecutivo Mayorista.
+/// No redefine la lógica de negocio: reutiliza las medidas RE existentes y corrige únicamente su representación.
+table Medidas_Resumen_UI
+	isHidden
+	lineageTag: 7f8d7a3a-9f6d-4f66-9186-2a06f4f70701
+
+	measure 'RE UI Resumen Mes SVG' =
+			VAR Mes = SUBSTITUTE(COALESCE(SELECTEDVALUE(Dim_Periodo_3M[Etiqueta]), "Mes actual"), " ", "%20")
+			VAR Ped = SUBSTITUTE(FORMAT([RE Pedidos contexto], "#,##0", "es-CL"), " ", "%20")
+			VAR Valor = SUBSTITUTE("CLP " & FORMAT(DIVIDE([RE Valor contexto],1000000), "#,##0.0", "es-CL") & " MM", " ", "%20")
+			VAR NS = SUBSTITUTE(FORMAT([RE NS contexto], "0.0%", "es-CL"), "%", "%25")
+			VAR EnSLA = SUBSTITUTE(FORMAT([RE Pedidos en SLA contexto], "#,##0", "es-CL"), " ", "%20")
+			VAR Fuera = SUBSTITUTE(FORMAT([RE Pedidos fuera SLA contexto], "#,##0", "es-CL"), " ", "%20")
+			VAR Prom = SUBSTITUTE(FORMAT([RE Promedio contexto DH], "0.0", "es-CL"), ",", ".") & "%20DH"
+			VAR P90 = SUBSTITUTE(FORMAT([RE P90 contexto DH], "0.0", "es-CL"), ",", ".") & "%20DH"
+			RETURN
+			"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='290' height='238' viewBox='0 0 290 238'%3E"
+			& "%3Crect x='1' y='1' width='288' height='236' rx='10' fill='%23FFFFFF' stroke='%23CED9E5'/%3E%3Ctext x='14' y='24' font-family='Segoe%20UI' font-size='11' font-weight='700' fill='%231B365D'%3ERESUMEN%20%C2%B7%20" & Mes & "%3C/text%3E"
+			& "%3Cg font-family='Segoe%20UI' font-size='9.5' fill='%23343A40'%3E%3Ctext x='18' y='56'%3EPedidos%20evaluados%3C/text%3E%3Ctext x='270' y='56' text-anchor='end' font-weight='700'%3E" & Ped & "%3C/text%3E"
+			& "%3Ctext x='18' y='82'%3EValor%20neto%20evaluado%3C/text%3E%3Ctext x='270' y='82' text-anchor='end' font-weight='700'%3E" & Valor & "%3C/text%3E"
+			& "%3Ctext x='18' y='108'%3ENS%20interno%20%C2%B7%20SLA%20zonal%3C/text%3E%3Ctext x='270' y='108' text-anchor='end' font-weight='700'%3E" & NS & "%3C/text%3E"
+			& "%3Ctext x='18' y='134'%3EEn%20SLA%20%C2%B7%20Stgo%20%E2%89%A44%20%2F%20Reg%20%E2%89%A45%20DH%3C/text%3E%3Ctext x='270' y='134' text-anchor='end' font-weight='700'%3E" & EnSLA & "%3C/text%3E"
+			& "%3Ctext x='18' y='160'%3EFuera%20SLA%20%C2%B7%20Stgo%20%3E4%20%2F%20Reg%20%3E5%20DH%3C/text%3E%3Ctext x='270' y='160' text-anchor='end' font-weight='700'%3E" & Fuera & "%3C/text%3E"
+			& "%3Ctext x='18' y='186'%3EPromedio%20interno%3C/text%3E%3Ctext x='270' y='186' text-anchor='end' font-weight='700'%3E" & Prom & "%3C/text%3E"
+			& "%3Ctext x='18' y='212'%3EP90%20interno%3C/text%3E%3Ctext x='270' y='212' text-anchor='end' font-weight='700'%3E" & P90 & "%3C/text%3E%3C/g%3E%3C/svg%3E"
+		displayFolder: 00. Resumen Ejecutivo\UI
+		lineageTag: 7f8d7a3a-9f6d-4f66-9186-2a06f4f70702
+		dataCategory: ImageUrl
+
+	measure 'RE UI SLA Panel SVG' =
+			VAR Mes = SUBSTITUTE(COALESCE(SELECTEDVALUE(Dim_Periodo_3M[Etiqueta]), "Mes actual"), " ", "%20")
+			VAR NS = [RE NS contexto]
+			VAR FueraPct = 1 - NS
+			VAR NsTxt = SUBSTITUTE(FORMAT(NS,"0.0%","es-CL"),"%","%25")
+			VAR FueraTxt = SUBSTITUTE(FORMAT(FueraPct,"0.0%","es-CL"),"%","%25")
+			VAR EnSLA = SUBSTITUTE(FORMAT([RE Pedidos en SLA contexto],"#,##0","es-CL")," ","%20")
+			VAR Fuera = SUBSTITUTE(FORMAT([RE Pedidos fuera SLA contexto],"#,##0","es-CL")," ","%20")
+			VAR Barra = ROUND(330 * MIN(MAX(NS,0),1),0)
+			RETURN
+			"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='380' height='150' viewBox='0 0 380 150'%3E"
+			& "%3Crect x='1' y='1' width='378' height='148' rx='10' fill='%23FFFFFF' stroke='%23CED9E5'/%3E%3Ctext x='14' y='23' font-family='Segoe%20UI' font-size='10.5' font-weight='700' fill='%231B365D'%3EINDICADORES%20SLA%20ZONAL%20%C2%B7%20" & Mes & "%3C/text%3E"
+			& "%3Ctext x='95' y='48' text-anchor='middle' font-family='Segoe%20UI' font-size='9.5' font-weight='700' fill='%23343A40'%3EEN%20SLA%3C/text%3E"
+			& "%3Ctext x='95' y='61' text-anchor='middle' font-family='Segoe%20UI' font-size='8.2' font-weight='600' fill='%23535A65'%3ESTGO%20%E2%89%A44%20%C2%B7%20REG%20%E2%89%A45%20DH%3C/text%3E"
+			& "%3Ctext x='95' y='89' text-anchor='middle' font-family='Segoe%20UI' font-size='27' font-weight='700' fill='%232E8B57'%3E" & NsTxt & "%3C/text%3E%3Ctext x='95' y='107' text-anchor='middle' font-family='Segoe%20UI' font-size='8.5' fill='%23535A65'%3E" & EnSLA & "%20pedidos%3C/text%3E"
+			& "%3Cline x1='190' y1='40' x2='190' y2='113' stroke='%23D7E0EA'/%3E"
+			& "%3Ctext x='285' y='48' text-anchor='middle' font-family='Segoe%20UI' font-size='9.5' font-weight='700' fill='%23343A40'%3EFUERA%20DE%20SLA%3C/text%3E"
+			& "%3Ctext x='285' y='61' text-anchor='middle' font-family='Segoe%20UI' font-size='8.2' font-weight='600' fill='%23535A65'%3ESTGO%20%3E4%20%C2%B7%20REG%20%3E5%20DH%3C/text%3E"
+			& "%3Ctext x='285' y='89' text-anchor='middle' font-family='Segoe%20UI' font-size='27' font-weight='700' fill='%23D3392C'%3E" & FueraTxt & "%3C/text%3E%3Ctext x='285' y='107' text-anchor='middle' font-family='Segoe%20UI' font-size='8.5' fill='%23535A65'%3E" & Fuera & "%20pedidos%3C/text%3E"
+			& "%3Crect x='25' y='124' width='330' height='9' rx='4.5' fill='%23E5E7EB'/%3E%3Crect x='25' y='124' width='" & FORMAT(Barra,"0") & "' height='9' rx='4.5' fill='%232E8B57'/%3E%3Cline x1='322' y1='118' x2='322' y2='138' stroke='%231B365D' stroke-width='2'/%3E%3Ctext x='190' y='146' text-anchor='middle' font-family='Segoe%20UI' font-size='8.3' fill='%232E8B57'%3EMeta%2090%25%3C/text%3E%3C/svg%3E"
+		displayFolder: 00. Resumen Ejecutivo\UI
+		lineageTag: 7f8d7a3a-9f6d-4f66-9186-2a06f4f70703
+		dataCategory: ImageUrl
+
+	measure 'RE UI Promesa SVG' =
+			"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='330' height='120' viewBox='0 0 330 120'%3E"
+			& "%3Crect x='1' y='1' width='328' height='118' rx='10' fill='%23FFFFFF' stroke='%23CED9E5'/%3E"
+			& "%3Cpath d='M10 1 H320 A9 9 0 0 1 329 10 V28 H1 V10 A9 9 0 0 1 10 1Z' fill='%236C6A8E'/%3E"
+			& "%3Ctext x='165' y='19' text-anchor='middle' font-family='Segoe%20UI' font-size='10.5' font-weight='700' fill='%23FFFFFF'%3EPROMESA%20CLIENTE%20ESTIMADA%3C/text%3E"
+			& "%3Ctext x='188' y='43' text-anchor='middle' font-family='Segoe%20UI' font-size='8.3' fill='%23535A65'%3ETIEMPO%20TOTAL%20ESTIMADO%20%C2%B7%20SIN%20POD%3C/text%3E"
+			& "%3Ccircle cx='39' cy='73' r='24' fill='%236C6A8E'/%3E%3Ccircle cx='35' cy='66' r='7' fill='none' stroke='%23FFFFFF' stroke-width='2'/%3E%3Ccircle cx='49' cy='69' r='6' fill='none' stroke='%23FFFFFF' stroke-width='2'/%3E%3Cpath d='M22 87 q12 -14 24 0 M40 87 q9 -11 18 0' fill='none' stroke='%23FFFFFF' stroke-width='2'/%3E"
+			& "%3Ctext x='76' y='68' font-family='Segoe%20UI' font-size='9.5' font-weight='700' fill='%231B365D'%3ESantiago:%204%20DH%20internos%20%2B%201%20DH%20%3D%205%20DH%20cliente%3C/text%3E"
+			& "%3Ctext x='76' y='91' font-family='Segoe%20UI' font-size='9.5' font-weight='700' fill='%231B365D'%3ERegiones:%205%20DH%20internos%20%2B%202%20DH%20%3D%207%20DH%20cliente%3C/text%3E"
+			& "%3C/svg%3E"
+		displayFolder: 00. Resumen Ejecutivo\UI
+		lineageTag: 7f8d7a3a-9f6d-4f66-9186-2a06f4f70704
+		dataCategory: ImageUrl
+
+	column __UI
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7f8d7a3a-9f6d-4f66-9186-2a06f4f70705
+		summarizeBy: none
+		sourceColumn: __UI
+
+	partition Medidas_Resumen_UI = m
+		mode: import
+		source =
+				let
+				    Origen = #table(type table [__UI = Int64.Type], {{1}})
+				in
+				    Origen
+
+	annotation PBI_NavigationStepName = Navegación
+	annotation PBI_ResultType = Table
