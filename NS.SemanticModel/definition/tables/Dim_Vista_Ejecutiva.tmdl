@@ -78,7 +78,7 @@ table Dim_Vista_Ejecutiva
 				let
 				    Grupo = "Total Pedidos Mayorista · diagnóstico por subprocesos",
 				    Admin = "1. Administrativo · SLA total 1 DH",
-				    Operaciones = "2. Operaciones · SLA total 4 DH",
+				    Operaciones = "2. Operaciones · SLA zonal 3/4 DH",
 				    Origen = #table(
 				        type table [GRUPO_MAYORISTA=text, FLUJO_MAYORISTA=text, MACROPROCESO=text, SUBPROCESO=text, METRICA_CODIGO=text, ORDEN_FLUJO=Int64.Type, ORDEN_MACRO=Int64.Type, ORDEN_SUBPROCESO=Int64.Type],
 				        {
