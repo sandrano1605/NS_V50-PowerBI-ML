@@ -200,23 +200,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "0f6f992b430b0eaa60ea",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "RE KPI NS SVG"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

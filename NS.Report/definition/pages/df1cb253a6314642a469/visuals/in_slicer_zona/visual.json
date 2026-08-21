@@ -4,10 +4,10 @@
   "position": {
     "x": 428,
     "y": 76,
-    "z": 5000,
+    "z": 7000,
     "height": 60,
     "width": 180,
-    "tabOrder": 6428
+    "tabOrder": 4000
   },
   "visual": {
     "visualType": "slicer",
@@ -282,23 +282,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "1c7f0a023974ddc7b5c1",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Fact_Tracking"
-              }
-            },
-            "Property": "ZONA"
-          }
-        },
-        "type": "Categorical"
-      }
-    ]
   }
 }

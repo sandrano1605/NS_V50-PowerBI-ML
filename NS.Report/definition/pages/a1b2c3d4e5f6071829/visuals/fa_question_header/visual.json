@@ -4,10 +4,10 @@
   "position": {
     "x": 1008.0000000000001,
     "y": 536,
-    "z": 19000,
+    "z": 4000,
     "height": 256,
     "width": 360,
-    "tabOrder": 19000
+    "tabOrder": 4000
   },
   "visual": {
     "visualType": "textbox",
@@ -31,7 +31,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "1. ¿Qué clientes estuvieron fuera SLA en los últimos 3 meses, con qué frecuencia repitieron y cuáles requieren priorización?",
+                    "value": "1. ¿Qué clientes estuvieron fuera SLA en los últimos 3 meses, con qué  frecuencia repitieron y cuáles requieren priorización?",
                     "textStyle": {
                       "fontSize": "8pt",
                       "color": "#111111"

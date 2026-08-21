@@ -63,7 +63,7 @@
                         },
                         "Right": {
                           "Literal": {
-                            "Value": "'1167605'"
+                            "Value": "'4190139938'"
                           }
                         }
                       }
@@ -77,23 +77,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "c0822f10433446d71912",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Dim_Pedido"
-              }
-            },
-            "Property": "PED_NUMERO_PEDIDO"
-          }
-        },
-        "type": "Categorical"
-      }
-    ]
   }
 }

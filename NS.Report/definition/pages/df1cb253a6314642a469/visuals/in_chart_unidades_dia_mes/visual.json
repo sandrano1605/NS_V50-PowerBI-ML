@@ -4,10 +4,10 @@
   "position": {
     "x": 0,
     "y": 508,
-    "z": 10000,
+    "z": 15000,
     "height": 432,
     "width": 1600,
-    "tabOrder": 11002
+    "tabOrder": 16000
   },
   "visual": {
     "visualType": "lineStackedColumnComboChart",
@@ -369,64 +369,5 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "in_chart_unidades_dia_mes_cat",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Dim_Fecha"
-              }
-            },
-            "Property": "Dia_Mes"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "in_chart_unidades_dia_mes_val",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "IN Unidades"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "in_chart_unidades_dia_mes_ser",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Fact_Tracking"
-              }
-            },
-            "Property": "CLASIFICACION"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "in_chart_unidades_dia_mes_line",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "IN Promedio Unidades Día"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
-  }
+  "isHidden": true
 }

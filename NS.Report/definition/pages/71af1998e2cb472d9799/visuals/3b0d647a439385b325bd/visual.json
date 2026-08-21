@@ -7,7 +7,7 @@
     "z": 26000,
     "height": 128,
     "width": 304,
-    "tabOrder": 26002
+    "tabOrder": 24000
   },
   "visual": {
     "visualType": "pivotTable",
@@ -377,65 +377,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "e6eee37a63aaebe94b55",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "RE Pedidos hito con dato"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "1858ab2900bc812d963d",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "RE Promedio hito DH"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "1522d290deb43ad654e6",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "RE P90 hito DH"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "b4dde93da4dced30ae28",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Fact_Tracking"
-              }
-            },
-            "Property": "PED_CANAL_CODIGO"
-          }
-        },
-        "type": "Categorical"
-      }
-    ]
   }
 }

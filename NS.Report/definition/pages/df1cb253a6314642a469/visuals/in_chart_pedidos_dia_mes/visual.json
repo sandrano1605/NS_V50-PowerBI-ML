@@ -4,10 +4,10 @@
   "position": {
     "x": 0,
     "y": 508,
-    "z": 12000,
+    "z": 17000,
     "height": 432,
     "width": 1600,
-    "tabOrder": 11000
+    "tabOrder": 14000
   },
   "visual": {
     "visualType": "lineStackedColumnComboChart",
@@ -313,66 +313,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "in_chart_pedidos_dia_mes_cat",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Dim_Fecha"
-              }
-            },
-            "Property": "Dia_Mes"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "in_chart_pedidos_dia_mes_val",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "IN Pedidos"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "in_chart_pedidos_dia_mes_ser",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Fact_Tracking"
-              }
-            },
-            "Property": "CLASIFICACION"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "in_chart_pedidos_dia_mes_line",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "IN Promedio Pedidos Día"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
-  },
-  "isHidden": true
+  }
 }

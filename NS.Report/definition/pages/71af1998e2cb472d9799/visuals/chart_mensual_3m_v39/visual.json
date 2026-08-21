@@ -200,23 +200,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "19196a4e2660e253a66a",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "RE Evolución 3M SVG"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

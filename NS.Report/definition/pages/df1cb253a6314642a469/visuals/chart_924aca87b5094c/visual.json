@@ -4,10 +4,10 @@
   "position": {
     "x": 592,
     "y": 240,
-    "z": 10000,
+    "z": 14000,
     "height": 208,
     "width": 992,
-    "tabOrder": 10000
+    "tabOrder": 12000
   },
   "visual": {
     "visualType": "hundredPercentStackedColumnChart",
@@ -234,51 +234,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "chart_924aca87b5094c_cat",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Dim_Fecha"
-              }
-            },
-            "Property": "Dia_Semana"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "chart_924aca87b5094c_val",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "IN Pedidos"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "chart_924aca87b5094c_ser",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Fact_Tracking"
-              }
-            },
-            "Property": "TRAMO_HORA_INGRESO"
-          }
-        },
-        "type": "Categorical"
-      }
-    ]
   }
 }

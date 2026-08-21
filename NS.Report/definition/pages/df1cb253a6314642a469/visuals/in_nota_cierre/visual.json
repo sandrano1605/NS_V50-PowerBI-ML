@@ -4,10 +4,10 @@
   "position": {
     "x": 592,
     "y": 144,
-    "z": 7000,
+    "z": 9000,
     "height": 96,
     "width": 992,
-    "tabOrder": 4151
+    "tabOrder": 1000
   },
   "visual": {
     "visualType": "tableEx",
@@ -325,23 +325,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "in_nota_cierre_m",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "IN Lectura Ejecutiva"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

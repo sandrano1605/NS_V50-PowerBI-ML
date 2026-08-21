@@ -7,7 +7,7 @@
     "z": 25000,
     "height": 128,
     "width": 288,
-    "tabOrder": 26001
+    "tabOrder": 23000
   },
   "visual": {
     "visualType": "pivotTable",
@@ -376,65 +376,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "558450febe6c48b4ee1d",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "RE Promedio hito DH"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "67f167ef3042a202446c",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "RE P90 hito DH"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "54184010b63b80e10aec",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Fact_Tracking"
-              }
-            },
-            "Property": "ZONA"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "60a237878b682c9c96b4",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "RE Pedidos hito con dato"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

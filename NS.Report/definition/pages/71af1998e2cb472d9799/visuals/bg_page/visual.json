@@ -3,9 +3,9 @@
   "name": "bg_page",
   "position": {
     "x": 0,
-    "y": 16,
+    "y": -64,
     "z": 0,
-    "height": 848,
+    "height": 864,
     "width": 1600,
     "tabOrder": 0
   },

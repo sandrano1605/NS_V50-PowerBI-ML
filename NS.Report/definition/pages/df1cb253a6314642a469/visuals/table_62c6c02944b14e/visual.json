@@ -4,10 +4,10 @@
   "position": {
     "x": 206,
     "y": 150,
-    "z": 7000,
+    "z": 10000,
     "height": 72,
     "width": 170,
-    "tabOrder": 7206
+    "tabOrder": 9000
   },
   "visual": {
     "visualType": "cardVisual",
@@ -223,23 +223,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "table_62c6c02944b14e_m",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "IN Líneas"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

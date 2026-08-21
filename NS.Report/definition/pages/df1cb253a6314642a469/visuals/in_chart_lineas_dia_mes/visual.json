@@ -4,10 +4,10 @@
   "position": {
     "x": 0,
     "y": 508,
-    "z": 11000,
+    "z": 16000,
     "height": 432,
     "width": 1600,
-    "tabOrder": 11001
+    "tabOrder": 15000
   },
   "visual": {
     "visualType": "lineStackedColumnComboChart",
@@ -306,66 +306,6 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "in_chart_lineas_dia_mes_cat",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Dim_Fecha"
-              }
-            },
-            "Property": "Dia_Mes"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "in_chart_lineas_dia_mes_val",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "IN Líneas"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "in_chart_lineas_dia_mes_ser",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Fact_Tracking"
-              }
-            },
-            "Property": "CLASIFICACION"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "in_chart_lineas_dia_mes_line",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "IN Promedio Líneas Día"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   },
   "isHidden": true
 }

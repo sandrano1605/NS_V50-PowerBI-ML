@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "fa_permanencia_cd",
   "position": {
-    "x": 776,
-    "y": 112,
-    "z": 22024,
-    "height": 120,
-    "width": 592,
-    "tabOrder": 22024
+    "x": 768,
+    "y": 96,
+    "z": 7000,
+    "height": 224,
+    "width": 600,
+    "tabOrder": 7000
   },
   "visual": {
     "visualType": "tableEx",
@@ -539,107 +539,5 @@
         }
       ]
     }
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "59e17029234158609856",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Dim_Cliente"
-              }
-            },
-            "Property": "CLIENTE_NOMBRE"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "dfa9e29a854475358a40",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Fact_Tracking"
-              }
-            },
-            "Property": "CLASIFICACION"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "e7a314e508c01829e461",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "FA Días Factura Salida Promedio"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "333d44fd0e09e57ee1ba",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "FA P90 Días Factura Salida"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "33f4f6af67c9b975b063",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "FA Pedidos Facturados >15d"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "9df5212a0c2d1e2257a0",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "FA Pedidos Facturados >20d"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "adf4fe41cc3e1bd092a8",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "FA Valor Retenido >15d"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

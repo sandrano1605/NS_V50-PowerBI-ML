@@ -93,6 +93,13 @@
                   }
                 }
               }
+            },
+            "columnAdjustment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'fitToContent'"
+                }
+              }
             }
           }
         }
@@ -200,23 +207,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "6fe00b0d4ed4e37e7892",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "RE Resumen Mes SVG"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

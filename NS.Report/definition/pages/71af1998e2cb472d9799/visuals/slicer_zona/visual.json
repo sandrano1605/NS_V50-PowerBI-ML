@@ -275,23 +275,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "1c7f0a023974ddc7b5c1",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Dim_Rango_Entrega"
-              }
-            },
-            "Property": "Zona"
-          }
-        },
-        "type": "Categorical"
-      }
-    ]
   }
 }

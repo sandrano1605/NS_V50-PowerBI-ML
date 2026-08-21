@@ -4,10 +4,10 @@
   "position": {
     "x": 32,
     "y": 240,
-    "z": 9000,
+    "z": 13000,
     "height": 256,
     "width": 528,
-    "tabOrder": 9000
+    "tabOrder": 11000
   },
   "visual": {
     "visualType": "pivotTable",
@@ -396,65 +396,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "in_mx_dia",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Dim_Fecha"
-              }
-            },
-            "Property": "Dia_Semana"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "in_mx_ped",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "IN Pedidos"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "in_mx_lin",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "IN Líneas"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "in_mx_uni",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "IN Unidades"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

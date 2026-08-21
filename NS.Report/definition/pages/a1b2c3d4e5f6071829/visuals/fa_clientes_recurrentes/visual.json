@@ -3,11 +3,11 @@
   "name": "fa_clientes_recurrentes",
   "position": {
     "x": 24,
-    "y": 112,
-    "z": 22023,
-    "height": 208,
+    "y": 88,
+    "z": 6000,
+    "height": 232,
     "width": 736,
-    "tabOrder": 22023
+    "tabOrder": 6000
   },
   "visual": {
     "visualType": "tableEx",
@@ -148,7 +148,7 @@
                     "Entity": "Medidas"
                   }
                 },
-                "Property": "FA DH Fuera SLA Cliente Visible"
+                "Property": "FA Meses Fuera SLA Cliente Visible"
               }
             },
             "direction": "Descending"
@@ -541,121 +541,5 @@
         }
       ]
     }
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "7ed68b330122785d04d9",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Dim_Cliente"
-              }
-            },
-            "Property": "CLIENTE_NOMBRE"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "2e0b9bd560a6570a849d",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Dim_Cliente"
-              }
-            },
-            "Property": "VENDEDOR_NOMBRE"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "4980b6dd5a884c6edee2",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Fact_Tracking"
-              }
-            },
-            "Property": "CLASIFICACION"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "6672d4e91a25b86716c6",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "FA Meses Fuera SLA Cliente Visible"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "6a3c242771bbc26347ba",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "FA Recurrencia Cliente Visible"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "19b8752a5b4b41650700",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "FA Pedidos Fuera SLA Cliente Visible"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "d0f486008bc0ac0e3d12",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "FA % Fuera SLA Cliente Visible"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "ccd5fe0860302a349066",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "FA DH Fuera SLA Cliente Visible"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

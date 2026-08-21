@@ -200,23 +200,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "23836aa379549be00948",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
-              }
-            },
-            "Property": "RE Pedido Seleccionado SVG"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }
